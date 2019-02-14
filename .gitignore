@@ -1,0 +1,5 @@
+# Ignore
+bin
+obj
+*.ico
+*.z64
