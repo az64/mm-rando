@@ -1,6 +1,6 @@
 # Ignore
 bin
-obj
+x86
 *.ico
 *.z64
 *.user
