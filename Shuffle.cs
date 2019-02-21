@@ -660,7 +660,10 @@ namespace MMRando
             if (ItemList[CurrentItem].Replaces != -1)
             {
                 return;
-            };
+            }
+
+			int attempts = 0;
+
             while (true)
             {
                 int TargetSlot = 0;
@@ -682,6 +685,9 @@ namespace MMRando
                     Targets.RemoveAt(TargetSlot);
                     return;
                 };
+				attempts += 1;
+				if (attempts > 10000)
+					throw new Exception($"Unable to place item #{CurrentItem} after 10,000 attempts");
             };
         }
 
