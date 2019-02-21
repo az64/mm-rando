@@ -120,8 +120,8 @@ namespace MMRando
         private void DecodeSettings(string Settings)
         {
             SetOptions(Settings.Split('-'));
-            saveROM.FileName = "MMR-" + Settings + ".z64";
-            saveWad.FileName = "MMR-" + Settings + ".wad";
+            saveROM.FileName = "MMR-" + tSeed.Text + "-" + Settings + ".z64";
+            saveWad.FileName = "MMR-" + tSeed.Text + "-" + Settings + ".wad";
         }
 
         //form functions

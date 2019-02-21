@@ -319,7 +319,13 @@ namespace MMRando
             {
                 return;
             };
-            StreamWriter LogFile = new StreamWriter("SpoilerLog-" + UpdateSettingsString() + ".txt");
+
+            StreamWriter LogFile = new StreamWriter(SpoilerLogFilename());
+
+            LogFile.WriteLine("Seed: {0}", tSeed.Text);
+            LogFile.WriteLine("Settings: {0}", UpdateSettingsString());
+            LogFile.WriteLine();
+
             if (cDEnt.Checked)
             {
                 LogFile.WriteLine("------------Entrance----------------------------Destination-----------");
@@ -360,6 +366,11 @@ namespace MMRando
                 LogFile.WriteLine(ITEM_NAMES[ItemList[i].Replaces].PadRight(32, '-') + "<<----" + ITEM_NAMES[ItemList[i].ID].PadLeft(32, '-'));
             };
             LogFile.Close();
+        }
+
+        private string SpoilerLogFilename()
+        {
+            return saveROM.FileName.Replace(".z64", ".txt");
         }
 
         private void ReadRulesetItemData()
