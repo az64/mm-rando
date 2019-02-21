@@ -27,6 +27,8 @@ namespace MMRando
         fLogicEdit LogicEditor = new fLogicEdit();
         fItemEdit ItemEditor = new fItemEdit();
 
+        Random seedRng = new Random();
+
         public static string MainDir = Application.StartupPath;
         public static string MusicDir = Application.StartupPath + "\\music\\";
         public static string ModsDir = Application.StartupPath + "\\mods\\";
@@ -68,8 +70,7 @@ namespace MMRando
         private string UpdateSettingsString()
         {
             string Settings;
-            Settings = Base36.Encode(Convert.ToInt32(tSeed.Text));
-            Settings += "-";
+            Settings = "";
             int[] Options = GetOptions();
             Settings += Base36.Encode(Options[0]);
             Settings += "-";
@@ -77,17 +78,21 @@ namespace MMRando
             Settings += "-";
             Settings += Base36.Encode(Options[2]);
             tSString.Text = Settings;
-            saveROM.FileName = "MMR-" + Settings + ".z64";
-            saveWad.FileName = "MMR-" + Settings + ".wad";
+            saveROM.FileName = "MMR-" + tSeed.Text + "-" + Settings + ".z64";
+            saveWad.FileName = "MMR-" + tSeed.Text + "-" + Settings + ".wad";
             return Settings;
         }
 
         private void SetOptions(string[] O)
         {
-            tSeed.Text = Base36.Decode(O[0]).ToString();
-            int Checks = (int)Base36.Decode(O[1]);
-            int Combos = (int)Base36.Decode(O[2]);
-            int Colour = (int)Base36.Decode(O[3]);
+            if(O.Length == 4)
+            {
+	            tSeed.Text = Base36.Decode(O[0]).ToString();
+	            O = O.Skip(1).ToArray();
+            }
+            int Checks = (int)Base36.Decode(O[0]);
+            int Combos = (int)Base36.Decode(O[1]);
+            int Colour = (int)Base36.Decode(O[2]);
             if ((Checks & 8192) > 0) { cUserItems.Checked = true; } else { cUserItems.Checked = false; };
             if ((Checks & 4096) > 0) { cAdditional.Checked = true; } else { cAdditional.Checked = false; };
             if ((Checks & 2048) > 0) { cGossip.Checked = true; } else { cGossip.Checked = false; };
@@ -192,7 +197,7 @@ namespace MMRando
             //cQText.Checked = true;
             //cCutsc.Checked = true;
             bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
-            tSeed.Text = Math.Abs(Environment.TickCount).ToString();
+            tSeed.Text = seedRng.Next().ToString();
             SettingOld = UpdateSettingsString();
             Updating = false;
         }
@@ -421,6 +426,10 @@ namespace MMRando
             ItemEditor.Show();
         }
 
-    }
+        private void bNewSeed_Click(object sender, EventArgs e)
+        {
+	        tSeed.Text = seedRng.Next().ToString();
+        }
+	}
 
 }
