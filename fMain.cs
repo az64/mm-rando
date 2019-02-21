@@ -239,7 +239,7 @@ namespace MMRando
             }
             catch(Exception ex)
             {
-	            MessageBox.Show("Error randomizing logic: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+	            MessageBox.Show($"Error randomizing logic: {ex.Message}\r\n\r\nPlease try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 	            return;
             }
 
