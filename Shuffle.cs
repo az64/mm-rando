@@ -566,6 +566,18 @@ namespace MMRando
                         break;
                     };
                 };
+                for (int i = 0; i < ItemList[Target].Conditional.Count; i++)
+                {
+                    for (int j = 0; j < ItemList[Target].Conditional[i].Count; j++)
+                    {
+                        int k = ItemList[Target].Conditional[i][j];
+                        if (ItemList[k].Cannot_Require == null)
+                        {
+                            ItemList[k].Cannot_Require = new List<int>();
+                        };
+                        ItemList[k].Cannot_Require.Add(CurrentItem);
+                    };
+                };
             };
         }
 
@@ -697,6 +709,7 @@ namespace MMRando
             List<int> TargetPool = new List<int>();
             if (User)
             {
+                Shops = false;
                 for (int i = 0; i < ItemList.Count; i++)
                 {
                     if ((i > Song_Oath) && (i < WF_Map))
@@ -708,7 +721,7 @@ namespace MMRando
                 for (int i = 0; i < fItemEdit.selected_items.Count; i++)
                 {
                     int j = fItemEdit.selected_items[i];
-                    if (j > 97)
+                    if (j > Song_Oath)
                     {
                         j += 23;
                     };
@@ -716,6 +729,10 @@ namespace MMRando
                     if (k != -1)
                     {
                         ItemList[k].Replaces = -1;
+                    };
+                    if ((j > ST_Key4) && (j < B_Fairy))
+                    {
+                        Shops = true;
                     };
                 };
                 if (!SongsMixed)
@@ -823,10 +840,10 @@ namespace MMRando
             PlaceItem(Kafei_Letter, TargetPool);
             PlaceItem(Pendant, TargetPool);
             PlaceItem(Mama_Letter, TargetPool);
-            if (ItemList[0].Replaces == -1)
+            if (ItemList.FindIndex(u => u.Replaces == 0) == -1)
             {
                 int free = RNG.Next(Song_Oath + 1);
-                while (((free > Wallet_2) && (free < HP_Mayor)) || (free == Wallet_2) || (free == M_Shield) || (ItemList[free].Replaces != -1))
+                while (((free > Wallet_2) && (free < HP_Mayor)) || (free == Wallet_2) || (free == M_Shield) || (ItemList[free].Replaces != -1) || ((free > Fairy_Sword) && (free < Notebook)))
                 {
                     free = RNG.Next(Song_Oath + 1);
                 };

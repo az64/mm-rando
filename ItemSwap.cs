@@ -164,7 +164,7 @@ namespace MMRando
             MMFileList[f].Data[baseaddr + offset + 5] = (byte)(GetItemList[NewItem].Message & 0xFF);
             MMFileList[f].Data[baseaddr + offset + 6] = (byte)(GetItemList[NewItem].Object >> 8);
             MMFileList[f].Data[baseaddr + offset + 7] = (byte)(GetItemList[NewItem].Object & 0xFF);
-            if ((RepeatCycle) && (GetItemIndices[ItemSlot] != 0x6A))
+            if (RepeatCycle)
             {
                 WriteToROM(cycle_repeat, (ushort)GetItemIndices[ItemSlot]);
                 cycle_repeat += 2;
@@ -172,6 +172,22 @@ namespace MMRando
             if (!IsRepeatable)
             {
                 UpdateSceneFlagMask(GetItemIndices[ItemSlot]);
+            };
+            if (NewItem == 12)
+            {
+                WriteToROM(0xB49982, (ushort)GetItemIndices[ItemSlot]);
+            };
+            if (NewItem == 17)
+            {
+                WriteToROM(0xB4999A, (ushort)GetItemIndices[ItemSlot]);
+            };
+            if (NewItem == 13)
+            {
+                WriteToROM(0xB499A6, (ushort)GetItemIndices[ItemSlot]);
+            };
+            if (NewItem == 14)
+            {
+                WriteToROM(0xB499B2, (ushort)GetItemIndices[ItemSlot]);
             };
         }
 

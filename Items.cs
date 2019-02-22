@@ -290,7 +290,7 @@ namespace MMRando
         Dog_Race_PR, Graveyard_Grotto, Swamp_Grotto, WF_BR, WF_RR, Well_Right_PR, Well_Left_PR, MV_Chest, MV_Grotto, 
         To_Ikana_Grotto, To_Ikana_RR, IST_Bean, IST_10Chu, IST_SR, To_SH_Grotto, To_GV_RR, Secret_Shrine_Dino, 
         Secret_Shrine_Wizz, Secret_Shrine_Wart, Secret_Shrine_Garo, Inn_Staff_Room, Inn_Guest_Room, Woods_Grotto, 
-        ECT_SR, SCT_RR, SCT_PR };
+        ECT_SR, SCT_RR, SCT_PR, To_GR_Grotto };
 
         int[] CYCLE_REPEATABLE = new int[] { TP_RP, TP_GP, TP_Fairy, TP_Shield, TP_Stick, TP_Nut10, TP_Arrow30, TP_Arrow50,
         WS_BP, WS_GP, WS_RP, GS_RP, GS_Bomb10, GS_Arrow10, BS_Bomb10, BS_Chu10, ZS_Arrow10, ZS_RP, ZS_Shield, GB_Cape_Grotto,
