@@ -176,18 +176,22 @@ namespace MMRando
             if (NewItem == 12)
             {
                 WriteToROM(0xB49982, (ushort)GetItemIndices[ItemSlot]);
+                WriteToROM(0xC72B42, (ushort)GetItemIndices[ItemSlot]);
             };
             if (NewItem == 17)
             {
                 WriteToROM(0xB4999A, (ushort)GetItemIndices[ItemSlot]);
+                WriteToROM(0xC72B4E, (ushort)GetItemIndices[ItemSlot]);
             };
             if (NewItem == 13)
             {
                 WriteToROM(0xB499A6, (ushort)GetItemIndices[ItemSlot]);
+                WriteToROM(0xC72B5A, (ushort)GetItemIndices[ItemSlot]);
             };
             if (NewItem == 14)
             {
                 WriteToROM(0xB499B2, (ushort)GetItemIndices[ItemSlot]);
+                WriteToROM(0xC72B66, (ushort)GetItemIndices[ItemSlot]);
             };
         }
 

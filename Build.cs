@@ -396,7 +396,7 @@ namespace MMRando
             if (Output_VC)
             {
                 string VCFileName = saveWad.FileName;
-                ROMFuncs.BuildVC(ROM, VCDir, Path.GetFullPath(VCFileName));
+                ROMFuncs.BuildVC(ROM, VCDir, VCFileName);
             };
         }
 

@@ -92,6 +92,8 @@ namespace MMRando
 
         List<int> ConditionsChecked;
         List<int> DependenceChecked;
+        List<int[]> SubChecked;
+        List<int[]> ConditionRemoves;
         List<string> GossipQuotes;
 
         //rando functions
@@ -465,12 +467,53 @@ namespace MMRando
             };
         }
 
-        private bool CheckDependence(int CurrentItem, int Target)
+        private bool CheckDependence(int CurrentItem, int Target, bool skip)
         {
-            DependenceChecked.Add(Target);
+            if (!skip)
+            {
+                DependenceChecked.Add(Target);
+            };
             if ((ItemList[Target].Conditional != null) && (ItemList[Target].Conditional.Count != 0))
             {
                 if (ItemList[Target].Conditional.FindAll(u => u.Contains(CurrentItem)).Count == ItemList[Target].Conditional.Count)
+                {
+                    return true;
+                };
+                if (ItemList[CurrentItem].Cannot_Require != null)
+                {
+                    for (int i = 0; i < ItemList[CurrentItem].Cannot_Require.Count; i++)
+                    {
+                        if (ItemList[Target].Conditional.FindAll(u => u.Contains(ItemList[CurrentItem].Cannot_Require[i]) || u.Contains(CurrentItem)).Count == ItemList[Target].Conditional.Count)
+                        {
+                            return true;
+                        };
+                    };
+                };
+                int k = 0;
+                for (int i = 0; i < ItemList[Target].Conditional.Count; i++)
+                {
+                    bool match = false;
+                    for (int j = 0; j < ItemList[Target].Conditional[i].Count; j++)
+                    {
+                        int d = ItemList[Target].Conditional[i][j];
+                        int[] check = new int[] { Target, i, j };
+                        if (ItemList[d].Replaces != -1) { d = ItemList[d].Replaces; };
+                        if (!SubChecked.Any(u => u.SequenceEqual(check)))
+                        {
+                            SubChecked.Add(check);
+                            if (CheckDependence(CurrentItem, d, true))
+                            {
+                                ConditionRemoves.Add(check);
+                                if (!match)
+                                {
+                                    k++;
+                                    match = true;
+                                };
+                            };
+                        };
+                    };
+                };
+                if (k == ItemList[Target].Conditional.Count)
                 {
                     return true;
                 };
@@ -500,13 +543,82 @@ namespace MMRando
                 if (ItemList[d].Replaces != -1) { d = ItemList[d].Replaces; };
                 if (!DependenceChecked.Contains(d))
                 {
-                    if (CheckDependence(CurrentItem, d))
+                    if (CheckDependence(CurrentItem, d, false))
                     {
                         return true;
                     };
                 };
             };
             return false;
+        }
+
+        private void RemoveConditionals(int CurrentItem)
+        {
+            for (int i = 0; i < ConditionRemoves.Count; i++)
+            {
+                int x = ConditionRemoves[i][0];
+                int y = ConditionRemoves[i][1];
+                int z = ConditionRemoves[i][2];
+                ItemList[x].Conditional[y] = null;
+            };
+            for (int i = 0; i < ConditionRemoves.Count; i++)
+            {
+                int x = ConditionRemoves[i][0];
+                int y = ConditionRemoves[i][1];
+                int z = ConditionRemoves[i][2];
+                for (int j = 0; j < ItemList[x].Conditional.Count; j++)
+                {
+                    if (ItemList[x].Conditional[j] != null)
+                    {
+                        for (int k = 0; k < ItemList[x].Conditional[j].Count; k++)
+                        {
+                            int d = ItemList[x].Conditional[j][k];
+                            if (ItemList[x].Cannot_Require == null)
+                            {
+                                ItemList[x].Cannot_Require = new List<int>();
+                            };
+                            ItemList[d].Cannot_Require.Add(CurrentItem);
+                        };
+                    };
+                };
+            };
+            for (int i = 0; i < ItemList.Count; i++)
+            {
+                if (ItemList[i].Conditional != null)
+                {
+                    ItemList[i].Conditional.RemoveAll(u => u == null);
+                };
+            };
+            /*
+            for (int i = 0; i < ConditionRemoves.Count; i++)
+            {
+                for (int j = 0; j < ItemList[ConditionRemoves[i][0]].Conditional[ConditionRemoves[i][1]].Count; j++)
+                {
+                    int d = ItemList[ConditionRemoves[i][0]].Conditional[ConditionRemoves[i][1]][j];
+                    if (ItemList[d].Cannot_Require == null)
+                    {
+                        ItemList[d].Cannot_Require = new List<int>();
+                    };
+                    ItemList[d].Cannot_Require.Add(CurrentItem);
+                    if (ItemList[ConditionRemoves[i][0]].Dependence == null)
+                    {
+                        ItemList[ConditionRemoves[i][0]].Dependence = new List<int>();
+                    };
+                    ItemList[ConditionRemoves[i][0]].Dependence.Add(d);
+                };
+                ItemList[ConditionRemoves[i][0]].Conditional[ConditionRemoves[i][1]] = null;
+            };
+            for (int i = 0; i < ItemList.Count; i++)
+            {
+                if (ItemList[i].Conditional != null)
+                {
+                    if (ItemList[i].Conditional.Contains(null))
+                    {
+                        ItemList[i].Conditional = null;
+                    };
+                };
+            };
+            */
         }
 
         private void UpdateConditionals(int CurrentItem, int Target)
@@ -519,7 +631,20 @@ namespace MMRando
             //{
             //    return;
             //};
+            /*
+            if (ItemList[Target].Cannot_Require != null)
+            {
+                for (int i = 0; i < ItemList[CurrentItem].Cannot_Require.Count; i++)
+                {
+                    ItemList[Target].Conditional.RemoveAll(u => u.Contains(ItemList[CurrentItem].Cannot_Require[i]));
+                };
+            };
             ItemList[Target].Conditional.RemoveAll(u => u.Contains(CurrentItem));
+            if (ItemList[Target].Conditional.Count == 0)
+            {
+                return;
+            };
+            */
             if (ItemList[Target].Conditional.Count == 1)
             {
                 for (int i = 0; i < ItemList[Target].Conditional[0].Count; i++)
@@ -566,18 +691,18 @@ namespace MMRando
                         break;
                     };
                 };
-                for (int i = 0; i < ItemList[Target].Conditional.Count; i++)
-                {
-                    for (int j = 0; j < ItemList[Target].Conditional[i].Count; j++)
-                    {
-                        int k = ItemList[Target].Conditional[i][j];
-                        if (ItemList[k].Cannot_Require == null)
-                        {
-                            ItemList[k].Cannot_Require = new List<int>();
-                        };
-                        ItemList[k].Cannot_Require.Add(CurrentItem);
-                    };
-                };
+                //for (int i = 0; i < ItemList[Target].Conditional.Count; i++)
+                //{
+                //    for (int j = 0; j < ItemList[Target].Conditional[i].Count; j++)
+                //    {
+                //        int k = ItemList[Target].Conditional[i][j];
+                //        if (ItemList[k].Cannot_Require == null)
+                //        {
+                //            ItemList[k].Cannot_Require = new List<int>();
+                //        };
+                //        ItemList[k].Cannot_Require.Add(CurrentItem);
+                //    };
+                //};
             };
         }
 
@@ -621,15 +746,23 @@ namespace MMRando
             for (int i = 0; i < ItemList[Target].Dependence.Count; i++)
             {
                 int d = ItemList[Target].Dependence[i];
-                if ((d == EXPLOSIVE) || (d == ARROW))
+                if (ItemList[d].Cannot_Require == null)
                 {
-                    foreach (List<int> c in ItemList[d].Conditional)
+                    ItemList[d].Cannot_Require = new List<int>();
+                };
+                ItemList[d].Cannot_Require.Add(CurrentItem);
+                if (ItemList[d].Conditional != null)
+                {
+                    if ((d == EXPLOSIVE) || (d == ARROW))
                     {
-                        if (c.Contains(CurrentItem))
+                        foreach (List<int> c in ItemList[d].Conditional)
                         {
-                            AddConditionals(Target, CurrentItem, d);
-                            ItemList[Target].Dependence[i] = -1;
-                            //d = -1;
+                            if (c.Contains(CurrentItem))
+                            {
+                                AddConditionals(Target, CurrentItem, d);
+                                ItemList[Target].Dependence[i] = -1;
+                                //d = -1;
+                            };
                         };
                     };
                 };
@@ -656,12 +789,15 @@ namespace MMRando
                 };
             };
             //check direct dependence
+            ConditionRemoves = new List<int[]>();
+            SubChecked = new List<int[]>();
             DependenceChecked = new List<int>();
-            if (CheckDependence(CurrentItem, Target))
+            if (CheckDependence(CurrentItem, Target, false))
             {
                 return false;
             };
             //check conditional dependence
+            RemoveConditionals(CurrentItem);
             ConditionsChecked = new List<int>();
             CheckConditionals(CurrentItem, Target);
             return true;
