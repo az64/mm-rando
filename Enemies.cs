@@ -251,6 +251,10 @@ namespace MMRando
                                     break;
                                 };
                             };
+                            if (SubMatches.FindIndex(u => u.Type == Old.Type) == -1)
+                            {
+                                break;
+                            };
                         };
                         ValueSwap NewActor = new ValueSwap();
                         NewActor.OldV = Actors[j];

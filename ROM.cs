@@ -15,7 +15,7 @@ namespace MMRando
             ApplyHack(filename);
             int veraddr = 0xC44E30;
             int settingaddr = 0xC44E70;
-            string verstring = "MM Rando " + ver + " (dev)\x00";
+            string verstring = "MM Rando " + ver + "b (dev)\x00";
             string settingstring = setting + "\x00";
             byte[] buffer = new byte[verstring.Length];
             for (int i = 0; i < buffer.Length; i++)
