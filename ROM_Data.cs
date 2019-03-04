@@ -35,13 +35,6 @@ namespace MMRando
             public bool WasEdited = false;
         }
 
-        private class vec16
-        {
-            public short x = new short();
-            public short y = new short();
-            public short z = new short();
-        }
-
         private class MMMsg
         {
             public int Addr = new int();
@@ -81,6 +74,18 @@ namespace MMRando
             public vec16 p = new vec16();
             public vec16 r = new vec16();
             public int v = new int();
+        }
+
+        private class CollisionTri
+        {
+            public vec16 v1 = new vec16();
+            public vec16 v2 = new vec16();
+            public vec16 v3 = new vec16();
+            public vecf32 u_n = new vecf32();
+            public float d = new float();
+            public float a_v1 = new float();
+            public float a_v2 = new float();
+            public float a_v3 = new float();
         }
 
         private class GetItemEntry

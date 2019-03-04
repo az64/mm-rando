@@ -7,6 +7,30 @@ namespace MMRando
     public partial class ROMFuncs
     {
 
+        private static vec16 ReadVertex(int n)
+        {
+            vec16 v = new vec16();
+            return v;
+        }
+
+        private static void GetTriangleData(short[] verts)
+        {
+            CollisionTri T = new CollisionTri();
+
+            T.v1 = ReadVertex(verts[0]);
+            T.v2 = ReadVertex(verts[1]);
+            T.v3 = ReadVertex(verts[2]);
+            vecf32 AB = Subtract(T.v2, T.v1);
+            vecf32 BC = Subtract(T.v3, T.v2);
+            T.u_n = Normalise(CrossProduct(AB, BC));
+            T.d = PlaneDist(T.u_n, T.v1);
+        }
+
+        private static void ReadCollisionTriangles()
+        {
+
+        }
+
         private static void ResetSceneFlagMask()
         {
             WriteToROM(SceneFlagMasks, (uint)0);

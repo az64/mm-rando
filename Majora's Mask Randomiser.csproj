@@ -111,6 +111,7 @@
     </Compile>
     <Compile Include="Tunics.cs" />
     <Compile Include="VC_Inject.cs" />
+    <Compile Include="Vector.cs" />
     <Compile Include="yaz0.cs" />
     <Compile Include="ROM.cs" />
     <Compile Include="fAbout.cs">

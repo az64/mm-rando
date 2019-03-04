@@ -250,7 +250,7 @@ namespace MMRando
                 while (true)
                 {
                     int s = RNG.Next(Unassigned.Count);
-                    if (Unassigned[s].Name.StartsWith("mm-") & (RNG.Next(2) == 0))
+                    if (Unassigned[s].Name.StartsWith("mm") & (RNG.Next(2) == 0))
                     {
                         continue;
                     };
