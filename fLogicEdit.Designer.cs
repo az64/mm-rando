@@ -64,9 +64,12 @@
             this.saveLogic = new System.Windows.Forms.SaveFileDialog();
             this.mMenu = new System.Windows.Forms.MenuStrip();
             this.mFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.mNew = new System.Windows.Forms.ToolStripMenuItem();
             this.mImport = new System.Windows.Forms.ToolStripMenuItem();
             this.mSave = new System.Windows.Forms.ToolStripMenuItem();
-            this.mNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_new_item = new System.Windows.Forms.Button();
+            this.button_goto = new System.Windows.Forms.Button();
+            this.bConEdit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nItem)).BeginInit();
             this.tMain.SuspendLayout();
             this.tTimes.SuspendLayout();
@@ -452,15 +455,18 @@
             this.lRequired.Name = "lRequired";
             this.lRequired.Size = new System.Drawing.Size(215, 342);
             this.lRequired.TabIndex = 2;
+            this.lRequired.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lRequired_MouseDoubleClick);
             // 
             // tCond
             // 
-            this.tCond.ColumnCount = 2;
-            this.tCond.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tCond.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tCond.ColumnCount = 3;
+            this.tCond.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
+            this.tCond.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.34F));
+            this.tCond.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
             this.tCond.Controls.Add(this.bConAdd, 0, 1);
-            this.tCond.Controls.Add(this.bConClear, 1, 1);
+            this.tCond.Controls.Add(this.bConClear, 2, 1);
             this.tCond.Controls.Add(this.lConditional, 0, 0);
+            this.tCond.Controls.Add(this.bConEdit, 1, 1);
             this.tCond.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tCond.Location = new System.Drawing.Point(230, 31);
             this.tCond.Name = "tCond";
@@ -475,7 +481,7 @@
             this.bConAdd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bConAdd.Location = new System.Drawing.Point(3, 351);
             this.bConAdd.Name = "bConAdd";
-            this.bConAdd.Size = new System.Drawing.Size(104, 30);
+            this.bConAdd.Size = new System.Drawing.Size(67, 30);
             this.bConAdd.TabIndex = 0;
             this.bConAdd.Text = "Add";
             this.bConAdd.UseVisualStyleBackColor = true;
@@ -484,17 +490,17 @@
             // bConClear
             // 
             this.bConClear.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bConClear.Location = new System.Drawing.Point(113, 351);
+            this.bConClear.Location = new System.Drawing.Point(149, 351);
             this.bConClear.Name = "bConClear";
-            this.bConClear.Size = new System.Drawing.Size(105, 30);
+            this.bConClear.Size = new System.Drawing.Size(69, 30);
             this.bConClear.TabIndex = 1;
-            this.bConClear.Text = "Clear selected";
+            this.bConClear.Text = "Remove";
             this.bConClear.UseVisualStyleBackColor = true;
             this.bConClear.Click += new System.EventHandler(this.bConClear_Click);
             // 
             // lConditional
             // 
-            this.tCond.SetColumnSpan(this.lConditional, 2);
+            this.tCond.SetColumnSpan(this.lConditional, 3);
             this.lConditional.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lConditional.FormattingEnabled = true;
             this.lConditional.HorizontalScrollbar = true;
@@ -502,6 +508,7 @@
             this.lConditional.Name = "lConditional";
             this.lConditional.Size = new System.Drawing.Size(215, 342);
             this.lConditional.TabIndex = 2;
+            this.lConditional.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lConditional_MouseDoubleClick);
             // 
             // mMenu
             // 
@@ -524,6 +531,13 @@
             this.mFile.Size = new System.Drawing.Size(37, 20);
             this.mFile.Text = "File";
             // 
+            // mNew
+            // 
+            this.mNew.Name = "mNew";
+            this.mNew.Size = new System.Drawing.Size(182, 22);
+            this.mNew.Text = "New";
+            this.mNew.Click += new System.EventHandler(this.mNew_Click);
+            // 
             // mImport
             // 
             this.mImport.Name = "mImport";
@@ -540,18 +554,44 @@
             this.mSave.Text = "Save logic";
             this.mSave.Click += new System.EventHandler(this.mSave_Click);
             // 
-            // mNew
+            // btn_new_item
             // 
-            this.mNew.Name = "mNew";
-            this.mNew.Size = new System.Drawing.Size(182, 22);
-            this.mNew.Text = "New";
-            this.mNew.Click += new System.EventHandler(this.mNew_Click);
+            this.btn_new_item.Location = new System.Drawing.Point(113, 81);
+            this.btn_new_item.Name = "btn_new_item";
+            this.btn_new_item.Size = new System.Drawing.Size(120, 23);
+            this.btn_new_item.TabIndex = 5;
+            this.btn_new_item.Text = "New Item";
+            this.btn_new_item.UseVisualStyleBackColor = true;
+            this.btn_new_item.Click += new System.EventHandler(this.btn_new_item_Click);
+            // 
+            // button_goto
+            // 
+            this.button_goto.Location = new System.Drawing.Point(261, 81);
+            this.button_goto.Name = "button_goto";
+            this.button_goto.Size = new System.Drawing.Size(47, 23);
+            this.button_goto.TabIndex = 6;
+            this.button_goto.Text = "Go To";
+            this.button_goto.UseVisualStyleBackColor = true;
+            this.button_goto.Click += new System.EventHandler(this.button_goto_Click);
+            // 
+            // bConEdit
+            // 
+            this.bConEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bConEdit.Location = new System.Drawing.Point(76, 351);
+            this.bConEdit.Name = "bConEdit";
+            this.bConEdit.Size = new System.Drawing.Size(67, 30);
+            this.bConEdit.TabIndex = 3;
+            this.bConEdit.Text = "Edit";
+            this.bConEdit.UseVisualStyleBackColor = true;
+            this.bConEdit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.bConEdit_MouseClick);
             // 
             // fLogicEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(706, 539);
+            this.Controls.Add(this.button_goto);
+            this.Controls.Add(this.btn_new_item);
             this.Controls.Add(this.tMain);
             this.Controls.Add(this.lIName);
             this.Controls.Add(this.lINo);
@@ -612,10 +652,13 @@
         private System.Windows.Forms.Button bReqClear;
         private System.Windows.Forms.ListBox lRequired;
         private System.Windows.Forms.TableLayoutPanel tCond;
-        private System.Windows.Forms.Button bConAdd;
-        private System.Windows.Forms.Button bConClear;
         private System.Windows.Forms.ListBox lConditional;
         private System.Windows.Forms.Label lNote;
         private System.Windows.Forms.ToolStripMenuItem mNew;
+        private System.Windows.Forms.Button btn_new_item;
+        private System.Windows.Forms.Button button_goto;
+        private System.Windows.Forms.Button bConAdd;
+        private System.Windows.Forms.Button bConClear;
+        private System.Windows.Forms.Button bConEdit;
     }
 }

@@ -12,7 +12,7 @@ namespace MMRando
 {
     public partial class fLogicEdit : Form
     {
-        string[] ITEM_NAMES = new string[] { "Deku Mask", "Hero's Bow", "Fire Arrow", "Ice Arrow", "Light Arrow", "Bomb Bag (20)", "Magic Bean", 
+        private static readonly string[] DEFAULT_ITEM_NAMES = new string[] { "Deku Mask", "Hero's Bow", "Fire Arrow", "Ice Arrow", "Light Arrow", "Bomb Bag (20)", "Magic Bean", 
         "Powder Keg", "Pictobox", "Lens of Truth", "Hookshot", "Great Fairy's Sword", "Witch Bottle", "Aliens Bottle", "Goron Race Bottle", 
         "Beaver Race Bottle", "Dampe Bottle", "Chateau Bottle", "Bombers' Notebook", "Razor Sword", "Gilded Sword", "Mirror Shield",
         "Town Archery Quiver (40)", "Swamp Archery Quiver (50)", "Town Bomb Bag (30)", "Mountain Bomb Bag (40)", "Town Wallet (200)", "Ocean Wallet (500)", "Moon's Tear", 
@@ -52,6 +52,8 @@ namespace MMRando
         "Pirates' Fortress HP", "Zora Hall Scrub HP", "Path to Snowhead HP", "Great Bay Coast HP", "Ikana Scrub HP", "Ikana Castle HP", 
         "Odolwa Heart Container", "Goht Heart Container", "Gyorg Heart Container", "Twinmold Heart Container", "Map: Clock Town", "Map: Woodfall",
         "Map: Snowhead", "Map: Romani Ranch", "Map: Great Bay", "Map: Stone Tower", "Goron Racetrack Grotto" };
+
+        string[] ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();
 
         bool updating = false;
         int n;
@@ -127,9 +129,14 @@ namespace MMRando
             };
         }
 
-        private void UpdateConditional(int n)
+        private void UpdateConditional(int n, int? conditionalIndex = null)
         {
-            fItemSelect ItemSelect = new fItemSelect();
+            List<int> selectedItems = null;
+            if (conditionalIndex.HasValue)
+            {
+                selectedItems = ItemList[n].Conditional[conditionalIndex.Value];
+            }
+            fItemSelect ItemSelect = new fItemSelect(selectedItems);
             DialogResult R = ItemSelect.ShowDialog();
             if (R == DialogResult.OK)
             {
@@ -138,7 +145,14 @@ namespace MMRando
                 {
                     return;
                 };
-                ItemList[n].Conditional.Add(Returned);
+                if (conditionalIndex.HasValue)
+                {
+                    ItemList[n].Conditional[conditionalIndex.Value] = Returned;
+                }
+                else
+                {
+                    ItemList[n].Conditional.Add(Returned);
+                }
                 FillConditional(n);
             };
         }
@@ -252,6 +266,8 @@ namespace MMRando
 
         private void mNew_Click(object sender, EventArgs e)
         {
+            fItemSelect.ResetItems();
+            ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();
             nItem.Minimum = 0;
             nItem.Maximum = ITEM_NAMES.Length - 1;
             ItemList = new List<ItemLogic>();
@@ -271,6 +287,8 @@ namespace MMRando
                 StreamReader LogicFile = new StreamReader(File.Open(openLogic.FileName, FileMode.Open));
                 ItemList = new List<ItemLogic>();
                 string[] lines = LogicFile.ReadToEnd().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                fItemSelect.ResetItems();
+                ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();
                 int i = 0;
                 while (true)
                 {
@@ -280,6 +298,14 @@ namespace MMRando
                     };
                     if (lines[i].Contains("-"))
                     {
+                        var itemName = lines[i].Substring(2);
+                        if (ItemList.Count >= ITEM_NAMES.Length)
+                        {
+                            var newList = ITEM_NAMES.ToList();
+                            newList.Add(itemName);
+                            fItemSelect.AddItem(itemName);
+                            ITEM_NAMES = newList.ToArray();
+                        }
                         i++;
                         continue;
                     }
@@ -316,6 +342,7 @@ namespace MMRando
                 LogicFile.Close();
                 nItem.Value = 1;
                 nItem.Value = 0;
+                nItem.Maximum = ITEM_NAMES.Length - 1;
             };
         }
 
@@ -364,6 +391,74 @@ namespace MMRando
                 };
                 LogicFile.Close();
             };
+        }
+
+        private void btn_new_item_Click(object sender, EventArgs e)
+        {
+            using (var newItemForm = new NewItemForm())
+            {
+                var result = newItemForm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    var newList = ITEM_NAMES.ToList();
+                    newList.Add(newItemForm.ReturnValue);
+                    ITEM_NAMES = newList.ToArray();
+                    nItem.Maximum = ITEM_NAMES.Length - 1;
+                    ItemList.Add(new ItemLogic());
+                    nItem.Value = nItem.Maximum;
+                    fItemSelect.AddItem(newItemForm.ReturnValue);
+                }
+            }
+        }
+
+        private void lConditional_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var index = lConditional.IndexFromPoint(e.Location);
+            if (index != ListBox.NoMatches)
+            {
+                var conditions = ItemList[n].Conditional[index];
+                if (conditions.Count == 1)
+                {
+                    nItem.Value = conditions[0];
+                }
+                else
+                {
+                    var itemSelect = new fItemSelect(checkboxes: false, highlightedItems: conditions);
+                    var result = itemSelect.ShowDialog();
+                    if (result == DialogResult.OK && fItemSelect.ReturnItems.Any())
+                    {
+                        var itemIndex = fItemSelect.ReturnItems.First();
+                        nItem.Value = itemIndex;
+                    }
+                }
+            }
+        }
+
+        private void button_goto_Click(object sender, EventArgs e)
+        {
+            var itemSelect = new fItemSelect(checkboxes: false);
+            var result = itemSelect.ShowDialog();
+            if (result == DialogResult.OK && fItemSelect.ReturnItems.Any())
+            {
+                var itemIndex = fItemSelect.ReturnItems.First();
+                nItem.Value = itemIndex;
+            }
+        }
+
+        private void lRequired_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var index = lRequired.IndexFromPoint(e.Location);
+            var gotoItemIndex = ItemList[n].Dependence[index];
+            nItem.Value = gotoItemIndex;
+        }
+
+        private void bConEdit_MouseClick(object sender, MouseEventArgs e)
+        {
+            var index = lConditional.SelectedIndex;
+            if (index != ListBox.NoMatches)
+            {
+                UpdateConditional(n, index);
+            }
         }
     }
 }

@@ -33,6 +33,7 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tLayout = new System.Windows.Forms.TableLayoutPanel();
             this.bDone = new System.Windows.Forms.Button();
+            this.textBoxFilter = new System.Windows.Forms.TextBox();
             this.tLayout.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,10 +46,11 @@
             this.lItems.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lItems.Location = new System.Drawing.Point(3, 3);
             this.lItems.Name = "lItems";
-            this.lItems.Size = new System.Drawing.Size(332, 447);
+            this.lItems.Size = new System.Drawing.Size(1076, 481);
             this.lItems.TabIndex = 1;
             this.lItems.UseCompatibleStateImageBehavior = false;
             this.lItems.View = System.Windows.Forms.View.List;
+            this.lItems.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lItems_MouseDoubleClick);
             // 
             // columnHeader1
             // 
@@ -59,37 +61,50 @@
             this.tLayout.ColumnCount = 1;
             this.tLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tLayout.Controls.Add(this.lItems, 0, 0);
-            this.tLayout.Controls.Add(this.bDone, 0, 1);
+            this.tLayout.Controls.Add(this.bDone, 0, 2);
+            this.tLayout.Controls.Add(this.textBoxFilter, 0, 1);
             this.tLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tLayout.Location = new System.Drawing.Point(0, 0);
             this.tLayout.Name = "tLayout";
-            this.tLayout.RowCount = 2;
+            this.tLayout.RowCount = 3;
             this.tLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tLayout.Size = new System.Drawing.Size(338, 481);
+            this.tLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tLayout.Size = new System.Drawing.Size(1082, 543);
             this.tLayout.TabIndex = 4;
             // 
             // bDone
             // 
             this.bDone.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bDone.Location = new System.Drawing.Point(3, 456);
+            this.bDone.Location = new System.Drawing.Point(3, 518);
             this.bDone.Name = "bDone";
-            this.bDone.Size = new System.Drawing.Size(332, 22);
+            this.bDone.Size = new System.Drawing.Size(1076, 22);
             this.bDone.TabIndex = 2;
             this.bDone.Text = "Done";
             this.bDone.UseVisualStyleBackColor = true;
             this.bDone.Click += new System.EventHandler(this.bDone_Click);
             // 
+            // textBoxFilter
+            // 
+            this.textBoxFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxFilter.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBoxFilter.Location = new System.Drawing.Point(3, 490);
+            this.textBoxFilter.Name = "textBoxFilter";
+            this.textBoxFilter.Size = new System.Drawing.Size(1076, 20);
+            this.textBoxFilter.TabIndex = 3;
+            this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxFilter_TextChanged);
+            // 
             // fItemSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(338, 481);
+            this.ClientSize = new System.Drawing.Size(1082, 543);
             this.Controls.Add(this.tLayout);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "fItemSelect";
             this.Text = "Select items...";
             this.tLayout.ResumeLayout(false);
+            this.tLayout.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -100,5 +115,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.TableLayoutPanel tLayout;
         private System.Windows.Forms.Button bDone;
+        private System.Windows.Forms.TextBox textBoxFilter;
     }
 }

@@ -11,7 +11,7 @@ namespace MMRando
 {
     public partial class fItemSelect : Form
     {
-        string[] ITEM_NAMES = new string[] { "Deku Mask", "Hero's Bow", "Fire Arrow", "Ice Arrow", "Light Arrow", "Bomb Bag (20)", "Magic Bean", 
+        private readonly static string[] DEFAULT_ITEM_NAMES = new string[] { "Deku Mask", "Hero's Bow", "Fire Arrow", "Ice Arrow", "Light Arrow", "Bomb Bag (20)", "Magic Bean", 
         "Powder Keg", "Pictobox", "Lens of Truth", "Hookshot", "Great Fairy's Sword", "Witch Bottle", "Aliens Bottle", "Goron Race Bottle", 
         "Beaver Race Bottle", "Dampe Bottle", "Chateau Bottle", "Bombers' Notebook", "Razor Sword", "Gilded Sword", "Mirror Shield",
         "Town Archery Quiver (40)", "Swamp Archery Quiver (50)", "Town Bomb Bag (30)", "Mountain Bomb Bag (40)", "Town Wallet (200)", "Ocean Wallet (500)", "Moon's Tear", 
@@ -52,15 +52,39 @@ namespace MMRando
         "Odolwa Heart Container", "Goht Heart Container", "Gyorg Heart Container", "Twinmold Heart Container", "Map: Clock Town", "Map: Woodfall",
         "Map: Snowhead", "Map: Romani Ranch", "Map: Great Bay", "Map: Stone Tower", "Goron Racetrack Grotto" };
 
+        private static string[] ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();
+
+        public static void AddItem(string itemName)
+        {
+            var newList = ITEM_NAMES.ToList();
+            newList.Add(itemName);
+            ITEM_NAMES = newList.ToArray();
+        }
+
+        public static void ResetItems()
+        {
+            ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();
+        }
+
         public static List<int> ReturnItems;
 
-        public fItemSelect()
+        public fItemSelect(List<int> selectedItems = null, bool checkboxes = true, List<int> highlightedItems = null)
         {
             InitializeComponent();
             for (int i = 0; i < ITEM_NAMES.Length; i++)
             {
-                lItems.Items.Add(ITEM_NAMES[i]);
+                var item = new ListViewItem(ITEM_NAMES[i]);
+                item.Checked = selectedItems?.Contains(i) ?? false;
+                lItems.Items.Add(item);
+                if (highlightedItems != null)
+                {
+                    item.ForeColor = highlightedItems.Contains(i)
+                        ? Color.Black
+                        : Color.LightGray;
+                }
             };
+            this.ActiveControl = textBoxFilter;
+            lItems.CheckBoxes = checkboxes;
         }
 
         private void bDone_Click(object sender, EventArgs e)
@@ -73,6 +97,28 @@ namespace MMRando
                     ReturnItems.Add(l.Index);
                 };
             };
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void textBoxFilter_TextChanged(object sender, EventArgs e)
+        {
+            var filter = textBoxFilter.Text.ToLower();
+            foreach (var item in lItems.Items.Cast<ListViewItem>())
+            {
+                item.ForeColor = item.Text.ToLower().Contains(filter)
+                    ? Color.Black
+                    : Color.LightGray;
+            }
+        }
+
+        private void lItems_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (lItems.CheckBoxes)
+            {
+                return;
+            }
+            ReturnItems = lItems.SelectedIndices.Cast<int>().ToList();
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
