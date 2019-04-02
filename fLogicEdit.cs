@@ -448,8 +448,11 @@ namespace MMRando
         private void lRequired_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var index = lRequired.IndexFromPoint(e.Location);
-            var gotoItemIndex = ItemList[n].Dependence[index];
-            nItem.Value = gotoItemIndex;
+            if (index != ListBox.NoMatches)
+            {
+                var gotoItemIndex = ItemList[n].Dependence[index];
+                nItem.Value = gotoItemIndex;
+            }
         }
 
         private void bConEdit_MouseClick(object sender, MouseEventArgs e)
