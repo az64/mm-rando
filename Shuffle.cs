@@ -833,7 +833,7 @@ namespace MMRando
             };
         }
 
-        private void ItemShuffle()
+        private bool ItemShuffle()
         {
             SongsMixed = cMixSongs.Checked;
             ExcludeSoS = cSoS.Checked;
@@ -843,108 +843,63 @@ namespace MMRando
             Other = cAdditional.Checked;
             User = cUserItems.Checked;
             List<int> TargetPool = new List<int>();
-            if (User)
+
+            ValidSeedChecker validCheck = new ValidSeedChecker(ItemList);
+            int attempts = 0;
+            do
             {
-                Shops = false;
-                for (int i = 0; i < ItemList.Count; i++)
+                if(++attempts > 100)
                 {
-                    if ((i > Song_Oath) && (i < WF_Map))
-                    {
-                        continue;
-                    };
-                    ItemList[i].Replaces = i;
+                    return false;
                 };
-                for (int i = 0; i < fItemEdit.selected_items.Count; i++)
+
+                TargetPool.Clear();
+                ItemList = validCheck.GetCleanItemListCopy();
+
+                if (User)
                 {
-                    int j = fItemEdit.selected_items[i];
-                    if (j > Song_Oath)
+                    Shops = false;
+                    for (int i = 0; i < ItemList.Count; i++)
                     {
-                        j += 23;
-                    };
-                    int k = ItemList.FindIndex(u => u.ID == j);
-                    if (k != -1)
-                    {
-                        ItemList[k].Replaces = -1;
-                    };
-                    if ((j > ST_Key4) && (j < B_Fairy))
-                    {
-                        Shops = true;
-                    };
-                };
-                if (!SongsMixed)
-                {
-                    TargetPool = new List<int>();
-                    for (int i = Song_Soaring; i < Song_Oath + 1; i++)
-                    {
-                        if (ItemList[i].Replaces != -1)
+                        if ((i > Song_Oath) && (i < WF_Map))
                         {
                             continue;
                         };
-                        TargetPool.Add(i);
+                        ItemList[i].Replaces = i;
                     };
-                    for (int i = Song_Soaring; i < Song_Oath + 1; i++)
+                    for (int i = 0; i < fItemEdit.selected_items.Count; i++)
                     {
-                        PlaceItem(i, TargetPool);
-                    };
-                };
-                TargetPool = new List<int>();
-                for (int i = B_Fairy; i < B_Mushroom + 1; i++)
-                {
-                    TargetPool.Add(i);
-                };
-                for (int i = B_Fairy; i < B_Mushroom + 1; i++)
-                {
-                    PlaceItem(i, TargetPool);
-                };
-            }
-            else
-            {
-                if (ExcludeSoS)
-                {
-                    ItemList[Song_Soaring].Replaces = Song_Soaring;
-                };
-                if (!SongsMixed)
-                {
-                    TargetPool = new List<int>();
-                    for (int i = Song_Soaring; i < Song_Oath + 1; i++)
-                    {
-                        if (ItemList[i].Replaces != -1)
+                        int j = fItemEdit.selected_items[i];
+                        if (j > Song_Oath)
                         {
-                            continue;
+                            j += 23;
                         };
-                        TargetPool.Add(i);
+                        int k = ItemList.FindIndex(u => u.ID == j);
+                        if (k != -1)
+                        {
+                            ItemList[k].Replaces = -1;
+                        };
+                        if ((j > ST_Key4) && (j < B_Fairy))
+                        {
+                            Shops = true;
+                        };
                     };
-                    for (int i = Song_Soaring; i < Song_Oath + 1; i++)
+                    if (!SongsMixed)
                     {
-                        PlaceItem(i, TargetPool);
+                        TargetPool = new List<int>();
+                        for (int i = Song_Soaring; i < Song_Oath + 1; i++)
+                        {
+                            if (ItemList[i].Replaces != -1)
+                            {
+                                continue;
+                            };
+                            TargetPool.Add(i);
+                        };
+                        for (int i = Song_Soaring; i < Song_Oath + 1; i++)
+                        {
+                            PlaceItem(i, TargetPool);
+                        };
                     };
-                };
-                if (!Keysanity)
-                {
-                    for (int i = WF_Map; i < ST_Key4 + 1; i++)
-                    {
-                        ItemList[i].Replaces = i;
-                    };
-                };
-                if (!Shops)
-                {
-                    for (int i = TP_RP; i < ZS_RP + 1; i++)
-                    {
-                        ItemList[i].Replaces = i;
-                    };
-                    ItemList[Bomb_Bag].Replaces = Bomb_Bag;
-                    ItemList[Bomb_Bag_1].Replaces = Bomb_Bag_1;
-                    ItemList[All_Night].Replaces = All_Night;
-                };
-                if (!Other)
-                {
-                    for (int i = Lens_Cave_RR; i < To_GR_Grotto + 1; i++)
-                    {
-                        ItemList[i].Replaces = i;
-                    };
-                };
-                if (BottleCatch)
-                {
                     TargetPool = new List<int>();
                     for (int i = B_Fairy; i < B_Mushroom + 1; i++)
                     {
@@ -957,61 +912,121 @@ namespace MMRando
                 }
                 else
                 {
-                    for (int i = B_Fairy; i < B_Mushroom + 1; i++)
+                    if (ExcludeSoS)
                     {
-                        ItemList[i].Replaces = i;
+                        ItemList[Song_Soaring].Replaces = Song_Soaring;
+                    };
+                    if (!SongsMixed)
+                    {
+                        TargetPool = new List<int>();
+                        for (int i = Song_Soaring; i < Song_Oath + 1; i++)
+                        {
+                            if (ItemList[i].Replaces != -1)
+                            {
+                                continue;
+                            };
+                            TargetPool.Add(i);
+                        };
+                        for (int i = Song_Soaring; i < Song_Oath + 1; i++)
+                        {
+                            PlaceItem(i, TargetPool);
+                        };
+                    };
+                    if (!Keysanity)
+                    {
+                        for (int i = WF_Map; i < ST_Key4 + 1; i++)
+                        {
+                            ItemList[i].Replaces = i;
+                        };
+                    };
+                    if (!Shops)
+                    {
+                        for (int i = TP_RP; i < ZS_RP + 1; i++)
+                        {
+                            ItemList[i].Replaces = i;
+                        };
+                        ItemList[Bomb_Bag].Replaces = Bomb_Bag;
+                        ItemList[Bomb_Bag_1].Replaces = Bomb_Bag_1;
+                        ItemList[All_Night].Replaces = All_Night;
+                    };
+                    if (!Other)
+                    {
+                        for (int i = Lens_Cave_RR; i < To_GR_Grotto + 1; i++)
+                        {
+                            ItemList[i].Replaces = i;
+                        };
+                    };
+                    if (BottleCatch)
+                    {
+                        TargetPool = new List<int>();
+                        for (int i = B_Fairy; i < B_Mushroom + 1; i++)
+                        {
+                            TargetPool.Add(i);
+                        };
+                        for (int i = B_Fairy; i < B_Mushroom + 1; i++)
+                        {
+                            PlaceItem(i, TargetPool);
+                        };
+                    }
+                    else
+                    {
+                        for (int i = B_Fairy; i < B_Mushroom + 1; i++)
+                        {
+                            ItemList[i].Replaces = i;
+                        };
                     };
                 };
-            };
-            TargetPool = new List<int>();
-            for (int i = 0; i < ItemList.Count; i++)
-            {
-                if (((i > Song_Oath) && (i < WF_Map)) || (ItemList[i].Replaces != -1))
+                TargetPool = new List<int>();
+                for (int i = 0; i < ItemList.Count; i++)
                 {
-                    continue;
+                    if (((i > Song_Oath) && (i < WF_Map)) || (ItemList[i].Replaces != -1))
+                    {
+                        continue;
+                    };
+                    TargetPool.Add(i);
                 };
-                TargetPool.Add(i);
-            };
-            PlaceItem(Room_Key, TargetPool);
-            PlaceItem(Kafei_Letter, TargetPool);
-            PlaceItem(Pendant, TargetPool);
-            PlaceItem(Mama_Letter, TargetPool);
-            if (ItemList.FindIndex(u => u.Replaces == 0) == -1)
-            {
-                int free = RNG.Next(Song_Oath + 1);
-                while (((free > Wallet_2) && (free < HP_Mayor)) || (free == Wallet_2) || (free == M_Shield) || (ItemList[free].Replaces != -1) || ((free > Fairy_Sword) && (free < Notebook)))
+                PlaceItem(Room_Key, TargetPool);
+                PlaceItem(Kafei_Letter, TargetPool);
+                PlaceItem(Pendant, TargetPool);
+                PlaceItem(Mama_Letter, TargetPool);
+                if (ItemList.FindIndex(u => u.Replaces == 0) == -1)
                 {
-                    free = RNG.Next(Song_Oath + 1);
+                    int free = RNG.Next(Song_Oath + 1);
+                    while (((free > Wallet_2) && (free < HP_Mayor)) || (free == Wallet_2) || (free == M_Shield) || (ItemList[free].Replaces != -1) || ((free > Fairy_Sword) && (free < Notebook)))
+                    {
+                        free = RNG.Next(Song_Oath + 1);
+                    };
+                    ItemList[free].Replaces = 0;
+                    TargetPool.RemoveAt(0);
                 };
-                ItemList[free].Replaces = 0;
-                TargetPool.RemoveAt(0);
-            };
-            for (int i = Deku_Mask; i < HP_Mayor; i++)
-            {
-                PlaceItem(i, TargetPool);
-            };
-            for (int i = Postman_Hat; i < SOUTH_ACCESS; i++)
-            {
-                PlaceItem(i, TargetPool);
-            };
-            for (int i = WF_Map; i < TP_RP; i++)
-            {
-                PlaceItem(i, TargetPool);
-            };
-            for (int i = TP_RP; i < B_Fairy; i++)
-            {
-                PlaceItem(i, TargetPool);
-            };
-            for (int i = HP_Mayor; i < Postman_Hat; i++)
-            {
-                PlaceItem(i, TargetPool);
-            };
-            for (int i = Lens_Cave_RR; i < To_GR_Grotto + 1; i++)
-            {
-                PlaceItem(i, TargetPool);
-            };
-        }
+                for (int i = Deku_Mask; i < HP_Mayor; i++)
+                {
+                    PlaceItem(i, TargetPool);
+                };
+                for (int i = Postman_Hat; i < SOUTH_ACCESS; i++)
+                {
+                    PlaceItem(i, TargetPool);
+                };
+                for (int i = WF_Map; i < TP_RP; i++)
+                {
+                    PlaceItem(i, TargetPool);
+                };
+                for (int i = TP_RP; i < B_Fairy; i++)
+                {
+                    PlaceItem(i, TargetPool);
+                };
+                for (int i = HP_Mayor; i < Postman_Hat; i++)
+                {
+                    PlaceItem(i, TargetPool);
+                };
+                for (int i = Lens_Cave_RR; i < To_GR_Grotto + 1; i++)
+                {
+                    PlaceItem(i, TargetPool);
+                };
+             } while(!validCheck.IsValidSeed(ItemList));
 
+            return true;
+        }
     }
 
 }

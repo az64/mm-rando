@@ -110,6 +110,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Tunics.cs" />
+    <Compile Include="ValidSeedChecker.cs" />
     <Compile Include="VC_Inject.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="yaz0.cs" />

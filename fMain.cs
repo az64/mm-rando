@@ -223,7 +223,17 @@ namespace MMRando
                 int[] OathReq = new int[] { 100, 103, 108, 113 };
                 ItemList[97].Dependence = new List<int>();
                 ItemList[97].Dependence.Add(OathReq[RNG.Next(4)]);
-                ItemShuffle();
+
+                bool validSeed = ItemShuffle();
+                if(!validSeed) 
+                {
+                    DialogResult validSeedCancelResult = MessageBox.Show("Can not guarantee the generated ROM will be completable with these rules and seed. Continue anyway?", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                    if(validSeedCancelResult != DialogResult.OK) 
+                    {
+                        return;
+                    };
+                };
+
                 //gossip
                 SeedRNG();
                 MakeGossipQuotes();
