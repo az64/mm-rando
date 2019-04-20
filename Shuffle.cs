@@ -96,6 +96,15 @@ namespace MMRando
         List<int[]> ConditionRemoves;
         List<string> GossipQuotes;
 
+        Dictionary<int, List<int>> ForbiddenPlacement = new Dictionary<int, List<int>>
+        {
+            // Keaton_Mask and Mama_Letter are obtained one directly after another
+            // Cannot place items at Keaton_Mask that may be overwritten by item obtained at Mama_Letter
+            { Keaton_Mask, new List<int> { Wallet_2, M_Shield, Moon_Tear, Land_Deed, Swamp_Deed, Mountain_Deed, Ocean_Deed, Room_Key, Mama_Letter, Kafei_Letter, Pendant } },
+            // Cannot place items at Mama_Letter that can replace an item obtained at Keaton_Mask
+            { Mama_Letter, new List<int> { Bomb_Bag, Bomb_Bag_1, Quiver_1 } },
+        };
+
         //rando functions
 
         private void MakeGossipQuotes()
@@ -780,6 +789,10 @@ namespace MMRando
 
         private bool CheckMatch(int CurrentItem, int Target)
         {
+            if (ForbiddenPlacement.ContainsKey(Target) && ForbiddenPlacement[Target].Contains(CurrentItem))
+            {
+                return false;
+            }
             //check timing
             if (ItemList[CurrentItem].Time_Needed != 0)
             {
