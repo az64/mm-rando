@@ -195,6 +195,7 @@ namespace MMRando
             int[] DI = new int[] { WF_ACCESS, SH_ACCESS, IST_ACCESS, GB_ACCESS };
             for (int i = 0; i < 4; i++)
             {
+                Debug.WriteLine($"Entrance {DI[NewEnts[i]]} placed at {DE[i].ID}.");
                 ItemList[DI[NewEnts[i]]] = DE[i];
             };
             DE = new ItemObject[] { ItemList[WF_CLEAR], ItemList[SH_CLEAR], ItemList[ST_CLEAR], ItemList[GB_CLEAR] };
@@ -483,6 +484,7 @@ namespace MMRando
 
         private bool CheckDependence(int CurrentItem, int Target, bool skip)
         {
+            Debug.WriteLine($"CheckDependence({CurrentItem}, {Target}, {skip})");
             if (!skip)
             {
                 DependenceChecked[Target] = true;
@@ -491,6 +493,7 @@ namespace MMRando
             {
                 if (ItemList[Target].Conditional.FindAll(u => u.Contains(CurrentItem)).Count == ItemList[Target].Conditional.Count)
                 {
+                    Debug.WriteLine($"All conditionals of {Target} contains {CurrentItem}");
                     return true;
                 };
                 if (ItemList[CurrentItem].Cannot_Require != null)
@@ -499,6 +502,7 @@ namespace MMRando
                     {
                         if (ItemList[Target].Conditional.FindAll(u => u.Contains(ItemList[CurrentItem].Cannot_Require[i]) || u.Contains(CurrentItem)).Count == ItemList[Target].Conditional.Count)
                         {
+                            Debug.WriteLine($"All conditionals of {Target} cannot be required by {CurrentItem}");
                             return true;
                         };
                     };
@@ -534,6 +538,7 @@ namespace MMRando
                 };
                 if (k == ItemList[Target].Conditional.Count)
                 {
+                    Debug.WriteLine($"All conditionals of {Target} failed dependency check for {CurrentItem}.");
                     return true;
                 };
             };
@@ -551,6 +556,7 @@ namespace MMRando
                 int d = ItemList[Target].Dependence[i];
                 if (d == CurrentItem)
                 {
+                    Debug.WriteLine($"{Target} has direct dependence on {CurrentItem}");
                     return true;
                 };
                 if (ItemList[CurrentItem].Cannot_Require != null)
@@ -559,6 +565,7 @@ namespace MMRando
                     {
                         if (ItemList[Target].Dependence.Contains(ItemList[CurrentItem].Cannot_Require[j]))
                         {
+                            Debug.WriteLine($"Dependence {ItemList[CurrentItem].Cannot_Require[j]} of {Target} cannot be required by {CurrentItem}");
                             return true;
                         };
                     };
@@ -571,6 +578,10 @@ namespace MMRando
                         if (!skip)
                         {
                             DependenceChecked[Target] = DependenceChecked[d];
+                        }
+                        if (DependenceChecked[d])
+                        {
+                            Debug.WriteLine($"{CurrentItem} is dependent on {d}");
                         }
                         return DependenceChecked[d];
                     }
@@ -798,6 +809,7 @@ namespace MMRando
         {
             if (ForbiddenPlacement.ContainsKey(Target) && ForbiddenPlacement[Target].Contains(CurrentItem))
             {
+                Debug.WriteLine($"{Target} forbids placement of {CurrentItem}");
                 return false;
             }
             //check timing
@@ -805,6 +817,7 @@ namespace MMRando
             {
                 if ((ItemList[CurrentItem].Time_Needed & ItemList[Target].Time_Available) == 0)
                 {
+                    Debug.WriteLine($"{CurrentItem} is needed at {ItemList[CurrentItem].Time_Needed} but {Target} is only available at {ItemList[Target].Time_Available}");
                     return false;
                 };
             };
