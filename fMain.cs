@@ -214,26 +214,34 @@ namespace MMRando
 
         private void bRandomise_Click(object sender, EventArgs e)
         {
-            SeedRNG();
-            if (cMode.SelectedIndex != 2)
+            try
             {
-                ReadRulesetItemData();
-                //check if entrance shuffle is on
-                if (cDEnt.Checked) { EntranceShuffle(); };
-                int[] OathReq = new int[] { 100, 103, 108, 113 };
-                ItemList[97].Dependence = new List<int>();
-                ItemList[97].Dependence.Add(OathReq[RNG.Next(4)]);
-                ItemShuffle();
-                //gossip
                 SeedRNG();
-                MakeGossipQuotes();
-            };
-            //tatl colour
-            SeedRNG();
-            SetTatlColour();
-            //bgm sort
-            SeedRNG();
-            SortBGM();
+                if (cMode.SelectedIndex != 2)
+                {
+                    ReadRulesetItemData();
+                    //check if entrance shuffle is on
+                    if (cDEnt.Checked) { EntranceShuffle(); };
+                    int[] OathReq = new int[] { 100, 103, 108, 113 };
+                    ItemList[97].Dependence = new List<int>();
+                    ItemList[97].Dependence.Add(OathReq[RNG.Next(4)]);
+                    ItemShuffle();
+                    //gossip
+                    SeedRNG();
+                    MakeGossipQuotes();
+                };
+                //tatl colour
+                SeedRNG();
+                SetTatlColour();
+                //bgm sort
+                SeedRNG();
+                SortBGM();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error randomizing logic: {ex.Message}\r\n\r\nPlease try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if ((tROMName.Text != "") && (File.Exists(tROMName.Text)))
             {
                 if (saveROM.ShowDialog() == DialogResult.OK)

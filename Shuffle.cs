@@ -809,27 +809,39 @@ namespace MMRando
             {
                 return;
             };
+            var availableTargets = Targets.ToList();
             while (true)
             {
-                int TargetSlot = 0;
-                if ((((CurrentItem > Wallet_2) && (CurrentItem < HP_Mayor)) || (CurrentItem > Song_Oath)) && (Targets.Contains(0)))
+                if (availableTargets.Count == 0)
                 {
-                    TargetSlot = RNG.Next(1, Targets.Count);
+                    throw new Exception($"Unable to place {CurrentItem} anywhere.");
+                }
+                int TargetSlot = 0;
+                if ((((CurrentItem > Wallet_2) && (CurrentItem < HP_Mayor)) || (CurrentItem > Song_Oath)) && (availableTargets.Contains(0)))
+                {
+                    TargetSlot = RNG.Next(1, availableTargets.Count);
                 }
                 else
                 {
-                    TargetSlot = RNG.Next(Targets.Count);
+                    TargetSlot = RNG.Next(availableTargets.Count);
                 };
-                if (CheckMatch(CurrentItem, Targets[TargetSlot]))
+                Debug.WriteLine($"----Attempting to place {CurrentItem} at {availableTargets[TargetSlot]}.---");
+                if (CheckMatch(CurrentItem, availableTargets[TargetSlot]))
                 {
-                    ItemList[CurrentItem].Replaces = Targets[TargetSlot];
-                    if ((ItemList[CurrentItem].Time_Needed != 0) && (Targets[TargetSlot] > Moon_Tear) && (Targets[TargetSlot] < Room_Key))
+                    ItemList[CurrentItem].Replaces = availableTargets[TargetSlot];
+                    Debug.WriteLine($"----Placed {CurrentItem} at {ItemList[CurrentItem].Replaces}----");
+                    if ((ItemList[CurrentItem].Time_Needed != 0) && (availableTargets[TargetSlot] > Moon_Tear) && (availableTargets[TargetSlot] < Room_Key))
                     {
-                        ItemList[Targets[TargetSlot]].Time_Needed = ItemList[CurrentItem].Time_Needed;
+                        ItemList[availableTargets[TargetSlot]].Time_Needed = ItemList[CurrentItem].Time_Needed;
                     };
-                    Targets.RemoveAt(TargetSlot);
+                    Targets.Remove(availableTargets[TargetSlot]);
                     return;
-                };
+                }
+                else
+                {
+                    Debug.WriteLine($"----Failed to place {CurrentItem} at {availableTargets[TargetSlot]}----");
+                    availableTargets.RemoveAt(TargetSlot);
+                }
             };
         }
 
@@ -848,7 +860,7 @@ namespace MMRando
                 Shops = false;
                 for (int i = 0; i < ItemList.Count; i++)
                 {
-                    if ((i > Song_Oath) && (i < WF_Map))
+                    if ((i > Song_Oath && i < WF_Map) || i > To_GR_Grotto)
                     {
                         continue;
                     };
@@ -966,7 +978,7 @@ namespace MMRando
             TargetPool = new List<int>();
             for (int i = 0; i < ItemList.Count; i++)
             {
-                if (((i > Song_Oath) && (i < WF_Map)) || (ItemList[i].Replaces != -1))
+                if (((i > Song_Oath && i < WF_Map) || i > To_GR_Grotto) || (ItemList[i].Replaces != -1))
                 {
                     continue;
                 };
