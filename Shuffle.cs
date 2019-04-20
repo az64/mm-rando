@@ -91,8 +91,8 @@ namespace MMRando
         List<Gossip> GossipList;
 
         List<int> ConditionsChecked;
-        List<int> DependenceChecked;
-        List<int[]> SubChecked;
+        Dictionary<int, bool> DependenceChecked;
+        Dictionary<int, bool> SubChecked;
         List<int[]> ConditionRemoves;
         List<string> GossipQuotes;
 
@@ -476,11 +476,16 @@ namespace MMRando
             };
         }
 
+        private bool IsFakeItem(int itemId)
+        {
+            return (itemId >= SOUTH_ACCESS && itemId <= IST_NEW) || itemId > To_GR_Grotto;
+        }
+
         private bool CheckDependence(int CurrentItem, int Target, bool skip)
         {
             if (!skip)
             {
-                DependenceChecked.Add(Target);
+                DependenceChecked[Target] = true;
             };
             if ((ItemList[Target].Conditional != null) && (ItemList[Target].Conditional.Count != 0))
             {
@@ -505,21 +510,26 @@ namespace MMRando
                     for (int j = 0; j < ItemList[Target].Conditional[i].Count; j++)
                     {
                         int d = ItemList[Target].Conditional[i][j];
+                        if (!IsFakeItem(d) && ItemList[d].Replaces == -1)
+                        {
+                            continue;
+                        }
                         int[] check = new int[] { Target, i, j };
                         if (ItemList[d].Replaces != -1) { d = ItemList[d].Replaces; };
-                        if (!SubChecked.Any(u => u.SequenceEqual(check)))
+                        if (!SubChecked.ContainsKey(d))
                         {
-                            SubChecked.Add(check);
-                            if (CheckDependence(CurrentItem, d, true))
+                            SubChecked[d] = true;
+                            SubChecked[d] = CheckDependence(CurrentItem, d, true);
+                        }
+                        if (SubChecked[d])
+                        {
+                            ConditionRemoves.Add(check);
+                            if (!match)
                             {
-                                ConditionRemoves.Add(check);
-                                if (!match)
-                                {
-                                    k++;
-                                    match = true;
-                                };
-                            };
-                        };
+                                k++;
+                                match = true;
+                            }
+                        }
                     };
                 };
                 if (k == ItemList[Target].Conditional.Count)
@@ -529,6 +539,10 @@ namespace MMRando
             };
             if (ItemList[Target].Dependence == null)
             {
+                if (!skip)
+                {
+                    DependenceChecked[Target] = false;
+                }
                 return false;
             };
             //cycle through all things
@@ -549,15 +563,30 @@ namespace MMRando
                         };
                     };
                 };
-                if (ItemList[d].Replaces != -1) { d = ItemList[d].Replaces; };
-                if (!DependenceChecked.Contains(d))
+                if (IsFakeItem(d) || ItemList[d].Replaces != -1)
                 {
-                    if (CheckDependence(CurrentItem, d, false))
+                    if (ItemList[d].Replaces != -1) d = ItemList[d].Replaces;
+                    if (DependenceChecked.ContainsKey(d))
                     {
-                        return true;
-                    };
-                };
+                        if (!skip)
+                        {
+                            DependenceChecked[Target] = DependenceChecked[d];
+                        }
+                        return DependenceChecked[d];
+                    }
+                    else
+                    {
+                        if (CheckDependence(CurrentItem, d, false))
+                        {
+                            return true;
+                        }
+                    }
+                }
             };
+            if (!skip)
+            {
+                DependenceChecked[Target] = false;
+            }
             return false;
         }
 
@@ -668,14 +697,7 @@ namespace MMRando
                     {
                         ItemList[j].Cannot_Require = new List<int>();
                     };
-                    if ((Target == 115) || (Target == 114))
-                    {
-                        ItemList[j].Cannot_Require.Add(Target);
-                    }
-                    else
-                    {
-                        ItemList[j].Cannot_Require.Add(CurrentItem);
-                    };
+                    ItemList[j].Cannot_Require.Add(CurrentItem);
                 };
                 ItemList[Target].Conditional.RemoveAt(0);
             }
@@ -760,21 +782,6 @@ namespace MMRando
                     ItemList[d].Cannot_Require = new List<int>();
                 };
                 ItemList[d].Cannot_Require.Add(CurrentItem);
-                if (ItemList[d].Conditional != null)
-                {
-                    if ((d == EXPLOSIVE) || (d == ARROW))
-                    {
-                        foreach (List<int> c in ItemList[d].Conditional)
-                        {
-                            if (c.Contains(CurrentItem))
-                            {
-                                AddConditionals(Target, CurrentItem, d);
-                                ItemList[Target].Dependence[i] = -1;
-                                //d = -1;
-                            };
-                        };
-                    };
-                };
                 if (d != -1)
                 {
                     if (ItemList[d].Replaces != -1) { d = ItemList[d].Replaces; };
@@ -803,8 +810,8 @@ namespace MMRando
             };
             //check direct dependence
             ConditionRemoves = new List<int[]>();
-            SubChecked = new List<int[]>();
-            DependenceChecked = new List<int>();
+            SubChecked = new Dictionary<int, bool>();
+            DependenceChecked = new Dictionary<int, bool>();
             if (CheckDependence(CurrentItem, Target, false))
             {
                 return false;
