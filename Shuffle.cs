@@ -103,6 +103,21 @@ namespace MMRando
             { Keaton_Mask, new List<int> { Wallet_2, M_Shield, Moon_Tear, Land_Deed, Swamp_Deed, Mountain_Deed, Ocean_Deed, Room_Key, Mama_Letter, Kafei_Letter, Pendant } },
             // Cannot place items at Mama_Letter that can replace an item obtained at Keaton_Mask
             { Mama_Letter, new List<int> { Bomb_Bag, Bomb_Bag_1, Quiver_1 } },
+
+            // Gold Dust cannot be obtained a second time at certain locations
+            // All chests are Recovery Heart the 2nd time
+            {
+                Bottle_G, new List<int>
+                {
+                    Hero_Bow, Fire_Arrow, Ice_Arrow, Light_Arrow, Lens, Hookshot, Bottle_D, M_Shield,
+                    HP_SwSch, // Rewards 20 rupees for some reason
+                    Captain_Hat, Giant_Mask, Lab_Fish_HP, To_GR_Grotto,
+                }
+                .Concat(Enumerable.Range(HP_TCGame, HP_Knuckle - HP_TCGame + 1))
+                .Concat(Enumerable.Range(WF_Map, ST_Key4 - WF_Map + 1))
+                .Concat(Enumerable.Range(Lens_Cave_RR, SCT_PR - Lens_Cave_RR + 1))
+                .ToList()
+            },
         };
 
         //rando functions
