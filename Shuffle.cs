@@ -109,10 +109,6 @@ namespace MMRando
                 .ToList()
             },
 
-            // todo find a better solution for this.
-            // Blast_Mask cannot be replaced by Kafei_Letter or Pendant because it interferes with Kafei Quest. Cannot contain trade items because you might need them for Letter/Pendant.
-            { Blast_Mask, new List<int> { Kafei_Letter, Pendant, Moon_Tear, Land_Deed, Swamp_Deed, Mountain_Deed, Ocean_Deed } },
-
             // Keaton_Mask and Mama_Letter are obtained one directly after another
             // Keaton_Mask cannot be replaced by items that may be overwritten by item obtained at Mama_Letter
             { Keaton_Mask, new List<int> { Wallet_2, G_Sword, M_Shield, Quiver_2, Bomb_Bag_1, Bomb_Bag_2, Moon_Tear, Land_Deed, Swamp_Deed, Mountain_Deed, Ocean_Deed, Room_Key, Mama_Letter, Kafei_Letter, Pendant } },
@@ -513,6 +509,15 @@ namespace MMRando
             return (itemId >= SOUTH_ACCESS && itemId <= IST_NEW) || itemId > To_GR_Grotto;
         }
 
+        private bool IsTemporaryItem(int itemId)
+        {
+            return (itemId >= Moon_Tear && itemId <= Mama_Letter) 
+                || itemId == WF_Key1 
+                || (itemId >= SH_Key1 && itemId <= SH_Key3)
+                || itemId == GB_Key1
+                || (itemId >= ST_Key1 && itemId <= ST_Key4);
+        }
+
         private bool CheckDependence(int CurrentItem, int Target, bool skip)
         {
             Debug.WriteLine($"CheckDependence({CurrentItem}, {Target}, {skip})");
@@ -520,6 +525,17 @@ namespace MMRando
             {
                 DependenceChecked[Target] = true;
             };
+
+            // permanent items ignore dependencies of Blast Mask check
+            if (Target == Blast_Mask && !IsTemporaryItem(CurrentItem))
+            {
+                if (!skip)
+                {
+                    DependenceChecked[Target] = false;
+                }
+                return false;
+            }
+
             if ((ItemList[Target].Conditional != null) && (ItemList[Target].Conditional.Count != 0))
             {
                 if (ItemList[Target].Conditional.FindAll(u => u.Contains(CurrentItem)).Count == ItemList[Target].Conditional.Count)
@@ -806,6 +822,13 @@ namespace MMRando
 
         private void CheckConditionals(int CurrentItem, int Target)
         {
+            if (Target == Blast_Mask)
+            {
+                if (!IsTemporaryItem(CurrentItem))
+                {
+                    ItemList[Target].Dependence = null;
+                }
+            }
             ConditionsChecked.Add(Target);
             UpdateConditionals(CurrentItem, Target);
             if (ItemList[Target].Dependence == null)
