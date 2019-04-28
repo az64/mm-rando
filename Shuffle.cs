@@ -608,10 +608,6 @@ namespace MMRando
                     {
                         if (DependenceChecked[d])
                         {
-                            if (!skip)
-                            {
-                                DependenceChecked[Target] = true;
-                            }
                             Debug.WriteLine($"{CurrentItem} is dependent on {d}");
                             return true;
                         }
@@ -824,9 +820,9 @@ namespace MMRando
                     ItemList[d].Cannot_Require = new List<int>();
                 };
                 ItemList[d].Cannot_Require.Add(CurrentItem);
+                d = ItemList[d].Replaces;
                 if (d != -1)
                 {
-                    if (ItemList[d].Replaces != -1) { d = ItemList[d].Replaces; };
                     if (!ConditionsChecked.Contains(d))
                     {
                         CheckConditionals(CurrentItem, d);
