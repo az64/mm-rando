@@ -98,6 +98,17 @@ namespace MMRando
 
         Dictionary<int, List<int>> ForbiddenReplacedBy = new Dictionary<int, List<int>>
         {
+            // Deku_Mask should not be replaced by trade items, or items that can be downgraded.
+            {
+                Deku_Mask, new List<int>
+                {
+                    G_Sword, M_Shield, Quiver_2, Bomb_Bag_1, Bomb_Bag_2, Wallet_2
+                }
+                .Concat(Enumerable.Range(Moon_Tear, Mama_Letter - Moon_Tear + 1))
+                .Concat(Enumerable.Range(Bottle_W, Bottle_M - Bottle_W + 1))
+                .ToList()
+            },
+
             // Keaton_Mask and Mama_Letter are obtained one directly after another
             // Keaton_Mask cannot be replaced by items that may be overwritten by item obtained at Mama_Letter
             { Keaton_Mask, new List<int> { Wallet_2, G_Sword, M_Shield, Quiver_2, Bomb_Bag_1, Bomb_Bag_2, Moon_Tear, Land_Deed, Swamp_Deed, Mountain_Deed, Ocean_Deed, Room_Key, Mama_Letter, Kafei_Letter, Pendant } },
@@ -871,7 +882,7 @@ namespace MMRando
                     throw new Exception($"Unable to place {CurrentItem} anywhere.");
                 }
                 int TargetSlot = 0;
-                if ((((CurrentItem > Wallet_2) && (CurrentItem < HP_Mayor)) || (CurrentItem > Song_Oath)) && (availableTargets.Contains(0)))
+                if (CurrentItem > Song_Oath && availableTargets.Contains(0))
                 {
                     TargetSlot = RNG.Next(1, availableTargets.Count);
                 }
@@ -1042,15 +1053,18 @@ namespace MMRando
             PlaceItem(Kafei_Letter, TargetPool);
             PlaceItem(Pendant, TargetPool);
             PlaceItem(Mama_Letter, TargetPool);
-            if (ItemList.FindIndex(u => u.Replaces == 0) == -1)
+            if (ItemList.FindIndex(u => u.Replaces == Deku_Mask) == -1)
             {
                 int free = RNG.Next(Song_Oath + 1);
-                while (((free > Wallet_2) && (free < HP_Mayor)) || (free == Wallet_2) || (free == M_Shield) || (ItemList[free].Replaces != -1) || ((free > Fairy_Sword) && (free < Notebook)))
+                if (ForbiddenReplacedBy.ContainsKey(Deku_Mask))
                 {
-                    free = RNG.Next(Song_Oath + 1);
-                };
-                ItemList[free].Replaces = 0;
-                TargetPool.RemoveAt(0);
+                    while (ItemList[free].Replaces != -1 || ForbiddenReplacedBy[Deku_Mask].Contains(free))
+                    {
+                        free = RNG.Next(Song_Oath + 1);
+                    }
+                }
+                ItemList[free].Replaces = Deku_Mask;
+                TargetPool.Remove(Deku_Mask);
             };
             for (int i = Deku_Mask; i < HP_Mayor; i++)
             {
