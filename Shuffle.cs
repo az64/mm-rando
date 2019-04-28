@@ -590,15 +590,15 @@ namespace MMRando
                     if (ItemList[d].Replaces != -1) d = ItemList[d].Replaces;
                     if (DependenceChecked.ContainsKey(d))
                     {
-                        if (!skip)
-                        {
-                            DependenceChecked[Target] = DependenceChecked[d];
-                        }
                         if (DependenceChecked[d])
                         {
+                            if (!skip)
+                            {
+                                DependenceChecked[Target] = true;
+                            }
                             Debug.WriteLine($"{CurrentItem} is dependent on {d}");
+                            return true;
                         }
-                        return DependenceChecked[d];
                     }
                     else
                     {
