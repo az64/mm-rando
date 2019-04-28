@@ -928,7 +928,7 @@ namespace MMRando
                 else
                 {
                     Debug.WriteLine($"----Failed to place {CurrentItem} at {availableTargets[TargetSlot]}----");
-                    //availableTargets.RemoveAt(TargetSlot);
+                    availableTargets.RemoveAt(TargetSlot);
                 }
             };
         }
