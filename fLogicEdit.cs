@@ -270,7 +270,7 @@ namespace MMRando
             {
                 StreamReader LogicFile = new StreamReader(File.Open(openLogic.FileName, FileMode.Open));
                 ItemList = new List<ItemLogic>();
-                string[] lines = LogicFile.ReadToEnd().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                string[] lines = LogicFile.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
                 int i = 0;
                 while (true)
                 {
