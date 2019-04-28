@@ -96,14 +96,17 @@ namespace MMRando
         List<int[]> ConditionRemoves;
         List<string> GossipQuotes;
 
-        Dictionary<int, List<int>> ForbiddenPlacement = new Dictionary<int, List<int>>
+        Dictionary<int, List<int>> ForbiddenReplacedBy = new Dictionary<int, List<int>>
         {
             // Keaton_Mask and Mama_Letter are obtained one directly after another
-            // Cannot place items at Keaton_Mask that may be overwritten by item obtained at Mama_Letter
+            // Keaton_Mask cannot be replaced by items that may be overwritten by item obtained at Mama_Letter
             { Keaton_Mask, new List<int> { Wallet_2, M_Shield, Moon_Tear, Land_Deed, Swamp_Deed, Mountain_Deed, Ocean_Deed, Room_Key, Mama_Letter, Kafei_Letter, Pendant } },
-            // Cannot place items at Mama_Letter that can replace an item obtained at Keaton_Mask
+            // Mama_Letter cannot be replaced by items that can replace an item obtained at Keaton_Mask
             { Mama_Letter, new List<int> { Bomb_Bag, Bomb_Bag_1, Quiver_1 } },
+        };
 
+        Dictionary<int, List<int>> ForbiddenPlacedAt = new Dictionary<int, List<int>>
+        {
             // Gold Dust cannot be obtained a second time at certain locations
             // All chests are Recovery Heart the 2nd time
             {
@@ -822,9 +825,14 @@ namespace MMRando
 
         private bool CheckMatch(int CurrentItem, int Target)
         {
-            if (ForbiddenPlacement.ContainsKey(Target) && ForbiddenPlacement[Target].Contains(CurrentItem))
+            if (ForbiddenPlacedAt.ContainsKey(CurrentItem) && ForbiddenPlacedAt[CurrentItem].Contains(Target))
             {
-                Debug.WriteLine($"{Target} forbids placement of {CurrentItem}");
+                Debug.WriteLine($"{CurrentItem} forbidden from being placed at {Target}");
+                return false;
+            }
+            if (ForbiddenReplacedBy.ContainsKey(Target) && ForbiddenReplacedBy[Target].Contains(CurrentItem))
+            {
+                Debug.WriteLine($"{Target} forbids being replaced by {CurrentItem}");
                 return false;
             }
             //check timing
