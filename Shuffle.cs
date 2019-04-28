@@ -100,9 +100,7 @@ namespace MMRando
         {
             // Keaton_Mask and Mama_Letter are obtained one directly after another
             // Keaton_Mask cannot be replaced by items that may be overwritten by item obtained at Mama_Letter
-            { Keaton_Mask, new List<int> { Wallet_2, M_Shield, Moon_Tear, Land_Deed, Swamp_Deed, Mountain_Deed, Ocean_Deed, Room_Key, Mama_Letter, Kafei_Letter, Pendant } },
-            // Mama_Letter cannot be replaced by items that can replace an item obtained at Keaton_Mask
-            { Mama_Letter, new List<int> { Bomb_Bag, Bomb_Bag_1, Quiver_1 } },
+            { Keaton_Mask, new List<int> { Wallet_2, G_Sword, M_Shield, Quiver_2, Bomb_Bag_1, Bomb_Bag_2, Moon_Tear, Land_Deed, Swamp_Deed, Mountain_Deed, Ocean_Deed, Room_Key, Mama_Letter, Kafei_Letter, Pendant } },
         };
 
         Dictionary<int, List<int>> ForbiddenPlacedAt = new Dictionary<int, List<int>>
