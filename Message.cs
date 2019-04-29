@@ -49,9 +49,9 @@ namespace MMRando
                 msg.Contains("increased life");
         }
 
-        public static void WriteGossipMsg(List<string> msg, Random RNG)
+        public static void WriteGossipMessage(List<string> msg, Random RNG)
         {
-            byte[] msgheader = new byte[] { 2, 0, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+            
             for (int i = GossipStart; i < GossipEnd; i++)
             {
                 if (GossipExclude.Contains(i))
@@ -70,18 +70,18 @@ namespace MMRando
                     j = RNG.Next(msg.Count);
                     if (IsBadMsg(msg[j]))
                     {
-                        if (RNG.Next(8) != 0)
+                        if (RNG.Next(200) < 25)
                         {
                             continue;
                         };
                     };
-                    l = msg[j].Length + msgheader.Length;
+                    l = msg[j].Length + Values.MessageHeader.Length;
                 } while (l > m.Size);
                 byte[] data = new byte[l];
-                Arr_Insert(msgheader, 0, msgheader.Length, data, 0);
+                Arr_Insert(Values.MessageHeader, 0, Values.MessageHeader.Length, data, 0);
                 for (int k = 0; k < msg[j].Length; k++)
                 {
-                    data[k + msgheader.Length] = (byte)msg[j][k];
+                    data[k + Values.MessageHeader.Length] = (byte)msg[j][k];
                 };
                 WriteMsg(m.Addr, data);
                 msg.RemoveAt(j);

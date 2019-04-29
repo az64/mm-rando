@@ -1,7 +1,7 @@
 ﻿namespace MMRando
 {
 
-    public partial class MainRandomizerForm
+    public class Temp
     {
 
         // free
