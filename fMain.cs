@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MMRando
@@ -88,20 +81,20 @@ namespace MMRando
             int Checks = (int)Base36.Decode(O[1]);
             int Combos = (int)Base36.Decode(O[2]);
             int Colour = (int)Base36.Decode(O[3]);
-            cUserItems.Checked = (Checks & 8192) > 0 ? true : false;
-            cAdditional.Checked = (Checks & 4096) > 0 ? true : false;
-            cGossip.Checked = (Checks & 2048) > 0 ? true : false;
-            cSoS.Checked = (Checks & 1024) > 0 ? true : false;
-            cSpoiler.Checked = (Checks & 512) > 0 ? true : false;
-            cMixSongs.Checked = (Checks & 256) > 0 ? true : false;
-            cBottled.Checked = (Checks & 128) > 0 ? true : false;
-            cDChests.Checked = (Checks & 64) > 0 ? true : false;
-            cShop.Checked = (Checks & 32) > 0 ? true : false;
-            cDEnt.Checked = (Checks & 16) > 0 ? true : false;
-            cBGM.Checked = (Checks & 8) > 0 ? true : false;
-            cEnemy.Checked = (Checks & 4) > 0 ? true : false;
-            cCutsc.Checked = (Checks & 2) > 0 ? true : false;
-            cQText.Checked = (Checks & 1) > 0 ? true : false;
+            cUserItems.Checked = (Checks & 8192) > 0;
+            cAdditional.Checked = (Checks & 4096) > 0;
+            cGossip.Checked = (Checks & 2048) > 0;
+            cSoS.Checked = (Checks & 1024) > 0;
+            cSpoiler.Checked = (Checks & 512) > 0;
+            cMixSongs.Checked = (Checks & 256) > 0;
+            cBottled.Checked = (Checks & 128) > 0;
+            cDChests.Checked = (Checks & 64) > 0;
+            cShop.Checked = (Checks & 32) > 0;
+            cDEnt.Checked = (Checks & 16) > 0;
+            cBGM.Checked = (Checks & 8) > 0;
+            cEnemy.Checked = (Checks & 4) > 0;
+            cCutsc.Checked = (Checks & 2) > 0;
+            cQText.Checked = (Checks & 1) > 0;
             cDMult.SelectedIndex = (int)((Combos & 0xF0000000) >> 28);
             cDType.SelectedIndex = (Combos & 0xF000000) >> 24;
             cMode.SelectedIndex = (Combos & 0xFF0000) >> 16;
@@ -234,7 +227,7 @@ namespace MMRando
             //bgm sort
             SeedRNG();
             SortBGM();
-            if (!((tROMName.Text != "") && (File.Exists(tROMName.Text))))
+            if (!File.Exists(tROMName.Text))
             {
                 MessageBox.Show("Input ROM not selected or doesn't exist, cannot generate output.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
