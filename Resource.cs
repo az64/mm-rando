@@ -72,9 +72,8 @@ namespace MMRando
                 addr += 4;
                 uint len = Arr_ReadU32(hack_content, addr);
                 addr += 4;
-                int f = AddrToFile(dest);
+                int f = GetFileIndexForWriting((int)dest);
                 dest -= (uint)MMFileList[f].Addr;
-                CheckCompressed(f);
                 Arr_Insert(hack_content, addr, (int)len, MMFileList[f].Data, (int)dest);
                 addr += (int)len;
             }

@@ -20,15 +20,14 @@ namespace MMRando
             for (int i = 0; i < Addr.Length; i++)
             {
                 int var = (int)(Addr[i] & 0xF0000000) >> 28;
-                int rAddr = (int)(Addr[i] & 0xFFFFFFF);
+                int rAddr = Addr[i] & 0xFFFFFFF;
                 byte[] rdata = data;
                 if (var == 1)
                 {
                     rdata[0] += 0xA;
                     rdata[1] -= 0x70;
                 };
-                int f = AddrToFile((uint)rAddr);
-                CheckCompressed(f);
+                int f = GetFileIndexForWriting(rAddr);
                 int dest = rAddr - MMFileList[f].Addr;
                 Arr_Insert(rdata, 0, rdata.Length, MMFileList[f].Data, dest);
             };
@@ -36,16 +35,14 @@ namespace MMRando
 
         public static void WriteToROM(int Addr, byte val)
         {
-            int f = AddrToFile((uint)Addr);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(Addr);
             int dest = Addr - MMFileList[f].Addr;
             MMFileList[f].Data[dest] = val;
         }
 
         public static void WriteToROM(int Addr, ushort val)
         {
-            int f = AddrToFile((uint)Addr);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(Addr);
             int dest = Addr - MMFileList[f].Addr;
             MMFileList[f].Data[dest] = (byte)((val & 0xFF00) >> 8);
             MMFileList[f].Data[dest + 1] = (byte)(val & 0xFF);
@@ -53,8 +50,7 @@ namespace MMRando
 
         public static void WriteToROM(int Addr, uint val)
         {
-            int f = AddrToFile((uint)Addr);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(Addr);
             int dest = Addr - MMFileList[f].Addr;
             MMFileList[f].Data[dest] = (byte)((val & 0xFF000000) >> 24);
             MMFileList[f].Data[dest + 1] = (byte)((val & 0xFF0000) >> 16);
@@ -64,8 +60,7 @@ namespace MMRando
 
         public static void WriteToROM(int Addr, byte[] val)
         {
-            int f = AddrToFile((uint)Addr);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(Addr);
             int dest = Addr - MMFileList[f].Addr;
             Arr_Insert(val, 0, val.Length, MMFileList[f].Data, dest);
         }
@@ -75,7 +70,7 @@ namespace MMRando
             for (int i = 0; i < len; i++)
             {
                 dest[addr + i] = src[start + i];
-            };
+            }
         }
 
         private static uint Byteswap32(uint val)

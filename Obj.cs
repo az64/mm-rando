@@ -8,16 +8,14 @@ namespace MMRando
 
         public static int GetObjSize(int obj)
         {
-            int f = AddrToFile((uint)ObjTable);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(ObjTable);
             int basea = ObjTable - MMFileList[f].Addr;
             return (int)(Arr_ReadU32(MMFileList[f].Data, basea + (obj * 8) + 4) - Arr_ReadU32(MMFileList[f].Data, basea + (obj * 8)));
         }
 
         public static void InsertObj(byte[] obj, int replace)
         {
-            int f = AddrToFile((uint)ObjTable);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(ObjTable);
             int basea = ObjTable - MMFileList[f].Addr;
             uint replaceaddr = Arr_ReadU32(MMFileList[f].Data, basea + (replace * 8));
             int objf = MMFileList.FindIndex(u => u.Addr == replaceaddr);
