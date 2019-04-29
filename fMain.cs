@@ -88,20 +88,20 @@ namespace MMRando
             int Checks = (int)Base36.Decode(O[1]);
             int Combos = (int)Base36.Decode(O[2]);
             int Colour = (int)Base36.Decode(O[3]);
-            if ((Checks & 8192) > 0) { cUserItems.Checked = true; } else { cUserItems.Checked = false; };
-            if ((Checks & 4096) > 0) { cAdditional.Checked = true; } else { cAdditional.Checked = false; };
-            if ((Checks & 2048) > 0) { cGossip.Checked = true; } else { cGossip.Checked = false; };
-            if ((Checks & 1024) > 0) { cSoS.Checked = true; } else { cSoS.Checked = false; };
-            if ((Checks & 512) > 0) { cSpoiler.Checked = true; } else { cSpoiler.Checked = false; };
-            if ((Checks & 256) > 0) { cMixSongs.Checked = true; } else { cMixSongs.Checked = false; };
-            if ((Checks & 128) > 0) { cBottled.Checked = true; } else { cBottled.Checked = false; };
-            if ((Checks & 64) > 0) { cDChests.Checked = true; } else { cDChests.Checked = false; };
-            if ((Checks & 32) > 0) { cShop.Checked = true; } else { cShop.Checked = false; };
-            if ((Checks & 16) > 0) { cDEnt.Checked = true; } else { cDEnt.Checked = false; };
-            if ((Checks & 8) > 0) { cBGM.Checked = true; } else { cBGM.Checked = false; };
-            if ((Checks & 4) > 0) { cEnemy.Checked = true; } else { cEnemy.Checked = false; };
-            if ((Checks & 2) > 0) { cCutsc.Checked = true; } else { cCutsc.Checked = false; };
-            if ((Checks & 1) > 0) { cQText.Checked = true; } else { cQText.Checked = false; };
+            cUserItems.Checked = (Checks & 8192) > 0 ? true : false;
+            cAdditional.Checked = (Checks & 4096) > 0 ? true : false;
+            cGossip.Checked = (Checks & 2048) > 0 ? true : false;
+            cSoS.Checked = (Checks & 1024) > 0 ? true : false;
+            cSpoiler.Checked = (Checks & 512) > 0 ? true : false;
+            cMixSongs.Checked = (Checks & 256) > 0 ? true : false;
+            cBottled.Checked = (Checks & 128) > 0 ? true : false;
+            cDChests.Checked = (Checks & 64) > 0 ? true : false;
+            cShop.Checked = (Checks & 32) > 0 ? true : false;
+            cDEnt.Checked = (Checks & 16) > 0 ? true : false;
+            cBGM.Checked = (Checks & 8) > 0 ? true : false;
+            cEnemy.Checked = (Checks & 4) > 0 ? true : false;
+            cCutsc.Checked = (Checks & 2) > 0 ? true : false;
+            cQText.Checked = (Checks & 1) > 0 ? true : false;
             cDMult.SelectedIndex = (int)((Combos & 0xF0000000) >> 28);
             cDType.SelectedIndex = (Combos & 0xF000000) >> 24;
             cMode.SelectedIndex = (Combos & 0xFF0000) >> 16;
@@ -234,44 +234,42 @@ namespace MMRando
             //bgm sort
             SeedRNG();
             SortBGM();
-            if ((tROMName.Text != "") && (File.Exists(tROMName.Text)))
+            if (!((tROMName.Text != "") && (File.Exists(tROMName.Text))))
             {
-                if (saveROM.ShowDialog() == DialogResult.OK)
-                {
-                    if (saveROM.FileName != "")
-                    {
-                        if (ValidateROM(tROMName.Text))
-                        {
-                            if (Output_VC)
-                            {
-                                if (saveWad.ShowDialog() != DialogResult.OK)
-                                {
-                                    MessageBox.Show("Output file not selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    return;
-                                };
-                            };
-                            MakeROM(tROMName.Text, saveROM.FileName);
-                            MessageBox.Show("Successfully built output ROM!", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        };
-                    }
-                    else
-                    {
-                        MessageBox.Show("Output file not selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    };
-                }
-                else
-                {
-                    MessageBox.Show("No output selected; ROM will not be saved.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                };
+                MessageBox.Show("Input ROM not selected or doesn't exist, cannot generate output.",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else
+            if (saveROM.ShowDialog() != DialogResult.OK)
             {
-                MessageBox.Show("Input ROM not selected or doesn't exist, cannot generate output.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No output selected; ROM will not be saved.",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (saveROM.FileName == "")
+            {
+                MessageBox.Show("Output file not selected.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (Output_VC)
+            {
+                if (saveWad.ShowDialog() != DialogResult.OK)
+                {
+                    MessageBox.Show("Output file not selected.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                };
             };
+            if (!ValidateROM(tROMName.Text))
+            {
+                MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            MakeROM(tROMName.Text, saveROM.FileName);
+            MessageBox.Show("Successfully built output ROM!",
+                "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
         }
 
         private void tSString_Enter(object sender, EventArgs e)
@@ -290,7 +288,8 @@ namespace MMRando
             {
                 tSString.Text = SettingOld;
                 DecodeSettings(tSString.Text);
-                MessageBox.Show("Settings string is invalid; reverted to previous settings.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Settings string is invalid; reverted to previous settings.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             };
             Updating = false;
         }
@@ -318,13 +317,15 @@ namespace MMRando
                 {
                     s = Math.Abs(s);
                     tSeed.Text = s.ToString();
-                    MessageBox.Show("Seed must be positive", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Seed must be positive",
+                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 };
             }
             catch
             {
                 tSeed.Text = SeedOld.ToString();
-                MessageBox.Show("Invalid seed: must be a positive integer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid seed: must be a positive integer.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             };
             UpdateSettingsString();
             Updating = false;
@@ -399,13 +400,16 @@ namespace MMRando
                 switch (r)
                 {
                     case 0:
-                        MessageBox.Show("Successfully byteswapped ROM.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+                        MessageBox.Show("Successfully byteswapped ROM.",
+                            "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
                         break;
                     case 1:
-                        MessageBox.Show("ROM appears to be big endian.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+                        MessageBox.Show("ROM appears to be big endian.",
+                            "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
                         break;
                     default:
-                        MessageBox.Show("Could not byteswap ROM.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Could not byteswap ROM.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 };
             };
