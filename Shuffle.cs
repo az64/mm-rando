@@ -843,9 +843,9 @@ namespace MMRando
                     ItemList[d].Cannot_Require = new List<int>();
                 };
                 ItemList[d].Cannot_Require.Add(CurrentItem);
-                d = ItemList[d].Replaces;
-                if (d != -1)
+                if (IsFakeItem(d) || ItemList[d].Replaces != -1)
                 {
+                    if (ItemList[d].Replaces != -1) d = ItemList[d].Replaces;
                     if (!ConditionsChecked.Contains(d))
                     {
                         CheckConditionals(CurrentItem, d);
