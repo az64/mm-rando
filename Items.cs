@@ -3,7 +3,6 @@
 
     public partial class MainRandomizerForm
     {
-
         // free
         const int MaskDeku = 0;
 
@@ -141,7 +140,7 @@
         const int AreaSnowheadNew = 117;
         const int AreaGreatBayNew = 118;
         const int AreaLANew = 119; // ??
-        const int AreaISTNew = 120; // ??
+        const int AreaInvertedStoneTowerNew = 120; // ??
 
         //keysanity items
         const int ItemWoodfallMap = 121;

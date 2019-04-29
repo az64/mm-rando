@@ -8,7 +8,6 @@ namespace MMRando
 
     public partial class ROMFuncs
     {
-
         //todo - rewrite this
         public static void RebuildAudioSeq(List<MainRandomizerForm.SequenceInfo> SeqList)
         {
@@ -146,7 +145,7 @@ namespace MMRando
                 };
                 if (j != -1)
                 {
-                    MMFileList[f].Data[paddr] = (byte)SeqList[j].Inst;
+                    MMFileList[f].Data[paddr] = (byte)SeqList[j].Instrument;
                 };
             };
         }

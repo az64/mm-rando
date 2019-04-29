@@ -49,7 +49,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>200px_majoramask_rtw_icon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -96,6 +97,8 @@
       <DependentUpon>fMain.cs</DependentUpon>
     </Compile>
     <Compile Include="ItemSwap.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="NewItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -731,7 +734,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="200px_majoramask_rtw_icon.ico" />
     <None Include="Resources\ITEM_INDICES.txt" />
     <None Include="Resources\ENEMIES.txt" />
     <None Include="Resources\GOSSIP.txt" />

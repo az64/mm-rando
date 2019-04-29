@@ -2,16 +2,22 @@
 {
     public static class Values
     {
+        /// <summary>
+        /// Item indices ranging from 98 and to (inclusive) 120 define 
+        /// areas and other (epona, explosive, arrow). In total they make up 23 entries.
+        /// </summary>
+        public const int NumberOfAreasAndOther = 23;
+
         public static readonly byte[] MessageHeader = new byte[] { 2, 0, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
-        public static readonly string[] PartialGossipMessageStartSentences = new string[] {
+        public static readonly string[] GossipMessageStartSentences = new string[] {
             "They say ",
             "I hear ",
             "It seems ",
             "Apparently, ",
             "It appears " };
 
-        public static readonly string[] PartialGossipMessageMidSentences = new string[] {
+        public static readonly string[] GossipMessageMidSentences = new string[] {
             "leads to ",
             "yields ",
             "brings ",
@@ -46,9 +52,9 @@
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
         };
 
-        public static readonly int[] ENTRANCE_OLD = new int[] { 0x3000, 0x3C00, 0x2A00, 0x8C00 };
-        public static readonly int[] EXIT_OLD = new int[] { 0x8610, 0xB210, 0xAC10, 0x6A70 };
-        public static readonly int[] DC_FLAG_OLD = new int[] { 0x57C, 0x589, 0x59C, 0x59F };
-        public static readonly int[] DC_MASK_OLD = new int[] { 0x02, 0x80, 0x20, 0x80 };
+        public static readonly int[] OldEntrances = new int[] { 0x3000, 0x3C00, 0x2A00, 0x8C00 };
+        public static readonly int[] OldExits = new int[] { 0x8610, 0xB210, 0xAC10, 0x6A70 };
+        public static readonly int[] OldDCFlags = new int[] { 0x57C, 0x589, 0x59C, 0x59F };
+        public static readonly int[] OldMaskFlags = new int[] { 0x02, 0x80, 0x20, 0x80 };
     }
 }

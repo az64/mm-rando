@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MMRando.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -9,6 +10,7 @@ namespace MMRando
 
     public partial class MainRandomizerForm : Form
     {
+        public Settings Settings { get; set; }
 
         bool IsUpdating = false;
         bool Output_VC = false;

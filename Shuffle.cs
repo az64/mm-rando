@@ -13,19 +13,19 @@ namespace MMRando
 
         Random RNG;
 
-        private int[] ENTRANCE_NEW = new int[] { -1, -1, -1, -1 };
-        private int[] EXIT_NEW = new int[] { -1, -1, -1, -1 };
-        private int[] DC_FLAG_NEW = new int[] { -1, -1, -1, -1 };
-        private int[] DC_MASK_NEW = new int[] { -1, -1, -1, -1 };
-        private int[] NewEnts = new int[] { -1, -1, -1, -1 };
-        private int[] NewExts = new int[] { -1, -1, -1, -1 };
+        private int[] _newEntrances = new int[] { -1, -1, -1, -1 };
+        private int[] _newExits = new int[] { -1, -1, -1, -1 };
+        private int[] _newDCFlags = new int[] { -1, -1, -1, -1 };
+        private int[] _newDCMasks = new int[] { -1, -1, -1, -1 };
+        private int[] _newEnts = new int[] { -1, -1, -1, -1 };
+        private int[] _newExts = new int[] { -1, -1, -1, -1 };
 
-        public bool SongsMixed { get; set; }
+        public bool isSongsMixed { get; set; }
         public bool ExcludeSongOfSoaring { get; set; }
         public bool Keysanity { get; set; }
         public bool BottleCatch { get; set; }
         public bool Shops { get; set; }
-        public bool Other { get; set; } // todo rename??
+        public bool Other { get; set; }
         public bool User { get; set; }
 
         public class ItemObject
@@ -45,7 +45,7 @@ namespace MMRando
             public int Replaces { get; set; } = -1;
             public int MM_seq { get; set; } = -1;
             public List<int> Type { get; set; } = new List<int>();
-            public int Inst { get; set; }
+            public int Instrument { get; set; }
         }
 
         public class Gossip
@@ -102,7 +102,9 @@ namespace MMRando
                     TradeItemRoomKey,
                     TradeItemMamaLetter,
                     TradeItemKafeiLetter,
-                    TradeItemPendant} },
+                    TradeItemPendant
+                }
+            },
         };
 
         Dictionary<int, List<int>> ForbiddenPlacedAt = new Dictionary<int, List<int>>
@@ -137,74 +139,64 @@ namespace MMRando
 
         private void MakeGossipQuotes()
         {
-            GossipList = new List<Gossip>();
             GossipQuotes = new List<string>();
-
-            string[] lines = Properties.Resources.GOSSIP
-                .Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-
-            int itemIndex = 0;
-            while (itemIndex < lines.Length)
-            {
-                var sourceMessage = lines[itemIndex].Split(';');
-                var destinationMessage = lines[itemIndex + 1].Split(';');
-                var currentGossip = new Gossip
-                {
-                    SourceMessage = sourceMessage,
-                    DestinationMessage = destinationMessage
-                };
-
-                itemIndex += 2;
-                GossipList.Add(currentGossip);
-            };
-
-            for (itemIndex = 0; itemIndex < ItemList.Count; itemIndex++)
+            ReadAndPopulateGossipList();
+            
+            for (int itemIndex = 0; itemIndex < ItemList.Count; itemIndex++)
             {
                 if (ItemList[itemIndex].ReplacesItemId == -1)
                 {
                     continue;
                 };
 
-                if ((!BottleCatch) && ((itemIndex >= BottleCatchFairy) && (itemIndex <= BottleCatchMushroom)))
+                if ((!BottleCatch) 
+                    && ((itemIndex >= BottleCatchFairy) 
+                    && (itemIndex <= BottleCatchMushroom)))
                 {
                     continue;
                 };
 
-                if ((!Shops) && ((itemIndex >= ShopItemTownRedPotion) && (itemIndex <= ShopItemZoraRedPotion)))
+                if ((!Shops) 
+                    && ((itemIndex >= ShopItemTownRedPotion) 
+                    && (itemIndex <= ShopItemZoraRedPotion)))
                 {
                     continue;
                 };
 
-                if ((!Keysanity) && ((itemIndex >= ItemWoodfallMap) && (itemIndex <= ItemStoneTowerKey4)))
+                if ((!Keysanity) 
+                    && ((itemIndex >= ItemWoodfallMap) 
+                    && (itemIndex <= ItemStoneTowerKey4)))
                 {
                     continue;
                 };
 
-                int messageStart = RNG.Next(Values.PartialGossipMessageStartSentences.Length);
-                int messageMid = RNG.Next(Values.PartialGossipMessageMidSentences.Length);
-                bool isFake = (RNG.Next(100) < 5);
-                int replacesItemId = ItemList[itemIndex].ReplacesItemId;
-                if (replacesItemId > AreaISTNew) {
-                   replacesItemId -= 23; // TODO significance of 23?
+                int sourceItemId = ItemList[itemIndex].ReplacesItemId;
+                if (sourceItemId > AreaInvertedStoneTowerNew) {
+                   sourceItemId -= Values.NumberOfAreasAndOther;
                 }; 
 
-                int itemIndexCopy = itemIndex;
-                if (itemIndexCopy > AreaISTNew) {
-                    itemIndexCopy -= 23; // TODO significance of 23?
+                int toItemId = itemIndex;
+                if (toItemId > AreaInvertedStoneTowerNew) {
+                    toItemId -= Values.NumberOfAreasAndOther;
                 };
 
-                if (isFake) { replacesItemId = RNG.Next(GossipList.Count); };
+                bool isFake = (RNG.Next(100) < 5);
+                if (isFake) {
+                    sourceItemId = RNG.Next(GossipList.Count);
+                };
 
-                int sourceMessageLength = GossipList[replacesItemId]
+                int sourceMessageLength = GossipList[sourceItemId]
                     .SourceMessage
                     .Length;
-                int destinationMessageLength = GossipList[itemIndexCopy]
+
+                int destinationMessageLength = GossipList[toItemId]
                     .DestinationMessage
                     .Length;
 
-                string sourceMessage = GossipList[replacesItemId]
+                string sourceMessage = GossipList[sourceItemId]
                     .SourceMessage[RNG.Next(sourceMessageLength)];
-                string destinationMessage = GossipList[itemIndexCopy]
+
+                string destinationMessage = GossipList[toItemId]
                     .DestinationMessage[RNG.Next(destinationMessageLength)];
 
                 string soundAddress;
@@ -216,58 +208,119 @@ namespace MMRando
                 {
                     soundAddress = "\x1E\x69\x0C";
                 };
-                var gossipMessageBuilder = new StringBuilder();
-                gossipMessageBuilder.Append(soundAddress);
-                gossipMessageBuilder.Append(Values.PartialGossipMessageStartSentences[messageStart]);
-                gossipMessageBuilder.Append("\x01" + sourceMessage + "\x00\x11");
-                gossipMessageBuilder.Append(Values.PartialGossipMessageMidSentences[messageMid]);
-                gossipMessageBuilder.Append("\x06" + destinationMessage + "\x00" + "...\xBF");
 
-                GossipQuotes.Add(gossipMessageBuilder.ToString());
+                var quote = BuildGossipQuote(soundAddress, sourceMessage, destinationMessage);
+
+                GossipQuotes.Add(quote);
             };
-            for (itemIndex = 0; itemIndex < Values.JunkGossipMessages.Length; itemIndex++)
+
+            for (int i = 0; i < Values.JunkGossipMessages.Length; i++)
             {
-                GossipQuotes.Add(Values.JunkGossipMessages[itemIndex]);
+                GossipQuotes.Add(Values.JunkGossipMessages[i]);
             };
+        }
+
+        private void ReadAndPopulateGossipList()
+        {
+            GossipList = new List<Gossip>();
+
+            string[] gossipLines = Properties.Resources.GOSSIP
+                .Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
+            for (int i = 0; i < gossipLines.Length; i += 2)
+            {
+                var sourceMessage = gossipLines[i].Split(';');
+                var destinationMessage = gossipLines[i + 1].Split(';');
+                var nextGossip = new Gossip
+                {
+                    SourceMessage = sourceMessage,
+                    DestinationMessage = destinationMessage
+                };
+
+                GossipList.Add(nextGossip);
+            };
+        }
+
+        public string BuildGossipQuote(string soundAddress, string sourceMessage, string destinationMessage)
+        {
+            int randomMessageStartIndex = RNG.Next(Values.GossipMessageStartSentences.Length);
+            int randomMessageMidIndex = RNG.Next(Values.GossipMessageMidSentences.Length);
+
+            var quote = new StringBuilder();
+            quote.Append(soundAddress);
+            quote.Append(Values.GossipMessageStartSentences[randomMessageStartIndex]);
+            quote.Append("\x01" + sourceMessage + "\x00\x11");
+            quote.Append(Values.GossipMessageMidSentences[randomMessageMidIndex]);
+            quote.Append("\x06" + destinationMessage + "\x00" + "...\xBF");
+            return quote.ToString();
         }
 
         private void EntranceShuffle()
         {
-            ENTRANCE_NEW = new int[] { -1, -1, -1, -1 };
-            EXIT_NEW = new int[] { -1, -1, -1, -1 };
-            DC_FLAG_NEW = new int[] { -1, -1, -1, -1 };
-            DC_MASK_NEW = new int[] { -1, -1, -1, -1 };
-            NewEnts = new int[] { -1, -1, -1, -1 };
-            NewExts = new int[] { -1, -1, -1, -1 };
+            _newEntrances = new int[] { -1, -1, -1, -1 };
+            _newExits = new int[] { -1, -1, -1, -1 };
+            _newDCFlags = new int[] { -1, -1, -1, -1 };
+            _newDCMasks = new int[] { -1, -1, -1, -1 };
+            _newEnts = new int[] { -1, -1, -1, -1 };
+            _newExts = new int[] { -1, -1, -1, -1 };
+
             for (int i = 0; i < 4; i++)
             {
                 int n;
                 do
                 {
                     n = RNG.Next(4);
-                } while (NewEnts.Contains(n));
-                NewEnts[i] = n;
-                NewExts[n] = i;
+                } while (_newEnts.Contains(n));
+
+                _newEnts[i] = n;
+                _newExts[n] = i;
             };
-            ItemObject[] DE = new ItemObject[] { ItemList[AreaWoodFallAccess], ItemList[AreaSnowheadAccess], ItemList[AreaISTAccess], ItemList[AreaGreatBayAccess] };
-            int[] DI = new int[] { AreaWoodFallAccess, AreaSnowheadAccess, AreaISTAccess, AreaGreatBayAccess };
+
+            ItemObject[] DE = new ItemObject[] {
+                ItemList[AreaWoodFallAccess],
+                ItemList[AreaSnowheadAccess],
+                ItemList[AreaISTAccess],
+                ItemList[AreaGreatBayAccess]
+            };
+
+            int[] DI = new int[] {
+                AreaWoodFallAccess,
+                AreaSnowheadAccess,
+                AreaISTAccess,
+                AreaGreatBayAccess
+            };
+
             for (int i = 0; i < 4; i++)
             {
-                Debug.WriteLine($"Entrance {DI[NewEnts[i]]} placed at {DE[i].ID}.");
-                ItemList[DI[NewEnts[i]]] = DE[i];
+                Debug.WriteLine($"Entrance {DI[_newEnts[i]]} placed at {DE[i].ID}.");
+                ItemList[DI[_newEnts[i]]] = DE[i];
             };
-            DE = new ItemObject[] { ItemList[AreaWoodFallClear], ItemList[AreaSnowheadClear], ItemList[AreaStoneTowerClear], ItemList[AreaGreatBayClear] };
-            DI = new int[] { AreaWoodFallClear, AreaSnowheadClear, AreaStoneTowerClear, AreaGreatBayClear };
+
+            DE = new ItemObject[] {
+                ItemList[AreaWoodFallClear],
+                ItemList[AreaSnowheadClear],
+                ItemList[AreaStoneTowerClear],
+                ItemList[AreaGreatBayClear]
+            };
+
+            DI = new int[] {
+                AreaWoodFallClear,
+                AreaSnowheadClear,
+                AreaStoneTowerClear,
+                AreaGreatBayClear
+            };
+
             for (int i = 0; i < 4; i++)
             {
-                ItemList[DI[i]] = DE[NewEnts[i]];
+                ItemList[DI[i]] = DE[_newEnts[i]];
             };
+
             for (int i = 0; i < 4; i++)
             {
-                ENTRANCE_NEW[i] = Values.ENTRANCE_OLD[NewEnts[i]];
-                EXIT_NEW[i] = Values.EXIT_OLD[NewExts[i]];
-                DC_FLAG_NEW[i] = Values.DC_FLAG_OLD[NewExts[i]];
-                DC_MASK_NEW[i] = Values.DC_MASK_OLD[NewExts[i]];
+                _newEntrances[i] = Values.OldEntrances[_newEnts[i]];
+                _newExits[i] = Values.OldExits[_newExts[i]];
+                _newDCFlags[i] = Values.OldDCFlags[_newExts[i]];
+                _newDCMasks[i] = Values.OldMaskFlags[_newExts[i]];
             };
         }
 
@@ -275,36 +328,54 @@ namespace MMRando
         {
             SequenceList = new List<SequenceInfo>();
             TargetSequences = new List<SequenceInfo>();
-            string[] lines = Properties.Resources.SEQS.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
+            string[] lines = Properties.Resources.SEQS
+                .Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
             int i = 0;
             while (i < lines.Length)
             {
-                SequenceInfo s = new SequenceInfo();
-                SequenceInfo t = new SequenceInfo();
-                s.Name = lines[i];
-                s.Type = Array.ConvertAll(lines[i + 1].Split(','), int.Parse).ToList();
-                s.Inst = Convert.ToInt32(lines[i + 2], 16);
-                t.Name = lines[i];
-                t.Type = Array.ConvertAll(lines[i + 1].Split(','), int.Parse).ToList();
-                t.Inst = Convert.ToInt32(lines[i + 2], 16);
-                if (s.Name.StartsWith("mm-"))
+                var sourceName = lines[i];
+                var sourceType = Array.ConvertAll(lines[i + 1].Split(','), int.Parse).ToList();
+                var sourceInstrument = Convert.ToInt32(lines[i + 2], 16);
+
+                var targetName = lines[i];
+                var targetType = Array.ConvertAll(lines[i + 1].Split(','), int.Parse).ToList();
+                var targetInstrument = Convert.ToInt32(lines[i + 2], 16);
+
+                SequenceInfo sourceSequence = new SequenceInfo {
+                    Name = sourceName,
+                    Type = sourceType,
+                    Instrument = sourceInstrument
+                };
+
+                SequenceInfo targetSequence = new SequenceInfo
                 {
-                    t.Replaces = Convert.ToInt32(lines[i + 3], 16);
-                    s.MM_seq = Convert.ToInt32(lines[i + 3], 16);
-                    TargetSequences.Add(t);
+                    Name = targetName,
+                    Type = targetType,
+                    Instrument = targetInstrument
+                };
+
+                if (sourceSequence.Name.StartsWith("mm-"))
+                {
+                    targetSequence.Replaces = Convert.ToInt32(lines[i + 3], 16);
+                    sourceSequence.MM_seq = Convert.ToInt32(lines[i + 3], 16);
+                    TargetSequences.Add(targetSequence);
                     i += 4;
                 }
                 else
                 {
-                    if (s.Name == "mmr-f-sot")
+                    if (sourceSequence.Name == "mmr-f-sot")
                     {
-                        s.Replaces = 0x33;
+                        sourceSequence.Replaces = 0x33;
                     };
+
                     i += 3;
                 };
-                if (s.MM_seq != 0x18)
+
+                if (sourceSequence.MM_seq != 0x18)
                 {
-                    SequenceList.Add(s);
+                    SequenceList.Add(sourceSequence);
                 };
             };
         }
@@ -314,41 +385,49 @@ namespace MMRando
             while (TargetSequences.Count > 0)
             {
                 List<SequenceInfo> Unassigned = SequenceList.FindAll(u => u.Replaces == -1);
-                int t = RNG.Next(TargetSequences.Count);
+
+                int targetIndex = RNG.Next(TargetSequences.Count);
                 while (true)
                 {
-                    int s = RNG.Next(Unassigned.Count);
-                    if (Unassigned[s].Name.StartsWith("mm") & (RNG.Next(2) == 0))
+                    int unassignedIndex = RNG.Next(Unassigned.Count);
+
+                    if (Unassigned[unassignedIndex].Name.StartsWith("mm") 
+                        & (RNG.Next(100) < 50))
                     {
                         continue;
                     };
-                    for (int i = 0; i < Unassigned[s].Type.Count; i++)
+
+                    for (int i = 0; i < Unassigned[unassignedIndex].Type.Count; i++)
                     {
-                        if (TargetSequences[t].Type.Contains(Unassigned[s].Type[i]))
+                        if (TargetSequences[targetIndex].Type.Contains(Unassigned[unassignedIndex].Type[i]))
                         {
-                            Unassigned[s].Replaces = TargetSequences[t].Replaces;
-                            Debug.WriteLine(Unassigned[s].Name + " -> " + TargetSequences[t].Name);
-                            TargetSequences.RemoveAt(t);
+                            Unassigned[unassignedIndex].Replaces = TargetSequences[targetIndex].Replaces;
+                            Debug.WriteLine(Unassigned[unassignedIndex].Name + " -> " + TargetSequences[targetIndex].Name);
+                            TargetSequences.RemoveAt(targetIndex);
                             break;
                         }
-                        else if (i + 1 == Unassigned[s].Type.Count)
+                        else if (i + 1 == Unassigned[unassignedIndex].Type.Count)
                         {
-                            if ((RNG.Next(30) == 0) && ((Unassigned[s].Type[0] & 8) == (TargetSequences[t].Type[0] & 8)) &&
-                                (Unassigned[s].Type.Contains(10) == TargetSequences[t].Type.Contains(10)) && (!Unassigned[s].Type.Contains(16)))
+                            if ((RNG.Next(30) == 0) 
+                                && ((Unassigned[unassignedIndex].Type[0] & 8) == (TargetSequences[targetIndex].Type[0] & 8)) 
+                                && (Unassigned[unassignedIndex].Type.Contains(10) == TargetSequences[targetIndex].Type.Contains(10)) 
+                                && (!Unassigned[unassignedIndex].Type.Contains(16)))
                             {
-                                Unassigned[s].Replaces = TargetSequences[t].Replaces;
-                                Debug.WriteLine(Unassigned[s].Name + " -> " + TargetSequences[t].Name);
-                                TargetSequences.RemoveAt(t);
+                                Unassigned[unassignedIndex].Replaces = TargetSequences[targetIndex].Replaces;
+                                Debug.WriteLine(Unassigned[unassignedIndex].Name + " -> " + TargetSequences[targetIndex].Name);
+                                TargetSequences.RemoveAt(targetIndex);
                                 break;
                             };
                         };
                     };
-                    if (Unassigned[s].Replaces != -1)
+
+                    if (Unassigned[unassignedIndex].Replaces != -1)
                     {
                         break;
                     };
                 };
             };
+
             SequenceList.RemoveAll(u => u.Replaces == -1);
         }
 
@@ -370,6 +449,7 @@ namespace MMRando
                 {
                     byte[] c = new byte[4];
                     RNG.NextBytes(c);
+
                     if ((i % 2) == 0)
                     {
                         c[0] = 0xFF;
@@ -378,6 +458,7 @@ namespace MMRando
                     {
                         c[0] = 0;
                     };
+
                     Values.TatlColours[4, i] = BitConverter.ToUInt32(c, 0);
                 };
             };
@@ -396,7 +477,7 @@ namespace MMRando
                 string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
                 for (int i = 0; i < 4; i++)
                 {
-                    LogFile.WriteLine(destinations[i].PadRight(32, '-') + "---->>" + destinations[NewEnts[i]].PadLeft(32, '-'));
+                    LogFile.WriteLine(destinations[i].PadRight(32, '-') + "---->>" + destinations[_newEnts[i]].PadLeft(32, '-'));
                 };
                 LogFile.WriteLine("");
             }; /*
@@ -537,16 +618,16 @@ namespace MMRando
 
         private bool IsFakeItem(int itemId)
         {
-            return (itemId >= SOUTH_ACCESS && itemId <= IST_NEW) || itemId > To_GR_Grotto;
+            return (itemId >= AreaSouthAccess && itemId <= AreaInvertedStoneTowerNew) || itemId > GrottoToGR;
         }
 
         private bool IsTemporaryItem(int itemId)
         {
-            return (itemId >= Moon_Tear && itemId <= Mama_Letter) 
-                || itemId == WF_Key1 
-                || (itemId >= SH_Key1 && itemId <= SH_Key3)
-                || itemId == GB_Key1
-                || (itemId >= ST_Key1 && itemId <= ST_Key4);
+            return (itemId >= TradeItemMoonTear && itemId <= TradeItemMamaLetter) 
+                || itemId == ItemWoodfallKey1 
+                || (itemId >= ItemSnowheadKey1 && itemId <= ItemSnowheadKey3)
+                || itemId == ItemGreatBayKey1
+                || (itemId >= ItemStoneTowerKey1 && itemId <= ItemStoneTowerKey4);
         }
 
         private bool CheckDependence(int CurrentItem, int Target, bool skip)
@@ -558,7 +639,7 @@ namespace MMRando
             };
 
             // permanent items ignore dependencies of Blast Mask check
-            if (Target == Blast_Mask && !IsTemporaryItem(CurrentItem))
+            if (Target == MaskBlast && !IsTemporaryItem(CurrentItem))
             {
                 if (!skip)
                 {
@@ -853,7 +934,7 @@ namespace MMRando
 
         private void CheckConditionals(int CurrentItem, int Target)
         {
-            if (Target == Blast_Mask)
+            if (Target == MaskBlast)
             {
                 if (!IsTemporaryItem(CurrentItem))
                 {
@@ -966,7 +1047,7 @@ namespace MMRando
 
         private void ItemShuffle()
         {
-            SongsMixed = cMixSongs.Checked;
+            isSongsMixed = cMixSongs.Checked;
             ExcludeSongOfSoaring = cSoS.Checked;
             Keysanity = cDChests.Checked;
             BottleCatch = cBottled.Checked;
@@ -979,7 +1060,7 @@ namespace MMRando
                 Shops = false;
                 for (int i = 0; i < ItemList.Count; i++)
                 {
-                    if ((i > Song_Oath && i < WF_Map) || i > To_GR_Grotto)
+                    if ((i > SongOath && i < ItemWoodfallMap) || i > GrottoToGR)
                     {
                         continue;
                     };
@@ -988,21 +1069,22 @@ namespace MMRando
                 for (int i = 0; i < fItemEdit.selected_items.Count; i++)
                 {
                     int j = fItemEdit.selected_items[i];
-                    if (j > Song_Oath)
+                    if (j > SongOath)
                     {
-                        j += 23;
+                        // Skip entries describing areas and other
+                        j += Values.NumberOfAreasAndOther;
                     };
                     int k = ItemList.FindIndex(u => u.ID == j);
                     if (k != -1)
                     {
                         ItemList[k].ReplacesItemId = -1;
                     };
-                    if ((j > ST_Key4) && (j < B_Fairy))
+                    if ((j > ItemStoneTowerKey4) && (j < BottleCatchFairy))
                     {
                         Shops = true;
                     };
                 };
-                if (!SongsMixed)
+                if (!isSongsMixed)
                 {
                     TargetPool = new List<int>();
                     for (int i = SongSoaring; i < SongOath + 1; i++)
@@ -1034,7 +1116,7 @@ namespace MMRando
                 {
                     ItemList[SongSoaring].ReplacesItemId = SongSoaring;
                 };
-                if (!SongsMixed)
+                if (!isSongsMixed)
                 {
                     TargetPool = new List<int>();
                     for (int i = SongSoaring; i < SongOath + 1; i++)

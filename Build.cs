@@ -4,6 +4,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MMRando
 {
@@ -87,8 +89,8 @@ namespace MMRando
                 List<int[]> locs = ROMFuncs.GetAddresses(AddrsDirectory + "tatl-colour");
                 for (int i = 0; i < locs.Count; i++)
                 {
-                    ROMFuncs.Arr_WriteU32(c, 0, TATL_COLOURS[cTatl.SelectedIndex, i << 1]);
-                    ROMFuncs.Arr_WriteU32(c, 4, TATL_COLOURS[cTatl.SelectedIndex, (i << 1) + 1]);
+                    ROMFuncs.Arr_WriteU32(c, 0, Values.TatlColours[cTatl.SelectedIndex, i << 1]);
+                    ROMFuncs.Arr_WriteU32(c, 4, Values.TatlColours[cTatl.SelectedIndex, (i << 1) + 1]);
                     ROMFuncs.WriteROMAddr(locs[i], c);
                 };
             }
@@ -120,14 +122,14 @@ namespace MMRando
             {
                 return;
             };
-            ROMFuncs.WriteEntrances(ENTRANCE_OLD, ENTRANCE_NEW);
-            ROMFuncs.WriteEntrances(EXIT_OLD, EXIT_NEW);
+            ROMFuncs.WriteEntrances(Values.OldEntrances, _newEntrances);
+            ROMFuncs.WriteEntrances(Values.OldExits, _newExits);
             byte[] li = new byte[] { 0x24, 0x02, 0x00, 0x00 };
             List<int[]> addr = new List<int[]>();
             addr = ROMFuncs.GetAddresses(AddrsDirectory + "d-check");
             for (int i = 0; i < addr.Count; i++)
             {
-                li[3] = (byte)NewExts[i];
+                li[3] = (byte)_newExts[i];
                 ROMFuncs.WriteROMAddr(addr[i], li);
             };
             ROMFuncs.ApplyHack(ModsDirectory + "fix-dungeons");
@@ -136,22 +138,22 @@ namespace MMRando
             {
                 if (i == 2)
                 {
-                    ROMFuncs.WriteROMAddr(addr[i], new byte[] { (byte)((EXIT_OLD[NewEnts[i + 1]] & 0xFF00) >> 8), (byte)(EXIT_OLD[NewEnts[i + 1]] & 0xFF) });
+                    ROMFuncs.WriteROMAddr(addr[i], new byte[] { (byte)((Values.OldExits[_newEnts[i + 1]] & 0xFF00) >> 8), (byte)(Values.OldExits[_newEnts[i + 1]] & 0xFF) });
                 }
                 else
                 {
-                    ROMFuncs.WriteROMAddr(addr[i], new byte[] { (byte)((EXIT_OLD[NewEnts[i]] & 0xFF00) >> 8), (byte)(EXIT_OLD[NewEnts[i]] & 0xFF) });
+                    ROMFuncs.WriteROMAddr(addr[i], new byte[] { (byte)((Values.OldExits[_newEnts[i]] & 0xFF00) >> 8), (byte)(Values.OldExits[_newEnts[i]] & 0xFF) });
                 };
             };
             addr = ROMFuncs.GetAddresses(AddrsDirectory + "dc-flagload");
             for (int i = 0; i < addr.Count; i++)
             {
-                ROMFuncs.WriteROMAddr(addr[i], new byte[] { (byte)((DC_FLAG_NEW[i] & 0xFF00) >> 8), (byte)(DC_FLAG_NEW[i] & 0xFF) });
+                ROMFuncs.WriteROMAddr(addr[i], new byte[] { (byte)((_newDCFlags[i] & 0xFF00) >> 8), (byte)(_newDCFlags[i] & 0xFF) });
             };
             addr = ROMFuncs.GetAddresses(AddrsDirectory + "dc-flagmask");
             for (int i = 0; i < addr.Count; i++)
             {
-                ROMFuncs.WriteROMAddr(addr[i], new byte[] { (byte)((DC_MASK_NEW[i] & 0xFF00) >> 8), (byte)(DC_MASK_NEW[i] & 0xFF) });
+                ROMFuncs.WriteROMAddr(addr[i], new byte[] { (byte)((_newDCMasks[i] & 0xFF00) >> 8), (byte)(_newDCMasks[i] & 0xFF) });
             };
         }
 
@@ -227,40 +229,59 @@ namespace MMRando
             if (cMode.SelectedIndex == 2)
             {
                 WriteFreeItem(MaskDeku);
+
                 if (cCutsc.Checked)
                 {
                     //giants cs were removed
                     WriteFreeItem(SongOath);
                 };
+
                 return;
             };
+
             //write free item
-            int j = ItemList.FindIndex(u => u.ReplacesItemId == 0);
-            WriteFreeItem(ItemList[j].ID);
+            int itemId = ItemList.FindIndex(u => u.ReplacesItemId == 0);
+            WriteFreeItem(ItemList[itemId].ID);
+
             //write everything else
             ROMFuncs.ReplaceGetItemTable(ModsDirectory);
             ROMFuncs.InitItems();
-            for (int i = 0; i < ItemList.Count; i++)
+
+            for (int itemIndex = 0; itemIndex < ItemList.Count; itemIndex++)
             {
-                if (ItemList[i].ReplacesItemId == -1)
+                itemId = ItemList[itemIndex].ID;
+
+                // Unused item
+                if (ItemList[itemIndex].ReplacesItemId == -1)
                 {
                     continue;
                 };
-                j = ItemList[i].ID;
-                bool repeat = REPEATABLE.Contains(j);
-                bool cycle = CYCLE_REPEATABLE.Contains(j);
-                int r = ItemList[i].ReplacesItemId;
-                if (j > AreaISTNew) { j -= 23; };
-                if (r > AreaISTNew) { r -= 23; };
-                if ((i >= BottleCatchFairy) && (i <= BottleCatchMushroom))
+
+                bool isRepeatable = REPEATABLE.Contains(itemId);
+                bool isCycleRepeatable = CYCLE_REPEATABLE.Contains(itemId);
+                int replacesItemId = ItemList[itemIndex].ReplacesItemId;
+
+                if (itemId > AreaInvertedStoneTowerNew) {
+                    // Subtract amount of entries describing areas and other
+                    itemId -= Values.NumberOfAreasAndOther;
+                };
+
+                if (replacesItemId > AreaInvertedStoneTowerNew) {
+                    // Subtract amount of entries describing areas and other
+                    replacesItemId -= Values.NumberOfAreasAndOther;
+                };
+
+                if ((itemIndex >= BottleCatchFairy) 
+                    && (itemIndex <= BottleCatchMushroom))
                 {
-                    ROMFuncs.WriteNewBottle(r, j);
+                    ROMFuncs.WriteNewBottle(replacesItemId, itemId);
                 }
                 else
                 {
-                    ROMFuncs.WriteNewItem(r, j, repeat, cycle);
+                    ROMFuncs.WriteNewItem(replacesItemId, itemId, isRepeatable, isCycleRepeatable);
                 };
             };
+
             if (Shops)
             {
                 ROMFuncs.ApplyHack(ModsDirectory + "fix-shop-checks");
@@ -273,6 +294,7 @@ namespace MMRando
             {
                 return;
             };
+
             if (cGossip.Checked)
             {
                 SeedRNG();
@@ -286,7 +308,11 @@ namespace MMRando
             {
                 return;
             };
-            if (cSpoiler.Checked) { MakeSpoilerLog(); };
+
+            if (cSpoiler.Checked)
+            {
+                MakeSpoilerLog();
+            };
         }
 
         private void WriteFileSelect()
@@ -295,6 +321,7 @@ namespace MMRando
             {
                 return;
             };
+
             ROMFuncs.ApplyHack(ModsDirectory + "file-select");
             byte[] SkyboxDefault = new byte[] { 0x91, 0x78, 0x9B, 0x28, 0x00, 0x28 };
             List<int[]> Addrs = ROMFuncs.GetAddresses(AddrsDirectory + "skybox-init");
@@ -369,6 +396,7 @@ namespace MMRando
 
         private void MakeROM(string InFile, string FileName)
         {
+            // TODO this blocks the ui for a decent period of time. Run in new thread?
             BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open));
             ROMFuncs.ReadFileTable(OldROM);
             OldROM.Close();
@@ -396,7 +424,7 @@ namespace MMRando
             if (Output_VC)
             {
                 string VCFileName = saveWad.FileName;
-                ROMFuncs.BuildVC(ROM, VCDir, VCFileName);
+                ROMFuncs.BuildVC(ROM, VCDirectory, VCFileName);
             };
         }
 
