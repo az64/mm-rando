@@ -10,7 +10,7 @@ namespace MMRando
     {
 
         //todo - rewrite this
-        public static void RebuildAudioSeq(List<mmrMain.SeqInfo> SeqList)
+        public static void RebuildAudioSeq(List<MainRandomizerForm.SequenceInfo> SeqList)
         {
             List<MMSeq> OldSeq = new List<MMSeq>();
             int f = AddrToFile((uint)SeqTable);
@@ -112,7 +112,7 @@ namespace MMRando
                 newa.IsCompressed = false;
                 newa.Data = NewAudioSeq;
                 MMFileList.Add(newa);
-                ApplyHack(mmrMain.ModsDir + "reloc-audio");
+                ApplyHack(MainRandomizerForm.ModsDirectory + "reloc-audio");
                 MMFileList[4].Data = new byte[0];
                 MMFileList[4].Cmp_Addr = -1;
                 MMFileList[4].Cmp_End = -1;

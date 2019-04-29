@@ -69,6 +69,8 @@
     <Compile Include="Build.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Constants\Temp.cs" />
+    <Compile Include="Constants\Values.cs" />
     <Compile Include="fItemEdit.cs">
       <SubType>Form</SubType>
     </Compile>

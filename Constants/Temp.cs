@@ -1,7 +1,7 @@
 ﻿namespace MMRando
 {
 
-    public partial class MainRandomizerForm
+    public class Temp
     {
 
         // free
@@ -291,8 +291,7 @@
         //oops I forgot one
         const int GrottoToGR = 254;
 
-        int[] REPEATABLE = new int[] {
-            TradeItemMoonTear,
+        int[] REPEATABLE = new int[] { TradeItemMoonTear,
             TradeItemLandDeed,
             TradeItemSwampDeed,
             TradeItemMountainDeed,
@@ -393,14 +392,7 @@
             GrottoWoods,
             ChestEastClockTownSilverRupee,
             ChestSouthClockTownRedRupee,
-            ChestSouthClockTownPurpleRupee,
-            GrottoToGR,
-            GrottoGreatBayCape,
-            GrottoToIkana,
-            GrottoGraveyard,
-            GrottoTerminaBombchu,
-            ChestInvertedStoneTowerBean,
-            ChestInvertedStoneTowerBombchu10
+            ChestSouthClockTownPurpleRupee
         };
 
         int[] CYCLE_REPEATABLE = new int[] {
@@ -423,7 +415,12 @@
             ShopItemZoraArrow10,
             ShopItemZoraRedPotion,
             ShopItemZoraShield,
-        };
+            GrottoGreatBayCape,
+            GrottoToIkana,
+            GrottoGraveyard,
+            GrottoTerminaBombchu,
+            ChestInvertedStoneTowerBean,
+            ChestInvertedStoneTowerBombchu10 };
 
         int[] ITEM_ADDRS = new int[]
         {

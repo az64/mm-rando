@@ -1,23 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MMRando
 {
 
-    public partial class mmrMain : Form
+    public partial class MainRandomizerForm : Form
     {
 
-        bool Updating = false;
+        bool IsUpdating = false;
         bool Output_VC = false;
         string SettingOld = "";
         int SeedOld = 0;
@@ -27,12 +20,12 @@ namespace MMRando
         fLogicEdit LogicEditor = new fLogicEdit();
         fItemEdit ItemEditor = new fItemEdit();
 
-        public static string MainDir = Application.StartupPath;
-        public static string MusicDir = Application.StartupPath + "\\music\\";
-        public static string ModsDir = Application.StartupPath + "\\mods\\";
-        public static string AddrsDir = Application.StartupPath + "\\addresses\\";
-        public static string ObjsDir = Application.StartupPath + "\\obj\\";
-        public static string VCDir = Application.StartupPath + "\\vc\\";
+        public static string MainDirectory = Application.StartupPath;
+        public static string MusicDirectory = Application.StartupPath + "\\music\\";
+        public static string ModsDirectory = Application.StartupPath + "\\mods\\";
+        public static string AddrsDirectory = Application.StartupPath + "\\addresses\\";
+        public static string ObjsDirectory = Application.StartupPath + "\\obj\\";
+        public static string VCDirectory = Application.StartupPath + "\\vc\\";
 
         //read/write settings
 
@@ -121,7 +114,7 @@ namespace MMRando
 
         //form functions
 
-        public mmrMain()
+        public MainRandomizerForm()
         {
             InitializeComponent();
         }
@@ -178,7 +171,7 @@ namespace MMRando
         private void mmrMain_Load(object sender, EventArgs e)
         {
             // initialise some stuff
-            Updating = true;
+            IsUpdating = true;
             cDMult.SelectedIndex = 0;
             cDType.SelectedIndex = 0;
             cGravity.SelectedIndex = 0;
@@ -194,16 +187,16 @@ namespace MMRando
             bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
             tSeed.Text = Math.Abs(Environment.TickCount).ToString();
             SettingOld = UpdateSettingsString();
-            Updating = false;
+            IsUpdating = false;
         }
 
         private void bTunic_Click(object sender, EventArgs e)
         {
-            Updating = true;
+            IsUpdating = true;
             cTunic.ShowDialog();
             bTunic.BackColor = cTunic.Color;
             UpdateSettingsString();
-            Updating = false;
+            IsUpdating = false;
         }
 
         private void bopen_Click(object sender, EventArgs e)
@@ -285,7 +278,7 @@ namespace MMRando
         private void tSString_Enter(object sender, EventArgs e)
         {
             SettingOld = tSString.Text;
-            Updating = true;
+            IsUpdating = true;
         }
 
         private void tSString_Leave(object sender, EventArgs e)
@@ -300,7 +293,7 @@ namespace MMRando
                 DecodeSettings(tSString.Text);
                 MessageBox.Show("Settings string is invalid; reverted to previous settings.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             };
-            Updating = false;
+            IsUpdating = false;
         }
 
         private void tSString_KeyDown(object sender, KeyEventArgs e)
@@ -314,7 +307,7 @@ namespace MMRando
         private void tSeed_Enter(object sender, EventArgs e)
         {
             SeedOld = Convert.ToInt32(tSeed.Text);
-            Updating = true;
+            IsUpdating = true;
         }
 
         private void tSeed_Leave(object sender, EventArgs e)
@@ -335,7 +328,7 @@ namespace MMRando
                 MessageBox.Show("Invalid seed: must be a positive integer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             };
             UpdateSettingsString();
-            Updating = false;
+            IsUpdating = false;
         }
 
         private void tSeed_KeyDown(object sender, KeyEventArgs e)
@@ -349,18 +342,18 @@ namespace MMRando
         private void cSpoiler_CheckedChanged(object sender, EventArgs e)
         {
             EnableBoxes();
-            if (!Updating)
+            if (!IsUpdating)
             {
-                Updating = true;
+                IsUpdating = true;
                 UpdateSettingsString();
-                Updating = false;
+                IsUpdating = false;
             };
         }
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             EnableBoxes();
-            if (!Updating)
+            if (!IsUpdating)
             {
                 if (cMode.SelectedIndex == 3)
                 {
@@ -373,9 +366,9 @@ namespace MMRando
                         cMode.SelectedIndex = 0;
                     };
                 };
-                Updating = true;
+                IsUpdating = true;
                 UpdateSettingsString();
-                Updating = false;
+                IsUpdating = false;
             };
         }
 
