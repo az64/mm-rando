@@ -122,7 +122,8 @@ namespace MMRando
                 Bottle_G, new List<int>
                 {
                     Hero_Bow, Fire_Arrow, Ice_Arrow, Light_Arrow, Lens, Hookshot, Bottle_D, M_Shield,
-                    HP_SwSch, // Rewards 20 rupees for some reason
+                    HP_Postman, // Rewards 50 rupees when collecting 2nd time
+                    HP_Keaton, HP_SwSch, HP_DogR, // Rewards 20 rupees when collecting 2nd time
                     Captain_Hat, Giant_Mask, Lab_Fish_HP, To_GR_Grotto,
                 }
                 .Concat(Enumerable.Range(HP_TCGame, HP_Knuckle - HP_TCGame + 1))
