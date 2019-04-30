@@ -112,6 +112,11 @@ namespace MMRando
             return Byteswap32(ROM.ReadUInt32());
         }
 
+        private static int ReadS32(BinaryReader ROM)
+        {
+            return (int)ReadU32(ROM);
+        }
+
         private static ushort ReadU16(BinaryReader ROM)
         {
             return Byteswap16(ROM.ReadUInt16());
