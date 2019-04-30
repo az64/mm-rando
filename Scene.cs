@@ -50,8 +50,7 @@ namespace MMRando
                 offset -= 4;
             };
             int bit = 1 << (num & 7);
-            int f = AddrToFile((uint)SceneFlagMasks);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(SceneFlagMasks);
             int addr = SceneFlagMasks - MMFileList[f].Addr + offset;
             MMFileList[f].Data[addr] |= (byte)bit;
         }
@@ -59,8 +58,7 @@ namespace MMRando
         private static void ReadSceneTable()
         {
             SceneList = new List<Scene>();
-            int f = AddrToFile((uint)SceneTable);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(SceneTable);
             int _SceneTable = SceneTable - MMFileList[f].Addr;
             int i = 0;
             while (true)
@@ -73,7 +71,7 @@ namespace MMRando
                 };
                 if (saddr != 0)
                 {
-                    s.File = AddrToFile(saddr);
+                    s.File = AddrToFile((int)saddr);
                     s.Number = i >> 4;
                     SceneList.Add(s);
                 };
@@ -98,7 +96,7 @@ namespace MMRando
                         for (int k = 0; k < mapcount; k++)
                         {
                             Map m = new Map();
-                            m.File = AddrToFile(Arr_ReadU32(MMFileList[f].Data, mapsaddr));
+                            m.File = AddrToFile((int)Arr_ReadU32(MMFileList[f].Data, mapsaddr));
                             SceneList[i].Maps.Add(m);
                             mapsaddr += 8;
                         };
