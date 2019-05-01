@@ -9,8 +9,7 @@ namespace MMRando
         private static int GetEntranceAddr(int ent)
         {
             int offset = ((ent >> 9) * 12) + 0xC5BC64;
-            int f = AddrToFile((uint)offset);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(offset);
             offset -= MMFileList[f].Addr;
             uint p1 = Arr_ReadU32(MMFileList[f].Data, offset);
             offset = ((ent >> 4) & 0x1F) * 4;
@@ -23,8 +22,7 @@ namespace MMRando
 
         public static void WriteEntrances(int[] olde, int[] newe)
         {
-            int f = AddrToFile(0xC5BC64);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(0xC5BC64);
             uint[] data = new uint[newe.Length];
             for (int i = 0; i < newe.Length; i++)
             {

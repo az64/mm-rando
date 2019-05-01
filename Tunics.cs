@@ -247,8 +247,7 @@ namespace MMRando
             {
                 for (int j = 0; j < addresses[i].Length; j++)
                 {
-                    int f = AddrToFile((uint)addresses[i][j]);
-                    CheckCompressed(f);
+                    int f = GetFileIndexForWriting(addresses[i][j]);
                     int a = addresses[i][j] - MMFileList[f].Addr;
                     Color[] c = ReadColours(f, a, sizes[i]);
                     c = ShiftHue(c, target, sizes[i], zora[i], grad[i], fd[i]);

@@ -12,15 +12,13 @@ namespace MMRando
 
         private static void WriteMsg(int addr, byte[] msg)
         {
-            int f = AddrToFile((uint)TxTFile);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(TxTFile);
             Arr_Insert(msg, 0, msg.Length, MMFileList[f].Data, addr);
         }
 
         private static MMMsg FindMsg(int n)
         {
-            int f = AddrToFile((uint)TxtTable);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(TxtTable);
             int basea = TxtTable - MMFileList[f].Addr;
             MMMsg m = new MMMsg();
             while (true)
