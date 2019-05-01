@@ -10,7 +10,7 @@ namespace MMRando
 
     public partial class MainRandomizerForm : Form
     {
-        public Settings Settings { get; set; }
+        public Settings Settings { get; set; } = new Settings();
 
         bool IsUpdating = false;
         bool Output_VC = false;
@@ -36,6 +36,7 @@ namespace MMRando
             RNG = new Random(Convert.ToInt32(tSeed.Text));
         }
 
+        // TODO add to settings class
         private int[] GetOptions()
         {
             int[] O = new int[3];
@@ -60,6 +61,7 @@ namespace MMRando
             return O;
         }
 
+        // TODO add to settings class
         private string UpdateSettingsString()
         {
             string Settings;
@@ -77,12 +79,14 @@ namespace MMRando
             return Settings;
         }
 
+        // TODO add to settings class
         private void SetOptions(string[] O)
         {
             tSeed.Text = Base36.Decode(O[0]).ToString();
             int Checks = (int)Base36.Decode(O[1]);
             int Combos = (int)Base36.Decode(O[2]);
             int Colour = (int)Base36.Decode(O[3]);
+
             if ((Checks & 8192) > 0) { cUserItems.Checked = true; } else { cUserItems.Checked = false; };
             if ((Checks & 4096) > 0) { cAdditional.Checked = true; } else { cAdditional.Checked = false; };
             if ((Checks & 2048) > 0) { cGossip.Checked = true; } else { cGossip.Checked = false; };
@@ -149,6 +153,7 @@ namespace MMRando
                 cAdditional.Enabled = true;
                 cUserItems.Enabled = true;
             };
+
             if (cUserItems.Checked)
             {
                 cSoS.Enabled = false;

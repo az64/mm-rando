@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MMRando.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -13,6 +14,7 @@ namespace MMRando
 
         Random RNG;
 
+
         private int[] _newEntrances = new int[] { -1, -1, -1, -1 };
         private int[] _newExits = new int[] { -1, -1, -1, -1 };
         private int[] _newDCFlags = new int[] { -1, -1, -1, -1 };
@@ -20,13 +22,7 @@ namespace MMRando
         private int[] _newEnts = new int[] { -1, -1, -1, -1 };
         private int[] _newExts = new int[] { -1, -1, -1, -1 };
 
-        public bool isSongsMixed { get; set; }
-        public bool ExcludeSongOfSoaring { get; set; }
-        public bool Keysanity { get; set; }
-        public bool BottleCatch { get; set; }
-        public bool Shops { get; set; }
-        public bool Other { get; set; }
-        public bool User { get; set; }
+        public Settings RandomizerSettings { get; set; }
 
         public class ItemObject
         {
@@ -149,21 +145,21 @@ namespace MMRando
                     continue;
                 };
 
-                if ((!BottleCatch) 
+                if ((!RandomizerSettings.RandomizeBottleCatchContents) 
                     && ((itemIndex >= BottleCatchFairy) 
                     && (itemIndex <= BottleCatchMushroom)))
                 {
                     continue;
                 };
 
-                if ((!Shops) 
+                if ((!RandomizerSettings.AddShopItems) 
                     && ((itemIndex >= ShopItemTownRedPotion) 
                     && (itemIndex <= ShopItemZoraRedPotion)))
                 {
                     continue;
                 };
 
-                if ((!Keysanity) 
+                if ((!RandomizerSettings.AddDungeonItems) 
                     && ((itemIndex >= ItemWoodfallMap) 
                     && (itemIndex <= ItemStoneTowerKey4)))
                 {
@@ -1047,17 +1043,11 @@ namespace MMRando
 
         private void ItemShuffle()
         {
-            isSongsMixed = cMixSongs.Checked;
-            ExcludeSongOfSoaring = cSoS.Checked;
-            Keysanity = cDChests.Checked;
-            BottleCatch = cBottled.Checked;
-            Shops = cShop.Checked;
-            Other = cAdditional.Checked;
-            User = cUserItems.Checked;
+            
             List<int> TargetPool = new List<int>();
-            if (User)
+            if (RandomizerSettings.UseCustomItemList)
             {
-                Shops = false;
+                RandomizerSettings.AddShopItems = false;
                 for (int i = 0; i < ItemList.Count; i++)
                 {
                     if ((i > SongOath && i < ItemWoodfallMap) || i > GrottoToGR)
@@ -1081,10 +1071,11 @@ namespace MMRando
                     };
                     if ((j > ItemStoneTowerKey4) && (j < BottleCatchFairy))
                     {
-                        Shops = true;
+                        RandomizerSettings.AddShopItems = true;
                     };
                 };
-                if (!isSongsMixed)
+
+                if (!RandomizerSettings.AddSongs)
                 {
                     TargetPool = new List<int>();
                     for (int i = SongSoaring; i < SongOath + 1; i++)
@@ -1100,11 +1091,14 @@ namespace MMRando
                         PlaceItem(i, TargetPool);
                     };
                 };
+
                 TargetPool = new List<int>();
+
                 for (int i = BottleCatchFairy; i < BottleCatchMushroom + 1; i++)
                 {
                     TargetPool.Add(i);
                 };
+
                 for (int i = BottleCatchFairy; i < BottleCatchMushroom + 1; i++)
                 {
                     PlaceItem(i, TargetPool);
@@ -1112,11 +1106,12 @@ namespace MMRando
             }
             else
             {
-                if (ExcludeSongOfSoaring)
+                if (RandomizerSettings.ExcludeSongOfSoaring)
                 {
                     ItemList[SongSoaring].ReplacesItemId = SongSoaring;
                 };
-                if (!isSongsMixed)
+
+                if (!RandomizerSettings.AddSongs)
                 {
                     TargetPool = new List<int>();
                     for (int i = SongSoaring; i < SongOath + 1; i++)
@@ -1125,44 +1120,52 @@ namespace MMRando
                         {
                             continue;
                         };
+
                         TargetPool.Add(i);
                     };
+
                     for (int i = SongSoaring; i < SongOath + 1; i++)
                     {
                         PlaceItem(i, TargetPool);
                     };
                 };
-                if (!Keysanity)
+
+                if (!RandomizerSettings.AddDungeonItems)
                 {
                     for (int i = ItemWoodfallMap; i < ItemStoneTowerKey4 + 1; i++)
                     {
                         ItemList[i].ReplacesItemId = i;
                     };
                 };
-                if (!Shops)
+
+                if (!RandomizerSettings.AddShopItems)
                 {
                     for (int i = ShopItemTownRedPotion; i < ShopItemZoraRedPotion + 1; i++)
                     {
                         ItemList[i].ReplacesItemId = i;
                     };
+
                     ItemList[ItemBombBag].ReplacesItemId = ItemBombBag;
                     ItemList[UpgradeBigBombBag].ReplacesItemId = UpgradeBigBombBag;
                     ItemList[MaskAllNight].ReplacesItemId = MaskAllNight;
                 };
-                if (!Other)
+
+                if (!RandomizerSettings.AddOther)
                 {
                     for (int i = ChestLensCaveRedRupee; i < GrottoToGR + 1; i++)
                     {
                         ItemList[i].ReplacesItemId = i;
                     };
                 };
-                if (BottleCatch)
+
+                if (RandomizerSettings.RandomizeBottleCatchContents)
                 {
                     TargetPool = new List<int>();
                     for (int i = BottleCatchFairy; i < BottleCatchMushroom + 1; i++)
                     {
                         TargetPool.Add(i);
                     };
+
                     for (int i = BottleCatchFairy; i < BottleCatchMushroom + 1; i++)
                     {
                         PlaceItem(i, TargetPool);
@@ -1176,6 +1179,7 @@ namespace MMRando
                     };
                 };
             };
+
             TargetPool = new List<int>();
             for (int i = 0; i < ItemList.Count; i++)
             {
@@ -1185,10 +1189,12 @@ namespace MMRando
                 };
                 TargetPool.Add(i);
             };
+
             PlaceItem(TradeItemRoomKey, TargetPool);
             PlaceItem(TradeItemKafeiLetter, TargetPool);
             PlaceItem(TradeItemPendant, TargetPool);
             PlaceItem(TradeItemMamaLetter, TargetPool);
+
             if (ItemList.FindIndex(u => u.ReplacesItemId == MaskDeku) == -1)
             {
                 int free = RNG.Next(SongOath + 1);
