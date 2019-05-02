@@ -34,7 +34,7 @@ namespace MMRando
 
         private void SeedRNG()
         {
-            RNG = new Random(RandomizerSettings.Seed);
+            RNG = new Random(Settings.Seed);
         }
 
         #region Settings
@@ -56,13 +56,13 @@ namespace MMRando
 
             bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
 
-            RandomizerSettings.GenerateSpoilerLog = true;
-            RandomizerSettings.ExcludeSongOfSoaring = true;
-            RandomizerSettings.EnableGossipHints = true;
-            RandomizerSettings.TunicColor = bTunic.BackColor;
-            RandomizerSettings.Seed = Math.Abs(Environment.TickCount);
+            Settings.GenerateSpoilerLog = true;
+            Settings.ExcludeSongOfSoaring = true;
+            Settings.EnableGossipHints = true;
+            Settings.TunicColor = bTunic.BackColor;
+            Settings.Seed = Math.Abs(Environment.TickCount);
 
-            tSeed.Text = RandomizerSettings.Seed.ToString();
+            tSeed.Text = Settings.Seed.ToString();
 
             var oldSettingsString = tSString.Text;
 
@@ -75,32 +75,32 @@ namespace MMRando
         {
             int[] O = new int[3];
 
-            if (RandomizerSettings.UseCustomItemList) { O[0] += 8192; };
-            if (RandomizerSettings.AddOther) { O[0] += 4096; };
-            if (RandomizerSettings.EnableGossipHints) { O[0] += 2048; };
-            if (RandomizerSettings.ExcludeSongOfSoaring) { O[0] += 1024; };
-            if (RandomizerSettings.GenerateSpoilerLog) { O[0] += 512; };
-            if (RandomizerSettings.AddSongs) { O[0] += 256; };
-            if (RandomizerSettings.RandomizeBottleCatchContents) { O[0] += 128; };
-            if (RandomizerSettings.AddDungeonItems) { O[0] += 64; };
-            if (RandomizerSettings.AddShopItems) { O[0] += 32; };
-            if (RandomizerSettings.RandomizeDungeonEntrances) { O[0] += 16; };
-            if (RandomizerSettings.RandomizeBGM) { O[0] += 8; };
-            if (RandomizerSettings.RandomizeEnemies) { O[0] += 4; };
-            if (RandomizerSettings.ShortenCutscenes) { O[0] += 2; };
-            if (RandomizerSettings.QuickTextEnabled) { O[0] += 1; };
+            if (Settings.UseCustomItemList) { O[0] += 8192; };
+            if (Settings.AddOther) { O[0] += 4096; };
+            if (Settings.EnableGossipHints) { O[0] += 2048; };
+            if (Settings.ExcludeSongOfSoaring) { O[0] += 1024; };
+            if (Settings.GenerateSpoilerLog) { O[0] += 512; };
+            if (Settings.AddSongs) { O[0] += 256; };
+            if (Settings.RandomizeBottleCatchContents) { O[0] += 128; };
+            if (Settings.AddDungeonItems) { O[0] += 64; };
+            if (Settings.AddShopItems) { O[0] += 32; };
+            if (Settings.RandomizeDungeonEntrances) { O[0] += 16; };
+            if (Settings.RandomizeBGM) { O[0] += 8; };
+            if (Settings.RandomizeEnemies) { O[0] += 4; };
+            if (Settings.ShortenCutscenes) { O[0] += 2; };
+            if (Settings.QuickTextEnabled) { O[0] += 1; };
 
-            O[1] = ((byte)RandomizerSettings.LogicMode << 16)
-                | ((byte)RandomizerSettings.Character << 8)
-                | ((byte)RandomizerSettings.TatlColorSchema)
-                | ((byte)RandomizerSettings.DamageEffect << 24)
-                    | ((byte)RandomizerSettings.DamageMode << 28);
+            O[1] = ((byte)Settings.LogicMode << 16)
+                | ((byte)Settings.Character << 8)
+                | ((byte)Settings.TatlColorSchema)
+                | ((byte)Settings.DamageEffect << 24)
+                    | ((byte)Settings.DamageMode << 28);
 
-            O[2] = (RandomizerSettings.TunicColor.R << 16)
-                | (RandomizerSettings.TunicColor.G << 8)
-                | (RandomizerSettings.TunicColor.B)
-                | ((byte)RandomizerSettings.FloorType << 24)
-                    | ((byte)RandomizerSettings.MovementMode << 28);
+            O[2] = (Settings.TunicColor.R << 16)
+                | (Settings.TunicColor.G << 8)
+                | (Settings.TunicColor.B)
+                | ((byte)Settings.FloorType << 24)
+                    | ((byte)Settings.MovementMode << 28);
 
             return O;
         }
@@ -121,7 +121,7 @@ namespace MMRando
 
             var settingsStringBuilder = new StringBuilder();
 
-            settingsStringBuilder.Append(Base36.Encode(Convert.ToInt32(RandomizerSettings.Seed)));
+            settingsStringBuilder.Append(Base36.Encode(Convert.ToInt32(Settings.Seed)));
             settingsStringBuilder.Append("-");
             settingsStringBuilder.Append(Base36.Encode(Options[0]));
             settingsStringBuilder.Append("-");
@@ -137,40 +137,41 @@ namespace MMRando
         private void SetOptions(string[] O)
         {
             tSeed.Text = Base36.Decode(O[0]).ToString();
+            Settings.Seed = Convert.ToInt32(tSeed.Text);
 
             int Checks = (int)Base36.Decode(O[1]);
             int Combos = (int)Base36.Decode(O[2]);
             int ColourAndMisc = (int)Base36.Decode(O[3]);
 
-            RandomizerSettings.UseCustomItemList = (Checks & 8192) > 0;
-            RandomizerSettings.AddOther = (Checks & 4096) > 0;
-            RandomizerSettings.EnableGossipHints = (Checks & 2048) > 0;
-            RandomizerSettings.ExcludeSongOfSoaring = (Checks & 1024) > 0;
-            RandomizerSettings.GenerateSpoilerLog = (Checks & 512) > 0;
-            RandomizerSettings.AddSongs = (Checks & 256) > 0;
-            RandomizerSettings.RandomizeBottleCatchContents = (Checks & 128) > 0;
-            RandomizerSettings.AddDungeonItems = (Checks & 64) > 0;
-            RandomizerSettings.AddShopItems = (Checks & 32) > 0;
-            RandomizerSettings.RandomizeDungeonEntrances = (Checks & 16) > 0;
-            RandomizerSettings.RandomizeBGM = (Checks & 8) > 0;
-            RandomizerSettings.RandomizeEnemies = (Checks & 4) > 0;
-            RandomizerSettings.ShortenCutscenes = (Checks & 2) > 0;
-            RandomizerSettings.QuickTextEnabled = (Checks & 1) > 0;
+            Settings.UseCustomItemList = (Checks & 8192) > 0;
+            Settings.AddOther = (Checks & 4096) > 0;
+            Settings.EnableGossipHints = (Checks & 2048) > 0;
+            Settings.ExcludeSongOfSoaring = (Checks & 1024) > 0;
+            Settings.GenerateSpoilerLog = (Checks & 512) > 0;
+            Settings.AddSongs = (Checks & 256) > 0;
+            Settings.RandomizeBottleCatchContents = (Checks & 128) > 0;
+            Settings.AddDungeonItems = (Checks & 64) > 0;
+            Settings.AddShopItems = (Checks & 32) > 0;
+            Settings.RandomizeDungeonEntrances = (Checks & 16) > 0;
+            Settings.RandomizeBGM = (Checks & 8) > 0;
+            Settings.RandomizeEnemies = (Checks & 4) > 0;
+            Settings.ShortenCutscenes = (Checks & 2) > 0;
+            Settings.QuickTextEnabled = (Checks & 1) > 0;
 
-            cUserItems.Checked = RandomizerSettings.UseCustomItemList;
-            cAdditional.Checked = RandomizerSettings.AddOther;
-            cGossip.Checked = RandomizerSettings.EnableGossipHints;
-            cSoS.Checked = RandomizerSettings.ExcludeSongOfSoaring;
-            cSpoiler.Checked = RandomizerSettings.GenerateSpoilerLog;
-            cMixSongs.Checked = RandomizerSettings.AddSongs;
-            cBottled.Checked = RandomizerSettings.RandomizeBottleCatchContents;
-            cDChests.Checked = RandomizerSettings.AddDungeonItems;
-            cShop.Checked = RandomizerSettings.AddShopItems;
-            cDEnt.Checked = RandomizerSettings.RandomizeDungeonEntrances;
-            cBGM.Checked = RandomizerSettings.RandomizeBGM;
-            cEnemy.Checked = RandomizerSettings.RandomizeEnemies;
-            cCutsc.Checked = RandomizerSettings.ShortenCutscenes;
-            cQText.Checked = RandomizerSettings.QuickTextEnabled;
+            cUserItems.Checked = Settings.UseCustomItemList;
+            cAdditional.Checked = Settings.AddOther;
+            cGossip.Checked = Settings.EnableGossipHints;
+            cSoS.Checked = Settings.ExcludeSongOfSoaring;
+            cSpoiler.Checked = Settings.GenerateSpoilerLog;
+            cMixSongs.Checked = Settings.AddSongs;
+            cBottled.Checked = Settings.RandomizeBottleCatchContents;
+            cDChests.Checked = Settings.AddDungeonItems;
+            cShop.Checked = Settings.AddShopItems;
+            cDEnt.Checked = Settings.RandomizeDungeonEntrances;
+            cBGM.Checked = Settings.RandomizeBGM;
+            cEnemy.Checked = Settings.RandomizeEnemies;
+            cCutsc.Checked = Settings.ShortenCutscenes;
+            cQText.Checked = Settings.QuickTextEnabled;
 
             var damageMultiplierIndex = (int)((Combos & 0xF0000000) >> 28);
             var damageTypeIndex = (Combos & 0xF000000) >> 24;
@@ -184,14 +185,14 @@ namespace MMRando
                 (ColourAndMisc & 0xFF00) >> 8,
                 ColourAndMisc & 0xFF);
 
-            RandomizerSettings.DamageMode = (DamageMode)damageMultiplierIndex;
-            RandomizerSettings.DamageEffect = (DamageEffect)damageTypeIndex;
-            RandomizerSettings.LogicMode = (LogicMode)modeIndex;
-            RandomizerSettings.Character = (Character)characterIndex;
-            RandomizerSettings.TatlColorSchema = (TatlColorSchema)tatlColorIndex;
-            RandomizerSettings.MovementMode = (MovementMode)gravityTypeIndex;
-            RandomizerSettings.FloorType = (FloorType)floorTypeIndex;
-            RandomizerSettings.TunicColor = tunicColor;
+            Settings.DamageMode = (DamageMode)damageMultiplierIndex;
+            Settings.DamageEffect = (DamageEffect)damageTypeIndex;
+            Settings.LogicMode = (LogicMode)modeIndex;
+            Settings.Character = (Character)characterIndex;
+            Settings.TatlColorSchema = (TatlColorSchema)tatlColorIndex;
+            Settings.MovementMode = (MovementMode)gravityTypeIndex;
+            Settings.FloorType = (FloorType)floorTypeIndex;
+            Settings.TunicColor = tunicColor;
 
             cDMult.SelectedIndex = damageMultiplierIndex;
             cDType.SelectedIndex = damageTypeIndex;
@@ -245,11 +246,15 @@ namespace MMRando
         {
             pProgress.Value = 0;
             lStatus.Text = "Ready...";
+            EnableAllControls(true);
+
         }
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             TryRandomize(sender as BackgroundWorker, e);
+            EnableBoxes();
+
         }
 
         private void bTunic_Click(object sender, EventArgs e)
@@ -257,6 +262,7 @@ namespace MMRando
             IsUpdating = true;
 
             cTunic.ShowDialog();
+            Settings.TunicColor = cTunic.Color;
             bTunic.BackColor = cTunic.Color;
             UpdateSettingsString();
 
@@ -267,8 +273,8 @@ namespace MMRando
         {
             openROM.ShowDialog();
 
-            RandomizerSettings.InputRomPath = openROM.FileName;
-            tROMName.Text = RandomizerSettings.InputRomPath;
+            Settings.InputRomPath = openROM.FileName;
+            tROMName.Text = Settings.InputRomPath;
         }
 
         private void bRandomise_Click(object sender, EventArgs e)
@@ -280,6 +286,7 @@ namespace MMRando
                 return;
             }
 
+            EnableAllControls(false);
             bgWorker.RunWorkerAsync();
         }
 
@@ -333,7 +340,7 @@ namespace MMRando
                 }
                 else
                 {
-                    RandomizerSettings.Seed = seed;
+                    Settings.Seed = seed;
                 }
             }
             catch
@@ -361,7 +368,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.GenerateSpoilerLog = cSpoiler.Checked;
+                Settings.GenerateSpoilerLog = cSpoiler.Checked;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -376,7 +383,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.AddOther = cAdditional.Checked;
+                Settings.AddOther = cAdditional.Checked;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -390,7 +397,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.RandomizeBGM = cBGM.Checked;
+                Settings.RandomizeBGM = cBGM.Checked;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -404,7 +411,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.RandomizeBottleCatchContents = cBottled.Checked;
+                Settings.RandomizeBottleCatchContents = cBottled.Checked;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -418,7 +425,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.ShortenCutscenes = cCutsc.Checked;
+                Settings.ShortenCutscenes = cCutsc.Checked;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -432,7 +439,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.AddDungeonItems = cDChests.Checked;
+                Settings.AddDungeonItems = cDChests.Checked;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -446,7 +453,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.RandomizeDungeonEntrances = cDEnt.Checked;
+                Settings.RandomizeDungeonEntrances = cDEnt.Checked;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -459,7 +466,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.DamageMode = (DamageMode)cDMult.SelectedIndex;
+                Settings.DamageMode = (DamageMode)cDMult.SelectedIndex;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -472,7 +479,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.DamageEffect = (DamageEffect)cDType.SelectedIndex;
+                Settings.DamageEffect = (DamageEffect)cDType.SelectedIndex;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -486,7 +493,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.RandomizeEnemies = cEnemy.Checked;
+                Settings.RandomizeEnemies = cEnemy.Checked;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -499,7 +506,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.FloorType = (FloorType)cFloors.SelectedIndex;
+                Settings.FloorType = (FloorType)cFloors.SelectedIndex;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -513,7 +520,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.EnableGossipHints = cGossip.Checked;
+                Settings.EnableGossipHints = cGossip.Checked;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -526,7 +533,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.MovementMode = (MovementMode)cGravity.SelectedIndex;
+                Settings.MovementMode = (MovementMode)cGravity.SelectedIndex;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -539,7 +546,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.Character = (Character)cLink.SelectedIndex;
+                Settings.Character = (Character)cLink.SelectedIndex;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -553,7 +560,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.AddSongs = cMixSongs.Checked;
+                Settings.AddSongs = cMixSongs.Checked;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -567,7 +574,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.QuickTextEnabled = cQText.Checked;
+                Settings.QuickTextEnabled = cQText.Checked;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -581,7 +588,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.AddShopItems = cShop.Checked;
+                Settings.AddShopItems = cShop.Checked;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -595,7 +602,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.ExcludeSongOfSoaring = cSoS.Checked;
+                Settings.ExcludeSongOfSoaring = cSoS.Checked;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -608,7 +615,7 @@ namespace MMRando
             {
                 IsUpdating = true;
 
-                RandomizerSettings.TatlColorSchema = (TatlColorSchema)cTatl.SelectedIndex;
+                Settings.TatlColorSchema = (TatlColorSchema)cTatl.SelectedIndex;
 
                 UpdateSettingsString();
                 IsUpdating = false;
@@ -619,7 +626,7 @@ namespace MMRando
         {
             if (!IsUpdating)
             {
-                if (RandomizerSettings.LogicMode == LogicMode.UserLogic)
+                if (Settings.LogicMode == LogicMode.UserLogic)
                 {
                     if (openLogic.ShowDialog() == DialogResult.OK)
                     {
@@ -631,7 +638,7 @@ namespace MMRando
                     };
                 };
                 IsUpdating = true;
-                RandomizerSettings.LogicMode = (LogicMode)cMode.SelectedIndex;
+                Settings.LogicMode = (LogicMode)cMode.SelectedIndex;
                 UpdateSettingsString();
                 IsUpdating = false;
             };
@@ -698,7 +705,7 @@ namespace MMRando
 
         private void EnableBoxes()
         {
-            if (RandomizerSettings.LogicMode == LogicMode.Vanilla)
+            if (Settings.LogicMode == LogicMode.Vanilla)
             {
                 cMixSongs.Enabled = false;
                 cSoS.Enabled = false;
@@ -725,7 +732,7 @@ namespace MMRando
                 cUserItems.Enabled = true;
             };
 
-            if (RandomizerSettings.UseCustomItemList)
+            if (Settings.UseCustomItemList)
             {
                 cSoS.Enabled = false;
                 cDChests.Enabled = false;
@@ -735,7 +742,7 @@ namespace MMRando
             }
             else
             {
-                if (RandomizerSettings.LogicMode != LogicMode.Vanilla)
+                if (Settings.LogicMode != LogicMode.Vanilla)
                 {
                     cSoS.Enabled = true;
                     cDChests.Enabled = true;
@@ -762,13 +769,13 @@ namespace MMRando
                 MessageBox.Show($"Error randomizing logic: {ex.Message}\r\n\r\nPlease try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (!File.Exists(RandomizerSettings.InputRomPath))
+            if (!File.Exists(Settings.InputRomPath))
             {
                 MessageBox.Show("Input ROM not selected or doesn't exist, cannot generate output.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            
+
             if (saveROM.FileName == "")
             {
                 MessageBox.Show("Output file not selected.",
@@ -784,19 +791,42 @@ namespace MMRando
                     return;
                 };
             };
-            if (!ValidateROM(RandomizerSettings.InputRomPath))
+            if (!ValidateROM(Settings.InputRomPath))
             {
                 MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            MakeROM(RandomizerSettings.InputRomPath, saveROM.FileName, worker);
+            MakeROM(Settings.InputRomPath, saveROM.FileName, worker);
 
             MessageBox.Show("Successfully built output ROM!",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-
         }
+
+        private void EnableAllControls(bool v)
+        {
+            cAdditional.Enabled = v;
+            cBGM.Enabled = v;
+            cBottled.Enabled = v;
+            cCutsc.Enabled = v;
+            cDChests.Enabled = v;
+            cDEnt.Enabled = v;
+            cDMult.Enabled = v;
+            cDType.Enabled = v;
+            cDummy.Enabled = v;
+            cEnemy.Enabled = v;
+            cFloors.Enabled = v;
+            cGossip.Enabled = v;
+            cGravity.Enabled = v;
+
+            bopen.Enabled = v;
+            bRandomise.Enabled = v;
+            bTunic.Enabled = v;
+            tSeed.Enabled = v;
+            tSString.Enabled = v;
+        }
+
         /// <summary>
         /// Randomizes the ROM with respect to the configured ruleset.
         /// </summary>
@@ -804,12 +834,12 @@ namespace MMRando
         {
             SeedRNG();
 
-            if (RandomizerSettings.LogicMode != LogicMode.Vanilla)
+            if (Settings.LogicMode != LogicMode.Vanilla)
             {
                 worker.ReportProgress(5, "Preparing ruleset...");
                 PrepareRulesetItemData();
 
-                if (RandomizerSettings.RandomizeDungeonEntrances)
+                if (Settings.RandomizeDungeonEntrances)
                 {
                     worker.ReportProgress(10, "Shuffling entrances...");
                     EntranceShuffle();
@@ -818,7 +848,7 @@ namespace MMRando
                 worker.ReportProgress(15, "Shuffling items...");
                 ItemShuffle();
 
-                if (RandomizerSettings.EnableGossipHints)
+                if (Settings.EnableGossipHints)
                 {
                     worker.ReportProgress(35, "Making gossip quotes...");
                 }

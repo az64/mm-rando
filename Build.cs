@@ -18,7 +18,7 @@ namespace MMRando
 
         private void WriteAudioSeq()
         {
-            if (!RandomizerSettings.RandomizeBGM) {
+            if (!Settings.RandomizeBGM) {
                 return;
             };
 
@@ -33,15 +33,15 @@ namespace MMRando
 
         private void WriteLinkAppearance()
         {
-            if (RandomizerSettings.Character == Character.LinkMM)
+            if (Settings.Character == Character.LinkMM)
             {
                 WriteTunicColour();
             }
-            else if (RandomizerSettings.Character == Character.LinkOOT
-                || RandomizerSettings.Character == Character.AdultLink
-                || RandomizerSettings.Character == Character.Kafei)
+            else if (Settings.Character == Character.LinkOOT
+                || Settings.Character == Character.AdultLink
+                || Settings.Character == Character.Kafei)
             {
-                int characterIndex = (int)RandomizerSettings.Character;
+                int characterIndex = (int)Settings.Character;
                 BinaryReader b = new BinaryReader(File.Open(ObjsDirectory + "link-" + characterIndex.ToString(), FileMode.Open));
                 byte[] obj = new byte[b.BaseStream.Length];
                 b.Read(obj, 0, obj.Length);
@@ -65,12 +65,12 @@ namespace MMRando
                 }
             }
             List<int[]> Others = ROMFuncs.GetAddresses(AddrsDirectory + "tunic-forms");
-            ROMFuncs.UpdateFormTunics(Others, RandomizerSettings.TunicColor);
+            ROMFuncs.UpdateFormTunics(Others, Settings.TunicColor);
         }
 
         private void WriteTunicColour()
         {
-            Color t = RandomizerSettings.TunicColor;
+            Color t = Settings.TunicColor;
             byte[] c = { t.R, t.G, t.B };
             List<int[]> locs = ROMFuncs.GetAddresses(AddrsDirectory + "tunic-colour");
             for (int i = 0; i < locs.Count; i++)
@@ -81,7 +81,7 @@ namespace MMRando
 
         private void WriteTunicColour(byte[] obj, int i)
         {
-            Color t = RandomizerSettings.TunicColor;
+            Color t = Settings.TunicColor;
             byte[] c = { t.R, t.G, t.B };
             List<int[]> locs = ROMFuncs.GetAddresses(AddrsDirectory + "tunic-" + i.ToString());
             for (int j = 0; j < locs.Count; j++)
@@ -92,9 +92,9 @@ namespace MMRando
 
         private void WriteTatlColour()
         {
-            if (RandomizerSettings.TatlColorSchema != TatlColorSchema.Random)
+            if (Settings.TatlColorSchema != TatlColorSchema.Random)
             {
-                var selectedColorSchemaIndex = (int)RandomizerSettings.TatlColorSchema;
+                var selectedColorSchemaIndex = (int)Settings.TatlColorSchema;
                 byte[] c = new byte[8];
                 List<int[]> locs = ROMFuncs.GetAddresses(AddrsDirectory + "tatl-colour");
                 for (int i = 0; i < locs.Count; i++)
@@ -112,7 +112,7 @@ namespace MMRando
 
         private void WriteQuickText()
         {
-            if (RandomizerSettings.QuickTextEnabled)
+            if (Settings.QuickTextEnabled)
             {
                 ROMFuncs.ApplyHack(ModsDirectory + "quick-text");
             }
@@ -120,7 +120,7 @@ namespace MMRando
 
         private void WriteCutscenes()
         {
-            if (RandomizerSettings.ShortenCutscenes)
+            if (Settings.ShortenCutscenes)
             {
                 ROMFuncs.ApplyHack(ModsDirectory + "short-cutscenes");
             }
@@ -128,7 +128,7 @@ namespace MMRando
 
         private void WriteDungeons()
         {
-            if ((RandomizerSettings.LogicMode == LogicMode.Vanilla) || (!RandomizerSettings.RandomizeDungeonEntrances))
+            if ((Settings.LogicMode == LogicMode.Vanilla) || (!Settings.RandomizeDungeonEntrances))
             {
                 return;
             }
@@ -174,25 +174,25 @@ namespace MMRando
 
         private void WriteGimmicks()
         {
-            int damageMultiplier = (int)RandomizerSettings.DamageMode;
+            int damageMultiplier = (int)Settings.DamageMode;
             if (damageMultiplier > 0)
             {
                 ROMFuncs.ApplyHack(ModsDirectory + "dm-" + damageMultiplier.ToString());
             }
 
-            int damageEffect = (int) RandomizerSettings.DamageEffect;
+            int damageEffect = (int) Settings.DamageEffect;
             if (damageEffect > 0)
             {
                 ROMFuncs.ApplyHack(ModsDirectory + "de-" + damageEffect.ToString());
             }
 
-            int gravityType = (int)RandomizerSettings.MovementMode;
+            int gravityType = (int)Settings.MovementMode;
             if (gravityType > 0)
             {
                 ROMFuncs.ApplyHack(ModsDirectory + "movement-" + gravityType.ToString());
             }
 
-            int floorType = (int)RandomizerSettings.FloorType;
+            int floorType = (int)Settings.FloorType;
             if (floorType > 0)
             {
                 ROMFuncs.ApplyHack(ModsDirectory + "floor-" + floorType.ToString());
@@ -201,7 +201,7 @@ namespace MMRando
 
         private void WriteEnemies()
         {
-            if (RandomizerSettings.RandomizeEnemies)
+            if (Settings.RandomizeEnemies)
             {
                 SeedRNG();
                 ROMFuncs.ShuffleEnemies(RNG);
@@ -244,11 +244,11 @@ namespace MMRando
 
         private void WriteItems()
         {
-            if (RandomizerSettings.LogicMode == LogicMode.Vanilla)
+            if (Settings.LogicMode == LogicMode.Vanilla)
             {
                 WriteFreeItem(Items.MaskDeku);
 
-                if (RandomizerSettings.ShortenCutscenes)
+                if (Settings.ShortenCutscenes)
                 {
                     //giants cs were removed
                     WriteFreeItem(Items.SongOath);
@@ -299,7 +299,7 @@ namespace MMRando
                 }
             }
 
-            if (RandomizerSettings.AddShopItems)
+            if (Settings.AddShopItems)
             {
                 ROMFuncs.ApplyHack(ModsDirectory + "fix-shop-checks");
             }
@@ -307,12 +307,12 @@ namespace MMRando
 
         private void WriteGossipQuotes()
         {
-            if (RandomizerSettings.LogicMode == LogicMode.Vanilla)
+            if (Settings.LogicMode == LogicMode.Vanilla)
             {
                 return;
             }
 
-            if (RandomizerSettings.EnableGossipHints)
+            if (Settings.EnableGossipHints)
             {
                 SeedRNG();
                 ROMFuncs.WriteGossipMessage(GossipQuotes, RNG);
@@ -321,12 +321,12 @@ namespace MMRando
 
         private void WriteSpoilerLog()
         {
-            if (RandomizerSettings.LogicMode == LogicMode.Vanilla)
+            if (Settings.LogicMode == LogicMode.Vanilla)
             {
                 return;
             }
 
-            if (RandomizerSettings.GenerateSpoilerLog)
+            if (Settings.GenerateSpoilerLog)
             {
                 MakeSpoilerLog();
             }
@@ -334,7 +334,7 @@ namespace MMRando
 
         private void WriteFileSelect()
         {
-            if (RandomizerSettings.LogicMode == LogicMode.Vanilla)
+            if (Settings.LogicMode == LogicMode.Vanilla)
             {
                 return;
             }
@@ -388,7 +388,7 @@ namespace MMRando
 
         private void WriteStartupStrings()
         {
-            if (RandomizerSettings.LogicMode == LogicMode.Vanilla)
+            if (Settings.LogicMode == LogicMode.Vanilla)
             {
                 //ROMFuncs.ApplyHack(ModsDir + "postman-testing");
                 return;
@@ -422,7 +422,7 @@ namespace MMRando
 
             worker.ReportProgress(60, "Writing Character...");
             WriteLinkAppearance();
-            if (RandomizerSettings.LogicMode != LogicMode.Vanilla)
+            if (Settings.LogicMode != LogicMode.Vanilla)
             {
                 worker.ReportProgress(61, "Applying hacks...");
                 ROMFuncs.ApplyHack(ModsDirectory + "title-screen");

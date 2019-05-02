@@ -22,7 +22,6 @@ namespace MMRando
         private int[] _newEnts = new int[] { -1, -1, -1, -1 };
         private int[] _newExts = new int[] { -1, -1, -1, -1 };
 
-        public Settings RandomizerSettings { get; set; } = new Settings();
 
         public class ItemObject
         {
@@ -150,21 +149,21 @@ namespace MMRando
                 };
 
                 // Skip hints for vanilla bottle content
-                if ((!RandomizerSettings.RandomizeBottleCatchContents)
+                if ((!Settings.RandomizeBottleCatchContents)
                     && ItemUtils.IsBottleCatchContent(itemIndex))
                 {
                     continue;
                 };
 
                 // Skip hints for vanilla shop items
-                if ((!RandomizerSettings.AddShopItems)
+                if ((!Settings.AddShopItems)
                     && ItemUtils.IsShopItem(itemIndex))
                 {
                     continue;
                 };
 
                 // Skip hints for vanilla dungeon items
-                if (!RandomizerSettings.AddDungeonItems
+                if (!Settings.AddDungeonItems
                     && ItemUtils.IsDungeonItem(itemIndex))
                 {
                     continue;
@@ -446,7 +445,7 @@ namespace MMRando
 
         private void SortBGM()
         {
-            if (!RandomizerSettings.RandomizeBGM)
+            if (!Settings.RandomizeBGM)
             {
                 return;
             };
@@ -458,7 +457,7 @@ namespace MMRando
 
         private void SetTatlColour()
         {
-            if (RandomizerSettings.TatlColorSchema == TatlColorSchema.Rainbow)
+            if (Settings.TatlColorSchema == TatlColorSchema.Rainbow)
             {
                 for (int i = 0; i < 10; i++)
                 {
@@ -481,7 +480,7 @@ namespace MMRando
 
         private void MakeSpoilerLog()
         {
-            if (RandomizerSettings.LogicMode == LogicMode.Vanilla)
+            if (Settings.LogicMode == LogicMode.Vanilla)
             {
                 return;
             };
@@ -489,7 +488,7 @@ namespace MMRando
             var settingsString = EncodeSettings();
 
             StreamWriter LogFile = new StreamWriter($"SpoilerLog-{settingsString}.txt");
-            if (RandomizerSettings.RandomizeDungeonEntrances)
+            if (Settings.RandomizeDungeonEntrances)
             {
                 LogFile.WriteLine("------------Entrance----------------------------Destination-----------");
                 string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
@@ -656,7 +655,7 @@ namespace MMRando
         private string[] ReadRulesetFromResources()
         {
             string[] lines;
-            var mode = RandomizerSettings.LogicMode;
+            var mode = Settings.LogicMode;
 
             if (mode == LogicMode.Casual)
             {
@@ -1167,38 +1166,38 @@ namespace MMRando
         /// </summary>
         private void PrepareItemShuffle()
         {
-            if (RandomizerSettings.UseCustomItemList)
+            if (Settings.UseCustomItemList)
             {
                 ShuffleUsingCustomItemList();
                 return;
             }
 
-            if (RandomizerSettings.ExcludeSongOfSoaring)
+            if (Settings.ExcludeSongOfSoaring)
             {
                 ItemList[Items.SongSoaring].ReplacesItemId = Items.SongSoaring;
             }
 
-            if (!RandomizerSettings.AddSongs)
+            if (!Settings.AddSongs)
             {
                 PreserveSongs();
             }
 
-            if (!RandomizerSettings.AddDungeonItems)
+            if (!Settings.AddDungeonItems)
             {
                 PreserveDungeonItems();
             }
 
-            if (!RandomizerSettings.AddShopItems)
+            if (!Settings.AddShopItems)
             {
                 PreserveShopItems();
             }
 
-            if (!RandomizerSettings.AddOther)
+            if (!Settings.AddOther)
             {
                 PreserveOther();
             }
 
-            if (RandomizerSettings.RandomizeBottleCatchContents)
+            if (Settings.RandomizeBottleCatchContents)
             {
                 AddBottleCatchContents();
             }
@@ -1300,7 +1299,7 @@ namespace MMRando
         /// </summary>
         private void ShuffleUsingCustomItemList()
         {
-            RandomizerSettings.AddShopItems = false;
+            Settings.AddShopItems = false;
 
             // Should these be vanilla by default? Why not check settings.
             PreserveAreasAndOther();
@@ -1309,7 +1308,7 @@ namespace MMRando
             // Should these be randomized by default? Why not check settings.
             AddBottleCatchContents();
 
-            if (!RandomizerSettings.AddSongs)
+            if (!Settings.AddSongs)
             {
                 PreserveSongs();
             }
@@ -1338,7 +1337,7 @@ namespace MMRando
 
                 if (ItemUtils.IsShopItem(selectedItem))
                 {
-                    RandomizerSettings.AddShopItems = true;
+                    Settings.AddShopItems = true;
                 }
             }
         }
