@@ -175,7 +175,6 @@ namespace MMRando
         private void WriteGimmicks()
         {
             int damageMultiplier = (int)RandomizerSettings.DamageMode;
-
             if (damageMultiplier > 0)
             {
                 ROMFuncs.ApplyHack(ModsDirectory + "dm-" + damageMultiplier.ToString());
@@ -196,7 +195,7 @@ namespace MMRando
             int floorType = (int)RandomizerSettings.FloorType;
             if (floorType > 0)
             {
-                ROMFuncs.ApplyHack(ModsDirectory + "floor-" + damageMultiplier.ToString());
+                ROMFuncs.ApplyHack(ModsDirectory + "floor-" + floorType.ToString());
             }
         }
 
