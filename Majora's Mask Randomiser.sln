@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.28307.421
+VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Majora's Mask Randomiser", "Majora's Mask Randomiser.csproj", "{F365AB3C-6F06-4194-BB36-125A9E78D639}"
 EndProject
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {51599089-22F0-4224-9F55-31FD366FC952}
+		SolutionGuid = {6D101651-6A44-474F-A539-B24498527308}
 	EndGlobalSection
 EndGlobal

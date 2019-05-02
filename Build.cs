@@ -1,5 +1,8 @@
-﻿using System;
+﻿using MMRando.Models;
+using MMRando.Utils;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -15,7 +18,10 @@ namespace MMRando
 
         private void WriteAudioSeq()
         {
-            if (!cBGM.Checked) { return; };
+            if (!RandomizerSettings.RandomizeBGM) {
+                return;
+            };
+
             foreach (SequenceInfo s in SequenceList)
             {
                 s.Name = MusicDirectory + s.Name;
@@ -27,101 +33,106 @@ namespace MMRando
 
         private void WriteLinkAppearance()
         {
-            if (cLink.SelectedIndex == 0)
+            if (RandomizerSettings.Character == Character.LinkMM)
             {
                 WriteTunicColour();
             }
-            else if (cLink.SelectedIndex < 4)
+            else if (RandomizerSettings.Character == Character.LinkOOT
+                || RandomizerSettings.Character == Character.AdultLink
+                || RandomizerSettings.Character == Character.Kafei)
             {
-                int i = cLink.SelectedIndex;
-                BinaryReader b = new BinaryReader(File.Open(ObjsDirectory + "link-" + i.ToString(), FileMode.Open));
+                int characterIndex = (int)RandomizerSettings.Character;
+                BinaryReader b = new BinaryReader(File.Open(ObjsDirectory + "link-" + characterIndex.ToString(), FileMode.Open));
                 byte[] obj = new byte[b.BaseStream.Length];
                 b.Read(obj, 0, obj.Length);
                 b.Close();
-                if (i < 3)
+                if (characterIndex < 3)
                 {
-                    WriteTunicColour(obj, i);
-                };
-                ROMFuncs.ApplyHack(ModsDirectory + "fix-link-" + i.ToString());
+                    WriteTunicColour(obj, characterIndex);
+                }
+
+                ROMFuncs.ApplyHack(ModsDirectory + "fix-link-" + characterIndex.ToString());
                 ROMFuncs.InsertObj(obj, 0x11);
-                if (i == 3)
+                if (characterIndex == 3)
                 {
                     b = new BinaryReader(File.Open(ObjsDirectory + "kafei", FileMode.Open));
                     obj = new byte[b.BaseStream.Length];
                     b.Read(obj, 0, obj.Length);
                     b.Close();
-                    WriteTunicColour(obj, i);
+                    WriteTunicColour(obj, characterIndex);
                     ROMFuncs.InsertObj(obj, 0x1C);
                     ROMFuncs.ApplyHack(ModsDirectory + "fix-kafei");
-                };
-            };
+                }
+            }
             List<int[]> Others = ROMFuncs.GetAddresses(AddrsDirectory + "tunic-forms");
-            ROMFuncs.UpdateFormTunics(Others, bTunic.BackColor);
+            ROMFuncs.UpdateFormTunics(Others, RandomizerSettings.TunicColor);
         }
 
         private void WriteTunicColour()
         {
-            Color t = bTunic.BackColor;
+            Color t = RandomizerSettings.TunicColor;
             byte[] c = { t.R, t.G, t.B };
             List<int[]> locs = ROMFuncs.GetAddresses(AddrsDirectory + "tunic-colour");
             for (int i = 0; i < locs.Count; i++)
             {
                 ROMFuncs.WriteROMAddr(locs[i], c);
-            };
+            }
         }
 
         private void WriteTunicColour(byte[] obj, int i)
         {
-            Color t = bTunic.BackColor;
+            Color t = RandomizerSettings.TunicColor;
             byte[] c = { t.R, t.G, t.B };
             List<int[]> locs = ROMFuncs.GetAddresses(AddrsDirectory + "tunic-" + i.ToString());
             for (int j = 0; j < locs.Count; j++)
             {
                 ROMFuncs.WriteFileAddr(locs[j], c, obj);
-            };
+            }
         }
 
         private void WriteTatlColour()
         {
-            if (cTatl.SelectedIndex != 5)
+            if (RandomizerSettings.TatlColorSchema != TatlColorSchema.Random)
             {
+                var selectedColorSchemaIndex = (int)RandomizerSettings.TatlColorSchema;
                 byte[] c = new byte[8];
                 List<int[]> locs = ROMFuncs.GetAddresses(AddrsDirectory + "tatl-colour");
                 for (int i = 0; i < locs.Count; i++)
                 {
-                    ROMFuncs.Arr_WriteU32(c, 0, Values.TatlColours[cTatl.SelectedIndex, i << 1]);
-                    ROMFuncs.Arr_WriteU32(c, 4, Values.TatlColours[cTatl.SelectedIndex, (i << 1) + 1]);
+                    ROMFuncs.Arr_WriteU32(c, 0, Values.TatlColours[selectedColorSchemaIndex, i << 1]);
+                    ROMFuncs.Arr_WriteU32(c, 4, Values.TatlColours[selectedColorSchemaIndex, (i << 1) + 1]);
                     ROMFuncs.WriteROMAddr(locs[i], c);
-                };
+                }
             }
             else
             {
                 ROMFuncs.ApplyHack(ModsDirectory + "rainbow-tatl");
-            };
+            }
         }
 
         private void WriteQuickText()
         {
-            if (cQText.Checked)
+            if (RandomizerSettings.QuickTextEnabled)
             {
                 ROMFuncs.ApplyHack(ModsDirectory + "quick-text");
-            };
+            }
         }
 
         private void WriteCutscenes()
         {
-            if (cCutsc.Checked)
+            if (RandomizerSettings.ShortenCutscenes)
             {
                 ROMFuncs.ApplyHack(ModsDirectory + "short-cutscenes");
-            };
+            }
         }
 
         private void WriteDungeons()
         {
-            if ((cMode.SelectedIndex == 2) || (!cDEnt.Checked))
+            if ((RandomizerSettings.LogicMode == LogicMode.Vanilla) || (!RandomizerSettings.RandomizeDungeonEntrances))
             {
                 return;
-            };
+            }
+
             ROMFuncs.WriteEntrances(Values.OldEntrances, _newEntrances);
             ROMFuncs.WriteEntrances(Values.OldExits, _newExits);
             byte[] li = new byte[] { 0x24, 0x02, 0x00, 0x00 };
@@ -131,9 +142,11 @@ namespace MMRando
             {
                 li[3] = (byte)_newExts[i];
                 ROMFuncs.WriteROMAddr(addr[i], li);
-            };
+            }
+
             ROMFuncs.ApplyHack(ModsDirectory + "fix-dungeons");
             addr = ROMFuncs.GetAddresses(AddrsDirectory + "d-exit");
+
             for (int i = 0; i < addr.Count; i++)
             {
                 if (i == 2)
@@ -143,56 +156,62 @@ namespace MMRando
                 else
                 {
                     ROMFuncs.WriteROMAddr(addr[i], new byte[] { (byte)((Values.OldExits[_newEnts[i]] & 0xFF00) >> 8), (byte)(Values.OldExits[_newEnts[i]] & 0xFF) });
-                };
-            };
+                }
+            }
+
             addr = ROMFuncs.GetAddresses(AddrsDirectory + "dc-flagload");
             for (int i = 0; i < addr.Count; i++)
             {
                 ROMFuncs.WriteROMAddr(addr[i], new byte[] { (byte)((_newDCFlags[i] & 0xFF00) >> 8), (byte)(_newDCFlags[i] & 0xFF) });
-            };
+            }
+
             addr = ROMFuncs.GetAddresses(AddrsDirectory + "dc-flagmask");
             for (int i = 0; i < addr.Count; i++)
             {
                 ROMFuncs.WriteROMAddr(addr[i], new byte[] { (byte)((_newDCMasks[i] & 0xFF00) >> 8), (byte)(_newDCMasks[i] & 0xFF) });
-            };
+            }
         }
 
         private void WriteGimmicks()
         {
-            int i = cDMult.SelectedIndex;
-            if (i > 0)
+            int damageMultiplier = (int)RandomizerSettings.DamageMode;
+
+            if (damageMultiplier > 0)
             {
-                ROMFuncs.ApplyHack(ModsDirectory + "dm-" + i.ToString());
-            };
-            i = cDType.SelectedIndex;
-            if (i > 0)
+                ROMFuncs.ApplyHack(ModsDirectory + "dm-" + damageMultiplier.ToString());
+            }
+
+            int damageEffect = (int) RandomizerSettings.DamageEffect;
+            if (damageEffect > 0)
             {
-                ROMFuncs.ApplyHack(ModsDirectory + "de-" + i.ToString());
-            };
-            i = cGravity.SelectedIndex;
-            if (i > 0)
+                ROMFuncs.ApplyHack(ModsDirectory + "de-" + damageEffect.ToString());
+            }
+
+            int gravityType = (int)RandomizerSettings.MovementMode;
+            if (gravityType > 0)
             {
-                ROMFuncs.ApplyHack(ModsDirectory + "movement-" + i.ToString());
-            };
-            i = cFloors.SelectedIndex;
-            if (i > 0)
+                ROMFuncs.ApplyHack(ModsDirectory + "movement-" + gravityType.ToString());
+            }
+
+            int floorType = (int)RandomizerSettings.FloorType;
+            if (floorType > 0)
             {
-                ROMFuncs.ApplyHack(ModsDirectory + "floor-" + i.ToString());
-            };
+                ROMFuncs.ApplyHack(ModsDirectory + "floor-" + damageMultiplier.ToString());
+            }
         }
 
         private void WriteEnemies()
         {
-            if (cEnemy.Checked)
+            if (RandomizerSettings.RandomizeEnemies)
             {
                 SeedRNG();
                 ROMFuncs.ShuffleEnemies(RNG);
-            };
+            }
         }
 
         private void WriteFreeItem(int Item)
         {
-            ROMFuncs.WriteToROM(ITEM_ADDRS[Item], ITEM_VALUES[Item]);
+            ROMFuncs.WriteToROM(Items.ITEM_ADDRS[Item], Items.ITEM_VALUES[Item]);
             switch (Item)
             {
                 case 1: //bow
@@ -221,23 +240,23 @@ namespace MMRando
                     break;
                 default:
                     break;
-            };
+            }
         }
 
         private void WriteItems()
         {
-            if (cMode.SelectedIndex == 2)
+            if (RandomizerSettings.LogicMode == LogicMode.Vanilla)
             {
-                WriteFreeItem(MaskDeku);
+                WriteFreeItem(Items.MaskDeku);
 
-                if (cCutsc.Checked)
+                if (RandomizerSettings.ShortenCutscenes)
                 {
                     //giants cs were removed
-                    WriteFreeItem(SongOath);
-                };
+                    WriteFreeItem(Items.SongOath);
+                }
 
                 return;
-            };
+            }
 
             //write free item
             int itemId = ItemList.FindIndex(u => u.ReplacesItemId == 0);
@@ -247,80 +266,79 @@ namespace MMRando
             ROMFuncs.ReplaceGetItemTable(ModsDirectory);
             ROMFuncs.InitItems();
 
-            for (int itemIndex = 0; itemIndex < ItemList.Count; itemIndex++)
+            for (int i = 0; i < ItemList.Count; i++)
             {
-                itemId = ItemList[itemIndex].ID;
+                itemId = ItemList[i].ID;
 
                 // Unused item
-                if (ItemList[itemIndex].ReplacesItemId == -1)
+                if (ItemList[i].ReplacesItemId == -1)
                 {
                     continue;
                 };
 
-                bool isRepeatable = REPEATABLE.Contains(itemId);
-                bool isCycleRepeatable = CYCLE_REPEATABLE.Contains(itemId);
-                int replacesItemId = ItemList[itemIndex].ReplacesItemId;
+                bool isRepeatable = Items.REPEATABLE.Contains(itemId);
+                bool isCycleRepeatable = Items.CYCLE_REPEATABLE.Contains(itemId);
+                int replacesItemId = ItemList[i].ReplacesItemId;
 
-                if (itemId > AreaInvertedStoneTowerNew) {
+                if (ItemUtils.IsItemDefinedPastAreas(itemId)) {
                     // Subtract amount of entries describing areas and other
                     itemId -= Values.NumberOfAreasAndOther;
-                };
+                }
 
-                if (replacesItemId > AreaInvertedStoneTowerNew) {
+                if (ItemUtils.IsItemDefinedPastAreas(replacesItemId)) {
                     // Subtract amount of entries describing areas and other
                     replacesItemId -= Values.NumberOfAreasAndOther;
-                };
+                }
 
-                if ((itemIndex >= BottleCatchFairy) 
-                    && (itemIndex <= BottleCatchMushroom))
+                if (ItemUtils.IsBottleCatchContent(i))
                 {
                     ROMFuncs.WriteNewBottle(replacesItemId, itemId);
                 }
                 else
                 {
                     ROMFuncs.WriteNewItem(replacesItemId, itemId, isRepeatable, isCycleRepeatable);
-                };
-            };
+                }
+            }
 
-            if (Shops)
+            if (RandomizerSettings.AddShopItems)
             {
                 ROMFuncs.ApplyHack(ModsDirectory + "fix-shop-checks");
-            };
+            }
         }
 
         private void WriteGossipQuotes()
         {
-            if (cMode.SelectedIndex == 2)
+            if (RandomizerSettings.LogicMode == LogicMode.Vanilla)
             {
                 return;
-            };
+            }
 
-            if (cGossip.Checked)
+            if (RandomizerSettings.EnableGossipHints)
             {
                 SeedRNG();
                 ROMFuncs.WriteGossipMessage(GossipQuotes, RNG);
-            };
+            }
         }
 
         private void WriteSpoilerLog()
         {
-            if (cMode.SelectedIndex == 2)
+            if (RandomizerSettings.LogicMode == LogicMode.Vanilla)
             {
                 return;
-            };
+            }
 
-            if (cSpoiler.Checked)
+            if (RandomizerSettings.GenerateSpoilerLog)
             {
                 MakeSpoilerLog();
-            };
+            }
         }
 
         private void WriteFileSelect()
         {
-            if (cMode.SelectedIndex == 2)
+            if (RandomizerSettings.LogicMode == LogicMode.Vanilla)
             {
                 return;
-            };
+            }
 
             ROMFuncs.ApplyHack(ModsDirectory + "file-select");
             byte[] SkyboxDefault = new byte[] { 0x91, 0x78, 0x9B, 0x28, 0x00, 0x28 };
@@ -337,11 +355,11 @@ namespace MMRando
                 SkyboxDefault[i * 3] = c.R;
                 SkyboxDefault[i * 3 + 1] = c.G;
                 SkyboxDefault[i * 3 + 2] = c.B;
-            };
+            }
             for (int i = 0; i < 3; i++)
             {
                 ROMFuncs.WriteROMAddr(Addrs[i], new byte[] { SkyboxDefault[i * 2], SkyboxDefault[i * 2 + 1] });
-            };
+            }
             rot = R.Next(360);
             byte[] FSDefault = new byte[] { 0x64, 0x96, 0xFF, 0x96, 0xFF, 0xFF, 0x64, 0xFF, 0xFF };
             Addrs = ROMFuncs.GetAddresses(AddrsDirectory + "fs-colour");
@@ -355,7 +373,7 @@ namespace MMRando
                 FSDefault[i * 3] = c.R;
                 FSDefault[i * 3 + 1] = c.G;
                 FSDefault[i * 3 + 2] = c.B;
-            };
+            }
             for (int i = 0; i < 9; i++)
             {
                 if (i < 6)
@@ -365,67 +383,98 @@ namespace MMRando
                 else
                 {
                     ROMFuncs.WriteROMAddr(Addrs[i], new byte[] { FSDefault[i] });
-                };
-            };
+                }
+            }
         }
 
         private void WriteStartupStrings()
         {
-            if (cMode.SelectedIndex == 2)
+            if (RandomizerSettings.LogicMode == LogicMode.Vanilla)
             {
                 //ROMFuncs.ApplyHack(ModsDir + "postman-testing");
                 return;
-            };
+            }
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
-            string ver = String.Format("v{0}.{1}", v.Major, v.Minor);
-            string setting = tSString.Text;
-            ROMFuncs.SetStrings(ModsDirectory + "logo-text", ver, setting);
+            ROMFuncs.SetStrings(ModsDirectory + "logo-text", $"v{v.Major}.{v.Minor}b", tSString.Text);
         }
 
         private bool ValidateROM(string FileName)
         {
             bool res = false;
-            BinaryReader ROM = new BinaryReader(File.Open(FileName, FileMode.Open));
-            if (ROM.BaseStream.Length == 0x2000000)
+            using (BinaryReader ROM = new BinaryReader(File.Open(FileName, FileMode.Open, FileAccess.Read)))
             {
-                res = ROMFuncs.CheckOldCRC(ROM);
-            };
-            ROM.Close();
+                if (ROM.BaseStream.Length == 0x2000000)
+                {
+                    res = ROMFuncs.CheckOldCRC(ROM);
+                }
+            }
             return res;
         }
 
-        private void MakeROM(string InFile, string FileName)
+        private void MakeROM(string InFile, string FileName, BackgroundWorker worker)
         {
-            // TODO this blocks the ui for a decent period of time. Run in new thread?
-            BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open));
-            ROMFuncs.ReadFileTable(OldROM);
-            OldROM.Close();
-            WriteAudioSeq();
-            WriteLinkAppearance();
-            if (cMode.SelectedIndex != 2)
+            using (BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open, FileAccess.Read)))
             {
+                ROMFuncs.ReadFileTable(OldROM);
+            }
+
+            worker.ReportProgress(55, "Writing Audio...");
+            WriteAudioSeq();
+
+            worker.ReportProgress(60, "Writing Character...");
+            WriteLinkAppearance();
+            if (RandomizerSettings.LogicMode != LogicMode.Vanilla)
+            {
+                worker.ReportProgress(61, "Applying hacks...");
                 ROMFuncs.ApplyHack(ModsDirectory + "title-screen");
                 ROMFuncs.ApplyHack(ModsDirectory + "misc-changes");
                 ROMFuncs.ApplyHack(ModsDirectory + "cm-cs");
                 WriteFileSelect();
-            };
+            }
             ROMFuncs.ApplyHack(ModsDirectory + "init-file");
+
+            worker.ReportProgress(62, "Writing quick text...");
             WriteQuickText();
+
+            worker.ReportProgress(64, "Writing cutscenes...");
             WriteCutscenes();
+
+            worker.ReportProgress(66, "Writing Tatl...");
             WriteTatlColour();
+
+            worker.ReportProgress(68, "Writing dungeons...");
             WriteDungeons();
+
+            worker.ReportProgress(70, "Writing gimmicks...");
             WriteGimmicks();
+
+            worker.ReportProgress(72, "Writing enemies...");
             WriteEnemies();
+
+            worker.ReportProgress(75, "Writing items...");
             WriteItems();
+
+            worker.ReportProgress(85, "Writing gossip...");
             WriteGossipQuotes();
+
+            worker.ReportProgress(87, "Writing startup...");
             WriteStartupStrings();
+
+            worker.ReportProgress(89, "Writing spoiler log...");
             WriteSpoilerLog();
+
+            worker.ReportProgress(90, "Building ROM...");
+
             byte[] ROM = ROMFuncs.BuildROM(FileName);
             if (Output_VC)
             {
+                worker.ReportProgress(98, "Building VC...");
+
                 string VCFileName = saveWad.FileName;
                 ROMFuncs.BuildVC(ROM, VCDirectory, VCFileName);
-            };
+            }
+            worker.ReportProgress(100, "Done!");
+
         }
 
     }

@@ -76,8 +76,7 @@ namespace MMRando
         private static void InitGetBottleList()
         {
             BottleList = new List<BottleCatchEntry[]>();
-            int f = AddrToFile((uint)BottleCatchTable);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(BottleCatchTable);
             int baseaddr = BottleCatchTable - MMFileList[f].Addr;
             for (int i = 0; i < BottleIndices.Count; i++)
             {
@@ -105,8 +104,7 @@ namespace MMRando
         private static void InitGetItemList()
         {
             GetItemList = new List<GetItemEntry>();
-            int f = AddrToFile((uint)GetItemTable);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(GetItemTable);
             int baseaddr = GetItemTable - MMFileList[f].Addr;
             for (int i = 0; i < GetItemIndices.Count; i++)
             {
@@ -138,8 +136,7 @@ namespace MMRando
 
         public static void WriteNewBottle(int ItemSlot, int NewItem)
         {
-            int f = AddrToFile((uint)BottleCatchTable);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(BottleCatchTable);
             int baseaddr = BottleCatchTable - MMFileList[f].Addr;
             for (int i = 0; i < BottleIndices[ItemSlot].Length; i++)
             {
@@ -152,8 +149,7 @@ namespace MMRando
 
         public static void WriteNewItem(int ItemSlot, int NewItem, bool IsRepeatable, bool RepeatCycle)
         {
-            int f = AddrToFile((uint)GetItemTable);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(GetItemTable);
             int baseaddr = GetItemTable - MMFileList[f].Addr;
             int offset = (GetItemIndices[ItemSlot] - 1) * 8;
             MMFileList[f].Data[baseaddr + offset] = GetItemList[NewItem].ItemGained;

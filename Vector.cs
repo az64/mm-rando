@@ -23,29 +23,32 @@ namespace MMRando
 
         private static vecf32 CrossProduct(vecf32 A, vecf32 B)
         {
-            vecf32 C = new vecf32();
-            C.x = (A.y * B.z) - (A.z * B.y);
-            C.y = (A.z * B.x) - (A.x * B.z);
-            C.z = (A.x * B.y) - (A.y * B.x);
-            return C;
+            return new vecf32
+            {
+                x = (A.y * B.z) - (A.z * B.y),
+                y = (A.z * B.x) - (A.x * B.z),
+                z = (A.x * B.y) - (A.y * B.x)
+            };
         }
 
         private static vecf32 Subtract(vecf32 A, vecf32 B)
         {
-            vecf32 C = new vecf32();
-            C.x = A.x - B.x;
-            C.y = A.y - B.y;
-            C.z = A.z - B.z;
-            return C;
+            return new vecf32
+            {
+                x = A.x - B.x,
+                y = A.y - B.y,
+                z = A.z - B.z
+            };
         }
 
         private static vecf32 Subtract(vec16 A, vec16 B)
         {
-            vecf32 C = new vecf32();
-            C.x = A.x - B.x;
-            C.y = A.y - B.y;
-            C.z = A.z - B.z;
-            return C;
+            return new vecf32
+            {
+                x = A.x - B.x,
+                y = A.y - B.y,
+                z = A.z - B.z
+            };
         }
 
         private static float Length(vecf32 A)
@@ -56,11 +59,12 @@ namespace MMRando
         private static vecf32 Normalise(vecf32 A)
         {
             float a = Length(A);
-            vecf32 u_A = new vecf32();
-            u_A.x = A.x / a;
-            u_A.y = A.y / a;
-            u_A.z = A.z / a;
-            return u_A;
+            return new vecf32
+            {
+                x = A.x / a,
+                y = A.y / a,
+                z = A.z / a
+            };
         }
 
         private static float PlaneDist(vecf32 n, vec16 p)

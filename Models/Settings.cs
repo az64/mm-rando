@@ -5,11 +5,11 @@ namespace MMRando.Models
 {
     public enum LogicMode
     {
-        Casual,
-        Glitched,
-        Vanilla,
-        UserLogic,
-        NoLogic
+        Casual = Values.CasualMode0,
+        Glitched = Values.GlitchedMode1,
+        Vanilla = Values.VanillaMode2,
+        UserLogic = Values.UserLogicMode3,
+        NoLogic = Values.NoLogicMode4
     }
 
     public enum DamageMode
@@ -34,6 +34,15 @@ namespace MMRando.Models
         SuperLowGravity,
         LowGravity,
         HighGravity
+    }
+
+    public enum FloorType
+    {
+        Default,
+        Sand,
+        Ice,
+        Snow,
+        Random
     }
 
     public enum Character
@@ -66,7 +75,17 @@ namespace MMRando.Models
         /// <summary>
         /// Indicates a N64 Rom to be randomized. Default true.
         /// </summary>
-        public bool N64Rom { get; private set; } = true;
+        public bool IsN64Rom { get; private set; } = true;
+
+        /// <summary>
+        /// Filepath to the input ROM
+        /// </summary>
+        public string InputRomPath { get; set; }
+
+        /// <summary>
+        /// Generate spoiler log on randomizing
+        /// </summary>
+        public bool GenerateSpoilerLog { get; set; }
 
         /// <summary>
         /// 
@@ -80,6 +99,16 @@ namespace MMRando.Models
 
 
         // Random Elements
+
+        /// <summary>
+        /// The randomizer seed
+        /// </summary>
+        public int Seed { get; set; }
+
+        /// <summary>
+        /// Selected mode of logic (affects randomization rules)
+        /// </summary>
+        public LogicMode LogicMode { get; set; }
 
         /// <summary>
         /// Add songs to the randomization pool
@@ -149,6 +178,11 @@ namespace MMRando.Models
         /// </summary>
         public MovementMode MovementMode { get; set; }
 
+        /// <summary>
+        /// Sets the type of floor globally
+        /// </summary>
+        public FloorType FloorType { get; set; }
+
         // Comfort / Cosmetics
 
         /// <summary>
@@ -159,7 +193,7 @@ namespace MMRando.Models
         /// <summary>
         /// Text is fast-forwarded
         /// </summary>
-        public bool QuickText { get; set; }
+        public bool QuickTextEnabled { get; set; }
 
         /// <summary>
         /// The color of Link's tunic
@@ -175,6 +209,6 @@ namespace MMRando.Models
         /// Replaces Tatl's colors
         /// </summary>
         public TatlColorSchema TatlColorSchema { get; set; }
-
+        
     }
 }

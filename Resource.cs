@@ -26,7 +26,7 @@ namespace MMRando
                 addr += 4;
                 Arr_Insert(hack_content, addr, (int)len, data, (int)dest);
                 addr += (int)len;
-            };
+            }
         }
 
         public static void ApplyHack(string name)
@@ -54,7 +54,7 @@ namespace MMRando
                     hack_content[p + 1] = l.G;
                     hack_content[p + 2] = l.B;
                     hack_content[p + 3] = l.A;
-                };
+                }
                 l = Color.FromArgb(hack_content[0x1FE72], hack_content[0x1FE73], hack_content[0x1FE76]);
                 h = l.GetHue();
                 h += rot;
@@ -63,7 +63,7 @@ namespace MMRando
                 hack_content[0x1FE72] = l.R;
                 hack_content[0x1FE73] = l.G;
                 hack_content[0x1FE76] = l.B;
-            };
+            }
             int addr = 0;
             while (hack_content[addr] != 0xFF)
             {
@@ -72,21 +72,22 @@ namespace MMRando
                 addr += 4;
                 uint len = Arr_ReadU32(hack_content, addr);
                 addr += 4;
-                int f = AddrToFile(dest);
+                int f = GetFileIndexForWriting((int)dest);
                 dest -= (uint)MMFileList[f].Addr;
-                CheckCompressed(f);
                 Arr_Insert(hack_content, addr, (int)len, MMFileList[f].Data, (int)dest);
                 addr += (int)len;
-            };
+            }
         }
 
         public static List<int[]> GetAddresses(string name)
         {
             List<int[]> Addrs = new List<int[]>();
-            BinaryReader AddrFile = new BinaryReader(File.Open(name, FileMode.Open));
-            byte[] a = new byte[AddrFile.BaseStream.Length];
-            AddrFile.Read(a, 0, a.Length);
-            AddrFile.Close();
+            byte[] a;
+            using (BinaryReader AddrFile = new BinaryReader(File.Open(name, FileMode.Open, FileAccess.Read)))
+            {
+                a = new byte[AddrFile.BaseStream.Length];
+                AddrFile.Read(a, 0, a.Length);
+            }
             int i = 0;
             while (a[i] != 0xFF)
             {
@@ -97,9 +98,9 @@ namespace MMRando
                 {
                     alist[j] = (int)Arr_ReadU32(a, i);
                     i += 4;
-                };
+                }
                 Addrs.Add(alist);
-            };
+            }
             return Addrs;
         }
 

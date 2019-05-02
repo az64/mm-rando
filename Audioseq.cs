@@ -12,8 +12,7 @@ namespace MMRando
         public static void RebuildAudioSeq(List<MainRandomizerForm.SequenceInfo> SeqList)
         {
             List<MMSeq> OldSeq = new List<MMSeq>();
-            int f = AddrToFile((uint)SeqTable);
-            CheckCompressed(f);
+            int f = GetFileIndexForWriting(SeqTable);
             int basea = MMFileList[f].Addr;
             for (int i = 0; i < 128; i++)
             {
@@ -121,15 +120,14 @@ namespace MMRando
                 MMFileList[4].Data = NewAudioSeq;
             };
             //update pointer table
-            f = AddrToFile((uint)SeqTable);
+            f = GetFileIndexForWriting(SeqTable);
             for (int i = 0; i < 128; i++)
             {
                 Arr_WriteU32(MMFileList[f].Data, (SeqTable + (i * 16)) - basea, (uint)NewSeq[i].Addr);
                 Arr_WriteU32(MMFileList[f].Data, 4 + (SeqTable + (i * 16)) - basea, (uint)NewSeq[i].Size);
             };
             //update inst sets
-            f = AddrToFile((uint)InstSetMap);
-            CheckCompressed(f);
+            f = GetFileIndexForWriting(InstSetMap);
             basea = MMFileList[f].Addr;
             for (int i = 0; i < 128; i++)
             {

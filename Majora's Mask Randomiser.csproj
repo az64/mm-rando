@@ -70,7 +70,6 @@
     <Compile Include="Build.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Constants\Temp.cs" />
     <Compile Include="Constants\Values.cs" />
     <Compile Include="fItemEdit.cs">
       <SubType>Form</SubType>
@@ -97,7 +96,6 @@
       <DependentUpon>fMain.cs</DependentUpon>
     </Compile>
     <Compile Include="ItemSwap.cs" />
-    <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="NewItemForm.cs">
       <SubType>Form</SubType>
@@ -108,9 +106,7 @@
     <Compile Include="Scene.cs" />
     <Compile Include="Enemies.cs" />
     <Compile Include="Entrance.cs" />
-    <Compile Include="Items.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Items.cs" />
     <Compile Include="Hue.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Obj.cs" />
@@ -121,6 +117,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Tunics.cs" />
+    <Compile Include="Utils\ItemUtils.cs" />
     <Compile Include="VC_Inject.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="yaz0.cs" />
@@ -699,6 +696,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="music\uc-zora">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="obj\kafei">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="obj\link-1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="obj\link-2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="obj\link-3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">
