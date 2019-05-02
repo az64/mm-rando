@@ -247,14 +247,12 @@ namespace MMRando
             pProgress.Value = 0;
             lStatus.Text = "Ready...";
             EnableAllControls(true);
-
+            EnableBoxes();
         }
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             TryRandomize(sender as BackgroundWorker, e);
-            EnableBoxes();
-
         }
 
         private void bTunic_Click(object sender, EventArgs e)
@@ -819,10 +817,19 @@ namespace MMRando
             cFloors.Enabled = v;
             cGossip.Enabled = v;
             cGravity.Enabled = v;
+            cLink.Enabled = v;
+            cMixSongs.Enabled = v;
+            cSoS.Enabled = v;
+            cShop.Enabled = v;
+            cUserItems.Enabled = v;
+            cVC.Enabled = v;
+            cQText.Enabled = v;
+            cSpoiler.Enabled = v;
 
             bopen.Enabled = v;
             bRandomise.Enabled = v;
             bTunic.Enabled = v;
+
             tSeed.Enabled = v;
             tSString.Enabled = v;
         }
