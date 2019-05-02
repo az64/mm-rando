@@ -3,70 +3,9 @@ using System.Drawing;
 
 namespace MMRando.Models
 {
-    public enum LogicMode
-    {
-        Casual = Values.CasualMode0,
-        Glitched = Values.GlitchedMode1,
-        Vanilla = Values.VanillaMode2,
-        UserLogic = Values.UserLogicMode3,
-        NoLogic = Values.NoLogicMode4
-    }
-
-    public enum DamageMode
-    {
-        Default, Double, Quadruple, OHKO, Doom
-    }
-
-    public enum DamageEffect
-    {
-        Default,
-        Fire,
-        Ice,
-        Shock,
-        Knockdown,
-        Random
-    }
-
-    public enum MovementMode
-    {
-        Default,
-        HighSpeed,
-        SuperLowGravity,
-        LowGravity,
-        HighGravity
-    }
-
-    public enum FloorType
-    {
-        Default,
-        Sand,
-        Ice,
-        Snow,
-        Random
-    }
-
-    public enum Character
-    {
-        LinkMM,
-        LinkOOT,
-        AdultLink,
-        Kafei
-    }
-
-    public enum TatlColorSchema
-    {
-        Default,
-        Dark,
-        Hot,
-        Cool,
-        Rainbow,
-        Random,
-    }
 
     public class Settings
     {
-        // TODO checkboxes should not be checked for settings, but should rather
-        // update a settings model representing each option
         // TODO make base36-string from settings
         // TODO make settings from base36-string
 
@@ -209,6 +148,6 @@ namespace MMRando.Models
         /// Replaces Tatl's colors
         /// </summary>
         public TatlColorSchema TatlColorSchema { get; set; }
-        
+
     }
 }

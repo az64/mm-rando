@@ -13,8 +13,6 @@ namespace MMRando
     {
         public Settings Settings { get; set; } = new Settings();
 
-        private int _progressPercentage = 0;
-
         bool IsUpdating = false;
         bool Output_VC = false;
         string OldSettingsString = "";

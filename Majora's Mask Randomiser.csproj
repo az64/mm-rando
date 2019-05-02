@@ -96,7 +96,14 @@
       <DependentUpon>fMain.cs</DependentUpon>
     </Compile>
     <Compile Include="ItemSwap.cs" />
+    <Compile Include="Models\Character.cs" />
+    <Compile Include="Models\DamageEffect.cs" />
+    <Compile Include="Models\DamageMode.cs" />
+    <Compile Include="Models\FloorType.cs" />
+    <Compile Include="Models\LogicMode.cs" />
+    <Compile Include="Models\MovementMode.cs" />
     <Compile Include="Models\Settings.cs" />
+    <Compile Include="Models\TatlColorSchema.cs" />
     <Compile Include="NewItemForm.cs">
       <SubType>Form</SubType>
     </Compile>

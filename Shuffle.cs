@@ -656,17 +656,17 @@ namespace MMRando
         private string[] ReadRulesetFromResources()
         {
             string[] lines;
-            var mode = (int)RandomizerSettings.LogicMode;
+            var mode = RandomizerSettings.LogicMode;
 
-            if (mode == Values.CasualMode0)
+            if (mode == LogicMode.Casual)
             {
                 lines = Properties.Resources.REQ_CASUAL.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
             }
-            else if (mode == Values.GlitchedMode1)
+            else if (mode == LogicMode.Glitched)
             {
                 lines = Properties.Resources.REQ_GLITCH.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
             }
-            else if (mode == Values.UserLogicMode3)
+            else if (mode == LogicMode.UserLogic)
             {
                 using (StreamReader Req = new StreamReader(File.Open(openLogic.FileName, FileMode.Open)))
                 {

@@ -56,13 +56,5 @@
         public static readonly int[] OldExits = new int[] { 0x8610, 0xB210, 0xAC10, 0x6A70 };
         public static readonly int[] OldDCFlags = new int[] { 0x57C, 0x589, 0x59C, 0x59F };
         public static readonly int[] OldMaskFlags = new int[] { 0x02, 0x80, 0x20, 0x80 };
-
-        // Settings constants
-
-        public const int CasualMode0 = 0;
-        public const int GlitchedMode1 = 1;
-        public const int VanillaMode2 = 2;
-        public const int UserLogicMode3 = 3;
-        public const int NoLogicMode4 = 4;
     }
 }
