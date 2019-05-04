@@ -69,6 +69,7 @@
     <Compile Include="Build.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Constants\Values.cs" />
     <Compile Include="fItemEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +95,14 @@
       <DependentUpon>fMain.cs</DependentUpon>
     </Compile>
     <Compile Include="ItemSwap.cs" />
+    <Compile Include="Models\Character.cs" />
+    <Compile Include="Models\DamageEffect.cs" />
+    <Compile Include="Models\DamageMode.cs" />
+    <Compile Include="Models\FloorType.cs" />
+    <Compile Include="Models\LogicMode.cs" />
+    <Compile Include="Models\MovementMode.cs" />
+    <Compile Include="Models\Settings.cs" />
+    <Compile Include="Models\TatlColorSchema.cs" />
     <Compile Include="NewItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,9 +112,7 @@
     <Compile Include="Scene.cs" />
     <Compile Include="Enemies.cs" />
     <Compile Include="Entrance.cs" />
-    <Compile Include="Items.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Items.cs" />
     <Compile Include="Hue.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Obj.cs" />
@@ -116,6 +123,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Tunics.cs" />
+    <Compile Include="Utils\ItemUtils.cs" />
     <Compile Include="VC_Inject.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="yaz0.cs" />
