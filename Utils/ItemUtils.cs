@@ -9,12 +9,12 @@
 
         public static bool IsOutOfRange(int itemId)
         {
-            return itemId > Items.GrottoToGR;
+            return itemId > Items.GrottoToGoronRace;
         }
 
         public static bool IsShopItem(int itemIndex)
         {
-            return itemIndex >= Items.ShopItemTownRedPotion
+            return itemIndex >= Items.ShopItemTradingPostRedPotion
                     && itemIndex <= Items.ShopItemZoraRedPotion;
         }
 
@@ -59,6 +59,12 @@
         {
             return itemIndex >= Items.BottleCatchFairy
                    && itemIndex <= Items.BottleCatchMushroom;
+        }
+
+        internal static bool IsDeed(int item)
+        {
+            return item >= Items.TradeItemLandDeed
+                    && item <= Items.TradeItemOceanDeed;
         }
     }
 }

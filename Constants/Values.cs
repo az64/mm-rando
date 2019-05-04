@@ -1,4 +1,6 @@
-﻿namespace MMRando
+﻿using System.Collections.ObjectModel;
+
+namespace MMRando
 {
     public static class Values
     {
@@ -8,25 +10,32 @@
         /// </summary>
         public const int NumberOfAreasAndOther = 23;
 
-        public static readonly byte[] MessageHeader = new byte[] { 2, 0, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+        public static readonly ReadOnlyCollection<byte> MessageHeader
+            = new ReadOnlyCollection<byte>(new byte[] {
+                2, 0, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
+        });
 
-        public static readonly string[] GossipMessageStartSentences = new string[] {
+        public static readonly ReadOnlyCollection<string> GossipMessageStartSentences
+            = new ReadOnlyCollection<string>(new string[] {
             "They say ",
             "I hear ",
             "It seems ",
             "Apparently, ",
-            "It appears " };
+            "It appears "
+        });
 
-        public static readonly string[] GossipMessageMidSentences = new string[] {
+        public static readonly ReadOnlyCollection<string> GossipMessageMidSentences
+            = new ReadOnlyCollection<string>(new string[] {
             "leads to ",
             "yields ",
             "brings ",
             "holds ",
             "conceals ",
             "posesses "
-        };
+        });
 
-        public static readonly string[] JunkGossipMessages = new string[]
+        public static readonly ReadOnlyCollection<string> JunkGossipMessages 
+            = new ReadOnlyCollection<string>(new string[]
         {
             "\x1E\x69\x4FThey say that Jimmie1717's mod\x11lottery is \x01RIGGED!\x00\xBF",
             "\x1E\x69\x4FReal ZELDA players use HOLD targeting!\xBF",
@@ -42,7 +51,7 @@
             "\x1E\x69\x4FThey say wearing the \x01" + "Bremen Mask\x00\x11increases your chances of beating the\x11Gorman bros...\xBF",
             "\x1E\x69\x6FUse the boost to get through!\xBF",
             "\x1E\x69\x4FThey say the \x04gold dog\x00 cheats...\xBF"
-        };
+        });
 
         public static readonly uint[,] TatlColours = new uint[,] { // normal, npc, check, enemy, boss
             { 0xffffe6ff, 0xdca05000, 0x9696ffff, 0x9696ff00, 0x00ff00ff, 0x00ff0000, 0xffff00ff, 0xc89b0000, 0xffff00ff, 0xc89b0000 },
@@ -52,9 +61,24 @@
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
         };
 
-        public static readonly int[] OldEntrances = new int[] { 0x3000, 0x3C00, 0x2A00, 0x8C00 };
-        public static readonly int[] OldExits = new int[] { 0x8610, 0xB210, 0xAC10, 0x6A70 };
-        public static readonly int[] OldDCFlags = new int[] { 0x57C, 0x589, 0x59C, 0x59F };
-        public static readonly int[] OldMaskFlags = new int[] { 0x02, 0x80, 0x20, 0x80 };
+        public static readonly ReadOnlyCollection<int> OldEntrances
+            = new ReadOnlyCollection<int>(new int[] {
+            0x3000, 0x3C00, 0x2A00, 0x8C00
+        });
+
+        public static readonly ReadOnlyCollection<int> OldExits
+            = new ReadOnlyCollection<int>(new int[] {
+            0x8610, 0xB210, 0xAC10, 0x6A70
+        });
+
+        public static readonly ReadOnlyCollection<int> OldDCFlags
+            = new ReadOnlyCollection<int>(new int[] {
+                0x57C, 0x589, 0x59C, 0x59F
+        });
+
+        public static readonly ReadOnlyCollection<int> OldMaskFlags
+            = new ReadOnlyCollection<int>(new int[] {
+                0x02, 0x80, 0x20, 0x80
+        });
     }
 }

@@ -82,16 +82,16 @@ namespace MMRando
                         continue;
                     }
 
-                    length = messages[randomMessageIndex].Length + Values.MessageHeader.Length;
+                    length = messages[randomMessageIndex].Length + Values.MessageHeader.Count;
 
                 } while (length > message.Size);
 
                 byte[] data = new byte[length];
-                Arr_Insert(Values.MessageHeader, 0, Values.MessageHeader.Length, data, 0);
+                Arr_Insert(Values.MessageHeader.ToArray(), 0, Values.MessageHeader.Count, data, 0);
 
                 for (int k = 0; k < messages[randomMessageIndex].Length; k++)
                 {
-                    data[k + Values.MessageHeader.Length] = (byte)messages[randomMessageIndex][k];
+                    data[k + Values.MessageHeader.Count] = (byte)messages[randomMessageIndex][k];
                 }
 
                 WriteMessage(message.Address, data);
