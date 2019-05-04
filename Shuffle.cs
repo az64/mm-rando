@@ -131,7 +131,7 @@ namespace MMRando
                     Items.MaskCaptainHat,
                     Items.MaskGiant,
                     Items.HeartPieceLabFish,
-                    Items.GrottoToGoronRace,
+                    Items.ChestToGoronRaceGrotto,
                 }
                 .Concat(Enumerable.Range(Items.HeartPieceTreasureChestGame, Items.HeartPieceKnuckle - Items.HeartPieceTreasureChestGame+ 1))
                 .Concat(Enumerable.Range(Items.ItemWoodfallMap, Items.ItemStoneTowerKey4 - Items.ItemWoodfallMap + 1))
@@ -1207,7 +1207,7 @@ namespace MMRando
                 PlaceItem(i, itemPool);
             }
 
-            PlaceItem(Items.GrottoToGoronRace, itemPool);
+            PlaceItem(Items.ChestToGoronRaceGrotto, itemPool);
         }
 
         /// <summary>
@@ -1429,7 +1429,7 @@ namespace MMRando
         /// </summary>
         private void PreserveOther()
         {
-            for (int i = Items.ChestLensCaveRedRupee; i <= Items.GrottoToGoronRace; i++)
+            for (int i = Items.ChestLensCaveRedRupee; i <= Items.ChestToGoronRaceGrotto; i++)
             {
                 ItemList[i].ReplacesItemId = i;
             };
