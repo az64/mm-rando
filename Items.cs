@@ -379,11 +379,11 @@ namespace MMRando
                 ChestWellLeftPurpleRupee,
                 ChestMountainVillage,
                 ChestMountainVillageGrotto,
-                ChestToIkanaGrotto,
                 ChestToIkanaRedRupee,
-                ChestInvertedStoneTowerBean,
-                ChestInvertedStoneTowerBombchu10,
+                ChestToIkanaGrotto,
                 ChestInvertedStoneTowerSilverRupee,
+                ChestInvertedStoneTowerBombchu10,
+                ChestInvertedStoneTowerBean,
                 ChestToSnowheadGrotto,
                 ChestToGoronVillageRedRupee,
                 ChestSecretShrineDinoGrotto,
@@ -397,12 +397,6 @@ namespace MMRando
                 ChestSouthClockTownRedRupee,
                 ChestSouthClockTownPurpleRupee,
                 ChestToGoronRaceGrotto,
-                ChestGreatBayCapeGrotto,
-                ChestToIkanaGrotto,
-                ChestGraveyardGrotto,
-                ChestTerminaGrottoBombchu,
-                ChestInvertedStoneTowerBean,
-                ChestInvertedStoneTowerBombchu10
         });
 
         public static readonly ReadOnlyCollection<int> CYCLE_REPEATABLE
