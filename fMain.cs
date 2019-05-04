@@ -810,6 +810,7 @@ namespace MMRando
             cCutsc.Enabled = v;
             cDChests.Enabled = v;
             cDEnt.Enabled = v;
+            cMode.Enabled = v;
             cDMult.Enabled = v;
             cDType.Enabled = v;
             cDummy.Enabled = v;
@@ -825,6 +826,7 @@ namespace MMRando
             cVC.Enabled = v;
             cQText.Enabled = v;
             cSpoiler.Enabled = v;
+            cTatl.Enabled = v;
 
             bopen.Enabled = v;
             bRandomise.Enabled = v;

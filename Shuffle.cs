@@ -542,6 +542,9 @@ namespace MMRando
         {
             string[] data = ReadRulesetFromResources();
 
+            ItemList = new List<ItemObject>();
+
+            // no logic
             if (data == null)
             {
                 for (var i = 0; i < Items.TotalNumberOfItems; i++)
@@ -555,8 +558,11 @@ namespace MMRando
                     ItemList.Add(currentItem);
                 }
             }
+            else
+            {
+                PopulateItemList(data);
+            }
 
-            PopulateItemList(data);
             AddRequirementsForSongOath();
         }
 
@@ -569,8 +575,6 @@ namespace MMRando
 
         private void PopulateItemList(string[] data)
         {
-            ItemList = new List<ItemObject>();
-
             int itemId = 0;
             int lineNumber = 0;
 
