@@ -27,11 +27,18 @@ namespace MMRando
         {
             public int ID { get; set; }
             public List<int> DependsOnItems { get; set; } = new List<int>();
-            public List<List<int>> Conditional { get; set; } = new List<List<int>>();
+            public List<List<int>> Conditionals { get; set; } = new List<List<int>>();
             public List<int> CannotRequireItems { get; set; } = new List<int>();
             public int TimeNeeded { get; set; }
             public int TimeAvailable { get; set; }
             public int ReplacesItemId { get; set; } = -1;
+
+            public bool ReplacesAnotherItem => ReplacesItemId != -1;
+            public bool HasConditionals => Conditionals != null && Conditionals.Count > 0;
+            public bool HasDependencies => DependsOnItems != null 
+                && DependsOnItems.Count > 0;
+            public bool HasCannotRequireItems => CannotRequireItems != null 
+                && CannotRequireItems.Count > 0;
         }
 
         public class SequenceInfo
@@ -74,7 +81,7 @@ namespace MMRando
                     Items.UpgradeGiantWallet
                 }
                 .Concat(Enumerable.Range(Items.TradeItemMoonTear, Items.TradeItemMamaLetter - Items.TradeItemMoonTear + 1))
-                .Concat(Enumerable.Range(Items.ItemBottleWitch, Items.ItemBottleMilk - Items.ItemBottleWitch + 1))
+                .Concat(Enumerable.Range(Items.ItemBottleWitch, Items.ItemBottleMadameAroma - Items.ItemBottleWitch + 1))
                 .ToList()
             },
 
@@ -118,14 +125,15 @@ namespace MMRando
                     Items.ItemBottleDampe,
                     Items.UpgradeMirrorShield,
                     Items.HeartPieceNotebookPostman, // Rewards 50 rupees when collecting 2nd time
-                    Items.HeartPieceKeaton, // Rewards 20 rupees when collecting 2nd time
-                    Items.HeartPieceSwSch, // Rewards 20 rupees when collecting 2nd time
+                    Items.HeartPieceKeatonQuiz, // Rewards 20 rupees when collecting 2nd time
+                    Items.HeartPieceSwordsmanSchool, // Rewards 20 rupees when collecting 2nd time
+                    Items.HeartPieceDogRace, // Rewards 20 rupees when collecting 2nd time
                     Items.MaskCaptainHat,
                     Items.MaskGiant,
                     Items.HeartPieceLabFish,
-                    Items.GrottoToGR,
+                    Items.GrottoToGoronRace,
                 }
-                .Concat(Enumerable.Range(Items.HeartPieceTCGame, Items.HeartPieceKnuckle - Items.HeartPieceTCGame+ 1))
+                .Concat(Enumerable.Range(Items.HeartPieceTreasureChestGame, Items.HeartPieceKnuckle - Items.HeartPieceTreasureChestGame+ 1))
                 .Concat(Enumerable.Range(Items.ItemWoodfallMap, Items.ItemStoneTowerKey4 - Items.ItemWoodfallMap + 1))
                 .Concat(Enumerable.Range(Items.ChestLensCaveRedRupee, Items.ChestSouthClockTownPurpleRupee - Items.ChestLensCaveRedRupee + 1))
                 .ToList()
@@ -219,7 +227,7 @@ namespace MMRando
                 GossipQuotes.Add(quote);
             };
 
-            for (int i = 0; i < Values.JunkGossipMessages.Length; i++)
+            for (int i = 0; i < Values.JunkGossipMessages.Count; i++)
             {
                 GossipQuotes.Add(Values.JunkGossipMessages[i]);
             };
@@ -248,8 +256,8 @@ namespace MMRando
 
         public string BuildGossipQuote(string soundAddress, string sourceMessage, string destinationMessage)
         {
-            int randomMessageStartIndex = RNG.Next(Values.GossipMessageStartSentences.Length);
-            int randomMessageMidIndex = RNG.Next(Values.GossipMessageMidSentences.Length);
+            int randomMessageStartIndex = RNG.Next(Values.GossipMessageStartSentences.Count);
+            int randomMessageMidIndex = RNG.Next(Values.GossipMessageMidSentences.Count);
 
             var quote = new StringBuilder();
 
@@ -286,17 +294,17 @@ namespace MMRando
             };
 
             ItemObject[] DE = new ItemObject[] {
-                ItemList[Items.AreaWoodFallAccess],
-                ItemList[Items.AreaSnowheadAccess],
-                ItemList[Items.AreaISTAccess],
-                ItemList[Items.AreaGreatBayAccess]
+                ItemList[Items.AreaWoodFallTempleAccess],
+                ItemList[Items.AreaSnowheadTempleAccess],
+                ItemList[Items.AreaInvertedStoneTowerTempleAccess],
+                ItemList[Items.AreaGreatBayTempleAccess]
             };
 
             int[] DI = new int[] {
-                Items.AreaWoodFallAccess,
-                Items.AreaSnowheadAccess,
-                Items.AreaISTAccess,
-                Items.AreaGreatBayAccess
+                Items.AreaWoodFallTempleAccess,
+                Items.AreaSnowheadTempleAccess,
+                Items.AreaInvertedStoneTowerTempleAccess,
+                Items.AreaGreatBayTempleAccess
             };
 
             for (int i = 0; i < 4; i++)
@@ -306,17 +314,17 @@ namespace MMRando
             };
 
             DE = new ItemObject[] {
-                ItemList[Items.AreaWoodFallClear],
-                ItemList[Items.AreaSnowheadClear],
+                ItemList[Items.AreaWoodFallTempleClear],
+                ItemList[Items.AreaSnowheadTempleClear],
                 ItemList[Items.AreaStoneTowerClear],
-                ItemList[Items.AreaGreatBayClear]
+                ItemList[Items.AreaGreatBayTempleClear]
             };
 
             DI = new int[] {
-                Items.AreaWoodFallClear,
-                Items.AreaSnowheadClear,
+                Items.AreaWoodFallTempleClear,
+                Items.AreaSnowheadTempleClear,
                 Items.AreaStoneTowerClear,
-                Items.AreaGreatBayClear
+                Items.AreaGreatBayTempleClear
             };
 
             for (int i = 0; i < 4; i++)
@@ -621,7 +629,7 @@ namespace MMRando
 
             if (line == "")
             {
-                currentItem.Conditional = null;
+                currentItem.Conditionals = null;
             }
             else
             {
@@ -630,7 +638,7 @@ namespace MMRando
                     int[] conditionaloption = Array.ConvertAll(conditions.Split(','), int.Parse);
                     conditional.Add(conditionaloption.ToList());
                 };
-                currentItem.Conditional = conditional;
+                currentItem.Conditionals = conditional;
             };
         }
 
@@ -654,7 +662,7 @@ namespace MMRando
 
         private string[] ReadRulesetFromResources()
         {
-            string[] lines;
+            string[] lines = null;
             var mode = Settings.LogicMode;
 
             if (mode == LogicMode.Casual)
@@ -673,10 +681,6 @@ namespace MMRando
 
                 }
             }
-            else
-            {
-                lines = null;
-            }
 
             return lines;
         }
@@ -684,10 +688,11 @@ namespace MMRando
         private bool CheckDependence(int CurrentItem, int Target, bool skip)
         {
             Debug.WriteLine($"CheckDependence({CurrentItem}, {Target}, {skip})");
+
             if (!skip)
             {
                 DependenceChecked[Target] = true;
-            };
+            }
 
             // permanent items ignore dependencies of Blast Mask check
             if (Target == Items.MaskBlast && !ItemUtils.IsTemporaryItem(CurrentItem))
@@ -699,42 +704,53 @@ namespace MMRando
                 return false;
             }
 
-            if ((ItemList[Target].Conditional != null) && (ItemList[Target].Conditional.Count != 0))
+            if (ItemList[Target].HasConditionals)
             {
-                if (ItemList[Target].Conditional.FindAll(u => u.Contains(CurrentItem)).Count == ItemList[Target].Conditional.Count)
+                if (ItemList[Target].Conditionals
+                    .FindAll(u => u.Contains(CurrentItem)).Count == ItemList[Target].Conditionals.Count)
                 {
                     Debug.WriteLine($"All conditionals of {Target} contains {CurrentItem}");
                     return true;
-                };
-                if (ItemList[CurrentItem].CannotRequireItems != null)
+                }
+
+                if (ItemList[CurrentItem].HasCannotRequireItems)
                 {
                     for (int i = 0; i < ItemList[CurrentItem].CannotRequireItems.Count; i++)
                     {
-                        if (ItemList[Target].Conditional.FindAll(u => u.Contains(ItemList[CurrentItem].CannotRequireItems[i]) || u.Contains(CurrentItem)).Count == ItemList[Target].Conditional.Count)
+                        if (ItemList[Target].Conditionals
+                            .FindAll(u => u.Contains(ItemList[CurrentItem].CannotRequireItems[i]) 
+                            || u.Contains(CurrentItem)).Count == ItemList[Target].Conditionals.Count)
                         {
                             Debug.WriteLine($"All conditionals of {Target} cannot be required by {CurrentItem}");
                             return true;
-                        };
-                    };
-                };
+                        }
+                    }
+                }
+
                 int k = 0;
-                for (int i = 0; i < ItemList[Target].Conditional.Count; i++)
+                for (int i = 0; i < ItemList[Target].Conditionals.Count; i++)
                 {
                     bool match = false;
-                    for (int j = 0; j < ItemList[Target].Conditional[i].Count; j++)
+                    for (int j = 0; j < ItemList[Target].Conditionals[i].Count; j++)
                     {
-                        int d = ItemList[Target].Conditional[i][j];
-                        if (!ItemUtils.IsFakeItem(d) && ItemList[d].ReplacesItemId == -1)
+                        int d = ItemList[Target].Conditionals[i][j];
+                        if (!ItemUtils.IsFakeItem(d) && !ItemList[d].ReplacesAnotherItem)
                         {
                             continue;
                         }
+
                         int[] check = new int[] { Target, i, j };
-                        if (ItemList[d].ReplacesItemId != -1) { d = ItemList[d].ReplacesItemId; };
+
+                        if (ItemList[d].ReplacesAnotherItem) {
+                            d = ItemList[d].ReplacesItemId;
+                        }
+
                         if (!SubChecked.ContainsKey(d))
                         {
                             SubChecked[d] = true;
                             SubChecked[d] = CheckDependence(CurrentItem, d, true);
                         }
+
                         if (SubChecked[d])
                         {
                             ConditionRemoves.Add(check);
@@ -744,14 +760,16 @@ namespace MMRando
                                 match = true;
                             }
                         }
-                    };
-                };
-                if (k == ItemList[Target].Conditional.Count)
+                    }
+                }
+
+                if (k == ItemList[Target].Conditionals.Count)
                 {
                     Debug.WriteLine($"All conditionals of {Target} failed dependency check for {CurrentItem}.");
                     return true;
-                };
-            };
+                }
+            }
+
             if (ItemList[Target].DependsOnItems == null)
             {
                 if (!skip)
@@ -759,17 +777,19 @@ namespace MMRando
                     DependenceChecked[Target] = false;
                 }
                 return false;
-            };
+            }
+
             //cycle through all things
             for (int i = 0; i < ItemList[Target].DependsOnItems.Count; i++)
             {
-                int d = ItemList[Target].DependsOnItems[i];
-                if (d == CurrentItem)
+                int dependency = ItemList[Target].DependsOnItems[i];
+                if (dependency == CurrentItem)
                 {
                     Debug.WriteLine($"{Target} has direct dependence on {CurrentItem}");
                     return true;
-                };
-                if (ItemList[CurrentItem].CannotRequireItems != null)
+                }
+
+                if (ItemList[CurrentItem].HasCannotRequireItems)
                 {
                     for (int j = 0; j < ItemList[CurrentItem].CannotRequireItems.Count; j++)
                     {
@@ -777,33 +797,41 @@ namespace MMRando
                         {
                             Debug.WriteLine($"Dependence {ItemList[CurrentItem].CannotRequireItems[j]} of {Target} cannot be required by {CurrentItem}");
                             return true;
-                        };
-                    };
-                };
-                if (ItemUtils.IsFakeItem(d) || ItemList[d].ReplacesItemId != -1)
+                        }
+                    }
+                }
+
+                if (ItemUtils.IsFakeItem(dependency) 
+                    || ItemList[dependency].ReplacesAnotherItem)
                 {
-                    if (ItemList[d].ReplacesItemId != -1) d = ItemList[d].ReplacesItemId;
-                    if (DependenceChecked.ContainsKey(d))
+                    if (ItemList[dependency].ReplacesAnotherItem)
                     {
-                        if (DependenceChecked[d])
+                        dependency = ItemList[dependency].ReplacesItemId;
+                    }
+
+                    if (DependenceChecked.ContainsKey(dependency))
+                    {
+                        if (DependenceChecked[dependency])
                         {
-                            Debug.WriteLine($"{CurrentItem} is dependent on {d}");
+                            Debug.WriteLine($"{CurrentItem} is dependent on {dependency}");
                             return true;
                         }
                     }
                     else
                     {
-                        if (CheckDependence(CurrentItem, d, false))
+                        if (CheckDependence(CurrentItem, dependency, false))
                         {
                             return true;
                         }
                     }
                 }
-            };
+            }
+
             if (!skip)
             {
                 DependenceChecked[Target] = false;
             }
+
             return false;
         }
 
@@ -814,36 +842,42 @@ namespace MMRando
                 int x = ConditionRemoves[i][0];
                 int y = ConditionRemoves[i][1];
                 int z = ConditionRemoves[i][2];
-                ItemList[x].Conditional[y] = null;
-            };
+                ItemList[x].Conditionals[y] = null;
+            }
+
             for (int i = 0; i < ConditionRemoves.Count; i++)
             {
                 int x = ConditionRemoves[i][0];
                 int y = ConditionRemoves[i][1];
                 int z = ConditionRemoves[i][2];
-                for (int j = 0; j < ItemList[x].Conditional.Count; j++)
+
+                for (int j = 0; j < ItemList[x].Conditionals.Count; j++)
                 {
-                    if (ItemList[x].Conditional[j] != null)
+                    if (ItemList[x].Conditionals[j] != null)
                     {
-                        for (int k = 0; k < ItemList[x].Conditional[j].Count; k++)
+                        for (int k = 0; k < ItemList[x].Conditionals[j].Count; k++)
                         {
-                            int d = ItemList[x].Conditional[j][k];
-                            if (ItemList[x].CannotRequireItems == null)
+                            int d = ItemList[x].Conditionals[j][k];
+
+                            if (!ItemList[x].HasCannotRequireItems)
                             {
                                 ItemList[x].CannotRequireItems = new List<int>();
-                            };
+                            }
+
                             ItemList[d].CannotRequireItems.Add(CurrentItem);
-                        };
-                    };
-                };
-            };
+                        }
+                    }
+                }
+            }
+
             for (int i = 0; i < ItemList.Count; i++)
             {
-                if (ItemList[i].Conditional != null)
+                if (ItemList[i].Conditionals != null)
                 {
-                    ItemList[i].Conditional.RemoveAll(u => u == null);
-                };
-            };
+                    ItemList[i].Conditionals.RemoveAll(u => u == null);
+                }
+            }
+
             /*
             for (int i = 0; i < ConditionRemoves.Count; i++)
             {
@@ -878,10 +912,11 @@ namespace MMRando
 
         private void UpdateConditionals(int CurrentItem, int Target)
         {
-            if ((ItemList[Target].Conditional == null) || (ItemList[Target].Conditional.Count == 0))
+            if (!ItemList[Target].HasConditionals)
             {
                 return;
-            };
+            }
+
             //if ((Target == 114) || (Target == 115))
             //{
             //    return;
@@ -900,45 +935,50 @@ namespace MMRando
                 return;
             };
             */
-            if (ItemList[Target].Conditional.Count == 1)
+            if (ItemList[Target].Conditionals.Count == 1)
             {
-                for (int i = 0; i < ItemList[Target].Conditional[0].Count; i++)
+                for (int i = 0; i < ItemList[Target].Conditionals[0].Count; i++)
                 {
-                    if (ItemList[Target].DependsOnItems == null)
+                    if (!ItemList[Target].HasDependencies)
                     {
                         ItemList[Target].DependsOnItems = new List<int>();
-                    };
-                    int j = ItemList[Target].Conditional[0][i];
+                    }
+
+                    int j = ItemList[Target].Conditionals[0][i];
                     ItemList[Target].DependsOnItems.Add(j);
-                    if (ItemList[j].CannotRequireItems == null)
+
+                    if (!ItemList[j].HasCannotRequireItems)
                     {
                         ItemList[j].CannotRequireItems = new List<int>();
-                    };
+                    }
+
                     ItemList[j].CannotRequireItems.Add(CurrentItem);
-                };
-                ItemList[Target].Conditional.RemoveAt(0);
+                }
+                ItemList[Target].Conditionals.RemoveAt(0);
             }
             else
             {
                 //check if all conditions have a common item
-                for (int i = 0; i < ItemList[Target].Conditional[0].Count; i++)
+                for (int i = 0; i < ItemList[Target].Conditionals[0].Count; i++)
                 {
-                    int testitem = ItemList[Target].Conditional[0][i];
-                    if (ItemList[Target].Conditional.FindAll(u => u.Contains(testitem)).Count == ItemList[Target].Conditional.Count)
+                    int testitem = ItemList[Target].Conditionals[0][i];
+                    if (ItemList[Target].Conditionals.FindAll(u => u.Contains(testitem)).Count == ItemList[Target].Conditionals.Count)
                     {
                         // require this item and remove from conditions
-                        if (ItemList[Target].DependsOnItems == null)
+                        if (!ItemList[Target].HasDependencies)
                         {
                             ItemList[Target].DependsOnItems = new List<int>();
-                        };
+                        }
+
                         ItemList[Target].DependsOnItems.Add(testitem);
-                        for (int j = 0; j < ItemList[Target].Conditional.Count; j++)
+                        for (int j = 0; j < ItemList[Target].Conditionals.Count; j++)
                         {
-                            ItemList[Target].Conditional[j].Remove(testitem);
-                        };
+                            ItemList[Target].Conditionals[j].Remove(testitem);
+                        }
+
                         break;
-                    };
-                };
+                    }
+                }
                 //for (int i = 0; i < ItemList[Target].Conditional.Count; i++)
                 //{
                 //    for (int j = 0; j < ItemList[Target].Conditional[i].Count; j++)
@@ -954,211 +994,360 @@ namespace MMRando
             };
         }
 
-        private void AddConditionals(int Target, int CurrentItem, int d)
+        private void AddConditionals(int target, int currentItem, int d)
         {
-            List<List<int>> BaseConditional = ItemList[Target].Conditional;
-            if (BaseConditional == null)
+            List<List<int>> baseConditionals = ItemList[target].Conditionals;
+
+            if (baseConditionals == null)
             {
-                BaseConditional = new List<List<int>>();
-            };
-            ItemList[Target].Conditional = new List<List<int>>();
-            foreach (List<int> c in ItemList[d].Conditional)
+                baseConditionals = new List<List<int>>();
+            }
+
+            ItemList[target].Conditionals = new List<List<int>>();
+            foreach (List<int> conditions in ItemList[d].Conditionals)
             {
-                if (!c.Contains(CurrentItem))
+                if (!conditions.Contains(currentItem))
                 {
-                    List<List<int>> NewConditional = new List<List<int>>();
-                    if (BaseConditional.Count == 0)
+                    List<List<int>> newConditional = new List<List<int>>();
+                    if (baseConditionals.Count == 0)
                     {
-                        NewConditional.Add(c);
+                        newConditional.Add(conditions);
                     }
                     else
                     {
-                        foreach (List<int> b in BaseConditional)
+                        foreach (List<int> baseConditions in baseConditionals)
                         {
-                            NewConditional.Add(b.Concat(c).ToList());
-                        };
-                    };
-                    ItemList[Target].Conditional.AddRange(NewConditional);
-                };
-            }
-        }
+                            newConditional.Add(baseConditions.Concat(conditions).ToList());
+                        }
+                    }
 
-        private void CheckConditionals(int CurrentItem, int Target)
-        {
-            if (Target == Items.MaskBlast)
-            {
-                if (!ItemUtils.IsTemporaryItem(CurrentItem))
-                {
-                    ItemList[Target].DependsOnItems = null;
+                    ItemList[target].Conditionals.AddRange(newConditional);
                 }
             }
-            ConditionsChecked.Add(Target);
-            UpdateConditionals(CurrentItem, Target);
-            if (ItemList[Target].DependsOnItems == null)
-            {
-                return;
-            };
-            for (int i = 0; i < ItemList[Target].DependsOnItems.Count; i++)
-            {
-                int d = ItemList[Target].DependsOnItems[i];
-                if (ItemList[d].CannotRequireItems == null)
-                {
-                    ItemList[d].CannotRequireItems = new List<int>();
-                };
-                ItemList[d].CannotRequireItems.Add(CurrentItem);
-                if (ItemUtils.IsFakeItem(d) || ItemList[d].ReplacesItemId != -1)
-                {
-                    if (ItemList[d].ReplacesItemId != -1) d = ItemList[d].ReplacesItemId;
-                    if (!ConditionsChecked.Contains(d))
-                    {
-                        CheckConditionals(CurrentItem, d);
-                    };
-                };
-            };
-            ItemList[Target].DependsOnItems.RemoveAll(u => u == -1);
         }
 
-        private bool CheckMatch(int CurrentItem, int Target)
+        private void CheckConditionals(int currentItem, int target)
         {
-            if (ForbiddenPlacedAt.ContainsKey(CurrentItem) && ForbiddenPlacedAt[CurrentItem].Contains(Target))
+            if (target == Items.MaskBlast)
             {
-                Debug.WriteLine($"{CurrentItem} forbidden from being placed at {Target}");
-                return false;
-            }
-            if (ForbiddenReplacedBy.ContainsKey(Target) && ForbiddenReplacedBy[Target].Contains(CurrentItem))
-            {
-                Debug.WriteLine($"{Target} forbids being replaced by {CurrentItem}");
-                return false;
-            }
-            //check timing
-            if (ItemList[CurrentItem].TimeNeeded != 0)
-            {
-                if ((ItemList[CurrentItem].TimeNeeded & ItemList[Target].TimeAvailable) == 0)
+                if (!ItemUtils.IsTemporaryItem(currentItem))
                 {
-                    Debug.WriteLine($"{CurrentItem} is needed at {ItemList[CurrentItem].TimeNeeded} but {Target} is only available at {ItemList[Target].TimeAvailable}");
+                    ItemList[target].DependsOnItems = null;
+                }
+            }
+
+            ConditionsChecked.Add(target);
+            UpdateConditionals(currentItem, target);
+
+            if (!ItemList[target].HasDependencies)
+            {
+                return;
+            }
+
+            for (int i = 0; i < ItemList[target].DependsOnItems.Count; i++)
+            {
+                int dependency = ItemList[target].DependsOnItems[i];
+                if (!ItemList[dependency].HasCannotRequireItems)
+                {
+                    ItemList[dependency].CannotRequireItems = new List<int>();
+                }
+
+                ItemList[dependency].CannotRequireItems.Add(currentItem);
+                if (ItemUtils.IsFakeItem(dependency) || ItemList[dependency].ReplacesAnotherItem)
+                {
+                    if (ItemList[dependency].ReplacesAnotherItem)
+                    {
+                        dependency = ItemList[dependency].ReplacesItemId;
+                    }
+
+                    if (!ConditionsChecked.Contains(dependency))
+                    {
+                        CheckConditionals(currentItem, dependency);
+                    }
+                }
+            }
+
+            ItemList[target].DependsOnItems.RemoveAll(u => u == -1);
+        }
+
+        private bool CheckMatch(int currentItem, int target)
+        {
+            if (ForbiddenPlacedAt.ContainsKey(currentItem) 
+                && ForbiddenPlacedAt[currentItem].Contains(target))
+            {
+                Debug.WriteLine($"{currentItem} forbidden from being placed at {target}");
+                return false;
+            }
+
+            if (ForbiddenReplacedBy.ContainsKey(target) && ForbiddenReplacedBy[target].Contains(currentItem))
+            {
+                Debug.WriteLine($"{target} forbids being replaced by {currentItem}");
+                return false;
+            }
+
+            //check timing
+            if (ItemList[currentItem].TimeNeeded != 0)
+            {
+                if ((ItemList[currentItem].TimeNeeded & ItemList[target].TimeAvailable) == 0)
+                {
+                    Debug.WriteLine($"{currentItem} is needed at {ItemList[currentItem].TimeNeeded} but {target} is only available at {ItemList[target].TimeAvailable}");
                     return false;
                 };
             };
+
             //check direct dependence
             ConditionRemoves = new List<int[]>();
             SubChecked = new Dictionary<int, bool>();
             DependenceChecked = new Dictionary<int, bool>();
-            if (CheckDependence(CurrentItem, Target, false))
+
+            if (CheckDependence(currentItem, target, false))
             {
                 return false;
-            };
+            }
+
             //check conditional dependence
-            RemoveConditionals(CurrentItem);
+            RemoveConditionals(currentItem);
             ConditionsChecked = new List<int>();
-            CheckConditionals(CurrentItem, Target);
+            CheckConditionals(currentItem, target);
             return true;
         }
 
         private void PlaceItem(int currentItem, List<int> targets)
         {
-            if (ItemList[currentItem].ReplacesItemId != -1)
+            if (ItemList[currentItem].ReplacesAnotherItem)
             {
                 return;
-            };
-            var availableTargets = targets.ToList();
+            }
+
+            var availableItems = targets.ToList();
+
             while (true)
             {
-                if (availableTargets.Count == 0)
+                if (availableItems.Count == 0)
                 {
                     throw new Exception($"Unable to place {currentItem} anywhere.");
                 }
-                int TargetSlot = 0;
-                if (currentItem > Items.SongOath && availableTargets.Contains(0))
+
+                int targetItem = 0;
+                if (currentItem > Items.SongOath && availableItems.Contains(0))
                 {
-                    TargetSlot = RNG.Next(1, availableTargets.Count);
+                    targetItem = RNG.Next(1, availableItems.Count);
                 }
                 else
                 {
-                    TargetSlot = RNG.Next(availableTargets.Count);
-                };
-                Debug.WriteLine($"----Attempting to place {currentItem} at {availableTargets[TargetSlot]}.---");
-                if (CheckMatch(currentItem, availableTargets[TargetSlot]))
+                    targetItem = RNG.Next(availableItems.Count);
+                }
+
+                Debug.WriteLine($"----Attempting to place {currentItem} at {availableItems[targetItem]}.---");
+
+                if (CheckMatch(currentItem, availableItems[targetItem]))
                 {
-                    ItemList[currentItem].ReplacesItemId = availableTargets[TargetSlot];
+                    ItemList[currentItem].ReplacesItemId = availableItems[targetItem];
+
                     Debug.WriteLine($"----Placed {currentItem} at {ItemList[currentItem].ReplacesItemId}----");
+
                     if (ItemList[currentItem].TimeNeeded != 0
-                        && (availableTargets[TargetSlot] > Items.TradeItemMoonTear)
-                        && (availableTargets[TargetSlot] < Items.TradeItemRoomKey))
+                        && ItemUtils.IsDeed(availableItems[targetItem]))
                     {
-                        ItemList[availableTargets[TargetSlot]].TimeNeeded = ItemList[currentItem].TimeNeeded;
-                    };
-                    targets.Remove(availableTargets[TargetSlot]);
+                        ItemList[availableItems[targetItem]].TimeNeeded = ItemList[currentItem].TimeNeeded;
+                    }
+
+                    targets.Remove(availableItems[targetItem]);
                     return;
                 }
                 else
                 {
-                    Debug.WriteLine($"----Failed to place {currentItem} at {availableTargets[TargetSlot]}----");
-                    availableTargets.RemoveAt(TargetSlot);
+                    Debug.WriteLine($"----Failed to place {currentItem} at {availableItems[targetItem]}----");
+                    availableItems.RemoveAt(targetItem);
                 }
-            };
+            }
         }
 
         private void ItemShuffle()
         {
             PrepareItemShuffle();
 
-            var ItemPool = new List<int>();
+            var itemPool = new List<int>();
+
+            AddAllItems(itemPool);
+            PlaceTradeItems(itemPool);
+            PlaceFreeItem(itemPool);
+
+            PlaceItem(Items.MaskDeku, itemPool);
+
+            PlaceRegularItems(itemPool);
+            PlaceUpgrades(itemPool);
+            PlaceMasks(itemPool);
+            PlaceSongs(itemPool);
+            PlaceDungeonItems(itemPool);
+            PlaceShopItems(itemPool);
+            PlaceHeartpieces(itemPool);
+            PlaceOther(itemPool);
+            PlaceTingleMaps(itemPool);
+        }
+        /// <summary>
+        /// Places tingle maps in the randomization pool.
+        /// </summary>
+        private void PlaceTingleMaps(List<int> itemPool)
+        {
+            for (int i = Items.ItemTingleMapTown; i <= Items.ItemTingleMapStoneTower; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places other chests and grottos in the randomization pool.
+        /// </summary>
+        /// <param name="itemPool"></param>
+        private void PlaceOther(List<int> itemPool)
+        {
+            for (int i = Items.ChestLensCaveRedRupee; i <= Items.ChestSouthClockTownPurpleRupee; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+
+            PlaceItem(Items.GrottoToGoronRace, itemPool);
+        }
+
+        /// <summary>
+        /// Places heart pieces in the randomization pool. Includes rewards/chests, as well as standing heart pieces.
+        /// </summary>
+        private void PlaceHeartpieces(List<int> itemPool)
+        {
+            // Rewards/chests
+            for (int i = Items.HeartPieceNotebookMayor; i <= Items.HeartPieceKnuckle; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+
+            // Bank reward
+            PlaceItem(Items.HeartPieceBank, itemPool);
+
+            // Standing heart pieces
+            for (int i = Items.HeartPieceSouthClockTown; i <= Items.HeartContainerStoneTower; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places shop items in the randomization pool
+        /// </summary>
+        private void PlaceShopItems(List<int> itemPool)
+        {
+            for (int i = Items.ShopItemTradingPostRedPotion; i <= Items.ShopItemZoraRedPotion; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places dungeon items in the randomization pool
+        /// </summary>
+        private void PlaceDungeonItems(List<int> itemPool)
+        {
+            for (int i = Items.ItemWoodfallMap; i <= Items.ItemStoneTowerKey4; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places songs in the randomization pool
+        /// </summary>
+        private void PlaceSongs(List<int> itemPool)
+        {
+            for (int i = Items.SongSoaring; i <= Items.SongOath; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places masks in the randomization pool
+        /// </summary>
+        private void PlaceMasks(List<int> itemPool)
+        {
+            for (int i = Items.MaskPostmanHat; i <= Items.MaskZora; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places upgrade items in the randomization pool
+        /// </summary>
+        private void PlaceUpgrades(List<int> itemPool)
+        {
+            for (int i = Items.UpgradeRazorSword; i <= Items.UpgradeGiantWallet; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places regular items in the randomization pool
+        /// </summary>
+        private void PlaceRegularItems(List<int> itemPool)
+        {
+            for (int i = Items.ItemBow; i <= Items.ItemNotebook; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Replace starting deku mask with free item if not already replaced.
+        /// </summary>
+        private void PlaceFreeItem(List<int> itemPool)
+        {
+            if (ItemList.FindIndex(item => item.ReplacesItemId == Items.MaskDeku) != -1)
+            {
+                return;
+            }
+
+            int freeItem = RNG.Next(Items.SongOath + 1);
+            if (ForbiddenReplacedBy.ContainsKey(Items.MaskDeku))
+            {
+                while (ItemList[freeItem].ReplacesItemId != -1
+                    || ForbiddenReplacedBy[Items.MaskDeku].Contains(freeItem))
+                {
+                    freeItem = RNG.Next(Items.SongOath + 1);
+                }
+            }
+            ItemList[freeItem].ReplacesItemId = Items.MaskDeku;
+            itemPool.Remove(Items.MaskDeku);
+        }
+
+        /// <summary>
+        /// Adds all items into the randomization pool (excludes area/other and items that already have placement)
+        /// </summary>
+        private void AddAllItems(List<int> itemPool)
+        {
             for (int i = 0; i < ItemList.Count; i++)
             {
-                // Skip item if its in area and other, greater than GrottoToGR or has placement
+                // Skip item if its in area and other, is out of range or has placement
                 if ((ItemUtils.IsAreaOrOther(i)
                     || ItemUtils.IsOutOfRange(i))
-                    || (ItemList[i].ReplacesItemId != -1))
+                    || (ItemList[i].ReplacesAnotherItem))
                 {
                     continue;
                 }
 
-                ItemPool.Add(i);
-            };
+                itemPool.Add(i);
+            }
+        }
 
-            PlaceItem(Items.TradeItemRoomKey, ItemPool);
-            PlaceItem(Items.TradeItemKafeiLetter, ItemPool);
-            PlaceItem(Items.TradeItemPendant, ItemPool);
-            PlaceItem(Items.TradeItemMamaLetter, ItemPool);
-
-            if (ItemList.FindIndex(u => u.ReplacesItemId == Items.MaskDeku) == -1)
+        /// <summary>
+        /// Places trade items in the randomization pool
+        /// </summary>
+        private void PlaceTradeItems(List<int> itemPool)
+        {
+            for (int i = Items.TradeItemMoonTear; i <= Items.TradeItemMamaLetter; i++)
             {
-                int free = RNG.Next(Items.SongOath + 1);
-                if (ForbiddenReplacedBy.ContainsKey(Items.MaskDeku))
-                {
-                    while (ItemList[free].ReplacesItemId != -1
-                        || ForbiddenReplacedBy[Items.MaskDeku].Contains(free))
-                    {
-                        free = RNG.Next(Items.SongOath + 1);
-                    }
-                }
-                ItemList[free].ReplacesItemId = Items.MaskDeku;
-                ItemPool.Remove(Items.MaskDeku);
-            };
-            for (int i = Items.MaskDeku; i < Items.HeartPieceNotebookMayor; i++)
-            {
-                PlaceItem(i, ItemPool);
-            };
-            for (int i = Items.MaskPostmanHat; i < Items.AreaSouthAccess; i++)
-            {
-                PlaceItem(i, ItemPool);
-            };
-            for (int i = Items.ItemWoodfallMap; i < Items.ShopItemTownRedPotion; i++)
-            {
-                PlaceItem(i, ItemPool);
-            };
-            for (int i = Items.ShopItemTownRedPotion; i < Items.BottleCatchFairy; i++)
-            {
-                PlaceItem(i, ItemPool);
-            };
-            for (int i = Items.HeartPieceNotebookMayor; i < Items.MaskPostmanHat; i++)
-            {
-                PlaceItem(i, ItemPool);
-            };
-            for (int i = Items.ChestLensCaveRedRupee; i < Items.GrottoToGR + 1; i++)
-            {
-                PlaceItem(i, ItemPool);
-            };
+                PlaceItem(i, itemPool);
+            }
         }
 
         /// <summary>
@@ -1212,7 +1401,7 @@ namespace MMRando
         /// </summary>
         private void PreserveBottleCatchContents()
         {
-            for (int i = Items.BottleCatchFairy; i < Items.BottleCatchMushroom + 1; i++)
+            for (int i = Items.BottleCatchFairy; i <= Items.BottleCatchMushroom; i++)
             {
                 ItemList[i].ReplacesItemId = i;
             }
@@ -1224,12 +1413,12 @@ namespace MMRando
         private void AddBottleCatchContents()
         {
             var itemPool = new List<int>();
-            for (int i = Items.BottleCatchFairy; i < Items.BottleCatchMushroom + 1; i++)
+            for (int i = Items.BottleCatchFairy; i <= Items.BottleCatchMushroom; i++)
             {
                 itemPool.Add(i);
             };
 
-            for (int i = Items.BottleCatchFairy; i < Items.BottleCatchMushroom + 1; i++)
+            for (int i = Items.BottleCatchFairy; i <= Items.BottleCatchMushroom; i++)
             {
                 PlaceItem(i, itemPool);
             };
@@ -1240,7 +1429,7 @@ namespace MMRando
         /// </summary>
         private void PreserveOther()
         {
-            for (int i = Items.ChestLensCaveRedRupee; i < Items.GrottoToGR + 1; i++)
+            for (int i = Items.ChestLensCaveRedRupee; i <= Items.GrottoToGoronRace; i++)
             {
                 ItemList[i].ReplacesItemId = i;
             };
@@ -1251,7 +1440,7 @@ namespace MMRando
         /// </summary>
         private void PreserveShopItems()
         {
-            for (int i = Items.ShopItemTownRedPotion; i < Items.ShopItemZoraRedPotion + 1; i++)
+            for (int i = Items.ShopItemTradingPostRedPotion; i <= Items.ShopItemZoraRedPotion; i++)
             {
                 ItemList[i].ReplacesItemId = i;
             };
@@ -1266,7 +1455,7 @@ namespace MMRando
         /// </summary>
         private void PreserveDungeonItems()
         {
-            for (int i = Items.ItemWoodfallMap; i < Items.ItemStoneTowerKey4 + 1; i++)
+            for (int i = Items.ItemWoodfallMap; i <= Items.ItemStoneTowerKey4; i++)
             {
                 ItemList[i].ReplacesItemId = i;
             };
@@ -1277,21 +1466,21 @@ namespace MMRando
         /// </summary>
         private void PreserveSongs()
         {
-            var ItemPool = new List<int>();
-            for (int i = Items.SongSoaring; i < Items.SongOath + 1; i++)
+            var itemPool = new List<int>();
+            for (int i = Items.SongSoaring; i <= Items.SongOath; i++)
             {
-                if (ItemList[i].ReplacesItemId != -1)
+                if (ItemList[i].ReplacesAnotherItem)
                 {
                     continue;
-                };
+                }
 
-                ItemPool.Add(i);
-            };
+                itemPool.Add(i);
+            }
 
-            for (int i = Items.SongSoaring; i < Items.SongOath + 1; i++)
+            for (int i = Items.SongSoaring; i <= Items.SongOath; i++)
             {
-                PlaceItem(i, ItemPool);
-            };
+                PlaceItem(i, itemPool);
+            }
         }
 
         /// <summary>
