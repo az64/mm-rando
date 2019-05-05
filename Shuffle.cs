@@ -127,33 +127,6 @@ namespace MMRando
 
         Dictionary<int, List<int>> ForbiddenPlacedAt = new Dictionary<int, List<int>>
         {
-            // Gold Dust cannot be obtained a second time at certain locations
-            // All chests are Recovery Heart the 2nd time
-            {
-                Items.ItemBottleGoronRace, new List<int>
-                {
-                    Items.ItemBow,
-                    Items.ItemFireArrow,
-                    Items.ItemIceArrow,
-                    Items.ItemLightArrow,
-                    Items.ItemLens,
-                    Items.ItemHookshot,
-                    Items.ItemBottleDampe,
-                    Items.UpgradeMirrorShield,
-                    Items.HeartPieceNotebookPostman, // Rewards 50 rupees when collecting 2nd time
-                    Items.HeartPieceKeatonQuiz, // Rewards 20 rupees when collecting 2nd time
-                    Items.HeartPieceSwordsmanSchool, // Rewards 20 rupees when collecting 2nd time
-                    Items.HeartPieceDogRace, // Rewards 20 rupees when collecting 2nd time
-                    Items.MaskCaptainHat,
-                    Items.MaskGiant,
-                    Items.HeartPieceLabFish,
-                    Items.ChestToGoronRaceGrotto,
-                }
-                .Concat(Enumerable.Range(Items.HeartPieceTreasureChestGame, Items.HeartPieceKnuckle - Items.HeartPieceTreasureChestGame+ 1))
-                .Concat(Enumerable.Range(Items.ItemWoodfallMap, Items.ItemStoneTowerKey4 - Items.ItemWoodfallMap + 1))
-                .Concat(Enumerable.Range(Items.ChestLensCaveRedRupee, Items.ChestSouthClockTownPurpleRupee - Items.ChestLensCaveRedRupee + 1))
-                .ToList()
-            },
         };
 
         //rando functions
