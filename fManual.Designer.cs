@@ -36,6 +36,10 @@
             this.lRules = new System.Windows.Forms.Label();
             this.tBaseChanges = new System.Windows.Forms.TabPage();
             this.lBaseGame = new System.Windows.Forms.Label();
+            this.tLogic = new System.Windows.Forms.TabPage();
+            this.lLogic = new System.Windows.Forms.Label();
+            this.tItem = new System.Windows.Forms.TabPage();
+            this.lItem = new System.Windows.Forms.Label();
             this.tShuffles = new System.Windows.Forms.TabPage();
             this.lShuffle = new System.Windows.Forms.Label();
             this.tGimmicks = new System.Windows.Forms.TabPage();
@@ -44,20 +48,16 @@
             this.lCosmetic = new System.Windows.Forms.Label();
             this.tHow = new System.Windows.Forms.TabPage();
             this.lHow = new System.Windows.Forms.Label();
-            this.tLogic = new System.Windows.Forms.TabPage();
-            this.tItem = new System.Windows.Forms.TabPage();
-            this.lLogic = new System.Windows.Forms.Label();
-            this.lItem = new System.Windows.Forms.Label();
             this.tManual.SuspendLayout();
             this.tMain.SuspendLayout();
             this.tRules.SuspendLayout();
             this.tBaseChanges.SuspendLayout();
+            this.tLogic.SuspendLayout();
+            this.tItem.SuspendLayout();
             this.tShuffles.SuspendLayout();
             this.tGimmicks.SuspendLayout();
             this.tCosmetics.SuspendLayout();
             this.tHow.SuspendLayout();
-            this.tLogic.SuspendLayout();
-            this.tItem.SuspendLayout();
             this.SuspendLayout();
             // 
             // tManual
@@ -124,7 +124,7 @@
             this.tBaseChanges.Controls.Add(this.lBaseGame);
             this.tBaseChanges.Location = new System.Drawing.Point(4, 25);
             this.tBaseChanges.Name = "tBaseChanges";
-            this.tBaseChanges.Size = new System.Drawing.Size(400, 304);
+            this.tBaseChanges.Size = new System.Drawing.Size(400, 271);
             this.tBaseChanges.TabIndex = 5;
             this.tBaseChanges.Text = "Base game changes";
             this.tBaseChanges.UseVisualStyleBackColor = true;
@@ -137,13 +137,52 @@
             this.lBaseGame.TabIndex = 2;
             this.lBaseGame.Text = resources.GetString("lBaseGame.Text");
             // 
+            // tLogic
+            // 
+            this.tLogic.AutoScroll = true;
+            this.tLogic.Controls.Add(this.lLogic);
+            this.tLogic.Location = new System.Drawing.Point(4, 25);
+            this.tLogic.Name = "tLogic";
+            this.tLogic.Padding = new System.Windows.Forms.Padding(3);
+            this.tLogic.Size = new System.Drawing.Size(400, 271);
+            this.tLogic.TabIndex = 7;
+            this.tLogic.Text = "Logic editor";
+            this.tLogic.UseVisualStyleBackColor = true;
+            // 
+            // lLogic
+            // 
+            this.lLogic.Location = new System.Drawing.Point(6, 3);
+            this.lLogic.Name = "lLogic";
+            this.lLogic.Size = new System.Drawing.Size(372, 336);
+            this.lLogic.TabIndex = 3;
+            this.lLogic.Text = resources.GetString("lLogic.Text");
+            // 
+            // tItem
+            // 
+            this.tItem.Controls.Add(this.lItem);
+            this.tItem.Location = new System.Drawing.Point(4, 25);
+            this.tItem.Name = "tItem";
+            this.tItem.Padding = new System.Windows.Forms.Padding(3);
+            this.tItem.Size = new System.Drawing.Size(400, 271);
+            this.tItem.TabIndex = 8;
+            this.tItem.Text = "Item list";
+            this.tItem.UseVisualStyleBackColor = true;
+            // 
+            // lItem
+            // 
+            this.lItem.Location = new System.Drawing.Point(6, 3);
+            this.lItem.Name = "lItem";
+            this.lItem.Size = new System.Drawing.Size(372, 156);
+            this.lItem.TabIndex = 4;
+            this.lItem.Text = resources.GetString("lItem.Text");
+            // 
             // tShuffles
             // 
             this.tShuffles.AutoScroll = true;
             this.tShuffles.Controls.Add(this.lShuffle);
             this.tShuffles.Location = new System.Drawing.Point(4, 25);
             this.tShuffles.Name = "tShuffles";
-            this.tShuffles.Size = new System.Drawing.Size(400, 304);
+            this.tShuffles.Size = new System.Drawing.Size(400, 271);
             this.tShuffles.TabIndex = 2;
             this.tShuffles.Text = "Shuffles";
             this.tShuffles.UseVisualStyleBackColor = true;
@@ -162,7 +201,7 @@
             this.tGimmicks.Controls.Add(this.lGimmick);
             this.tGimmicks.Location = new System.Drawing.Point(4, 25);
             this.tGimmicks.Name = "tGimmicks";
-            this.tGimmicks.Size = new System.Drawing.Size(400, 304);
+            this.tGimmicks.Size = new System.Drawing.Size(400, 271);
             this.tGimmicks.TabIndex = 3;
             this.tGimmicks.Text = "Gimmicks";
             this.tGimmicks.UseVisualStyleBackColor = true;
@@ -181,7 +220,7 @@
             this.tCosmetics.Controls.Add(this.lCosmetic);
             this.tCosmetics.Location = new System.Drawing.Point(4, 25);
             this.tCosmetics.Name = "tCosmetics";
-            this.tCosmetics.Size = new System.Drawing.Size(400, 304);
+            this.tCosmetics.Size = new System.Drawing.Size(400, 271);
             this.tCosmetics.TabIndex = 4;
             this.tCosmetics.Text = "Cosmetics";
             this.tCosmetics.UseVisualStyleBackColor = true;
@@ -200,7 +239,7 @@
             this.tHow.Location = new System.Drawing.Point(4, 25);
             this.tHow.Name = "tHow";
             this.tHow.Padding = new System.Windows.Forms.Padding(3);
-            this.tHow.Size = new System.Drawing.Size(400, 304);
+            this.tHow.Size = new System.Drawing.Size(400, 271);
             this.tHow.TabIndex = 6;
             this.tHow.Text = "How it works";
             this.tHow.UseVisualStyleBackColor = true;
@@ -212,45 +251,6 @@
             this.lHow.Size = new System.Drawing.Size(372, 268);
             this.lHow.TabIndex = 3;
             this.lHow.Text = resources.GetString("lHow.Text");
-            // 
-            // tLogic
-            // 
-            this.tLogic.AutoScroll = true;
-            this.tLogic.Controls.Add(this.lLogic);
-            this.tLogic.Location = new System.Drawing.Point(4, 25);
-            this.tLogic.Name = "tLogic";
-            this.tLogic.Padding = new System.Windows.Forms.Padding(3);
-            this.tLogic.Size = new System.Drawing.Size(400, 271);
-            this.tLogic.TabIndex = 7;
-            this.tLogic.Text = "Logic editor";
-            this.tLogic.UseVisualStyleBackColor = true;
-            // 
-            // tItem
-            // 
-            this.tItem.Controls.Add(this.lItem);
-            this.tItem.Location = new System.Drawing.Point(4, 25);
-            this.tItem.Name = "tItem";
-            this.tItem.Padding = new System.Windows.Forms.Padding(3);
-            this.tItem.Size = new System.Drawing.Size(400, 304);
-            this.tItem.TabIndex = 8;
-            this.tItem.Text = "Item list";
-            this.tItem.UseVisualStyleBackColor = true;
-            // 
-            // lLogic
-            // 
-            this.lLogic.Location = new System.Drawing.Point(6, 3);
-            this.lLogic.Name = "lLogic";
-            this.lLogic.Size = new System.Drawing.Size(372, 336);
-            this.lLogic.TabIndex = 3;
-            this.lLogic.Text = resources.GetString("lLogic.Text");
-            // 
-            // lItem
-            // 
-            this.lItem.Location = new System.Drawing.Point(6, 3);
-            this.lItem.Name = "lItem";
-            this.lItem.Size = new System.Drawing.Size(372, 156);
-            this.lItem.TabIndex = 4;
-            this.lItem.Text = resources.GetString("lItem.Text");
             // 
             // fManual
             // 
@@ -268,12 +268,12 @@
             this.tMain.ResumeLayout(false);
             this.tRules.ResumeLayout(false);
             this.tBaseChanges.ResumeLayout(false);
+            this.tLogic.ResumeLayout(false);
+            this.tItem.ResumeLayout(false);
             this.tShuffles.ResumeLayout(false);
             this.tGimmicks.ResumeLayout(false);
             this.tCosmetics.ResumeLayout(false);
             this.tHow.ResumeLayout(false);
-            this.tLogic.ResumeLayout(false);
-            this.tItem.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

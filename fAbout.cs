@@ -15,7 +15,6 @@ namespace MMRando
         public fAbout()
         {
             InitializeComponent();
-            lVer.Text = AssemblyVersion;
         }
 
         public string AssemblyVersion
@@ -25,6 +24,16 @@ namespace MMRando
                 Version v = Assembly.GetExecutingAssembly().GetName().Version;
                 return String.Format("v{0}.{1}", v.Major, v.Minor);
             }
+        }
+
+        private void lAboutText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://discord.gg/8qbreUM");
         }
     }
 }

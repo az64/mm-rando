@@ -85,8 +85,6 @@ namespace MMRando
             this.mMenu = new System.Windows.Forms.MenuStrip();
             this.mFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.mTools = new System.Windows.Forms.ToolStripMenuItem();
-            this.mByteswap = new System.Windows.Forms.ToolStripMenuItem();
             this.mCustomise = new System.Windows.Forms.ToolStripMenuItem();
             this.mLogicEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.mItemIncl = new System.Windows.Forms.ToolStripMenuItem();
@@ -109,10 +107,9 @@ namespace MMRando
             // 
             // bopen
             // 
-            this.bopen.Location = new System.Drawing.Point(17, 46);
-            this.bopen.Margin = new System.Windows.Forms.Padding(4);
+            this.bopen.Location = new System.Drawing.Point(13, 37);
             this.bopen.Name = "bopen";
-            this.bopen.Size = new System.Drawing.Size(137, 28);
+            this.bopen.Size = new System.Drawing.Size(103, 23);
             this.bopen.TabIndex = 0;
             this.bopen.Text = "Open ROM...";
             this.bopen.UseVisualStyleBackColor = true;
@@ -124,20 +121,18 @@ namespace MMRando
             // 
             // tROMName
             // 
-            this.tROMName.Location = new System.Drawing.Point(163, 49);
-            this.tROMName.Margin = new System.Windows.Forms.Padding(4);
+            this.tROMName.Location = new System.Drawing.Point(122, 40);
             this.tROMName.Name = "tROMName";
             this.tROMName.ReadOnly = true;
-            this.tROMName.Size = new System.Drawing.Size(305, 22);
+            this.tROMName.Size = new System.Drawing.Size(230, 20);
             this.tROMName.TabIndex = 1;
             // 
             // tSeed
             // 
-            this.tSeed.Location = new System.Drawing.Point(19, 167);
-            this.tSeed.Margin = new System.Windows.Forms.Padding(4);
+            this.tSeed.Location = new System.Drawing.Point(14, 136);
             this.tSeed.MaxLength = 10;
             this.tSeed.Name = "tSeed";
-            this.tSeed.Size = new System.Drawing.Size(185, 23);
+            this.tSeed.Size = new System.Drawing.Size(140, 20);
             this.tSeed.TabIndex = 2;
             this.tSeed.Enter += new System.EventHandler(this.tSeed_Enter);
             this.tSeed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tSeed_KeyDown);
@@ -149,10 +144,9 @@ namespace MMRando
             this.lSeed.BackColor = System.Drawing.Color.Transparent;
             this.lSeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lSeed.ForeColor = System.Drawing.Color.Black;
-            this.lSeed.Location = new System.Drawing.Point(15, 148);
-            this.lSeed.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lSeed.Location = new System.Drawing.Point(11, 120);
             this.lSeed.Name = "lSeed";
-            this.lSeed.Size = new System.Drawing.Size(100, 17);
+            this.lSeed.Size = new System.Drawing.Size(76, 13);
             this.lSeed.TabIndex = 3;
             this.lSeed.Text = "Random seed:";
             // 
@@ -172,11 +166,9 @@ namespace MMRando
             this.gSettings.Controls.Add(this.lMode);
             this.gSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gSettings.ForeColor = System.Drawing.Color.Black;
-            this.gSettings.Location = new System.Drawing.Point(17, 182);
-            this.gSettings.Margin = new System.Windows.Forms.Padding(4);
+            this.gSettings.Location = new System.Drawing.Point(13, 148);
             this.gSettings.Name = "gSettings";
-            this.gSettings.Padding = new System.Windows.Forms.Padding(4);
-            this.gSettings.Size = new System.Drawing.Size(452, 476);
+            this.gSettings.Size = new System.Drawing.Size(339, 387);
             this.gSettings.TabIndex = 4;
             this.gSettings.TabStop = false;
             this.gSettings.Text = "Settings";
@@ -185,10 +177,9 @@ namespace MMRando
             // 
             this.lHrule.AutoSize = true;
             this.lHrule.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lHrule.Location = new System.Drawing.Point(9, 112);
-            this.lHrule.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lHrule.Location = new System.Drawing.Point(7, 91);
             this.lHrule.Name = "lHrule";
-            this.lHrule.Size = new System.Drawing.Size(432, 17);
+            this.lHrule.Size = new System.Drawing.Size(325, 13);
             this.lHrule.TabIndex = 12;
             this.lHrule.Text = "_____________________________________________________";
             // 
@@ -197,10 +188,9 @@ namespace MMRando
             this.cUserItems.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.cUserItems.AutoSize = true;
             this.cUserItems.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cUserItems.Location = new System.Drawing.Point(269, 86);
-            this.cUserItems.Margin = new System.Windows.Forms.Padding(4);
+            this.cUserItems.Location = new System.Drawing.Point(199, 70);
             this.cUserItems.Name = "cUserItems";
-            this.cUserItems.Size = new System.Drawing.Size(155, 21);
+            this.cUserItems.Size = new System.Drawing.Size(119, 17);
             this.cUserItems.TabIndex = 11;
             this.cUserItems.Text = "Use custom item list";
             this.cUserItems.UseVisualStyleBackColor = true;
@@ -212,11 +202,10 @@ namespace MMRando
             this.tSettings.Controls.Add(this.tabMain);
             this.tSettings.Controls.Add(this.tabGimmick);
             this.tSettings.Controls.Add(this.tabComfort);
-            this.tSettings.Location = new System.Drawing.Point(8, 247);
-            this.tSettings.Margin = new System.Windows.Forms.Padding(4);
+            this.tSettings.Location = new System.Drawing.Point(6, 201);
             this.tSettings.Name = "tSettings";
             this.tSettings.SelectedIndex = 0;
-            this.tSettings.Size = new System.Drawing.Size(436, 210);
+            this.tSettings.Size = new System.Drawing.Size(327, 171);
             this.tSettings.TabIndex = 10;
             // 
             // tabMain
@@ -231,11 +220,10 @@ namespace MMRando
             this.tabMain.Controls.Add(this.cBottled);
             this.tabMain.Controls.Add(this.cDEnt);
             this.tabMain.Controls.Add(this.cShop);
-            this.tabMain.Location = new System.Drawing.Point(4, 29);
-            this.tabMain.Margin = new System.Windows.Forms.Padding(4);
+            this.tabMain.Location = new System.Drawing.Point(4, 25);
             this.tabMain.Name = "tabMain";
-            this.tabMain.Padding = new System.Windows.Forms.Padding(4);
-            this.tabMain.Size = new System.Drawing.Size(428, 177);
+            this.tabMain.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabMain.Size = new System.Drawing.Size(319, 142);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Random elements";
             this.tabMain.UseVisualStyleBackColor = true;
@@ -247,10 +235,9 @@ namespace MMRando
             this.cAdditional.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cAdditional.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cAdditional.ForeColor = System.Drawing.Color.Black;
-            this.cAdditional.Location = new System.Drawing.Point(61, 140);
-            this.cAdditional.Margin = new System.Windows.Forms.Padding(4);
+            this.cAdditional.Location = new System.Drawing.Point(46, 114);
             this.cAdditional.Name = "cAdditional";
-            this.cAdditional.Size = new System.Drawing.Size(127, 21);
+            this.cAdditional.Size = new System.Drawing.Size(98, 17);
             this.cAdditional.TabIndex = 12;
             this.cAdditional.Text = "Everything else";
             this.cAdditional.UseVisualStyleBackColor = false;
@@ -263,10 +250,9 @@ namespace MMRando
             this.cGossip.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cGossip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cGossip.ForeColor = System.Drawing.Color.Black;
-            this.cGossip.Location = new System.Drawing.Point(261, 55);
-            this.cGossip.Margin = new System.Windows.Forms.Padding(4);
+            this.cGossip.Location = new System.Drawing.Point(196, 45);
             this.cGossip.Name = "cGossip";
-            this.cGossip.Size = new System.Drawing.Size(147, 21);
+            this.cGossip.Size = new System.Drawing.Size(112, 17);
             this.cGossip.TabIndex = 11;
             this.cGossip.Text = "Gossip stone hints";
             this.cGossip.UseVisualStyleBackColor = false;
@@ -279,10 +265,9 @@ namespace MMRando
             this.cSoS.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cSoS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cSoS.ForeColor = System.Drawing.Color.Black;
-            this.cSoS.Location = new System.Drawing.Point(220, 27);
-            this.cSoS.Margin = new System.Windows.Forms.Padding(4);
+            this.cSoS.Location = new System.Drawing.Point(165, 22);
             this.cSoS.Name = "cSoS";
-            this.cSoS.Size = new System.Drawing.Size(185, 21);
+            this.cSoS.Size = new System.Drawing.Size(143, 17);
             this.cSoS.TabIndex = 10;
             this.cSoS.Text = "Exclude Song of Soaring";
             this.cSoS.UseVisualStyleBackColor = false;
@@ -295,10 +280,9 @@ namespace MMRando
             this.cMixSongs.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cMixSongs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cMixSongs.ForeColor = System.Drawing.Color.Black;
-            this.cMixSongs.Location = new System.Drawing.Point(29, 27);
-            this.cMixSongs.Margin = new System.Windows.Forms.Padding(4);
+            this.cMixSongs.Location = new System.Drawing.Point(22, 22);
             this.cMixSongs.Name = "cMixSongs";
-            this.cMixSongs.Size = new System.Drawing.Size(157, 21);
+            this.cMixSongs.Size = new System.Drawing.Size(122, 17);
             this.cMixSongs.TabIndex = 3;
             this.cMixSongs.Text = "Mix songs with items";
             this.cMixSongs.UseVisualStyleBackColor = false;
@@ -311,10 +295,9 @@ namespace MMRando
             this.cEnemy.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cEnemy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cEnemy.ForeColor = System.Drawing.Color.Black;
-            this.cEnemy.Location = new System.Drawing.Point(283, 112);
-            this.cEnemy.Margin = new System.Windows.Forms.Padding(4);
+            this.cEnemy.Location = new System.Drawing.Point(212, 91);
             this.cEnemy.Name = "cEnemy";
-            this.cEnemy.Size = new System.Drawing.Size(126, 21);
+            this.cEnemy.Size = new System.Drawing.Size(96, 17);
             this.cEnemy.TabIndex = 9;
             this.cEnemy.Text = "Enemies (beta)";
             this.cEnemy.UseVisualStyleBackColor = false;
@@ -327,10 +310,9 @@ namespace MMRando
             this.cDChests.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cDChests.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cDChests.ForeColor = System.Drawing.Color.Black;
-            this.cDChests.Location = new System.Drawing.Point(63, 55);
-            this.cDChests.Margin = new System.Windows.Forms.Padding(4);
+            this.cDChests.Location = new System.Drawing.Point(47, 45);
             this.cDChests.Name = "cDChests";
-            this.cDChests.Size = new System.Drawing.Size(125, 21);
+            this.cDChests.Size = new System.Drawing.Size(97, 17);
             this.cDChests.TabIndex = 4;
             this.cDChests.Text = "Dungeon items";
             this.cDChests.UseVisualStyleBackColor = false;
@@ -343,10 +325,9 @@ namespace MMRando
             this.cBGM.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cBGM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBGM.ForeColor = System.Drawing.Color.Black;
-            this.cBGM.Location = new System.Drawing.Point(344, 140);
-            this.cBGM.Margin = new System.Windows.Forms.Padding(4);
+            this.cBGM.Location = new System.Drawing.Point(258, 114);
             this.cBGM.Name = "cBGM";
-            this.cBGM.Size = new System.Drawing.Size(61, 21);
+            this.cBGM.Size = new System.Drawing.Size(50, 17);
             this.cBGM.TabIndex = 8;
             this.cBGM.Text = "BGM";
             this.cBGM.UseVisualStyleBackColor = false;
@@ -359,10 +340,9 @@ namespace MMRando
             this.cBottled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cBottled.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBottled.ForeColor = System.Drawing.Color.Black;
-            this.cBottled.Location = new System.Drawing.Point(15, 112);
-            this.cBottled.Margin = new System.Windows.Forms.Padding(4);
+            this.cBottled.Location = new System.Drawing.Point(11, 91);
             this.cBottled.Name = "cBottled";
-            this.cBottled.Size = new System.Drawing.Size(172, 21);
+            this.cBottled.Size = new System.Drawing.Size(133, 17);
             this.cBottled.TabIndex = 5;
             this.cBottled.Text = "Caught bottle contents";
             this.cBottled.UseVisualStyleBackColor = false;
@@ -375,10 +355,9 @@ namespace MMRando
             this.cDEnt.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cDEnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cDEnt.ForeColor = System.Drawing.Color.Black;
-            this.cDEnt.Location = new System.Drawing.Point(251, 84);
-            this.cDEnt.Margin = new System.Windows.Forms.Padding(4);
+            this.cDEnt.Location = new System.Drawing.Point(188, 68);
             this.cDEnt.Name = "cDEnt";
-            this.cDEnt.Size = new System.Drawing.Size(155, 21);
+            this.cDEnt.Size = new System.Drawing.Size(120, 17);
             this.cDEnt.TabIndex = 7;
             this.cDEnt.Text = "Dungeon entrances";
             this.cDEnt.UseVisualStyleBackColor = false;
@@ -391,10 +370,9 @@ namespace MMRando
             this.cShop.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cShop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cShop.ForeColor = System.Drawing.Color.Black;
-            this.cShop.Location = new System.Drawing.Point(88, 84);
-            this.cShop.Margin = new System.Windows.Forms.Padding(4);
+            this.cShop.Location = new System.Drawing.Point(66, 68);
             this.cShop.Name = "cShop";
-            this.cShop.Size = new System.Drawing.Size(100, 21);
+            this.cShop.Size = new System.Drawing.Size(78, 17);
             this.cShop.TabIndex = 6;
             this.cShop.Text = "Shop items";
             this.cShop.UseVisualStyleBackColor = false;
@@ -410,10 +388,9 @@ namespace MMRando
             this.tabGimmick.Controls.Add(this.cDType);
             this.tabGimmick.Controls.Add(this.cDMult);
             this.tabGimmick.Controls.Add(this.cGravity);
-            this.tabGimmick.Location = new System.Drawing.Point(4, 29);
-            this.tabGimmick.Margin = new System.Windows.Forms.Padding(4);
+            this.tabGimmick.Location = new System.Drawing.Point(4, 25);
             this.tabGimmick.Name = "tabGimmick";
-            this.tabGimmick.Size = new System.Drawing.Size(428, 177);
+            this.tabGimmick.Size = new System.Drawing.Size(319, 142);
             this.tabGimmick.TabIndex = 2;
             this.tabGimmick.Text = "Gimmicks";
             this.tabGimmick.UseVisualStyleBackColor = true;
@@ -421,40 +398,36 @@ namespace MMRando
             // lFloors
             // 
             this.lFloors.AutoSize = true;
-            this.lFloors.Location = new System.Drawing.Point(111, 130);
-            this.lFloors.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lFloors.Location = new System.Drawing.Point(83, 106);
             this.lFloors.Name = "lFloors";
-            this.lFloors.Size = new System.Drawing.Size(82, 17);
+            this.lFloors.Size = new System.Drawing.Size(61, 13);
             this.lFloors.TabIndex = 1;
             this.lFloors.Text = "Floor types:";
             // 
             // lGravity
             // 
             this.lGravity.AutoSize = true;
-            this.lGravity.Location = new System.Drawing.Point(112, 97);
-            this.lGravity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lGravity.Location = new System.Drawing.Point(84, 79);
             this.lGravity.Name = "lGravity";
-            this.lGravity.Size = new System.Drawing.Size(77, 17);
+            this.lGravity.Size = new System.Drawing.Size(60, 13);
             this.lGravity.TabIndex = 1;
             this.lGravity.Text = "Movement:";
             // 
             // lDType
             // 
             this.lDType.AutoSize = true;
-            this.lDType.Location = new System.Drawing.Point(79, 64);
-            this.lDType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lDType.Location = new System.Drawing.Point(59, 52);
             this.lDType.Name = "lDType";
-            this.lDType.Size = new System.Drawing.Size(111, 17);
+            this.lDType.Size = new System.Drawing.Size(85, 13);
             this.lDType.TabIndex = 1;
             this.lDType.Text = "Damage effects:";
             // 
             // lDMult
             // 
             this.lDMult.AutoSize = true;
-            this.lDMult.Location = new System.Drawing.Point(87, 31);
-            this.lDMult.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lDMult.Location = new System.Drawing.Point(65, 25);
             this.lDMult.Name = "lDMult";
-            this.lDMult.Size = new System.Drawing.Size(104, 17);
+            this.lDMult.Size = new System.Drawing.Size(79, 13);
             this.lDMult.TabIndex = 1;
             this.lDMult.Text = "Damage mode:";
             // 
@@ -468,10 +441,9 @@ namespace MMRando
             "Ice",
             "Snow",
             "Random"});
-            this.cFloors.Location = new System.Drawing.Point(200, 127);
-            this.cFloors.Margin = new System.Windows.Forms.Padding(4);
+            this.cFloors.Location = new System.Drawing.Point(150, 103);
             this.cFloors.Name = "cFloors";
-            this.cFloors.Size = new System.Drawing.Size(209, 25);
+            this.cFloors.Size = new System.Drawing.Size(158, 21);
             this.cFloors.TabIndex = 0;
             this.cFloors.SelectedIndexChanged += new System.EventHandler(this.cFloors_SelectedIndexChanged);
             // 
@@ -486,10 +458,9 @@ namespace MMRando
             "Shock",
             "Knockdown",
             "Random"});
-            this.cDType.Location = new System.Drawing.Point(200, 60);
-            this.cDType.Margin = new System.Windows.Forms.Padding(4);
+            this.cDType.Location = new System.Drawing.Point(150, 49);
             this.cDType.Name = "cDType";
-            this.cDType.Size = new System.Drawing.Size(209, 25);
+            this.cDType.Size = new System.Drawing.Size(158, 21);
             this.cDType.TabIndex = 0;
             this.cDType.SelectedIndexChanged += new System.EventHandler(this.cDType_SelectedIndexChanged);
             // 
@@ -503,10 +474,9 @@ namespace MMRando
             "4x",
             "1-hit KO",
             "Doom"});
-            this.cDMult.Location = new System.Drawing.Point(200, 27);
-            this.cDMult.Margin = new System.Windows.Forms.Padding(4);
+            this.cDMult.Location = new System.Drawing.Point(150, 22);
             this.cDMult.Name = "cDMult";
-            this.cDMult.Size = new System.Drawing.Size(209, 25);
+            this.cDMult.Size = new System.Drawing.Size(158, 21);
             this.cDMult.TabIndex = 0;
             this.cDMult.SelectedIndexChanged += new System.EventHandler(this.cDMult_SelectedIndexChanged);
             // 
@@ -520,10 +490,9 @@ namespace MMRando
             "Super low gravity",
             "Low gravity",
             "High gravity"});
-            this.cGravity.Location = new System.Drawing.Point(200, 94);
-            this.cGravity.Margin = new System.Windows.Forms.Padding(4);
+            this.cGravity.Location = new System.Drawing.Point(150, 76);
             this.cGravity.Name = "cGravity";
-            this.cGravity.Size = new System.Drawing.Size(209, 25);
+            this.cGravity.Size = new System.Drawing.Size(158, 21);
             this.cGravity.TabIndex = 0;
             this.cGravity.SelectedIndexChanged += new System.EventHandler(this.cGravity_SelectedIndexChanged);
             // 
@@ -537,11 +506,10 @@ namespace MMRando
             this.tabComfort.Controls.Add(this.lTunic);
             this.tabComfort.Controls.Add(this.lLink);
             this.tabComfort.Controls.Add(this.bTunic);
-            this.tabComfort.Location = new System.Drawing.Point(4, 29);
-            this.tabComfort.Margin = new System.Windows.Forms.Padding(4);
+            this.tabComfort.Location = new System.Drawing.Point(4, 25);
             this.tabComfort.Name = "tabComfort";
-            this.tabComfort.Padding = new System.Windows.Forms.Padding(4);
-            this.tabComfort.Size = new System.Drawing.Size(428, 177);
+            this.tabComfort.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabComfort.Size = new System.Drawing.Size(319, 142);
             this.tabComfort.TabIndex = 1;
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
@@ -557,10 +525,9 @@ namespace MMRando
             "Cool",
             "Random",
             "Rainbow (cycle)"});
-            this.cTatl.Location = new System.Drawing.Point(200, 133);
-            this.cTatl.Margin = new System.Windows.Forms.Padding(4);
+            this.cTatl.Location = new System.Drawing.Point(150, 108);
             this.cTatl.Name = "cTatl";
-            this.cTatl.Size = new System.Drawing.Size(209, 25);
+            this.cTatl.Size = new System.Drawing.Size(158, 21);
             this.cTatl.TabIndex = 12;
             this.cTatl.SelectedIndexChanged += new System.EventHandler(this.cTatl_SelectedIndexChanged);
             // 
@@ -571,10 +538,9 @@ namespace MMRando
             this.cCutsc.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cCutsc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cCutsc.ForeColor = System.Drawing.Color.Black;
-            this.cCutsc.Location = new System.Drawing.Point(39, 27);
-            this.cCutsc.Margin = new System.Windows.Forms.Padding(4);
+            this.cCutsc.Location = new System.Drawing.Point(29, 22);
             this.cCutsc.Name = "cCutsc";
-            this.cCutsc.Size = new System.Drawing.Size(148, 21);
+            this.cCutsc.Size = new System.Drawing.Size(115, 17);
             this.cCutsc.TabIndex = 5;
             this.cCutsc.Text = "Shorten cutscenes";
             this.cCutsc.UseVisualStyleBackColor = false;
@@ -586,10 +552,9 @@ namespace MMRando
             this.lTatl.BackColor = System.Drawing.Color.Transparent;
             this.lTatl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lTatl.ForeColor = System.Drawing.Color.Black;
-            this.lTatl.Location = new System.Drawing.Point(59, 137);
-            this.lTatl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lTatl.Location = new System.Drawing.Point(44, 111);
             this.lTatl.Name = "lTatl";
-            this.lTatl.Size = new System.Drawing.Size(132, 17);
+            this.lTatl.Size = new System.Drawing.Size(100, 13);
             this.lTatl.TabIndex = 11;
             this.lTatl.Text = "Tatl colour scheme:";
             // 
@@ -600,10 +565,9 @@ namespace MMRando
             this.cQText.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cQText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cQText.ForeColor = System.Drawing.Color.Black;
-            this.cQText.Location = new System.Drawing.Point(312, 27);
-            this.cQText.Margin = new System.Windows.Forms.Padding(4);
+            this.cQText.Location = new System.Drawing.Point(234, 22);
             this.cQText.Name = "cQText";
-            this.cQText.Size = new System.Drawing.Size(92, 21);
+            this.cQText.Size = new System.Drawing.Size(74, 17);
             this.cQText.TabIndex = 6;
             this.cQText.Text = "Quick text";
             this.cQText.UseVisualStyleBackColor = false;
@@ -618,10 +582,9 @@ namespace MMRando
             "Link (OoT)",
             "Adult Link (changes physics)",
             "Kafei"});
-            this.cLink.Location = new System.Drawing.Point(200, 100);
-            this.cLink.Margin = new System.Windows.Forms.Padding(4);
+            this.cLink.Location = new System.Drawing.Point(150, 81);
             this.cLink.Name = "cLink";
-            this.cLink.Size = new System.Drawing.Size(209, 25);
+            this.cLink.Size = new System.Drawing.Size(158, 21);
             this.cLink.TabIndex = 10;
             this.cLink.SelectedIndexChanged += new System.EventHandler(this.cLink_SelectedIndexChanged);
             // 
@@ -631,10 +594,9 @@ namespace MMRando
             this.lTunic.BackColor = System.Drawing.Color.Transparent;
             this.lTunic.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lTunic.ForeColor = System.Drawing.Color.Black;
-            this.lTunic.Location = new System.Drawing.Point(100, 70);
-            this.lTunic.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lTunic.Location = new System.Drawing.Point(75, 57);
             this.lTunic.Name = "lTunic";
-            this.lTunic.Size = new System.Drawing.Size(90, 17);
+            this.lTunic.Size = new System.Drawing.Size(69, 13);
             this.lTunic.TabIndex = 7;
             this.lTunic.Text = "Tunic colour:";
             // 
@@ -644,10 +606,9 @@ namespace MMRando
             this.lLink.BackColor = System.Drawing.Color.Transparent;
             this.lLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lLink.ForeColor = System.Drawing.Color.Black;
-            this.lLink.Location = new System.Drawing.Point(133, 103);
-            this.lLink.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lLink.Location = new System.Drawing.Point(100, 84);
             this.lLink.Name = "lLink";
-            this.lLink.Size = new System.Drawing.Size(58, 17);
+            this.lLink.Size = new System.Drawing.Size(44, 13);
             this.lLink.TabIndex = 9;
             this.lLink.Text = "Play as:";
             // 
@@ -655,10 +616,9 @@ namespace MMRando
             // 
             this.bTunic.BackColor = System.Drawing.Color.White;
             this.bTunic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bTunic.Location = new System.Drawing.Point(200, 64);
-            this.bTunic.Margin = new System.Windows.Forms.Padding(4);
+            this.bTunic.Location = new System.Drawing.Point(150, 52);
             this.bTunic.Name = "bTunic";
-            this.bTunic.Size = new System.Drawing.Size(211, 28);
+            this.bTunic.Size = new System.Drawing.Size(158, 23);
             this.bTunic.TabIndex = 8;
             this.bTunic.UseVisualStyleBackColor = false;
             this.bTunic.Click += new System.EventHandler(this.bTunic_Click);
@@ -668,10 +628,9 @@ namespace MMRando
             this.cDummy.AutoSize = true;
             this.cDummy.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cDummy.Enabled = false;
-            this.cDummy.Location = new System.Drawing.Point(99, 199);
-            this.cDummy.Margin = new System.Windows.Forms.Padding(4);
+            this.cDummy.Location = new System.Drawing.Point(74, 162);
             this.cDummy.Name = "cDummy";
-            this.cDummy.Size = new System.Drawing.Size(98, 21);
+            this.cDummy.Size = new System.Drawing.Size(80, 17);
             this.cDummy.TabIndex = 9;
             this.cDummy.Text = "checkBox1";
             this.cDummy.UseVisualStyleBackColor = true;
@@ -684,10 +643,9 @@ namespace MMRando
             this.cSpoiler.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cSpoiler.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cSpoiler.ForeColor = System.Drawing.Color.Black;
-            this.cSpoiler.Location = new System.Drawing.Point(280, 199);
-            this.cSpoiler.Margin = new System.Windows.Forms.Padding(4);
+            this.cSpoiler.Location = new System.Drawing.Point(210, 162);
             this.cSpoiler.Name = "cSpoiler";
-            this.cSpoiler.Size = new System.Drawing.Size(142, 21);
+            this.cSpoiler.Size = new System.Drawing.Size(108, 17);
             this.cSpoiler.TabIndex = 8;
             this.cSpoiler.Text = "Output spoiler log";
             this.cSpoiler.UseVisualStyleBackColor = false;
@@ -699,19 +657,17 @@ namespace MMRando
             this.lSString.BackColor = System.Drawing.Color.Transparent;
             this.lSString.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lSString.ForeColor = System.Drawing.Color.Black;
-            this.lSString.Location = new System.Drawing.Point(233, 148);
-            this.lSString.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lSString.Location = new System.Drawing.Point(175, 120);
             this.lSString.Name = "lSString";
-            this.lSString.Size = new System.Drawing.Size(102, 17);
+            this.lSString.Size = new System.Drawing.Size(76, 13);
             this.lSString.TabIndex = 7;
             this.lSString.Text = "Settings string:";
             // 
             // tSString
             // 
-            this.tSString.Location = new System.Drawing.Point(237, 167);
-            this.tSString.Margin = new System.Windows.Forms.Padding(4);
+            this.tSString.Location = new System.Drawing.Point(178, 136);
             this.tSString.Name = "tSString";
-            this.tSString.Size = new System.Drawing.Size(185, 23);
+            this.tSString.Size = new System.Drawing.Size(140, 20);
             this.tSString.TabIndex = 6;
             this.tSString.Enter += new System.EventHandler(this.tSString_Enter);
             this.tSString.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tSString_KeyDown);
@@ -727,10 +683,9 @@ namespace MMRando
             "Vanilla Layout",
             "User Logic",
             "No Logic"});
-            this.cMode.Location = new System.Drawing.Point(128, 43);
-            this.cMode.Margin = new System.Windows.Forms.Padding(4);
+            this.cMode.Location = new System.Drawing.Point(96, 35);
             this.cMode.Name = "cMode";
-            this.cMode.Size = new System.Drawing.Size(295, 25);
+            this.cMode.Size = new System.Drawing.Size(222, 21);
             this.cMode.TabIndex = 1;
             this.cMode.SelectedIndexChanged += new System.EventHandler(this.cMode_SelectedIndexChanged);
             // 
@@ -740,10 +695,9 @@ namespace MMRando
             this.lMode.BackColor = System.Drawing.Color.Transparent;
             this.lMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMode.ForeColor = System.Drawing.Color.Black;
-            this.lMode.Location = new System.Drawing.Point(16, 47);
-            this.lMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lMode.Location = new System.Drawing.Point(12, 38);
             this.lMode.Name = "lMode";
-            this.lMode.Size = new System.Drawing.Size(99, 17);
+            this.lMode.Size = new System.Drawing.Size(78, 13);
             this.lMode.TabIndex = 0;
             this.lMode.Text = "Mode/Ruleset:";
             // 
@@ -758,12 +712,11 @@ namespace MMRando
             // 
             // bRandomise
             // 
-            this.bRandomise.Location = new System.Drawing.Point(17, 122);
-            this.bRandomise.Margin = new System.Windows.Forms.Padding(4);
+            this.bRandomise.Location = new System.Drawing.Point(13, 99);
             this.bRandomise.Name = "bRandomise";
-            this.bRandomise.Size = new System.Drawing.Size(452, 50);
+            this.bRandomise.Size = new System.Drawing.Size(339, 41);
             this.bRandomise.TabIndex = 5;
-            this.bRandomise.Text = "Randomise";
+            this.bRandomise.Text = "Randomize";
             this.bRandomise.UseVisualStyleBackColor = true;
             this.bRandomise.Click += new System.EventHandler(this.bRandomise_Click);
             // 
@@ -779,10 +732,9 @@ namespace MMRando
             this.cVC.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cVC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cVC.ForeColor = System.Drawing.Color.Black;
-            this.cVC.Location = new System.Drawing.Point(263, 87);
-            this.cVC.Margin = new System.Windows.Forms.Padding(4);
+            this.cVC.Location = new System.Drawing.Point(197, 71);
             this.cVC.Name = "cVC";
-            this.cVC.Size = new System.Drawing.Size(202, 21);
+            this.cVC.Size = new System.Drawing.Size(155, 17);
             this.cVC.TabIndex = 9;
             this.cVC.Text = "Wii Virtual Console channel";
             this.cVC.UseVisualStyleBackColor = false;
@@ -798,10 +750,9 @@ namespace MMRando
             this.cN64.Enabled = false;
             this.cN64.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cN64.ForeColor = System.Drawing.Color.Black;
-            this.cN64.Location = new System.Drawing.Point(156, 87);
-            this.cN64.Margin = new System.Windows.Forms.Padding(4);
+            this.cN64.Location = new System.Drawing.Point(117, 71);
             this.cN64.Name = "cN64";
-            this.cN64.Size = new System.Drawing.Size(92, 21);
+            this.cN64.Size = new System.Drawing.Size(74, 17);
             this.cN64.TabIndex = 10;
             this.cN64.Text = "N64 ROM";
             this.cN64.UseVisualStyleBackColor = false;
@@ -809,10 +760,9 @@ namespace MMRando
             // lOutput
             // 
             this.lOutput.AutoSize = true;
-            this.lOutput.Location = new System.Drawing.Point(55, 89);
-            this.lOutput.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lOutput.Location = new System.Drawing.Point(41, 72);
             this.lOutput.Name = "lOutput";
-            this.lOutput.Size = new System.Drawing.Size(93, 17);
+            this.lOutput.Size = new System.Drawing.Size(70, 13);
             this.lOutput.TabIndex = 11;
             this.lOutput.Text = "Output types:";
             // 
@@ -822,13 +772,11 @@ namespace MMRando
             this.mMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.mMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mFile,
-            this.mTools,
             this.mCustomise,
             this.mHelp});
             this.mMenu.Location = new System.Drawing.Point(0, 0);
             this.mMenu.Name = "mMenu";
-            this.mMenu.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.mMenu.Size = new System.Drawing.Size(487, 28);
+            this.mMenu.Size = new System.Drawing.Size(365, 24);
             this.mMenu.TabIndex = 12;
             this.mMenu.Text = "mMenu";
             // 
@@ -837,31 +785,16 @@ namespace MMRando
             this.mFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mExit});
             this.mFile.Name = "mFile";
-            this.mFile.Size = new System.Drawing.Size(44, 24);
+            this.mFile.Size = new System.Drawing.Size(37, 20);
             this.mFile.Text = "File";
             // 
             // mExit
             // 
             this.mExit.Name = "mExit";
             this.mExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.mExit.Size = new System.Drawing.Size(161, 26);
+            this.mExit.Size = new System.Drawing.Size(134, 22);
             this.mExit.Text = "Exit";
             this.mExit.Click += new System.EventHandler(this.mExit_Click);
-            // 
-            // mTools
-            // 
-            this.mTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mByteswap});
-            this.mTools.Name = "mTools";
-            this.mTools.Size = new System.Drawing.Size(56, 24);
-            this.mTools.Text = "Tools";
-            // 
-            // mByteswap
-            // 
-            this.mByteswap.Name = "mByteswap";
-            this.mByteswap.Size = new System.Drawing.Size(271, 26);
-            this.mByteswap.Text = "Byteswap (.n64, .v64 -> .z64)";
-            this.mByteswap.Click += new System.EventHandler(this.mByteswap_Click);
             // 
             // mCustomise
             // 
@@ -869,20 +802,20 @@ namespace MMRando
             this.mLogicEdit,
             this.mItemIncl});
             this.mCustomise.Name = "mCustomise";
-            this.mCustomise.Size = new System.Drawing.Size(89, 24);
-            this.mCustomise.Text = "Customise";
+            this.mCustomise.Size = new System.Drawing.Size(75, 20);
+            this.mCustomise.Text = "Customize";
             // 
             // mLogicEdit
             // 
             this.mLogicEdit.Name = "mLogicEdit";
-            this.mLogicEdit.Size = new System.Drawing.Size(181, 26);
+            this.mLogicEdit.Size = new System.Drawing.Size(180, 22);
             this.mLogicEdit.Text = "Logic editor";
             this.mLogicEdit.Click += new System.EventHandler(this.mLogicEdit_Click);
             // 
             // mItemIncl
             // 
             this.mItemIncl.Name = "mItemIncl";
-            this.mItemIncl.Size = new System.Drawing.Size(181, 26);
+            this.mItemIncl.Size = new System.Drawing.Size(180, 22);
             this.mItemIncl.Text = "Item list editor";
             this.mItemIncl.Click += new System.EventHandler(this.mItemIncl_Click);
             // 
@@ -893,26 +826,26 @@ namespace MMRando
             this.mSep1,
             this.mAbout});
             this.mHelp.Name = "mHelp";
-            this.mHelp.Size = new System.Drawing.Size(53, 24);
+            this.mHelp.Size = new System.Drawing.Size(44, 20);
             this.mHelp.Text = "Help";
             // 
             // mManual
             // 
             this.mManual.Name = "mManual";
             this.mManual.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.mManual.Size = new System.Drawing.Size(157, 26);
+            this.mManual.Size = new System.Drawing.Size(133, 22);
             this.mManual.Text = "Manual";
             this.mManual.Click += new System.EventHandler(this.mManual_Click);
             // 
             // mSep1
             // 
             this.mSep1.Name = "mSep1";
-            this.mSep1.Size = new System.Drawing.Size(154, 6);
+            this.mSep1.Size = new System.Drawing.Size(130, 6);
             // 
             // mAbout
             // 
             this.mAbout.Name = "mAbout";
-            this.mAbout.Size = new System.Drawing.Size(157, 26);
+            this.mAbout.Size = new System.Drawing.Size(133, 22);
             this.mAbout.Text = "About";
             this.mAbout.Click += new System.EventHandler(this.mAbout_Click);
             // 
@@ -922,9 +855,10 @@ namespace MMRando
             // 
             // pProgress
             // 
-            this.pProgress.Location = new System.Drawing.Point(16, 684);
+            this.pProgress.Location = new System.Drawing.Point(12, 556);
+            this.pProgress.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pProgress.Name = "pProgress";
-            this.pProgress.Size = new System.Drawing.Size(452, 23);
+            this.pProgress.Size = new System.Drawing.Size(339, 19);
             this.pProgress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pProgress.TabIndex = 13;
             // 
@@ -936,18 +870,19 @@ namespace MMRando
             // 
             this.lStatus.AutoSize = true;
             this.lStatus.BackColor = System.Drawing.Color.Transparent;
-            this.lStatus.Location = new System.Drawing.Point(22, 661);
+            this.lStatus.Location = new System.Drawing.Point(16, 537);
+            this.lStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lStatus.Name = "lStatus";
-            this.lStatus.Size = new System.Drawing.Size(61, 17);
+            this.lStatus.Size = new System.Drawing.Size(47, 13);
             this.lStatus.TabIndex = 13;
             this.lStatus.Text = "Ready...";
             // 
             // MainRandomizerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(487, 719);
+            this.ClientSize = new System.Drawing.Size(365, 584);
             this.Controls.Add(this.lStatus);
             this.Controls.Add(this.pProgress);
             this.Controls.Add(this.lOutput);
@@ -962,10 +897,9 @@ namespace MMRando
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mMenu;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "MainRandomizerForm";
-            this.Text = "Majora\'s Mask Randomiser";
+            this.Text = "Majora\'s Mask Randomizer 0.3.1";
             this.Load += new System.EventHandler(this.mmrMain_Load);
             this.gSettings.ResumeLayout(false);
             this.gSettings.PerformLayout();
@@ -1036,8 +970,6 @@ namespace MMRando
         private System.Windows.Forms.MenuStrip mMenu;
         private System.Windows.Forms.ToolStripMenuItem mFile;
         private System.Windows.Forms.ToolStripMenuItem mExit;
-        private System.Windows.Forms.ToolStripMenuItem mTools;
-        private System.Windows.Forms.ToolStripMenuItem mByteswap;
         private System.Windows.Forms.ToolStripMenuItem mHelp;
         private System.Windows.Forms.ToolStripMenuItem mManual;
         private System.Windows.Forms.ToolStripMenuItem mAbout;

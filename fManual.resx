@@ -117,6 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lUsage.Text" xml:space="preserve">
+    <value>The process should be simple:
+1. Choose your desired settings
+2. Open your ROM
+3. Click "Randomise"
+
+The program takes as input a Majora's Mask (U) ROM (N64 version). This is currently the only supported ROM version, there are no plans for further support at this time.
+The ROM must be the original compressed version (32MB) in big endian format (.z64).
+
+The output will be a 32MB compressed N64 ROM and optionally a Wii VC channel that can be installed via homebrew. ROM compression is done in parallel and will use a lot of CPU, so keep this in mind while running the program. This will be the majority of the program's run time, though it should not take very long to complete.
+
+The program's directory should contain folders for the resources it accesses. These folders must be present or the program will likely fail. It is not recommended to modify any of the resource files.</value>
+  </data>
   <data name="lRules.Text" xml:space="preserve">
     <value>There are currently 5 options for ruleset.
 
@@ -134,34 +147,6 @@ This mode will allow the user to specify their own item logic for placing the it
 
 5. No Logic
 Items are shuffled using only RNG - no rules or restrictions on item placement.</value>
-  </data>
-  <data name="lLogic.Text" xml:space="preserve">
-    <value>There is a logic editor provided with the program that will allow you to change the conditions for being able to access each item slot. By using this you can make adjustments from the standard logic to make the game easier or harder.
-
-The editor is relatively straightforward. You simply click buttons to add/remove item dependencies for the selected slot, as well as selecting when that item is available and when it is needed for use.
-
-Terminology is as follows:
-
-Required - items that you absolutely must have to access the selected item.
-
-Conditional - variable items or combinations of items needed for access. Items on the same line are needed together (AND) while separate lines define the branches that can be taken (OR).
-
-As an example, let's use the Hero's Bow. To access this item, it is required to be able to enter Woodfall Temple. Woodfall Temple access would then be the required item. The conditional items could be Hookshot or Bomb Bag. These would be on separate lines under conditional items.
-
-It's good to note that logic works recursively, so any requirements listed for accessing item X will automatically be requirements of any item that itself requires X.</value>
-  </data>
-  <data name="lUsage.Text" xml:space="preserve">
-    <value>The process should be simple:
-1. Choose your desired settings
-2. Open your ROM
-3. Click "Randomise"
-
-The program takes as input a Majora's Mask (U) ROM (N64 version). This is currently the only supported ROM version, there are no plans for further support at this time.
-The ROM must be the original compressed version (32MB) in big endian format (.z64). There is a byteswapper included under "Tools" that can fix endianness if needed. A decompressed ROM is currently not supported.
-
-The output will be a 32MB compressed N64 ROM and optionally a Wii VC channel that can be installed via homebrew. ROM compression is done in parallel and will use a lot of CPU, so keep this in mind while running the program. This will be the majority of the program's run time, though it should not take very long to complete.
-
-The program's directory should contain folders for the resources it accesses. These folders must be present or the program will likely fail. It is not recommended to modify any of the resource files.</value>
   </data>
   <data name="lBaseGame.Text" xml:space="preserve">
     <value>Due to the save and reset system in Majora's Mask, some aspects are changed from the base game to allow item randomisation to work more smoothly. These are detailed below.
@@ -183,6 +168,26 @@ Initial file conditions:
 - Song of Time
 - Song of Healing
 - Free item (Deku Mask for Vanilla mode)</value>
+  </data>
+  <data name="lLogic.Text" xml:space="preserve">
+    <value>There is a logic editor provided with the program that will allow you to change the conditions for being able to access each item slot. By using this you can make adjustments from the standard logic to make the game easier or harder.
+
+The editor is relatively straightforward. You simply click buttons to add/remove item dependencies for the selected slot, as well as selecting when that item is available and when it is needed for use.
+
+Terminology is as follows:
+
+Required - items that you absolutely must have to access the selected item.
+
+Conditional - variable items or combinations of items needed for access. Items on the same line are needed together (AND) while separate lines define the branches that can be taken (OR).
+
+As an example, let's use the Hero's Bow. To access this item, it is required to be able to enter Woodfall Temple. Woodfall Temple access would then be the required item. The conditional items could be Hookshot or Bomb Bag. These would be on separate lines under conditional items.
+
+It's good to note that logic works recursively, so any requirements listed for accessing item X will automatically be requirements of any item that itself requires X.</value>
+  </data>
+  <data name="lItem.Text" xml:space="preserve">
+    <value>The item list editor allows you to select exactly which items will be shuffled. Simply check the boxes of all items desired. The selected items will then be used for randomisation as long as the "custom item list" box is checked on the main form.
+
+The text box at the bottom of the form will show the code for your selection, which you can copy/paste in case you want to keep the settings for another time or send to another player.</value>
   </data>
   <data name="lShuffle.Text" xml:space="preserve">
     <value>The program provides a selection of options for which elements should be shuffled.
@@ -268,11 +273,6 @@ Chests and heart pieces have been assigned unique IDs from which they calculate 
 Item repeatability is handled in the same way as scene switches (flags) are, allowing items to reset once per cycle or not at all depending on their function. This also provides a simple solution for modifying actor code that would usually check for items directly in the inventory.
 
 Quite a lot of the work was done using external programs written to read and write the in-game file formats - these returned and updated lists of actors/variables, converted music data, and did the model swapping required for the play as options, for example.</value>
-  </data>
-  <data name="lItem.Text" xml:space="preserve">
-    <value>The item list editor allows you to select exactly which items will be shuffled. Simply check the boxes of all items desired. The selected items will then be used for randomisation as long as the "custom item list" box is checked on the main form.
-
-The text box at the bottom of the form will show the code for your selection, which you can copy/paste in case you want to keep the settings for another time or send to another player.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

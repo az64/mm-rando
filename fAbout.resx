@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="lAboutText.Text" xml:space="preserve">
-    <value>Majora's Mask Randomiser (External)
+    <value>An item randomizer for The Legend of Zelda: Majora's Mask
 
-An item randomiser for The Legend of Zelda: Majora's Mask ROMs.
+Original by DeathBasket
 
-Research and programming by DeathBasket
+Maintained by the Majoras Mask Randomizer Community Discord.
 
-Thanks:
-Jimmie1717 - random stuff
-KiKe - wadpacker</value>
+
+currently developed by:
+ZoeyZolotova, Kjelli, ZMarotrix</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
