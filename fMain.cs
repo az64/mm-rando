@@ -3,14 +3,16 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
 namespace MMRando
 {
-
     public partial class MainRandomizerForm : Form
     {
+
+        
         public Settings Settings { get; set; } = new Settings();
 
         bool IsUpdating = false;
@@ -29,6 +31,16 @@ namespace MMRando
         public static string AddrsDirectory = Application.StartupPath + "\\addresses\\";
         public static string ObjsDirectory = Application.StartupPath + "\\obj\\";
         public static string VCDirectory = Application.StartupPath + "\\vc\\";
+
+        public string versionNumber = "1.3.2";
+        public string AssemblyVersion // Not actually used.
+        {
+            get
+            {
+                Version v = Assembly.GetExecutingAssembly().GetName().Version;
+                return String.Format("Majora\'s Mask Randomizer v{0}.{1}", v.Major, v.Minor);
+            }
+        }
 
         //read/write settings
 
@@ -51,8 +63,6 @@ namespace MMRando
             cSpoiler.Checked = true;
             cSoS.Checked = true;
             cGossip.Checked = true;
-            //cQText.Checked = true;
-            //cCutsc.Checked = true;
 
             bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
 
@@ -699,6 +709,7 @@ namespace MMRando
         public MainRandomizerForm()
         {
             InitializeComponent();
+            this.Text = "Majora\'s Mask Randomizer v" + versionNumber;
         }
 
         private void EnableBoxes()

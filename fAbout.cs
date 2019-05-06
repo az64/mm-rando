@@ -15,16 +15,11 @@ namespace MMRando
         public fAbout()
         {
             InitializeComponent();
-            lVer.Text = AssemblyVersion;
         }
 
-        public string AssemblyVersion
+        private void discordLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            get
-            {
-                Version v = Assembly.GetExecutingAssembly().GetName().Version;
-                return String.Format("v{0}.{1}", v.Major, v.Minor);
-            }
+            System.Diagnostics.Process.Start("https://discord.gg/8qbreUM");
         }
     }
 }
