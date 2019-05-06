@@ -21,15 +21,5 @@ namespace MMRando
         {
             System.Diagnostics.Process.Start("https://discord.gg/8qbreUM");
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void discordLabelText_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
