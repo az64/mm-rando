@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MM Rando")]
-[assembly: AssemblyDescription("Randomiser for The Legend of Zelda: Majora's Mask ROM files.")]
+[assembly: AssemblyDescription("Randomizer for The Legend of Zelda: Majora's Mask.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MM Rando")]

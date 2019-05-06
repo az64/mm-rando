@@ -2,7 +2,7 @@
 
 namespace MMRando
 {
-    partial class MainRandomizerForm
+    partial class fMain
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace MMRando
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainRandomizerForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fMain));
             this.bopen = new System.Windows.Forms.Button();
             this.openROM = new System.Windows.Forms.OpenFileDialog();
             this.tROMName = new System.Windows.Forms.TextBox();
@@ -899,7 +899,7 @@ namespace MMRando
             this.MainMenuStrip = this.mMenu;
             this.MaximizeBox = false;
             this.Name = "MainRandomizerForm";
-            this.Text = "Majora\'s Mask Randomizer 0.3.1";
+            //this.Text = "Majora\'s Mask Randomizer " + versionNumber;
             this.Load += new System.EventHandler(this.mmrMain_Load);
             this.gSettings.ResumeLayout(false);
             this.gSettings.PerformLayout();

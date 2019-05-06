@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace MMRando
 {
 
-    public partial class MainRandomizerForm
+    public partial class fMain
     {
 
         private void WriteAudioSeq()
