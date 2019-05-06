@@ -15,7 +15,7 @@ namespace MMRando
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainRandomizerForm ());
+            Application.Run(new MainRandomizerForm());
         }
     }
 }
