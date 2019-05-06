@@ -194,7 +194,7 @@ namespace MMRando
             this.cUserItems.TabIndex = 11;
             this.cUserItems.Text = "Use custom item list";
             this.cUserItems.UseVisualStyleBackColor = true;
-            this.cUserItems.CheckedChanged += new System.EventHandler(this.cSpoiler_CheckedChanged);
+            this.cUserItems.CheckedChanged += new System.EventHandler(this.cUserItems_CheckedChanged);
             // 
             // tSettings
             // 

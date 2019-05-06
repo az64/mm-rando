@@ -11,8 +11,6 @@ namespace MMRando
 {
     public partial class MainRandomizerForm : Form
     {
-
-        
         public Settings Settings { get; set; } = new Settings();
 
         bool IsUpdating = false;
@@ -42,13 +40,441 @@ namespace MMRando
             }
         }
 
-        //read/write settings
+        #region Forms Code
 
-        private void SeedRNG()
+        public MainRandomizerForm()
         {
-            RNG = new Random(Settings.Seed);
+            InitializeComponent();
+            this.Text = "Majora\'s Mask Randomizer v" + versionNumber;
         }
 
+        private void mmrMain_Load(object sender, EventArgs e)
+        {
+            // initialise some stuff
+            IsUpdating = true;
+
+            InitializeSettings();
+            InitializeBackgroundWorker();
+
+            IsUpdating = false;
+        }
+
+        private void InitializeBackgroundWorker()
+        {
+            bgWorker.DoWork += new DoWorkEventHandler(bgWorker_DoWork);
+            bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_WorkerCompleted);
+            bgWorker.ProgressChanged += new ProgressChangedEventHandler(bgWorker_ProgressChanged);
+        }
+
+        private void bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            pProgress.Value = e.ProgressPercentage;
+            var message = (string)e.UserState;
+            lStatus.Text = message;
+        }
+
+        private void bgWorker_WorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            pProgress.Value = 0;
+            lStatus.Text = "Ready...";
+            EnableAllControls(true);
+            EnableCheckBoxes();
+        }
+
+        private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            TryRandomize(sender as BackgroundWorker, e);
+        }
+
+        private void bTunic_Click(object sender, EventArgs e)
+        {
+            IsUpdating = true;
+
+            cTunic.ShowDialog();
+            Settings.TunicColor = cTunic.Color;
+            bTunic.BackColor = cTunic.Color;
+            UpdateSettingsString();
+
+            IsUpdating = false;
+        }
+
+        private void bopen_Click(object sender, EventArgs e)
+        {
+            openROM.ShowDialog();
+
+            Settings.InputRomPath = openROM.FileName;
+            tROMName.Text = Settings.InputRomPath;
+        }
+
+        private void bRandomise_Click(object sender, EventArgs e)
+        {
+            if (saveROM.ShowDialog() != DialogResult.OK)
+            {
+                MessageBox.Show("No output selected; ROM will not be saved.",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            EnableAllControls(false);
+            bgWorker.RunWorkerAsync();
+        }
+
+        private void tSString_Enter(object sender, EventArgs e)
+        {
+            OldSettingsString = tSString.Text;
+            IsUpdating = true;
+        }
+
+        private void tSString_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                UpdateSettingsFromString(tSString.Text);
+            }
+            catch
+            {
+                tSString.Text = OldSettingsString;
+                UpdateSettingsFromString(tSString.Text);
+                MessageBox.Show("Settings string is invalid; reverted to previous settings.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            IsUpdating = false;
+        }
+
+        private void tSString_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                cDummy.Select();
+            };
+        }
+
+        private void tSeed_Enter(object sender, EventArgs e)
+        {
+            SeedOld = Convert.ToInt32(tSeed.Text);
+            IsUpdating = true;
+        }
+
+        private void tSeed_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                int seed = Convert.ToInt32(tSeed.Text);
+                if (seed < 0)
+                {
+                    seed = Math.Abs(seed);
+                    tSeed.Text = seed.ToString();
+                    MessageBox.Show("Seed must be positive",
+                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    Settings.Seed = seed;
+                }
+            }
+            catch
+            {
+                tSeed.Text = SeedOld.ToString();
+                MessageBox.Show("Invalid seed: must be a positive integer.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            };
+            UpdateSettingsString();
+            IsUpdating = false;
+        }
+
+        private void tSeed_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                cDummy.Select();
+            }
+        }
+
+        private void cUserItems_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.UseCustomItemList = cUserItems.Checked);
+        }
+
+        private void cSpoiler_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.GenerateSpoilerLog = cSpoiler.Checked);
+        }
+
+
+        private void cAdditional_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.AddOther = cAdditional.Checked);
+        }
+
+        private void cBGM_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.RandomizeBGM = cBGM.Checked);
+        }
+
+        private void cBottled_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.RandomizeBottleCatchContents = cBottled.Checked);
+        }
+
+        private void cCutsc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.ShortenCutscenes = cCutsc.Checked);
+        }
+
+        private void cDChests_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.AddDungeonItems = cDChests.Checked);
+        }
+
+        private void cDEnt_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.RandomizeDungeonEntrances = cDEnt.Checked);
+        }
+
+        private void cDMult_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.DamageMode = (DamageMode)cDMult.SelectedIndex);
+        }
+
+        private void cDType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.DamageEffect = (DamageEffect)cDType.SelectedIndex);
+        }
+
+        private void cEnemy_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.RandomizeEnemies = cEnemy.Checked);
+        }
+
+        private void cFloors_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.FloorType = (FloorType)cFloors.SelectedIndex);
+        }
+
+        private void cGossip_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.EnableGossipHints = cGossip.Checked);
+        }
+
+        private void cGravity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.MovementMode = (MovementMode)cGravity.SelectedIndex);
+        }
+
+        private void cLink_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.Character = (Character)cLink.SelectedIndex);
+        }
+
+        private void cMixSongs_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.AddSongs = cMixSongs.Checked);
+        }
+
+        private void cQText_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.QuickTextEnabled = cQText.Checked);
+        }
+
+        private void cShop_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.AddShopItems = cShop.Checked);
+        }
+
+        private void cSoS_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.ExcludeSongOfSoaring = cSoS.Checked);
+        }
+
+        private void cTatl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.TatlColorSchema = (TatlColorSchema)cTatl.SelectedIndex);
+        }
+
+        private void cMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (IsUpdating)
+            {
+                return;
+            }
+
+            if (Settings.LogicMode == LogicMode.UserLogic
+                && openLogic.ShowDialog() != DialogResult.OK)
+            {
+                cMode.SelectedIndex = 0;
+            }
+
+            UpdateSingleSetting(() => Settings.LogicMode = (LogicMode)cMode.SelectedIndex);
+        }
+
+        private void cVC_CheckedChanged(object sender, EventArgs e)
+        {
+            Output_VC = cVC.Checked;
+        }
+
+        private void mExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void mAbout_Click(object sender, EventArgs e)
+        {
+            About.ShowDialog();
+        }
+
+        private void mManual_Click(object sender, EventArgs e)
+        {
+            Manual.Show();
+        }
+
+        private void mByteswap_Click(object sender, EventArgs e)
+        {
+            if (openBROM.ShowDialog() == DialogResult.OK)
+            {
+                int r = ROMFuncs.ByteswapROM(openBROM.FileName);
+                switch (r)
+                {
+                    case 0:
+                        MessageBox.Show("Successfully byteswapped ROM.",
+                            "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+                        break;
+                    case 1:
+                        MessageBox.Show("ROM appears to be big endian.",
+                            "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+                        break;
+                    default:
+                        MessageBox.Show("Could not byteswap ROM.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                };
+            };
+        }
+
+        private void mLogicEdit_Click(object sender, EventArgs e)
+        {
+            LogicEditor.Show();
+        }
+
+        private void mItemIncl_Click(object sender, EventArgs e)
+        {
+            ItemEditor.Show();
+        }
+
+
+
+        /// <summary>
+        /// Checks for settings that invalidate others, and disable the checkboxes for them.
+        /// </summary>
+        private void EnableCheckBoxes()
+        {
+            if (Settings.LogicMode == LogicMode.Vanilla)
+            {
+                cMixSongs.Enabled = false;
+                cSoS.Enabled = false;
+                cDChests.Enabled = false;
+                cDEnt.Enabled = false;
+                cBottled.Enabled = false;
+                cShop.Enabled = false;
+                cSpoiler.Enabled = false;
+                cGossip.Enabled = false;
+                cAdditional.Enabled = false;
+                cUserItems.Enabled = false;
+            }
+            else
+            {
+                cMixSongs.Enabled = true;
+                cSoS.Enabled = true;
+                cDChests.Enabled = true;
+                cDEnt.Enabled = true;
+                cBottled.Enabled = true;
+                cShop.Enabled = true;
+                cSpoiler.Enabled = true;
+                cGossip.Enabled = true;
+                cAdditional.Enabled = true;
+                cUserItems.Enabled = true;
+            };
+
+            if (Settings.UseCustomItemList)
+            {
+                cSoS.Enabled = false;
+                cDChests.Enabled = false;
+                cBottled.Enabled = false;
+                cShop.Enabled = false;
+                cAdditional.Enabled = false;
+            }
+            else
+            {
+                if (Settings.LogicMode != LogicMode.Vanilla)
+                {
+                    cSoS.Enabled = true;
+                    cDChests.Enabled = true;
+                    cBottled.Enabled = true;
+                    cShop.Enabled = true;
+                    cAdditional.Enabled = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Utility function that takes a function should update a single setting. 
+        /// This function makes sure concurrent updates are not allowed, updates 
+        /// settings string and enables/disables checkboxes automatically.
+        /// </summary>
+        /// <param name="update">A setting-updating function</param>
+        private void UpdateSingleSetting(Action update)
+        {
+            if (IsUpdating)
+            {
+                return;
+            }
+
+            IsUpdating = true;
+
+            update?.Invoke();
+            UpdateSettingsString();
+            EnableCheckBoxes();
+
+            IsUpdating = false;
+        }
+
+
+        private void EnableAllControls(bool v)
+        {
+            cAdditional.Enabled = v;
+            cBGM.Enabled = v;
+            cBottled.Enabled = v;
+            cCutsc.Enabled = v;
+            cDChests.Enabled = v;
+            cDEnt.Enabled = v;
+            cMode.Enabled = v;
+            cDMult.Enabled = v;
+            cDType.Enabled = v;
+            cDummy.Enabled = v;
+            cEnemy.Enabled = v;
+            cFloors.Enabled = v;
+            cGossip.Enabled = v;
+            cGravity.Enabled = v;
+            cLink.Enabled = v;
+            cMixSongs.Enabled = v;
+            cSoS.Enabled = v;
+            cShop.Enabled = v;
+            cUserItems.Enabled = v;
+            cVC.Enabled = v;
+            cQText.Enabled = v;
+            cSpoiler.Enabled = v;
+            cTatl.Enabled = v;
+
+            bopen.Enabled = v;
+            bRandomise.Enabled = v;
+            bTunic.Enabled = v;
+
+            tSeed.Enabled = v;
+            tSString.Enabled = v;
+        }
+
+        #endregion
+        
         #region Settings
 
         public void InitializeSettings()
@@ -223,546 +649,11 @@ namespace MMRando
 
         #endregion
 
-        //form functions
-
-        #region Forms Code
-
-        private void mmrMain_Load(object sender, EventArgs e)
+        #region Randomization
+        private void SeedRNG()
         {
-            // initialise some stuff
-            IsUpdating = true;
-
-            InitializeSettings();
-            InitializeBackgroundWorker();
-
-            IsUpdating = false;
+            RNG = new Random(Settings.Seed);
         }
-
-        private void InitializeBackgroundWorker()
-        {
-            bgWorker.DoWork += new DoWorkEventHandler(bgWorker_DoWork);
-            bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_WorkerCompleted);
-            bgWorker.ProgressChanged += new ProgressChangedEventHandler(bgWorker_ProgressChanged);
-        }
-
-        private void bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            pProgress.Value = e.ProgressPercentage;
-            var message = (string)e.UserState;
-            lStatus.Text = message;
-        }
-
-        private void bgWorker_WorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            pProgress.Value = 0;
-            lStatus.Text = "Ready...";
-            EnableAllControls(true);
-            EnableBoxes();
-        }
-
-        private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            TryRandomize(sender as BackgroundWorker, e);
-        }
-
-        private void bTunic_Click(object sender, EventArgs e)
-        {
-            IsUpdating = true;
-
-            cTunic.ShowDialog();
-            Settings.TunicColor = cTunic.Color;
-            bTunic.BackColor = cTunic.Color;
-            UpdateSettingsString();
-
-            IsUpdating = false;
-        }
-
-        private void bopen_Click(object sender, EventArgs e)
-        {
-            openROM.ShowDialog();
-
-            Settings.InputRomPath = openROM.FileName;
-            tROMName.Text = Settings.InputRomPath;
-        }
-
-        private void bRandomise_Click(object sender, EventArgs e)
-        {
-            if (saveROM.ShowDialog() != DialogResult.OK)
-            {
-                MessageBox.Show("No output selected; ROM will not be saved.",
-                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            EnableAllControls(false);
-            bgWorker.RunWorkerAsync();
-        }
-
-        private void tSString_Enter(object sender, EventArgs e)
-        {
-            OldSettingsString = tSString.Text;
-            IsUpdating = true;
-        }
-
-        private void tSString_Leave(object sender, EventArgs e)
-        {
-            try
-            {
-                UpdateSettingsFromString(tSString.Text);
-            }
-            catch
-            {
-                tSString.Text = OldSettingsString;
-                UpdateSettingsFromString(tSString.Text);
-                MessageBox.Show("Settings string is invalid; reverted to previous settings.",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            };
-            IsUpdating = false;
-        }
-
-        private void tSString_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Enter)
-            {
-                cDummy.Select();
-            };
-        }
-
-        private void tSeed_Enter(object sender, EventArgs e)
-        {
-            SeedOld = Convert.ToInt32(tSeed.Text);
-            IsUpdating = true;
-        }
-
-        private void tSeed_Leave(object sender, EventArgs e)
-        {
-            try
-            {
-                int seed = Convert.ToInt32(tSeed.Text);
-                if (seed < 0)
-                {
-                    seed = Math.Abs(seed);
-                    tSeed.Text = seed.ToString();
-                    MessageBox.Show("Seed must be positive",
-                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    Settings.Seed = seed;
-                }
-            }
-            catch
-            {
-                tSeed.Text = SeedOld.ToString();
-                MessageBox.Show("Invalid seed: must be a positive integer.",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            };
-            UpdateSettingsString();
-            IsUpdating = false;
-        }
-
-        private void tSeed_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Enter)
-            {
-                cDummy.Select();
-            };
-        }
-
-        private void cSpoiler_CheckedChanged(object sender, EventArgs e)
-        {
-            EnableBoxes();
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.GenerateSpoilerLog = cSpoiler.Checked;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-
-        private void cAdditional_CheckedChanged(object sender, EventArgs e)
-        {
-            EnableBoxes();
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.AddOther = cAdditional.Checked;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cBGM_CheckedChanged(object sender, EventArgs e)
-        {
-            EnableBoxes();
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.RandomizeBGM = cBGM.Checked;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cBottled_CheckedChanged(object sender, EventArgs e)
-        {
-            EnableBoxes();
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.RandomizeBottleCatchContents = cBottled.Checked;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cCutsc_CheckedChanged(object sender, EventArgs e)
-        {
-            EnableBoxes();
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.ShortenCutscenes = cCutsc.Checked;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cDChests_CheckedChanged(object sender, EventArgs e)
-        {
-            EnableBoxes();
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.AddDungeonItems = cDChests.Checked;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cDEnt_CheckedChanged(object sender, EventArgs e)
-        {
-            EnableBoxes();
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.RandomizeDungeonEntrances = cDEnt.Checked;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cDMult_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.DamageMode = (DamageMode)cDMult.SelectedIndex;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cDType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.DamageEffect = (DamageEffect)cDType.SelectedIndex;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cEnemy_CheckedChanged(object sender, EventArgs e)
-        {
-            EnableBoxes();
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.RandomizeEnemies = cEnemy.Checked;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cFloors_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.FloorType = (FloorType)cFloors.SelectedIndex;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cGossip_CheckedChanged(object sender, EventArgs e)
-        {
-            EnableBoxes();
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.EnableGossipHints = cGossip.Checked;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cGravity_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.MovementMode = (MovementMode)cGravity.SelectedIndex;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cLink_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.Character = (Character)cLink.SelectedIndex;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cMixSongs_CheckedChanged(object sender, EventArgs e)
-        {
-            EnableBoxes();
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.AddSongs = cMixSongs.Checked;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cQText_CheckedChanged(object sender, EventArgs e)
-        {
-            EnableBoxes();
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.QuickTextEnabled = cQText.Checked;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cShop_CheckedChanged(object sender, EventArgs e)
-        {
-            EnableBoxes();
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.AddShopItems = cShop.Checked;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cSoS_CheckedChanged(object sender, EventArgs e)
-        {
-            EnableBoxes();
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.ExcludeSongOfSoaring = cSoS.Checked;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cTatl_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!IsUpdating)
-            {
-                IsUpdating = true;
-
-                Settings.TatlColorSchema = (TatlColorSchema)cTatl.SelectedIndex;
-
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-        }
-
-        private void cMode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!IsUpdating)
-            {
-                if (Settings.LogicMode == LogicMode.UserLogic)
-                {
-                    if (openLogic.ShowDialog() == DialogResult.OK)
-                    {
-                        //do nothing?
-                    }
-                    else
-                    {
-                        cMode.SelectedIndex = 0;
-                    };
-                };
-                IsUpdating = true;
-                Settings.LogicMode = (LogicMode)cMode.SelectedIndex;
-                UpdateSettingsString();
-                IsUpdating = false;
-            };
-            EnableBoxes();
-        }
-
-        private void cVC_CheckedChanged(object sender, EventArgs e)
-        {
-            Output_VC = cVC.Checked;
-        }
-
-        private void mExit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void mAbout_Click(object sender, EventArgs e)
-        {
-            About.ShowDialog();
-        }
-
-        private void mManual_Click(object sender, EventArgs e)
-        {
-            Manual.Show();
-        }
-
-        private void mByteswap_Click(object sender, EventArgs e)
-        {
-            if (openBROM.ShowDialog() == DialogResult.OK)
-            {
-                int r = ROMFuncs.ByteswapROM(openBROM.FileName);
-                switch (r)
-                {
-                    case 0:
-                        MessageBox.Show("Successfully byteswapped ROM.",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-                        break;
-                    case 1:
-                        MessageBox.Show("ROM appears to be big endian.",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-                        break;
-                    default:
-                        MessageBox.Show("Could not byteswap ROM.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                };
-            };
-        }
-
-        private void mLogicEdit_Click(object sender, EventArgs e)
-        {
-            LogicEditor.Show();
-        }
-
-        private void mItemIncl_Click(object sender, EventArgs e)
-        {
-            ItemEditor.Show();
-        }
-
-        public MainRandomizerForm()
-        {
-            InitializeComponent();
-            this.Text = "Majora\'s Mask Randomizer v" + versionNumber;
-        }
-
-        private void EnableBoxes()
-        {
-            if (Settings.LogicMode == LogicMode.Vanilla)
-            {
-                cMixSongs.Enabled = false;
-                cSoS.Enabled = false;
-                cDChests.Enabled = false;
-                cDEnt.Enabled = false;
-                cBottled.Enabled = false;
-                cShop.Enabled = false;
-                cSpoiler.Enabled = false;
-                cGossip.Enabled = false;
-                cAdditional.Enabled = false;
-                cUserItems.Enabled = false;
-            }
-            else
-            {
-                cMixSongs.Enabled = true;
-                cSoS.Enabled = true;
-                cDChests.Enabled = true;
-                cDEnt.Enabled = true;
-                cBottled.Enabled = true;
-                cShop.Enabled = true;
-                cSpoiler.Enabled = true;
-                cGossip.Enabled = true;
-                cAdditional.Enabled = true;
-                cUserItems.Enabled = true;
-            };
-
-            if (Settings.UseCustomItemList)
-            {
-                cSoS.Enabled = false;
-                cDChests.Enabled = false;
-                cBottled.Enabled = false;
-                cShop.Enabled = false;
-                cAdditional.Enabled = false;
-            }
-            else
-            {
-                if (Settings.LogicMode != LogicMode.Vanilla)
-                {
-                    cSoS.Enabled = true;
-                    cDChests.Enabled = true;
-                    cBottled.Enabled = true;
-                    cShop.Enabled = true;
-                    cAdditional.Enabled = true;
-                };
-            };
-        }
-
-        #endregion
 
         /// <summary>
         /// Try to perform randomization and make rom
@@ -778,6 +669,8 @@ namespace MMRando
                 MessageBox.Show($"Error randomizing logic: {ex.Message}\r\n\r\nPlease try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            // Additional validation of preconditions
             if (!File.Exists(Settings.InputRomPath))
             {
                 MessageBox.Show("Input ROM not selected or doesn't exist, cannot generate output.",
@@ -791,15 +684,15 @@ namespace MMRando
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (Output_VC)
+
+            if (Output_VC && saveWad.ShowDialog() != DialogResult.OK)
             {
-                if (saveWad.ShowDialog() != DialogResult.OK)
-                {
-                    MessageBox.Show("Output file not selected.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                };
-            };
+                MessageBox.Show("Output file not selected.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
             if (!ValidateROM(Settings.InputRomPath))
             {
                 MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
@@ -811,40 +704,6 @@ namespace MMRando
 
             MessageBox.Show("Successfully built output ROM!",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-        }
-
-        private void EnableAllControls(bool v)
-        {
-            cAdditional.Enabled = v;
-            cBGM.Enabled = v;
-            cBottled.Enabled = v;
-            cCutsc.Enabled = v;
-            cDChests.Enabled = v;
-            cDEnt.Enabled = v;
-            cMode.Enabled = v;
-            cDMult.Enabled = v;
-            cDType.Enabled = v;
-            cDummy.Enabled = v;
-            cEnemy.Enabled = v;
-            cFloors.Enabled = v;
-            cGossip.Enabled = v;
-            cGravity.Enabled = v;
-            cLink.Enabled = v;
-            cMixSongs.Enabled = v;
-            cSoS.Enabled = v;
-            cShop.Enabled = v;
-            cUserItems.Enabled = v;
-            cVC.Enabled = v;
-            cQText.Enabled = v;
-            cSpoiler.Enabled = v;
-            cTatl.Enabled = v;
-
-            bopen.Enabled = v;
-            bRandomise.Enabled = v;
-            bTunic.Enabled = v;
-
-            tSeed.Enabled = v;
-            tSString.Enabled = v;
         }
 
         /// <summary>
@@ -859,14 +718,14 @@ namespace MMRando
                 worker.ReportProgress(5, "Preparing ruleset...");
                 PrepareRulesetItemData();
 
+                worker.ReportProgress(10, "Shuffling items...");
+                ItemShuffle();
+
                 if (Settings.RandomizeDungeonEntrances)
                 {
-                    worker.ReportProgress(10, "Shuffling entrances...");
+                    worker.ReportProgress(30, "Shuffling entrances...");
                     EntranceShuffle();
-                };
-
-                worker.ReportProgress(15, "Shuffling items...");
-                ItemShuffle();
+                }
 
                 if (Settings.EnableGossipHints)
                 {
@@ -879,6 +738,7 @@ namespace MMRando
             }
 
             worker.ReportProgress(40, "Coloring Tatl...");
+
             //Randomize tatl colour
             SeedRNG();
             SetTatlColour();
@@ -889,6 +749,8 @@ namespace MMRando
             SeedRNG();
             SortBGM();
         }
+
+        #endregion
     }
 
 }
