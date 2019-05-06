@@ -899,7 +899,6 @@ namespace MMRando
             this.MainMenuStrip = this.mMenu;
             this.MaximizeBox = false;
             this.Name = "MainRandomizerForm";
-            //this.Text = "Majora\'s Mask Randomizer " + versionNumber;
             this.Load += new System.EventHandler(this.mmrMain_Load);
             this.gSettings.ResumeLayout(false);
             this.gSettings.PerformLayout();

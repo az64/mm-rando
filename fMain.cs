@@ -32,7 +32,7 @@ namespace MMRando
         public static string ObjsDirectory = Application.StartupPath + "\\obj\\";
         public static string VCDirectory = Application.StartupPath + "\\vc\\";
 
-        public string versionNumber = "0.3.2";
+        public string versionNumber = "1.3.2";
         public string AssemblyVersion // Not actually used.
         {
             get
@@ -63,8 +63,6 @@ namespace MMRando
             cSpoiler.Checked = true;
             cSoS.Checked = true;
             cGossip.Checked = true;
-            //cQText.Checked = true;
-            //cCutsc.Checked = true;
 
             bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
 

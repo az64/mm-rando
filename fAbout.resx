@@ -117,12 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="discordLabelText.Text" xml:space="preserve">
+  <data name="lAboutText.Text" xml:space="preserve">
     <value>An item randomizer for The Legend of Zelda: Majora's Mask
 
 Original by DeathBasket
 
-Maintained by the Majoras Mask Randomizer Community Discord.
+Maintained by the Majora's Mask Randomizer Community Discord.
 
 
 Thanks to: Jimmie1717 and KiKe
