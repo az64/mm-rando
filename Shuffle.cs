@@ -10,7 +10,7 @@ using System.Text;
 namespace MMRando
 {
 
-    public partial class fMain
+    public partial class MainRandomizerForm 
     {
 
         Random RNG;

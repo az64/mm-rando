@@ -2,7 +2,7 @@
 
 namespace MMRando
 {
-    partial class fMain
+    partial class MainRandomizerForm 
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace MMRando
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fMain));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainRandomizerForm ));
             this.bopen = new System.Windows.Forms.Button();
             this.openROM = new System.Windows.Forms.OpenFileDialog();
             this.tROMName = new System.Windows.Forms.TextBox();

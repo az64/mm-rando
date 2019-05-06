@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace MMRando
 {
-    public partial class fMain : Form
+    public partial class MainRandomizerForm  : Form
     {
 
         
@@ -32,7 +32,7 @@ namespace MMRando
         public static string ObjsDirectory = Application.StartupPath + "\\obj\\";
         public static string VCDirectory = Application.StartupPath + "\\vc\\";
 
-        public string versionNumber = "0.3.2";
+        public string versionNumber = "1.3.2";
         public string AssemblyVersion // Not actually used.
         {
             get
@@ -708,7 +708,7 @@ namespace MMRando
             ItemEditor.Show();
         }
 
-        public fMain()
+        public MainRandomizerForm ()
         {
             InitializeComponent();
             this.Text = "Majora\'s Mask Randomizer v" + versionNumber;
