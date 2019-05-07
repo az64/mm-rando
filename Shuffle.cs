@@ -519,21 +519,13 @@ namespace MMRando
                 || (itemId >= ST_Key1 && itemId <= ST_Key4);
         }
 
-        private bool CheckDependence(int CurrentItem, int Target, bool skip)
+        private bool CheckDependence(int CurrentItem, int Target)
         {
-            Debug.WriteLine($"CheckDependence({CurrentItem}, {Target}, {skip})");
-            if (!skip)
-            {
-                DependenceChecked[Target] = true;
-            };
+            Debug.WriteLine($"CheckDependence({CurrentItem}, {Target})");
 
             // permanent items ignore dependencies of Blast Mask check
             if (Target == Blast_Mask && !IsTemporaryItem(CurrentItem))
             {
-                if (!skip)
-                {
-                    DependenceChecked[Target] = false;
-                }
                 return false;
             }
 
@@ -571,7 +563,7 @@ namespace MMRando
                         if (!SubChecked.ContainsKey(d))
                         {
                             SubChecked[d] = true;
-                            SubChecked[d] = CheckDependence(CurrentItem, d, true);
+                            SubChecked[d] = CheckDependence(CurrentItem, d);
                         }
                         if (SubChecked[d])
                         {
@@ -592,10 +584,6 @@ namespace MMRando
             };
             if (ItemList[Target].Dependence == null)
             {
-                if (!skip)
-                {
-                    DependenceChecked[Target] = false;
-                }
                 return false;
             };
             //cycle through all things
@@ -621,27 +609,18 @@ namespace MMRando
                 if (IsFakeItem(d) || ItemList[d].Replaces != -1)
                 {
                     if (ItemList[d].Replaces != -1) d = ItemList[d].Replaces;
-                    if (DependenceChecked.ContainsKey(d))
+                    if (!DependenceChecked.ContainsKey(d))
                     {
-                        if (DependenceChecked[d])
-                        {
-                            Debug.WriteLine($"{CurrentItem} is dependent on {d}");
-                            return true;
-                        }
+                        DependenceChecked[d] = true;
+                        DependenceChecked[d] = CheckDependence(CurrentItem, d);
                     }
-                    else
+                    if (DependenceChecked[d])
                     {
-                        if (CheckDependence(CurrentItem, d, false))
-                        {
-                            return true;
-                        }
+                        Debug.WriteLine($"{CurrentItem} is dependent on {d}");
+                        return true;
                     }
                 }
             };
-            if (!skip)
-            {
-                DependenceChecked[Target] = false;
-            }
             return false;
         }
 
@@ -880,8 +859,8 @@ namespace MMRando
             //check direct dependence
             ConditionRemoves = new List<int[]>();
             SubChecked = new Dictionary<int, bool>();
-            DependenceChecked = new Dictionary<int, bool>();
-            if (CheckDependence(CurrentItem, Target, false))
+            DependenceChecked = new Dictionary<int, bool> { { Target, true } };
+            if (CheckDependence(CurrentItem, Target))
             {
                 return false;
             };
