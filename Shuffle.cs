@@ -649,7 +649,10 @@ namespace MMRando
                             {
                                 ItemList[x].Cannot_Require = new List<int>();
                             };
-                            ItemList[d].Cannot_Require.Add(CurrentItem);
+                            if (!ItemList[d].Cannot_Require.Contains(CurrentItem))
+                            {
+                                ItemList[d].Cannot_Require.Add(CurrentItem);
+                            }
                         };
                     };
                 };
@@ -726,12 +729,18 @@ namespace MMRando
                         ItemList[Target].Dependence = new List<int>();
                     };
                     int j = ItemList[Target].Conditional[0][i];
-                    ItemList[Target].Dependence.Add(j);
+                    if (!ItemList[Target].Dependence.Contains(j))
+                    {
+                        ItemList[Target].Dependence.Add(j);
+                    }
                     if (ItemList[j].Cannot_Require == null)
                     {
                         ItemList[j].Cannot_Require = new List<int>();
                     };
-                    ItemList[j].Cannot_Require.Add(CurrentItem);
+                    if (!ItemList[j].Cannot_Require.Contains(CurrentItem))
+                    {
+                        ItemList[j].Cannot_Require.Add(CurrentItem);
+                    }
                 };
                 ItemList[Target].Conditional.RemoveAt(0);
             }
@@ -748,7 +757,10 @@ namespace MMRando
                         {
                             ItemList[Target].Dependence = new List<int>();
                         };
-                        ItemList[Target].Dependence.Add(testitem);
+                        if (!ItemList[Target].Dependence.Contains(testitem))
+                        {
+                            ItemList[Target].Dependence.Add(testitem);
+                        }
                         for (int j = 0; j < ItemList[Target].Conditional.Count; j++)
                         {
                             ItemList[Target].Conditional[j].Remove(testitem);
@@ -822,7 +834,10 @@ namespace MMRando
                 {
                     ItemList[d].Cannot_Require = new List<int>();
                 };
-                ItemList[d].Cannot_Require.Add(CurrentItem);
+                if (!ItemList[d].Cannot_Require.Contains(CurrentItem))
+                {
+                    ItemList[d].Cannot_Require.Add(CurrentItem);
+                }
                 if (IsFakeItem(d) || ItemList[d].Replaces != -1)
                 {
                     if (ItemList[d].Replaces != -1) d = ItemList[d].Replaces;
