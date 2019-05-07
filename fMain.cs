@@ -121,21 +121,14 @@ namespace MMRando
             var settingsString = EncodeSettings();
             tSString.Text = settingsString;
 
-            if (cSpoiler.Checked)
+            if (Settings.GenerateSpoilerLog)
             {
-                saveROM.FileName = $"MMR-{Settings.Seed} {settingsString}.z64";
+                saveROM.FileName = $"MMR_{Settings.Seed}_{settingsString}.z64";
+                saveWad.FileName = $"MMR_{Settings.Seed}_{settingsString}.wad";
             }
             else
             {
                 saveROM.FileName = $"MMR-{settingsString}.z64";
-            }
-
-            if (cSpoiler.Checked)
-            {
-                saveWad.FileName = $"MMR-{Settings.Seed} {settingsString}.wad";
-            }
-            else
-            {
                 saveWad.FileName = $"MMR-{settingsString}.wad";
             }
         }
@@ -146,8 +139,6 @@ namespace MMRando
 
             var settingsStringBuilder = new StringBuilder();
 
-            //settingsStringBuilder.Append(Base36.Encode(Convert.ToInt32(Settings.Seed)));
-            //settingsStringBuilder.Append("-");
             settingsStringBuilder.Append(Base36.Encode(Options[0]));
             settingsStringBuilder.Append("-");
             settingsStringBuilder.Append(Base36.Encode(Options[1]));
@@ -161,8 +152,6 @@ namespace MMRando
         // TODO add to settings class
         private void SetOptions(string[] O)
         {
-            //tSeed.Text = Base36.Decode(O[0]).ToString();
-            //Settings.Seed = Convert.ToInt32(tSeed.Text); 
 
             int Checks = (int)Base36.Decode(O[0]);
             int Combos = (int)Base36.Decode(O[1]);
@@ -880,11 +869,6 @@ namespace MMRando
             //Sort BGM
             SeedRNG();
             SortBGM();
-        }
-
-        private void tSeed_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 
