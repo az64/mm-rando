@@ -134,6 +134,7 @@ namespace MMRando
             this.tSeed.Name = "tSeed";
             this.tSeed.Size = new System.Drawing.Size(140, 20);
             this.tSeed.TabIndex = 2;
+            this.tSeed.TextChanged += new System.EventHandler(this.tSeed_TextChanged);
             this.tSeed.Enter += new System.EventHandler(this.tSeed_Enter);
             this.tSeed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tSeed_KeyDown);
             this.tSeed.Leave += new System.EventHandler(this.tSeed_Leave);
@@ -222,7 +223,7 @@ namespace MMRando
             this.tabMain.Controls.Add(this.cShop);
             this.tabMain.Location = new System.Drawing.Point(4, 25);
             this.tabMain.Name = "tabMain";
-            this.tabMain.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabMain.Padding = new System.Windows.Forms.Padding(3);
             this.tabMain.Size = new System.Drawing.Size(319, 142);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Random elements";
@@ -508,7 +509,7 @@ namespace MMRando
             this.tabComfort.Controls.Add(this.bTunic);
             this.tabComfort.Location = new System.Drawing.Point(4, 25);
             this.tabComfort.Name = "tabComfort";
-            this.tabComfort.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabComfort.Padding = new System.Windows.Forms.Padding(3);
             this.tabComfort.Size = new System.Drawing.Size(319, 142);
             this.tabComfort.TabIndex = 1;
             this.tabComfort.Text = "Comfort/Cosmetics";
@@ -808,14 +809,14 @@ namespace MMRando
             // mLogicEdit
             // 
             this.mLogicEdit.Name = "mLogicEdit";
-            this.mLogicEdit.Size = new System.Drawing.Size(180, 22);
+            this.mLogicEdit.Size = new System.Drawing.Size(150, 22);
             this.mLogicEdit.Text = "Logic editor";
             this.mLogicEdit.Click += new System.EventHandler(this.mLogicEdit_Click);
             // 
             // mItemIncl
             // 
             this.mItemIncl.Name = "mItemIncl";
-            this.mItemIncl.Size = new System.Drawing.Size(180, 22);
+            this.mItemIncl.Size = new System.Drawing.Size(150, 22);
             this.mItemIncl.Text = "Item list editor";
             this.mItemIncl.Click += new System.EventHandler(this.mItemIncl_Click);
             // 
@@ -856,7 +857,7 @@ namespace MMRando
             // pProgress
             // 
             this.pProgress.Location = new System.Drawing.Point(12, 556);
-            this.pProgress.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pProgress.Margin = new System.Windows.Forms.Padding(2);
             this.pProgress.Name = "pProgress";
             this.pProgress.Size = new System.Drawing.Size(339, 19);
             this.pProgress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
