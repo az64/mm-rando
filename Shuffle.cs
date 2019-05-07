@@ -91,10 +91,27 @@ namespace MMRando
         List<Gossip> GossipList;
 
         List<int> ConditionsChecked;
-        Dictionary<int, bool> DependenceChecked;
-        Dictionary<int, bool> SubChecked;
+        Dictionary<int, Dependence> DependenceChecked;
+        Dictionary<int, Dependence> SubChecked;
         List<int[]> ConditionRemoves;
         List<string> GossipQuotes;
+
+        private class Dependence
+        {
+            public int[] ItemIds { get; set; }
+            public DependenceType Type { get; set; }
+
+            public static Dependence Dependent => new Dependence { Type = DependenceType.Dependent };
+            public static Dependence NotDependent => new Dependence { Type = DependenceType.NotDependent };
+            public static Dependence Circular(params int[] itemIds) => new Dependence { ItemIds = itemIds, Type = DependenceType.Circular };
+        }
+
+        private enum DependenceType
+        {
+            Dependent,
+            NotDependent,
+            Circular
+        }
 
         Dictionary<int, List<int>> ForbiddenReplacedBy = new Dictionary<int, List<int>>
         {
@@ -519,14 +536,14 @@ namespace MMRando
                 || (itemId >= ST_Key1 && itemId <= ST_Key4);
         }
 
-        private bool CheckDependence(int CurrentItem, int Target)
+        private Dependence CheckDependence(int CurrentItem, int Target, List<int> dependencyPath)
         {
             Debug.WriteLine($"CheckDependence({CurrentItem}, {Target})");
 
             // permanent items ignore dependencies of Blast Mask check
             if (Target == Blast_Mask && !IsTemporaryItem(CurrentItem))
             {
-                return false;
+                return Dependence.NotDependent;
             }
 
             if ((ItemList[Target].Conditional != null) && (ItemList[Target].Conditional.Count != 0))
@@ -534,7 +551,7 @@ namespace MMRando
                 if (ItemList[Target].Conditional.FindAll(u => u.Contains(CurrentItem)).Count == ItemList[Target].Conditional.Count)
                 {
                     Debug.WriteLine($"All conditionals of {Target} contains {CurrentItem}");
-                    return true;
+                    return Dependence.Dependent;
                 };
                 if (ItemList[CurrentItem].Cannot_Require != null)
                 {
@@ -543,11 +560,12 @@ namespace MMRando
                         if (ItemList[Target].Conditional.FindAll(u => u.Contains(ItemList[CurrentItem].Cannot_Require[i]) || u.Contains(CurrentItem)).Count == ItemList[Target].Conditional.Count)
                         {
                             Debug.WriteLine($"All conditionals of {Target} cannot be required by {CurrentItem}");
-                            return true;
+                            return Dependence.Dependent;
                         };
                     };
                 };
                 int k = 0;
+                var circularDependencies = new List<int>();
                 for (int i = 0; i < ItemList[Target].Conditional.Count; i++)
                 {
                     bool match = false;
@@ -560,14 +578,29 @@ namespace MMRando
                         }
                         int[] check = new int[] { Target, i, j };
                         if (ItemList[d].Replaces != -1) { d = ItemList[d].Replaces; };
-                        if (!SubChecked.ContainsKey(d))
+                        if (dependencyPath.Contains(d))
                         {
-                            SubChecked[d] = true;
-                            SubChecked[d] = CheckDependence(CurrentItem, d);
+                            SubChecked[d] = Dependence.Circular(d);
                         }
-                        if (SubChecked[d])
+                        if (!SubChecked.ContainsKey(d) || (SubChecked[d].Type == DependenceType.Circular && !SubChecked[d].ItemIds.All(id => dependencyPath.Contains(id))))
                         {
-                            ConditionRemoves.Add(check);
+                            var childPath = dependencyPath.ToList();
+                            childPath.Add(d);
+                            SubChecked[d] = CheckDependence(CurrentItem, d, childPath);
+                        }
+                        if (SubChecked[d].Type != DependenceType.NotDependent)
+                        {
+                            if (SubChecked[d].Type == DependenceType.Dependent)
+                            {
+                                if (!ConditionRemoves.Any(c => c.SequenceEqual(check)))
+                                {
+                                    ConditionRemoves.Add(check);
+                                }
+                            }
+                            else
+                            {
+                                circularDependencies = circularDependencies.Union(SubChecked[d].ItemIds).ToList();
+                            }
                             if (!match)
                             {
                                 k++;
@@ -578,13 +611,17 @@ namespace MMRando
                 };
                 if (k == ItemList[Target].Conditional.Count)
                 {
+                    if (circularDependencies.Any())
+                    {
+                        return Dependence.Circular(circularDependencies.ToArray());
+                    }
                     Debug.WriteLine($"All conditionals of {Target} failed dependency check for {CurrentItem}.");
-                    return true;
+                    return Dependence.Dependent;
                 };
             };
             if (ItemList[Target].Dependence == null)
             {
-                return false;
+                return Dependence.NotDependent;
             };
             //cycle through all things
             for (int i = 0; i < ItemList[Target].Dependence.Count; i++)
@@ -593,7 +630,7 @@ namespace MMRando
                 if (d == CurrentItem)
                 {
                     Debug.WriteLine($"{Target} has direct dependence on {CurrentItem}");
-                    return true;
+                    return Dependence.Dependent;
                 };
                 if (ItemList[CurrentItem].Cannot_Require != null)
                 {
@@ -602,26 +639,32 @@ namespace MMRando
                         if (ItemList[Target].Dependence.Contains(ItemList[CurrentItem].Cannot_Require[j]))
                         {
                             Debug.WriteLine($"Dependence {ItemList[CurrentItem].Cannot_Require[j]} of {Target} cannot be required by {CurrentItem}");
-                            return true;
+                            return Dependence.Dependent;
                         };
                     };
                 };
                 if (IsFakeItem(d) || ItemList[d].Replaces != -1)
                 {
                     if (ItemList[d].Replaces != -1) d = ItemList[d].Replaces;
-                    if (!DependenceChecked.ContainsKey(d))
+                    if (dependencyPath.Contains(d))
                     {
-                        DependenceChecked[d] = true;
-                        DependenceChecked[d] = CheckDependence(CurrentItem, d);
+                        DependenceChecked[d] = Dependence.Circular(d);
+                        return DependenceChecked[d];
                     }
-                    if (DependenceChecked[d])
+                    if (!DependenceChecked.ContainsKey(d) || (DependenceChecked[d].Type == DependenceType.Circular && !DependenceChecked[d].ItemIds.All(id => dependencyPath.Contains(id))))//!dependencyPath.Contains(DependenceChecked[d].ItemId)))
+                    {
+                        var childPath = dependencyPath.ToList();
+                        childPath.Add(d);
+                        DependenceChecked[d] = CheckDependence(CurrentItem, d, childPath);
+                    }
+                    if (DependenceChecked[d].Type != DependenceType.NotDependent)
                     {
                         Debug.WriteLine($"{CurrentItem} is dependent on {d}");
-                        return true;
+                        return DependenceChecked[d];
                     }
                 }
             };
-            return false;
+            return Dependence.NotDependent;
         }
 
         private void RemoveConditionals(int CurrentItem)
@@ -873,9 +916,10 @@ namespace MMRando
             };
             //check direct dependence
             ConditionRemoves = new List<int[]>();
-            SubChecked = new Dictionary<int, bool>();
-            DependenceChecked = new Dictionary<int, bool> { { Target, true } };
-            if (CheckDependence(CurrentItem, Target))
+            SubChecked = new Dictionary<int, Dependence>();
+            DependenceChecked = new Dictionary<int, Dependence> { { Target, new Dependence { Type = DependenceType.Dependent } } };
+            var dependencyPath = new List<int> { Target };
+            if (CheckDependence(CurrentItem, Target, dependencyPath).Type != DependenceType.NotDependent)
             {
                 return false;
             };
