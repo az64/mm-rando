@@ -32,7 +32,7 @@ namespace MMRando
         public static string ObjsDirectory = Application.StartupPath + "\\obj\\";
         public static string VCDirectory = Application.StartupPath + "\\vc\\";
 
-        public string versionNumber = "1.3.2";
+        public string versionNumber = "1.4";
         public string AssemblyVersion // Not actually used.
         {
             get
@@ -870,6 +870,7 @@ namespace MMRando
             SeedRNG();
             SortBGM();
         }
+
     }
 
 }
