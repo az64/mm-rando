@@ -35,9 +35,9 @@ namespace MMRando
 
             public bool ReplacesAnotherItem => ReplacesItemId != -1;
             public bool HasConditionals => Conditionals != null && Conditionals.Count > 0;
-            public bool HasDependencies => DependsOnItems != null 
+            public bool HasDependencies => DependsOnItems != null
                 && DependsOnItems.Count > 0;
-            public bool HasCannotRequireItems => CannotRequireItems != null 
+            public bool HasCannotRequireItems => CannotRequireItems != null
                 && CannotRequireItems.Count > 0;
         }
 
@@ -558,27 +558,18 @@ namespace MMRando
 
         private void PrepareRulesetItemData()
         {
-            string[] data = ReadRulesetFromResources();
-
             ItemList = new List<ItemObject>();
 
-            // no logic
-            if (data == null)
+            if (Settings.LogicMode == LogicMode.Casual
+                || Settings.LogicMode == LogicMode.Glitched
+                || Settings.LogicMode == LogicMode.UserLogic)
             {
-                for (var i = 0; i < Items.TotalNumberOfItems; i++)
-                {
-                    var currentItem = new ItemObject
-                    {
-                        ID = i,
-                        TimeAvailable = 63
-                    };
-
-                    ItemList.Add(currentItem);
-                }
+                string[] data = ReadRulesetFromResources();
+                PopulateItemListFromLogicData(data);
             }
             else
             {
-                PopulateItemList(data);
+                PopulateItemListWithoutLogic();
             }
 
             AddRequirementsForSongOath();
@@ -591,7 +582,28 @@ namespace MMRando
             ItemList[Items.SongOath].DependsOnItems.Add(OathReq[RNG.Next(4)]);
         }
 
-        private void PopulateItemList(string[] data)
+        /// <summary>
+        /// Populates item list without logic. Default TimeAvailable = 63
+        /// </summary>
+        private void PopulateItemListWithoutLogic()
+        {
+            for (var i = 0; i < Items.TotalNumberOfItems; i++)
+            {
+                var currentItem = new ItemObject
+                {
+                    ID = i,
+                    TimeAvailable = 63
+                };
+
+                ItemList.Add(currentItem);
+            }
+        }
+
+        /// <summary>
+        /// Populates the item list using the lines from a logic file, processes them 4 lines per item. 
+        /// </summary>
+        /// <param name="data">The lines from a logic file</param>
+        private void PopulateItemListFromLogicData(string[] data)
         {
             int itemId = 0;
             int lineNumber = 0;
@@ -731,7 +743,7 @@ namespace MMRando
                     for (int i = 0; i < ItemList[CurrentItem].CannotRequireItems.Count; i++)
                     {
                         if (ItemList[Target].Conditionals
-                            .FindAll(u => u.Contains(ItemList[CurrentItem].CannotRequireItems[i]) 
+                            .FindAll(u => u.Contains(ItemList[CurrentItem].CannotRequireItems[i])
                             || u.Contains(CurrentItem)).Count == ItemList[Target].Conditionals.Count)
                         {
                             Debug.WriteLine($"All conditionals of {Target} cannot be required by {CurrentItem}");
@@ -841,7 +853,7 @@ namespace MMRando
                     }
                 }
 
-                if (ItemUtils.IsFakeItem(dependency) 
+                if (ItemUtils.IsFakeItem(dependency)
                     || ItemList[dependency].ReplacesAnotherItem)
                 {
                     if (ItemList[dependency].ReplacesAnotherItem)
@@ -1122,7 +1134,7 @@ namespace MMRando
 
         private bool CheckMatch(int currentItem, int target)
         {
-            if (ForbiddenPlacedAt.ContainsKey(currentItem) 
+            if (ForbiddenPlacedAt.ContainsKey(currentItem)
                 && ForbiddenPlacedAt[currentItem].Contains(target))
             {
                 Debug.WriteLine($"{currentItem} forbidden from being placed at {target}");
@@ -1175,7 +1187,7 @@ namespace MMRando
             {
                 if (availableItems.Count == 0)
                 {
-                    throw new Exception($"Unable to place {currentItem} anywhere.");
+                    throw new Exception($"Unable to place {Items.ITEM_NAMES[currentItem]} anywhere.");
                 }
 
                 int targetItem = 0;
@@ -1188,13 +1200,13 @@ namespace MMRando
                     targetItem = RNG.Next(availableItems.Count);
                 }
 
-                Debug.WriteLine($"----Attempting to place {currentItem} at {availableItems[targetItem]}.---");
+                Debug.WriteLine($"----Attempting to place {Items.ITEM_NAMES[currentItem]} at {Items.ITEM_NAMES[availableItems[targetItem]]}.---");
 
                 if (CheckMatch(currentItem, availableItems[targetItem]))
                 {
                     ItemList[currentItem].ReplacesItemId = availableItems[targetItem];
 
-                    Debug.WriteLine($"----Placed {currentItem} at {ItemList[currentItem].ReplacesItemId}----");
+                    Debug.WriteLine($"----Placed {Items.ITEM_NAMES[currentItem]} at {Items.ITEM_NAMES[ItemList[currentItem].ReplacesItemId]}----");
 
                     if (ItemList[currentItem].TimeNeeded != 0
                         && ItemUtils.IsDeed(availableItems[targetItem]))
@@ -1207,7 +1219,7 @@ namespace MMRando
                 }
                 else
                 {
-                    Debug.WriteLine($"----Failed to place {currentItem} at {availableItems[targetItem]}----");
+                    Debug.WriteLine($"----Failed to place {Items.ITEM_NAMES[currentItem]} at {Items.ITEM_NAMES[availableItems[targetItem]]}----");
                     availableItems.RemoveAt(targetItem);
                 }
             }
@@ -1215,11 +1227,19 @@ namespace MMRando
 
         private void ItemShuffle()
         {
-            PrepareItemShuffle();
+            if (Settings.UseCustomItemList)
+            {
+                SetupCustomItems();
+            }
+            else
+            {
+                Setup();
+            }
 
             var itemPool = new List<int>();
 
             AddAllItems(itemPool);
+
             PlaceTradeItems(itemPool);
             PlaceFreeItem(itemPool);
 
@@ -1235,6 +1255,7 @@ namespace MMRando
             PlaceOther(itemPool);
             PlaceTingleMaps(itemPool);
         }
+
         /// <summary>
         /// Places tingle maps in the randomization pool.
         /// </summary>
@@ -1401,16 +1422,10 @@ namespace MMRando
         }
 
         /// <summary>
-        /// Adds items to randomization pool or preserves items vanilla based on Custom Item List and/or settings.
+        /// Adds items to randomization pool based on settings.
         /// </summary>
-        private void PrepareItemShuffle()
+        private void Setup()
         {
-            if (Settings.UseCustomItemList)
-            {
-                ShuffleUsingCustomItemList();
-                return;
-            }
-
             if (Settings.ExcludeSongOfSoaring)
             {
                 ItemList[Items.SongSoaring].ReplacesItemId = Items.SongSoaring;
@@ -1524,24 +1539,23 @@ namespace MMRando
                     continue;
                 }
 
-                itemPool.Add(i);
-            }
-
-            for (int i = Items.SongSoaring; i <= Items.SongOath; i++)
-            {
-                PlaceItem(i, itemPool);
+                ItemList[i].ReplacesItemId = i;
             }
         }
 
         /// <summary>
         /// Adds custom item list to randomization. NOTE: keeps area and other vanilla, randomizes bottle catch contents
         /// </summary>
-        private void ShuffleUsingCustomItemList()
+        private void SetupCustomItems()
         {
+            // Keep shop items vanilla, unless custom item list contains a shop item
             Settings.AddShopItems = false;
 
-            // Should these be vanilla by default? Why not check settings.
+            // Make all items vanilla, and override using custom item list
+            MakeAllItemsVanilla();
             PreserveAreasAndOther();
+
+            // Should these be vanilla by default? Why not check settings.
             ApplyCustomItemList();
 
             // Should these be randomized by default? Why not check settings.
@@ -1550,6 +1564,23 @@ namespace MMRando
             if (!Settings.AddSongs)
             {
                 PreserveSongs();
+            }
+        }
+
+        /// <summary>
+        /// Mark all items as replacing themselves (i.e. vanilla)
+        /// </summary>
+        private void MakeAllItemsVanilla()
+        {
+            for (int item = 0; item < ItemList.Count; item++)
+            {
+                if (ItemUtils.IsAreaOrOther(item) 
+                    || ItemUtils.IsOutOfRange(item))
+                {
+                    continue;
+                }
+
+                ItemList[item].ReplacesItemId = item;
             }
         }
 
