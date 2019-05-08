@@ -35,9 +35,9 @@ namespace MMRando
             public bool WasEdited = false;
         }
 
-        private class MMMsg
+        private class MMMesssage
         {
-            public int Addr = new int();
+            public int Address = new int();
             public int Size = new int();
         }
 

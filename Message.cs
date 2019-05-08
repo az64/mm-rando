@@ -10,79 +10,92 @@ namespace MMRando
 
         //todo - allow rebuilding text file
 
-        private static void WriteMsg(int addr, byte[] msg)
+        private static void WriteMessage(int addr, byte[] msg)
         {
-            int f = GetFileIndexForWriting(TxTFile);
-            Arr_Insert(msg, 0, msg.Length, MMFileList[f].Data, addr);
+            int fileIndex = GetFileIndexForWriting(TxTFile);
+            Arr_Insert(msg, 0, msg.Length, MMFileList[fileIndex].Data, addr);
         }
 
-        private static MMMsg FindMsg(int n)
+        private static MMMesssage FindMesssage(int address)
         {
-            int f = GetFileIndexForWriting(TxtTable);
-            int basea = TxtTable - MMFileList[f].Addr;
-            MMMsg m = new MMMsg();
+            int fileIndex = GetFileIndexForWriting(TxtTable);
+            int baseAddress = TxtTable - MMFileList[fileIndex].Addr;
+
+            MMMesssage message = new MMMesssage();
+
             while (true)
             {
-                int x = (MMFileList[f].Data[basea] << 8) + MMFileList[f].Data[basea + 1];
-                if (n == x)
+                int x = (MMFileList[fileIndex].Data[baseAddress] << 8)
+                    + MMFileList[fileIndex].Data[baseAddress + 1];
+
+                if (address == x)
                 {
-                    m.Addr = (int)(Arr_ReadU32(MMFileList[f].Data, basea + 4) & 0xFFFFFF);
-                    m.Size = (int)(Arr_ReadU32(MMFileList[f].Data, basea + 12) & 0xFFFFFF) - m.Addr;
+                    var data = MMFileList[fileIndex].Data;
+                    message.Address = (int)(Arr_ReadU32(data, baseAddress + 4) & 0xFFFFFF);
+                    message.Size = (int)(Arr_ReadU32(data, baseAddress + 12) & 0xFFFFFF) - message.Address;
                     break;
-                };
-                if (x > n)
+                }
+
+                if (x > address)
                 {
                     return null;
-                };
-                basea += 8;
-            };
-            return m;
+                }
+
+                baseAddress += 8;
+            }
+
+            return message;
         }
 
-        public static bool IsBadMsg(string msg)
+        public static bool IsBadMesssage(string message)
         {
-            return msg.Contains("a segment of health") || msg.Contains("currency") ||
-                msg.Contains("money") || msg.Contains("cash") ||
-                msg.Contains("wealth") || msg.Contains("riches and stuff") ||
-                msg.Contains("increased life");
+            return message.Contains("a segment of health") || message.Contains("currency") ||
+                message.Contains("money") || message.Contains("cash") ||
+                message.Contains("wealth") || message.Contains("riches and stuff") ||
+                message.Contains("increased life");
         }
 
-        public static void WriteGossipMsg(List<string> msg, Random RNG)
+        public static void WriteGossipMessage(List<string> messages, Random RNG)
         {
-            byte[] msgheader = new byte[] { 2, 0, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+
             for (int i = GossipStart; i < GossipEnd; i++)
             {
                 if (GossipExclude.Contains(i))
                 {
                     continue;
-                };
-                MMMsg m = FindMsg(i);
-                if (m == null)
+                }
+
+                MMMesssage message = FindMesssage(i);
+                if (message == null)
                 {
                     continue;
-                };
-                int j;
-                int l = m.Size + 1;
+                }
+
+                int randomMessageIndex;
+                int length = message.Size + 1;
                 do
                 {
-                    j = RNG.Next(msg.Count);
-                    if (IsBadMsg(msg[j]))
+                    randomMessageIndex = RNG.Next(messages.Count);
+
+                    if (IsBadMesssage(messages[randomMessageIndex]) && RNG.Next(8) != 0)
                     {
-                        if (RNG.Next(8) != 0)
-                        {
-                            continue;
-                        };
-                    };
-                    l = msg[j].Length + msgheader.Length;
-                } while (l > m.Size);
-                byte[] data = new byte[l];
-                Arr_Insert(msgheader, 0, msgheader.Length, data, 0);
-                for (int k = 0; k < msg[j].Length; k++)
+                        continue;
+                    }
+
+                    length = messages[randomMessageIndex].Length + Values.MessageHeader.Count;
+
+                } while (length > message.Size);
+
+                byte[] data = new byte[length];
+                Arr_Insert(Values.MessageHeader.ToArray(), 0, Values.MessageHeader.Count, data, 0);
+
+                for (int k = 0; k < messages[randomMessageIndex].Length; k++)
                 {
-                    data[k + msgheader.Length] = (byte)msg[j][k];
-                };
-                WriteMsg(m.Addr, data);
-                msg.RemoveAt(j);
+                    data[k + Values.MessageHeader.Count] = (byte)messages[randomMessageIndex][k];
+                }
+
+                WriteMessage(message.Address, data);
+                messages.RemoveAt(randomMessageIndex);
             };
         }
 
