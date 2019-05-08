@@ -11,17 +11,22 @@ namespace MMRando
 {
     public partial class MainRandomizerForm : Form
     {
+        private const string OutputFilenameWithSeed = "MMR_{0}_{1}{2}";
+        private const string OutputFilenameWithoutSeed = "MMR_{0}{1}";
+
+
+        private bool _isUpdating = false;
+        private bool _outputVC = false;
+        private bool _outputROM = true;
+        private string _oldSettingsString = "";
+        private int _seedOld = 0;
+
         public Settings Settings { get; set; } = new Settings();
 
-        bool IsUpdating = false;
-        bool Output_VC = false;
-        string OldSettingsString = "";
-        int SeedOld = 0;
-
-        fAbout About = new fAbout();
-        fManual Manual = new fManual();
-        fLogicEdit LogicEditor = new fLogicEdit();
-        fItemEdit ItemEditor = new fItemEdit();
+        public fAbout About = new fAbout();
+        public fManual Manual = new fManual();
+        public fLogicEdit LogicEditor = new fLogicEdit();
+        public fItemEdit ItemEditor = new fItemEdit();
 
         public static string MainDirectory = Application.StartupPath;
         public static string MusicDirectory = Application.StartupPath + "\\music\\";
@@ -50,12 +55,12 @@ namespace MMRando
         private void mmrMain_Load(object sender, EventArgs e)
         {
             // initialise some stuff
-            IsUpdating = true;
+            _isUpdating = true;
 
             InitializeSettings();
             InitializeBackgroundWorker();
 
-            IsUpdating = false;
+            _isUpdating = false;
         }
 
         private void InitializeBackgroundWorker()
@@ -87,32 +92,38 @@ namespace MMRando
 
         private void bTunic_Click(object sender, EventArgs e)
         {
-            IsUpdating = true;
+            _isUpdating = true;
 
             cTunic.ShowDialog();
             Settings.TunicColor = cTunic.Color;
             bTunic.BackColor = cTunic.Color;
             UpdateSettingsString();
 
-            IsUpdating = false;
+            _isUpdating = false;
         }
 
         private void bopen_Click(object sender, EventArgs e)
         {
             openROM.ShowDialog();
 
-            Settings.InputRomPath = openROM.FileName;
-            tROMName.Text = Settings.InputRomPath;
+            Settings.InputRomFilename = openROM.FileName;
+            tROMName.Text = Settings.InputRomFilename;
         }
 
         private void bRandomise_Click(object sender, EventArgs e)
         {
-            if (saveROM.ShowDialog() != DialogResult.OK)
+            var outputFolderDialog = new FolderBrowserDialog {
+                Description = "Select output directory"
+            };
+
+            if ((_outputROM || _outputVC) && outputFolderDialog.ShowDialog() != DialogResult.OK)
             {
-                MessageBox.Show("No output selected; ROM will not be saved.",
+                MessageBox.Show("No output directory selected; Nothing will be saved.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            Settings.OutputDirectory = outputFolderDialog.SelectedPath;
 
             EnableAllControls(false);
             bgWorker.RunWorkerAsync();
@@ -120,8 +131,8 @@ namespace MMRando
 
         private void tSString_Enter(object sender, EventArgs e)
         {
-            OldSettingsString = tSString.Text;
-            IsUpdating = true;
+            _oldSettingsString = tSString.Text;
+            _isUpdating = true;
         }
 
         private void tSString_Leave(object sender, EventArgs e)
@@ -132,13 +143,13 @@ namespace MMRando
             }
             catch
             {
-                tSString.Text = OldSettingsString;
+                tSString.Text = _oldSettingsString;
                 UpdateSettingsFromString(tSString.Text);
                 MessageBox.Show("Settings string is invalid; reverted to previous settings.",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            IsUpdating = false;
+            _isUpdating = false;
         }
 
         private void tSString_KeyDown(object sender, KeyEventArgs e)
@@ -151,8 +162,8 @@ namespace MMRando
 
         private void tSeed_Enter(object sender, EventArgs e)
         {
-            SeedOld = Convert.ToInt32(tSeed.Text);
-            IsUpdating = true;
+            _seedOld = Convert.ToInt32(tSeed.Text);
+            _isUpdating = true;
         }
 
         private void tSeed_Leave(object sender, EventArgs e)
@@ -174,12 +185,12 @@ namespace MMRando
             }
             catch
             {
-                tSeed.Text = SeedOld.ToString();
+                tSeed.Text = _seedOld.ToString();
                 MessageBox.Show("Invalid seed: must be a positive integer.",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             };
             UpdateSettingsString();
-            IsUpdating = false;
+            _isUpdating = false;
         }
 
         private void tSeed_KeyDown(object sender, KeyEventArgs e)
@@ -293,7 +304,7 @@ namespace MMRando
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (IsUpdating)
+            if (_isUpdating)
             {
                 return;
             }
@@ -309,7 +320,7 @@ namespace MMRando
 
         private void cVC_CheckedChanged(object sender, EventArgs e)
         {
-            Output_VC = cVC.Checked;
+            _outputVC = cVC.Checked;
         }
 
         private void mExit_Click(object sender, EventArgs e)
@@ -423,18 +434,18 @@ namespace MMRando
         /// <param name="update">A setting-updating function</param>
         private void UpdateSingleSetting(Action update)
         {
-            if (IsUpdating)
+            if (_isUpdating)
             {
                 return;
             }
 
-            IsUpdating = true;
+            _isUpdating = true;
 
             update?.Invoke();
             UpdateSettingsString();
             EnableCheckBoxes();
 
-            IsUpdating = false;
+            _isUpdating = false;
         }
 
 
@@ -503,7 +514,7 @@ namespace MMRando
 
             UpdateSettingsString();
 
-            OldSettingsString = oldSettingsString;
+            _oldSettingsString = oldSettingsString;
         }
 
         private int[] BuildSettingsBytes()
@@ -546,15 +557,32 @@ namespace MMRando
             var settingsString = EncodeSettings();
             tSString.Text = settingsString;
 
+            UpdateOutputFilenames(settingsString);
+        }
+
+        private void UpdateOutputFilenames(string settingsString)
+        {
             if (Settings.GenerateSpoilerLog)
             {
-                saveROM.FileName = $"MMR_{Settings.Seed}_{settingsString}.z64";
-                saveWad.FileName = $"MMR_{Settings.Seed}_{settingsString}.wad";
+                Settings.OutputROMFilename = string.Format(OutputFilenameWithSeed,
+                    Settings.Seed,
+                    settingsString,
+                    ".z64");
+
+                Settings.OutputWADFilename = string.Format(OutputFilenameWithSeed,
+                    Settings.Seed,
+                    settingsString,
+                    ".wad");
             }
             else
             {
-                saveROM.FileName = $"MMR-{settingsString}.z64";
-                saveWad.FileName = $"MMR-{settingsString}.wad";
+                Settings.OutputROMFilename = string.Format(OutputFilenameWithoutSeed,
+                    settingsString,
+                    ".z64");
+
+                Settings.OutputWADFilename = string.Format(OutputFilenameWithoutSeed,
+                    settingsString,
+                    ".wad");
             }
         }
 
@@ -643,11 +671,10 @@ namespace MMRando
             bTunic.BackColor = tunicColor;
         }
 
-        private void UpdateSettingsFromString(string Settings)
+        private void UpdateSettingsFromString(string settings)
         {
-            SetOptions(Settings.Split('-'));
-            saveROM.FileName = "MMR-" + Settings + ".z64";
-            saveWad.FileName = "MMR-" + Settings + ".wad";
+            SetOptions(settings.Split('-'));
+            UpdateOutputFilenames(settings);
         }
 
         #endregion
@@ -674,39 +701,36 @@ namespace MMRando
             }
 
             // Additional validation of preconditions
-            if (!File.Exists(Settings.InputRomPath))
-            {
-                MessageBox.Show("Input ROM not selected or doesn't exist, cannot generate output.",
-                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            if (!ValidateInputFile()) return;
 
-            if (saveROM.FileName == "")
-            {
-                MessageBox.Show("Output file not selected.",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (Output_VC && saveWad.ShowDialog() != DialogResult.OK)
-            {
-                MessageBox.Show("Output file not selected.",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-
-            }
-
-            if (!ValidateROM(Settings.InputRomPath))
+            if (!ValidateROM(Settings.InputRomFilename))
             {
                 MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            MakeROM(Settings.InputRomPath, saveROM.FileName, worker);
+            MakeROM(Settings.InputRomFilename, 
+                Path.Combine(Settings.OutputDirectory, Settings.OutputROMFilename), 
+                worker);
 
             MessageBox.Show("Successfully built output ROM!",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+        }
+
+        /// <summary>
+        /// Checks that the input file exists
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateInputFile()
+        {
+            if (!File.Exists(Settings.InputRomFilename))
+            {
+                MessageBox.Show("Input ROM not selected or doesn't exist, cannot generate output.",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
         }
 
         /// <summary>

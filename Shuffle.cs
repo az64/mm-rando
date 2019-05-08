@@ -504,15 +504,9 @@ namespace MMRando
 
         private void MakeSpoilerLog()
         {
-            if (Settings.LogicMode == LogicMode.Vanilla)
-            {
-                return;
-            };
-
             var settingsString = EncodeSettings();
 
-            StreamWriter LogFile = new StreamWriter($"SpoilerLog-{Settings.Seed} {settingsString}.txt");
-
+            StreamWriter LogFile = new StreamWriter($"{Settings.OutputDirectory}\\SpoilerLog-{Settings.Seed} {settingsString}.txt");
 
             if (Settings.RandomizeDungeonEntrances)
             {

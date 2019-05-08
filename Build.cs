@@ -465,12 +465,10 @@ namespace MMRando
             worker.ReportProgress(90, "Building ROM...");
 
             byte[] ROM = ROMFuncs.BuildROM(FileName);
-            if (Output_VC)
+            if (_outputVC)
             {
                 worker.ReportProgress(98, "Building VC...");
-
-                string VCFileName = saveWad.FileName;
-                ROMFuncs.BuildVC(ROM, VCDirectory, VCFileName);
+                ROMFuncs.BuildVC(ROM, VCDirectory, Settings.OutputWADFilename);
             }
             worker.ReportProgress(100, "Done!");
 
