@@ -419,7 +419,7 @@ namespace MMRando
 
             worker.ReportProgress(55, "Writing Audio...");
             WriteAudioSeq();
-
+            
             worker.ReportProgress(60, "Writing Character...");
             WriteLinkAppearance();
             if (Settings.LogicMode != LogicMode.Vanilla)

@@ -506,7 +506,9 @@ namespace MMRando
         {
             var settingsString = EncodeSettings();
 
-            StreamWriter LogFile = new StreamWriter($"{Settings.OutputDirectory}\\SpoilerLog-{Settings.Seed} {settingsString}.txt");
+
+            StreamWriter LogFile = new StreamWriter($"{Settings.OutputDirectory}\\SpoilerLog_{Settings.Seed}_{settingsString}.txt");
+
 
             if (Settings.RandomizeDungeonEntrances)
             {
