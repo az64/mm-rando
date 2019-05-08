@@ -100,13 +100,13 @@ namespace MMRando
         private void bopen_Click(object sender, EventArgs e)
         {
             openROM.ShowDialog();
-
             Settings.InputRomPath = openROM.FileName;
             tROMName.Text = Settings.InputRomPath;
         }
 
         private void bRandomise_Click(object sender, EventArgs e)
         {
+
             if (saveROM.ShowDialog() != DialogResult.OK)
             {
                 MessageBox.Show("No output selected; ROM will not be saved.",
@@ -646,8 +646,20 @@ namespace MMRando
         private void UpdateSettingsFromString(string Settings)
         {
             SetOptions(Settings.Split('-'));
-            saveROM.FileName = "MMR-" + Settings + ".z64";
-            saveWad.FileName = "MMR-" + Settings + ".wad";
+
+            var settingsString = EncodeSettings();
+            tSString.Text = settingsString;
+
+            if (this.Settings.GenerateSpoilerLog)
+            {
+                saveROM.FileName = $"MMR_{this.Settings.Seed}_{settingsString}.z64";
+                saveWad.FileName = $"MMR_{this.Settings.Seed}_{settingsString}.wad";
+            }
+            else
+            {
+                saveROM.FileName = $"MMR-{settingsString}.z64";
+                saveWad.FileName = $"MMR-{settingsString}.wad";
+            }
         }
 
         #endregion
