@@ -571,21 +571,28 @@ namespace MMRando
                     for (int j = 0; j < ItemList[Target].Conditional[i].Count; j++)
                     {
                         int d = ItemList[Target].Conditional[i][j];
-                        if (!IsFakeItem(d) && ItemList[d].Replaces == -1)
+                        if (!IsFakeItem(d) && ItemList[d].Replaces == -1 && d != CurrentItem)
                         {
                             continue;
                         }
                         int[] check = new int[] { Target, i, j };
                         if (ItemList[d].Replaces != -1) { d = ItemList[d].Replaces; };
-                        if (dependencyPath.Contains(d))
+                        if (d == CurrentItem)
                         {
-                            DependenceChecked[d] = Dependence.Circular(d);
+                            DependenceChecked[d] = Dependence.Dependent;
                         }
-                        if (!DependenceChecked.ContainsKey(d) || (DependenceChecked[d].Type == DependenceType.Circular && !DependenceChecked[d].ItemIds.All(id => dependencyPath.Contains(id))))
+                        else
                         {
-                            var childPath = dependencyPath.ToList();
-                            childPath.Add(d);
-                            DependenceChecked[d] = CheckDependence(CurrentItem, d, childPath);
+                            if (dependencyPath.Contains(d))
+                            {
+                                DependenceChecked[d] = Dependence.Circular(d);
+                            }
+                            if (!DependenceChecked.ContainsKey(d) || (DependenceChecked[d].Type == DependenceType.Circular && !DependenceChecked[d].ItemIds.All(id => dependencyPath.Contains(id))))
+                            {
+                                var childPath = dependencyPath.ToList();
+                                childPath.Add(d);
+                                DependenceChecked[d] = CheckDependence(CurrentItem, d, childPath);
+                            }
                         }
                         if (DependenceChecked[d].Type != DependenceType.NotDependent)
                         {
