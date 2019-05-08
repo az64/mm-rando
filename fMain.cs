@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace MMRando
 {
@@ -112,18 +113,19 @@ namespace MMRando
 
         private void bRandomise_Click(object sender, EventArgs e)
         {
-            var outputFolderDialog = new FolderBrowserDialog {
-                Description = "Select output directory"
+            var outputFolderDialog = new CommonOpenFileDialog
+            {
+                IsFolderPicker = true
             };
 
-            if ((_outputROM || _outputVC) && outputFolderDialog.ShowDialog() != DialogResult.OK)
+            if ((_outputROM || _outputVC) && outputFolderDialog.ShowDialog() != CommonFileDialogResult.Ok)
             {
                 MessageBox.Show("No output directory selected; Nothing will be saved.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            Settings.OutputDirectory = outputFolderDialog.SelectedPath;
+            Settings.OutputDirectory = outputFolderDialog.FileName;
 
             EnableAllControls(false);
             bgWorker.RunWorkerAsync();
