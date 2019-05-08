@@ -3,8 +3,13 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-# Remove copyrighted icon
+# Remove copyrighted material
 *.ico
+*.z64
+*.v64
+*.n64
+*.wad
+
 
 # User-specific files
 *.rsuser
