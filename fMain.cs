@@ -30,13 +30,12 @@ namespace MMRando
         public static string ObjsDirectory = Application.StartupPath + "\\obj\\";
         public static string VCDirectory = Application.StartupPath + "\\vc\\";
 
-        public string versionNumber = "1.4";
-        public string AssemblyVersion // Not actually used.
+        public string AssemblyVersion
         {
             get
             {
                 Version v = Assembly.GetExecutingAssembly().GetName().Version;
-                return String.Format("Majora\'s Mask Randomizer v{0}.{1}", v.Major, v.Minor);
+                return $"Majora\'s Mask Randomizer v{v}";
             }
         }
 
@@ -45,7 +44,7 @@ namespace MMRando
         public MainRandomizerForm()
         {
             InitializeComponent();
-            this.Text = "Majora\'s Mask Randomizer v" + versionNumber;
+            this.Text = AssemblyVersion;
         }
 
         private void mmrMain_Load(object sender, EventArgs e)
