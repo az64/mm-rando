@@ -29,7 +29,7 @@ namespace MMRando
         {
             GetItemIndices = new List<int>();
             BottleIndices = new List<int[]>();
-            string[] lines = Properties.Resources.ITEM_INDICES.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            string[] lines = Properties.Resources.ITEM_INDICES.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
             int i = 0;
             bool bottle = false;
             while (i < lines.Length)

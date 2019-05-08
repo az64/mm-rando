@@ -254,7 +254,7 @@ namespace MMRando
             GossipList = new List<Gossip>();
 
             string[] gossipLines = Properties.Resources.GOSSIP
-                .Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                .Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
             for (int i = 0; i < gossipLines.Length; i += 2)
             {
@@ -365,7 +365,7 @@ namespace MMRando
             TargetSequences = new List<SequenceInfo>();
 
             string[] lines = Properties.Resources.SEQS
-                .Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                .Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
             int i = 0;
             while (i < lines.Length)
@@ -701,17 +701,17 @@ namespace MMRando
 
             if (mode == LogicMode.Casual)
             {
-                lines = Properties.Resources.REQ_CASUAL.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                lines = Properties.Resources.REQ_CASUAL.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
             }
             else if (mode == LogicMode.Glitched)
             {
-                lines = Properties.Resources.REQ_GLITCH.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                lines = Properties.Resources.REQ_GLITCH.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
             }
             else if (mode == LogicMode.UserLogic)
             {
                 using (StreamReader Req = new StreamReader(File.Open(openLogic.FileName, FileMode.Open)))
                 {
-                    lines = Req.ReadToEnd().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                    lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
                 }
             }

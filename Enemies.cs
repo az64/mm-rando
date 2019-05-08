@@ -30,7 +30,7 @@ namespace MMRando
         private static void GetEnemyList()
         {
             Enemies = new List<Enemy>();
-            string[] lines = Properties.Resources.ENEMIES.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            string[] lines = Properties.Resources.ENEMIES.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
             int i = 0;
             while (i < lines.Length)
             {
