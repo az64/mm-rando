@@ -205,8 +205,8 @@ namespace MMRando
         public const int ChestLensCavePurpleRupee = 172;
         public const int ChestBeanGrottoRedRupee = 173;
         public const int ChestHotSpringGrottoRedRupee = 174;
-        public const int ChestBadBatsGrotto = 175; // include contents for consistence? unsure what contents are
-        public const int ChestIkanaGrotto = 176; 
+        public const int ChestBadBatsGrottoPurpleRupee = 175; 
+        public const int ChestIkanaGrottoRecoveryHeart = 176; 
         public const int ChestPiratesFortressRedRupee1 = 177;
         public const int ChestPiratesFortressRedRupee2 = 178;
         public const int ChestInsidePiratesFortressTankRedRupee = 179;
@@ -222,43 +222,43 @@ namespace MMRando
         public const int ChestTerminaUnderwaterRedRupee = 189;
         public const int ChestTerminaGrassRedRupee = 190;
         public const int ChestTerminaStumpRedRupee = 191;
-        public const int ChestGreatBayCoastGrotto = 192; 
-        public const int ChestGreatBayCapeLedge1 = 193; 
-        public const int ChestGreatBayCapeLedge2 = 194; 
-        public const int ChestGreatBayCapeGrotto = 195; 
-        public const int ChestGreatBayCapeUnderwater = 196; 
+        public const int ChestGreatBayCoastGrotto = 192; //contents? 
+        public const int ChestGreatBayCapeLedge1 = 193; //contents? 
+        public const int ChestGreatBayCapeLedge2 = 194; //contents? 
+        public const int ChestGreatBayCapeGrotto = 195; //contents? 
+        public const int ChestGreatBayCapeUnderwater = 196; //contents? 
         public const int ChestPiratesFortressEntranceRedRupee1 = 197;
         public const int ChestPiratesFortressEntranceRedRupee2 = 198;
         public const int ChestPiratesFortressEntranceRedRupee3 = 199;
-        public const int ChestToSwampGrotto = 200; 
+        public const int ChestToSwampGrotto = 200; //contents? 
         public const int ChestDogRacePurpleRupee = 201;
-        public const int ChestGraveyardGrotto = 202; 
-        public const int ChestSwampGrotto = 203; 
+        public const int ChestGraveyardGrotto = 202; //contents? 
+        public const int ChestSwampGrotto = 203;  //contents? 
         public const int ChestWoodfallBlueRupee = 204;
         public const int ChestWoodfallRedRupee = 205;
         public const int ChestWellRightPurpleRupee = 206;
         public const int ChestWellLeftPurpleRupee = 207;
-        public const int ChestMountainVillage = 208; 
-        public const int ChestMountainVillageGrotto = 209; 
+        public const int ChestMountainVillage = 208; //contents? 
+        public const int ChestMountainVillageGrotto = 209; //contents? 
         public const int ChestToIkanaRedRupee = 210;
-        public const int ChestToIkanaGrotto = 211; 
+        public const int ChestToIkanaGrotto = 211; //contents? 
         public const int ChestInvertedStoneTowerSilverRupee = 212;
         public const int ChestInvertedStoneTowerBombchu10 = 213;
         public const int ChestInvertedStoneTowerBean = 214;
-        public const int ChestToSnowheadGrotto = 215; 
+        public const int ChestToSnowheadGrotto = 215; //contents? 
         public const int ChestToGoronVillageRedRupee = 216; 
-        public const int ChestSecretShrineHeartPiece = 217; 
+        public const int ChestSecretShrineHeartPiece = 217; //Heart Piece
         public const int ChestSecretShrineDinoGrotto = 218; 
         public const int ChestSecretShrineWizzGrotto = 219; 
         public const int ChestSecretShrineWartGrotto = 220; 
         public const int ChestSecretShrineGaroGrotto = 221; 
-        public const int ChestInnStaffRoom = 222; 
-        public const int ChestInnGuestRoom = 223; 
-        public const int ChestWoodsGrotto = 224;
+        public const int ChestInnStaffRoom = 222; //contents? 
+        public const int ChestInnGuestRoom = 223; //contents? 
+        public const int ChestWoodsGrotto = 224; //contents? 
         public const int ChestEastClockTownSilverRupee = 225;
         public const int ChestSouthClockTownRedRupee = 226;
         public const int ChestSouthClockTownPurpleRupee = 227;
-        public const int HeartPieceBank = 228;
+        public const int HeartPieceBank = 228; //Heart Piece
 
         //standing HPs
         public const int HeartPieceSouthClockTown = 229;
@@ -290,7 +290,7 @@ namespace MMRando
         public const int ItemTingleMapStoneTower = 253;
 
         //oops I forgot one
-        public const int ChestToGoronRaceGrotto = 254;
+        public const int ChestToGoronRaceGrotto = 254; //contents?
 
         public static readonly ReadOnlyCollection<int> REPEATABLE
             = new ReadOnlyCollection<int>(new int[] {
@@ -344,8 +344,8 @@ namespace MMRando
                 ChestLensCavePurpleRupee,
                 ChestBeanGrottoRedRupee,
                 ChestHotSpringGrottoRedRupee,
-                ChestBadBatsGrotto,
-                ChestIkanaGrotto,
+                ChestBadBatsGrottoPurpleRupee,
+                ChestIkanaGrottoRecoveryHeart,
                 ChestPiratesFortressRedRupee1,
                 ChestPiratesFortressRedRupee2,
                 ChestInsidePiratesFortressTankRedRupee,
@@ -421,6 +421,13 @@ namespace MMRando
                 ShopItemZoraRedPotion,
                 ShopItemZoraShield,
         });
+
+        public static readonly ReadOnlyCollection<int> JUNK
+            = new ReadOnlyCollection<int>(new int[] {
+
+                //TODO
+
+            });
 
         public static readonly ReadOnlyCollection<int> ITEM_ADDRS
             = new ReadOnlyCollection<int>(new int[] {

@@ -32,7 +32,7 @@ namespace MMRando
         public static string ObjsDirectory = Application.StartupPath + "\\obj\\";
         public static string VCDirectory = Application.StartupPath + "\\vc\\";
 
-        public string versionNumber = "1.3.2";
+        public string versionNumber = "1.4";
         public string AssemblyVersion // Not actually used.
         {
             get
@@ -121,8 +121,16 @@ namespace MMRando
             var settingsString = EncodeSettings();
             tSString.Text = settingsString;
 
-            saveROM.FileName = $"MMR-{settingsString}.z64";
-            saveWad.FileName = $"MMR-{settingsString}.wad";
+            if (Settings.GenerateSpoilerLog)
+            {
+                saveROM.FileName = $"MMR_{Settings.Seed}_{settingsString}.z64";
+                saveWad.FileName = $"MMR_{Settings.Seed}_{settingsString}.wad";
+            }
+            else
+            {
+                saveROM.FileName = $"MMR-{settingsString}.z64";
+                saveWad.FileName = $"MMR-{settingsString}.wad";
+            }
         }
 
         private string EncodeSettings()
@@ -131,8 +139,6 @@ namespace MMRando
 
             var settingsStringBuilder = new StringBuilder();
 
-            settingsStringBuilder.Append(Base36.Encode(Convert.ToInt32(Settings.Seed)));
-            settingsStringBuilder.Append("-");
             settingsStringBuilder.Append(Base36.Encode(Options[0]));
             settingsStringBuilder.Append("-");
             settingsStringBuilder.Append(Base36.Encode(Options[1]));
@@ -146,12 +152,10 @@ namespace MMRando
         // TODO add to settings class
         private void SetOptions(string[] O)
         {
-            tSeed.Text = Base36.Decode(O[0]).ToString();
-            Settings.Seed = Convert.ToInt32(tSeed.Text);
 
-            int Checks = (int)Base36.Decode(O[1]);
-            int Combos = (int)Base36.Decode(O[2]);
-            int ColourAndMisc = (int)Base36.Decode(O[3]);
+            int Checks = (int)Base36.Decode(O[0]);
+            int Combos = (int)Base36.Decode(O[1]);
+            int ColourAndMisc = (int)Base36.Decode(O[2]);
 
             Settings.UseCustomItemList = (Checks & 8192) > 0;
             Settings.AddOther = (Checks & 4096) > 0;
@@ -673,29 +677,6 @@ namespace MMRando
             Manual.Show();
         }
 
-        private void mByteswap_Click(object sender, EventArgs e)
-        {
-            if (openBROM.ShowDialog() == DialogResult.OK)
-            {
-                int r = ROMFuncs.ByteswapROM(openBROM.FileName);
-                switch (r)
-                {
-                    case 0:
-                        MessageBox.Show("Successfully byteswapped ROM.",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-                        break;
-                    case 1:
-                        MessageBox.Show("ROM appears to be big endian.",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-                        break;
-                    default:
-                        MessageBox.Show("Could not byteswap ROM.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                };
-            };
-        }
-
         private void mLogicEdit_Click(object sender, EventArgs e)
         {
             LogicEditor.Show();
@@ -889,6 +870,7 @@ namespace MMRando
             SeedRNG();
             SortBGM();
         }
+
     }
 
 }
