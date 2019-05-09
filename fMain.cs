@@ -108,6 +108,8 @@ namespace MMRando
 
         private void bRandomise_Click(object sender, EventArgs e)
         {
+            if (!ValidateInputFile()) return;
+
             var outputFolderDialog = new CommonOpenFileDialog
             {
                 IsFolderPicker = true
