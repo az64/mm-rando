@@ -14,7 +14,8 @@
 3b
 59
 60
-6a
+-6a replace Gold Dust Bottle with regular Gold Dust
+93
 5a
 64
 6f
@@ -202,7 +203,8 @@ ef
 f8
 f9
 f0
-d8
+-d8 replace contents of Mountain Village Grotto (Spring) with Empty Bottle
+5a
 f1
 d3
 fd

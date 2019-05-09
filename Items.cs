@@ -22,7 +22,7 @@ namespace MMRando
         public const int ItemFairySword = 11;
         public const int ItemBottleWitch = 12;
         public const int ItemBottleAliens = 13;
-        public const int ItemBottleGoronRace = 14;
+        public const int ItemGoldDust = 14; // originally ItemBottleGoronRace
         public const int ItemBottleBeavers = 15;
         public const int ItemBottleDampe = 16;
         public const int ItemBottleMadameAroma = 17;
@@ -239,7 +239,7 @@ namespace MMRando
         public const int ChestWellRightPurpleRupee = 206;
         public const int ChestWellLeftPurpleRupee = 207;
         public const int ChestMountainVillage = 208; //contents? 
-        public const int ChestMountainVillageGrotto = 209; //contents? 
+        public const int ChestMountainVillageGrottoBottle = 209; // originally RedRupee
         public const int ChestToIkanaRedRupee = 210;
         public const int ChestToIkanaGrotto = 211; //contents? 
         public const int ChestInvertedStoneTowerSilverRupee = 212;
@@ -294,6 +294,7 @@ namespace MMRando
 
         public static readonly ReadOnlyCollection<int> REPEATABLE
             = new ReadOnlyCollection<int>(new int[] {
+                ItemGoldDust,
                 TradeItemMoonTear,
                 TradeItemLandDeed,
                 TradeItemSwampDeed,
@@ -338,6 +339,7 @@ namespace MMRando
                 UpgradeMirrorShield,
                 UpgradeGildedSword,
                 UpgradeBiggestQuiver,
+                UpgradeBigBombBag,
                 UpgradeBiggestBombBag,
                 UpgradeGiantWallet,
                 ChestLensCaveRedRupee,
@@ -378,7 +380,6 @@ namespace MMRando
                 ChestWellRightPurpleRupee,
                 ChestWellLeftPurpleRupee,
                 ChestMountainVillage,
-                ChestMountainVillageGrotto,
                 ChestToIkanaRedRupee,
                 ChestToIkanaGrotto,
                 ChestInvertedStoneTowerSilverRupee,
@@ -649,7 +650,7 @@ namespace MMRando
                 "Great Fairy's Sword",
                 "Witch Bottle",
                 "Aliens Bottle",
-                "Goron Race Bottle",
+                "Gold Dust",
                 "Beaver Race Bottle",
                 "Dampe Bottle",
                 "Chateau Bottle",
@@ -844,7 +845,7 @@ namespace MMRando
                 "Well Right Path 50r",
                 "Well Left Path 50r",
                 "Mountain Village Chest (Spring)",
-                "Mountain Village Grotto (Spring)",
+                "Mountain Village Grotto Bottle (Spring)",
                 "Path to Ikana 20r",
                 "Path to Ikana Grotto",
                 "Stone Tower 100r",

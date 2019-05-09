@@ -169,26 +169,27 @@ namespace MMRando
             {
                 UpdateSceneFlagMask(GetItemIndices[ItemSlot]);
             };
-            if (NewItem == 12)
+            if (NewItem == Items.ItemBottleWitch)
             {
                 WriteToROM(0xB49982, (ushort)GetItemIndices[ItemSlot]);
                 WriteToROM(0xC72B42, (ushort)GetItemIndices[ItemSlot]);
             };
-            if (NewItem == 17)
+            if (NewItem == Items.ItemBottleMadameAroma)
             {
                 WriteToROM(0xB4999A, (ushort)GetItemIndices[ItemSlot]);
                 WriteToROM(0xC72B4E, (ushort)GetItemIndices[ItemSlot]);
             };
-            if (NewItem == 13)
+            if (NewItem == Items.ItemBottleAliens)
             {
                 WriteToROM(0xB499A6, (ushort)GetItemIndices[ItemSlot]);
                 WriteToROM(0xC72B5A, (ushort)GetItemIndices[ItemSlot]);
             };
-            if (NewItem == 14)
-            {
-                WriteToROM(0xB499B2, (ushort)GetItemIndices[ItemSlot]);
-                WriteToROM(0xC72B66, (ushort)GetItemIndices[ItemSlot]);
-            };
+            // Goron Race Bottle now rewards a plain Gold Dust, so this is unnecessary until a proper fix for Goron Dust is found.
+            //if (NewItem == Items.ItemBottleGoronRace)
+            //{
+            //    WriteToROM(0xB499B2, (ushort)GetItemIndices[ItemSlot]);
+            //    WriteToROM(0xC72B66, (ushort)GetItemIndices[ItemSlot]);
+            //};
         }
 
     }
