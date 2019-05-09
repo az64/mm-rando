@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
@@ -12,10 +11,6 @@ namespace MMRando
 {
     public partial class MainRandomizerForm : Form
     {
-        private const string OutputFilenameWithSeed = "MMR_{0}_{1}{2}";
-        private const string OutputFilenameWithoutSeed = "MMR_{0}{1}";
-
-
         private bool _isUpdating = false;
         private bool _outputVC = false;
         private bool _outputROM = true;
@@ -30,18 +25,18 @@ namespace MMRando
         public fItemEdit ItemEditor = new fItemEdit();
 
         public static string MainDirectory = Application.StartupPath;
-        public static string MusicDirectory = Application.StartupPath + "\\music\\";
-        public static string ModsDirectory = Application.StartupPath + "\\mods\\";
-        public static string AddrsDirectory = Application.StartupPath + "\\addresses\\";
-        public static string ObjsDirectory = Application.StartupPath + "\\obj\\";
-        public static string VCDirectory = Application.StartupPath + "\\vc\\";
+        public static string MusicDirectory = Application.StartupPath + @"\music\";
+        public static string ModsDirectory = Application.StartupPath + @"\mods\";
+        public static string AddrsDirectory = Application.StartupPath + @"\addresses\";
+        public static string ObjsDirectory = Application.StartupPath + @"\obj\";
+        public static string VCDirectory = Application.StartupPath + @"\vc\";
 
         public string AssemblyVersion
         {
             get
             {
                 Version v = Assembly.GetExecutingAssembly().GetName().Version;
-                return $"Majora\'s Mask Randomizer v{v}";
+                return $"Majora's Mask Randomizer v{v}";
             }
         }
 
@@ -556,52 +551,26 @@ namespace MMRando
         // TODO add to settings class
         private void UpdateSettingsString()
         {
-            var settingsString = EncodeSettings();
-            tSString.Text = settingsString;
+            string settings = EncodeSettings();
+            tSString.Text = settings;
 
-            UpdateOutputFilenames(settingsString);
+            UpdateOutputFilenames(settings);
         }
 
-        private void UpdateOutputFilenames(string settingsString)
+        private void UpdateOutputFilenames(string settings)
         {
-            if (Settings.GenerateSpoilerLog)
-            {
-                Settings.OutputROMFilename = string.Format(OutputFilenameWithSeed,
-                    Settings.Seed,
-                    settingsString,
-                    ".z64");
+            string appendSeed = Settings.GenerateSpoilerLog ? $"{Settings.Seed}_" : "";
+            string filename = $"MMR_{appendSeed}{settings}";
 
-                Settings.OutputWADFilename = string.Format(OutputFilenameWithSeed,
-                    Settings.Seed,
-                    settingsString,
-                    ".wad");
-            }
-            else
-            {
-                Settings.OutputROMFilename = string.Format(OutputFilenameWithoutSeed,
-                    settingsString,
-                    ".z64");
-
-                Settings.OutputWADFilename = string.Format(OutputFilenameWithoutSeed,
-                    settingsString,
-                    ".wad");
-            }
+            Settings.OutputROMFilename = filename + ".z64";
+            Settings.OutputWADFilename = filename + ".wad";
         }
 
         private string EncodeSettings()
         {
             int[] Options = BuildSettingsBytes();
 
-            var settingsStringBuilder = new StringBuilder();
-
-            settingsStringBuilder.Append(Base36.Encode(Options[0]));
-            settingsStringBuilder.Append("-");
-            settingsStringBuilder.Append(Base36.Encode(Options[1]));
-            settingsStringBuilder.Append("-");
-            settingsStringBuilder.Append(Base36.Encode(Options[2]));
-
-            var settingsString = settingsStringBuilder.ToString();
-            return settingsString;
+            return $"{Base36.Encode(Options[0])}-{Base36.Encode(Options[1])}-{Base36.Encode(Options[2])}";
         }
 
         // TODO add to settings class
@@ -698,7 +667,8 @@ namespace MMRando
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error randomizing logic: {ex.Message}\r\n\r\nPlease try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string nl = Environment.NewLine;
+                MessageBox.Show($"Error randomizing logic: {ex.Message}{nl}{nl}Please try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
