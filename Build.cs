@@ -468,7 +468,7 @@ namespace MMRando
             if (_outputVC)
             {
                 worker.ReportProgress(98, "Building VC...");
-                ROMFuncs.BuildVC(ROM, VCDirectory, Settings.OutputWADFilename);
+                ROMFuncs.BuildVC(ROM, VCDirectory, Path.ChangeExtension(FileName, "wad"));
             }
             worker.ReportProgress(100, "Done!");
 

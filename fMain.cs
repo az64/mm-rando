@@ -5,7 +5,6 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace MMRando
 {
@@ -102,27 +101,23 @@ namespace MMRando
         {
             openROM.ShowDialog();
 
-            Settings.InputRomFilename = openROM.FileName;
-            tROMName.Text = Settings.InputRomFilename;
+            Settings.InputROMFilename = openROM.FileName;
+            tROMName.Text = Settings.InputROMFilename;
         }
 
         private void bRandomise_Click(object sender, EventArgs e)
         {
             if (!ValidateInputFile()) return;
-
-            var outputFolderDialog = new CommonOpenFileDialog
-            {
-                IsFolderPicker = true
-            };
-
-            if ((_outputROM || _outputVC) && outputFolderDialog.ShowDialog() != CommonFileDialogResult.Ok)
+            
+            saveROM.FileName = Settings.DefaultOutputROMFilename;
+            if ((_outputROM || _outputVC) && saveROM.ShowDialog() != DialogResult.OK)
             {
                 MessageBox.Show("No output directory selected; Nothing will be saved.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            Settings.OutputDirectory = outputFolderDialog.FileName;
+            Settings.OutputROMFilename = saveROM.FileName;
 
             EnableAllControls(false);
             bgWorker.RunWorkerAsync();
@@ -564,8 +559,7 @@ namespace MMRando
             string appendSeed = Settings.GenerateSpoilerLog ? $"{Settings.Seed}_" : "";
             string filename = $"MMR_{appendSeed}{settings}";
 
-            Settings.OutputROMFilename = filename + ".z64";
-            Settings.OutputWADFilename = filename + ".wad";
+            Settings.DefaultOutputROMFilename = filename + ".z64";
         }
 
         private string EncodeSettings()
@@ -677,16 +671,14 @@ namespace MMRando
             // Additional validation of preconditions
             if (!ValidateInputFile()) return;
 
-            if (!ValidateROM(Settings.InputRomFilename))
+            if (!ValidateROM(Settings.InputROMFilename))
             {
                 MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            MakeROM(Settings.InputRomFilename, 
-                Path.Combine(Settings.OutputDirectory, Settings.OutputROMFilename), 
-                worker);
+            MakeROM(Settings.InputROMFilename, Settings.OutputROMFilename, worker);
 
             MessageBox.Show("Successfully built output ROM!",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
@@ -698,7 +690,7 @@ namespace MMRando
         /// <returns></returns>
         private bool ValidateInputFile()
         {
-            if (!File.Exists(Settings.InputRomFilename))
+            if (!File.Exists(Settings.InputROMFilename))
             {
                 MessageBox.Show("Input ROM not selected or doesn't exist, cannot generate output.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
