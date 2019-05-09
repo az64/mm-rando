@@ -19,7 +19,22 @@ namespace MMRando.Models
         /// <summary>
         /// Filepath to the input ROM
         /// </summary>
-        public string InputRomPath { get; set; }
+        public string InputRomFilename { get; set; }
+
+        /// <summary>
+        /// Path to the output directory where rom/vc are saved
+        /// </summary>
+        public string OutputDirectory { get; internal set; }
+
+        /// <summary>
+        /// Filepath to the output ROM
+        /// </summary>
+        public string OutputROMFilename { get; set; }
+
+        /// <summary>
+        /// Filepath to the output ROM
+        /// </summary>
+        public string OutputWADFilename { get; set; }
 
         /// <summary>
         /// Generate spoiler log on randomizing
@@ -148,6 +163,5 @@ namespace MMRando.Models
         /// Replaces Tatl's colors
         /// </summary>
         public TatlColorSchema TatlColorSchema { get; set; }
-
     }
 }
