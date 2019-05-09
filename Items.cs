@@ -22,7 +22,7 @@ namespace MMRando
         public const int ItemFairySword = 11;
         public const int ItemBottleWitch = 12;
         public const int ItemBottleAliens = 13;
-        public const int ItemGoldDust = 14;
+        public const int ItemGoldDust = 14; // originally ItemBottleGoronRace
         public const int ItemBottleBeavers = 15;
         public const int ItemBottleDampe = 16;
         public const int ItemBottleMadameAroma = 17;
@@ -239,7 +239,7 @@ namespace MMRando
         public const int ChestWellRightPurpleRupee = 206;
         public const int ChestWellLeftPurpleRupee = 207;
         public const int ChestMountainVillage = 208; //contents? 
-        public const int ChestMountainVillageGrottoBottle = 209;
+        public const int ChestMountainVillageGrottoBottle = 209; // originally RedRupee
         public const int ChestToIkanaRedRupee = 210;
         public const int ChestToIkanaGrotto = 211; //contents? 
         public const int ChestInvertedStoneTowerSilverRupee = 212;
