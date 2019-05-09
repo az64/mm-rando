@@ -479,8 +479,10 @@ namespace MMRando
         {
             var settingsString = EncodeSettings();
 
+            var directory = Path.GetDirectoryName(Settings.OutputROMFilename);
+            var filename = $"{Path.GetFileNameWithoutExtension(Settings.OutputROMFilename)}_SpoilerLog.txt";
 
-            StreamWriter LogFile = new StreamWriter($"{Settings.OutputDirectory}\\SpoilerLog_{Settings.Seed}_{settingsString}.txt");
+            StreamWriter LogFile = new StreamWriter(Path.Combine(directory, filename));
 
 
             if (Settings.RandomizeDungeonEntrances)

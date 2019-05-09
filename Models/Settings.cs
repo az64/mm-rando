@@ -12,19 +12,14 @@ namespace MMRando.Models
         // General
 
         /// <summary>
-        /// Indicates a N64 Rom to be randomized. Default true.
-        /// </summary>
-        public bool IsN64Rom { get; private set; } = true;
-
-        /// <summary>
         /// Filepath to the input ROM
         /// </summary>
-        public string InputRomFilename { get; set; }
+        public string InputROMFilename { get; set; }
 
         /// <summary>
-        /// Path to the output directory where rom/vc are saved
+        /// Default Filename for the output ROM
         /// </summary>
-        public string OutputDirectory { get; internal set; }
+        public string DefaultOutputROMFilename { get; set; }
 
         /// <summary>
         /// Filepath to the output ROM
@@ -32,19 +27,9 @@ namespace MMRando.Models
         public string OutputROMFilename { get; set; }
 
         /// <summary>
-        /// Filepath to the output ROM
-        /// </summary>
-        public string OutputWADFilename { get; set; }
-
-        /// <summary>
         /// Generate spoiler log on randomizing
         /// </summary>
         public bool GenerateSpoilerLog { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool WiiVirtualConsoleChannel { get; set; }
 
         /// <summary>
         /// Use Custom Item list for the logic.
