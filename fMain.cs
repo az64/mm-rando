@@ -311,6 +311,7 @@ namespace MMRandomizer
             }
 
             UpdateSingleSetting(() => Settings.LogicMode = (LogicMode)cMode.SelectedIndex);
+            Settings.UserLogicFileName = openLogic.FileName;
         }
 
         private void cVC_CheckedChanged(object sender, EventArgs e)

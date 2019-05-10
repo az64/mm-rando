@@ -17,6 +17,12 @@ namespace MMRandomizer.Models
         public string InputROMFilename { get; set; }
 
         /// <summary>
+        /// Filepath to the input logic file
+        /// </summary>
+        public string UserLogicFileName { get; set; }
+
+
+        /// <summary>
         /// Default Filename for the output ROM
         /// </summary>
         public string DefaultOutputROMFilename { get; set; }
@@ -154,9 +160,5 @@ namespace MMRandomizer.Models
         /// Replaces Tatl's colors
         /// </summary>
         public TatlColorSchema TatlColorSchema { get; set; }
-
-
-
-        
     }
 }

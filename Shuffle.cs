@@ -652,7 +652,7 @@ namespace MMRandomizer
             }
             else if (mode == LogicMode.UserLogic)
             {
-                using (StreamReader Req = new StreamReader(File.Open(openLogic.FileName, FileMode.Open)))
+                using (StreamReader Req = new StreamReader(File.Open(Settings.UserLogicFileName, FileMode.Open)))
                 {
                     lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
