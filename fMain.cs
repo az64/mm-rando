@@ -515,6 +515,7 @@ namespace MMRando
         {
             int[] O = new int[3];
 
+            if (Settings.FreeHints) { O[0] += 16384; };
             if (Settings.UseCustomItemList) { O[0] += 8192; };
             if (Settings.AddOther) { O[0] += 4096; };
             if (Settings.EnableGossipHints) { O[0] += 2048; };
@@ -712,14 +713,15 @@ namespace MMRando
                 worker.ReportProgress(5, "Preparing ruleset...");
                 PrepareRulesetItemData();
 
-                worker.ReportProgress(10, "Shuffling items...");
-                ItemShuffle();
 
                 if (Settings.RandomizeDungeonEntrances)
                 {
-                    worker.ReportProgress(30, "Shuffling entrances...");
+                    worker.ReportProgress(10, "Shuffling entrances...");
                     EntranceShuffle();
                 }
+
+                worker.ReportProgress(30, "Shuffling items...");
+                ItemShuffle();
 
                 if (Settings.EnableGossipHints)
                 {

@@ -66,6 +66,7 @@ namespace MMRando
             this.cDMult = new System.Windows.Forms.ComboBox();
             this.cGravity = new System.Windows.Forms.ComboBox();
             this.tabComfort = new System.Windows.Forms.TabPage();
+            this.cFreeHints = new System.Windows.Forms.CheckBox();
             this.cTatl = new System.Windows.Forms.ComboBox();
             this.cCutsc = new System.Windows.Forms.CheckBox();
             this.lTatl = new System.Windows.Forms.Label();
@@ -102,7 +103,6 @@ namespace MMRando
             this.cDummy = new System.Windows.Forms.CheckBox();
             this.lHrule = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cFreeHints = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -170,7 +170,7 @@ namespace MMRando
             this.tabROMSettings.Location = new System.Drawing.Point(4, 25);
             this.tabROMSettings.Name = "tabROMSettings";
             this.tabROMSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabROMSettings.Size = new System.Drawing.Size(346, 239);
+            this.tabROMSettings.Size = new System.Drawing.Size(346, 269);
             this.tabROMSettings.TabIndex = 3;
             this.tabROMSettings.Text = "ROM Settings";
             this.tabROMSettings.UseVisualStyleBackColor = true;
@@ -587,6 +587,20 @@ namespace MMRando
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
             // 
+            // cFreeHints
+            // 
+            this.cFreeHints.AutoSize = true;
+            this.cFreeHints.BackColor = System.Drawing.Color.Transparent;
+            this.cFreeHints.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cFreeHints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cFreeHints.ForeColor = System.Drawing.Color.Black;
+            this.cFreeHints.Location = new System.Drawing.Point(52, 92);
+            this.cFreeHints.Name = "cFreeHints";
+            this.cFreeHints.Size = new System.Drawing.Size(72, 17);
+            this.cFreeHints.TabIndex = 15;
+            this.cFreeHints.Text = "Free hints";
+            this.cFreeHints.UseVisualStyleBackColor = false;
+            // 
             // cTatl
             // 
             this.cTatl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -938,20 +952,6 @@ namespace MMRando
             this.label5.Size = new System.Drawing.Size(325, 13);
             this.label5.TabIndex = 14;
             this.label5.Text = "_____________________________________________________";
-            // 
-            // cFreeHints
-            // 
-            this.cFreeHints.AutoSize = true;
-            this.cFreeHints.BackColor = System.Drawing.Color.Transparent;
-            this.cFreeHints.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cFreeHints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cFreeHints.ForeColor = System.Drawing.Color.Black;
-            this.cFreeHints.Location = new System.Drawing.Point(50, 92);
-            this.cFreeHints.Name = "cFreeHints";
-            this.cFreeHints.Size = new System.Drawing.Size(74, 17);
-            this.cFreeHints.TabIndex = 15;
-            this.cFreeHints.Text = "Free Hints";
-            this.cFreeHints.UseVisualStyleBackColor = false;
             // 
             // MainRandomizerForm
             // 
