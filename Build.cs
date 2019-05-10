@@ -394,7 +394,7 @@ namespace MMRando
                 return;
             }
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
-            ROMFuncs.SetStrings(ModsDirectory + "logo-text", $"v{v.Major}.{v.Minor}b", tSString.Text);
+            ROMFuncs.SetStrings(ModsDirectory + "logo-text", $"v{v}", tSString.Text);
         }
 
         private bool ValidateROM(string FileName)
