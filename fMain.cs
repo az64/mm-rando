@@ -578,6 +578,7 @@ namespace MMRando
             int Combos = (int)Base36.Decode(O[1]);
             int ColourAndMisc = (int)Base36.Decode(O[2]);
 
+            Settings.FreeHints = (Checks & 16384) > 0;
             Settings.UseCustomItemList = (Checks & 8192) > 0;
             Settings.AddOther = (Checks & 4096) > 0;
             Settings.EnableGossipHints = (Checks & 2048) > 0;
