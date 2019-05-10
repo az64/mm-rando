@@ -337,29 +337,6 @@ namespace MMRando
             Manual.Show();
         }
 
-        private void mByteswap_Click(object sender, EventArgs e)
-        {
-            if (openBROM.ShowDialog() == DialogResult.OK)
-            {
-                int r = ROMFuncs.ByteswapROM(openBROM.FileName);
-                switch (r)
-                {
-                    case 0:
-                        MessageBox.Show("Successfully byteswapped ROM.",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-                        break;
-                    case 1:
-                        MessageBox.Show("ROM appears to be big endian.",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-                        break;
-                    default:
-                        MessageBox.Show("Could not byteswap ROM.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                };
-            };
-        }
-
         private void mLogicEdit_Click(object sender, EventArgs e)
         {
             LogicEditor.Show();

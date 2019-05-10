@@ -600,6 +600,7 @@ namespace MMRando
             this.cFreeHints.TabIndex = 15;
             this.cFreeHints.Text = "Free hints";
             this.cFreeHints.UseVisualStyleBackColor = false;
+            this.cFreeHints.CheckedChanged += new System.EventHandler(this.cFreeHints_CheckedChanged);
             // 
             // cTatl
             // 
