@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace MMRando
+namespace MMRandomizer
 {
-
-    public partial class ROMFuncs
+    public class AudioSeq
     {
         //todo - rewrite this
-        public static void RebuildAudioSeq(List<MainRandomizerForm.SequenceInfo> SeqList)
+        public static void RebuildAudioSeq(List<MMRandomizer.Models.Rom.SequenceInfo> SeqList)
         {
             List<MMSeq> OldSeq = new List<MMSeq>();
             int f = GetFileIndexForWriting(SeqTable);

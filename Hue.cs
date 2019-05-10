@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Drawing;
 
-namespace MMRando
+namespace MMRandomizer
 {
 
-    public partial class ROMFuncs
+    public class Hue
     {
-
-        // reference: https://stackoverflow.com/questions/4106363/converting-rgb-to-hsb-colors
         /// <summary>
         /// Creates a Color from alpha, hue, saturation and brightness.
         /// </summary>

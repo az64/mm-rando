@@ -1,8 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace MMRando
+namespace MMRandomizer
 {
-
     public class Items
     {
         // free

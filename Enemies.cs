@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MMRando
+namespace MMRandomizer
 {
-
-    public partial class ROMFuncs
+    public class Enemies
     {
-
-        private class Enemy
+        public class Enemy
         {
             public int Actor = new int();
             public int Object = new int();
@@ -19,15 +17,15 @@ namespace MMRando
             public List<int> SceneExclude = new List<int>();
         }
 
-        private class ValueSwap
+        public class ValueSwap
         {
             public int OldV = new int();
             public int NewV = new int();
         }
 
-        static List<Enemy> Enemies;
+        public static List<Enemy> Enemies;
 
-        private static void GetEnemyList()
+        public static void GetEnemyList()
         {
             Enemies = new List<Enemy>();
             string[] lines = Properties.Resources.ENEMIES.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
@@ -63,7 +61,7 @@ namespace MMRando
             };
         }
 
-        private static List<int> GetSceneEnemyActors(Scene S)
+        public static List<int> GetSceneEnemyActors(Scene S)
         {
             List<int> ActorList = new List<int>();
             for (int i = 0; i < S.Maps.Count; i++)
@@ -83,7 +81,7 @@ namespace MMRando
             return ActorList;
         }
 
-        private static List<int> GetSceneEnemyObjects(Scene S)
+        public static List<int> GetSceneEnemyObjects(Scene S)
         {
             List<int> ObjList = new List<int>();
             for (int i = 0; i < S.Maps.Count; i++)
@@ -106,7 +104,7 @@ namespace MMRando
             return ObjList;
         }
 
-        private static void SetSceneEnemyActors(Scene S, List<ValueSwap[]> A)
+        public static void SetSceneEnemyActors(Scene S, List<ValueSwap[]> A)
         {
             for (int i = 0; i < S.Maps.Count; i++)
             {
@@ -123,7 +121,7 @@ namespace MMRando
             };
         }
 
-        private static void SetSceneEnemyObjects(Scene S, List<ValueSwap> O)
+        public static void SetSceneEnemyObjects(Scene S, List<ValueSwap> O)
         {
             for (int i = 0; i < S.Maps.Count; i++)
             {
@@ -138,7 +136,7 @@ namespace MMRando
             };
         }
 
-        private static List<Enemy> GetMatchPool(List<Enemy> Actors, Random R)
+        public static List<Enemy> GetMatchPool(List<Enemy> Actors, Random R)
         {
             List<Enemy> Pool = new List<Enemy>();
             for (int i = 0; i < Actors.Count; i++)
@@ -165,7 +163,7 @@ namespace MMRando
             return Pool;
         }
 
-        private static void SwapSceneEnemies(Scene S, Random R)
+        public static void SwapSceneEnemies(Scene S, Random R)
         {
             List<int> Actors = GetSceneEnemyActors(S);
             if (Actors.Count == 0)

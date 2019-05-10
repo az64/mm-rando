@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
-namespace MMRando
+namespace MMRandomizer
 {
 
-    public partial class ROMFuncs
+    public class Resource
     {
 
         public static void ApplyHack_File(string name, byte[] data)

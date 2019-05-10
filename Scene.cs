@@ -1,36 +1,13 @@
-﻿using System;
+﻿using MMRandomizer.Models.Rom;
+using System;
 using System.Collections.Generic;
+using static MMRandomizer.Vectors;
 
-namespace MMRando
+namespace MMRandomizer
 {
 
-    public partial class ROMFuncs
+    public class Scene
     {
-
-        private static vec16 ReadVertex(int n)
-        {
-            vec16 v = new vec16();
-            return v;
-        }
-
-        private static void GetTriangleData(short[] verts)
-        {
-            CollisionTri T = new CollisionTri();
-
-            T.v1 = ReadVertex(verts[0]);
-            T.v2 = ReadVertex(verts[1]);
-            T.v3 = ReadVertex(verts[2]);
-            vecf32 AB = Subtract(T.v2, T.v1);
-            vecf32 BC = Subtract(T.v3, T.v2);
-            T.u_n = Normalise(CrossProduct(AB, BC));
-            T.d = PlaneDist(T.u_n, T.v1);
-        }
-
-        private static void ReadCollisionTriangles()
-        {
-
-        }
-
         private static void ResetSceneFlagMask()
         {
             WriteToROM(SceneFlagMasks, (uint)0);
@@ -203,29 +180,29 @@ namespace MMRando
         {
             for (int i = 0; i < Actors.Count; i++)
             {
-                Arr_WriteU16(Map, Addr + (i * 16), (ushort)(Actors[i].m | Actors[i].n));
-                Arr_WriteU16(Map, Addr + (i * 16) + 2, (ushort)Actors[i].p.x);
-                Arr_WriteU16(Map, Addr + (i * 16) + 4, (ushort)Actors[i].p.y);
-                Arr_WriteU16(Map, Addr + (i * 16) + 6, (ushort)Actors[i].p.z);
-                Arr_WriteU16(Map, Addr + (i * 16) + 8, (ushort)Actors[i].r.x);
-                Arr_WriteU16(Map, Addr + (i * 16) + 10, (ushort)Actors[i].r.y);
-                Arr_WriteU16(Map, Addr + (i * 16) + 12, (ushort)Actors[i].r.z);
-                Arr_WriteU16(Map, Addr + (i * 16) + 14, (ushort)Actors[i].v);
-            };
+                ReadWriteHelpers.Arr_WriteU16(Map, Addr + (i * 16), (ushort)(Actors[i].m | Actors[i].n));
+                ReadWriteHelpers.Arr_WriteU16(Map, Addr + (i * 16) + 2, (ushort)Actors[i].p.x);
+                ReadWriteHelpers.Arr_WriteU16(Map, Addr + (i * 16) + 4, (ushort)Actors[i].p.y);
+                ReadWriteHelpers.Arr_WriteU16(Map, Addr + (i * 16) + 6, (ushort)Actors[i].p.z);
+                ReadWriteHelpers.Arr_WriteU16(Map, Addr + (i * 16) + 8, (ushort)Actors[i].r.x);
+                ReadWriteHelpers.Arr_WriteU16(Map, Addr + (i * 16) + 10, (ushort)Actors[i].r.y);
+                ReadWriteHelpers.Arr_WriteU16(Map, Addr + (i * 16) + 12, (ushort)Actors[i].r.z);
+                ReadWriteHelpers.Arr_WriteU16(Map, Addr + (i * 16) + 14, (ushort)Actors[i].v);
+            }
         }
 
         private static void WriteMapObjects(byte[] Map, int Addr, List<int> Objects)
         {
             for (int i = 0; i < Objects.Count; i++)
             {
-                Arr_WriteU16(Map, Addr + (i * 2), (ushort)Objects[i]);
-            };
+                ReadWriteHelpers.Arr_WriteU16(Map, Addr + (i * 2), (ushort)Objects[i]);
+            }
         }
 
         private static void UpdateMap(Map M)
         {
-            WriteMapActors(MMFileList[M.File].Data, M.ActorAddr, M.Actors);
-            WriteMapObjects(MMFileList[M.File].Data, M.ObjAddr, M.Objects);
+            WriteMapActors(RomData.MMFileList[M.File].Data, M.ActorAddr, M.Actors);
+            WriteMapObjects(RomData.MMFileList[M.File].Data, M.ObjAddr, M.Objects);
         }
 
         private static void UpdateScene(Scene S)

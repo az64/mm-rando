@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace MMRando
+namespace MMRandomizer
 {
 
-    public partial class ROMFuncs
+    public class Tunics
     {
 
         static int[] sizes = new int[] { 14, 128, 33, 512, 16 };

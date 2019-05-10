@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MMRando.Properties {
+namespace MMRandomizer.Properties {
     using System;
     
     

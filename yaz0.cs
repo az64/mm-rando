@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MMRando
+namespace MMRandomizer
 {
 
-    public partial class ROMFuncs
+    public class Yaz0
     {
 
         //compression
         // reference: https://github.com/aboood40091/libyaz0
 
-        private static int FindMatch(byte[] src, byte b, int start, int end)
+        public static int FindMatch(byte[] src, byte b, int start, int end)
         {
             for (int i = start; i < end; i++)
             {
@@ -22,7 +22,7 @@ namespace MMRando
             return -1;
         }
 
-        private static int[] Yaz0Search(byte[] src, int pos, int end)
+        public static int[] Search(byte[] src, int pos, int end)
         {
             int[] found = { 0, 1 };
             if ((pos + 2) < end)
@@ -58,7 +58,7 @@ namespace MMRando
             return found;
         }
 
-        private static int[] Yaz0LA(byte[] src, int pos, int end, ref int[] LAfound, ref bool LAprev)
+        public static int[] LA(byte[] src, int pos, int end, ref int[] LAfound, ref bool LAprev)
         {
             if (LAprev)
             {
@@ -66,10 +66,10 @@ namespace MMRando
                 return LAfound;
             };
             LAprev = false;
-            int[] found = Yaz0Search(src, pos, end);
+            int[] found = Search(src, pos, end);
             if (found[1] > 2)
             {
-                LAfound = Yaz0Search(src, pos + 1, end);
+                LAfound = Search(src, pos + 1, end);
                 if (LAfound[1] > found[1] + 2)
                 {
                     found[1] = 1;
@@ -79,7 +79,7 @@ namespace MMRando
             return found;
         }
 
-        private static byte[] Yaz0Compress(byte[] src)
+        public static byte[] Compress(byte[] src)
         {
             int[] LAfound = { 0, 1 };
             bool LAprev = false;
@@ -108,7 +108,7 @@ namespace MMRando
                 for (int i = 0; i < 8; i++)
                 {
                     if (src_pos >= src_end) { break; };
-                    int[] found = Yaz0LA(src, src_pos, src_end, ref LAfound, ref LAprev);
+                    int[] found = LA(src, src_pos, src_end, ref LAfound, ref LAprev);
                     if (found[1] > 2)
                     {
                         int delta = src_pos - found[0] - 1;
@@ -140,13 +140,14 @@ namespace MMRando
             return dest.ToArray();
         }
 
-        private static byte[] Yaz0Decompress(byte[] CmpFile)
+        public static byte[] Decompress(byte[] CmpFile)
         {
-            if (Arr_ReadU32(CmpFile, 0) != 0x59617A30)
+            if (ReadWriteHelpers.Arr_ReadU32(CmpFile, 0) != 0x59617A30)
             {
                 return null;
-            };
-            int dest_len = (int)Arr_ReadU32(CmpFile, 4);
+            }
+
+            int dest_len = (int)ReadWriteHelpers.Arr_ReadU32(CmpFile, 4);
             byte[] dest = new byte[dest_len];
             int src_pos = 16;
             int src_len = CmpFile.Length;

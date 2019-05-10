@@ -1,5 +1,6 @@
-﻿using MMRando.Models;
-using MMRando.Utils;
+﻿using MMRandomizer.Models;
+using MMRandomizer.Models.Rom;
+using MMRandomizer.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,10 +8,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace MMRando
+namespace MMRandomizer
 {
 
-    public partial class MainRandomizerForm
+    public class Shuffle
     {
 
         Random RNG;
@@ -22,34 +23,6 @@ namespace MMRando
         private int[] _newEnts = new int[] { -1, -1, -1, -1 };
         private int[] _newExts = new int[] { -1, -1, -1, -1 };
 
-
-        public class ItemObject
-        {
-            public int ID { get; set; }
-            public List<int> DependsOnItems { get; set; } = new List<int>();
-            public List<List<int>> Conditionals { get; set; } = new List<List<int>>();
-            public List<int> CannotRequireItems { get; set; } = new List<int>();
-            public int TimeNeeded { get; set; }
-            public int TimeAvailable { get; set; }
-            public int ReplacesItemId { get; set; } = -1;
-
-            public bool ReplacesAnotherItem => ReplacesItemId != -1;
-            public bool HasConditionals => Conditionals != null && Conditionals.Count > 0;
-            public bool HasDependencies => DependsOnItems != null
-                && DependsOnItems.Count > 0;
-            public bool HasCannotRequireItems => CannotRequireItems != null
-                && CannotRequireItems.Count > 0;
-        }
-
-        public class SequenceInfo
-        {
-            public string Name { get; set; }
-            public int Replaces { get; set; } = -1;
-            public int MM_seq { get; set; } = -1;
-            public List<int> Type { get; set; } = new List<int>();
-            public int Instrument { get; set; }
-        }
-
         public class Gossip
         {
             public string[] SourceMessage { get; set; }
@@ -60,7 +33,6 @@ namespace MMRando
         List<SequenceInfo> SequenceList { get; set; }
         List<SequenceInfo> TargetSequences { get; set; }
         List<Gossip> GossipList { get; set; }
-
         List<int> ConditionsChecked { get; set; }
         Dictionary<int, Dependence> DependenceChecked { get; set; }
         List<int[]> ConditionRemoves { get; set; }
@@ -140,17 +112,17 @@ namespace MMRando
 
             for (int itemIndex = 0; itemIndex < ItemList.Count; itemIndex++)
             {
-                if (ItemList[itemIndex].ReplacesItemId == -1)
+                if (ItemList[itemIndex].ReplacesAnotherItem)
                 {
                     continue;
-                };
+                }
 
                 // Skip hints for vanilla bottle content
                 if ((!Settings.RandomizeBottleCatchContents)
                     && ItemUtils.IsBottleCatchContent(itemIndex))
                 {
                     continue;
-                };
+                }
 
                 // Skip hints for vanilla shop items
                 if ((!Settings.AddShopItems)

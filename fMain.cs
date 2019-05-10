@@ -1,4 +1,5 @@
-﻿using MMRando.Models;
+﻿using MMRandomizer.Forms;
+using MMRandomizer.Models;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -6,7 +7,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace MMRando
+namespace MMRandomizer
 {
     public partial class MainRandomizerForm : Form
     {
@@ -18,10 +19,10 @@ namespace MMRando
 
         public Settings Settings { get; set; } = new Settings();
 
-        public fAbout About = new fAbout();
-        public fManual Manual = new fManual();
-        public fLogicEdit LogicEditor = new fLogicEdit();
-        public fItemEdit ItemEditor = new fItemEdit();
+        public AboutForm About = new AboutForm();
+        public ManualForm Manual = new ManualForm();
+        public LogicEditorForm LogicEditor = new LogicEditorForm();
+        public CustomItemListForm ItemEditor = new CustomItemListForm();
 
         public static string MainDirectory = Application.StartupPath;
         public static string MusicDirectory = Application.StartupPath + @"\music\";

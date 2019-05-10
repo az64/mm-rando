@@ -1,5 +1,5 @@
-﻿using MMRando.Models;
-using MMRando.Utils;
+﻿using MMRandomizer.Models;
+using MMRandomizer.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,10 +10,10 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MMRando
+namespace MMRandomizer
 {
 
-    public partial class MainRandomizerForm
+    public class Build
     {
 
         private void WriteAudioSeq()

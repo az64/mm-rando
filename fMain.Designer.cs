@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MMRando
+namespace MMRandomizer
 {
     partial class MainRandomizerForm
     {

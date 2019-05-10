@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace MMRando
+namespace MMRandomizer
 {
 
-    public partial class ROMFuncs
+    public static class Obj
     {
 
         public static int GetObjSize(int obj)

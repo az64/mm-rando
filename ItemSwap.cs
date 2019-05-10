@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace MMRando
+namespace MMRandomizer
 {
-
-    public partial class ROMFuncs
+    public static class ItemSwap
     {
 
         static int cycle_repeat = 0;

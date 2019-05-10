@@ -8,7 +8,7 @@
     <ProjectGuid>{F365AB3C-6F06-4194-BB36-125A9E78D639}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MMRando</RootNamespace>
+    <RootNamespace>MMRandomizer</RootNamespace>
     <AssemblyName>MM Randomizer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -65,28 +65,40 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audioseq.cs" />
-    <Compile Include="Base36.cs" />
-    <Compile Include="Build.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Constants\Addresses.cs" />
+    <Compile Include="Models\ItemObject.cs" />
+    <Compile Include="Models\Rom\Actor.cs" />
+    <Compile Include="Models\Rom\BottleCatchEntry.cs" />
+    <Compile Include="Models\Rom\CollisionTri.cs" />
+    <Compile Include="Models\Rom\GetItemEntry.cs" />
+    <Compile Include="Models\Rom\Map.cs" />
+    <Compile Include="Models\Rom\MMFile.cs" />
+    <Compile Include="Models\Rom\MMMessage.cs" />
+    <Compile Include="Models\Rom\MMSeq.cs" />
+    <Compile Include="Models\Rom\Scene.cs" />
+    <Compile Include="Models\Rom\SequenceInfo.cs" />
+    <Compile Include="Models\Vectors\vecf32.cs" />
+    <Compile Include="Models\Vectors\vec16.cs" />
+    <Compile Include="Utils\Base36.cs" />
+    <Compile Include="Build.cs" />
     <Compile Include="Constants\Values.cs" />
-    <Compile Include="fItemEdit.cs">
+    <Compile Include="Forms\ItemEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fItemEdit.Designer.cs">
-      <DependentUpon>fItemEdit.cs</DependentUpon>
+    <Compile Include="Forms\ItemEditForm.Designer.cs">
+      <DependentUpon>ItemEditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="fItemSelect.cs">
+    <Compile Include="Forms\CustomItemListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fItemSelect.Designer.cs">
-      <DependentUpon>fItemSelect.cs</DependentUpon>
+    <Compile Include="Forms\CustomItemListForm.Designer.cs">
+      <DependentUpon>CustomItemListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="fLogicEdit.cs">
+    <Compile Include="Forms\LogicEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fLogicEdit.Designer.cs">
-      <DependentUpon>fLogicEdit.cs</DependentUpon>
+    <Compile Include="Forms\LogicEditorForm.Designer.cs">
+      <DependentUpon>LogicEditorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="fMain.cs">
       <SubType>Form</SubType>
@@ -95,18 +107,18 @@
       <DependentUpon>fMain.cs</DependentUpon>
     </Compile>
     <Compile Include="ItemSwap.cs" />
-    <Compile Include="Models\Character.cs" />
-    <Compile Include="Models\DamageEffect.cs" />
-    <Compile Include="Models\DamageMode.cs" />
-    <Compile Include="Models\FloorType.cs" />
-    <Compile Include="Models\LogicMode.cs" />
-    <Compile Include="Models\MovementMode.cs" />
-    <Compile Include="Models\Settings.cs" />
-    <Compile Include="Models\TatlColorSchema.cs" />
-    <Compile Include="NewItemForm.cs">
+    <Compile Include="Models\Settings\Character.cs" />
+    <Compile Include="Models\Settings\DamageEffect.cs" />
+    <Compile Include="Models\Settings\DamageMode.cs" />
+    <Compile Include="Models\Settings\FloorType.cs" />
+    <Compile Include="Models\Settings\LogicMode.cs" />
+    <Compile Include="Models\Settings\MovementMode.cs" />
+    <Compile Include="Models\Settings\Settings.cs" />
+    <Compile Include="Models\Settings\TatlColorSchema.cs" />
+    <Compile Include="Forms\NewItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewItemForm.Designer.cs">
+    <Compile Include="Forms\NewItemForm.Designer.cs">
       <DependentUpon>NewItemForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Scene.cs" />
@@ -117,50 +129,48 @@
     <Compile Include="Message.cs" />
     <Compile Include="Obj.cs" />
     <Compile Include="Resource.cs" />
-    <Compile Include="ROM_Data.cs" />
-    <Compile Include="RW_Helpers.cs" />
-    <Compile Include="Shuffle.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="RomData.cs" />
+    <Compile Include="ReadWriteHelpers.cs" />
+    <Compile Include="Shuffle.cs" />
     <Compile Include="Tunics.cs" />
     <Compile Include="Utils\ItemUtils.cs" />
-    <Compile Include="VC_Inject.cs" />
-    <Compile Include="Vector.cs" />
-    <Compile Include="yaz0.cs" />
-    <Compile Include="ROM.cs" />
-    <Compile Include="fAbout.cs">
+    <Compile Include="VCInjection.cs" />
+    <Compile Include="Vectors.cs" />
+    <Compile Include="Yaz0.cs" />
+    <Compile Include="Rom.cs" />
+    <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fAbout.Designer.cs">
-      <DependentUpon>fAbout.cs</DependentUpon>
+    <Compile Include="Forms\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="fManual.cs">
+    <Compile Include="Forms\ManualForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fManual.Designer.cs">
-      <DependentUpon>fManual.cs</DependentUpon>
+    <Compile Include="Forms\ManualForm.Designer.cs">
+      <DependentUpon>ManualForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="fAbout.resx">
-      <DependentUpon>fAbout.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fItemEdit.resx">
-      <DependentUpon>fItemEdit.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ItemEditForm.resx">
+      <DependentUpon>ItemEditForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fItemSelect.resx">
-      <DependentUpon>fItemSelect.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CustomItemListForm.resx">
+      <DependentUpon>CustomItemListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fLogicEdit.resx">
-      <DependentUpon>fLogicEdit.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\LogicEditorForm.resx">
+      <DependentUpon>LogicEditorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fMain.resx">
       <DependentUpon>fMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fManual.resx">
-      <DependentUpon>fManual.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ManualForm.resx">
+      <DependentUpon>ManualForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewItemForm.resx">
+    <EmbeddedResource Include="Forms\NewItemForm.resx">
       <DependentUpon>NewItemForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

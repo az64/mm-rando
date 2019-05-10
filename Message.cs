@@ -1,13 +1,15 @@
-﻿using System;
+﻿using MMRandomizer.Constants;
+using MMRandomizer.Models.Rom;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using static MMRandomizer.RomData;
 
-namespace MMRando
+namespace MMRandomizer
 {
 
-    public partial class ROMFuncs
+    public static class Message
     {
-
         //todo - allow rebuilding text file
 
         private static void WriteMessage(int addr, byte[] msg)
@@ -18,8 +20,8 @@ namespace MMRando
 
         private static MMMesssage FindMesssage(int address)
         {
-            int fileIndex = GetFileIndexForWriting(TxtTable);
-            int baseAddress = TxtTable - MMFileList[fileIndex].Addr;
+            int fileIndex = Rom.GetFileIndexForWriting(TxtTable);
+            int baseAddress = Addresses.TextTable - MMFileList[fileIndex].Addr;
 
             MMMesssage message = new MMMesssage();
 
@@ -31,8 +33,8 @@ namespace MMRando
                 if (address == x)
                 {
                     var data = MMFileList[fileIndex].Data;
-                    message.Address = (int)(Arr_ReadU32(data, baseAddress + 4) & 0xFFFFFF);
-                    message.Size = (int)(Arr_ReadU32(data, baseAddress + 12) & 0xFFFFFF) - message.Address;
+                    message.Address = (int)(ReadWriteHelpers.Arr_ReadU32(data, baseAddress + 4) & 0xFFFFFF);
+                    message.Size = (int)(ReadWriteHelpers.Arr_ReadU32(data, baseAddress + 12) & 0xFFFFFF) - message.Address;
                     break;
                 }
 
@@ -58,9 +60,9 @@ namespace MMRando
         public static void WriteGossipMessage(List<string> messages, Random RNG)
         {
 
-            for (int i = GossipStart; i < GossipEnd; i++)
+            for (int i = Addresses.GossipStart; i < Addresses.GossipEnd; i++)
             {
-                if (GossipExclude.Contains(i))
+                if (Addresses.GossipExclude.Contains(i))
                 {
                     continue;
                 }
@@ -87,7 +89,7 @@ namespace MMRando
                 } while (length > message.Size);
 
                 byte[] data = new byte[length];
-                Arr_Insert(Values.MessageHeader.ToArray(), 0, Values.MessageHeader.Count, data, 0);
+                ReadWriteHelpers.Arr_Insert(Values.MessageHeader.ToArray(), 0, Values.MessageHeader.Count, data, 0);
 
                 for (int k = 0; k < messages[randomMessageIndex].Length; k++)
                 {

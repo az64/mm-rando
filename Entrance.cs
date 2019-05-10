@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace MMRando
+﻿namespace MMRandomizer
 {
 
-    public partial class ROMFuncs
+    public static class Entrance
     {
-
         private static int GetEntranceAddr(int ent)
         {
             int offset = ((ent >> 9) * 12) + 0xC5BC64;
@@ -19,7 +16,6 @@ namespace MMRando
             offset = (ent & 0xF) << 2;
             return (int)p1 + offset;
         }
-
         public static void WriteEntrances(int[] olde, int[] newe)
         {
             int f = GetFileIndexForWriting(0xC5BC64);

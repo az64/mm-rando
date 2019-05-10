@@ -1,34 +1,36 @@
-﻿using System;
+﻿using MMRandomizer.Constants;
+using MMRandomizer.Models.Rom;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MMRando
+namespace MMRandomizer
 {
 
-    public partial class ROMFuncs
+    public static class Rom
     {
 
         public static void SetStrings(string filename, string ver, string setting)
         {
-            ApplyHack(filename);
+            Resource.ApplyHack(filename);
             int veraddr = 0xC44E30;
             int settingaddr = 0xC44E70;
             string verstring = $"MM Rando {ver}\x00";
             string settingstring = $"{setting}\x00";
 
             int f = GetFileIndexForWriting(veraddr);
-            var file = MMFileList[f];
+            var file = RomData.MMFileList[f];
 
             byte[] buffer = Encoding.ASCII.GetBytes(verstring);
             int addr = veraddr - file.Addr;
-            Arr_Insert(buffer, 0, buffer.Length, file.Data, addr);
+            ReadWriteHelpers.Arr_Insert(buffer, 0, buffer.Length, file.Data, addr);
 
             buffer = Encoding.ASCII.GetBytes(settingstring);
             addr = settingaddr - file.Addr;
-            Arr_Insert(buffer, 0, buffer.Length, file.Data, addr);
+            ReadWriteHelpers.Arr_Insert(buffer, 0, buffer.Length, file.Data, addr);
         }
 
         private static int AddNewFile(string filename)
@@ -40,7 +42,7 @@ namespace MMRando
                 buffer = new byte[len];
                 data.Read(buffer, 0, len);
             }
-            int start = MMFileList[MMFileList.Count - 1].End;
+            int start = RomData.MMFileList[RomData.MMFileList.Count - 1].End;
             MMFile newfile = new MMFile
             {
                 Addr = start,
@@ -48,27 +50,27 @@ namespace MMRando
                 Data = buffer,
                 End = start + buffer.Length
             };
-            MMFileList.Add(newfile);
+            RomData.MMFileList.Add(newfile);
             return newfile.Addr;
         }
 
         private static int AddrToFile(int RAddr)
         {
-            return MMFileList.FindIndex(
+            return RomData.MMFileList.FindIndex(
                 file => RAddr >= file.Addr && RAddr < file.End);
         }
 
         private static void CheckCompressed(int fileIndex)
         {
-            var file = MMFileList[fileIndex];
+            var file = RomData.MMFileList[fileIndex];
             if (file.IsCompressed && !file.WasEdited)
             {
-                file.Data = Yaz0Decompress(file.Data);
+                file.Data = Yaz0.Decompress(file.Data);
                 file.WasEdited = true;
             }
         }
 
-        private static int GetFileIndexForWriting(int rAddr)
+        public static int GetFileIndexForWriting(int rAddr)
         {
             int index = AddrToFile(rAddr);
             CheckCompressed(index);
@@ -98,7 +100,7 @@ namespace MMRando
                     {
                         while (ROM.BaseStream.Position < ROM.BaseStream.Length)
                         {
-                            newROM.Write(Byteswap16(ReadU16(ROM)));
+                            newROM.Write(ReadWriteHelpers.Byteswap16(ReadWriteHelpers.ReadU16(ROM)));
                         }
                     }
                     return 0;
@@ -109,7 +111,7 @@ namespace MMRando
                     {
                         while (ROM.BaseStream.Position < ROM.BaseStream.Length)
                         {
-                            newROM.Write(Byteswap32(ReadU32(ROM)));
+                            newROM.Write(ReadWriteHelpers.Byteswap32(ReadWriteHelpers.ReadU32(ROM)));
                         }
                     }
                     return 0;
@@ -120,39 +122,39 @@ namespace MMRando
 
         private static void UpdateFileTable(byte[] ROM)
         {
-            for (int i = 0; i < MMFileList.Count; i++)
+            for (int i = 0; i < RomData.MMFileList.Count; i++)
             {
-                Arr_WriteU32(ROM, FileTable + (i * 16), (uint)MMFileList[i].Addr);
-                Arr_WriteU32(ROM, FileTable + (i * 16) + 4, (uint)MMFileList[i].End);
-                Arr_WriteU32(ROM, FileTable + (i * 16) + 8, (uint)MMFileList[i].Cmp_Addr);
-                Arr_WriteU32(ROM, FileTable + (i * 16) + 12, (uint)MMFileList[i].Cmp_End);
+                ReadWriteHelpers.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16), (uint)RomData.MMFileList[i].Addr);
+                ReadWriteHelpers.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16) + 4, (uint)RomData.MMFileList[i].End);
+                ReadWriteHelpers.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16) + 8, (uint)RomData.MMFileList[i].Cmp_Addr);
+                ReadWriteHelpers.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16) + 12, (uint)RomData.MMFileList[i].Cmp_End);
             }
         }
 
         public static byte[] BuildROM(string FileName)
         {
-            Parallel.ForEach(MMFileList, file =>
+            Parallel.ForEach(RomData.MMFileList, file =>
             {
                 if (file.IsCompressed && file.WasEdited)
                 {
-                    file.Data = Yaz0Compress(file.Data);
+                    file.Data = Yaz0.Compress(file.Data);
                 }
             });
             byte[] ROM = new byte[0x2000000];
             int ROMAddr = 0;
-            for (int i = 0; i < MMFileList.Count; i++)
+            for (int i = 0; i < RomData.MMFileList.Count; i++)
             {
-                if (MMFileList[i].Cmp_Addr == -1)
+                if (RomData.MMFileList[i].Cmp_Addr == -1)
                 {
                     continue;
                 }
-                MMFileList[i].Cmp_Addr = ROMAddr;
-                int file_len = MMFileList[i].Data.Length;
-                if (MMFileList[i].IsCompressed)
+                RomData.MMFileList[i].Cmp_Addr = ROMAddr;
+                int file_len = RomData.MMFileList[i].Data.Length;
+                if (RomData.MMFileList[i].IsCompressed)
                 {
-                    MMFileList[i].Cmp_End = ROMAddr + file_len;
+                    RomData.MMFileList[i].Cmp_End = ROMAddr + file_len;
                 }
-                Arr_Insert(MMFileList[i].Data, 0, file_len, ROM, ROMAddr);
+                ReadWriteHelpers.Arr_Insert(RomData.MMFileList[i].Data, 0, file_len, ROM, ROMAddr);
                 ROMAddr += file_len;
             }
             UpdateFileTable(ROM);
@@ -168,15 +170,15 @@ namespace MMRando
 
         private static void SignROM(byte[] ROM)
         {
-            string VerString = "MajoraRando";
+            string VersionString = "MajoraRando"; // ??????
             string DateString = DateTime.UtcNow.ToString("yy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
-            for (int i = 0; i < VerString.Length; i++)
+            for (int i = 0; i < VersionString.Length; i++)
             {
-                ROM[SignAddr + i] = (byte)VerString[i];
+                ROM[Addresses.SignAddress + i] = (byte)VersionString[i];
             }
             for (int i = 0; i < DateString.Length; i++)
             {
-                ROM[SignAddr + i + 12] = (byte)DateString[i];
+                ROM[Addresses.SignAddress + i + 12] = (byte)DateString[i];
             }
         }
 
@@ -190,7 +192,7 @@ namespace MMRando
             t1 = t2 = t3 = t4 = t5 = t6 = seed;
             while (i < 0x101000)
             {
-                d = Arr_ReadU32(ROM, i);
+                d = ReadWriteHelpers.Arr_ReadU32(ROM, i);
                 if ((t6 + d) < t6) { t4++; }
                 t6 += d;
                 t3 ^= d;
@@ -204,54 +206,54 @@ namespace MMRando
                 {
                     t2 ^= r;
                 }
-                t1 += (Arr_ReadU32(ROM, 0x750 + (i & 0xFF)) ^ d);
+                t1 += (ReadWriteHelpers.Arr_ReadU32(ROM, 0x750 + (i & 0xFF)) ^ d);
                 i += 4;
             }
             CRC[0] = t6 ^ t4 ^ t3;
             CRC[1] = t5 ^ t2 ^ t1;
-            Arr_WriteU32(ROM, 16, CRC[0]);
-            Arr_WriteU32(ROM, 20, CRC[1]);
+            ReadWriteHelpers.Arr_WriteU32(ROM, 16, CRC[0]);
+            ReadWriteHelpers.Arr_WriteU32(ROM, 20, CRC[1]);
         }
 
         private static void ExtractAll(BinaryReader ROM)
         {
-            for (int i = 0; i < MMFileList.Count; i++)
+            for (int i = 0; i < RomData.MMFileList.Count; i++)
             {
-                if (MMFileList[i].Cmp_Addr == -1) { continue; }
-                ROM.BaseStream.Seek(MMFileList[i].Cmp_Addr, 0);
-                if (MMFileList[i].IsCompressed)
+                if (RomData.MMFileList[i].Cmp_Addr == -1) { continue; }
+                ROM.BaseStream.Seek(RomData.MMFileList[i].Cmp_Addr, 0);
+                if (RomData.MMFileList[i].IsCompressed)
                 {
-                    byte[] CmpFile = new byte[MMFileList[i].Cmp_End - MMFileList[i].Cmp_Addr];
+                    byte[] CmpFile = new byte[RomData.MMFileList[i].Cmp_End - RomData.MMFileList[i].Cmp_Addr];
                     ROM.Read(CmpFile, 0, CmpFile.Length);
-                    MMFileList[i].Data = CmpFile;
+                    RomData.MMFileList[i].Data = CmpFile;
                 }
                 else
                 {
-                    MMFileList[i].Data = new byte[MMFileList[i].End - MMFileList[i].Addr];
-                    ROM.Read(MMFileList[i].Data, 0, MMFileList[i].Data.Length);
+                    RomData.MMFileList[i].Data = new byte[RomData.MMFileList[i].End - RomData.MMFileList[i].Addr];
+                    ROM.Read(RomData.MMFileList[i].Data, 0, RomData.MMFileList[i].Data.Length);
                 }
             }
         }
 
         public static void ReadFileTable(BinaryReader ROM)
         {
-            MMFileList = new List<MMFile>();
-            ROM.BaseStream.Seek(FileTable, SeekOrigin.Begin);
+            RomData.MMFileList = new List<MMFile>();
+            ROM.BaseStream.Seek(Addresses.FileTable, SeekOrigin.Begin);
             while (true)
             {
                 MMFile Current_File = new MMFile
                 {
-                    Addr = ReadS32(ROM),
-                    End = ReadS32(ROM),
-                    Cmp_Addr = ReadS32(ROM),
-                    Cmp_End = ReadS32(ROM)
+                    Addr = ReadWriteHelpers.ReadS32(ROM),
+                    End = ReadWriteHelpers.ReadS32(ROM),
+                    Cmp_Addr = ReadWriteHelpers.ReadS32(ROM),
+                    Cmp_End = ReadWriteHelpers.ReadS32(ROM)
                 };
                 Current_File.IsCompressed = Current_File.Cmp_End != 0;
                 if (Current_File.Addr == Current_File.End)
                 {
                     break;
                 }
-                MMFileList.Add(Current_File);
+                RomData.MMFileList.Add(Current_File);
             }
             ExtractAll(ROM);
         }
@@ -259,8 +261,8 @@ namespace MMRando
         public static bool CheckOldCRC(BinaryReader ROM)
         {
             ROM.BaseStream.Seek(16, 0);
-            uint CRC1 = ReadU32(ROM);
-            uint CRC2 = ReadU32(ROM);
+            uint CRC1 = ReadWriteHelpers.ReadU32(ROM);
+            uint CRC2 = ReadWriteHelpers.ReadU32(ROM);
             return (CRC1 == 0x5354631C) && (CRC2 == 0x03A2DEF0);
         }
 
