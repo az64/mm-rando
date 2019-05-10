@@ -711,14 +711,15 @@ namespace MMRando
                 worker.ReportProgress(5, "Preparing ruleset...");
                 PrepareRulesetItemData();
 
-                worker.ReportProgress(10, "Shuffling items...");
-                ItemShuffle();
-
                 if (Settings.RandomizeDungeonEntrances)
                 {
-                    worker.ReportProgress(30, "Shuffling entrances...");
+                    worker.ReportProgress(10, "Shuffling entrances...");
                     EntranceShuffle();
                 }
+
+                worker.ReportProgress(30, "Shuffling items...");
+                ItemShuffle();
+
 
                 if (Settings.EnableGossipHints)
                 {
