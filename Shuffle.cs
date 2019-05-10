@@ -1509,6 +1509,7 @@ namespace MMRando
                 {
                     continue;
                 }
+                itemPool.Add(i);
             }
 
             for (int i = Items.SongSoaring; i <= Items.SongOath; i++)
