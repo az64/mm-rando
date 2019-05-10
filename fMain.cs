@@ -276,6 +276,11 @@ namespace MMRando
             UpdateSingleSetting(() => Settings.AddSongs = cMixSongs.Checked);
         }
 
+        private void cFreeHints_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.FreeHints = cFreeHints.Checked);
+        }
+
         private void cQText_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => Settings.QuickTextEnabled = cQText.Checked);
