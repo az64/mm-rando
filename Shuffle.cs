@@ -484,6 +484,9 @@ namespace MMRando
 
             StreamWriter LogFile = new StreamWriter(Path.Combine(directory, filename));
 
+            LogFile.WriteLine("Version: " + AssemblyVersion.Substring(26));
+            LogFile.WriteLine("Settings String: \"" + settingsString + "\"");
+            LogFile.WriteLine("Seed: \"" + Settings.Seed + "\"\n");
 
             if (Settings.RandomizeDungeonEntrances)
             {
