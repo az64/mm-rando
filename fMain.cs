@@ -107,6 +107,7 @@ namespace MMRando
 
         private void bRandomise_Click(object sender, EventArgs e)
         {
+            if(!cLogOnly.Checked)
             if (!ValidateInputFile()) return;
             
             saveROM.FileName = Settings.DefaultOutputROMFilename;
@@ -279,6 +280,11 @@ namespace MMRando
         private void cFreeHints_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => Settings.FreeHints = cFreeHints.Checked);
+        }
+
+        private void cLogOnly_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.FreeHints = cLogOnly.Checked);
         }
 
         private void cQText_CheckedChanged(object sender, EventArgs e)
@@ -592,6 +598,7 @@ namespace MMRando
             cQText.Checked = Settings.QuickTextEnabled;
             cFreeHints.Checked = Settings.FreeHints;
 
+
             var damageMultiplierIndex = (int)((Combos & 0xF0000000) >> 28);
             var damageTypeIndex = (Combos & 0xF000000) >> 24;
             var modeIndex = (Combos & 0xFF0000) >> 16;
@@ -654,19 +661,31 @@ namespace MMRando
             }
 
             // Additional validation of preconditions
-            if (!ValidateInputFile()) return;
-
-            if (!ValidateROM(Settings.InputROMFilename))
+            if (!cLogOnly.Checked)
             {
-                MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (!ValidateInputFile()) return;
+                if (!ValidateROM(Settings.InputROMFilename)) ;
+                {
+                    MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
+            
+            
 
-            MakeROM(Settings.InputROMFilename, Settings.OutputROMFilename, worker);
-
-            MessageBox.Show("Successfully built output ROM!",
-                "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+            if (!cLogOnly.Checked)
+            {
+                MakeROM(Settings.InputROMFilename, Settings.OutputROMFilename, worker);
+                MessageBox.Show("Successfully built output ROM!",
+                    "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+            }
+            else
+            {
+                WriteSpoilerLog();
+                MessageBox.Show("Successfully output Spoiler Log!",
+                    "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+            }
         }
 
         /// <summary>

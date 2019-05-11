@@ -484,13 +484,13 @@ namespace MMRando
 
             StreamWriter LogFile = new StreamWriter(Path.Combine(directory, filename));
 
-            LogFile.WriteLine("Version: " + AssemblyVersion.Substring(26));
-            LogFile.WriteLine("Settings String: \"" + settingsString + "\"");
-            LogFile.WriteLine("Seed: \"" + Settings.Seed + "\"\n");
+            LogFile.WriteLine("Version: ".PadRight(20, ' ') + AssemblyVersion.Substring(26).PadLeft(20,' '));
+            LogFile.WriteLine("Settings String: ".PadRight(20, ' ') + settingsString.PadLeft(20, ' '));
+            LogFile.WriteLine("Seed: ".PadRight(20, ' ') + Settings.Seed.ToString().PadLeft(20, ' ') + "\n");
 
             if (Settings.RandomizeDungeonEntrances)
             {
-                LogFile.WriteLine("------------Entrance----------------------------Destination-----------");
+                LogFile.WriteLine("-------------------Item-------------------------------------Destination---------------");
                 string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
                 for (int i = 0; i < 4; i++)
                 {
@@ -518,14 +518,7 @@ namespace MMRando
             LogFile.WriteLine("--------------Item------------------------------Destination-----------");
             for (int i = 0; i < ItemList.Count; i++)
             {
-                LogFile.WriteLine(Items.ITEM_NAMES[ItemList[i].ID].PadRight(32, '-') + "---->>" + Items.ITEM_NAMES[ItemList[i].ReplacesItemId].PadLeft(32, '-'));
-            };
-            LogFile.WriteLine("");
-            LogFile.WriteLine("-----------Destination------------------------------Item--------------");
-            ItemList.Sort((i, j) => i.ReplacesItemId.CompareTo(j.ReplacesItemId));
-            for (int i = 0; i < ItemList.Count; i++)
-            {
-                LogFile.WriteLine(Items.ITEM_NAMES[ItemList[i].ReplacesItemId].PadRight(32, '-') + "<<----" + Items.ITEM_NAMES[ItemList[i].ID].PadLeft(32, '-'));
+                LogFile.WriteLine(Items.ITEM_NAMES[ItemList[i].ID].PadRight(40, '-') + "---->>" + Items.ITEM_NAMES[ItemList[i].ReplacesItemId].PadLeft(40, '-'));
             };
             LogFile.Close();
         }

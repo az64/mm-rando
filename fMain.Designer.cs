@@ -103,6 +103,7 @@ namespace MMRando
             this.cDummy = new System.Windows.Forms.CheckBox();
             this.lHrule = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.cLogOnly = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -161,6 +162,7 @@ namespace MMRando
             // 
             // tabROMSettings
             // 
+            this.tabROMSettings.Controls.Add(this.cLogOnly);
             this.tabROMSettings.Controls.Add(this.label1);
             this.tabROMSettings.Controls.Add(this.tROMName);
             this.tabROMSettings.Controls.Add(this.bopen);
@@ -954,6 +956,21 @@ namespace MMRando
             this.label5.TabIndex = 14;
             this.label5.Text = "_____________________________________________________";
             // 
+            // cLogOnly
+            // 
+            this.cLogOnly.AutoSize = true;
+            this.cLogOnly.BackColor = System.Drawing.Color.Transparent;
+            this.cLogOnly.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cLogOnly.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cLogOnly.ForeColor = System.Drawing.Color.Black;
+            this.cLogOnly.Location = new System.Drawing.Point(201, 93);
+            this.cLogOnly.Name = "cLogOnly";
+            this.cLogOnly.Size = new System.Drawing.Size(128, 17);
+            this.cLogOnly.TabIndex = 13;
+            this.cLogOnly.Text = "Export spoiler log only";
+            this.cLogOnly.UseVisualStyleBackColor = false;
+            this.cLogOnly.CheckedChanged += new System.EventHandler(this.cLogOnly_CheckedChanged);
+            // 
             // MainRandomizerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1070,6 +1087,7 @@ namespace MMRando
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox cFreeHints;
+        private System.Windows.Forms.CheckBox cLogOnly;
     }
 }
 
