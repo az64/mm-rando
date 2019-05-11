@@ -664,7 +664,7 @@ namespace MMRando
             if (!cLogOnly.Checked)
             {
                 if (!ValidateInputFile()) return;
-                if (!ValidateROM(Settings.InputROMFilename)) ;
+                if (!ValidateROM(Settings.InputROMFilename))
                 {
                     MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
