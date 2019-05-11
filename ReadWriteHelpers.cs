@@ -1,7 +1,8 @@
-﻿using System;
+﻿using MMRando.Utils;
+using System;
 using System.IO;
 
-namespace MMRandomizer
+namespace MMRando
 {
 
     public static class ReadWriteHelpers
@@ -27,42 +28,42 @@ namespace MMRandomizer
                     rdata[0] += 0xA;
                     rdata[1] -= 0x70;
                 };
-                int f = GetFileIndexForWriting(rAddr);
-                int dest = rAddr - MMFileList[f].Addr;
-                Arr_Insert(rdata, 0, rdata.Length, MMFileList[f].Data, dest);
+                int f = RomUtils.GetFileIndexForWriting(rAddr);
+                int dest = rAddr - RomData.MMFileList[f].Addr;
+                Arr_Insert(rdata, 0, rdata.Length, RomData.MMFileList[f].Data, dest);
             };
         }
 
         public static void WriteToROM(int Addr, byte val)
         {
-            int f = GetFileIndexForWriting(Addr);
-            int dest = Addr - MMFileList[f].Addr;
-            MMFileList[f].Data[dest] = val;
+            int f = RomUtils.GetFileIndexForWriting(Addr);
+            int dest = Addr - RomData.MMFileList[f].Addr;
+            RomData.MMFileList[f].Data[dest] = val;
         }
 
         public static void WriteToROM(int Addr, ushort val)
         {
-            int f = GetFileIndexForWriting(Addr);
-            int dest = Addr - MMFileList[f].Addr;
-            MMFileList[f].Data[dest] = (byte)((val & 0xFF00) >> 8);
-            MMFileList[f].Data[dest + 1] = (byte)(val & 0xFF);
+            int f = RomUtils.GetFileIndexForWriting(Addr);
+            int dest = Addr - RomData.MMFileList[f].Addr;
+            RomData.MMFileList[f].Data[dest] = (byte)((val & 0xFF00) >> 8);
+            RomData.MMFileList[f].Data[dest + 1] = (byte)(val & 0xFF);
         }
 
         public static void WriteToROM(int Addr, uint val)
         {
-            int f = GetFileIndexForWriting(Addr);
-            int dest = Addr - MMFileList[f].Addr;
-            MMFileList[f].Data[dest] = (byte)((val & 0xFF000000) >> 24);
-            MMFileList[f].Data[dest + 1] = (byte)((val & 0xFF0000) >> 16);
-            MMFileList[f].Data[dest + 2] = (byte)((val & 0xFF00) >> 8);
-            MMFileList[f].Data[dest + 3] = (byte)(val & 0xFF);
+            int f = RomUtils.GetFileIndexForWriting(Addr);
+            int dest = Addr - RomData.MMFileList[f].Addr;
+            RomData.MMFileList[f].Data[dest] = (byte)((val & 0xFF000000) >> 24);
+            RomData.MMFileList[f].Data[dest + 1] = (byte)((val & 0xFF0000) >> 16);
+            RomData.MMFileList[f].Data[dest + 2] = (byte)((val & 0xFF00) >> 8);
+            RomData.MMFileList[f].Data[dest + 3] = (byte)(val & 0xFF);
         }
 
         public static void WriteToROM(int Addr, byte[] val)
         {
-            int f = GetFileIndexForWriting(Addr);
-            int dest = Addr - MMFileList[f].Addr;
-            Arr_Insert(val, 0, val.Length, MMFileList[f].Data, dest);
+            int f = RomUtils.GetFileIndexForWriting(Addr);
+            int dest = Addr - RomData.MMFileList[f].Addr;
+            Arr_Insert(val, 0, val.Length, RomData.MMFileList[f].Data, dest);
         }
 
         public static void Arr_Insert(byte[] src, int start, int len, byte[] dest, int addr)

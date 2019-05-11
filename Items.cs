@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace MMRandomizer
+namespace MMRando
 {
     public class Items
     {

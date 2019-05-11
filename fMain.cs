@@ -1,5 +1,6 @@
-﻿using MMRandomizer.Forms;
-using MMRandomizer.Models;
+﻿using MMRando.Forms;
+using MMRando.Models;
+using MMRando.Utils;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -7,29 +8,24 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace MMRandomizer
+namespace MMRando
 {
     public partial class MainRandomizerForm : Form
     {
         private bool _isUpdating = false;
-        private bool _outputVC = false;
-        private bool _outputROM = true;
         private string _oldSettingsString = "";
         private int _seedOld = 0;
 
-        public Settings Settings { get; set; } = new Settings();
+        public Settings _settings { get; set; }
 
-        public AboutForm About = new AboutForm();
-        public ManualForm Manual = new ManualForm();
-        public LogicEditorForm LogicEditor = new LogicEditorForm();
-        public CustomItemListForm ItemEditor = new CustomItemListForm();
+        public AboutForm About { get; private set; }
+        public ManualForm Manual { get; private set; }
+        public LogicEditorForm LogicEditor { get; private set; }
+        public ItemSelectorForm ItemEditor { get; private set; }
 
-        public static string MainDirectory = Application.StartupPath;
-        public static string MusicDirectory = Application.StartupPath + @"\music\";
-        public static string ModsDirectory = Application.StartupPath + @"\mods\";
-        public static string AddrsDirectory = Application.StartupPath + @"\addresses\";
-        public static string ObjsDirectory = Application.StartupPath + @"\obj\";
-        public static string VCDirectory = Application.StartupPath + @"\vc\";
+        private Randomizer _randomizer;
+        private Builder _builder;
+
 
         public string AssemblyVersion
         {
@@ -40,20 +36,30 @@ namespace MMRandomizer
             }
         }
 
-        #region Forms Code
-
         public MainRandomizerForm()
         {
             InitializeComponent();
-            this.Text = AssemblyVersion;
+            InitializeSettings();
+
+            _randomizer = new Randomizer(_settings);
+            _builder = new Builder(_randomizer, _settings);
+
+            LogicEditor = new LogicEditorForm();
+            ItemEditor = new ItemSelectorForm(_settings.CustomItemList);
+            Manual = new ManualForm();
+            About = new AboutForm();
+
+
+            Text = AssemblyVersion;
         }
+
+        #region Forms Code
 
         private void mmrMain_Load(object sender, EventArgs e)
         {
             // initialise some stuff
             _isUpdating = true;
 
-            InitializeSettings();
             InitializeBackgroundWorker();
 
             _isUpdating = false;
@@ -91,7 +97,7 @@ namespace MMRandomizer
             _isUpdating = true;
 
             cTunic.ShowDialog();
-            Settings.TunicColor = cTunic.Color;
+            _settings.TunicColor = cTunic.Color;
             bTunic.BackColor = cTunic.Color;
             UpdateSettingsString();
 
@@ -102,23 +108,23 @@ namespace MMRandomizer
         {
             openROM.ShowDialog();
 
-            Settings.InputROMFilename = openROM.FileName;
-            tROMName.Text = Settings.InputROMFilename;
+            _settings.InputROMFilename = openROM.FileName;
+            tROMName.Text = _settings.InputROMFilename;
         }
 
         private void bRandomise_Click(object sender, EventArgs e)
         {
             if (!ValidateInputFile()) return;
-            
-            saveROM.FileName = Settings.DefaultOutputROMFilename;
-            if ((_outputROM || _outputVC) && saveROM.ShowDialog() != DialogResult.OK)
+
+            saveROM.FileName = _settings.DefaultOutputROMFilename;
+            if ((_settings.OutputRom || _settings.OutputVC) && saveROM.ShowDialog() != DialogResult.OK)
             {
                 MessageBox.Show("No output directory selected; Nothing will be saved.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            Settings.OutputROMFilename = saveROM.FileName;
+            _settings.OutputROMFilename = saveROM.FileName;
 
             EnableAllControls(false);
             bgWorker.RunWorkerAsync();
@@ -134,12 +140,13 @@ namespace MMRandomizer
         {
             try
             {
-                UpdateSettingsFromString(tSString.Text);
+                _settings.Update(tSString.Text);
+                UpdateCheckboxes();
             }
             catch
             {
                 tSString.Text = _oldSettingsString;
-                UpdateSettingsFromString(tSString.Text);
+                _settings.Update(_oldSettingsString);
                 MessageBox.Show("Settings string is invalid; reverted to previous settings.",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -175,7 +182,7 @@ namespace MMRandomizer
                 }
                 else
                 {
-                    Settings.Seed = seed;
+                    _settings.Seed = seed;
                 }
             }
             catch
@@ -188,6 +195,34 @@ namespace MMRandomizer
             _isUpdating = false;
         }
 
+        private void UpdateCheckboxes()
+        {
+            cUserItems.Checked = _settings.UseCustomItemList;
+            cAdditional.Checked = _settings.AddOther;
+            cGossip.Checked = _settings.EnableGossipHints;
+            cSoS.Checked = _settings.ExcludeSongOfSoaring;
+            cSpoiler.Checked = _settings.GenerateSpoilerLog;
+            cMixSongs.Checked = _settings.AddSongs;
+            cBottled.Checked = _settings.RandomizeBottleCatchContents;
+            cDChests.Checked = _settings.AddDungeonItems;
+            cShop.Checked = _settings.AddShopItems;
+            cDEnt.Checked = _settings.RandomizeDungeonEntrances;
+            cBGM.Checked = _settings.RandomizeBGM;
+            cEnemy.Checked = _settings.RandomizeEnemies;
+            cCutsc.Checked = _settings.ShortenCutscenes;
+            cQText.Checked = _settings.QuickTextEnabled;
+            cFreeHints.Checked = _settings.FreeHints;
+
+            cDMult.SelectedIndex = (int)_settings.DamageMode;
+            cDType.SelectedIndex = (int)_settings.DamageEffect;
+            cMode.SelectedIndex = (int)_settings.LogicMode;
+            cLink.SelectedIndex = (int)_settings.Character;
+            cTatl.SelectedIndex = (int)_settings.TatlColorSchema;
+            cGravity.SelectedIndex = (int)_settings.MovementMode;
+            cFloors.SelectedIndex = (int)_settings.FloorType;
+            bTunic.BackColor = _settings.TunicColor;
+        }
+
         private void tSeed_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
@@ -198,103 +233,103 @@ namespace MMRandomizer
 
         private void cUserItems_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.UseCustomItemList = cUserItems.Checked);
+            UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
         }
 
         private void cSpoiler_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.GenerateSpoilerLog = cSpoiler.Checked);
+            UpdateSingleSetting(() => _settings.GenerateSpoilerLog = cSpoiler.Checked);
         }
 
 
         private void cAdditional_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.AddOther = cAdditional.Checked);
+            UpdateSingleSetting(() => _settings.AddOther = cAdditional.Checked);
         }
 
         private void cBGM_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.RandomizeBGM = cBGM.Checked);
+            UpdateSingleSetting(() => _settings.RandomizeBGM = cBGM.Checked);
         }
 
         private void cBottled_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.RandomizeBottleCatchContents = cBottled.Checked);
+            UpdateSingleSetting(() => _settings.RandomizeBottleCatchContents = cBottled.Checked);
         }
 
         private void cCutsc_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.ShortenCutscenes = cCutsc.Checked);
+            UpdateSingleSetting(() => _settings.ShortenCutscenes = cCutsc.Checked);
         }
 
         private void cDChests_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.AddDungeonItems = cDChests.Checked);
+            UpdateSingleSetting(() => _settings.AddDungeonItems = cDChests.Checked);
         }
 
         private void cDEnt_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.RandomizeDungeonEntrances = cDEnt.Checked);
+            UpdateSingleSetting(() => _settings.RandomizeDungeonEntrances = cDEnt.Checked);
         }
 
         private void cDMult_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.DamageMode = (DamageMode)cDMult.SelectedIndex);
+            UpdateSingleSetting(() => _settings.DamageMode = (DamageMode)cDMult.SelectedIndex);
         }
 
         private void cDType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.DamageEffect = (DamageEffect)cDType.SelectedIndex);
+            UpdateSingleSetting(() => _settings.DamageEffect = (DamageEffect)cDType.SelectedIndex);
         }
 
         private void cEnemy_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.RandomizeEnemies = cEnemy.Checked);
+            UpdateSingleSetting(() => _settings.RandomizeEnemies = cEnemy.Checked);
         }
 
         private void cFloors_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.FloorType = (FloorType)cFloors.SelectedIndex);
+            UpdateSingleSetting(() => _settings.FloorType = (FloorType)cFloors.SelectedIndex);
         }
 
         private void cGossip_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.EnableGossipHints = cGossip.Checked);
+            UpdateSingleSetting(() => _settings.EnableGossipHints = cGossip.Checked);
         }
 
         private void cGravity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.MovementMode = (MovementMode)cGravity.SelectedIndex);
+            UpdateSingleSetting(() => _settings.MovementMode = (MovementMode)cGravity.SelectedIndex);
         }
 
         private void cLink_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.Character = (Character)cLink.SelectedIndex);
+            UpdateSingleSetting(() => _settings.Character = (Character)cLink.SelectedIndex);
         }
 
         private void cMixSongs_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.AddSongs = cMixSongs.Checked);
+            UpdateSingleSetting(() => _settings.AddSongs = cMixSongs.Checked);
         }
 
         private void cQText_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.QuickTextEnabled = cQText.Checked);
+            UpdateSingleSetting(() => _settings.QuickTextEnabled = cQText.Checked);
         }
 
         private void cShop_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.AddShopItems = cShop.Checked);
+            UpdateSingleSetting(() => _settings.AddShopItems = cShop.Checked);
         }
 
         private void cSoS_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.ExcludeSongOfSoaring = cSoS.Checked);
+            UpdateSingleSetting(() => _settings.ExcludeSongOfSoaring = cSoS.Checked);
         }
 
         private void cTatl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.TatlColorSchema = (TatlColorSchema)cTatl.SelectedIndex);
+            UpdateSingleSetting(() => _settings.TatlColorSchema = (TatlColorSchema)cTatl.SelectedIndex);
         }
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -304,19 +339,19 @@ namespace MMRandomizer
                 return;
             }
 
-            if (Settings.LogicMode == LogicMode.UserLogic
+            if (_settings.LogicMode == LogicMode.UserLogic
                 && openLogic.ShowDialog() != DialogResult.OK)
             {
                 cMode.SelectedIndex = 0;
             }
 
-            UpdateSingleSetting(() => Settings.LogicMode = (LogicMode)cMode.SelectedIndex);
-            Settings.UserLogicFileName = openLogic.FileName;
+            UpdateSingleSetting(() => _settings.LogicMode = (LogicMode)cMode.SelectedIndex);
+            _settings.UserLogicFileName = openLogic.FileName;
         }
 
         private void cVC_CheckedChanged(object sender, EventArgs e)
         {
-            _outputVC = cVC.Checked;
+            UpdateSingleSetting(() => _settings.OutputVC = cVC.Checked);
         }
 
         private void mExit_Click(object sender, EventArgs e)
@@ -338,8 +373,8 @@ namespace MMRandomizer
         {
             if (openBROM.ShowDialog() == DialogResult.OK)
             {
-                int r = ROMFuncs.ByteswapROM(openBROM.FileName);
-                switch (r)
+                int result = RomUtils.ByteswapROM(openBROM.FileName);
+                switch (result)
                 {
                     case 0:
                         MessageBox.Show("Successfully byteswapped ROM.",
@@ -374,7 +409,8 @@ namespace MMRandomizer
         /// </summary>
         private void EnableCheckBoxes()
         {
-            if (Settings.LogicMode == LogicMode.Vanilla)
+
+            if (_settings.LogicMode == LogicMode.Vanilla)
             {
                 cMixSongs.Enabled = false;
                 cSoS.Enabled = false;
@@ -401,7 +437,7 @@ namespace MMRandomizer
                 cUserItems.Enabled = true;
             };
 
-            if (Settings.UseCustomItemList)
+            if (_settings.UseCustomItemList)
             {
                 cSoS.Enabled = false;
                 cDChests.Enabled = false;
@@ -411,7 +447,7 @@ namespace MMRandomizer
             }
             else
             {
-                if (Settings.LogicMode != LogicMode.Vanilla)
+                if (_settings.LogicMode != LogicMode.Vanilla)
                 {
                     cSoS.Enabled = true;
                     cDChests.Enabled = true;
@@ -444,6 +480,10 @@ namespace MMRandomizer
             _isUpdating = false;
         }
 
+        private void UpdateSettingsString()
+        {
+            tSString.Text = _settings.ToString();
+        }
 
         private void EnableAllControls(bool v)
         {
@@ -480,11 +520,13 @@ namespace MMRandomizer
         }
 
         #endregion
-        
+
         #region Settings
 
         public void InitializeSettings()
         {
+            _settings = new Settings();
+
             cDMult.SelectedIndex = 0;
             cDType.SelectedIndex = 0;
             cGravity.SelectedIndex = 0;
@@ -498,162 +540,23 @@ namespace MMRandomizer
 
             bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
 
-            Settings.GenerateSpoilerLog = true;
-            Settings.ExcludeSongOfSoaring = true;
-            Settings.EnableGossipHints = true;
-            Settings.TunicColor = bTunic.BackColor;
-            Settings.Seed = Math.Abs(Environment.TickCount);
+            _settings.GenerateSpoilerLog = true;
+            _settings.ExcludeSongOfSoaring = true;
+            _settings.EnableGossipHints = true;
+            _settings.TunicColor = bTunic.BackColor;
+            _settings.Seed = Math.Abs(Environment.TickCount);
 
-            tSeed.Text = Settings.Seed.ToString();
+            tSeed.Text = _settings.Seed.ToString();
 
             var oldSettingsString = tSString.Text;
-
             UpdateSettingsString();
-
             _oldSettingsString = oldSettingsString;
         }
 
-        private int[] BuildSettingsBytes()
-        {
-            int[] O = new int[3];
-
-            if (Settings.UseCustomItemList) { O[0] += 8192; };
-            if (Settings.AddOther) { O[0] += 4096; };
-            if (Settings.EnableGossipHints) { O[0] += 2048; };
-            if (Settings.ExcludeSongOfSoaring) { O[0] += 1024; };
-            if (Settings.GenerateSpoilerLog) { O[0] += 512; };
-            if (Settings.AddSongs) { O[0] += 256; };
-            if (Settings.RandomizeBottleCatchContents) { O[0] += 128; };
-            if (Settings.AddDungeonItems) { O[0] += 64; };
-            if (Settings.AddShopItems) { O[0] += 32; };
-            if (Settings.RandomizeDungeonEntrances) { O[0] += 16; };
-            if (Settings.RandomizeBGM) { O[0] += 8; };
-            if (Settings.RandomizeEnemies) { O[0] += 4; };
-            if (Settings.ShortenCutscenes) { O[0] += 2; };
-            if (Settings.QuickTextEnabled) { O[0] += 1; };
-
-            O[1] = ((byte)Settings.LogicMode << 16)
-                | ((byte)Settings.Character << 8)
-                | ((byte)Settings.TatlColorSchema)
-                | ((byte)Settings.DamageEffect << 24)
-                    | ((byte)Settings.DamageMode << 28);
-
-            O[2] = (Settings.TunicColor.R << 16)
-                | (Settings.TunicColor.G << 8)
-                | (Settings.TunicColor.B)
-                | ((byte)Settings.FloorType << 24)
-                    | ((byte)Settings.MovementMode << 28);
-
-            return O;
-        }
-
-        // TODO add to settings class
-        private void UpdateSettingsString()
-        {
-            string settings = EncodeSettings();
-            tSString.Text = settings;
-
-            UpdateOutputFilenames(settings);
-        }
-
-        private void UpdateOutputFilenames(string settings)
-        {
-            string appendSeed = Settings.GenerateSpoilerLog ? $"{Settings.Seed}_" : "";
-            string filename = $"MMR_{appendSeed}{settings}";
-
-            Settings.DefaultOutputROMFilename = filename + ".z64";
-        }
-
-        private string EncodeSettings()
-        {
-            int[] Options = BuildSettingsBytes();
-
-            return $"{Base36.Encode(Options[0])}-{Base36.Encode(Options[1])}-{Base36.Encode(Options[2])}";
-        }
-
-        // TODO add to settings class
-        private void SetOptions(string[] O)
-        {
-
-            int Checks = (int)Base36.Decode(O[0]);
-            int Combos = (int)Base36.Decode(O[1]);
-            int ColourAndMisc = (int)Base36.Decode(O[2]);
-
-            Settings.UseCustomItemList = (Checks & 8192) > 0;
-            Settings.AddOther = (Checks & 4096) > 0;
-            Settings.EnableGossipHints = (Checks & 2048) > 0;
-            Settings.ExcludeSongOfSoaring = (Checks & 1024) > 0;
-            Settings.GenerateSpoilerLog = (Checks & 512) > 0;
-            Settings.AddSongs = (Checks & 256) > 0;
-            Settings.RandomizeBottleCatchContents = (Checks & 128) > 0;
-            Settings.AddDungeonItems = (Checks & 64) > 0;
-            Settings.AddShopItems = (Checks & 32) > 0;
-            Settings.RandomizeDungeonEntrances = (Checks & 16) > 0;
-            Settings.RandomizeBGM = (Checks & 8) > 0;
-            Settings.RandomizeEnemies = (Checks & 4) > 0;
-            Settings.ShortenCutscenes = (Checks & 2) > 0;
-            Settings.QuickTextEnabled = (Checks & 1) > 0;
-
-            cUserItems.Checked = Settings.UseCustomItemList;
-            cAdditional.Checked = Settings.AddOther;
-            cGossip.Checked = Settings.EnableGossipHints;
-            cSoS.Checked = Settings.ExcludeSongOfSoaring;
-            cSpoiler.Checked = Settings.GenerateSpoilerLog;
-            cMixSongs.Checked = Settings.AddSongs;
-            cBottled.Checked = Settings.RandomizeBottleCatchContents;
-            cDChests.Checked = Settings.AddDungeonItems;
-            cShop.Checked = Settings.AddShopItems;
-            cDEnt.Checked = Settings.RandomizeDungeonEntrances;
-            cBGM.Checked = Settings.RandomizeBGM;
-            cEnemy.Checked = Settings.RandomizeEnemies;
-            cCutsc.Checked = Settings.ShortenCutscenes;
-            cQText.Checked = Settings.QuickTextEnabled;
-            cFreeHints.Checked = Settings.FreeHints;
-
-            var damageMultiplierIndex = (int)((Combos & 0xF0000000) >> 28);
-            var damageTypeIndex = (Combos & 0xF000000) >> 24;
-            var modeIndex = (Combos & 0xFF0000) >> 16;
-            var characterIndex = (Combos & 0xFF00) >> 8;
-            var tatlColorIndex = Combos & 0xFF;
-            var gravityTypeIndex = (int)((ColourAndMisc & 0xF0000000) >> 28);
-            var floorTypeIndex = (ColourAndMisc & 0xF000000) >> 24;
-            var tunicColor = Color.FromArgb(
-                (ColourAndMisc & 0xFF0000) >> 16,
-                (ColourAndMisc & 0xFF00) >> 8,
-                ColourAndMisc & 0xFF);
-
-            Settings.DamageMode = (DamageMode)damageMultiplierIndex;
-            Settings.DamageEffect = (DamageEffect)damageTypeIndex;
-            Settings.LogicMode = (LogicMode)modeIndex;
-            Settings.Character = (Character)characterIndex;
-            Settings.TatlColorSchema = (TatlColorSchema)tatlColorIndex;
-            Settings.MovementMode = (MovementMode)gravityTypeIndex;
-            Settings.FloorType = (FloorType)floorTypeIndex;
-            Settings.TunicColor = tunicColor;
-
-            cDMult.SelectedIndex = damageMultiplierIndex;
-            cDType.SelectedIndex = damageTypeIndex;
-            cMode.SelectedIndex = modeIndex;
-            cLink.SelectedIndex = characterIndex;
-            cTatl.SelectedIndex = tatlColorIndex;
-            cGravity.SelectedIndex = gravityTypeIndex;
-            cFloors.SelectedIndex = floorTypeIndex;
-            bTunic.BackColor = tunicColor;
-        }
-
-        private void UpdateSettingsFromString(string settings)
-        {
-            SetOptions(settings.Split('-'));
-            UpdateOutputFilenames(settings);
-        }
 
         #endregion
 
         #region Randomization
-        private void SeedRNG()
-        {
-            RNG = new Random(Settings.Seed);
-        }
 
         /// <summary>
         /// Try to perform randomization and make rom
@@ -662,7 +565,7 @@ namespace MMRandomizer
         {
             try
             {
-                Randomize(worker, e);
+                _randomizer.Randomize(worker, e);
             }
             catch (Exception ex)
             {
@@ -674,14 +577,14 @@ namespace MMRandomizer
             // Additional validation of preconditions
             if (!ValidateInputFile()) return;
 
-            if (!ValidateROM(Settings.InputROMFilename))
+            if (!_builder.ValidateROM(_settings.InputROMFilename))
             {
                 MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            MakeROM(Settings.InputROMFilename, Settings.OutputROMFilename, worker);
+            _builder.MakeROM(_settings.InputROMFilename, _settings.OutputROMFilename, worker);
 
             MessageBox.Show("Successfully built output ROM!",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
@@ -693,58 +596,13 @@ namespace MMRandomizer
         /// <returns></returns>
         private bool ValidateInputFile()
         {
-            if (!File.Exists(Settings.InputROMFilename))
+            if (!File.Exists(_settings.InputROMFilename))
             {
                 MessageBox.Show("Input ROM not selected or doesn't exist, cannot generate output.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
             return true;
-        }
-
-        /// <summary>
-        /// Randomizes the ROM with respect to the configured ruleset.
-        /// </summary>
-        private void Randomize(BackgroundWorker worker, DoWorkEventArgs e)
-        {
-            SeedRNG();
-
-            if (Settings.LogicMode != LogicMode.Vanilla)
-            {
-                worker.ReportProgress(5, "Preparing ruleset...");
-                PrepareRulesetItemData();
-
-                if (Settings.RandomizeDungeonEntrances)
-                {
-                    worker.ReportProgress(10, "Shuffling entrances...");
-                    EntranceShuffle();
-                }
-
-                worker.ReportProgress(30, "Shuffling items...");
-                ItemShuffle();
-
-
-                if (Settings.EnableGossipHints)
-                {
-                    worker.ReportProgress(35, "Making gossip quotes...");
-                }
-
-                //gossip
-                SeedRNG();
-                MakeGossipQuotes();
-            }
-
-            worker.ReportProgress(40, "Coloring Tatl...");
-
-            //Randomize tatl colour
-            SeedRNG();
-            SetTatlColour();
-
-            worker.ReportProgress(45, "Randomizing Music...");
-
-            //Sort BGM
-            SeedRNG();
-            SortBGM();
         }
 
         #endregion

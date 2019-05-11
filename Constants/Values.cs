@@ -1,9 +1,18 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Forms;
 
-namespace MMRandomizer
+namespace MMRando.Constants
 {
     public static class Values
     {
+
+        public static string MainDirectory = Application.StartupPath;
+        public static string MusicDirectory = Application.StartupPath + @"\music\";
+        public static string ModsDirectory = Application.StartupPath + @"\mods\";
+        public static string AddrsDirectory = Application.StartupPath + @"\addresses\";
+        public static string ObjsDirectory = Application.StartupPath + @"\obj\";
+        public static string VCDirectory = Application.StartupPath + @"\vc\";
+
         /// <summary>
         /// Item indices ranging from 98 and to (inclusive) 120 define 
         /// areas and other (epona, explosive, arrow). In total they make up 23 entries.

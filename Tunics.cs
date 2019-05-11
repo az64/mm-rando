@@ -1,11 +1,12 @@
-﻿using System;
+﻿using MMRando.Utils;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace MMRandomizer
+namespace MMRando
 {
 
-    public class Tunics
+    public class TunicUtils
     {
 
         static int[] sizes = new int[] { 14, 128, 33, 512, 16 };
@@ -134,7 +135,7 @@ namespace MMRandomizer
                 {
                     sat = 1.0f;
                 };
-                s[i] = FromAHSB(c[i].A, h, sat, b);
+                s[i] = Hue.FromAHSB(c[i].A, h, sat, b);
                 //this code is a mess
                 if (zora && grad)
                 {
@@ -224,7 +225,8 @@ namespace MMRandomizer
             for (int i = 0; i < count; i++)
             {
                 int ca = addr + (i * 2);
-                ushort rgba = (ushort)((MMFileList[file].Data[ca] << 8) | MMFileList[file].Data[ca + 1]);
+                ushort rgba = (ushort)((RomData.MMFileList[file].Data[ca] << 8) 
+                    | RomData.MMFileList[file].Data[ca + 1]);
                 c[i] = FromRGBA5551(rgba);
             };
             return c;
@@ -236,8 +238,8 @@ namespace MMRandomizer
             {
                 int ca = addr + (i * 2);
                 ushort rgba = ToRGBA5551(c[i]);
-                MMFileList[file].Data[ca] = (byte)(rgba >> 8);
-                MMFileList[file].Data[ca + 1] = (byte)(rgba & 0xFF);
+                RomData.MMFileList[file].Data[ca] = (byte)(rgba >> 8);
+                RomData.MMFileList[file].Data[ca + 1] = (byte)(rgba & 0xFF);
             };
         }
 
@@ -247,8 +249,8 @@ namespace MMRandomizer
             {
                 for (int j = 0; j < addresses[i].Length; j++)
                 {
-                    int f = GetFileIndexForWriting(addresses[i][j]);
-                    int a = addresses[i][j] - MMFileList[f].Addr;
+                    int f = RomUtils.GetFileIndexForWriting(addresses[i][j]);
+                    int a = addresses[i][j] - RomData.MMFileList[f].Addr;
                     Color[] c = ReadColours(f, a, sizes[i]);
                     c = ShiftHue(c, target, sizes[i], zora[i], grad[i], fd[i]);
                     WriteColours(f, a, sizes[i], c);

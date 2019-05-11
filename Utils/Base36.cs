@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MMRandomizer.Utils
+namespace MMRando.Utils
 {
     //-------------------------------------------------------------//
 

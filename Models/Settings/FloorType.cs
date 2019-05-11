@@ -1,4 +1,4 @@
-﻿namespace MMRandomizer.Models
+﻿namespace MMRando.Models
 {
     public enum FloorType
     {

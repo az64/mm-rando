@@ -1,5 +1,5 @@
-﻿using MMRandomizer.Constants;
-using MMRandomizer.Models.Rom;
+﻿using MMRando.Constants;
+using MMRando.Models.Rom;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,15 +7,15 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MMRandomizer
+namespace MMRando.Utils
 {
 
-    public static class Rom
+    public static class RomUtils
     {
 
         public static void SetStrings(string filename, string ver, string setting)
         {
-            Resource.ApplyHack(filename);
+            ResourceUtils.ApplyHack(filename);
             int veraddr = 0xC44E30;
             int settingaddr = 0xC44E70;
             string verstring = $"MM Rando {ver}\x00";
@@ -33,7 +33,7 @@ namespace MMRandomizer
             ReadWriteHelpers.Arr_Insert(buffer, 0, buffer.Length, file.Data, addr);
         }
 
-        private static int AddNewFile(string filename)
+        public static int AddNewFile(string filename)
         {
             byte[] buffer;
             using (BinaryReader data = new BinaryReader(File.Open(filename, FileMode.Open)))
@@ -54,13 +54,13 @@ namespace MMRandomizer
             return newfile.Addr;
         }
 
-        private static int AddrToFile(int RAddr)
+        public static int AddrToFile(int RAddr)
         {
             return RomData.MMFileList.FindIndex(
                 file => RAddr >= file.Addr && RAddr < file.End);
         }
 
-        private static void CheckCompressed(int fileIndex)
+        public static void CheckCompressed(int fileIndex)
         {
             var file = RomData.MMFileList[fileIndex];
             if (file.IsCompressed && !file.WasEdited)

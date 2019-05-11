@@ -4,9 +4,9 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace MMRandomizer
+namespace MMRando
 {
-    public partial class CustomItemListForm : Form
+    public partial class ItemSelectorForm : Form
     {
         private readonly static string[] DEFAULT_ITEM_NAMES = new string[] 
         {
@@ -283,7 +283,7 @@ namespace MMRandomizer
 
         public static List<int> ReturnItems;
 
-        public CustomItemListForm(List<int> selectedItems = null, bool checkboxes = true, List<int> highlightedItems = null)
+        public ItemSelectorForm(List<int> selectedItems = null, bool checkboxes = true, List<int> highlightedItems = null)
         {
             InitializeComponent();
             for (int i = 0; i < ITEM_NAMES.Length; i++)

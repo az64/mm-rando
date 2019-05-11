@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MMRando.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MMRandomizer
+namespace MMRando
 {
     public partial class LogicEditorForm : Form
     {
@@ -91,11 +92,11 @@ namespace MMRandomizer
 
         private void UpdateDependence(int n)
         {
-            CustomItemListForm ItemSelect = new CustomItemListForm();
+            ItemSelectorForm ItemSelect = new ItemSelectorForm();
             DialogResult R = ItemSelect.ShowDialog();
             if (R == DialogResult.OK)
             {
-                List<int> Returned = CustomItemListForm.ReturnItems;
+                List<int> Returned = ItemSelectorForm.ReturnItems;
                 if (Returned.Count == 0)
                 {
                     return;
@@ -136,11 +137,11 @@ namespace MMRandomizer
             {
                 selectedItems = ItemList[n].Conditional[conditionalIndex.Value];
             }
-            CustomItemListForm ItemSelect = new CustomItemListForm(selectedItems);
+            ItemSelectorForm ItemSelect = new ItemSelectorForm(selectedItems);
             DialogResult R = ItemSelect.ShowDialog();
             if (R == DialogResult.OK)
             {
-                List<int> Returned = CustomItemListForm.ReturnItems;
+                List<int> Returned = ItemSelectorForm.ReturnItems;
                 if (Returned.Count == 0)
                 {
                     return;
@@ -266,7 +267,7 @@ namespace MMRandomizer
 
         private void mNew_Click(object sender, EventArgs e)
         {
-            CustomItemListForm.ResetItems();
+            ItemSelectorForm.ResetItems();
             ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();
             nItem.Minimum = 0;
             nItem.Maximum = ITEM_NAMES.Length - 1;
@@ -287,7 +288,7 @@ namespace MMRandomizer
                 StreamReader LogicFile = new StreamReader(File.Open(openLogic.FileName, FileMode.Open));
                 ItemList = new List<ItemLogic>();
                 string[] lines = LogicFile.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-                CustomItemListForm.ResetItems();
+                ItemSelectorForm.ResetItems();
                 ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();
                 int i = 0;
                 while (true)
@@ -303,7 +304,7 @@ namespace MMRandomizer
                         {
                             var newList = ITEM_NAMES.ToList();
                             newList.Add(itemName);
-                            CustomItemListForm.AddItem(itemName);
+                            ItemSelectorForm.AddItem(itemName);
                             ITEM_NAMES = newList.ToArray();
                         }
                         i++;
@@ -406,7 +407,7 @@ namespace MMRandomizer
                     nItem.Maximum = ITEM_NAMES.Length - 1;
                     ItemList.Add(new ItemLogic());
                     nItem.Value = nItem.Maximum;
-                    CustomItemListForm.AddItem(newItemForm.ReturnValue);
+                    ItemSelectorForm.AddItem(newItemForm.ReturnValue);
                 }
             }
         }
@@ -423,11 +424,11 @@ namespace MMRandomizer
                 }
                 else
                 {
-                    var itemSelect = new CustomItemListForm(checkboxes: false, highlightedItems: conditions);
+                    var itemSelect = new ItemSelectorForm(checkboxes: false, highlightedItems: conditions);
                     var result = itemSelect.ShowDialog();
-                    if (result == DialogResult.OK && CustomItemListForm.ReturnItems.Any())
+                    if (result == DialogResult.OK && ItemSelectorForm.ReturnItems.Any())
                     {
-                        var itemIndex = CustomItemListForm.ReturnItems.First();
+                        var itemIndex = ItemSelectorForm.ReturnItems.First();
                         nItem.Value = itemIndex;
                     }
                 }
@@ -436,11 +437,11 @@ namespace MMRandomizer
 
         private void button_goto_Click(object sender, EventArgs e)
         {
-            var itemSelect = new CustomItemListForm(checkboxes: false);
+            var itemSelect = new ItemSelectorForm(checkboxes: false);
             var result = itemSelect.ShowDialog();
-            if (result == DialogResult.OK && CustomItemListForm.ReturnItems.Any())
+            if (result == DialogResult.OK && ItemSelectorForm.ReturnItems.Any())
             {
-                var itemIndex = CustomItemListForm.ReturnItems.First();
+                var itemIndex = ItemSelectorForm.ReturnItems.First();
                 nItem.Value = itemIndex;
             }
         }

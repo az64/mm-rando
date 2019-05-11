@@ -1,20 +1,21 @@
-﻿using MMRandomizer.Models.Rom;
+﻿using MMRando.Constants;
+using MMRando.Models.Rom;
 using System;
 using System.Collections.Generic;
-using static MMRandomizer.Vectors;
+using static MMRando.Vectors;
 
-namespace MMRandomizer
+namespace MMRando.Utils
 {
 
-    public class Scene
+    public class SceneUtils
     {
-        private static void ResetSceneFlagMask()
+        public static void ResetSceneFlagMask()
         {
-            WriteToROM(SceneFlagMasks, (uint)0);
-            WriteToROM(SceneFlagMasks + 0xC, (uint)0);
+            ReadWriteHelpers.WriteToROM(Addresses.SceneFlagMasks, (uint)0);
+            ReadWriteHelpers.WriteToROM(Addresses.SceneFlagMasks + 0xC, (uint)0);
         }
 
-        private static void UpdateSceneFlagMask(int num)
+        public static void UpdateSceneFlagMask(int num)
         {
             int offset = num >> 3;
             int mod = offset % 16;
@@ -25,56 +26,57 @@ namespace MMRandomizer
             else if (mod < 12)
             {
                 offset -= 4;
-            };
+            }
+
             int bit = 1 << (num & 7);
-            int f = GetFileIndexForWriting(SceneFlagMasks);
-            int addr = SceneFlagMasks - MMFileList[f].Addr + offset;
-            MMFileList[f].Data[addr] |= (byte)bit;
+            int f =RomUtils. GetFileIndexForWriting(Addresses.SceneFlagMasks);
+            int addr = Addresses.SceneFlagMasks - RomData.MMFileList[f].Addr + offset;
+            RomData.MMFileList[f].Data[addr] |= (byte)bit;
         }
 
-        private static void ReadSceneTable()
+        public static void ReadSceneTable()
         {
-            SceneList = new List<Scene>();
-            int f = GetFileIndexForWriting(SceneTable);
-            int _SceneTable = SceneTable - MMFileList[f].Addr;
+            RomData.SceneList = new List<Scene>();
+            int f = RomUtils.GetFileIndexForWriting(Addresses.SceneTable);
+            int _SceneTable = Addresses.SceneTable - RomData.MMFileList[f].Addr;
             int i = 0;
             while (true)
             {
                 Scene s = new Scene();
-                uint saddr = Arr_ReadU32(MMFileList[f].Data, _SceneTable + i);
+                uint saddr = ReadWriteHelpers.Arr_ReadU32(RomData.MMFileList[f].Data, _SceneTable + i);
                 if (saddr > 0x4000000)
                 {
                     break;
                 };
                 if (saddr != 0)
                 {
-                    s.File = AddrToFile((int)saddr);
+                    s.File = RomUtils.AddrToFile((int)saddr);
                     s.Number = i >> 4;
-                    SceneList.Add(s);
+                    RomData.SceneList.Add(s);
                 };
                 i += 16;
             };
         }
 
-        private static void GetMaps()
+        public static void GetMaps()
         {
-            for (int i = 0; i < SceneList.Count; i++)
+            for (int i = 0; i < RomData.SceneList.Count; i++)
             {
-                int f = SceneList[i].File;
-                CheckCompressed(f);
+                int f = RomData.SceneList[i].File;
+                RomUtils.CheckCompressed(f);
                 int j = 0;
                 while (true)
                 {
-                    byte cmd = MMFileList[f].Data[j];
+                    byte cmd = RomData.MMFileList[f].Data[j];
                     if (cmd == 0x04)
                     {
-                        byte mapcount = MMFileList[f].Data[j + 1];
-                        int mapsaddr = (int)Arr_ReadU32(MMFileList[f].Data, j + 4) & 0xFFFFFF;
+                        byte mapcount = RomData.MMFileList[f].Data[j + 1];
+                        int mapsaddr = (int)ReadWriteHelpers.Arr_ReadU32(RomData.MMFileList[f].Data, j + 4) & 0xFFFFFF;
                         for (int k = 0; k < mapcount; k++)
                         {
                             Map m = new Map();
-                            m.File = AddrToFile((int)Arr_ReadU32(MMFileList[f].Data, mapsaddr));
-                            SceneList[i].Maps.Add(m);
+                            m.File = RomUtils.AddrToFile((int)ReadWriteHelpers.Arr_ReadU32(RomData.MMFileList[f].Data, mapsaddr));
+                            RomData.SceneList[i].Maps.Add(m);
                             mapsaddr += 8;
                         };
                         break;
@@ -88,24 +90,24 @@ namespace MMRandomizer
             };
         }
 
-        private static void GetMapHeaders()
+        public static void GetMapHeaders()
         {
-            for (int i = 0; i < SceneList.Count; i++)
+            for (int i = 0; i < RomData.SceneList.Count; i++)
             {
-                int maps = SceneList[i].Maps.Count;
+                int maps = RomData.SceneList[i].Maps.Count;
                 for (int j = 0; j < maps; j++)
                 {
-                    int f = SceneList[i].Maps[j].File;
-                    CheckCompressed(f);
+                    int f = RomData.SceneList[i].Maps[j].File;
+                    RomUtils.CheckCompressed(f);
                     int k = 0;
                     int setupsaddr = -1;
                     int nextlowest = -1;
                     while (true)
                     {
-                        byte cmd = MMFileList[f].Data[k];
+                        byte cmd = RomData.MMFileList[f].Data[k];
                         if (cmd == 0x18)
                         {
-                            setupsaddr = (int)Arr_ReadU32(MMFileList[f].Data, k + 4) & 0xFFFFFF;
+                            setupsaddr = (int)ReadWriteHelpers.Arr_ReadU32(RomData.MMFileList[f].Data, k + 4) & 0xFFFFFF;
                         }
                         else if (cmd == 0x14)
                         {
@@ -113,9 +115,9 @@ namespace MMRandomizer
                         }
                         else
                         {
-                            if (MMFileList[f].Data[k + 4] == 0x03)
+                            if (RomData.MMFileList[f].Data[k + 4] == 0x03)
                             {
-                                int p = (int)Arr_ReadU32(MMFileList[f].Data, k + 4) & 0xFFFFFF;
+                                int p = (int)ReadWriteHelpers.Arr_ReadU32(RomData.MMFileList[f].Data, k + 4) & 0xFFFFFF;
                                 if (((p < nextlowest) || (nextlowest == -1)) && ((p > setupsaddr) && (setupsaddr != -1)))
                                 {
                                     nextlowest = p;
@@ -130,16 +132,16 @@ namespace MMRandomizer
                     };
                     for (k = setupsaddr; k < nextlowest; k += 4)
                     {
-                        byte s = MMFileList[f].Data[k];
+                        byte s = RomData.MMFileList[f].Data[k];
                         if (s != 0x03)
                         {
                             break;
                         };
-                        int p = (int)Arr_ReadU32(MMFileList[f].Data, k) & 0xFFFFFF;
+                        int p = (int)ReadWriteHelpers.Arr_ReadU32(RomData.MMFileList[f].Data, k) & 0xFFFFFF;
                         Map m = new Map();
                         m.File = f;
                         m.Header = p;
-                        SceneList[i].Maps.Add(m);
+                        RomData.SceneList[i].Maps.Add(m);
                     };
                 };
             };
@@ -151,16 +153,16 @@ namespace MMRandomizer
             for (int i = 0; i < Count; i++)
             {
                 Actor a = new Actor();
-                ushort an = Arr_ReadU16(Map, Addr + (i * 16));
+                ushort an = ReadWriteHelpers.Arr_ReadU16(Map, Addr + (i * 16));
                 a.m = an & 0xF000;
                 a.n = an & 0x0FFF;
-                a.p.x = (short)Arr_ReadU16(Map, Addr + (i * 16) + 2);
-                a.p.y = (short)Arr_ReadU16(Map, Addr + (i * 16) + 4);
-                a.p.z = (short)Arr_ReadU16(Map, Addr + (i * 16) + 6);
-                a.r.x = (short)Arr_ReadU16(Map, Addr + (i * 16) + 8);
-                a.r.y = (short)Arr_ReadU16(Map, Addr + (i * 16) + 10);
-                a.r.z = (short)Arr_ReadU16(Map, Addr + (i * 16) + 12);
-                a.v = Arr_ReadU16(Map, Addr + (i * 16) + 14);
+                a.p.x = (short)ReadWriteHelpers.Arr_ReadU16(Map, Addr + (i * 16) + 2);
+                a.p.y = (short)ReadWriteHelpers.Arr_ReadU16(Map, Addr + (i * 16) + 4);
+                a.p.z = (short)ReadWriteHelpers.Arr_ReadU16(Map, Addr + (i * 16) + 6);
+                a.r.x = (short)ReadWriteHelpers.Arr_ReadU16(Map, Addr + (i * 16) + 8);
+                a.r.y = (short)ReadWriteHelpers.Arr_ReadU16(Map, Addr + (i * 16) + 10);
+                a.r.z = (short)ReadWriteHelpers.Arr_ReadU16(Map, Addr + (i * 16) + 12);
+                a.v = ReadWriteHelpers.Arr_ReadU16(Map, Addr + (i * 16) + 14);
                 Actors.Add(a);
             };
             return Actors;
@@ -171,7 +173,7 @@ namespace MMRandomizer
             List<int> Objects = new List<int>();
             for (int i = 0; i < Count; i++)
             {
-                Objects.Add(Arr_ReadU16(Map, Addr + (i * 2)));
+                Objects.Add(ReadWriteHelpers.Arr_ReadU16(Map, Addr + (i * 2)));
             };
             return Objects;
         }
@@ -205,39 +207,39 @@ namespace MMRandomizer
             WriteMapObjects(RomData.MMFileList[M.File].Data, M.ObjAddr, M.Objects);
         }
 
-        private static void UpdateScene(Scene S)
+        public static void UpdateScene(Scene scene)
         {
-            for (int i = 0; i < S.Maps.Count; i++)
+            for (int i = 0; i < scene.Maps.Count; i++)
             {
-                UpdateMap(S.Maps[i]);
+                UpdateMap(scene.Maps[i]);
             };
         }
 
-        private static void GetActors()
+        public static void GetActors()
         {
-            for (int i = 0; i < SceneList.Count; i++)
+            for (int i = 0; i < RomData.SceneList.Count; i++)
             {
-                for (int j = 0; j < SceneList[i].Maps.Count; j++)
+                for (int j = 0; j < RomData.SceneList[i].Maps.Count; j++)
                 {
-                    int f = SceneList[i].Maps[j].File;
-                    CheckCompressed(f);
-                    int k = SceneList[i].Maps[j].Header;
+                    int f = RomData.SceneList[i].Maps[j].File;
+                    RomUtils.CheckCompressed(f);
+                    int k = RomData.SceneList[i].Maps[j].Header;
                     while (true)
                     {
-                        byte cmd = MMFileList[f].Data[k];
+                        byte cmd = RomData.MMFileList[f].Data[k];
                         if (cmd == 0x01)
                         {
-                            byte ActorCount = MMFileList[f].Data[k + 1];
-                            int ActorAddr = (int)Arr_ReadU32(MMFileList[f].Data, k + 4) & 0xFFFFFF;
-                            SceneList[i].Maps[j].ActorAddr = ActorAddr;
-                            SceneList[i].Maps[j].Actors = ReadMapActors(MMFileList[f].Data, ActorAddr, ActorCount);
+                            byte ActorCount = RomData.MMFileList[f].Data[k + 1];
+                            int ActorAddr = (int)ReadWriteHelpers.Arr_ReadU32(RomData.MMFileList[f].Data, k + 4) & 0xFFFFFF;
+                            RomData.SceneList[i].Maps[j].ActorAddr = ActorAddr;
+                            RomData.SceneList[i].Maps[j].Actors = ReadMapActors(RomData.MMFileList[f].Data, ActorAddr, ActorCount);
                         };
                         if (cmd == 0x0B)
                         {
-                            byte ObjectCount = MMFileList[f].Data[k + 1];
-                            int ObjectAddr = (int)Arr_ReadU32(MMFileList[f].Data, k + 4) & 0xFFFFFF;
-                            SceneList[i].Maps[j].ObjAddr = ObjectAddr;
-                            SceneList[i].Maps[j].Objects = ReadMapObjects(MMFileList[f].Data, ObjectAddr, ObjectCount);
+                            byte ObjectCount = RomData.MMFileList[f].Data[k + 1];
+                            int ObjectAddr = (int)ReadWriteHelpers.Arr_ReadU32(RomData.MMFileList[f].Data, k + 4) & 0xFFFFFF;
+                            RomData.SceneList[i].Maps[j].ObjAddr = ObjectAddr;
+                            RomData.SceneList[i].Maps[j].Objects = ReadMapObjects(RomData.MMFileList[f].Data, ObjectAddr, ObjectCount);
                         };
                         if (cmd == 0x14)
                         {

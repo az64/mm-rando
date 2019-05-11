@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MMRandomizer.Models.Vectors
+namespace MMRando.Models.Vectors
 {
     public class vecf32
     {

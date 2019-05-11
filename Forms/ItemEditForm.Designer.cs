@@ -1,4 +1,4 @@
-﻿namespace MMRandomizer.Forms
+﻿namespace MMRando.Forms
 {
     partial class ItemEditForm
     {

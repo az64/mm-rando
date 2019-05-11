@@ -1,26 +1,26 @@
-﻿using MMRandomizer.Constants;
-using MMRandomizer.Models.Rom;
+﻿using MMRando.Constants;
+using MMRando.Models.Rom;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static MMRandomizer.RomData;
+using static MMRando.RomData;
 
-namespace MMRandomizer
+namespace MMRando.Utils
 {
 
-    public static class Message
+    public static class MessageUtils
     {
         //todo - allow rebuilding text file
 
         private static void WriteMessage(int addr, byte[] msg)
         {
-            int fileIndex = GetFileIndexForWriting(TxTFile);
-            Arr_Insert(msg, 0, msg.Length, MMFileList[fileIndex].Data, addr);
+            int fileIndex = RomUtils.GetFileIndexForWriting(Addresses.TextFile);
+            ReadWriteHelpers.Arr_Insert(msg, 0, msg.Length, MMFileList[fileIndex].Data, addr);
         }
 
         private static MMMesssage FindMesssage(int address)
         {
-            int fileIndex = Rom.GetFileIndexForWriting(TxtTable);
+            int fileIndex = RomUtils.GetFileIndexForWriting(Addresses.TextTable);
             int baseAddress = Addresses.TextTable - MMFileList[fileIndex].Addr;
 
             MMMesssage message = new MMMesssage();

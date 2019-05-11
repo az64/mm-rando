@@ -1,42 +1,39 @@
-﻿using MMRandomizer.Models;
-using MMRandomizer.Models.Rom;
-using MMRandomizer.Utils;
+﻿using MMRando.Constants;
+using MMRando.Models;
+using MMRando.Models.Rom;
+using MMRando.Utils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace MMRandomizer
+namespace MMRando
 {
 
-    public class Shuffle
+    public class Randomizer
     {
+        public Random RNG { get; set; }
 
-        Random RNG;
+        public int[] NewEntrances = new int[] { -1, -1, -1, -1 };
+        public int[] NewExits = new int[] { -1, -1, -1, -1 };
 
-        private int[] _newEntrances = new int[] { -1, -1, -1, -1 };
-        private int[] _newExits = new int[] { -1, -1, -1, -1 };
-        private int[] _newDCFlags = new int[] { -1, -1, -1, -1 };
-        private int[] _newDCMasks = new int[] { -1, -1, -1, -1 };
-        private int[] _newEnts = new int[] { -1, -1, -1, -1 };
-        private int[] _newExts = new int[] { -1, -1, -1, -1 };
+        public int[] NewExts = new int[] { -1, -1, -1, -1 };
+        public int[] NewDCFlags = new int[] { -1, -1, -1, -1 };
+        public int[] NewDCMasks = new int[] { -1, -1, -1, -1 };
+        public int[] NewEnts = new int[] { -1, -1, -1, -1 };
 
-        public class Gossip
-        {
-            public string[] SourceMessage { get; set; }
-            public string[] DestinationMessage { get; set; }
-        }
+        public List<ItemObject> ItemList { get; set; }
+        public List<string> GossipQuotes { get; set; }
 
-        List<ItemObject> ItemList { get; set; }
         List<SequenceInfo> SequenceList { get; set; }
         List<SequenceInfo> TargetSequences { get; set; }
         List<Gossip> GossipList { get; set; }
         List<int> ConditionsChecked { get; set; }
         Dictionary<int, Dependence> DependenceChecked { get; set; }
         List<int[]> ConditionRemoves { get; set; }
-        List<string> GossipQuotes { get; set; }
 
         private class Dependence
         {
@@ -101,6 +98,13 @@ namespace MMRandomizer
         {
         };
 
+        private Settings _settings;
+
+        public Randomizer(Settings settings)
+        {
+            _settings = settings;
+        }
+
         //rando functions
 
         #region Gossip quotes
@@ -112,50 +116,50 @@ namespace MMRandomizer
 
             for (int itemIndex = 0; itemIndex < ItemList.Count; itemIndex++)
             {
-                if (ItemList[itemIndex].ReplacesAnotherItem)
+                if (!ItemList[itemIndex].ReplacesAnotherItem)
                 {
                     continue;
                 }
 
                 // Skip hints for vanilla bottle content
-                if ((!Settings.RandomizeBottleCatchContents)
+                if ((!_settings.RandomizeBottleCatchContents)
                     && ItemUtils.IsBottleCatchContent(itemIndex))
                 {
                     continue;
                 }
 
                 // Skip hints for vanilla shop items
-                if ((!Settings.AddShopItems)
+                if ((!_settings.AddShopItems)
                     && ItemUtils.IsShopItem(itemIndex))
                 {
                     continue;
-                };
+                }
 
                 // Skip hints for vanilla dungeon items
-                if (!Settings.AddDungeonItems
+                if (!_settings.AddDungeonItems
                     && ItemUtils.IsDungeonItem(itemIndex))
                 {
                     continue;
-                };
+                }
 
                 int sourceItemId = ItemList[itemIndex].ReplacesItemId;
                 if (ItemUtils.IsItemDefinedPastAreas(sourceItemId))
                 {
                     sourceItemId -= Values.NumberOfAreasAndOther;
-                };
+                }
 
                 int toItemId = itemIndex;
                 if (ItemUtils.IsItemDefinedPastAreas(toItemId))
                 {
                     toItemId -= Values.NumberOfAreasAndOther;
-                };
+                }
 
                 // 5% chance of being fake
                 bool isFake = (RNG.Next(100) < 5);
                 if (isFake)
                 {
                     sourceItemId = RNG.Next(GossipList.Count);
-                };
+                }
 
                 int sourceMessageLength = GossipList[sourceItemId]
                     .SourceMessage
@@ -181,17 +185,17 @@ namespace MMRandomizer
                 else
                 {
                     soundAddress = "\x1E\x69\x0C";
-                };
+                }
 
                 var quote = BuildGossipQuote(soundAddress, sourceMessage, destinationMessage);
 
                 GossipQuotes.Add(quote);
-            };
+            }
 
             for (int i = 0; i < Values.JunkGossipMessages.Count; i++)
             {
                 GossipQuotes.Add(Values.JunkGossipMessages[i]);
-            };
+            }
         }
 
         private void ReadAndPopulateGossipList()
@@ -212,7 +216,7 @@ namespace MMRandomizer
                 };
 
                 GossipList.Add(nextGossip);
-            };
+            }
         }
 
         public string BuildGossipQuote(string soundAddress, string sourceMessage, string destinationMessage)
@@ -235,12 +239,12 @@ namespace MMRandomizer
 
         private void EntranceShuffle()
         {
-            _newEntrances = new int[] { -1, -1, -1, -1 };
-            _newExits = new int[] { -1, -1, -1, -1 };
-            _newDCFlags = new int[] { -1, -1, -1, -1 };
-            _newDCMasks = new int[] { -1, -1, -1, -1 };
-            _newEnts = new int[] { -1, -1, -1, -1 };
-            _newExts = new int[] { -1, -1, -1, -1 };
+            NewEntrances = new int[] { -1, -1, -1, -1 };
+            NewExits = new int[] { -1, -1, -1, -1 };
+            NewDCFlags = new int[] { -1, -1, -1, -1 };
+            NewDCMasks = new int[] { -1, -1, -1, -1 };
+            NewEnts = new int[] { -1, -1, -1, -1 };
+            NewExts = new int[] { -1, -1, -1, -1 };
 
             for (int i = 0; i < 4; i++)
             {
@@ -248,11 +252,11 @@ namespace MMRandomizer
                 do
                 {
                     n = RNG.Next(4);
-                } while (_newEnts.Contains(n));
+                } while (NewEnts.Contains(n));
 
-                _newEnts[i] = n;
-                _newExts[n] = i;
-            };
+                NewEnts[i] = n;
+                NewExts[n] = i;
+            }
 
             ItemObject[] DE = new ItemObject[] {
                 ItemList[Items.AreaWoodFallTempleAccess],
@@ -270,9 +274,9 @@ namespace MMRandomizer
 
             for (int i = 0; i < 4; i++)
             {
-                Debug.WriteLine($"Entrance {DI[_newEnts[i]]} placed at {DE[i].ID}.");
-                ItemList[DI[_newEnts[i]]] = DE[i];
-            };
+                Debug.WriteLine($"Entrance {DI[NewEnts[i]]} placed at {DE[i].ID}.");
+                ItemList[DI[NewEnts[i]]] = DE[i];
+            }
 
             DE = new ItemObject[] {
                 ItemList[Items.AreaWoodFallTempleClear],
@@ -290,76 +294,21 @@ namespace MMRandomizer
 
             for (int i = 0; i < 4; i++)
             {
-                ItemList[DI[i]] = DE[_newEnts[i]];
-            };
+                ItemList[DI[i]] = DE[NewEnts[i]];
+            }
 
             for (int i = 0; i < 4; i++)
             {
-                _newEntrances[i] = Values.OldEntrances[_newEnts[i]];
-                _newExits[i] = Values.OldExits[_newExts[i]];
-                _newDCFlags[i] = Values.OldDCFlags[_newExts[i]];
-                _newDCMasks[i] = Values.OldMaskFlags[_newExts[i]];
-            };
+                NewEntrances[i] = Values.OldEntrances[NewEnts[i]];
+                NewExits[i] = Values.OldExits[NewExts[i]];
+                NewDCFlags[i] = Values.OldDCFlags[NewExts[i]];
+                NewDCMasks[i] = Values.OldMaskFlags[NewExts[i]];
+            }
         }
 
         #region Sequences and BGM
 
-        private void ReadSeqInfo()
-        {
-            SequenceList = new List<SequenceInfo>();
-            TargetSequences = new List<SequenceInfo>();
-
-            string[] lines = Properties.Resources.SEQS
-                .Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-
-            int i = 0;
-            while (i < lines.Length)
-            {
-                var sourceName = lines[i];
-                var sourceType = Array.ConvertAll(lines[i + 1].Split(','), int.Parse).ToList();
-                var sourceInstrument = Convert.ToInt32(lines[i + 2], 16);
-
-                var targetName = lines[i];
-                var targetType = Array.ConvertAll(lines[i + 1].Split(','), int.Parse).ToList();
-                var targetInstrument = Convert.ToInt32(lines[i + 2], 16);
-
-                SequenceInfo sourceSequence = new SequenceInfo
-                {
-                    Name = sourceName,
-                    Type = sourceType,
-                    Instrument = sourceInstrument
-                };
-
-                SequenceInfo targetSequence = new SequenceInfo
-                {
-                    Name = targetName,
-                    Type = targetType,
-                    Instrument = targetInstrument
-                };
-
-                if (sourceSequence.Name.StartsWith("mm-"))
-                {
-                    targetSequence.Replaces = Convert.ToInt32(lines[i + 3], 16);
-                    sourceSequence.MM_seq = Convert.ToInt32(lines[i + 3], 16);
-                    TargetSequences.Add(targetSequence);
-                    i += 4;
-                }
-                else
-                {
-                    if (sourceSequence.Name == "mmr-f-sot")
-                    {
-                        sourceSequence.Replaces = 0x33;
-                    };
-
-                    i += 3;
-                };
-
-                if (sourceSequence.MM_seq != 0x18)
-                {
-                    SequenceList.Add(sourceSequence);
-                };
-            };
-        }
+       
 
         private void BGMShuffle()
         {
@@ -376,7 +325,7 @@ namespace MMRandomizer
                         & (RNG.Next(100) < 50))
                     {
                         continue;
-                    };
+                    }
 
                     for (int i = 0; i < Unassigned[unassignedIndex].Type.Count; i++)
                     {
@@ -398,27 +347,28 @@ namespace MMRandomizer
                                 Debug.WriteLine(Unassigned[unassignedIndex].Name + " -> " + TargetSequences[targetIndex].Name);
                                 TargetSequences.RemoveAt(targetIndex);
                                 break;
-                            };
-                        };
-                    };
+                            }
+                        }
+                    }
 
                     if (Unassigned[unassignedIndex].Replaces != -1)
                     {
                         break;
-                    };
-                };
-            };
+                    }
+                }
+            }
 
             SequenceList.RemoveAll(u => u.Replaces == -1);
         }
 
         private void SortBGM()
         {
-            if (!Settings.RandomizeBGM)
+            if (!_settings.RandomizeBGM)
             {
                 return;
-            };
-            ReadSeqInfo();
+            }
+
+            SequenceUtils.ReadSequenceInfo();
             BGMShuffle();
         }
 
@@ -426,7 +376,7 @@ namespace MMRandomizer
 
         private void SetTatlColour()
         {
-            if (Settings.TatlColorSchema == TatlColorSchema.Rainbow)
+            if (_settings.TatlColorSchema == TatlColorSchema.Rainbow)
             {
                 for (int i = 0; i < 10; i++)
                 {
@@ -447,23 +397,23 @@ namespace MMRandomizer
             };
         }
 
-        private void MakeSpoilerLog()
+        public void MakeSpoilerLog()
         {
-            var settingsString = EncodeSettings();
+            var settingsString = _settings.ToString();
 
-            var directory = Path.GetDirectoryName(Settings.OutputROMFilename);
-            var filename = $"{Path.GetFileNameWithoutExtension(Settings.OutputROMFilename)}_SpoilerLog.txt";
+            var directory = Path.GetDirectoryName(_settings.OutputROMFilename);
+            var filename = $"{Path.GetFileNameWithoutExtension(_settings.OutputROMFilename)}_SpoilerLog.txt";
 
             StreamWriter LogFile = new StreamWriter(Path.Combine(directory, filename));
 
 
-            if (Settings.RandomizeDungeonEntrances)
+            if (_settings.RandomizeDungeonEntrances)
             {
                 LogFile.WriteLine("------------Entrance----------------------------Destination-----------");
                 string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
                 for (int i = 0; i < 4; i++)
                 {
-                    LogFile.WriteLine(destinations[i].PadRight(32, '-') + "---->>" + destinations[_newEnts[i]].PadLeft(32, '-'));
+                    LogFile.WriteLine(destinations[i].PadRight(32, '-') + "---->>" + destinations[NewEnts[i]].PadLeft(32, '-'));
                 };
                 LogFile.WriteLine("");
             }; /*
@@ -503,9 +453,9 @@ namespace MMRandomizer
         {
             ItemList = new List<ItemObject>();
 
-            if (Settings.LogicMode == LogicMode.Casual
-                || Settings.LogicMode == LogicMode.Glitched
-                || Settings.LogicMode == LogicMode.UserLogic)
+            if (_settings.LogicMode == LogicMode.Casual
+                || _settings.LogicMode == LogicMode.Glitched
+                || _settings.LogicMode == LogicMode.UserLogic)
             {
                 string[] data = ReadRulesetFromResources();
                 PopulateItemListFromLogicData(data);
@@ -637,10 +587,15 @@ namespace MMRandomizer
             };
         }
 
+        public void SeedRNG(int seed)
+        {
+            RNG = new Random(_settings.Seed);
+        }
+
         private string[] ReadRulesetFromResources()
         {
             string[] lines = null;
-            var mode = Settings.LogicMode;
+            var mode = _settings.LogicMode;
 
             if (mode == LogicMode.Casual)
             {
@@ -652,7 +607,7 @@ namespace MMRandomizer
             }
             else if (mode == LogicMode.UserLogic)
             {
-                using (StreamReader Req = new StreamReader(File.Open(Settings.UserLogicFileName, FileMode.Open)))
+                using (StreamReader Req = new StreamReader(File.Open(_settings.UserLogicFileName, FileMode.Open)))
                 {
                     lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
@@ -1170,7 +1125,7 @@ namespace MMRandomizer
 
         private void ItemShuffle()
         {
-            if (Settings.UseCustomItemList)
+            if (_settings.UseCustomItemList)
             {
                 SetupCustomItems();
             }
@@ -1369,32 +1324,32 @@ namespace MMRandomizer
         /// </summary>
         private void Setup()
         {
-            if (Settings.ExcludeSongOfSoaring)
+            if (_settings.ExcludeSongOfSoaring)
             {
                 ItemList[Items.SongSoaring].ReplacesItemId = Items.SongSoaring;
             }
 
-            if (!Settings.AddSongs)
+            if (!_settings.AddSongs)
             {
                 PreserveSongs();
             }
 
-            if (!Settings.AddDungeonItems)
+            if (!_settings.AddDungeonItems)
             {
                 PreserveDungeonItems();
             }
 
-            if (!Settings.AddShopItems)
+            if (!_settings.AddShopItems)
             {
                 PreserveShopItems();
             }
 
-            if (!Settings.AddOther)
+            if (!_settings.AddOther)
             {
                 PreserveOther();
             }
 
-            if (Settings.RandomizeBottleCatchContents)
+            if (_settings.RandomizeBottleCatchContents)
             {
                 AddBottleCatchContents();
             }
@@ -1492,7 +1447,7 @@ namespace MMRandomizer
         private void SetupCustomItems()
         {
             // Keep shop items vanilla, unless custom item list contains a shop item
-            Settings.AddShopItems = false;
+            _settings.AddShopItems = false;
 
             // Make all items vanilla, and override using custom item list
             MakeAllItemsVanilla();
@@ -1504,7 +1459,7 @@ namespace MMRandomizer
             // Should these be randomized by default? Why not check settings.
             AddBottleCatchContents();
 
-            if (!Settings.AddSongs)
+            if (!_settings.AddSongs)
             {
                 PreserveSongs();
             }
@@ -1532,9 +1487,9 @@ namespace MMRandomizer
         /// </summary>
         private void ApplyCustomItemList()
         {
-            for (int i = 0; i < fItemEdit.selected_items.Count; i++)
+            for (int i = 0; i < _settings.CustomItemList.Count; i++)
             {
-                int selectedItem = fItemEdit.selected_items[i];
+                int selectedItem = _settings.CustomItemList[i];
 
                 if (selectedItem > Items.SongOath)
                 {
@@ -1550,7 +1505,7 @@ namespace MMRandomizer
 
                 if (ItemUtils.IsShopItem(selectedItem))
                 {
-                    Settings.AddShopItems = true;
+                    _settings.AddShopItems = true;
                 }
             }
         }
@@ -1570,6 +1525,51 @@ namespace MMRandomizer
 
                 ItemList[i].ReplacesItemId = i;
             };
+        }
+
+        /// <summary>
+        /// Randomizes the ROM with respect to the configured ruleset.
+        /// </summary>
+        public void Randomize(BackgroundWorker worker, DoWorkEventArgs e)
+        {
+            SeedRNG(_settings.Seed);
+
+            if (_settings.LogicMode != LogicMode.Vanilla)
+            {
+                worker.ReportProgress(5, "Preparing ruleset...");
+                PrepareRulesetItemData();
+
+                if (_settings.RandomizeDungeonEntrances)
+                {
+                    worker.ReportProgress(10, "Shuffling entrances...");
+                    EntranceShuffle();
+                }
+
+                worker.ReportProgress(30, "Shuffling items...");
+                ItemShuffle();
+
+
+                if (_settings.EnableGossipHints)
+                {
+                    worker.ReportProgress(35, "Making gossip quotes...");
+                }
+
+                //gossip
+                SeedRNG(_settings.Seed);
+                MakeGossipQuotes();
+            }
+
+            worker.ReportProgress(40, "Coloring Tatl...");
+
+            //Randomize tatl colour
+            SeedRNG(_settings.Seed);
+            SetTatlColour();
+
+            worker.ReportProgress(45, "Randomizing Music...");
+
+            //Sort BGM
+            SeedRNG(_settings.Seed);
+            SortBGM();
         }
     }
 

@@ -1,4 +1,4 @@
-﻿namespace MMRandomizer
+﻿namespace MMRando
 {
     partial class LogicEditorForm
     {

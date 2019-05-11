@@ -1,4 +1,4 @@
-﻿namespace MMRandomizer.Utils
+﻿namespace MMRando.Utils
 {
     public static class ItemUtils
     {

@@ -1,6 +1,6 @@
-﻿namespace MMRandomizer.Forms
+﻿namespace MMRando
 {
-    partial class CustomItemListForm
+    partial class ItemSelectorForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomItemListForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ItemSelectorForm));
             this.lItems = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tLayout = new System.Windows.Forms.TableLayoutPanel();

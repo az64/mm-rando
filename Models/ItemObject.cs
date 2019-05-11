@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MMRandomizer.Models
+namespace MMRando.Models
 {
     public class ItemObject
     {

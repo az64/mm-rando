@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace MMRandomizer
+namespace MMRando
 {
 
     public class Hue

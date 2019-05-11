@@ -1,5 +1,5 @@
 ﻿
-namespace MMRandomizer.Models.Rom
+namespace MMRando.Models.Rom
 {
     public class MMMesssage
     {

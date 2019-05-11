@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
-namespace MMRandomizer
+namespace MMRando.Utils
 {
 
-    public class Resource
+    public class ResourceUtils
     {
 
         public static void ApplyHack_File(string name, byte[] data)
@@ -20,11 +20,11 @@ namespace MMRandomizer
             while (hack_content[addr] != 0xFF)
             {
                 //Debug.WriteLine(addr.ToString("X4"));
-                uint dest = Arr_ReadU32(hack_content, addr);
+                uint dest = ReadWriteHelpers.Arr_ReadU32(hack_content, addr);
                 addr += 4;
-                uint len = Arr_ReadU32(hack_content, addr);
+                uint len = ReadWriteHelpers.Arr_ReadU32(hack_content, addr);
                 addr += 4;
-                Arr_Insert(hack_content, addr, (int)len, data, (int)dest);
+                ReadWriteHelpers.Arr_Insert(hack_content, addr, (int)len, data, (int)dest);
                 addr += (int)len;
             }
         }
@@ -49,7 +49,7 @@ namespace MMRandomizer
                     h = l.GetHue();
                     h += rot;
                     h %= 360f;
-                    l = FromAHSB(l.A, h, l.GetSaturation(), l.GetBrightness());
+                    l = Hue.FromAHSB(l.A, h, l.GetSaturation(), l.GetBrightness());
                     hack_content[p] = l.R;
                     hack_content[p + 1] = l.G;
                     hack_content[p + 2] = l.B;
@@ -59,7 +59,7 @@ namespace MMRandomizer
                 h = l.GetHue();
                 h += rot;
                 h %= 360f;
-                l = FromAHSB(255, h, l.GetSaturation(), l.GetBrightness());
+                l = Hue.FromAHSB(255, h, l.GetSaturation(), l.GetBrightness());
                 hack_content[0x1FE72] = l.R;
                 hack_content[0x1FE73] = l.G;
                 hack_content[0x1FE76] = l.B;
@@ -68,13 +68,13 @@ namespace MMRandomizer
             while (hack_content[addr] != 0xFF)
             {
                 //Debug.WriteLine(addr.ToString("X4"));
-                uint dest = Arr_ReadU32(hack_content, addr);
+                uint dest = ReadWriteHelpers.Arr_ReadU32(hack_content, addr);
                 addr += 4;
-                uint len = Arr_ReadU32(hack_content, addr);
+                uint len = ReadWriteHelpers.Arr_ReadU32(hack_content, addr);
                 addr += 4;
-                int f = GetFileIndexForWriting((int)dest);
-                dest -= (uint)MMFileList[f].Addr;
-                Arr_Insert(hack_content, addr, (int)len, MMFileList[f].Data, (int)dest);
+                int f = RomUtils.GetFileIndexForWriting((int)dest);
+                dest -= (uint)RomData.MMFileList[f].Addr;
+                ReadWriteHelpers.Arr_Insert(hack_content, addr, (int)len, RomData.MMFileList[f].Data, (int)dest);
                 addr += (int)len;
             }
         }
@@ -91,12 +91,12 @@ namespace MMRandomizer
             int i = 0;
             while (a[i] != 0xFF)
             {
-                int count = (int)Arr_ReadU32(a, i);
+                int count = (int)ReadWriteHelpers.Arr_ReadU32(a, i);
                 int[] alist = new int[count];
                 i += 4;
                 for (int j = 0; j < count; j++)
                 {
-                    alist[j] = (int)Arr_ReadU32(a, i);
+                    alist[j] = (int)ReadWriteHelpers.Arr_ReadU32(a, i);
                     i += 4;
                 }
                 Addrs.Add(alist);

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MMRandomizer.Models.Rom
+namespace MMRando.Models.Rom
 {
 
     public class SequenceInfo

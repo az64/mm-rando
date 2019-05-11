@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MMRandomizer.Forms
+namespace MMRando.Forms
 {
     public partial class ManualForm : Form
     {

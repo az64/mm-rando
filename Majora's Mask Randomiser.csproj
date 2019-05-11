@@ -8,7 +8,7 @@
     <ProjectGuid>{F365AB3C-6F06-4194-BB36-125A9E78D639}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MMRandomizer</RootNamespace>
+    <RootNamespace>MMRando</RootNamespace>
     <AssemblyName>MM Randomizer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Audioseq.cs" />
     <Compile Include="Constants\Addresses.cs" />
+    <Compile Include="Models\Gossip.cs" />
     <Compile Include="Models\ItemObject.cs" />
     <Compile Include="Models\Rom\Actor.cs" />
     <Compile Include="Models\Rom\BottleCatchEntry.cs" />
@@ -74,13 +75,13 @@
     <Compile Include="Models\Rom\Map.cs" />
     <Compile Include="Models\Rom\MMFile.cs" />
     <Compile Include="Models\Rom\MMMessage.cs" />
-    <Compile Include="Models\Rom\MMSeq.cs" />
+    <Compile Include="Models\Rom\MMSequence.cs" />
     <Compile Include="Models\Rom\Scene.cs" />
     <Compile Include="Models\Rom\SequenceInfo.cs" />
     <Compile Include="Models\Vectors\vecf32.cs" />
     <Compile Include="Models\Vectors\vec16.cs" />
     <Compile Include="Utils\Base36.cs" />
-    <Compile Include="Build.cs" />
+    <Compile Include="Builder.cs" />
     <Compile Include="Constants\Values.cs" />
     <Compile Include="Forms\ItemEditForm.cs">
       <SubType>Form</SubType>
@@ -88,11 +89,11 @@
     <Compile Include="Forms\ItemEditForm.Designer.cs">
       <DependentUpon>ItemEditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CustomItemListForm.cs">
+    <Compile Include="Forms\ItemSelectorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\CustomItemListForm.Designer.cs">
-      <DependentUpon>CustomItemListForm.cs</DependentUpon>
+    <Compile Include="Forms\ItemSelectorForm.Designer.cs">
+      <DependentUpon>ItemSelectorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LogicEditorForm.cs">
       <SubType>Form</SubType>
@@ -106,7 +107,7 @@
     <Compile Include="fMain.Designer.cs">
       <DependentUpon>fMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="ItemSwap.cs" />
+    <Compile Include="Utils\ItemSwapUtils.cs" />
     <Compile Include="Models\Settings\Character.cs" />
     <Compile Include="Models\Settings\DamageEffect.cs" />
     <Compile Include="Models\Settings\DamageMode.cs" />
@@ -121,23 +122,24 @@
     <Compile Include="Forms\NewItemForm.Designer.cs">
       <DependentUpon>NewItemForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Scene.cs" />
+    <Compile Include="Utils\SceneUtils.cs" />
     <Compile Include="Enemies.cs" />
-    <Compile Include="Entrance.cs" />
+    <Compile Include="Utils\EntranceUtils.cs" />
     <Compile Include="Items.cs" />
     <Compile Include="Hue.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="Obj.cs" />
-    <Compile Include="Resource.cs" />
+    <Compile Include="Utils\MessageUtils.cs" />
+    <Compile Include="Utils\ObjUtils.cs" />
+    <Compile Include="Utils\ResourceUtils.cs" />
     <Compile Include="RomData.cs" />
     <Compile Include="ReadWriteHelpers.cs" />
-    <Compile Include="Shuffle.cs" />
+    <Compile Include="Randomizer.cs" />
     <Compile Include="Tunics.cs" />
     <Compile Include="Utils\ItemUtils.cs" />
+    <Compile Include="Utils\SequenceUtils.cs" />
     <Compile Include="VCInjection.cs" />
     <Compile Include="Vectors.cs" />
     <Compile Include="Yaz0.cs" />
-    <Compile Include="Rom.cs" />
+    <Compile Include="Utils\RomUtils.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,8 +160,8 @@
     <EmbeddedResource Include="Forms\ItemEditForm.resx">
       <DependentUpon>ItemEditForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CustomItemListForm.resx">
-      <DependentUpon>CustomItemListForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ItemSelectorForm.resx">
+      <DependentUpon>ItemSelectorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LogicEditorForm.resx">
       <DependentUpon>LogicEditorForm.cs</DependentUpon>

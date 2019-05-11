@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MMRandomizer
+namespace MMRando
 {
 
     public class Yaz0

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace MMRandomizer.Forms
+namespace MMRando.Forms
 {
     public partial class ItemEditForm : Form
     {

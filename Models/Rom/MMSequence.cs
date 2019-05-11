@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MMRandomizer.Models.Rom
+namespace MMRando.Models.Rom
 {
-    public class MMSeq
+    public class MMSequence
     {
         public int Addr;
         public int Size;

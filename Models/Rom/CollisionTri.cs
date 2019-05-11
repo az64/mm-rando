@@ -1,7 +1,7 @@
-﻿using MMRandomizer.Models.Vectors;
-using static MMRandomizer.Vectors;
+﻿using MMRando.Models.Vectors;
+using static MMRando.Vectors;
 
-namespace MMRandomizer.Models.Rom
+namespace MMRando.Models.Rom
 {
     public class CollisionTri
     {

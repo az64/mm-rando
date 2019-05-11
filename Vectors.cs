@@ -1,8 +1,8 @@
-﻿using MMRandomizer.Models.Vectors;
+﻿using MMRando.Models.Vectors;
 using System;
 using System.Collections.Generic;
 
-namespace MMRandomizer
+namespace MMRando
 {
 
     public class Vectors

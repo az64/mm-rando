@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MMRandomizer.Forms
+namespace MMRando.Forms
 {
     public partial class AboutForm : Form
     {
