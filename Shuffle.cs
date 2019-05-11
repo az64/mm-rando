@@ -1404,7 +1404,7 @@ namespace MMRando
 
             if (!Settings.AddSongs)
             {
-                PreserveSongs();
+                ShuffleSongs();
             }
 
             if (!Settings.AddDungeonItems)
@@ -1498,9 +1498,9 @@ namespace MMRando
         }
 
         /// <summary>
-        /// Keeps songs vanilla
+        /// Randomizes songs with other songs
         /// </summary>
-        private void PreserveSongs()
+        private void ShuffleSongs()
         {
             var itemPool = new List<int>();
             for (int i = Items.SongSoaring; i <= Items.SongOath; i++)
@@ -1509,8 +1509,12 @@ namespace MMRando
                 {
                     continue;
                 }
+                itemPool.Add(i);
+            }
 
-                ItemList[i].ReplacesItemId = i;
+            for (int i = Items.SongSoaring; i <= Items.SongOath; i++)
+            {
+                PlaceItem(i, itemPool);
             }
         }
 
@@ -1534,7 +1538,7 @@ namespace MMRando
 
             if (!Settings.AddSongs)
             {
-                PreserveSongs();
+                ShuffleSongs();
             }
         }
 
