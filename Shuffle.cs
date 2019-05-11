@@ -490,11 +490,11 @@ namespace MMRando
 
             if (Settings.RandomizeDungeonEntrances)
             {
-                LogFile.WriteLine("-------------------Item-------------------------------------Destination---------------");
+                LogFile.WriteLine("-----------------Entrance---------------------------------Destination---------------");
                 string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
                 for (int i = 0; i < 4; i++)
                 {
-                    LogFile.WriteLine(destinations[i].PadRight(32, '-') + "---->>" + destinations[_newEnts[i]].PadLeft(32, '-'));
+                    LogFile.WriteLine(destinations[i].PadRight(40, '-') + "->>-" + destinations[_newEnts[i]].PadLeft(40, '-'));
                 };
                 LogFile.WriteLine("");
             }; /*
@@ -515,10 +515,10 @@ namespace MMRando
                 ItemList.RemoveRange(WF_Map, ST_Key4 - WF_Map + 1);
             }; */
             ItemList.RemoveAll(u => u.ReplacesItemId == -1);
-            LogFile.WriteLine("--------------Item------------------------------Destination-----------");
+            LogFile.WriteLine("-------------------Item------------------------------------Location-----------------");
             for (int i = 0; i < ItemList.Count; i++)
             {
-                LogFile.WriteLine(Items.ITEM_NAMES[ItemList[i].ID].PadRight(40, '-') + "---->>" + Items.ITEM_NAMES[ItemList[i].ReplacesItemId].PadLeft(40, '-'));
+                LogFile.WriteLine(Items.ITEM_NAMES[ItemList[i].ID].PadRight(40, '-') + "->>-" + Items.ITEM_NAMES[ItemList[i].ReplacesItemId].PadLeft(40, '-'));
             };
             LogFile.Close();
         }

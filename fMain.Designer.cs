@@ -969,7 +969,6 @@ namespace MMRando
             this.cLogOnly.TabIndex = 13;
             this.cLogOnly.Text = "Export spoiler log only";
             this.cLogOnly.UseVisualStyleBackColor = false;
-            this.cLogOnly.CheckedChanged += new System.EventHandler(this.cLogOnly_CheckedChanged);
             // 
             // MainRandomizerForm
             // 
