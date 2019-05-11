@@ -203,8 +203,7 @@ ef
 f8
 f9
 f0
--d8 replace contents of Mountain Village Grotto (Spring) with Empty Bottle
-5a
+d8
 f1
 d3
 fd
