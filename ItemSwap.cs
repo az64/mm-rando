@@ -154,7 +154,7 @@ namespace MMRando
             var itemIndex = GetItemIndices[ItemSlot];
             if (ItemSlot == Items.ItemGoldDust)
             {
-                itemIndex = 106; // Place items intended for Gold Dust at the Goron Race Bottle location.
+                itemIndex = 0x6A; // Place items intended for Gold Dust at the Goron Race Bottle location.
             }
             int offset = (itemIndex - 1) * 8;
             MMFileList[f].Data[baseaddr + offset] = GetItemList[NewItem].ItemGained;
