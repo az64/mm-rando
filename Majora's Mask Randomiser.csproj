@@ -101,11 +101,11 @@
     <Compile Include="Forms\LogicEditorForm.Designer.cs">
       <DependentUpon>LogicEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="fMain.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fMain.Designer.cs">
-      <DependentUpon>fMain.cs</DependentUpon>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\ItemSwapUtils.cs" />
     <Compile Include="Models\Settings\Character.cs" />
@@ -131,7 +131,7 @@
     <Compile Include="Utils\ObjUtils.cs" />
     <Compile Include="Utils\ResourceUtils.cs" />
     <Compile Include="RomData.cs" />
-    <Compile Include="ReadWriteHelpers.cs" />
+    <Compile Include="Utils\ReadWriteUtils.cs" />
     <Compile Include="Randomizer.cs" />
     <Compile Include="Tunics.cs" />
     <Compile Include="Utils\ItemUtils.cs" />
@@ -166,8 +166,8 @@
     <EmbeddedResource Include="Forms\LogicEditorForm.resx">
       <DependentUpon>LogicEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fMain.resx">
-      <DependentUpon>fMain.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ManualForm.resx">
       <DependentUpon>ManualForm.cs</DependentUpon>

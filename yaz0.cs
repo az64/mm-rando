@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MMRando.Utils;
+using System;
 using System.Collections.Generic;
 
 namespace MMRando
@@ -142,12 +143,12 @@ namespace MMRando
 
         public static byte[] Decompress(byte[] CmpFile)
         {
-            if (ReadWriteHelpers.Arr_ReadU32(CmpFile, 0) != 0x59617A30)
+            if (ReadWriteUtils.Arr_ReadU32(CmpFile, 0) != 0x59617A30)
             {
                 return null;
             }
 
-            int dest_len = (int)ReadWriteHelpers.Arr_ReadU32(CmpFile, 4);
+            int dest_len = (int)ReadWriteUtils.Arr_ReadU32(CmpFile, 4);
             byte[] dest = new byte[dest_len];
             int src_pos = 16;
             int src_len = CmpFile.Length;

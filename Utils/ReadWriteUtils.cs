@@ -2,10 +2,10 @@
 using System;
 using System.IO;
 
-namespace MMRando
+namespace MMRando.Utils
 {
 
-    public static class ReadWriteHelpers
+    public static class ReadWriteUtils
     {
 
         public static void WriteFileAddr(int[] Addr, byte[] data, byte[] file)

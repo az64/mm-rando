@@ -15,7 +15,7 @@ namespace MMRando.Utils
         private static void WriteMessage(int addr, byte[] msg)
         {
             int fileIndex = RomUtils.GetFileIndexForWriting(Addresses.TextFile);
-            ReadWriteHelpers.Arr_Insert(msg, 0, msg.Length, MMFileList[fileIndex].Data, addr);
+            ReadWriteUtils.Arr_Insert(msg, 0, msg.Length, MMFileList[fileIndex].Data, addr);
         }
 
         private static MMMesssage FindMesssage(int address)
@@ -33,8 +33,8 @@ namespace MMRando.Utils
                 if (address == x)
                 {
                     var data = MMFileList[fileIndex].Data;
-                    message.Address = (int)(ReadWriteHelpers.Arr_ReadU32(data, baseAddress + 4) & 0xFFFFFF);
-                    message.Size = (int)(ReadWriteHelpers.Arr_ReadU32(data, baseAddress + 12) & 0xFFFFFF) - message.Address;
+                    message.Address = (int)(ReadWriteUtils.Arr_ReadU32(data, baseAddress + 4) & 0xFFFFFF);
+                    message.Size = (int)(ReadWriteUtils.Arr_ReadU32(data, baseAddress + 12) & 0xFFFFFF) - message.Address;
                     break;
                 }
 
@@ -89,7 +89,7 @@ namespace MMRando.Utils
                 } while (length > message.Size);
 
                 byte[] data = new byte[length];
-                ReadWriteHelpers.Arr_Insert(Values.MessageHeader.ToArray(), 0, Values.MessageHeader.Count, data, 0);
+                ReadWriteUtils.Arr_Insert(Values.MessageHeader.ToArray(), 0, Values.MessageHeader.Count, data, 0);
 
                 for (int k = 0; k < messages[randomMessageIndex].Length; k++)
                 {

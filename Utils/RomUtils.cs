@@ -26,11 +26,11 @@ namespace MMRando.Utils
 
             byte[] buffer = Encoding.ASCII.GetBytes(verstring);
             int addr = veraddr - file.Addr;
-            ReadWriteHelpers.Arr_Insert(buffer, 0, buffer.Length, file.Data, addr);
+            ReadWriteUtils.Arr_Insert(buffer, 0, buffer.Length, file.Data, addr);
 
             buffer = Encoding.ASCII.GetBytes(settingstring);
             addr = settingaddr - file.Addr;
-            ReadWriteHelpers.Arr_Insert(buffer, 0, buffer.Length, file.Data, addr);
+            ReadWriteUtils.Arr_Insert(buffer, 0, buffer.Length, file.Data, addr);
         }
 
         public static int AddNewFile(string filename)
@@ -100,7 +100,7 @@ namespace MMRando.Utils
                     {
                         while (ROM.BaseStream.Position < ROM.BaseStream.Length)
                         {
-                            newROM.Write(ReadWriteHelpers.Byteswap16(ReadWriteHelpers.ReadU16(ROM)));
+                            newROM.Write(ReadWriteUtils.Byteswap16(ReadWriteUtils.ReadU16(ROM)));
                         }
                     }
                     return 0;
@@ -111,7 +111,7 @@ namespace MMRando.Utils
                     {
                         while (ROM.BaseStream.Position < ROM.BaseStream.Length)
                         {
-                            newROM.Write(ReadWriteHelpers.Byteswap32(ReadWriteHelpers.ReadU32(ROM)));
+                            newROM.Write(ReadWriteUtils.Byteswap32(ReadWriteUtils.ReadU32(ROM)));
                         }
                     }
                     return 0;
@@ -124,10 +124,10 @@ namespace MMRando.Utils
         {
             for (int i = 0; i < RomData.MMFileList.Count; i++)
             {
-                ReadWriteHelpers.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16), (uint)RomData.MMFileList[i].Addr);
-                ReadWriteHelpers.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16) + 4, (uint)RomData.MMFileList[i].End);
-                ReadWriteHelpers.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16) + 8, (uint)RomData.MMFileList[i].Cmp_Addr);
-                ReadWriteHelpers.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16) + 12, (uint)RomData.MMFileList[i].Cmp_End);
+                ReadWriteUtils.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16), (uint)RomData.MMFileList[i].Addr);
+                ReadWriteUtils.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16) + 4, (uint)RomData.MMFileList[i].End);
+                ReadWriteUtils.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16) + 8, (uint)RomData.MMFileList[i].Cmp_Addr);
+                ReadWriteUtils.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16) + 12, (uint)RomData.MMFileList[i].Cmp_End);
             }
         }
 
@@ -154,7 +154,7 @@ namespace MMRando.Utils
                 {
                     RomData.MMFileList[i].Cmp_End = ROMAddr + file_len;
                 }
-                ReadWriteHelpers.Arr_Insert(RomData.MMFileList[i].Data, 0, file_len, ROM, ROMAddr);
+                ReadWriteUtils.Arr_Insert(RomData.MMFileList[i].Data, 0, file_len, ROM, ROMAddr);
                 ROMAddr += file_len;
             }
             UpdateFileTable(ROM);
@@ -192,7 +192,7 @@ namespace MMRando.Utils
             t1 = t2 = t3 = t4 = t5 = t6 = seed;
             while (i < 0x101000)
             {
-                d = ReadWriteHelpers.Arr_ReadU32(ROM, i);
+                d = ReadWriteUtils.Arr_ReadU32(ROM, i);
                 if ((t6 + d) < t6) { t4++; }
                 t6 += d;
                 t3 ^= d;
@@ -206,13 +206,13 @@ namespace MMRando.Utils
                 {
                     t2 ^= r;
                 }
-                t1 += (ReadWriteHelpers.Arr_ReadU32(ROM, 0x750 + (i & 0xFF)) ^ d);
+                t1 += (ReadWriteUtils.Arr_ReadU32(ROM, 0x750 + (i & 0xFF)) ^ d);
                 i += 4;
             }
             CRC[0] = t6 ^ t4 ^ t3;
             CRC[1] = t5 ^ t2 ^ t1;
-            ReadWriteHelpers.Arr_WriteU32(ROM, 16, CRC[0]);
-            ReadWriteHelpers.Arr_WriteU32(ROM, 20, CRC[1]);
+            ReadWriteUtils.Arr_WriteU32(ROM, 16, CRC[0]);
+            ReadWriteUtils.Arr_WriteU32(ROM, 20, CRC[1]);
         }
 
         private static void ExtractAll(BinaryReader ROM)
@@ -243,10 +243,10 @@ namespace MMRando.Utils
             {
                 MMFile Current_File = new MMFile
                 {
-                    Addr = ReadWriteHelpers.ReadS32(ROM),
-                    End = ReadWriteHelpers.ReadS32(ROM),
-                    Cmp_Addr = ReadWriteHelpers.ReadS32(ROM),
-                    Cmp_End = ReadWriteHelpers.ReadS32(ROM)
+                    Addr = ReadWriteUtils.ReadS32(ROM),
+                    End = ReadWriteUtils.ReadS32(ROM),
+                    Cmp_Addr = ReadWriteUtils.ReadS32(ROM),
+                    Cmp_End = ReadWriteUtils.ReadS32(ROM)
                 };
                 Current_File.IsCompressed = Current_File.Cmp_End != 0;
                 if (Current_File.Addr == Current_File.End)
@@ -261,8 +261,8 @@ namespace MMRando.Utils
         public static bool CheckOldCRC(BinaryReader ROM)
         {
             ROM.BaseStream.Seek(16, 0);
-            uint CRC1 = ReadWriteHelpers.ReadU32(ROM);
-            uint CRC2 = ReadWriteHelpers.ReadU32(ROM);
+            uint CRC1 = ReadWriteUtils.ReadU32(ROM);
+            uint CRC2 = ReadWriteUtils.ReadU32(ROM);
             return (CRC1 == 0x5354631C) && (CRC2 == 0x03A2DEF0);
         }
 

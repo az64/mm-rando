@@ -86,8 +86,8 @@ namespace MMRando.Utils
                 }
 
                 int entryaddr = Addresses.SeqTable + (i * 16);
-                entry.Addr = (int)ReadWriteHelpers.Arr_ReadU32(RomData.MMFileList[f].Data, entryaddr - basea);
-                entry.Size = (int)ReadWriteHelpers.Arr_ReadU32(RomData.MMFileList[f].Data, (entryaddr - basea) + 4);
+                entry.Addr = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, entryaddr - basea);
+                entry.Size = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, (entryaddr - basea) + 4);
                 if (entry.Size > 0)
                 {
                     entry.Data = new byte[entry.Size];
@@ -192,8 +192,8 @@ namespace MMRando.Utils
             f = RomUtils.GetFileIndexForWriting(Addresses.SeqTable);
             for (int i = 0; i < 128; i++)
             {
-                ReadWriteHelpers.Arr_WriteU32(RomData.MMFileList[f].Data, (Addresses.SeqTable + (i * 16)) - basea, (uint)NewSeq[i].Addr);
-                ReadWriteHelpers.Arr_WriteU32(RomData.MMFileList[f].Data, 4 + (Addresses.SeqTable + (i * 16)) - basea, (uint)NewSeq[i].Size);
+                ReadWriteUtils.Arr_WriteU32(RomData.MMFileList[f].Data, (Addresses.SeqTable + (i * 16)) - basea, (uint)NewSeq[i].Addr);
+                ReadWriteUtils.Arr_WriteU32(RomData.MMFileList[f].Data, 4 + (Addresses.SeqTable + (i * 16)) - basea, (uint)NewSeq[i].Size);
             }
 
             //update inst sets

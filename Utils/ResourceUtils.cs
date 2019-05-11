@@ -20,11 +20,11 @@ namespace MMRando.Utils
             while (hack_content[addr] != 0xFF)
             {
                 //Debug.WriteLine(addr.ToString("X4"));
-                uint dest = ReadWriteHelpers.Arr_ReadU32(hack_content, addr);
+                uint dest = ReadWriteUtils.Arr_ReadU32(hack_content, addr);
                 addr += 4;
-                uint len = ReadWriteHelpers.Arr_ReadU32(hack_content, addr);
+                uint len = ReadWriteUtils.Arr_ReadU32(hack_content, addr);
                 addr += 4;
-                ReadWriteHelpers.Arr_Insert(hack_content, addr, (int)len, data, (int)dest);
+                ReadWriteUtils.Arr_Insert(hack_content, addr, (int)len, data, (int)dest);
                 addr += (int)len;
             }
         }
@@ -68,13 +68,13 @@ namespace MMRando.Utils
             while (hack_content[addr] != 0xFF)
             {
                 //Debug.WriteLine(addr.ToString("X4"));
-                uint dest = ReadWriteHelpers.Arr_ReadU32(hack_content, addr);
+                uint dest = ReadWriteUtils.Arr_ReadU32(hack_content, addr);
                 addr += 4;
-                uint len = ReadWriteHelpers.Arr_ReadU32(hack_content, addr);
+                uint len = ReadWriteUtils.Arr_ReadU32(hack_content, addr);
                 addr += 4;
                 int f = RomUtils.GetFileIndexForWriting((int)dest);
                 dest -= (uint)RomData.MMFileList[f].Addr;
-                ReadWriteHelpers.Arr_Insert(hack_content, addr, (int)len, RomData.MMFileList[f].Data, (int)dest);
+                ReadWriteUtils.Arr_Insert(hack_content, addr, (int)len, RomData.MMFileList[f].Data, (int)dest);
                 addr += (int)len;
             }
         }
@@ -91,12 +91,12 @@ namespace MMRando.Utils
             int i = 0;
             while (a[i] != 0xFF)
             {
-                int count = (int)ReadWriteHelpers.Arr_ReadU32(a, i);
+                int count = (int)ReadWriteUtils.Arr_ReadU32(a, i);
                 int[] alist = new int[count];
                 i += 4;
                 for (int j = 0; j < count; j++)
                 {
-                    alist[j] = (int)ReadWriteHelpers.Arr_ReadU32(a, i);
+                    alist[j] = (int)ReadWriteUtils.Arr_ReadU32(a, i);
                     i += 4;
                 }
                 Addrs.Add(alist);

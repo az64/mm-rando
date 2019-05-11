@@ -14,10 +14,10 @@ namespace MMRando.Utils
             ResourceUtils.ApplyHack(ModsDir + "replace-gi-table");
             int last_file = RomData.MMFileList.Count - 1;
             Addresses.GetItemTable = RomUtils.AddNewFile(ModsDir + "gi-table");
-            ReadWriteHelpers.WriteToROM(0xBDAEAC, (uint)last_file + 1);
+            ReadWriteUtils.WriteToROM(0xBDAEAC, (uint)last_file + 1);
             ResourceUtils.ApplyHack(ModsDir + "update-chests");
             RomUtils.AddNewFile(ModsDir + "chest-table");
-            ReadWriteHelpers.WriteToROM(0xBDAEA8, (uint)last_file + 2);
+            ReadWriteUtils.WriteToROM(0xBDAEA8, (uint)last_file + 2);
             ResourceUtils.ApplyHack(ModsDir + "standing-hearts");
             ResourceUtils.ApplyHack(ModsDir + "fix-item-checks");
             cycle_repeat = 0xC72DF6;
@@ -165,7 +165,7 @@ namespace MMRando.Utils
 
             if (RepeatCycle)
             {
-                ReadWriteHelpers.WriteToROM(cycle_repeat, (ushort)RomData.GetItemIndices[ItemSlot]);
+                ReadWriteUtils.WriteToROM(cycle_repeat, (ushort)RomData.GetItemIndices[ItemSlot]);
                 cycle_repeat += 2;
             }
 
@@ -176,20 +176,20 @@ namespace MMRando.Utils
 
             if (NewItem == Items.ItemBottleWitch)
             {
-                ReadWriteHelpers.WriteToROM(0xB49982, (ushort)RomData.GetItemIndices[ItemSlot]);
-                ReadWriteHelpers.WriteToROM(0xC72B42, (ushort)RomData.GetItemIndices[ItemSlot]);
+                ReadWriteUtils.WriteToROM(0xB49982, (ushort)RomData.GetItemIndices[ItemSlot]);
+                ReadWriteUtils.WriteToROM(0xC72B42, (ushort)RomData.GetItemIndices[ItemSlot]);
             }
 
             if (NewItem == Items.ItemBottleMadameAroma)
             {
-                ReadWriteHelpers.WriteToROM(0xB4999A, (ushort)RomData.GetItemIndices[ItemSlot]);
-                ReadWriteHelpers.WriteToROM(0xC72B4E, (ushort)RomData.GetItemIndices[ItemSlot]);
+                ReadWriteUtils.WriteToROM(0xB4999A, (ushort)RomData.GetItemIndices[ItemSlot]);
+                ReadWriteUtils.WriteToROM(0xC72B4E, (ushort)RomData.GetItemIndices[ItemSlot]);
             }
 
             if (NewItem == Items.ItemBottleAliens)
             {
-                ReadWriteHelpers.WriteToROM(0xB499A6, (ushort)RomData.GetItemIndices[ItemSlot]);
-                ReadWriteHelpers.WriteToROM(0xC72B5A, (ushort)RomData.GetItemIndices[ItemSlot]);
+                ReadWriteUtils.WriteToROM(0xB499A6, (ushort)RomData.GetItemIndices[ItemSlot]);
+                ReadWriteUtils.WriteToROM(0xC72B5A, (ushort)RomData.GetItemIndices[ItemSlot]);
             };
             // Goron Race Bottle now rewards a plain Gold Dust, so this is unnecessary until a proper fix for Goron Dust is found.
             //if (NewItem == Items.ItemBottleGoronRace)

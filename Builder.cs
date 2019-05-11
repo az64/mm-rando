@@ -85,7 +85,7 @@ namespace MMRando
             List<int[]> locs = ResourceUtils.GetAddresses(Values.AddrsDirectory + "tunic-colour");
             for (int i = 0; i < locs.Count; i++)
             {
-                ReadWriteHelpers.WriteROMAddr(locs[i], c);
+                ReadWriteUtils.WriteROMAddr(locs[i], c);
             }
         }
 
@@ -96,7 +96,7 @@ namespace MMRando
             List<int[]> locs = ResourceUtils.GetAddresses(Values.AddrsDirectory + "tunic-" + i.ToString());
             for (int j = 0; j < locs.Count; j++)
             {
-                ReadWriteHelpers.WriteFileAddr(locs[j], c, obj);
+                ReadWriteUtils.WriteFileAddr(locs[j], c, obj);
             }
         }
 
@@ -109,9 +109,9 @@ namespace MMRando
                 List<int[]> locs = ResourceUtils.GetAddresses(Values.AddrsDirectory + "tatl-colour");
                 for (int i = 0; i < locs.Count; i++)
                 {
-                    ReadWriteHelpers.Arr_WriteU32(c, 0, Values.TatlColours[selectedColorSchemaIndex, i << 1]);
-                    ReadWriteHelpers.Arr_WriteU32(c, 4, Values.TatlColours[selectedColorSchemaIndex, (i << 1) + 1]);
-                    ReadWriteHelpers.WriteROMAddr(locs[i], c);
+                    ReadWriteUtils.Arr_WriteU32(c, 0, Values.TatlColours[selectedColorSchemaIndex, i << 1]);
+                    ReadWriteUtils.Arr_WriteU32(c, 4, Values.TatlColours[selectedColorSchemaIndex, (i << 1) + 1]);
+                    ReadWriteUtils.WriteROMAddr(locs[i], c);
                 }
             }
             else
@@ -151,7 +151,7 @@ namespace MMRando
             for (int i = 0; i < addr.Count; i++)
             {
                 li[3] = (byte)_randomizer.NewExts[i];
-                ReadWriteHelpers.WriteROMAddr(addr[i], li);
+                ReadWriteUtils.WriteROMAddr(addr[i], li);
             }
 
             ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-dungeons");
@@ -161,13 +161,13 @@ namespace MMRando
             {
                 if (i == 2)
                 {
-                    ReadWriteHelpers.WriteROMAddr(addr[i], new byte[] {
+                    ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
                         (byte)((Values.OldExits[_randomizer.NewEnts[i + 1]] & 0xFF00) >> 8),
                         (byte)(Values.OldExits[_randomizer.NewEnts[i + 1]] & 0xFF) });
                 }
                 else
                 {
-                    ReadWriteHelpers.WriteROMAddr(addr[i], new byte[] {
+                    ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
                         (byte)((Values.OldExits[_randomizer.NewEnts[i]] & 0xFF00) >> 8),
                         (byte)(Values.OldExits[_randomizer.NewEnts[i]] & 0xFF) });
                 }
@@ -176,13 +176,13 @@ namespace MMRando
             addr = ResourceUtils.GetAddresses(Values.AddrsDirectory + "dc-flagload");
             for (int i = 0; i < addr.Count; i++)
             {
-                ReadWriteHelpers.WriteROMAddr(addr[i], new byte[] { (byte)((_randomizer.NewDCFlags[i] & 0xFF00) >> 8), (byte)(_randomizer.NewDCFlags[i] & 0xFF) });
+                ReadWriteUtils.WriteROMAddr(addr[i], new byte[] { (byte)((_randomizer.NewDCFlags[i] & 0xFF00) >> 8), (byte)(_randomizer.NewDCFlags[i] & 0xFF) });
             }
 
             addr = ResourceUtils.GetAddresses(Values.AddrsDirectory + "dc-flagmask");
             for (int i = 0; i < addr.Count; i++)
             {
-                ReadWriteHelpers.WriteROMAddr(addr[i], new byte[] {
+                ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
                     (byte)((_randomizer.NewDCMasks[i] & 0xFF00) >> 8),
                     (byte)(_randomizer.NewDCMasks[i] & 0xFF) });
             }
@@ -226,32 +226,32 @@ namespace MMRando
 
         private void WriteFreeItem(int Item)
         {
-            ReadWriteHelpers.WriteToROM(Items.ITEM_ADDRS[Item], Items.ITEM_VALUES[Item]);
+            ReadWriteUtils.WriteToROM(Items.ITEM_ADDRS[Item], Items.ITEM_VALUES[Item]);
             switch (Item)
             {
                 case 1: //bow
-                    ReadWriteHelpers.WriteToROM(0xC5CE6F, (byte)0x01);
+                    ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x01);
                     break;
                 case 5: //bomb bag
-                    ReadWriteHelpers.WriteToROM(0xC5CE6F, (byte)0x08);
+                    ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x08);
                     break;
                 case 19: //sword upgrade
-                    ReadWriteHelpers.WriteToROM(0xC5CE00, (byte)0x4E);
+                    ReadWriteUtils.WriteToROM(0xC5CE00, (byte)0x4E);
                     break;
                 case 20:
-                    ReadWriteHelpers.WriteToROM(0xC5CE00, (byte)0x4F);
+                    ReadWriteUtils.WriteToROM(0xC5CE00, (byte)0x4F);
                     break;
                 case 22: //quiver upgrade
-                    ReadWriteHelpers.WriteToROM(0xC5CE6F, (byte)0x02);
+                    ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x02);
                     break;
                 case 23:
-                    ReadWriteHelpers.WriteToROM(0xC5CE6F, (byte)0x03);
+                    ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x03);
                     break;
                 case 24://bomb bag upgrade
-                    ReadWriteHelpers.WriteToROM(0xC5CE6F, (byte)0x10);
+                    ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x10);
                     break;
                 case 25:
-                    ReadWriteHelpers.WriteToROM(0xC5CE6F, (byte)0x18);
+                    ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x18);
                     break;
                 default:
                     break;
@@ -374,7 +374,7 @@ namespace MMRando
 
             for (int i = 0; i < 3; i++)
             {
-                ReadWriteHelpers.WriteROMAddr(Addrs[i], new byte[] { SkyboxDefault[i * 2], SkyboxDefault[i * 2 + 1] });
+                ReadWriteUtils.WriteROMAddr(Addrs[i], new byte[] { SkyboxDefault[i * 2], SkyboxDefault[i * 2 + 1] });
             }
 
             rot = R.Next(360);
@@ -395,11 +395,11 @@ namespace MMRando
             {
                 if (i < 6)
                 {
-                    ReadWriteHelpers.WriteROMAddr(Addrs[i], new byte[] { 0x00, FSDefault[i]});
+                    ReadWriteUtils.WriteROMAddr(Addrs[i], new byte[] { 0x00, FSDefault[i]});
                 }
                 else
                 {
-                    ReadWriteHelpers.WriteROMAddr(Addrs[i], new byte[] { FSDefault[i] });
+                    ReadWriteUtils.WriteROMAddr(Addrs[i], new byte[] { FSDefault[i] });
                 }
             }
         }

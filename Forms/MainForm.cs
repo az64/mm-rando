@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace MMRando
 {
-    public partial class MainRandomizerForm : Form
+    public partial class MainForm : Form
     {
         private bool _isUpdating = false;
         private string _oldSettingsString = "";
@@ -36,7 +36,7 @@ namespace MMRando
             }
         }
 
-        public MainRandomizerForm()
+        public MainForm()
         {
             InitializeComponent();
             InitializeSettings();

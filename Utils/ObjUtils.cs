@@ -11,15 +11,15 @@ namespace MMRando.Utils
         {
             int f = RomUtils.GetFileIndexForWriting(Addresses.ObjTable);
             int basea = Addresses.ObjTable - RomData.MMFileList[f].Addr;
-            return (int)(ReadWriteHelpers.Arr_ReadU32(RomData.MMFileList[f].Data, basea + (obj * 8) + 4)
-                - ReadWriteHelpers.Arr_ReadU32(RomData.MMFileList[f].Data, basea + (obj * 8)));
+            return (int)(ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, basea + (obj * 8) + 4)
+                - ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, basea + (obj * 8)));
         }
 
         public static void InsertObj(byte[] obj, int replace)
         {
             int f = RomUtils.GetFileIndexForWriting(Addresses.ObjTable);
             int basea = Addresses.ObjTable - RomData.MMFileList[f].Addr;
-            uint replaceaddr = ReadWriteHelpers.Arr_ReadU32(RomData.MMFileList[f].Data, basea + (replace * 8));
+            uint replaceaddr = ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, basea + (replace * 8));
             int objf = RomData.MMFileList.FindIndex(u => u.Addr == replaceaddr);
             if (objf == -1)
             {
@@ -38,8 +38,8 @@ namespace MMRando.Utils
                 RomData.MMFileList[objf].Data = null;
                 RomData.MMFileList[objf].IsCompressed = false;
                 RomData.MMFileList.Add(newfile);
-                ReadWriteHelpers.Arr_WriteU32(RomData.MMFileList[f].Data, basea + (replace * 8), (uint)newfile.Addr);
-                ReadWriteHelpers.Arr_WriteU32(RomData.MMFileList[f].Data, basea + (replace * 8) + 4, (uint)newfile.End);
+                ReadWriteUtils.Arr_WriteU32(RomData.MMFileList[f].Data, basea + (replace * 8), (uint)newfile.Addr);
+                ReadWriteUtils.Arr_WriteU32(RomData.MMFileList[f].Data, basea + (replace * 8) + 4, (uint)newfile.End);
             }
             else
             {
