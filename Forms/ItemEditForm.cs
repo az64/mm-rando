@@ -45,16 +45,26 @@ namespace MMRando.Forms
         "Map: Snowhead", "Map: Romani Ranch", "Map: Great Bay", "Map: Stone Tower", "Goron Racetrack Grotto" };
 
         bool updating = false;
-        public static List<int> selected_items = new List<int>();
+        public static List<int> SelectedItems;
 
-        public ItemEditForm()
+        public ItemEditForm(List<int> selectedItems)
         {
             InitializeComponent();
+
+            SelectedItems = selectedItems;
+
             for (int i = 0; i < ITEM_NAMES.Length; i++)
             {
                 lItems.Items.Add(ITEM_NAMES[i]);
             };
-            tSetting.Text = "0-0-0-0";
+            if(selectedItems != null)
+            {
+                UpdateString(selectedItems);
+            }
+            else
+            {
+                tSetting.Text = "0-0-0-0";
+            }
         }
 
         private void fItemEdit_FormClosing(object sender, FormClosingEventArgs e)
@@ -66,14 +76,14 @@ namespace MMRando.Forms
             };
         }
 
-        private void UpdateString(List<int> s)
+        private void UpdateString(List<int> selections)
         {
             int[] n = new int[8];
             string[] ns = new string[8];
-            for (int i = 0; i < s.Count; i++)
+            for (int i = 0; i < selections.Count; i++)
             {
-                int j = s[i] / 32;
-                int k = s[i] % 32;
+                int j = selections[i] / 32;
+                int k = selections[i] % 32;
                 n[j] |= (int)(1 << k);
                 ns[j] = Convert.ToString(n[j], 16);
             };
@@ -83,7 +93,6 @@ namespace MMRando.Forms
 
         private void UpdateChecks(string c)
         {
-            selected_items = new List<int>();
             string[] v = c.Split('-');
             int[] vi = new int[8];
             for (int i = 0; i < 8; i++)
@@ -99,12 +108,12 @@ namespace MMRando.Forms
                 int k = i % 32;
                 if (((vi[j] >> k) & 1) > 0)
                 {
-                    selected_items.Add(i);
+                    SelectedItems.Add(i);
                 };
             };
             foreach (ListViewItem l in lItems.Items)
             {
-                if (selected_items.Contains(l.Index))
+                if (SelectedItems.Contains(l.Index))
                 {
                     l.Checked = true;
                 }
@@ -132,15 +141,15 @@ namespace MMRando.Forms
                 return;
             };
             updating = true;
-            selected_items = new List<int>();
-            foreach (ListViewItem l in lItems.Items)
+            if (e.Item.Checked)
             {
-                if (l.Checked)
-                {
-                    selected_items.Add(l.Index);
-                };
-            };
-            UpdateString(selected_items);
+                SelectedItems.Add(e.Item.Index);
+            }
+            else
+            {
+                SelectedItems.Remove(e.Item.Index);
+            }
+            UpdateString(SelectedItems);
             updating = false;
         }
 

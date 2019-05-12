@@ -21,7 +21,7 @@ namespace MMRando
         public AboutForm About { get; private set; }
         public ManualForm Manual { get; private set; }
         public LogicEditorForm LogicEditor { get; private set; }
-        public ItemSelectorForm ItemEditor { get; private set; }
+        public ItemEditForm ItemEditor { get; private set; }
 
         private Randomizer _randomizer;
         private Builder _builder;
@@ -44,8 +44,8 @@ namespace MMRando
             _randomizer = new Randomizer(_settings);
             _builder = new Builder(_randomizer, _settings);
 
+            ItemEditor = new ItemEditForm(_settings.CustomItemList);
             LogicEditor = new LogicEditorForm();
-            ItemEditor = new ItemSelectorForm(_settings.CustomItemList);
             Manual = new ManualForm();
             About = new AboutForm();
 

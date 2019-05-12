@@ -82,7 +82,7 @@
             this.tLayout.Size = new System.Drawing.Size(451, 592);
             this.tLayout.TabIndex = 3;
             // 
-            // fItemEdit
+            // ItemEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -90,7 +90,7 @@
             this.Controls.Add(this.tLayout);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "fItemEdit";
+            this.Name = "ItemEditForm";
             this.Text = "Item List Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.fItemEdit_FormClosing);
             this.tLayout.ResumeLayout(false);
