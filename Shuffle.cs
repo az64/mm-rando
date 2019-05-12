@@ -1,4 +1,4 @@
-﻿using MMRando.Models;
+using MMRando.Models;
 using MMRando.Utils;
 using System;
 using System.Collections.Generic;
@@ -484,9 +484,9 @@ namespace MMRando
 
             StreamWriter LogFile = new StreamWriter(Path.Combine(directory, filename));
 
-            LogFile.WriteLine("Version: ".PadRight(20, ' ') + AssemblyVersion.Substring(26).PadLeft(20, ' '));
-            LogFile.WriteLine("Settings String: ".PadRight(20, ' ') + settingsString.PadLeft(20, ' '));
-            LogFile.WriteLine("Seed: ".PadRight(20, ' ') + Settings.Seed.ToString().PadLeft(20, ' ') + "\n");
+            LogFile.WriteLine("Version: " + AssemblyVersion.Substring(26));
+            LogFile.WriteLine("Settings String: \"" + settingsString + "\"");
+            LogFile.WriteLine("Seed: \"" + Settings.Seed + "\"\n");
 
             if (Settings.RandomizeDungeonEntrances)
             {
