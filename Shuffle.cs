@@ -520,6 +520,15 @@ namespace MMRando
             {
                 LogFile.WriteLine(Items.ITEM_NAMES[ItemList[i].ID].PadRight(40, '-') + "->>-" + Items.ITEM_NAMES[ItemList[i].ReplacesItemId].PadLeft(40, '-'));
             };
+
+            LogFile.WriteLine();
+            LogFile.WriteLine();
+
+            LogFile.WriteLine("-------------------Item------------------------------------Location-----------------");
+            for (int i = 0; i < ItemList.Count; i++)
+            {
+                LogFile.WriteLine(Items.ITEM_NAMES[ItemList[i].ReplacesItemId].PadRight(40, '-') + "->>-" + Items.ITEM_NAMES[ItemList[i].ID].PadLeft(40, '-'));
+            };
             LogFile.Close();
         }
 
