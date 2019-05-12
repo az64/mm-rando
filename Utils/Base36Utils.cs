@@ -12,7 +12,7 @@ namespace MMRando.Utils
     /// <summary>
     /// A Base36 De- and Encoder
     /// </summary>
-    public static class Base36
+    public static class Base36Utils
     {
         private const string CharList = "0123456789abcdefghijklmnopqrstuvwxyz";
 

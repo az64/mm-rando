@@ -1,5 +1,4 @@
 ﻿using MMRando.Models.Vectors;
-using static MMRando.Vectors;
 
 namespace MMRando.Models.Rom
 {

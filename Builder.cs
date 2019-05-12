@@ -486,7 +486,7 @@ namespace MMRando
             if (_settings.OutputVC)
             {
                 worker.ReportProgress(98, "Building VC...");
-                VCInjection.BuildVC(ROM, Values.VCDirectory, Path.ChangeExtension(FileName, "wad"));
+                VCInjectionUtils.BuildVC(ROM, Values.VCDirectory, Path.ChangeExtension(FileName, "wad"));
             }
             worker.ReportProgress(100, "Done!");
 

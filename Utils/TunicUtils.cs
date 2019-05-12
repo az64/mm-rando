@@ -1,9 +1,8 @@
-﻿using MMRando.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace MMRando
+namespace MMRando.Utils
 {
 
     public class TunicUtils

@@ -184,9 +184,9 @@ namespace MMRando.Models
         public void Update(string settings)
         {
             var O = settings.Split('-');
-            int Checks = (int)Base36.Decode(O[0]);
-            int Combos = (int)Base36.Decode(O[1]);
-            int ColourAndMisc = (int)Base36.Decode(O[2]);
+            int Checks = (int)Base36Utils.Decode(O[0]);
+            int Combos = (int)Base36Utils.Decode(O[1]);
+            int ColourAndMisc = (int)Base36Utils.Decode(O[2]);
 
             UseCustomItemList = (Checks & 8192) > 0;
             AddOther = (Checks & 4096) > 0;
@@ -280,7 +280,7 @@ namespace MMRando.Models
         {
             int[] options = BuildSettingsBytes();
 
-            return $"{Base36.Encode(options[0])}-{Base36.Encode(options[1])}-{Base36.Encode(options[2])}";
+            return $"{Base36Utils.Encode(options[0])}-{Base36Utils.Encode(options[1])}-{Base36Utils.Encode(options[2])}";
         }
 
         public override string ToString()

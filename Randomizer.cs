@@ -27,9 +27,7 @@ namespace MMRando
 
         public List<ItemObject> ItemList { get; set; }
         public List<string> GossipQuotes { get; set; }
-
-        List<SequenceInfo> SequenceList { get; set; }
-        List<SequenceInfo> TargetSequences { get; set; }
+        
         List<Gossip> GossipList { get; set; }
         List<int> ConditionsChecked { get; set; }
         Dictionary<int, Dependence> DependenceChecked { get; set; }
@@ -312,11 +310,13 @@ namespace MMRando
 
         private void BGMShuffle()
         {
-            while (TargetSequences.Count > 0)
+            while (RomData.TargetSequences.Count > 0)
             {
-                List<SequenceInfo> Unassigned = SequenceList.FindAll(u => u.Replaces == -1);
+                List<SequenceInfo> Unassigned = RomData.SequenceList.FindAll(u => u.Replaces == -1);
 
-                int targetIndex = RNG.Next(TargetSequences.Count);
+                int targetIndex = RNG.Next(RomData.TargetSequences.Count);
+                var targetSequence = RomData.TargetSequences[targetIndex];
+
                 while (true)
                 {
                     int unassignedIndex = RNG.Next(Unassigned.Count);
@@ -329,23 +329,23 @@ namespace MMRando
 
                     for (int i = 0; i < Unassigned[unassignedIndex].Type.Count; i++)
                     {
-                        if (TargetSequences[targetIndex].Type.Contains(Unassigned[unassignedIndex].Type[i]))
+                        if (targetSequence.Type.Contains(Unassigned[unassignedIndex].Type[i]))
                         {
-                            Unassigned[unassignedIndex].Replaces = TargetSequences[targetIndex].Replaces;
-                            Debug.WriteLine(Unassigned[unassignedIndex].Name + " -> " + TargetSequences[targetIndex].Name);
-                            TargetSequences.RemoveAt(targetIndex);
+                            Unassigned[unassignedIndex].Replaces = targetSequence.Replaces;
+                            Debug.WriteLine(Unassigned[unassignedIndex].Name + " -> " + targetSequence.Name);
+                            RomData.TargetSequences.RemoveAt(targetIndex);
                             break;
                         }
                         else if (i + 1 == Unassigned[unassignedIndex].Type.Count)
                         {
                             if ((RNG.Next(30) == 0)
-                                && ((Unassigned[unassignedIndex].Type[0] & 8) == (TargetSequences[targetIndex].Type[0] & 8))
-                                && (Unassigned[unassignedIndex].Type.Contains(10) == TargetSequences[targetIndex].Type.Contains(10))
+                                && ((Unassigned[unassignedIndex].Type[0] & 8) == (targetSequence.Type[0] & 8))
+                                && (Unassigned[unassignedIndex].Type.Contains(10) == targetSequence.Type.Contains(10))
                                 && (!Unassigned[unassignedIndex].Type.Contains(16)))
                             {
-                                Unassigned[unassignedIndex].Replaces = TargetSequences[targetIndex].Replaces;
-                                Debug.WriteLine(Unassigned[unassignedIndex].Name + " -> " + TargetSequences[targetIndex].Name);
-                                TargetSequences.RemoveAt(targetIndex);
+                                Unassigned[unassignedIndex].Replaces = targetSequence.Replaces;
+                                Debug.WriteLine(Unassigned[unassignedIndex].Name + " -> " + targetSequence.Name);
+                                RomData.TargetSequences.RemoveAt(targetIndex);
                                 break;
                             }
                         }
@@ -358,7 +358,7 @@ namespace MMRando
                 }
             }
 
-            SequenceList.RemoveAll(u => u.Replaces == -1);
+            RomData.SequenceList.RemoveAll(u => u.Replaces == -1);
         }
 
         private void SortBGM()
@@ -406,9 +406,9 @@ namespace MMRando
 
             StreamWriter LogFile = new StreamWriter(Path.Combine(directory, filename));
 
-            LogFile.WriteLine("Version: " + AssemblyVersion.Substring(26));
+            LogFile.WriteLine("Version: " + MainForm.AssemblyVersion.Substring(26));
             LogFile.WriteLine("Settings String: \"" + settingsString + "\"");
-            LogFile.WriteLine("Seed: \"" + Settings.Seed + "\"\n");
+            LogFile.WriteLine("Seed: \"" + _settings.Seed + "\"\n");
 
             if (_settings.RandomizeDungeonEntrances)
             {

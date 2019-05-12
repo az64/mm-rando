@@ -64,7 +64,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audioseq.cs" />
+    <Compile Include="Models\Rom\Enemy.cs" />
+    <Compile Include="Utils\AudioSequenceUtils.cs" />
     <Compile Include="Constants\Addresses.cs" />
     <Compile Include="Models\Gossip.cs" />
     <Compile Include="Models\ItemObject.cs" />
@@ -80,7 +81,7 @@
     <Compile Include="Models\Rom\SequenceInfo.cs" />
     <Compile Include="Models\Vectors\vecf32.cs" />
     <Compile Include="Models\Vectors\vec16.cs" />
-    <Compile Include="Utils\Base36.cs" />
+    <Compile Include="Utils\Base36Utils.cs" />
     <Compile Include="Builder.cs" />
     <Compile Include="Constants\Values.cs" />
     <Compile Include="Forms\ItemEditForm.cs">
@@ -133,12 +134,12 @@
     <Compile Include="RomData.cs" />
     <Compile Include="Utils\ReadWriteUtils.cs" />
     <Compile Include="Randomizer.cs" />
-    <Compile Include="Tunics.cs" />
+    <Compile Include="Utils\TunicUtils.cs" />
     <Compile Include="Utils\ItemUtils.cs" />
     <Compile Include="Utils\SequenceUtils.cs" />
-    <Compile Include="VCInjection.cs" />
-    <Compile Include="Vectors.cs" />
-    <Compile Include="Yaz0.cs" />
+    <Compile Include="Utils\VCInjectionUtils.cs" />
+    <Compile Include="Utils\VectorUtils.cs" />
+    <Compile Include="Utils\Yaz0Utils.cs" />
     <Compile Include="Utils\RomUtils.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
@@ -185,547 +186,547 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="addresses\d-check">
+    <None Include="Resources\addresses\d-check">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="addresses\d-exit">
+    <None Include="Resources\addresses\d-exit">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="addresses\dc-flagload">
+    <None Include="Resources\addresses\dc-flagload">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="addresses\dc-flagmask">
+    <None Include="Resources\addresses\dc-flagmask">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="addresses\fs-colour">
+    <None Include="Resources\addresses\fs-colour">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="addresses\skybox-init">
+    <None Include="Resources\addresses\skybox-init">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="addresses\tatl-colour">
+    <None Include="Resources\addresses\tatl-colour">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="addresses\tunic-1">
+    <None Include="Resources\addresses\tunic-1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="addresses\tunic-2">
+    <None Include="Resources\addresses\tunic-2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="addresses\tunic-3">
+    <None Include="Resources\addresses\tunic-3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="addresses\tunic-colour">
+    <None Include="Resources\addresses\tunic-colour">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="addresses\tunic-forms">
+    <None Include="Resources\addresses\tunic-forms">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\chest-table">
+    <None Include="Resources\mods\chest-table">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\cm-cs">
+    <None Include="Resources\mods\cm-cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\de-1">
+    <None Include="Resources\mods\de-1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\de-2">
+    <None Include="Resources\mods\de-2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\de-3">
+    <None Include="Resources\mods\de-3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\de-4">
+    <None Include="Resources\mods\de-4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\de-5">
+    <None Include="Resources\mods\de-5">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\dm-1">
+    <None Include="Resources\mods\dm-1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\dm-2">
+    <None Include="Resources\mods\dm-2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\dm-3">
+    <None Include="Resources\mods\dm-3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\dm-4">
+    <None Include="Resources\mods\dm-4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\file-select">
+    <None Include="Resources\mods\file-select">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\fix-dungeons">
+    <None Include="Resources\mods\fix-dungeons">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\fix-item-checks">
+    <None Include="Resources\mods\fix-item-checks">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\fix-kafei">
+    <None Include="Resources\mods\fix-kafei">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\fix-link-1">
+    <None Include="Resources\mods\fix-link-1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\fix-link-2">
+    <None Include="Resources\mods\fix-link-2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\fix-link-3">
+    <None Include="Resources\mods\fix-link-3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\fix-music">
+    <None Include="Resources\mods\fix-music">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\fix-shop-checks">
+    <None Include="Resources\mods\fix-shop-checks">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\floor-1">
+    <None Include="Resources\mods\floor-1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\floor-2">
+    <None Include="Resources\mods\floor-2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\floor-3">
+    <None Include="Resources\mods\floor-3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\floor-4">
+    <None Include="Resources\mods\floor-4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\gi-table">
+    <None Include="Resources\mods\gi-table">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\init-file">
+    <None Include="Resources\mods\init-file">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\inst24-swap-guitar">
+    <None Include="Resources\mods\inst24-swap-guitar">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\logo-text">
+    <None Include="Resources\mods\logo-text">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\misc-changes">
+    <None Include="Resources\mods\misc-changes">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\movement-1">
+    <None Include="Resources\mods\movement-1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\movement-2">
+    <None Include="Resources\mods\movement-2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\movement-3">
+    <None Include="Resources\mods\movement-3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\movement-4">
+    <None Include="Resources\mods\movement-4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\postman-testing">
+    <None Include="Resources\mods\postman-testing">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\quick-text">
+    <None Include="Resources\mods\quick-text">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\rainbow-tatl">
+    <None Include="Resources\mods\rainbow-tatl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\reloc-audio">
+    <None Include="Resources\mods\reloc-audio">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\replace-gi-table">
+    <None Include="Resources\mods\replace-gi-table">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\short-cutscenes">
+    <None Include="Resources\mods\short-cutscenes">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\standing-hearts">
+    <None Include="Resources\mods\standing-hearts">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\title-screen">
+    <None Include="Resources\mods\title-screen">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\update-chests">
+    <None Include="Resources\mods\update-chests">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\botw-hyrulecastle">
+    <None Include="Resources\music\botw-hyrulecastle">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\botw-kass">
+    <None Include="Resources\music\botw-kass">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-battle">
+    <None Include="Resources\music\mk64-battle">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-bb">
+    <None Include="Resources\music\mk64-bb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-bc">
+    <None Include="Resources\music\mk64-bc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-ceremony">
+    <None Include="Resources\music\mk64-ceremony">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-ceremony-loss">
+    <None Include="Resources\music\mk64-ceremony-loss">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-cm">
+    <None Include="Resources\music\mk64-cm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-dkjp">
+    <None Include="Resources\music\mk64-dkjp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-fs">
+    <None Include="Resources\music\mk64-fs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-kb">
+    <None Include="Resources\music\mk64-kb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-kd">
+    <None Include="Resources\music\mk64-kd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-lr">
+    <None Include="Resources\music\mk64-lr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-menu">
+    <None Include="Resources\music\mk64-menu">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-mmf">
+    <None Include="Resources\music\mk64-mmf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-rr">
+    <None Include="Resources\music\mk64-rr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-star">
+    <None Include="Resources\music\mk64-star">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mk64-tt">
+    <None Include="Resources\music\mk64-tt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mmr-f-sot">
+    <None Include="Resources\music\mmr-f-sot">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mmr-jazz">
+    <None Include="Resources\music\mmr-jazz">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\mmr-theme">
+    <None Include="Resources\music\mmr-theme">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-boss">
+    <None Include="Resources\music\oot-boss">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-c-goddess">
+    <None Include="Resources\music\oot-c-goddess">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-castlecollapse">
+    <None Include="Resources\music\oot-castlecollapse">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-castlecourtyard">
+    <None Include="Resources\music\oot-castlecourtyard">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-chamberofsages">
+    <None Include="Resources\music\oot-chamberofsages">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-dekutree">
+    <None Include="Resources\music\oot-dekutree">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-dinosaur">
+    <None Include="Resources\music\oot-dinosaur">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-dodongocavern">
+    <None Include="Resources\music\oot-dodongocavern">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-f-ganondorf">
+    <None Include="Resources\music\oot-f-ganondorf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-f-medallion">
+    <None Include="Resources\music\oot-f-medallion">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-f-opendot">
+    <None Include="Resources\music\oot-f-opendot">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-f-stone">
+    <None Include="Resources\music\oot-f-stone">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-f-timetravel">
+    <None Include="Resources\music\oot-f-timetravel">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-firetemple">
+    <None Include="Resources\music\oot-firetemple">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-foresttemple">
+    <None Include="Resources\music\oot-foresttemple">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-ganon">
+    <None Include="Resources\music\oot-ganon">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-ganoncastle">
+    <None Include="Resources\music\oot-ganoncastle">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-ganondorf">
+    <None Include="Resources\music\oot-ganondorf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-ganondorfbattle">
+    <None Include="Resources\music\oot-ganondorfbattle">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-gerudovalley">
+    <None Include="Resources\music\oot-gerudovalley">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-icecavern">
+    <None Include="Resources\music\oot-icecavern">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-insidedekutree">
+    <None Include="Resources\music\oot-insidedekutree">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-jabu">
+    <None Include="Resources\music\oot-jabu">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-kakariko1">
+    <None Include="Resources\music\oot-kakariko1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-kakariko2">
+    <None Include="Resources\music\oot-kakariko2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-kokiriforest">
+    <None Include="Resources\music\oot-kokiriforest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-market">
+    <None Include="Resources\music\oot-market">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-miniboss">
+    <None Include="Resources\music\oot-miniboss">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-navi">
+    <None Include="Resources\music\oot-navi">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-shadowtemple">
+    <None Include="Resources\music\oot-shadowtemple">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-sheik">
+    <None Include="Resources\music\oot-sheik">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-spirittemple">
+    <None Include="Resources\music\oot-spirittemple">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-templeoftime">
+    <None Include="Resources\music\oot-templeoftime">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\oot-watertemple">
+    <None Include="Resources\music\oot-watertemple">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\pa-ikanacastle">
+    <None Include="Resources\music\pa-ikanacastle">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\pm-field">
+    <None Include="Resources\music\pm-field">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-aquas">
+    <None Include="Resources\music\sf64-aquas">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-area6">
+    <None Include="Resources\music\sf64-area6">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-bolse">
+    <None Include="Resources\music\sf64-bolse">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-boss1">
+    <None Include="Resources\music\sf64-boss1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-boss2">
+    <None Include="Resources\music\sf64-boss2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-boss3">
+    <None Include="Resources\music\sf64-boss3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-corneria">
+    <None Include="Resources\music\sf64-corneria">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-fichina">
+    <None Include="Resources\music\sf64-fichina">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-katarina">
+    <None Include="Resources\music\sf64-katarina">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-meteo">
+    <None Include="Resources\music\sf64-meteo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-sectorx">
+    <None Include="Resources\music\sf64-sectorx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-sectory">
+    <None Include="Resources\music\sf64-sectory">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-starwolf">
+    <None Include="Resources\music\sf64-starwolf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-titania">
+    <None Include="Resources\music\sf64-titania">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-venom">
+    <None Include="Resources\music\sf64-venom">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sf64-zoness">
+    <None Include="Resources\music\sf64-zoness">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-battlefield">
+    <None Include="Resources\music\sm64-battlefield">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-bbh">
+    <None Include="Resources\music\sm64-bbh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-bitdw">
+    <None Include="Resources\music\sm64-bitdw">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-boss">
+    <None Include="Resources\music\sm64-boss">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-castle">
+    <None Include="Resources\music\sm64-castle">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-ccm">
+    <None Include="Resources\music\sm64-ccm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-f-bitsclear">
+    <None Include="Resources\music\sm64-f-bitsclear">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-f-bowser">
+    <None Include="Resources\music\sm64-f-bowser">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-f-bowserclear">
+    <None Include="Resources\music\sm64-f-bowserclear">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-f-intro">
+    <None Include="Resources\music\sm64-f-intro">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-f-lakitu">
+    <None Include="Resources\music\sm64-f-lakitu">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-f-peach">
+    <None Include="Resources\music\sm64-f-peach">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-f-race">
+    <None Include="Resources\music\sm64-f-race">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-f-savepeach">
+    <None Include="Resources\music\sm64-f-savepeach">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-f-solved">
+    <None Include="Resources\music\sm64-f-solved">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-f-star">
+    <None Include="Resources\music\sm64-f-star">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-f-starget">
+    <None Include="Resources\music\sm64-f-starget">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-f-toad">
+    <None Include="Resources\music\sm64-f-toad">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-f-unlock">
+    <None Include="Resources\music\sm64-f-unlock">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-fileselect">
+    <None Include="Resources\music\sm64-fileselect">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-finalbowser">
+    <None Include="Resources\music\sm64-finalbowser">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-hmc">
+    <None Include="Resources\music\sm64-hmc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-jrb">
+    <None Include="Resources\music\sm64-jrb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-lll">
+    <None Include="Resources\music\sm64-lll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-lullaby">
+    <None Include="Resources\music\sm64-lullaby">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-mgr">
+    <None Include="Resources\music\sm64-mgr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-slide">
+    <None Include="Resources\music\sm64-slide">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\sm64-steps">
+    <None Include="Resources\music\sm64-steps">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\smg2-skystation">
+    <None Include="Resources\music\smg2-skystation">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\ss-groose">
+    <None Include="Resources\music\ss-groose">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-boss">
+    <None Include="Resources\music\uc-boss">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-dekuforest">
+    <None Include="Resources\music\uc-dekuforest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-dekutree">
+    <None Include="Resources\music\uc-dekutree">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-dream">
+    <None Include="Resources\music\uc-dream">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-dungeon">
+    <None Include="Resources\music\uc-dungeon">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-field">
+    <None Include="Resources\music\uc-field">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-fileselect">
+    <None Include="Resources\music\uc-fileselect">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-foresttemple">
+    <None Include="Resources\music\uc-foresttemple">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-gerudobay">
+    <None Include="Resources\music\uc-gerudobay">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-goronvillage">
+    <None Include="Resources\music\uc-goronvillage">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-miniboss">
+    <None Include="Resources\music\uc-miniboss">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-minigame">
+    <None Include="Resources\music\uc-minigame">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-mountain">
+    <None Include="Resources\music\uc-mountain">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-navi">
+    <None Include="Resources\music\uc-navi">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-predungeon">
+    <None Include="Resources\music\uc-predungeon">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-snowfield">
+    <None Include="Resources\music\uc-snowfield">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-snowfieldold">
+    <None Include="Resources\music\uc-snowfieldold">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-village">
+    <None Include="Resources\music\uc-village">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-zelda">
+    <None Include="Resources\music\uc-zelda">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="music\uc-zora">
+    <None Include="Resources\music\uc-zora">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="obj\kafei">
+    <None Include="Resources\obj\kafei">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="obj\link-1">
+    <None Include="Resources\obj\link-1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="obj\link-2">
+    <None Include="Resources\obj\link-2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="obj\link-3">
+    <None Include="Resources\obj\link-3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">

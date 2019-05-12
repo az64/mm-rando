@@ -3,10 +3,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace MMRando
+namespace MMRando.Utils
 {
 
-    public class VCInjection
+    public class VCInjectionUtils
     {
 
         private static void GetApp5(byte[] ROM, string VCDir)

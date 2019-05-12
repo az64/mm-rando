@@ -65,7 +65,7 @@ namespace MMRando.Utils
             var file = RomData.MMFileList[fileIndex];
             if (file.IsCompressed && !file.WasEdited)
             {
-                file.Data = Yaz0.Decompress(file.Data);
+                file.Data = Yaz0Utils.Decompress(file.Data);
                 file.WasEdited = true;
             }
         }
@@ -137,7 +137,7 @@ namespace MMRando.Utils
             {
                 if (file.IsCompressed && file.WasEdited)
                 {
-                    file.Data = Yaz0.Compress(file.Data);
+                    file.Data = Yaz0Utils.Compress(file.Data);
                 }
             });
             byte[] ROM = new byte[0x2000000];

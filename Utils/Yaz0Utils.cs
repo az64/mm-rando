@@ -1,11 +1,9 @@
-﻿using MMRando.Utils;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace MMRando
+namespace MMRando.Utils
 {
 
-    public class Yaz0
+    public class Yaz0Utils
     {
 
         //compression

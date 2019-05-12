@@ -7,11 +7,11 @@ namespace MMRando.Constants
     {
 
         public static string MainDirectory = Application.StartupPath;
-        public static string MusicDirectory = Application.StartupPath + @"\music\";
-        public static string ModsDirectory = Application.StartupPath + @"\mods\";
-        public static string AddrsDirectory = Application.StartupPath + @"\addresses\";
-        public static string ObjsDirectory = Application.StartupPath + @"\obj\";
-        public static string VCDirectory = Application.StartupPath + @"\vc\";
+        public static string MusicDirectory = MainDirectory + @"\Resources\music\";
+        public static string ModsDirectory = MainDirectory + @"\Resources\mods\";
+        public static string AddrsDirectory = MainDirectory + @"\Resources\addresses\";
+        public static string ObjsDirectory = MainDirectory + @"\Resources\obj\";
+        public static string VCDirectory = MainDirectory + @"\vc\";
 
         /// <summary>
         /// Item indices ranging from 98 and to (inclusive) 120 define 

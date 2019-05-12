@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 
-namespace MMRando
+namespace MMRando.Utils
 {
 
-    public class Vectors
+    public class VectorUtils
     {
 
         public static vecf32 CrossProduct(vecf32 A, vecf32 B)

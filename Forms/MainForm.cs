@@ -27,7 +27,7 @@ namespace MMRando
         private Builder _builder;
 
 
-        public string AssemblyVersion
+        public static string AssemblyVersion
         {
             get
             {

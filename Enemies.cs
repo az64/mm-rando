@@ -8,26 +8,15 @@ namespace MMRando
 {
     public class Enemies
     {
-        public class Enemy
-        {
-            public int Actor = new int();
-            public int Object = new int();
-            public int ObjectSize = new int();
-            public List<int> Variables = new List<int>();
-            public int Type = new int();
-            public int Stationary = new int();
-            public List<int> SceneExclude = new List<int>();
-        }
-
         public class ValueSwap
         {
-            public int OldV = new int();
-            public int NewV = new int();
+            public int OldV;
+            public int NewV;
         }
 
-        public static List<Enemy> EnemyList;
+        private static List<Enemy> EnemyList { get; set; }
 
-        public static void GetEnemyList()
+        public static void ReadEnemyList()
         {
             EnemyList = new List<Enemy>();
             string[] lines = Properties.Resources.ENEMIES.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
@@ -38,7 +27,7 @@ namespace MMRando
                 {
                     i++;
                     continue;
-                };
+                }
                 Enemy e = new Enemy();
                 e.Actor = Convert.ToInt32(lines[i], 16);
                 e.Object = Convert.ToInt32(lines[i + 1], 16);
@@ -47,7 +36,7 @@ namespace MMRando
                 for (int j = 0; j <  varlist.Length; j++)
                 {
                     e.Variables.Add(Convert.ToInt32(varlist[j], 16));
-                };
+                }
                 e.Type = Convert.ToInt32(lines[i + 3], 16);
                 e.Stationary = Convert.ToInt32(lines[i + 4], 16);
                 if (lines[i + 5] != "")
@@ -56,11 +45,11 @@ namespace MMRando
                     for (int j = 0; j < selist.Length; j++)
                     {
                         e.SceneExclude.Add(Convert.ToInt32(selist[j], 16));
-                    };
-                };
+                    }
+                }
                 EnemyList.Add(e);
                 i += 6;
-            };
+            }
         }
 
         public static List<int> GetSceneEnemyActors(Scene scene)
@@ -76,10 +65,10 @@ namespace MMRando
                         if (!EnemyList[k].SceneExclude.Contains(scene.Number))
                         {
                             ActorList.Add(EnemyList[k].Actor);
-                        };
-                    };
-                };
-            };
+                        }
+                    }
+                }
+            }
             return ActorList;
         }
 
@@ -98,11 +87,11 @@ namespace MMRando
                             if (!EnemyList[k].SceneExclude.Contains(scene.Number))
                             {
                                 ObjList.Add(EnemyList[k].Object);
-                            };
-                        };
-                    };
-                };
-            };
+                            }
+                        }
+                    }
+                }
+            }
             return ObjList;
         }
 
@@ -118,9 +107,9 @@ namespace MMRando
                         scene.Maps[i].Actors[j].n = A[k][0].NewV;
                         scene.Maps[i].Actors[j].v = A[k][1].NewV;
                         A.RemoveAt(k);
-                    };
-                };
-            };
+                    }
+                }
+            }
         }
 
         public static void SetSceneEnemyObjects(Scene scene, List<ValueSwap> O)
@@ -133,9 +122,9 @@ namespace MMRando
                     if (k != -1)
                     {
                         scene.Maps[i].Objects[j] = O[k].NewV;
-                    };
-                };
-            };
+                    }
+                }
+            }
         }
 
         public static List<Enemy> GetMatchPool(List<Enemy> Actors, Random R)
@@ -151,17 +140,17 @@ namespace MMRando
                         if (!Pool.Contains(EnemyList[j]))
                         {
                             Pool.Add(EnemyList[j]);
-                        };
+                        }
                     }
                     else if ((EnemyList[j].Type == E.Type) && (R.Next(5) == 0))
                     {
                         if (!Pool.Contains(EnemyList[j]))
                         {
                             Pool.Add(EnemyList[j]);
-                        };
-                    };
-                };
-            };
+                        }
+                    }
+                }
+            }
             return Pool;
         }
 
@@ -171,12 +160,12 @@ namespace MMRando
             if (Actors.Count == 0)
             {
                 return;
-            };
+            }
             List<int> Objects = GetSceneEnemyObjects(scene);
             if (Objects.Count == 0)
             {
                 return;
-            };
+            }
             // if actor doesn't exist but object does, probably spawned by something else
             List<int> ObjRemove = new List<int>();
             foreach (int o in Objects)
@@ -186,16 +175,16 @@ namespace MMRando
                 for (int i = 0; i < ObjectMatch.Count; i++)
                 {
                     exists |= Actors.Contains(ObjectMatch[i].Actor);
-                };
+                }
                 if (!exists)
                 {
                     ObjRemove.Add(o); ;
-                };
-            };
+                }
+            }
             foreach (int o in ObjRemove)
             {
                 Objects.Remove(o);
-            };
+            }
             List<ValueSwap[]> ActorsUpdate = new List<ValueSwap[]>();
             List<ValueSwap> ObjsUpdate;
             List<List<Enemy>> Updates;
@@ -219,14 +208,14 @@ namespace MMRando
                     NewObject.OldV = Objects[i];
                     NewObject.NewV = newobj;
                     ObjsUpdate.Add(NewObject);
-                };
+                }
                 if (newsize <= oldsize)
                 {
                     //this should take into account map/scene size and size of all loaded actors...
                     //not really accurate but *should* work for now to prevent crashing
                     break;
-                };
-            };
+                }
+            }
             for (int i = 0; i < ObjsUpdate.Count; i++)
             {
                 int j = 0;
@@ -249,13 +238,13 @@ namespace MMRando
                                 if ((Old.Type == SubMatches[l].Type) && (rng.Next(5) == 0))
                                 {
                                     break;
-                                };
-                            };
+                                }
+                            }
                             if (SubMatches.FindIndex(u => u.Type == Old.Type) == -1)
                             {
                                 break;
-                            };
-                        };
+                            }
+                        }
                         ValueSwap NewActor = new ValueSwap();
                         NewActor.OldV = Actors[j];
                         NewActor.NewV = SubMatches[l].Actor;
@@ -267,9 +256,9 @@ namespace MMRando
                     else
                     {
                         j++;
-                    };
-                };
-            };
+                    }
+                }
+            }
             SetSceneEnemyActors(scene, ActorsUpdate);
             SetSceneEnemyObjects(scene, ObjsUpdate);
             SceneUtils.UpdateScene(scene);
@@ -278,7 +267,7 @@ namespace MMRando
         public static void ShuffleEnemies(Random R)
         {
             int[] SceneSkip = new int[] { 0x08, 0x20, 0x24, 0x4F, 0x69 };
-            GetEnemyList();
+            ReadEnemyList();
             SceneUtils.ReadSceneTable();
             SceneUtils.GetMaps();
             SceneUtils.GetMapHeaders();
@@ -288,8 +277,8 @@ namespace MMRando
                 if (!SceneSkip.Contains(RomData.SceneList[i].Number))
                 {
                     SwapSceneEnemies(RomData.SceneList[i], R);
-                };
-            };
+                }
+            }
         }
 
     }
