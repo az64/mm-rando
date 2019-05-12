@@ -326,9 +326,14 @@ namespace MMRando
                 return;
             }
 
+
+
             if (Settings.GenerateSpoilerLog)
             {
-                MakeSpoilerLog();
+                if (!cHTMLLog.Checked)
+                    MakeSpoilerLog();
+                else
+                    MakeHTMLSpoilerLog();
             }
         }
 

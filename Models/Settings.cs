@@ -6,6 +6,8 @@ namespace MMRando.Models
 
     public class Settings
     {
+        internal bool cHTMLLog;
+
         // TODO make base36-string from settings
         // TODO make settings from base36-string
 

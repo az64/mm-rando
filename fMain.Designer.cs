@@ -37,6 +37,7 @@ namespace MMRando
             this.cUserItems = new System.Windows.Forms.CheckBox();
             this.tSettings = new System.Windows.Forms.TabControl();
             this.tabROMSettings = new System.Windows.Forms.TabPage();
+            this.cLogOnly = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cVC = new System.Windows.Forms.CheckBox();
             this.cN64 = new System.Windows.Forms.CheckBox();
@@ -103,7 +104,7 @@ namespace MMRando
             this.cDummy = new System.Windows.Forms.CheckBox();
             this.lHrule = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cLogOnly = new System.Windows.Forms.CheckBox();
+            this.cHTMLLog = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -162,6 +163,7 @@ namespace MMRando
             // 
             // tabROMSettings
             // 
+            this.tabROMSettings.Controls.Add(this.cHTMLLog);
             this.tabROMSettings.Controls.Add(this.cLogOnly);
             this.tabROMSettings.Controls.Add(this.label1);
             this.tabROMSettings.Controls.Add(this.tROMName);
@@ -176,6 +178,20 @@ namespace MMRando
             this.tabROMSettings.TabIndex = 3;
             this.tabROMSettings.Text = "ROM Settings";
             this.tabROMSettings.UseVisualStyleBackColor = true;
+            // 
+            // cLogOnly
+            // 
+            this.cLogOnly.AutoSize = true;
+            this.cLogOnly.BackColor = System.Drawing.Color.Transparent;
+            this.cLogOnly.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cLogOnly.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cLogOnly.ForeColor = System.Drawing.Color.Black;
+            this.cLogOnly.Location = new System.Drawing.Point(201, 93);
+            this.cLogOnly.Name = "cLogOnly";
+            this.cLogOnly.Size = new System.Drawing.Size(128, 17);
+            this.cLogOnly.TabIndex = 13;
+            this.cLogOnly.Text = "Export spoiler log only";
+            this.cLogOnly.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -956,19 +972,19 @@ namespace MMRando
             this.label5.TabIndex = 14;
             this.label5.Text = "_____________________________________________________";
             // 
-            // cLogOnly
+            // cHTMLLog
             // 
-            this.cLogOnly.AutoSize = true;
-            this.cLogOnly.BackColor = System.Drawing.Color.Transparent;
-            this.cLogOnly.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cLogOnly.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cLogOnly.ForeColor = System.Drawing.Color.Black;
-            this.cLogOnly.Location = new System.Drawing.Point(201, 93);
-            this.cLogOnly.Name = "cLogOnly";
-            this.cLogOnly.Size = new System.Drawing.Size(128, 17);
-            this.cLogOnly.TabIndex = 13;
-            this.cLogOnly.Text = "Export spoiler log only";
-            this.cLogOnly.UseVisualStyleBackColor = false;
+            this.cHTMLLog.AutoSize = true;
+            this.cHTMLLog.BackColor = System.Drawing.Color.Transparent;
+            this.cHTMLLog.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cHTMLLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cHTMLLog.ForeColor = System.Drawing.Color.Black;
+            this.cHTMLLog.Location = new System.Drawing.Point(64, 93);
+            this.cHTMLLog.Name = "cHTMLLog";
+            this.cHTMLLog.Size = new System.Drawing.Size(106, 17);
+            this.cHTMLLog.TabIndex = 14;
+            this.cHTMLLog.Text = "HTML spoiler log";
+            this.cHTMLLog.UseVisualStyleBackColor = false;
             // 
             // MainRandomizerForm
             // 
@@ -1087,6 +1103,7 @@ namespace MMRando
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox cFreeHints;
         private System.Windows.Forms.CheckBox cLogOnly;
+        private System.Windows.Forms.CheckBox cHTMLLog;
     }
 }
 

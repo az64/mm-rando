@@ -287,6 +287,11 @@ namespace MMRando
             UpdateSingleSetting(() => Settings.FreeHints = cLogOnly.Checked);
         }
 
+        private void cHMTLLog_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.FreeHints = cHTMLLog.Checked);
+        }
+
         private void cQText_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => Settings.QuickTextEnabled = cQText.Checked);
