@@ -406,6 +406,9 @@ namespace MMRando
 
             StreamWriter LogFile = new StreamWriter(Path.Combine(directory, filename));
 
+            LogFile.WriteLine("Version: " + AssemblyVersion.Substring(26));
+            LogFile.WriteLine("Settings String: \"" + settingsString + "\"");
+            LogFile.WriteLine("Seed: \"" + Settings.Seed + "\"\n");
 
             if (_settings.RandomizeDungeonEntrances)
             {
@@ -1331,7 +1334,7 @@ namespace MMRando
 
             if (!_settings.AddSongs)
             {
-                PreserveSongs();
+                ShuffleSongs();
             }
 
             if (!_settings.AddDungeonItems)
@@ -1425,9 +1428,9 @@ namespace MMRando
         }
 
         /// <summary>
-        /// Keeps songs vanilla
+        /// Randomizes songs with other songs
         /// </summary>
-        private void PreserveSongs()
+        private void ShuffleSongs()
         {
             var itemPool = new List<int>();
             for (int i = Items.SongSoaring; i <= Items.SongOath; i++)
@@ -1436,8 +1439,12 @@ namespace MMRando
                 {
                     continue;
                 }
+                itemPool.Add(i);
+            }
 
-                ItemList[i].ReplacesItemId = i;
+            for (int i = Items.SongSoaring; i <= Items.SongOath; i++)
+            {
+                PlaceItem(i, itemPool);
             }
         }
 
@@ -1461,7 +1468,7 @@ namespace MMRando
 
             if (!_settings.AddSongs)
             {
-                PreserveSongs();
+                ShuffleSongs();
             }
         }
 
