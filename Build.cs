@@ -208,6 +208,16 @@ namespace MMRando
             }
         }
 
+        /// <summary>
+        /// Update the gossip stone actor to not check mask of truth
+        /// </summary>
+        private void WriteFreeHints()
+        {
+            int address = 0x00E0A810 + 0x378;
+            byte val = 0x00;
+            ROMFuncs.WriteToROM(address, val);
+        }
+
         private void WriteFreeItem(int Item)
         {
             ROMFuncs.WriteToROM(Items.ITEM_ADDRS[Item], Items.ITEM_VALUES[Item]);
@@ -310,6 +320,11 @@ namespace MMRando
             if (Settings.LogicMode == LogicMode.Vanilla)
             {
                 return;
+            }
+
+            if (Settings.FreeHints)
+            {
+                WriteFreeHints();
             }
 
             if (Settings.EnableGossipHints)
