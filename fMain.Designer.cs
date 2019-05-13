@@ -37,7 +37,7 @@ namespace MMRando
             this.cUserItems = new System.Windows.Forms.CheckBox();
             this.tSettings = new System.Windows.Forms.TabControl();
             this.tabROMSettings = new System.Windows.Forms.TabPage();
-            this.cLogOnly = new System.Windows.Forms.CheckBox();
+            this.cHTMLLog = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cVC = new System.Windows.Forms.CheckBox();
             this.cN64 = new System.Windows.Forms.CheckBox();
@@ -104,7 +104,6 @@ namespace MMRando
             this.cDummy = new System.Windows.Forms.CheckBox();
             this.lHrule = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cHTMLLog = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -164,8 +163,8 @@ namespace MMRando
             // tabROMSettings
             // 
             this.tabROMSettings.Controls.Add(this.cHTMLLog);
-            this.tabROMSettings.Controls.Add(this.cLogOnly);
             this.tabROMSettings.Controls.Add(this.label1);
+            this.tabROMSettings.Controls.Add(this.cSpoiler);
             this.tabROMSettings.Controls.Add(this.tROMName);
             this.tabROMSettings.Controls.Add(this.bopen);
             this.tabROMSettings.Controls.Add(this.cVC);
@@ -179,28 +178,30 @@ namespace MMRando
             this.tabROMSettings.Text = "ROM Settings";
             this.tabROMSettings.UseVisualStyleBackColor = true;
             // 
-            // cLogOnly
+            // cHTMLLog
             // 
-            this.cLogOnly.AutoSize = true;
-            this.cLogOnly.BackColor = System.Drawing.Color.Transparent;
-            this.cLogOnly.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cLogOnly.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cLogOnly.ForeColor = System.Drawing.Color.Black;
-            this.cLogOnly.Location = new System.Drawing.Point(201, 93);
-            this.cLogOnly.Name = "cLogOnly";
-            this.cLogOnly.Size = new System.Drawing.Size(128, 17);
-            this.cLogOnly.TabIndex = 13;
-            this.cLogOnly.Text = "Export spoiler log only";
-            this.cLogOnly.UseVisualStyleBackColor = false;
+            this.cHTMLLog.AutoSize = true;
+            this.cHTMLLog.BackColor = System.Drawing.Color.Transparent;
+            this.cHTMLLog.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cHTMLLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cHTMLLog.ForeColor = System.Drawing.Color.Black;
+            this.cHTMLLog.Location = new System.Drawing.Point(188, 93);
+            this.cHTMLLog.Name = "cHTMLLog";
+            this.cHTMLLog.Enabled = true;
+            this.cHTMLLog.Size = new System.Drawing.Size(141, 17);
+            this.cHTMLLog.TabIndex = 14;
+            this.cHTMLLog.Text = "Output HTML spoiler log";
+            this.cHTMLLog.UseVisualStyleBackColor = false;
+            this.cHTMLLog.CheckedChanged += new System.EventHandler(this.cHTMLLog_CheckedChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 13);
+            this.label1.Location = new System.Drawing.Point(52, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(259, 13);
+            this.label1.Size = new System.Drawing.Size(250, 13);
             this.label1.TabIndex = 12;
-            this.label1.Text = "ROM must be a Majora\'s Mask (U) ending with \".z64\"";
+            this.label1.Text = "ROM must be Majora\'s Mask (U) ending with \".z64\"";
             // 
             // cVC
             // 
@@ -224,7 +225,7 @@ namespace MMRando
             this.cN64.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cN64.Checked = true;
             this.cN64.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cN64.Enabled = false;
+            this.cN64.Enabled = true;
             this.cN64.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cN64.ForeColor = System.Drawing.Color.Black;
             this.cN64.Location = new System.Drawing.Point(96, 70);
@@ -233,11 +234,12 @@ namespace MMRando
             this.cN64.TabIndex = 10;
             this.cN64.Text = "N64 ROM";
             this.cN64.UseVisualStyleBackColor = false;
+            this.cN64.CheckedChanged += new System.EventHandler(this.cN64_CheckedChanged);
             // 
             // lOutput
             // 
             this.lOutput.AutoSize = true;
-            this.lOutput.Location = new System.Drawing.Point(20, 71);
+            this.lOutput.Location = new System.Drawing.Point(10, 70);
             this.lOutput.Name = "lOutput";
             this.lOutput.Size = new System.Drawing.Size(70, 13);
             this.lOutput.TabIndex = 11;
@@ -755,9 +757,9 @@ namespace MMRando
             // 
             // bRandomise
             // 
-            this.bRandomise.Location = new System.Drawing.Point(220, 345);
+            this.bRandomise.Location = new System.Drawing.Point(255, 345);
             this.bRandomise.Name = "bRandomise";
-            this.bRandomise.Size = new System.Drawing.Size(127, 26);
+            this.bRandomise.Size = new System.Drawing.Size(92, 50);
             this.bRandomise.TabIndex = 5;
             this.bRandomise.Text = "Randomize";
             this.bRandomise.UseVisualStyleBackColor = true;
@@ -884,7 +886,7 @@ namespace MMRando
             this.tSeed.Location = new System.Drawing.Point(81, 348);
             this.tSeed.MaxLength = 10;
             this.tSeed.Name = "tSeed";
-            this.tSeed.Size = new System.Drawing.Size(136, 20);
+            this.tSeed.Size = new System.Drawing.Size(168, 20);
             this.tSeed.TabIndex = 2;
             this.tSeed.Enter += new System.EventHandler(this.tSeed_Enter);
             this.tSeed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tSeed_KeyDown);
@@ -906,7 +908,7 @@ namespace MMRando
             // 
             this.tSString.Location = new System.Drawing.Point(81, 373);
             this.tSString.Name = "tSString";
-            this.tSString.Size = new System.Drawing.Size(136, 20);
+            this.tSString.Size = new System.Drawing.Size(168, 20);
             this.tSString.TabIndex = 6;
             this.tSString.Enter += new System.EventHandler(this.tSString_Enter);
             this.tSString.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tSString_KeyDown);
@@ -931,7 +933,7 @@ namespace MMRando
             this.cSpoiler.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cSpoiler.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cSpoiler.ForeColor = System.Drawing.Color.Black;
-            this.cSpoiler.Location = new System.Drawing.Point(234, 373);
+            this.cSpoiler.Location = new System.Drawing.Point(62, 93);
             this.cSpoiler.Name = "cSpoiler";
             this.cSpoiler.Size = new System.Drawing.Size(108, 17);
             this.cSpoiler.TabIndex = 8;
@@ -944,7 +946,7 @@ namespace MMRando
             this.cDummy.AutoSize = true;
             this.cDummy.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cDummy.Enabled = false;
-            this.cDummy.Location = new System.Drawing.Point(249, 404);
+            this.cDummy.Location = new System.Drawing.Point(262, 401);
             this.cDummy.Name = "cDummy";
             this.cDummy.Size = new System.Drawing.Size(80, 17);
             this.cDummy.TabIndex = 9;
@@ -972,20 +974,6 @@ namespace MMRando
             this.label5.TabIndex = 14;
             this.label5.Text = "_____________________________________________________";
             // 
-            // cHTMLLog
-            // 
-            this.cHTMLLog.AutoSize = true;
-            this.cHTMLLog.BackColor = System.Drawing.Color.Transparent;
-            this.cHTMLLog.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cHTMLLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cHTMLLog.ForeColor = System.Drawing.Color.Black;
-            this.cHTMLLog.Location = new System.Drawing.Point(64, 93);
-            this.cHTMLLog.Name = "cHTMLLog";
-            this.cHTMLLog.Size = new System.Drawing.Size(106, 17);
-            this.cHTMLLog.TabIndex = 14;
-            this.cHTMLLog.Text = "HTML spoiler log";
-            this.cHTMLLog.UseVisualStyleBackColor = false;
-            // 
             // MainRandomizerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -994,7 +982,6 @@ namespace MMRando
             this.ClientSize = new System.Drawing.Size(355, 452);
             this.Controls.Add(this.lStatus);
             this.Controls.Add(this.cDummy);
-            this.Controls.Add(this.cSpoiler);
             this.Controls.Add(this.pProgress);
             this.Controls.Add(this.lSString);
             this.Controls.Add(this.tSettings);
@@ -1102,7 +1089,6 @@ namespace MMRando
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox cFreeHints;
-        private System.Windows.Forms.CheckBox cLogOnly;
         private System.Windows.Forms.CheckBox cHTMLLog;
     }
 }

@@ -107,7 +107,7 @@ namespace MMRando
 
         private void bRandomise_Click(object sender, EventArgs e)
         {
-            if(!cLogOnly.Checked)
+            if(Settings.GenerateROM)
             if (!ValidateInputFile()) return;
             
             saveROM.FileName = Settings.DefaultOutputROMFilename;
@@ -199,11 +199,46 @@ namespace MMRando
         private void cUserItems_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => Settings.UseCustomItemList = cUserItems.Checked);
+
+            cDChests.Checked = false;
+            UpdateSingleSetting(() => Settings.AddDungeonItems = false);
+
+            cShop.Checked = false;
+            UpdateSingleSetting(() => Settings.AddShopItems = false);
+
+            cBottled.Checked = false;
+            UpdateSingleSetting(() => Settings.RandomizeBottleCatchContents = false);
+
+            cSoS.Checked = false;
+            UpdateSingleSetting(() => Settings.ExcludeSongOfSoaring = false);
+
+            cAdditional.Checked = false;
+            UpdateSingleSetting(() => Settings.AddOther = false);
+
+        }
+
+        private void cN64_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.GenerateROM = cN64.Checked);
         }
 
         private void cSpoiler_CheckedChanged(object sender, EventArgs e)
         {
+
             UpdateSingleSetting(() => Settings.GenerateSpoilerLog = cSpoiler.Checked);
+            UpdateSingleSetting(() => cHTMLLog.Enabled = cSpoiler.Checked);
+
+            if (cHTMLLog.Checked)
+            {
+                cHTMLLog.Checked = false;
+                UpdateSingleSetting(() => Settings.GenerateHTMLLog = false);
+            }
+
+        }
+
+        private void cHTMLLog_CheckedChanged(object sender,EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.GenerateHTMLLog = cHTMLLog.Checked);
         }
 
 
@@ -282,14 +317,9 @@ namespace MMRando
             UpdateSingleSetting(() => Settings.FreeHints = cFreeHints.Checked);
         }
 
-        private void cLogOnly_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateSingleSetting(() => Settings.FreeHints = cLogOnly.Checked);
-        }
-
         private void cHMTLLog_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => Settings.FreeHints = cHTMLLog.Checked);
+            UpdateSingleSetting(() => Settings.GenerateHTMLLog = cHTMLLog.Checked);
         }
 
         private void cQText_CheckedChanged(object sender, EventArgs e)
@@ -461,6 +491,9 @@ namespace MMRando
             cQText.Enabled = v;
             cSpoiler.Enabled = v;
             cTatl.Enabled = v;
+            cFreeHints.Enabled = v;
+            cHTMLLog.Enabled = v;
+            cN64.Enabled = v;
 
             bopen.Enabled = v;
             bRandomise.Enabled = v;
@@ -602,6 +635,7 @@ namespace MMRando
             cCutsc.Checked = Settings.ShortenCutscenes;
             cQText.Checked = Settings.QuickTextEnabled;
             cFreeHints.Checked = Settings.FreeHints;
+            //cN64.Checked = Settings.GenerateROM;
 
 
             var damageMultiplierIndex = (int)((Combos & 0xF0000000) >> 28);
@@ -666,9 +700,10 @@ namespace MMRando
             }
 
             // Additional validation of preconditions
-            if (!cLogOnly.Checked)
+            if (Settings.GenerateROM)
             {
                 if (!ValidateInputFile()) return;
+
                 if (!ValidateROM(Settings.InputROMFilename))
                 {
                     MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
@@ -679,7 +714,7 @@ namespace MMRando
             
             
 
-            if (!cLogOnly.Checked)
+            if (Settings.GenerateROM)
             {
                 MakeROM(Settings.InputROMFilename, Settings.OutputROMFilename, worker);
                 MessageBox.Show("Successfully built output ROM!",
