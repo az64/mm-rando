@@ -264,7 +264,7 @@ namespace MMRando
             SceneUtils.UpdateScene(scene);
         }
 
-        public static void ShuffleEnemies(Random R)
+        public static void ShuffleEnemies(Random random)
         {
             int[] SceneSkip = new int[] { 0x08, 0x20, 0x24, 0x4F, 0x69 };
             ReadEnemyList();
@@ -276,7 +276,7 @@ namespace MMRando
             {
                 if (!SceneSkip.Contains(RomData.SceneList[i].Number))
                 {
-                    SwapSceneEnemies(RomData.SceneList[i], R);
+                    SwapSceneEnemies(RomData.SceneList[i], random);
                 }
             }
         }

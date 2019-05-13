@@ -42,7 +42,6 @@ namespace MMRando
             InitializeSettings();
 
             _randomizer = new Randomizer(_settings);
-            _builder = new Builder(_randomizer, _settings);
 
             ItemEditor = new ItemEditForm(_settings.CustomItemList);
             LogicEditor = new LogicEditorForm();
@@ -563,9 +562,19 @@ namespace MMRando
         /// </summary>
         private void TryRandomize(BackgroundWorker worker, DoWorkEventArgs e)
         {
+            if (!ValidateInputFile()) return;
+
+            if (!RomUtils.ValidateROM(_settings.InputROMFilename))
+            {
+                MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            RandomizedResult randomized;
             try
             {
-                _randomizer.Randomize(worker, e);
+                randomized = _randomizer.Randomize(worker, e);
             }
             catch (Exception ex)
             {
@@ -574,20 +583,21 @@ namespace MMRando
                 return;
             }
 
-            // Additional validation of preconditions
-            if (!ValidateInputFile()) return;
-
-            if (!_builder.ValidateROM(_settings.InputROMFilename))
+            try
             {
-                MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _builder = new Builder(randomized);
+                _builder.MakeROM(_settings.InputROMFilename, _settings.OutputROMFilename, worker);
+                MessageBox.Show("Successfully built output ROM!",
+                "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+            }
+            catch (Exception ex)
+            {
+                string nl = Environment.NewLine;
+                MessageBox.Show($"Error building ROM: {ex.Message}{nl}{nl}Please contact the development team and provide them more information", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            _builder.MakeROM(_settings.InputROMFilename, _settings.OutputROMFilename, worker);
-
-            MessageBox.Show("Successfully built output ROM!",
-                "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+            
         }
 
         /// <summary>

@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\RandomizedResult.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
     <Compile Include="Utils\AudioSequenceUtils.cs" />
     <Compile Include="Constants\Addresses.cs" />

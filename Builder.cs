@@ -5,37 +5,38 @@ using MMRando.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MMRando
 {
 
     public class Builder
     {
-        private Randomizer _randomizer;
+        private RandomizedResult _randomized;
         private Settings _settings;
 
-        public Builder(Randomizer randomizer, Settings settings)
+        public Builder(RandomizedResult randomized)
         {
-            _randomizer = randomizer;
-            _settings = settings;
+            _randomized = randomized;
+            _settings = randomized.Settings;
         }
 
         private void WriteAudioSeq()
         {
-            if (!_settings.RandomizeBGM) {
+            if (!_settings.RandomizeBGM)
+            {
                 return;
-            };
+            }
 
             foreach (SequenceInfo s in RomData.SequenceList)
             {
                 s.Name = Values.MusicDirectory + s.Name;
-            };
+            }
+
             ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-music");
             ResourceUtils.ApplyHack(Values.ModsDirectory + "inst24-swap-guitar");
             SequenceUtils.RebuildAudioSeq(RomData.SequenceList);
@@ -47,23 +48,27 @@ namespace MMRando
             {
                 WriteTunicColour();
             }
+
             else if (_settings.Character == Character.LinkOOT
                 || _settings.Character == Character.AdultLink
                 || _settings.Character == Character.Kafei)
             {
                 int characterIndex = (int)_settings.Character;
+
                 BinaryReader b = new BinaryReader(File.Open(Values.ObjsDirectory + "link-" + characterIndex.ToString(), FileMode.Open));
                 byte[] obj = new byte[b.BaseStream.Length];
                 b.Read(obj, 0, obj.Length);
                 b.Close();
-                if (characterIndex < 3)
+
+                if (_settings.Character != Character.Kafei)
                 {
                     WriteTunicColour(obj, characterIndex);
                 }
 
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-link-" + characterIndex.ToString());
                 ObjUtils.InsertObj(obj, 0x11);
-                if (characterIndex == 3)
+
+                if (_settings.Character == Character.Kafei)
                 {
                     b = new BinaryReader(File.Open(Values.ObjsDirectory + "kafei", FileMode.Open));
                     obj = new byte[b.BaseStream.Length];
@@ -143,14 +148,14 @@ namespace MMRando
                 return;
             }
 
-            EntranceUtils.WriteEntrances(Values.OldEntrances.ToArray(), _randomizer.NewEntrances);
-            EntranceUtils.WriteEntrances(Values.OldExits.ToArray(), _randomizer.NewExits);
+            EntranceUtils.WriteEntrances(Values.OldEntrances.ToArray(), _randomized.NewEntrances);
+            EntranceUtils.WriteEntrances(Values.OldExits.ToArray(), _randomized.NewExits);
             byte[] li = new byte[] { 0x24, 0x02, 0x00, 0x00 };
             List<int[]> addr = new List<int[]>();
             addr = ResourceUtils.GetAddresses(Values.AddrsDirectory + "d-check");
             for (int i = 0; i < addr.Count; i++)
             {
-                li[3] = (byte)_randomizer.NewExts[i];
+                li[3] = (byte)_randomized.NewExitIndices[i];
                 ReadWriteUtils.WriteROMAddr(addr[i], li);
             }
 
@@ -162,29 +167,29 @@ namespace MMRando
                 if (i == 2)
                 {
                     ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
-                        (byte)((Values.OldExits[_randomizer.NewEnts[i + 1]] & 0xFF00) >> 8),
-                        (byte)(Values.OldExits[_randomizer.NewEnts[i + 1]] & 0xFF) });
+                        (byte)((Values.OldExits[_randomized.NewEntranceIndices[i + 1]] & 0xFF00) >> 8),
+                        (byte)(Values.OldExits[_randomized.NewEntranceIndices[i + 1]] & 0xFF) });
                 }
                 else
                 {
                     ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
-                        (byte)((Values.OldExits[_randomizer.NewEnts[i]] & 0xFF00) >> 8),
-                        (byte)(Values.OldExits[_randomizer.NewEnts[i]] & 0xFF) });
+                        (byte)((Values.OldExits[_randomized.NewEntranceIndices[i]] & 0xFF00) >> 8),
+                        (byte)(Values.OldExits[_randomized.NewEntranceIndices[i]] & 0xFF) });
                 }
             }
 
             addr = ResourceUtils.GetAddresses(Values.AddrsDirectory + "dc-flagload");
             for (int i = 0; i < addr.Count; i++)
             {
-                ReadWriteUtils.WriteROMAddr(addr[i], new byte[] { (byte)((_randomizer.NewDCFlags[i] & 0xFF00) >> 8), (byte)(_randomizer.NewDCFlags[i] & 0xFF) });
+                ReadWriteUtils.WriteROMAddr(addr[i], new byte[] { (byte)((_randomized.NewDCFlags[i] & 0xFF00) >> 8), (byte)(_randomized.NewDCFlags[i] & 0xFF) });
             }
 
             addr = ResourceUtils.GetAddresses(Values.AddrsDirectory + "dc-flagmask");
             for (int i = 0; i < addr.Count; i++)
             {
                 ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
-                    (byte)((_randomizer.NewDCMasks[i] & 0xFF00) >> 8),
-                    (byte)(_randomizer.NewDCMasks[i] & 0xFF) });
+                    (byte)((_randomized.NewDCMasks[i] & 0xFF00) >> 8),
+                    (byte)(_randomized.NewDCMasks[i] & 0xFF) });
             }
         }
 
@@ -196,7 +201,7 @@ namespace MMRando
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "dm-" + damageMultiplier.ToString());
             }
 
-            int damageEffect = (int) _settings.DamageEffect;
+            int damageEffect = (int)_settings.DamageEffect;
             if (damageEffect > 0)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "de-" + damageEffect.ToString());
@@ -219,8 +224,7 @@ namespace MMRando
         {
             if (_settings.RandomizeEnemies)
             {
-                _randomizer.SeedRNG(_settings.Seed);
-                Enemies.ShuffleEnemies(_randomizer.RNG);
+                Enemies.ShuffleEnemies(_randomized.Random);
             }
         }
 
@@ -273,34 +277,36 @@ namespace MMRando
                 return;
             }
 
-            //write free item
-            int itemId = _randomizer.ItemList.FindIndex(u => u.ReplacesItemId == 0);
-            WriteFreeItem(_randomizer.ItemList[itemId].ID);
+            //write free item (start item default = Deku Mask)
+            var freeItemIndex = _randomized.ItemList.FindIndex(u => u.ReplacesItemId == Items.MaskDeku);
+            WriteFreeItem(_randomized.ItemList[freeItemIndex].ID);
 
             //write everything else
             ItemSwapUtils.ReplaceGetItemTable(Values.ModsDirectory);
             ItemSwapUtils.InitItems();
 
-            for (int i = 0; i < _randomizer.ItemList.Count; i++)
+            for (int i = 0; i < _randomized.ItemList.Count; i++)
             {
-                itemId = _randomizer.ItemList[i].ID;
+                var itemId = _randomized.ItemList[i].ID;
 
                 // Unused item
-                if (_randomizer.ItemList[i].ReplacesItemId == -1)
+                if (_randomized.ItemList[i].ReplacesItemId == -1)
                 {
                     continue;
                 };
 
                 bool isRepeatable = Items.REPEATABLE.Contains(itemId);
                 bool isCycleRepeatable = Items.CYCLE_REPEATABLE.Contains(itemId);
-                int replacesItemId = _randomizer.ItemList[i].ReplacesItemId;
+                int replacesItemId = _randomized.ItemList[i].ReplacesItemId;
 
-                if (ItemUtils.IsItemDefinedPastAreas(itemId)) {
+                if (ItemUtils.IsItemDefinedPastAreas(itemId))
+                {
                     // Subtract amount of entries describing areas and other
                     itemId -= Values.NumberOfAreasAndOther;
                 }
 
-                if (ItemUtils.IsItemDefinedPastAreas(replacesItemId)) {
+                if (ItemUtils.IsItemDefinedPastAreas(replacesItemId))
+                {
                     // Subtract amount of entries describing areas and other
                     replacesItemId -= Values.NumberOfAreasAndOther;
                 }
@@ -311,6 +317,7 @@ namespace MMRando
                 }
                 else
                 {
+                    Debug.WriteLine($"Writing {Items.ITEM_NAMES[itemId]} --> {Items.ITEM_NAMES[replacesItemId]}");
                     ItemSwapUtils.WriteNewItem(replacesItemId, itemId, isRepeatable, isCycleRepeatable);
                 }
             }
@@ -330,21 +337,59 @@ namespace MMRando
 
             if (_settings.EnableGossipHints)
             {
-                _randomizer.SeedRNG(_settings.Seed);
-                MessageUtils.WriteGossipMessage(_randomizer.GossipQuotes, _randomizer.RNG);
+                MessageUtils.WriteGossipMessage(_randomized.GossipQuotes, _randomized.Random);
             }
         }
 
         private void WriteSpoilerLog()
         {
-            if (_settings.LogicMode == LogicMode.Vanilla)
+            if (_settings.LogicMode == LogicMode.Vanilla || !_settings.GenerateSpoilerLog)
             {
                 return;
             }
 
-            if (_settings.GenerateSpoilerLog)
+            var settingsString = _settings.ToString();
+
+            var directory = Path.GetDirectoryName(_settings.OutputROMFilename);
+            var filename = $"{Path.GetFileNameWithoutExtension(_settings.OutputROMFilename)}_SpoilerLog.txt";
+
+            using (var LogFile = new StreamWriter(Path.Combine(directory, filename)))
             {
-                _randomizer.MakeSpoilerLog();
+
+                LogFile.WriteLine("Version: " + MainForm.AssemblyVersion.Substring(26));
+                LogFile.WriteLine("Settings String: \"" + settingsString + "\"");
+                LogFile.WriteLine("Seed: \"" + _settings.Seed + "\"\n");
+
+                LogFile.WriteLine("------------TEST OF PLAYTHROUGH GUIDE-----------");
+
+                if (_settings.RandomizeDungeonEntrances)
+                {
+                    LogFile.WriteLine("------------Entrance----------------------------Destination-----------");
+                    string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
+                    for (int i = 0; i < 4; i++)
+                    {
+                        LogFile.WriteLine(destinations[i].PadRight(32, '-')
+                            + "---->>" + destinations[_randomized.NewEntranceIndices[i]].PadLeft(32, '-'));
+                    };
+                    LogFile.WriteLine("");
+                };
+                //
+                // THIS SHOULDN'T BE HERE!? BUT DOESN'T WORK IF IT ISN'T WTF
+                //
+                _randomized.ItemList.RemoveAll(item => !item.ReplacesAnotherItem);
+
+                LogFile.WriteLine("--------------Item------------------------------Destination-----------");
+                for (int i = 0; i < _randomized.ItemList.Count; i++)
+                {
+                    LogFile.WriteLine(Items.ITEM_NAMES[_randomized.ItemList[i].ID].PadRight(32, '-') + "---->>" + Items.ITEM_NAMES[_randomized.ItemList[i].ReplacesItemId].PadLeft(32, '-'));
+                };
+                LogFile.WriteLine("");
+                LogFile.WriteLine("-----------Destination------------------------------Item--------------");
+                _randomized.ItemList.Sort((i, j) => i.ReplacesItemId.CompareTo(j.ReplacesItemId));
+                for (int i = 0; i < _randomized.ItemList.Count; i++)
+                {
+                    LogFile.WriteLine(Items.ITEM_NAMES[_randomized.ItemList[i].ReplacesItemId].PadRight(32, '-') + "<<----" + Items.ITEM_NAMES[_randomized.ItemList[i].ID].PadLeft(32, '-'));
+                };
             }
         }
 
@@ -395,7 +440,7 @@ namespace MMRando
             {
                 if (i < 6)
                 {
-                    ReadWriteUtils.WriteROMAddr(Addrs[i], new byte[] { 0x00, FSDefault[i]});
+                    ReadWriteUtils.WriteROMAddr(Addrs[i], new byte[] { 0x00, FSDefault[i] });
                 }
                 else
                 {
@@ -415,19 +460,6 @@ namespace MMRando
             RomUtils.SetStrings(Values.ModsDirectory + "logo-text", $"v{v}", _settings.ToString());
         }
 
-        public bool ValidateROM(string FileName)
-        {
-            bool res = false;
-            using (BinaryReader ROM = new BinaryReader(File.Open(FileName, FileMode.Open, FileAccess.Read)))
-            {
-                if (ROM.BaseStream.Length == 0x2000000)
-                {
-                    res = RomUtils.CheckOldCRC(ROM);
-                }
-            }
-            return res;
-        }
-
         public void MakeROM(string InFile, string FileName, BackgroundWorker worker)
         {
             using (BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open, FileAccess.Read)))
@@ -437,7 +469,7 @@ namespace MMRando
 
             worker.ReportProgress(55, "Writing Audio...");
             WriteAudioSeq();
-            
+
             worker.ReportProgress(60, "Writing Character...");
             WriteLinkAppearance();
             if (_settings.LogicMode != LogicMode.Vanilla)

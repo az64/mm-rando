@@ -57,10 +57,18 @@ namespace MMRando.Models
 
         // Random Elements
 
+        private int _seed;
+
         /// <summary>
         /// The randomizer seed
         /// </summary>
-        public int Seed { get; set; }
+        public int Seed {
+            get => _seed;
+            set {
+                _seed = value;
+                UpdateOutputFilenames();
+            }
+        }
 
         /// <summary>
         /// Selected mode of logic (affects randomization rules)
@@ -183,37 +191,37 @@ namespace MMRando.Models
 
         public void Update(string settings)
         {
-            var O = settings.Split('-');
-            int Checks = (int)Base36Utils.Decode(O[0]);
-            int Combos = (int)Base36Utils.Decode(O[1]);
-            int ColourAndMisc = (int)Base36Utils.Decode(O[2]);
+            var bits = settings.Split('-');
+            int checks = (int)Base36Utils.Decode(bits[0]);
+            int combos = (int)Base36Utils.Decode(bits[1]);
+            int colourAndMisc = (int)Base36Utils.Decode(bits[2]);
 
-            UseCustomItemList = (Checks & 8192) > 0;
-            AddOther = (Checks & 4096) > 0;
-            EnableGossipHints = (Checks & 2048) > 0;
-            ExcludeSongOfSoaring = (Checks & 1024) > 0;
-            GenerateSpoilerLog = (Checks & 512) > 0;
-            AddSongs = (Checks & 256) > 0;
-            RandomizeBottleCatchContents = (Checks & 128) > 0;
-            AddDungeonItems = (Checks & 64) > 0;
-            AddShopItems = (Checks & 32) > 0;
-            RandomizeDungeonEntrances = (Checks & 16) > 0;
-            RandomizeBGM = (Checks & 8) > 0;
-            RandomizeEnemies = (Checks & 4) > 0;
-            ShortenCutscenes = (Checks & 2) > 0;
-            QuickTextEnabled = (Checks & 1) > 0;
+            UseCustomItemList = (checks & 8192) > 0;
+            AddOther = (checks & 4096) > 0;
+            EnableGossipHints = (checks & 2048) > 0;
+            ExcludeSongOfSoaring = (checks & 1024) > 0;
+            GenerateSpoilerLog = (checks & 512) > 0;
+            AddSongs = (checks & 256) > 0;
+            RandomizeBottleCatchContents = (checks & 128) > 0;
+            AddDungeonItems = (checks & 64) > 0;
+            AddShopItems = (checks & 32) > 0;
+            RandomizeDungeonEntrances = (checks & 16) > 0;
+            RandomizeBGM = (checks & 8) > 0;
+            RandomizeEnemies = (checks & 4) > 0;
+            ShortenCutscenes = (checks & 2) > 0;
+            QuickTextEnabled = (checks & 1) > 0;
 
-            var damageMultiplierIndex = (int)((Combos & 0xF0000000) >> 28);
-            var damageTypeIndex = (Combos & 0xF000000) >> 24;
-            var modeIndex = (Combos & 0xFF0000) >> 16;
-            var characterIndex = (Combos & 0xFF00) >> 8;
-            var tatlColorIndex = Combos & 0xFF;
-            var gravityTypeIndex = (int)((ColourAndMisc & 0xF0000000) >> 28);
-            var floorTypeIndex = (ColourAndMisc & 0xF000000) >> 24;
+            var damageMultiplierIndex = (int)((combos & 0xF0000000) >> 28);
+            var damageTypeIndex = (combos & 0xF000000) >> 24;
+            var modeIndex = (combos & 0xFF0000) >> 16;
+            var characterIndex = (combos & 0xFF00) >> 8;
+            var tatlColorIndex = combos & 0xFF;
+            var gravityTypeIndex = (int)((colourAndMisc & 0xF0000000) >> 28);
+            var floorTypeIndex = (colourAndMisc & 0xF000000) >> 24;
             var tunicColor = Color.FromArgb(
-                (ColourAndMisc & 0xFF0000) >> 16,
-                (ColourAndMisc & 0xFF00) >> 8,
-                ColourAndMisc & 0xFF);
+                (colourAndMisc & 0xFF0000) >> 16,
+                (colourAndMisc & 0xFF00) >> 8,
+                colourAndMisc & 0xFF);
 
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
@@ -224,52 +232,46 @@ namespace MMRando.Models
             FloorType = (FloorType)floorTypeIndex;
             TunicColor = tunicColor;
 
-            UpdateOutputFilenames(settings);
         }
 
 
         private int[] BuildSettingsBytes()
         {
-            int[] O = new int[3];
+            int[] bits = new int[3];
 
-            if (UseCustomItemList) { O[0] += 8192; };
-            if (AddOther) { O[0] += 4096; };
-            if (EnableGossipHints) { O[0] += 2048; };
-            if (ExcludeSongOfSoaring) { O[0] += 1024; };
-            if (GenerateSpoilerLog) { O[0] += 512; };
-            if (AddSongs) { O[0] += 256; };
-            if (RandomizeBottleCatchContents) { O[0] += 128; };
-            if (AddDungeonItems) { O[0] += 64; };
-            if (AddShopItems) { O[0] += 32; };
-            if (RandomizeDungeonEntrances) { O[0] += 16; };
-            if (RandomizeBGM) { O[0] += 8; };
-            if (RandomizeEnemies) { O[0] += 4; };
-            if (ShortenCutscenes) { O[0] += 2; };
-            if (QuickTextEnabled) { O[0] += 1; };
+            if (UseCustomItemList) { bits[0] += 8192; };
+            if (AddOther) { bits[0] += 4096; };
+            if (EnableGossipHints) { bits[0] += 2048; };
+            if (ExcludeSongOfSoaring) { bits[0] += 1024; };
+            if (GenerateSpoilerLog) { bits[0] += 512; };
+            if (AddSongs) { bits[0] += 256; };
+            if (RandomizeBottleCatchContents) { bits[0] += 128; };
+            if (AddDungeonItems) { bits[0] += 64; };
+            if (AddShopItems) { bits[0] += 32; };
+            if (RandomizeDungeonEntrances) { bits[0] += 16; };
+            if (RandomizeBGM) { bits[0] += 8; };
+            if (RandomizeEnemies) { bits[0] += 4; };
+            if (ShortenCutscenes) { bits[0] += 2; };
+            if (QuickTextEnabled) { bits[0] += 1; };
 
-            O[1] = ((byte)LogicMode << 16)
+            bits[1] = ((byte)LogicMode << 16)
                 | ((byte)Character << 8)
                 | ((byte)TatlColorSchema)
                 | ((byte)DamageEffect << 24)
                     | ((byte)DamageMode << 28);
 
-            O[2] = (TunicColor.R << 16)
+            bits[2] = (TunicColor.R << 16)
                 | (TunicColor.G << 8)
                 | (TunicColor.B)
                 | ((byte)FloorType << 24)
                     | ((byte)MovementMode << 28);
 
-            return O;
+            return bits;
         }
 
-        private void Update()
+        private void UpdateOutputFilenames()
         {
-            string settings = EncodeSettings();
-            UpdateOutputFilenames(settings);
-        }
-
-        private void UpdateOutputFilenames(string settings)
-        {
+            string settings = this.ToString();
             string appendSeed = GenerateSpoilerLog ? $"{Seed}_" : "";
             string filename = $"MMR_{appendSeed}{settings}";
 
