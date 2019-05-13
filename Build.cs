@@ -329,7 +329,13 @@ namespace MMRando
             if (Settings.GenerateSpoilerLog)
             {
                 MakeSpoilerLog();
+
+                if (Settings.GenerateHTMLLog)
+                {
+                    MakeHTMLSpoilerLog();
+                }
             }
+
         }
 
         private void WriteFileSelect()
@@ -412,6 +418,7 @@ namespace MMRando
 
         private void MakeROM(string InFile, string FileName, BackgroundWorker worker)
         {
+            if(Settings.GenerateROM)
             using (BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open, FileAccess.Read)))
             {
                 ROMFuncs.ReadFileTable(OldROM);
@@ -462,13 +469,16 @@ namespace MMRando
             worker.ReportProgress(89, "Writing spoiler log...");
             WriteSpoilerLog();
 
-            worker.ReportProgress(90, "Building ROM...");
-
-            byte[] ROM = ROMFuncs.BuildROM(FileName);
-            if (_outputVC)
+            if (Settings.GenerateROM)
             {
-                worker.ReportProgress(98, "Building VC...");
-                ROMFuncs.BuildVC(ROM, VCDirectory, Path.ChangeExtension(FileName, "wad"));
+                worker.ReportProgress(90, "Building ROM...");
+
+                byte[] ROM = ROMFuncs.BuildROM(FileName);
+                if (_outputVC)
+                {
+                    worker.ReportProgress(98, "Building VC...");
+                    ROMFuncs.BuildVC(ROM, VCDirectory, Path.ChangeExtension(FileName, "wad"));
+                }
             }
             worker.ReportProgress(100, "Done!");
 
