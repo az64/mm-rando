@@ -439,14 +439,14 @@ namespace MMRando
                 ROMFuncs.ReadFileTable(OldROM);
             }
 
-            worker.ReportProgress(55, "Writing Audio...");
+            worker.ReportProgress(10, "Writing Audio...");
             WriteAudioSeq();
             
-            worker.ReportProgress(60, "Writing Character...");
+            worker.ReportProgress(20, "Writing Character...");
             WriteLinkAppearance();
             if (Settings.LogicMode != LogicMode.Vanilla)
             {
-                worker.ReportProgress(61, "Applying hacks...");
+                worker.ReportProgress(25, "Applying hacks...");
                 ROMFuncs.ApplyHack(ModsDirectory + "title-screen");
                 ROMFuncs.ApplyHack(ModsDirectory + "misc-changes");
                 ROMFuncs.ApplyHack(ModsDirectory + "cm-cs");
@@ -454,44 +454,41 @@ namespace MMRando
             }
             ROMFuncs.ApplyHack(ModsDirectory + "init-file");
 
-            worker.ReportProgress(62, "Writing quick text...");
+            worker.ReportProgress(30, "Writing quick text...");
             WriteQuickText();
 
-            worker.ReportProgress(64, "Writing cutscenes...");
+            worker.ReportProgress(35, "Writing cutscenes...");
             WriteCutscenes();
 
-            worker.ReportProgress(66, "Writing Tatl...");
+            worker.ReportProgress(40, "Writing Tatl...");
             WriteTatlColour();
 
-            worker.ReportProgress(68, "Writing dungeons...");
+            worker.ReportProgress(45, "Writing dungeons...");
             WriteDungeons();
 
-            worker.ReportProgress(70, "Writing gimmicks...");
+            worker.ReportProgress(50, "Writing gimmicks...");
             WriteGimmicks();
 
-            worker.ReportProgress(72, "Writing enemies...");
+            worker.ReportProgress(55, "Writing enemies...");
             WriteEnemies();
 
-            worker.ReportProgress(75, "Writing items...");
+            worker.ReportProgress(60, "Writing items...");
             WriteItems();
 
-            worker.ReportProgress(85, "Writing gossip...");
+            worker.ReportProgress(65, "Writing gossip...");
             WriteGossipQuotes();
 
-            worker.ReportProgress(87, "Writing startup...");
+            worker.ReportProgress(70, "Writing startup...");
             WriteStartupStrings();
-
-            worker.ReportProgress(89, "Writing spoiler log...");
-            WriteSpoilerLog();
 
             if (Settings.GenerateROM)
             {
-                worker.ReportProgress(90, "Building ROM...");
+                worker.ReportProgress(75, "Building ROM...");
 
                 byte[] ROM = ROMFuncs.BuildROM(FileName);
                 if (_outputVC)
                 {
-                    worker.ReportProgress(98, "Building VC...");
+                    worker.ReportProgress(90, "Building VC...");
                     ROMFuncs.BuildVC(ROM, VCDirectory, Path.ChangeExtension(FileName, "wad"));
                 }
             }

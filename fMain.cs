@@ -107,8 +107,8 @@ namespace MMRando
 
         private void bRandomise_Click(object sender, EventArgs e)
         {
-            if(Settings.GenerateROM)
-            if (!ValidateInputFile()) return;
+
+            if(Settings.GenerateROM && !ValidateInputFile()) return;
             
             saveROM.FileName = Settings.DefaultOutputROMFilename;
             if ((_outputROM || _outputVC) && saveROM.ShowDialog() != DialogResult.OK)
@@ -315,11 +315,6 @@ namespace MMRando
         private void cFreeHints_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => Settings.FreeHints = cFreeHints.Checked);
-        }
-
-        private void cHMTLLog_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateSingleSetting(() => Settings.GenerateHTMLLog = cHTMLLog.Checked);
         }
 
         private void cQText_CheckedChanged(object sender, EventArgs e)
@@ -711,19 +706,23 @@ namespace MMRando
                     return;
                 }
             }
-            
-            
+
+            if (Settings.GenerateSpoilerLog)
+            {
+                worker.ReportProgress(5, "Writing spoiler log...");
+                WriteSpoilerLog();
+
+                if (!Settings.GenerateROM)
+                {
+                    MessageBox.Show("Successfully output Spoiler Log!",
+                        "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+                }
+            }
 
             if (Settings.GenerateROM)
             {
                 MakeROM(Settings.InputROMFilename, Settings.OutputROMFilename, worker);
                 MessageBox.Show("Successfully built output ROM!",
-                    "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-            }
-            else
-            {
-                WriteSpoilerLog();
-                MessageBox.Show("Successfully output Spoiler Log!",
                     "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
             }
         }
