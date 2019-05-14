@@ -343,11 +343,13 @@ namespace MMRando
 
             if (Settings.GenerateSpoilerLog)
             {
-                MakeSpoilerLog();
-
                 if (Settings.GenerateHTMLLog)
                 {
                     MakeHTMLSpoilerLog();
+                }
+                else
+                {
+                    MakeSpoilerLog();
                 }
             }
 
