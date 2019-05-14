@@ -517,6 +517,7 @@ namespace MMRando
 
             bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
 
+            Settings.GenerateROM = true;
             Settings.GenerateSpoilerLog = true;
             Settings.ExcludeSongOfSoaring = true;
             Settings.EnableGossipHints = true;
