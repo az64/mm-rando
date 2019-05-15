@@ -708,9 +708,15 @@ namespace MMRando
                 }
             }
 
+            if (Settings.GenerateROM)
+            {
+                MakeROM(Settings.InputROMFilename, Settings.OutputROMFilename, worker);
+                MessageBox.Show("Successfully built output ROM!",
+                    "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+            }
+
             if (Settings.GenerateSpoilerLog)
             {
-                worker.ReportProgress(5, "Writing spoiler log...");
                 WriteSpoilerLog();
 
                 if (!Settings.GenerateROM)
@@ -718,13 +724,6 @@ namespace MMRando
                     MessageBox.Show("Successfully output Spoiler Log!",
                         "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
                 }
-            }
-
-            if (Settings.GenerateROM)
-            {
-                MakeROM(Settings.InputROMFilename, Settings.OutputROMFilename, worker);
-                MessageBox.Show("Successfully built output ROM!",
-                    "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
             }
         }
 

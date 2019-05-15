@@ -500,6 +500,8 @@ namespace MMRando
                 LogFile.WriteLine("");
             }; 
             
+
+            //Do we still need this?
             /*
             if (!Other)
             {
