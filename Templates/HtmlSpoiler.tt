@@ -1,0 +1,56 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="ItemObject = MainRandomizerForm.ItemObject" #>
+<html>
+<head>
+<style>
+	th{ text-align:left }
+	.spoiler{ background-color:black }
+	.spoiler:hover { background-color: white;  }
+	.spoiler [data-content]:before { content: attr(data-content); }
+</style>
+</head>
+<label><b>Version:</b></label><span><#= spoiler.Version #></span><br/>
+<label><b>Settings String:</b></label><span><#= spoiler.SettingsString #></span><br/>
+<label><b>Seed:</b></label><span><#= spoiler.Seed #><span><br/><br/>
+<# if (spoiler.RandomizeDungeonEntrances) { 
+#>
+<h2>Dungeon Entrance Replacements</h2>
+<table border="1">
+	<tr>
+		<th>Entrance</th>
+		<th>New Destination</th>
+	</tr>
+<#		 for (int i = 0; i < 4; i++) { 
+			int _newEnt = spoiler.NewEnts[i]; #>
+	<tr>
+		<td><#= spoiler.destinations[i] #></td>
+		<td class="spoiler"><#= spoiler.destinations[_newEnt] #></td>
+	</tr>
+<# } #>
+</table>
+<# } #>
+<h2>Item Replacements</h2>
+<table border="1">
+ <tr>
+     <th>Item</th>
+     <th>New Location</th>
+     <th>Replaced By</th>
+ </tr>
+<# foreach (var item in spoiler.ItemList) {
+	string name = spoiler.ITEM_NAMES[item.ID];
+	string replaces = spoiler.ITEM_NAMES[item.ReplacesItemId];
+	ItemObject replacedByObj = spoiler.ItemList.First(i => i.ReplacesItemId == item.ID);
+	string replacedBy = spoiler.ITEM_NAMES[replacedByObj.ID];
+#>
+ <tr>
+	<td><#= name #></td>
+	<td class="spoiler"> <span data-content="<#= replaces #>"></span></td>
+	<td class="spoiler"> <span data-content="<#= replacedBy #>"></span></td>
+ </tr>
+<# } #>
+</table>
+</html>

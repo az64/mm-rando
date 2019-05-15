@@ -541,74 +541,28 @@ namespace MMRando
 
         private void MakeHTMLSpoilerLog()
         {
+            ItemList.RemoveAll(u => u.ReplacesItemId == -1);
             var settingsString = EncodeSettings();
 
             var directory = Path.GetDirectoryName(Settings.OutputROMFilename);
             var filename = $"{Path.GetFileNameWithoutExtension(Settings.OutputROMFilename)}_SpoilerLog.html";
 
-            StreamWriter LogFile = new StreamWriter(Path.Combine(directory, filename));
-
-            LogFile.WriteLine("<html>");
-            LogFile.WriteLine("<head>");
-            LogFile.WriteLine("<style>");
-            LogFile.WriteLine("th{ text-align:left }");
-            LogFile.WriteLine(".spoiler{ background-color:black }");
-            LogFile.WriteLine(".spoiler:hover { background-color: white;  }");
-            LogFile.WriteLine(".spoiler [data-content]:before { content: attr(data-content); }");
-            LogFile.WriteLine("</style>");
-            LogFile.WriteLine("</head>");
-            LogFile.WriteLine("<label><b>Version:</b></label><span>" + AssemblyVersion.Substring(26) + "</span><br/>");
-            LogFile.WriteLine("<label><b>Settings String:</b></label><span>\"" + settingsString + "\"</span><br/>");
-            LogFile.WriteLine("<label><b>Seed:</b></label><span>\"" + Settings.Seed + "\"<span><br/><br/>");
-
-            if (Settings.RandomizeDungeonEntrances)
+            Spoiler spoiler = new Spoiler()
             {
-                LogFile.WriteLine("<h2>Dungeon Entrance Replacements</h2>");
-                LogFile.WriteLine("<table border=\"1\">");
-                LogFile.WriteLine(" <tr>");
-                LogFile.WriteLine("     <th>Entrance</th>");
-                LogFile.WriteLine("     <th>New Destination</th>");
-                LogFile.WriteLine(" </tr>");
-                string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
-                for (int i = 0; i < 4; i++)
-                {
-                    LogFile.WriteLine(" <tr>");
-                    LogFile.WriteLine("     <td>" + destinations[i] + "</td>");
-                    LogFile.WriteLine("     <td class=\"spoiler\">" + destinations[_newEnts[i]] + "</td>");
-                    LogFile.WriteLine(" </tr>");
-                };
-                LogFile.WriteLine("</table>");
+                Version = AssemblyVersion.Substring(26),
+                SettingsString = settingsString,
+                Seed = Settings.Seed,
+                RandomizeDungeonEntrances = Settings.RandomizeDungeonEntrances,
+                ItemList = ItemList,
+                ITEM_NAMES = Items.ITEM_NAMES,
+                NewEnts = _newEnts
             };
 
-            ItemList.RemoveAll(u => u.ReplacesItemId == -1);
-            LogFile.WriteLine("<h2>Item Replacements</h2>");
-            LogFile.WriteLine("<table border=\"1\">");
-            LogFile.WriteLine(" <tr>");
-            LogFile.WriteLine("     <th>Item</th>");
-            LogFile.WriteLine("     <th>New Location</th>");
-            LogFile.WriteLine("     <th>Replaced By</th>");
-            LogFile.WriteLine(" </tr>");
-            for (int i = 0; i < ItemList.Count; i++)
+            using (StreamWriter newlog = new StreamWriter(Path.Combine(directory, filename)))
             {
-                LogFile.WriteLine(" <tr>");
-                LogFile.WriteLine("     <td>" + Items.ITEM_NAMES[ItemList[i].ID] + "</td>");
-                LogFile.WriteLine("     <td class=\"spoiler\"> <span data-content=\"" + Items.ITEM_NAMES[ItemList[i].ReplacesItemId] + "\"></span></td>");
-                ItemObject replacedBy = ItemList.First(item => item.ReplacesItemId == ItemList[i].ID);
-                if (replacedBy != null)
-                {
-                    LogFile.WriteLine(" <td class=\"spoiler\"> <span data-content=\"" + Items.ITEM_NAMES[replacedBy.ID] + "\"></span></td>");
-                }
-                else
-                {
-                    LogFile.WriteLine(" <td><span>ERROR</span></td>");
-                }
-                LogFile.WriteLine(" </tr>");
-            };
-            LogFile.WriteLine("</table>");
-            LogFile.WriteLine("</html>");
-            LogFile.Close();
-
-
+                Templates.HtmlSpoiler htmlspoiler = new Templates.HtmlSpoiler(spoiler);
+                newlog.Write(htmlspoiler.TransformText());
+            }
         }
 
         private void PrepareRulesetItemData()
