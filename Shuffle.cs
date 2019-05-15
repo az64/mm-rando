@@ -696,6 +696,11 @@ namespace MMRando
         private Dependence CheckDependence(int CurrentItem, int Target, List<int> dependencyPath)
         {
             Debug.WriteLine($"CheckDependence({CurrentItem}, {Target})");
+            if (ItemList[CurrentItem].TimeNeeded == 0
+                && !ItemList.Any(io => (io.Conditionals?.Any(c => c.Contains(CurrentItem)) ?? false) || (io.DependsOnItems?.Contains(CurrentItem) ?? false)))
+            {
+                return Dependence.NotDependent;
+            }
 
             // permanent items ignore dependencies of Blast Mask check
             if (Target == Items.MaskBlast && !ItemUtils.IsTemporaryItem(CurrentItem))
@@ -704,7 +709,7 @@ namespace MMRando
             }
 
             //check timing
-            if (ItemList[CurrentItem].TimeNeeded != 0 && dependencyPath.Skip(1).All(p => ItemUtils.IsTemporaryItem(ItemList.Single(i => i.ReplacesItemId == p).ID)))
+            if (ItemList[CurrentItem].TimeNeeded != 0 && dependencyPath.Skip(1).All(p => ItemUtils.IsFakeItem(p) || ItemUtils.IsTemporaryItem(ItemList.Single(i => i.ReplacesItemId == p).ID)))
             {
                 if ((ItemList[CurrentItem].TimeNeeded & ItemList[Target].TimeAvailable) == 0)
                 {
@@ -1113,7 +1118,7 @@ namespace MMRando
                         CheckConditionals(currentItem, dependency, childPath);
                     }
                 }
-                else if (ItemList[currentItem].TimeNeeded != 0 && ItemUtils.IsTemporaryItem(dependency) && dependencyPath.Skip(1).All(p => ItemUtils.IsTemporaryItem(ItemList.Single(j => j.ReplacesItemId == p).ID)))
+                else if (ItemList[currentItem].TimeNeeded != 0 && ItemUtils.IsTemporaryItem(dependency) && dependencyPath.Skip(1).All(p => ItemUtils.IsFakeItem(p) || ItemUtils.IsTemporaryItem(ItemList.Single(j => j.ReplacesItemId == p).ID)))
                 {
                     ItemList[dependency].TimeNeeded &= ItemList[currentItem].TimeNeeded;
                 }
@@ -1214,16 +1219,14 @@ namespace MMRando
 
             AddAllItems(itemPool);
 
+            PlaceQuestItems(itemPool);
             PlaceTradeItems(itemPool);
-            PlaceFreeItem(itemPool);
-
-            PlaceItem(Items.MaskDeku, itemPool);
-
-            PlaceRegularItems(itemPool);
-            PlaceUpgrades(itemPool);
-            PlaceMasks(itemPool);
-            PlaceSongs(itemPool);
             PlaceDungeonItems(itemPool);
+            PlaceFreeItem(itemPool);
+            PlaceUpgrades(itemPool);
+            PlaceSongs(itemPool);
+            PlaceMasks(itemPool);
+            PlaceRegularItems(itemPool);
             PlaceShopItems(itemPool);
             PlaceHeartpieces(itemPool);
             PlaceOther(itemPool);
@@ -1336,7 +1339,7 @@ namespace MMRando
         /// </summary>
         private void PlaceRegularItems(List<int> itemPool)
         {
-            for (int i = Items.ItemBow; i <= Items.ItemNotebook; i++)
+            for (int i = Items.MaskDeku; i <= Items.ItemNotebook; i++)
             {
                 PlaceItem(i, itemPool);
             }
@@ -1385,11 +1388,22 @@ namespace MMRando
         }
 
         /// <summary>
+        /// Places quest items in the randomization pool
+        /// </summary>
+        private void PlaceQuestItems(List<int> itemPool)
+        {
+            for (int i = Items.TradeItemRoomKey; i <= Items.TradeItemMamaLetter; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
         /// Places trade items in the randomization pool
         /// </summary>
         private void PlaceTradeItems(List<int> itemPool)
         {
-            for (int i = Items.TradeItemMoonTear; i <= Items.TradeItemMamaLetter; i++)
+            for (int i = Items.TradeItemMoonTear; i <= Items.TradeItemOceanDeed; i++)
             {
                 PlaceItem(i, itemPool);
             }
