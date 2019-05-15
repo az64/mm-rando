@@ -703,6 +703,16 @@ namespace MMRando
                 return Dependence.NotDependent;
             }
 
+            //check timing
+            if (ItemList[CurrentItem].TimeNeeded != 0 && dependencyPath.Skip(1).All(p => ItemUtils.IsTemporaryItem(ItemList.Single(i => i.ReplacesItemId == p).ID)))
+            {
+                if ((ItemList[CurrentItem].TimeNeeded & ItemList[Target].TimeAvailable) == 0)
+                {
+                    Debug.WriteLine($"{CurrentItem} is needed at {ItemList[CurrentItem].TimeNeeded} but {Target} is only available at {ItemList[Target].TimeAvailable}");
+                    return Dependence.Dependent;
+                }
+            }
+
             if (ItemList[Target].HasConditionals)
             {
                 if (ItemList[Target].Conditionals
@@ -1060,7 +1070,7 @@ namespace MMRando
             }
         }
 
-        private void CheckConditionals(int currentItem, int target)
+        private void CheckConditionals(int currentItem, int target, List<int> dependencyPath)
         {
             if (target == Items.MaskBlast)
             {
@@ -1098,8 +1108,14 @@ namespace MMRando
 
                     if (!ConditionsChecked.Contains(dependency))
                     {
-                        CheckConditionals(currentItem, dependency);
+                        var childPath = dependencyPath.ToList();
+                        childPath.Add(dependency);
+                        CheckConditionals(currentItem, dependency, childPath);
                     }
+                }
+                else if (ItemList[currentItem].TimeNeeded != 0 && ItemUtils.IsTemporaryItem(dependency) && dependencyPath.Skip(1).All(p => ItemUtils.IsTemporaryItem(ItemList.Single(j => j.ReplacesItemId == p).ID)))
+                {
+                    ItemList[dependency].TimeNeeded &= ItemList[currentItem].TimeNeeded;
                 }
             }
 
@@ -1121,16 +1137,6 @@ namespace MMRando
                 return false;
             }
 
-            //check timing
-            if (ItemList[currentItem].TimeNeeded != 0)
-            {
-                if ((ItemList[currentItem].TimeNeeded & ItemList[target].TimeAvailable) == 0)
-                {
-                    Debug.WriteLine($"{currentItem} is needed at {ItemList[currentItem].TimeNeeded} but {target} is only available at {ItemList[target].TimeAvailable}");
-                    return false;
-                };
-            };
-
             //check direct dependence
             ConditionRemoves = new List<int[]>();
             DependenceChecked = new Dictionary<int, Dependence> { { target, new Dependence { Type = DependenceType.Dependent } } };
@@ -1144,7 +1150,7 @@ namespace MMRando
             //check conditional dependence
             RemoveConditionals(currentItem);
             ConditionsChecked = new List<int>();
-            CheckConditionals(currentItem, target);
+            CheckConditionals(currentItem, target, dependencyPath);
             return true;
         }
 
@@ -1181,12 +1187,6 @@ namespace MMRando
                     ItemList[currentItem].ReplacesItemId = availableItems[targetItem];
 
                     Debug.WriteLine($"----Placed {Items.ITEM_NAMES[currentItem]} at {Items.ITEM_NAMES[ItemList[currentItem].ReplacesItemId]}----");
-
-                    if (ItemList[currentItem].TimeNeeded != 0
-                        && ItemUtils.IsDeed(availableItems[targetItem]))
-                    {
-                        ItemList[availableItems[targetItem]].TimeNeeded = ItemList[currentItem].TimeNeeded;
-                    }
 
                     targets.Remove(availableItems[targetItem]);
                     return;
