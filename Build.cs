@@ -336,7 +336,7 @@ namespace MMRando
 
         private void CreateSpoilerLog()
         {
-            ItemList.RemoveAll(u => u.ReplacesItemId == -1);
+            var itemList = ItemList.Where(u => u.ReplacesItemId != -1).ToList();
             var settingsString = EncodeSettings();
 
             var directory = Path.GetDirectoryName(Settings.OutputROMFilename);
@@ -348,7 +348,7 @@ namespace MMRando
                 SettingsString = settingsString,
                 Seed = Settings.Seed,
                 RandomizeDungeonEntrances = Settings.RandomizeDungeonEntrances,
-                ItemList = ItemList,
+                ItemList = itemList,
                 ITEM_NAMES = Items.ITEM_NAMES,
                 NewEnts = _newEnts
             };
