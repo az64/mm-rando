@@ -67,33 +67,35 @@ namespace MMRando.Templates
             #line 27 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
 		 for (int i = 0; i < 4; i++) { 
 			int _newEnt = spoiler.NewEnts[i]; 
+			string destination = spoiler.destinations[i];
+			string newDestination = spoiler.destinations[_newEnt];
             
             #line default
             #line hidden
             this.Write("\t<tr>\r\n\t\t<td>");
             
-            #line 30 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.destinations[i]));
+            #line 32 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(destination));
             
             #line default
             #line hidden
-            this.Write("</td>\r\n\t\t<td class=\"spoiler\">");
-            
-            #line 31 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.destinations[_newEnt]));
-            
-            #line default
-            #line hidden
-            this.Write("</td>\r\n\t</tr>\r\n");
+            this.Write("</td>\r\n\t\t<td class=\"spoiler\"><span data-content=\"");
             
             #line 33 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(newDestination));
+            
+            #line default
+            #line hidden
+            this.Write("\"></span></td>\r\n\t</tr>\r\n");
+            
+            #line 35 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
  } 
             
             #line default
             #line hidden
             this.Write("</table>\r\n");
             
-            #line 35 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
+            #line 37 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
  } 
             
             #line default
@@ -101,7 +103,7 @@ namespace MMRando.Templates
             this.Write("<h2>Item Replacements</h2>\r\n<table border=\"1\">\r\n <tr>\r\n     <th>Item</th>\r\n     <" +
                     "th>New Location</th>\r\n     <th>Replaced By</th>\r\n </tr>\r\n");
             
-            #line 43 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
+            #line 45 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
  foreach (var item in spoiler.ItemList) {
 	string name = spoiler.ITEM_NAMES[item.ID];
 	string replaces = spoiler.ITEM_NAMES[item.ReplacesItemId];
@@ -113,28 +115,28 @@ namespace MMRando.Templates
             #line hidden
             this.Write(" <tr>\r\n\t<td>");
             
-            #line 50 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
+            #line 52 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(name));
             
             #line default
             #line hidden
             this.Write("</td>\r\n\t<td class=\"spoiler\"> <span data-content=\"");
             
-            #line 51 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
+            #line 53 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(replaces));
             
             #line default
             #line hidden
             this.Write("\"></span></td>\r\n\t<td class=\"spoiler\"> <span data-content=\"");
             
-            #line 52 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
+            #line 54 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(replacedBy));
             
             #line default
             #line hidden
             this.Write("\"></span></td>\r\n </tr>\r\n");
             
-            #line 54 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
+            #line 56 "C:\Users\mzxrules\Source\Repos\mm-rando\Templates\HtmlSpoiler.tt"
  } 
             
             #line default

@@ -684,6 +684,13 @@ namespace MMRando
         /// </summary>
         private void TryRandomize(BackgroundWorker worker, DoWorkEventArgs e)
         {
+            if (!Settings.GenerateROM && !Settings.GenerateSpoilerLog)
+            {
+                MessageBox.Show($"No output selected", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             try
             {
                 Randomize(worker, e);
@@ -706,25 +713,18 @@ namespace MMRando
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-            }
 
-            if (Settings.GenerateROM)
-            {
                 MakeROM(Settings.InputROMFilename, Settings.OutputROMFilename, worker);
-                MessageBox.Show("Successfully built output ROM!",
-                    "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
             }
 
-            if (Settings.GenerateSpoilerLog)
+            if (Settings.GenerateSpoilerLog
+                && Settings.LogicMode != LogicMode.Vanilla)
             {
-                WriteSpoilerLog();
-
-                if (!Settings.GenerateROM)
-                {
-                    MessageBox.Show("Successfully output Spoiler Log!",
-                        "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-                }
+                CreateSpoilerLog();
             }
+
+            MessageBox.Show("Generation complete!",
+                "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
         }
 
         /// <summary>

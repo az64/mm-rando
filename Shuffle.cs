@@ -475,95 +475,51 @@ namespace MMRando
             };
         }
 
-        private void MakeSpoilerLog()
+        private void CreateTextSpoilerLog(Spoiler spoiler, string path)
         {
-            var settingsString = EncodeSettings();
+            StringBuilder log = new StringBuilder();
+            log.AppendLine($"{"Version:",-17} {spoiler.Version}");
+            log.AppendLine($"{"Settings String:",-17} {spoiler.SettingsString}");
+            log.AppendLine($"{"Seed:",-17} {spoiler.Seed}");
+            log.AppendLine();
 
-            var directory = Path.GetDirectoryName(Settings.OutputROMFilename);
-            var filename = $"{Path.GetFileNameWithoutExtension(Settings.OutputROMFilename)}_SpoilerLog.txt";
-
-            StreamWriter LogFile = new StreamWriter(Path.Combine(directory, filename));
-
-            LogFile.WriteLine("Version: ".PadRight(20,' ') + AssemblyVersion.Substring(26).PadLeft(20, ' '));
-            LogFile.WriteLine("Settings String: ".PadRight(20, ' ') + settingsString.PadLeft(20, ' '));
-            LogFile.WriteLine("Seed: ".PadRight(20, ' ') + Settings.Seed.ToString().PadLeft(20, ' '));
-            LogFile.WriteLine();
-
-            if (Settings.RandomizeDungeonEntrances)
+            if (spoiler.RandomizeDungeonEntrances)
             {
-                LogFile.WriteLine("-----------------Entrance---------------------------------Destination---------------");
+                log.AppendLine($" {"Entrance",-21}    {"Destination"}");
+                log.AppendLine();
                 string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
                 for (int i = 0; i < 4; i++)
                 {
-                    LogFile.WriteLine(destinations[i].PadRight(40, '-') + "->>-" + destinations[_newEnts[i]].PadLeft(40, '-'));
-                };
-                LogFile.WriteLine("");
-            }; 
-            
+                    log.AppendLine($"{destinations[i],-21} >> {destinations[_newEnts[i]]}");
+                }
+                log.AppendLine("");
+            }
 
-            //Do we still need this?
-            /*
-            if (!Other)
+            log.AppendLine($" {"Item",-40}    {"Location"}");
+            foreach (var item in spoiler.ItemList)
             {
-                ItemList.RemoveRange(Lens_Cave_RR, TM_StoneTower - Lens_Cave_RR + 1);
-            };
-            if (!BottleCatch)
+                string name = Items.ITEM_NAMES[item.ID];
+                string replaces = Items.ITEM_NAMES[item.ReplacesItemId];
+                log.AppendLine($"{name,-40} >> {replaces}");
+            }
+
+            log.AppendLine();
+            log.AppendLine();
+
+            log.AppendLine($" {"Item",-40}    {"Location"}");
+            foreach (var item in spoiler.ItemList)
             {
-                ItemList.RemoveRange(B_Fairy, B_Mushroom - B_Fairy + 1);
-            };
-            if (!Shops)
+                string replaces = Items.ITEM_NAMES[item.ReplacesItemId];
+                string name = Items.ITEM_NAMES[item.ID];
+                log.AppendLine($"{replaces,-40} >> {name}");
+            }
+
+            using (StreamWriter sw = new StreamWriter(path))
             {
-                ItemList.RemoveRange(TP_RP, ZS_RP - TP_RP + 1);
-            };
-            if (!Keysanity)
-            {
-                ItemList.RemoveRange(WF_Map, ST_Key4 - WF_Map + 1);
-            }; */
-
-
-            ItemList.RemoveAll(u => u.ReplacesItemId == -1);
-            LogFile.WriteLine("-------------------Item------------------------------------Location-----------------");
-            for (int i = 0; i < ItemList.Count; i++)
-            {
-                LogFile.WriteLine(Items.ITEM_NAMES[ItemList[i].ID].PadRight(40, '-') + "->>-" + Items.ITEM_NAMES[ItemList[i].ReplacesItemId].PadLeft(40, '-'));
-            };
-
-            LogFile.WriteLine();
-            LogFile.WriteLine();
-
-            LogFile.WriteLine("-------------------Item------------------------------------Location-----------------");
-            for (int i = 0; i < ItemList.Count; i++)
-            {
-                LogFile.WriteLine(Items.ITEM_NAMES[ItemList[i].ReplacesItemId].PadRight(40, '-') + "->>-" + Items.ITEM_NAMES[ItemList[i].ID].PadLeft(40, '-'));
-            };
-            LogFile.Close();
-        }
-
-        private void MakeHTMLSpoilerLog()
-        {
-            ItemList.RemoveAll(u => u.ReplacesItemId == -1);
-            var settingsString = EncodeSettings();
-
-            var directory = Path.GetDirectoryName(Settings.OutputROMFilename);
-            var filename = $"{Path.GetFileNameWithoutExtension(Settings.OutputROMFilename)}_SpoilerLog.html";
-
-            Spoiler spoiler = new Spoiler()
-            {
-                Version = AssemblyVersion.Substring(26),
-                SettingsString = settingsString,
-                Seed = Settings.Seed,
-                RandomizeDungeonEntrances = Settings.RandomizeDungeonEntrances,
-                ItemList = ItemList,
-                ITEM_NAMES = Items.ITEM_NAMES,
-                NewEnts = _newEnts
-            };
-
-            using (StreamWriter newlog = new StreamWriter(Path.Combine(directory, filename)))
-            {
-                Templates.HtmlSpoiler htmlspoiler = new Templates.HtmlSpoiler(spoiler);
-                newlog.Write(htmlspoiler.TransformText());
+                sw.Write(log.ToString());
             }
         }
+
 
         private void PrepareRulesetItemData()
         {
