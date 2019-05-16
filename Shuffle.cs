@@ -475,141 +475,51 @@ namespace MMRando
             };
         }
 
-        private void MakeSpoilerLog()
+        private void CreateTextSpoilerLog(Spoiler spoiler, string path)
         {
-            var settingsString = EncodeSettings();
+            StringBuilder log = new StringBuilder();
+            log.AppendLine($"{"Version:",-17} {spoiler.Version}");
+            log.AppendLine($"{"Settings String:",-17} {spoiler.SettingsString}");
+            log.AppendLine($"{"Seed:",-17} {spoiler.Seed}");
+            log.AppendLine();
 
-            var directory = Path.GetDirectoryName(Settings.OutputROMFilename);
-            var filename = $"{Path.GetFileNameWithoutExtension(Settings.OutputROMFilename)}_SpoilerLog.txt";
-
-            StreamWriter LogFile = new StreamWriter(Path.Combine(directory, filename));
-
-            LogFile.WriteLine("Version: ".PadRight(20,' ') + AssemblyVersion.Substring(26).PadLeft(20, ' '));
-            LogFile.WriteLine("Settings String: ".PadRight(20, ' ') + settingsString.PadLeft(20, ' '));
-            LogFile.WriteLine("Seed: ".PadRight(20, ' ') + Settings.Seed.ToString().PadLeft(20, ' '));
-            LogFile.WriteLine();
-
-            if (Settings.RandomizeDungeonEntrances)
+            if (spoiler.RandomizeDungeonEntrances)
             {
-                LogFile.WriteLine("-----------------Entrance---------------------------------Destination---------------");
+                log.AppendLine($" {"Entrance",-21}    {"Destination"}");
+                log.AppendLine();
                 string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
                 for (int i = 0; i < 4; i++)
                 {
-                    LogFile.WriteLine(destinations[i].PadRight(40, '-') + "->>-" + destinations[_newEnts[i]].PadLeft(40, '-'));
-                };
-                LogFile.WriteLine("");
-            }; 
-            
+                    log.AppendLine($"{destinations[i],-21} >> {destinations[_newEnts[i]]}");
+                }
+                log.AppendLine("");
+            }
 
-            //Do we still need this?
-            /*
-            if (!Other)
+            log.AppendLine($" {"Item",-40}    {"Location"}");
+            foreach (var item in spoiler.ItemList)
             {
-                ItemList.RemoveRange(Lens_Cave_RR, TM_StoneTower - Lens_Cave_RR + 1);
-            };
-            if (!BottleCatch)
-            {
-                ItemList.RemoveRange(B_Fairy, B_Mushroom - B_Fairy + 1);
-            };
-            if (!Shops)
-            {
-                ItemList.RemoveRange(TP_RP, ZS_RP - TP_RP + 1);
-            };
-            if (!Keysanity)
-            {
-                ItemList.RemoveRange(WF_Map, ST_Key4 - WF_Map + 1);
-            }; */
+                string name = Items.ITEM_NAMES[item.ID];
+                string replaces = Items.ITEM_NAMES[item.ReplacesItemId];
+                log.AppendLine($"{name,-40} >> {replaces}");
+            }
 
+            log.AppendLine();
+            log.AppendLine();
 
-            ItemList.RemoveAll(u => u.ReplacesItemId == -1);
-            LogFile.WriteLine("-------------------Item------------------------------------Location-----------------");
-            for (int i = 0; i < ItemList.Count; i++)
+            log.AppendLine($" {"Item",-40}    {"Location"}");
+            foreach (var item in spoiler.ItemList)
             {
-                LogFile.WriteLine(Items.ITEM_NAMES[ItemList[i].ID].PadRight(40, '-') + "->>-" + Items.ITEM_NAMES[ItemList[i].ReplacesItemId].PadLeft(40, '-'));
-            };
+                string replaces = Items.ITEM_NAMES[item.ReplacesItemId];
+                string name = Items.ITEM_NAMES[item.ID];
+                log.AppendLine($"{replaces,-40} >> {name}");
+            }
 
-            LogFile.WriteLine();
-            LogFile.WriteLine();
-
-            LogFile.WriteLine("-------------------Item------------------------------------Location-----------------");
-            for (int i = 0; i < ItemList.Count; i++)
+            using (StreamWriter sw = new StreamWriter(path))
             {
-                LogFile.WriteLine(Items.ITEM_NAMES[ItemList[i].ReplacesItemId].PadRight(40, '-') + "->>-" + Items.ITEM_NAMES[ItemList[i].ID].PadLeft(40, '-'));
-            };
-            LogFile.Close();
+                sw.Write(log.ToString());
+            }
         }
 
-        private void MakeHTMLSpoilerLog()
-        {
-            var settingsString = EncodeSettings();
-
-            var directory = Path.GetDirectoryName(Settings.OutputROMFilename);
-            var filename = $"{Path.GetFileNameWithoutExtension(Settings.OutputROMFilename)}_SpoilerLog.html";
-
-            StreamWriter LogFile = new StreamWriter(Path.Combine(directory, filename));
-
-            LogFile.WriteLine("<html>");
-            LogFile.WriteLine("<head>");
-            LogFile.WriteLine("<style>");
-            LogFile.WriteLine("th{ text-align:left }");
-            LogFile.WriteLine(".spoiler{ background-color:black }");
-            LogFile.WriteLine(".spoiler:hover { background-color: white;  }");
-            LogFile.WriteLine(".spoiler [data-content]:before { content: attr(data-content); }");
-            LogFile.WriteLine("</style>");
-            LogFile.WriteLine("</head>");
-            LogFile.WriteLine("<label><b>Version:</b></label><span>" + AssemblyVersion.Substring(26) + "</span><br/>");
-            LogFile.WriteLine("<label><b>Settings String:</b></label><span>\"" + settingsString + "\"</span><br/>");
-            LogFile.WriteLine("<label><b>Seed:</b></label><span>\"" + Settings.Seed + "\"<span><br/><br/>");
-
-            if (Settings.RandomizeDungeonEntrances)
-            {
-                LogFile.WriteLine("<h2>Dungeon Entrance Replacements</h2>");
-                LogFile.WriteLine("<table border=\"1\">");
-                LogFile.WriteLine(" <tr>");
-                LogFile.WriteLine("     <th>Entrance</th>");
-                LogFile.WriteLine("     <th>New Destination</th>");
-                LogFile.WriteLine(" </tr>");
-                string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
-                for (int i = 0; i < 4; i++)
-                {
-                    LogFile.WriteLine(" <tr>");
-                    LogFile.WriteLine("     <td>" + destinations[i] + "</td>");
-                    LogFile.WriteLine("     <td class=\"spoiler\">" + destinations[_newEnts[i]] + "</td>");
-                    LogFile.WriteLine(" </tr>");
-                };
-                LogFile.WriteLine("</table>");
-            };
-
-            ItemList.RemoveAll(u => u.ReplacesItemId == -1);
-            LogFile.WriteLine("<h2>Item Replacements</h2>");
-            LogFile.WriteLine("<table border=\"1\">");
-            LogFile.WriteLine(" <tr>");
-            LogFile.WriteLine("     <th>Item</th>");
-            LogFile.WriteLine("     <th>New Location</th>");
-            LogFile.WriteLine("     <th>Replaced By</th>");
-            LogFile.WriteLine(" </tr>");
-            for (int i = 0; i < ItemList.Count; i++)
-            {
-                LogFile.WriteLine(" <tr>");
-                LogFile.WriteLine("     <td>" + Items.ITEM_NAMES[ItemList[i].ID] + "</td>");
-                LogFile.WriteLine("     <td class=\"spoiler\"> <span data-content=\"" + Items.ITEM_NAMES[ItemList[i].ReplacesItemId] + "\"></span></td>");
-                ItemObject replacedBy = ItemList.First(item => item.ReplacesItemId == ItemList[i].ID);
-                if (replacedBy != null)
-                {
-                    LogFile.WriteLine(" <td class=\"spoiler\"> <span data-content=\"" + Items.ITEM_NAMES[replacedBy.ID] + "\"></span></td>");
-                }
-                else
-                {
-                    LogFile.WriteLine(" <td><span>ERROR</span></td>");
-                }
-                LogFile.WriteLine(" </tr>");
-            };
-            LogFile.WriteLine("</table>");
-            LogFile.WriteLine("</html>");
-            LogFile.Close();
-
-
-        }
 
         private void PrepareRulesetItemData()
         {

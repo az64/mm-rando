@@ -334,34 +334,43 @@ namespace MMRando
             }
         }
 
-        private void WriteSpoilerLog()
+        private void CreateSpoilerLog()
         {
-            if (Settings.LogicMode == LogicMode.Vanilla)
-            {
-                return;
-            }
+            var itemList = ItemList.Where(u => u.ReplacesItemId != -1).ToList();
+            var settingsString = EncodeSettings();
 
-            if (Settings.GenerateSpoilerLog)
+            var directory = Path.GetDirectoryName(Settings.OutputROMFilename);
+            var filename = $"{Path.GetFileNameWithoutExtension(Settings.OutputROMFilename)}";
+
+            Spoiler spoiler = new Spoiler()
             {
-                if (Settings.GenerateHTMLLog)
+                Version = AssemblyVersion.Substring(26),
+                SettingsString = settingsString,
+                Seed = Settings.Seed,
+                RandomizeDungeonEntrances = Settings.RandomizeDungeonEntrances,
+                ItemList = itemList,
+                ITEM_NAMES = Items.ITEM_NAMES,
+                NewEnts = _newEnts
+            };
+
+            if (Settings.GenerateHTMLLog)
+            {
+                filename += "_SpoilerLog.html";
+                using (StreamWriter newlog = new StreamWriter(Path.Combine(directory, filename)))
                 {
-                    MakeHTMLSpoilerLog();
-                }
-                else
-                {
-                    MakeSpoilerLog();
+                    Templates.HtmlSpoiler htmlspoiler = new Templates.HtmlSpoiler(spoiler);
+                    newlog.Write(htmlspoiler.TransformText());
                 }
             }
-
+            else
+            {
+                filename += "_SpoilerLog.txt";
+                CreateTextSpoilerLog(spoiler, Path.Combine(directory, filename));
+            }
         }
 
         private void WriteFileSelect()
         {
-            if (Settings.LogicMode == LogicMode.Vanilla)
-            {
-                return;
-            }
-
             ROMFuncs.ApplyHack(ModsDirectory + "file-select");
             byte[] SkyboxDefault = new byte[] { 0x91, 0x78, 0x9B, 0x28, 0x00, 0x28 };
             List<int[]> Addrs = ROMFuncs.GetAddresses(AddrsDirectory + "skybox-init");
