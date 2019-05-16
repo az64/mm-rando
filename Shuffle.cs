@@ -696,11 +696,26 @@ namespace MMRando
         private Dependence CheckDependence(int CurrentItem, int Target, List<int> dependencyPath)
         {
             Debug.WriteLine($"CheckDependence({CurrentItem}, {Target})");
+            if (ItemList[CurrentItem].TimeNeeded == 0
+                && !ItemList.Any(io => (io.Conditionals?.Any(c => c.Contains(CurrentItem)) ?? false) || (io.DependsOnItems?.Contains(CurrentItem) ?? false)))
+            {
+                return Dependence.NotDependent;
+            }
 
             // permanent items ignore dependencies of Blast Mask check
             if (Target == Items.MaskBlast && !ItemUtils.IsTemporaryItem(CurrentItem))
             {
                 return Dependence.NotDependent;
+            }
+
+            //check timing
+            if (ItemList[CurrentItem].TimeNeeded != 0 && dependencyPath.Skip(1).All(p => ItemUtils.IsFakeItem(p) || ItemUtils.IsTemporaryItem(ItemList.Single(i => i.ReplacesItemId == p).ID)))
+            {
+                if ((ItemList[CurrentItem].TimeNeeded & ItemList[Target].TimeAvailable) == 0)
+                {
+                    Debug.WriteLine($"{CurrentItem} is needed at {ItemList[CurrentItem].TimeNeeded} but {Target} is only available at {ItemList[Target].TimeAvailable}");
+                    return Dependence.Dependent;
+                }
             }
 
             if (ItemList[Target].HasConditionals)
@@ -1060,7 +1075,7 @@ namespace MMRando
             }
         }
 
-        private void CheckConditionals(int currentItem, int target)
+        private void CheckConditionals(int currentItem, int target, List<int> dependencyPath)
         {
             if (target == Items.MaskBlast)
             {
@@ -1098,8 +1113,14 @@ namespace MMRando
 
                     if (!ConditionsChecked.Contains(dependency))
                     {
-                        CheckConditionals(currentItem, dependency);
+                        var childPath = dependencyPath.ToList();
+                        childPath.Add(dependency);
+                        CheckConditionals(currentItem, dependency, childPath);
                     }
+                }
+                else if (ItemList[currentItem].TimeNeeded != 0 && ItemUtils.IsTemporaryItem(dependency) && dependencyPath.Skip(1).All(p => ItemUtils.IsFakeItem(p) || ItemUtils.IsTemporaryItem(ItemList.Single(j => j.ReplacesItemId == p).ID)))
+                {
+                    ItemList[dependency].TimeNeeded &= ItemList[currentItem].TimeNeeded;
                 }
             }
 
@@ -1121,16 +1142,6 @@ namespace MMRando
                 return false;
             }
 
-            //check timing
-            if (ItemList[currentItem].TimeNeeded != 0)
-            {
-                if ((ItemList[currentItem].TimeNeeded & ItemList[target].TimeAvailable) == 0)
-                {
-                    Debug.WriteLine($"{currentItem} is needed at {ItemList[currentItem].TimeNeeded} but {target} is only available at {ItemList[target].TimeAvailable}");
-                    return false;
-                };
-            };
-
             //check direct dependence
             ConditionRemoves = new List<int[]>();
             DependenceChecked = new Dictionary<int, Dependence> { { target, new Dependence { Type = DependenceType.Dependent } } };
@@ -1144,7 +1155,7 @@ namespace MMRando
             //check conditional dependence
             RemoveConditionals(currentItem);
             ConditionsChecked = new List<int>();
-            CheckConditionals(currentItem, target);
+            CheckConditionals(currentItem, target, dependencyPath);
             return true;
         }
 
@@ -1182,12 +1193,6 @@ namespace MMRando
 
                     Debug.WriteLine($"----Placed {Items.ITEM_NAMES[currentItem]} at {Items.ITEM_NAMES[ItemList[currentItem].ReplacesItemId]}----");
 
-                    if (ItemList[currentItem].TimeNeeded != 0
-                        && ItemUtils.IsDeed(availableItems[targetItem]))
-                    {
-                        ItemList[availableItems[targetItem]].TimeNeeded = ItemList[currentItem].TimeNeeded;
-                    }
-
                     targets.Remove(availableItems[targetItem]);
                     return;
                 }
@@ -1214,16 +1219,14 @@ namespace MMRando
 
             AddAllItems(itemPool);
 
+            PlaceQuestItems(itemPool);
             PlaceTradeItems(itemPool);
-            PlaceFreeItem(itemPool);
-
-            PlaceItem(Items.MaskDeku, itemPool);
-
-            PlaceRegularItems(itemPool);
-            PlaceUpgrades(itemPool);
-            PlaceMasks(itemPool);
-            PlaceSongs(itemPool);
             PlaceDungeonItems(itemPool);
+            PlaceFreeItem(itemPool);
+            PlaceUpgrades(itemPool);
+            PlaceSongs(itemPool);
+            PlaceMasks(itemPool);
+            PlaceRegularItems(itemPool);
             PlaceShopItems(itemPool);
             PlaceHeartpieces(itemPool);
             PlaceOther(itemPool);
@@ -1336,7 +1339,7 @@ namespace MMRando
         /// </summary>
         private void PlaceRegularItems(List<int> itemPool)
         {
-            for (int i = Items.ItemBow; i <= Items.ItemNotebook; i++)
+            for (int i = Items.MaskDeku; i <= Items.ItemNotebook; i++)
             {
                 PlaceItem(i, itemPool);
             }
@@ -1385,11 +1388,22 @@ namespace MMRando
         }
 
         /// <summary>
+        /// Places quest items in the randomization pool
+        /// </summary>
+        private void PlaceQuestItems(List<int> itemPool)
+        {
+            for (int i = Items.TradeItemRoomKey; i <= Items.TradeItemMamaLetter; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
         /// Places trade items in the randomization pool
         /// </summary>
         private void PlaceTradeItems(List<int> itemPool)
         {
-            for (int i = Items.TradeItemMoonTear; i <= Items.TradeItemMamaLetter; i++)
+            for (int i = Items.TradeItemMoonTear; i <= Items.TradeItemOceanDeed; i++)
             {
                 PlaceItem(i, itemPool);
             }
