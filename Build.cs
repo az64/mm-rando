@@ -208,6 +208,16 @@ namespace MMRando
             }
         }
 
+        /// <summary>
+        /// Update the gossip stone actor to not check mask of truth
+        /// </summary>
+        private void WriteFreeHints()
+        {
+            int address = 0x00E0A810 + 0x378;
+            byte val = 0x00;
+            ROMFuncs.WriteToROM(address, val);
+        }
+
         private void WriteFreeItem(int Item)
         {
             ROMFuncs.WriteToROM(Items.ITEM_ADDRS[Item], Items.ITEM_VALUES[Item]);
@@ -312,6 +322,11 @@ namespace MMRando
                 return;
             }
 
+            if (Settings.FreeHints)
+            {
+                WriteFreeHints();
+            }
+
             if (Settings.EnableGossipHints)
             {
                 SeedRNG();
@@ -319,26 +334,43 @@ namespace MMRando
             }
         }
 
-        private void WriteSpoilerLog()
+        private void CreateSpoilerLog()
         {
-            if (Settings.LogicMode == LogicMode.Vanilla)
-            {
-                return;
-            }
+            var itemList = ItemList.Where(u => u.ReplacesItemId != -1).ToList();
+            var settingsString = EncodeSettings();
 
-            if (Settings.GenerateSpoilerLog)
+            var directory = Path.GetDirectoryName(Settings.OutputROMFilename);
+            var filename = $"{Path.GetFileNameWithoutExtension(Settings.OutputROMFilename)}";
+
+            Spoiler spoiler = new Spoiler()
             {
-                MakeSpoilerLog();
+                Version = AssemblyVersion.Substring(26),
+                SettingsString = settingsString,
+                Seed = Settings.Seed,
+                RandomizeDungeonEntrances = Settings.RandomizeDungeonEntrances,
+                ItemList = itemList,
+                ITEM_NAMES = Items.ITEM_NAMES,
+                NewEnts = _newEnts
+            };
+
+            if (Settings.GenerateHTMLLog)
+            {
+                filename += "_SpoilerLog.html";
+                using (StreamWriter newlog = new StreamWriter(Path.Combine(directory, filename)))
+                {
+                    Templates.HtmlSpoiler htmlspoiler = new Templates.HtmlSpoiler(spoiler);
+                    newlog.Write(htmlspoiler.TransformText());
+                }
+            }
+            else
+            {
+                filename += "_SpoilerLog.txt";
+                CreateTextSpoilerLog(spoiler, Path.Combine(directory, filename));
             }
         }
 
         private void WriteFileSelect()
         {
-            if (Settings.LogicMode == LogicMode.Vanilla)
-            {
-                return;
-            }
-
             ROMFuncs.ApplyHack(ModsDirectory + "file-select");
             byte[] SkyboxDefault = new byte[] { 0x91, 0x78, 0x9B, 0x28, 0x00, 0x28 };
             List<int[]> Addrs = ROMFuncs.GetAddresses(AddrsDirectory + "skybox-init");
@@ -412,19 +444,20 @@ namespace MMRando
 
         private void MakeROM(string InFile, string FileName, BackgroundWorker worker)
         {
+            if(Settings.GenerateROM)
             using (BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open, FileAccess.Read)))
             {
                 ROMFuncs.ReadFileTable(OldROM);
             }
 
-            worker.ReportProgress(55, "Writing Audio...");
+            worker.ReportProgress(10, "Writing Audio...");
             WriteAudioSeq();
             
-            worker.ReportProgress(60, "Writing Character...");
+            worker.ReportProgress(20, "Writing Character...");
             WriteLinkAppearance();
             if (Settings.LogicMode != LogicMode.Vanilla)
             {
-                worker.ReportProgress(61, "Applying hacks...");
+                worker.ReportProgress(25, "Applying hacks...");
                 ROMFuncs.ApplyHack(ModsDirectory + "title-screen");
                 ROMFuncs.ApplyHack(ModsDirectory + "misc-changes");
                 ROMFuncs.ApplyHack(ModsDirectory + "cm-cs");
@@ -432,43 +465,43 @@ namespace MMRando
             }
             ROMFuncs.ApplyHack(ModsDirectory + "init-file");
 
-            worker.ReportProgress(62, "Writing quick text...");
+            worker.ReportProgress(30, "Writing quick text...");
             WriteQuickText();
 
-            worker.ReportProgress(64, "Writing cutscenes...");
+            worker.ReportProgress(35, "Writing cutscenes...");
             WriteCutscenes();
 
-            worker.ReportProgress(66, "Writing Tatl...");
+            worker.ReportProgress(40, "Writing Tatl...");
             WriteTatlColour();
 
-            worker.ReportProgress(68, "Writing dungeons...");
+            worker.ReportProgress(45, "Writing dungeons...");
             WriteDungeons();
 
-            worker.ReportProgress(70, "Writing gimmicks...");
+            worker.ReportProgress(50, "Writing gimmicks...");
             WriteGimmicks();
 
-            worker.ReportProgress(72, "Writing enemies...");
+            worker.ReportProgress(55, "Writing enemies...");
             WriteEnemies();
 
-            worker.ReportProgress(75, "Writing items...");
+            worker.ReportProgress(60, "Writing items...");
             WriteItems();
 
-            worker.ReportProgress(85, "Writing gossip...");
+            worker.ReportProgress(65, "Writing gossip...");
             WriteGossipQuotes();
 
-            worker.ReportProgress(87, "Writing startup...");
+            worker.ReportProgress(70, "Writing startup...");
             WriteStartupStrings();
 
-            worker.ReportProgress(89, "Writing spoiler log...");
-            WriteSpoilerLog();
-
-            worker.ReportProgress(90, "Building ROM...");
-
-            byte[] ROM = ROMFuncs.BuildROM(FileName);
-            if (_outputVC)
+            if (Settings.GenerateROM)
             {
-                worker.ReportProgress(98, "Building VC...");
-                ROMFuncs.BuildVC(ROM, VCDirectory, Path.ChangeExtension(FileName, "wad"));
+                worker.ReportProgress(75, "Building ROM...");
+
+                byte[] ROM = ROMFuncs.BuildROM(FileName);
+                if (_outputVC)
+                {
+                    worker.ReportProgress(90, "Building VC...");
+                    ROMFuncs.BuildVC(ROM, VCDirectory, Path.ChangeExtension(FileName, "wad"));
+                }
             }
             worker.ReportProgress(100, "Done!");
 

@@ -6,10 +6,16 @@ namespace MMRando.Models
 
     public class Settings
     {
+
         // TODO make base36-string from settings
         // TODO make settings from base36-string
 
         // General
+
+        /// <summary>
+        /// Filepath to the input ROM
+        /// </summary>
+        public bool GenerateROM { get; set; }
 
         /// <summary>
         /// Filepath to the input ROM
@@ -30,6 +36,16 @@ namespace MMRando.Models
         /// Generate spoiler log on randomizing
         /// </summary>
         public bool GenerateSpoilerLog { get; set; }
+
+        /// <summary>
+        /// Generate HTML spoiler log on randomizing
+        /// </summary>
+        public bool GenerateHTMLLog { get; set; }
+
+        /// <summary>
+        /// Generate spoiler log only on randomizing
+        /// </summary>
+        public bool LogOnly { get; set; }
 
         /// <summary>
         /// Use Custom Item list for the logic.
@@ -99,6 +115,12 @@ namespace MMRando.Models
         /// </summary>
         public bool RandomizeBGM { get; set; }
 
+        /// <summary>
+        /// FrEe HiNtS FoR WeNiEs
+        /// </summary>
+        public bool FreeHints { get; set; }
+
+
 
         // Gimmicks
 
@@ -148,5 +170,9 @@ namespace MMRando.Models
         /// Replaces Tatl's colors
         /// </summary>
         public TatlColorSchema TatlColorSchema { get; set; }
+
+
+
+        
     }
 }

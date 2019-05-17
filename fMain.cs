@@ -107,7 +107,8 @@ namespace MMRando
 
         private void bRandomise_Click(object sender, EventArgs e)
         {
-            if (!ValidateInputFile()) return;
+
+            if(Settings.GenerateROM && !ValidateInputFile()) return;
             
             saveROM.FileName = Settings.DefaultOutputROMFilename;
             if ((_outputROM || _outputVC) && saveROM.ShowDialog() != DialogResult.OK)
@@ -198,11 +199,46 @@ namespace MMRando
         private void cUserItems_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => Settings.UseCustomItemList = cUserItems.Checked);
+
+            cDChests.Checked = false;
+            UpdateSingleSetting(() => Settings.AddDungeonItems = false);
+
+            cShop.Checked = false;
+            UpdateSingleSetting(() => Settings.AddShopItems = false);
+
+            cBottled.Checked = false;
+            UpdateSingleSetting(() => Settings.RandomizeBottleCatchContents = false);
+
+            cSoS.Checked = false;
+            UpdateSingleSetting(() => Settings.ExcludeSongOfSoaring = false);
+
+            cAdditional.Checked = false;
+            UpdateSingleSetting(() => Settings.AddOther = false);
+
+        }
+
+        private void cN64_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.GenerateROM = cN64.Checked);
         }
 
         private void cSpoiler_CheckedChanged(object sender, EventArgs e)
         {
+
             UpdateSingleSetting(() => Settings.GenerateSpoilerLog = cSpoiler.Checked);
+            UpdateSingleSetting(() => cHTMLLog.Enabled = cSpoiler.Checked);
+
+            if (cHTMLLog.Checked)
+            {
+                cHTMLLog.Checked = false;
+                UpdateSingleSetting(() => Settings.GenerateHTMLLog = false);
+            }
+
+        }
+
+        private void cHTMLLog_CheckedChanged(object sender,EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.GenerateHTMLLog = cHTMLLog.Checked);
         }
 
 
@@ -276,6 +312,11 @@ namespace MMRando
             UpdateSingleSetting(() => Settings.AddSongs = cMixSongs.Checked);
         }
 
+        private void cFreeHints_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.FreeHints = cFreeHints.Checked);
+        }
+
         private void cQText_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => Settings.QuickTextEnabled = cQText.Checked);
@@ -330,29 +371,6 @@ namespace MMRando
         private void mManual_Click(object sender, EventArgs e)
         {
             Manual.Show();
-        }
-
-        private void mByteswap_Click(object sender, EventArgs e)
-        {
-            if (openBROM.ShowDialog() == DialogResult.OK)
-            {
-                int r = ROMFuncs.ByteswapROM(openBROM.FileName);
-                switch (r)
-                {
-                    case 0:
-                        MessageBox.Show("Successfully byteswapped ROM.",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-                        break;
-                    case 1:
-                        MessageBox.Show("ROM appears to be big endian.",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-                        break;
-                    default:
-                        MessageBox.Show("Could not byteswap ROM.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                };
-            };
         }
 
         private void mLogicEdit_Click(object sender, EventArgs e)
@@ -468,6 +486,9 @@ namespace MMRando
             cQText.Enabled = v;
             cSpoiler.Enabled = v;
             cTatl.Enabled = v;
+            cFreeHints.Enabled = v;
+            cHTMLLog.Enabled = v;
+            cN64.Enabled = v;
 
             bopen.Enabled = v;
             bRandomise.Enabled = v;
@@ -496,6 +517,7 @@ namespace MMRando
 
             bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
 
+            Settings.GenerateROM = true;
             Settings.GenerateSpoilerLog = true;
             Settings.ExcludeSongOfSoaring = true;
             Settings.EnableGossipHints = true;
@@ -515,6 +537,7 @@ namespace MMRando
         {
             int[] O = new int[3];
 
+            if (Settings.FreeHints) { O[0] += 16384; };
             if (Settings.UseCustomItemList) { O[0] += 8192; };
             if (Settings.AddOther) { O[0] += 4096; };
             if (Settings.EnableGossipHints) { O[0] += 2048; };
@@ -577,6 +600,7 @@ namespace MMRando
             int Combos = (int)Base36.Decode(O[1]);
             int ColourAndMisc = (int)Base36.Decode(O[2]);
 
+            Settings.FreeHints = (Checks & 16384) > 0;
             Settings.UseCustomItemList = (Checks & 8192) > 0;
             Settings.AddOther = (Checks & 4096) > 0;
             Settings.EnableGossipHints = (Checks & 2048) > 0;
@@ -606,6 +630,9 @@ namespace MMRando
             cEnemy.Checked = Settings.RandomizeEnemies;
             cCutsc.Checked = Settings.ShortenCutscenes;
             cQText.Checked = Settings.QuickTextEnabled;
+            cFreeHints.Checked = Settings.FreeHints;
+            //cN64.Checked = Settings.GenerateROM;
+
 
             var damageMultiplierIndex = (int)((Combos & 0xF0000000) >> 28);
             var damageTypeIndex = (Combos & 0xF000000) >> 24;
@@ -657,6 +684,13 @@ namespace MMRando
         /// </summary>
         private void TryRandomize(BackgroundWorker worker, DoWorkEventArgs e)
         {
+            if (!Settings.GenerateROM && !Settings.GenerateSpoilerLog)
+            {
+                MessageBox.Show($"No output selected", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             try
             {
                 Randomize(worker, e);
@@ -669,18 +703,27 @@ namespace MMRando
             }
 
             // Additional validation of preconditions
-            if (!ValidateInputFile()) return;
-
-            if (!ValidateROM(Settings.InputROMFilename))
+            if (Settings.GenerateROM)
             {
-                MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (!ValidateInputFile()) return;
+
+                if (!ValidateROM(Settings.InputROMFilename))
+                {
+                    MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                MakeROM(Settings.InputROMFilename, Settings.OutputROMFilename, worker);
             }
 
-            MakeROM(Settings.InputROMFilename, Settings.OutputROMFilename, worker);
+            if (Settings.GenerateSpoilerLog
+                && Settings.LogicMode != LogicMode.Vanilla)
+            {
+                CreateSpoilerLog();
+            }
 
-            MessageBox.Show("Successfully built output ROM!",
+            MessageBox.Show("Generation complete!",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
         }
 
@@ -711,6 +754,7 @@ namespace MMRando
                 worker.ReportProgress(5, "Preparing ruleset...");
                 PrepareRulesetItemData();
 
+
                 if (Settings.RandomizeDungeonEntrances)
                 {
                     worker.ReportProgress(10, "Shuffling entrances...");
@@ -719,7 +763,6 @@ namespace MMRando
 
                 worker.ReportProgress(30, "Shuffling items...");
                 ItemShuffle();
-
 
                 if (Settings.EnableGossipHints)
                 {
