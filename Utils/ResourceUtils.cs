@@ -49,7 +49,7 @@ namespace MMRando.Utils
                     h = l.GetHue();
                     h += rot;
                     h %= 360f;
-                    l = Hue.FromAHSB(l.A, h, l.GetSaturation(), l.GetBrightness());
+                    l = ColorUtils.FromAHSB(l.A, h, l.GetSaturation(), l.GetBrightness());
                     hack_content[p] = l.R;
                     hack_content[p + 1] = l.G;
                     hack_content[p + 2] = l.B;
@@ -59,7 +59,7 @@ namespace MMRando.Utils
                 h = l.GetHue();
                 h += rot;
                 h %= 360f;
-                l = Hue.FromAHSB(255, h, l.GetSaturation(), l.GetBrightness());
+                l = ColorUtils.FromAHSB(255, h, l.GetSaturation(), l.GetBrightness());
                 hack_content[0x1FE72] = l.R;
                 hack_content[0x1FE73] = l.G;
                 hack_content[0x1FE76] = l.B;

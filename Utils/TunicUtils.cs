@@ -134,7 +134,7 @@ namespace MMRando.Utils
                 {
                     sat = 1.0f;
                 };
-                s[i] = Hue.FromAHSB(c[i].A, h, sat, b);
+                s[i] = ColorUtils.FromAHSB(c[i].A, h, sat, b);
                 //this code is a mess
                 if (zora && grad)
                 {

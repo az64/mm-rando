@@ -113,10 +113,10 @@ namespace MMRando
 
         private void bRandomise_Click(object sender, EventArgs e)
         {
-            if (!ValidateInputFile()) return;
+            if (_settings.GenerateROM && !ValidateInputFile()) return;
 
             saveROM.FileName = _settings.DefaultOutputROMFilename;
-            if ((_settings.OutputRom || _settings.OutputVC) && saveROM.ShowDialog() != DialogResult.OK)
+            if ((_settings.GenerateROM || _settings.OutputVC) && saveROM.ShowDialog() != DialogResult.OK)
             {
                 MessageBox.Show("No output directory selected; Nothing will be saved.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -141,6 +141,7 @@ namespace MMRando
             {
                 _settings.Update(tSString.Text);
                 UpdateCheckboxes();
+                EnableCheckBoxes();
             }
             catch
             {
@@ -233,11 +234,45 @@ namespace MMRando
         private void cUserItems_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
+
+            cDChests.Checked = false;
+            UpdateSingleSetting(() => _settings.AddDungeonItems = false);
+
+            cShop.Checked = false;
+            UpdateSingleSetting(() => _settings.AddShopItems = false);
+
+            cBottled.Checked = false;
+            UpdateSingleSetting(() => _settings.RandomizeBottleCatchContents = false);
+
+            cSoS.Checked = false;
+            UpdateSingleSetting(() => _settings.ExcludeSongOfSoaring = false);
+
+            cAdditional.Checked = false;
+            UpdateSingleSetting(() => _settings.AddOther = false);
+
+        }
+
+        private void cN64_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.GenerateROM = cN64.Checked);
         }
 
         private void cSpoiler_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.GenerateSpoilerLog = cSpoiler.Checked);
+            UpdateSingleSetting(() => cHTMLLog.Enabled = cSpoiler.Checked);
+
+            if (cHTMLLog.Checked)
+            {
+                cHTMLLog.Checked = false;
+                UpdateSingleSetting(() => _settings.GenerateHTMLLog = false);
+            }
+
+        }
+
+        private void cHTMLLog_CheckedChanged(object sender,EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.GenerateHTMLLog = cHTMLLog.Checked);
         }
 
 
@@ -311,6 +346,11 @@ namespace MMRando
             UpdateSingleSetting(() => _settings.AddSongs = cMixSongs.Checked);
         }
 
+        private void cFreeHints_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.FreeHints = cFreeHints.Checked);
+        }
+
         private void cQText_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.QuickTextEnabled = cQText.Checked);
@@ -368,29 +408,6 @@ namespace MMRando
             Manual.Show();
         }
 
-        private void mByteswap_Click(object sender, EventArgs e)
-        {
-            if (openBROM.ShowDialog() == DialogResult.OK)
-            {
-                int result = RomUtils.ByteswapROM(openBROM.FileName);
-                switch (result)
-                {
-                    case 0:
-                        MessageBox.Show("Successfully byteswapped ROM.",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-                        break;
-                    case 1:
-                        MessageBox.Show("ROM appears to be big endian.",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-                        break;
-                    default:
-                        MessageBox.Show("Could not byteswap ROM.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                };
-            };
-        }
-
         private void mLogicEdit_Click(object sender, EventArgs e)
         {
             LogicEditor.Show();
@@ -434,7 +451,9 @@ namespace MMRando
                 cGossip.Enabled = true;
                 cAdditional.Enabled = true;
                 cUserItems.Enabled = true;
-            };
+            }
+
+            cHTMLLog.Enabled = _settings.GenerateSpoilerLog;
 
             if (_settings.UseCustomItemList)
             {
@@ -509,6 +528,9 @@ namespace MMRando
             cQText.Enabled = v;
             cSpoiler.Enabled = v;
             cTatl.Enabled = v;
+            cFreeHints.Enabled = v;
+            cHTMLLog.Enabled = v;
+            cN64.Enabled = v;
 
             bopen.Enabled = v;
             bRandomise.Enabled = v;
@@ -539,6 +561,7 @@ namespace MMRando
 
             bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
 
+            _settings.GenerateROM = true;
             _settings.GenerateSpoilerLog = true;
             _settings.ExcludeSongOfSoaring = true;
             _settings.EnableGossipHints = true;
@@ -562,12 +585,10 @@ namespace MMRando
         /// </summary>
         private void TryRandomize(BackgroundWorker worker, DoWorkEventArgs e)
         {
-            if (!ValidateInputFile()) return;
-
-            if (!RomUtils.ValidateROM(_settings.InputROMFilename))
+            if (!_settings.GenerateROM && !_settings.GenerateSpoilerLog)
             {
-                MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"No output selected", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -583,21 +604,40 @@ namespace MMRando
                 return;
             }
 
-            try
+            if (_settings.GenerateROM)
             {
+                if (!ValidateInputFile()) return;
+
+                if (!RomUtils.ValidateROM(_settings.InputROMFilename))
+                {
+                    MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 _builder = new Builder(randomized);
-                _builder.MakeROM(_settings.InputROMFilename, _settings.OutputROMFilename, worker);
-                MessageBox.Show("Successfully built output ROM!",
-                "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-            }
-            catch (Exception ex)
-            {
-                string nl = Environment.NewLine;
-                MessageBox.Show($"Error building ROM: {ex.Message}{nl}{nl}Please contact the development team and provide them more information", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+
+                try
+                {
+                    _builder.MakeROM(_settings.InputROMFilename, _settings.OutputROMFilename, worker);
+                }
+                catch (Exception ex)
+                {
+                    string nl = Environment.NewLine;
+                    MessageBox.Show($"Error building ROM: {ex.Message}{nl}{nl}Please contact the development team and provide them more information", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
 
-            
+
+            if (_settings.GenerateSpoilerLog
+                && _settings.LogicMode != LogicMode.Vanilla)
+            {
+                SpoilerUtils.CreateSpoilerLog(randomized, _settings);
+            }
+
+            MessageBox.Show("Generation complete!",
+                "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
         }
 
         /// <summary>
@@ -608,7 +648,7 @@ namespace MMRando
         {
             if (!File.Exists(_settings.InputROMFilename))
             {
-                MessageBox.Show("Input ROM not selected or doesn't exist, cannot generate output.",
+                MessageBox.Show("Input ROM not found, cannot generate output.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }

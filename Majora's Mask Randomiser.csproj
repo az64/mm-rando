@@ -121,6 +121,13 @@
     <Compile Include="Forms\NewItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Models\HtmlSpoiler.cs" />
+    <Compile Include="Models\Spoiler.cs" />
+    <Compile Include="Templates\HtmlSpoiler.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HtmlSpoiler.tt</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NewItemForm.Designer.cs">
       <DependentUpon>NewItemForm.cs</DependentUpon>
     </Compile>
@@ -128,13 +135,14 @@
     <Compile Include="Enemies.cs" />
     <Compile Include="Utils\EntranceUtils.cs" />
     <Compile Include="Items.cs" />
-    <Compile Include="Hue.cs" />
+    <Compile Include="Utils\ColorUtils.cs" />
     <Compile Include="Utils\MessageUtils.cs" />
     <Compile Include="Utils\ObjUtils.cs" />
     <Compile Include="Utils\ResourceUtils.cs" />
     <Compile Include="RomData.cs" />
     <Compile Include="Utils\ReadWriteUtils.cs" />
     <Compile Include="Randomizer.cs" />
+    <Compile Include="Utils\SpoilerUtils.cs" />
     <Compile Include="Utils\TunicUtils.cs" />
     <Compile Include="Utils\ItemUtils.cs" />
     <Compile Include="Utils\SequenceUtils.cs" />
@@ -764,12 +772,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="200px_majoramask_rtw_icon.ico" />
+    <Content Include="Templates\HtmlSpoiler.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>HtmlSpoiler.cs</LastGenOutput>
+    </Content>
     <None Include="Resources\ITEM_INDICES.txt" />
     <None Include="Resources\ENEMIES.txt" />
     <None Include="Resources\GOSSIP.txt" />
     <None Include="Resources\SEQS.txt" />
     <None Include="Resources\REQ_CASUAL.txt" />
     <EmbeddedResource Include="Resources\REQ_GLITCH.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

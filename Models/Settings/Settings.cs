@@ -16,7 +16,7 @@ namespace MMRando.Models
         /// <summary>
         ///  Outputs n64 rom if true (default: true)
         /// </summary>
-        public bool OutputRom { get; set; } = true;
+        public bool GenerateROM { get; set; } = true;
 
         /// <summary>
         ///  Outputs virtual channel if true
@@ -33,7 +33,6 @@ namespace MMRando.Models
         /// </summary>
         public string UserLogicFileName { get; set; }
 
-
         /// <summary>
         /// Default Filename for the output ROM
         /// </summary>
@@ -48,6 +47,16 @@ namespace MMRando.Models
         /// Generate spoiler log on randomizing
         /// </summary>
         public bool GenerateSpoilerLog { get; set; }
+
+        /// <summary>
+        /// Generate HTML spoiler log on randomizing
+        /// </summary>
+        public bool GenerateHTMLLog { get; set; }
+
+        /// <summary>
+        /// Generate spoiler log only on randomizing
+        /// </summary>
+        public bool LogOnly { get; set; }
 
         /// <summary>
         /// Use Custom Item list for the logic.
@@ -196,6 +205,7 @@ namespace MMRando.Models
             int combos = (int)Base36Utils.Decode(bits[1]);
             int colourAndMisc = (int)Base36Utils.Decode(bits[2]);
 
+            FreeHints = (checks & 16384) > 0;
             UseCustomItemList = (checks & 8192) > 0;
             AddOther = (checks & 4096) > 0;
             EnableGossipHints = (checks & 2048) > 0;
@@ -239,6 +249,7 @@ namespace MMRando.Models
         {
             int[] bits = new int[3];
 
+            if (FreeHints) { bits[0] += 16384; };
             if (UseCustomItemList) { bits[0] += 8192; };
             if (AddOther) { bits[0] += 4096; };
             if (EnableGossipHints) { bits[0] += 2048; };

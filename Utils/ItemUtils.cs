@@ -25,7 +25,7 @@
 
         public static bool IsTemporaryItem(int itemId)
         {
-            return IsTradeItem(itemId) || IsKey(itemId);
+            return IsTradeItem(itemId) || IsKey(itemId) || itemId == Items.ItemGoldDust;
         }
 
         public static bool IsKey(int itemId)

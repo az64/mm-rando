@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Drawing;
 
-namespace MMRando
+namespace MMRando.Utils
 {
 
-    public class Hue
+    public class ColorUtils
     {
         /// <summary>
         /// Creates a Color from alpha, hue, saturation and brightness.
