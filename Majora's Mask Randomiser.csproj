@@ -231,6 +231,10 @@
     <None Include="Resources\addresses\tunic-forms">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\models\kafei" />
+    <None Include="Resources\models\link-1" />
+    <None Include="Resources\models\link-2" />
+    <None Include="Resources\models\link-3" />
     <None Include="Resources\mods\chest-table">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -724,18 +728,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\music\uc-zora">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\obj\kafei">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\obj\link-1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\obj\link-2">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\obj\link-3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">

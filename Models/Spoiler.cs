@@ -19,11 +19,9 @@ namespace MMRando.Models
 
         public List<ItemObject> ItemList { get; set; }
 
-        public ReadOnlyCollection<string> ITEM_NAMES { get; set; }
-
         public int[] NewEntranceIndices { get; set; }
 
-        public string[] destinations = new string[] 
+        public string[] Destinations { get; set; } = new string[]
         {
             "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay"
         };
