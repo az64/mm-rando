@@ -292,6 +292,13 @@ namespace MMRando
         //oops I forgot one
         public const int ChestToGoronRaceGrotto = 254; //contents?
 
+        //moon items
+        public const int HeartPieceDekuTrial = 255;
+        public const int HeartPieceGoronTrial = 256;
+        public const int HeartPieceZoraTrial = 257;
+        public const int HeartPieceLinkTrial = 258;
+        public const int MaskFierceDeity = 259;
+
         public static readonly ReadOnlyCollection<int> REPEATABLE
             = new ReadOnlyCollection<int>(new int[] {
                 ItemGoldDust,
@@ -890,10 +897,15 @@ namespace MMRando
                 "Map: Romani Ranch",
                 "Map: Great Bay",
                 "Map: Stone Tower",
-                "Goron Racetrack Grotto"
+                "Goron Racetrack Grotto",
+                "Deku Trial HP",
+                "Goron Trial HP",
+                "Zora Trial HP",
+                "Link Trial HP",
+                "Fierce Deity's Mask",
         });
 
-        internal static readonly int TotalNumberOfItems = 255;
+        internal static readonly int TotalNumberOfItems = 260;
     }
 
 }

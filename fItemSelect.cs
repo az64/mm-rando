@@ -264,7 +264,12 @@ namespace MMRando
             "Map: Romani Ranch",
             "Map: Great Bay",
             "Map: Stone Tower",
-            "Goron Racetrack Grotto"
+            "Goron Racetrack Grotto",
+            "Deku Trial HP",
+            "Goron Trial HP",
+            "Zora Trial HP",
+            "Link Trial HP",
+            "Fierce Deity's Mask",
         };
 
         private static string[] ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();
