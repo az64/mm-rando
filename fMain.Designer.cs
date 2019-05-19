@@ -39,6 +39,7 @@ namespace MMRando
             this.tabROMSettings = new System.Windows.Forms.TabPage();
             this.cHTMLLog = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cSpoiler = new System.Windows.Forms.CheckBox();
             this.cVC = new System.Windows.Forms.CheckBox();
             this.cN64 = new System.Windows.Forms.CheckBox();
             this.lOutput = new System.Windows.Forms.Label();
@@ -100,7 +101,6 @@ namespace MMRando
             this.lSeed = new System.Windows.Forms.Label();
             this.tSString = new System.Windows.Forms.TextBox();
             this.lSString = new System.Windows.Forms.Label();
-            this.cSpoiler = new System.Windows.Forms.CheckBox();
             this.cDummy = new System.Windows.Forms.CheckBox();
             this.lHrule = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -185,12 +185,11 @@ namespace MMRando
             this.cHTMLLog.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cHTMLLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cHTMLLog.ForeColor = System.Drawing.Color.Black;
-            this.cHTMLLog.Location = new System.Drawing.Point(188, 93);
+            this.cHTMLLog.Location = new System.Drawing.Point(201, 93);
             this.cHTMLLog.Name = "cHTMLLog";
-            this.cHTMLLog.Enabled = true;
-            this.cHTMLLog.Size = new System.Drawing.Size(141, 17);
+            this.cHTMLLog.Size = new System.Drawing.Size(128, 17);
             this.cHTMLLog.TabIndex = 14;
-            this.cHTMLLog.Text = "Output HTML spoiler log";
+            this.cHTMLLog.Text = "Use HTML spoiler log";
             this.cHTMLLog.UseVisualStyleBackColor = false;
             this.cHTMLLog.CheckedChanged += new System.EventHandler(this.cHTMLLog_CheckedChanged);
             // 
@@ -202,6 +201,21 @@ namespace MMRando
             this.label1.Size = new System.Drawing.Size(250, 13);
             this.label1.TabIndex = 12;
             this.label1.Text = "ROM must be Majora\'s Mask (U) ending with \".z64\"";
+            // 
+            // cSpoiler
+            // 
+            this.cSpoiler.AutoSize = true;
+            this.cSpoiler.BackColor = System.Drawing.Color.Transparent;
+            this.cSpoiler.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cSpoiler.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cSpoiler.ForeColor = System.Drawing.Color.Black;
+            this.cSpoiler.Location = new System.Drawing.Point(62, 93);
+            this.cSpoiler.Name = "cSpoiler";
+            this.cSpoiler.Size = new System.Drawing.Size(108, 17);
+            this.cSpoiler.TabIndex = 8;
+            this.cSpoiler.Text = "Output spoiler log";
+            this.cSpoiler.UseVisualStyleBackColor = false;
+            this.cSpoiler.CheckedChanged += new System.EventHandler(this.cSpoiler_CheckedChanged);
             // 
             // cVC
             // 
@@ -225,7 +239,6 @@ namespace MMRando
             this.cN64.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cN64.Checked = true;
             this.cN64.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cN64.Enabled = true;
             this.cN64.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cN64.ForeColor = System.Drawing.Color.Black;
             this.cN64.Location = new System.Drawing.Point(96, 70);
@@ -925,21 +938,6 @@ namespace MMRando
             this.lSString.Size = new System.Drawing.Size(76, 13);
             this.lSString.TabIndex = 7;
             this.lSString.Text = "Settings string:";
-            // 
-            // cSpoiler
-            // 
-            this.cSpoiler.AutoSize = true;
-            this.cSpoiler.BackColor = System.Drawing.Color.Transparent;
-            this.cSpoiler.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cSpoiler.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cSpoiler.ForeColor = System.Drawing.Color.Black;
-            this.cSpoiler.Location = new System.Drawing.Point(62, 93);
-            this.cSpoiler.Name = "cSpoiler";
-            this.cSpoiler.Size = new System.Drawing.Size(108, 17);
-            this.cSpoiler.TabIndex = 8;
-            this.cSpoiler.Text = "Output spoiler log";
-            this.cSpoiler.UseVisualStyleBackColor = false;
-            this.cSpoiler.CheckedChanged += new System.EventHandler(this.cSpoiler_CheckedChanged);
             // 
             // cDummy
             // 
