@@ -18,12 +18,12 @@ namespace MMRando.Utils
             ReadWriteUtils.Arr_Insert(msg, 0, msg.Length, MMFileList[fileIndex].Data, addr);
         }
 
-        private static MMMesssage FindMesssage(int address)
+        private static MMMessage FindMessage(int address)
         {
             int fileIndex = RomUtils.GetFileIndexForWriting(Addresses.TextTable);
             int baseAddress = Addresses.TextTable - MMFileList[fileIndex].Addr;
 
-            MMMesssage message = new MMMesssage();
+            MMMessage message = new MMMessage();
 
             while (true)
             {
@@ -49,7 +49,7 @@ namespace MMRando.Utils
             return message;
         }
 
-        public static bool IsBadMesssage(string message)
+        public static bool IsBadMessage(string message)
         {
             return message.Contains("a segment of health") || message.Contains("currency") ||
                 message.Contains("money") || message.Contains("cash") ||
@@ -67,7 +67,7 @@ namespace MMRando.Utils
                     continue;
                 }
 
-                MMMesssage message = FindMesssage(i);
+                MMMessage message = FindMessage(i);
                 if (message == null)
                 {
                     continue;
@@ -79,7 +79,7 @@ namespace MMRando.Utils
                 {
                     randomMessageIndex = RNG.Next(messages.Count);
 
-                    if (IsBadMesssage(messages[randomMessageIndex]) && RNG.Next(8) != 0)
+                    if (IsBadMessage(messages[randomMessageIndex]) && RNG.Next(8) != 0)
                     {
                         continue;
                     }
