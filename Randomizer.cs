@@ -387,11 +387,11 @@ namespace MMRando
                     else
                     {
                         c[0] = 0;
-                    };
+                    }
 
                     Values.TatlColours[4, i] = BitConverter.ToUInt32(c, 0);
-                };
-            };
+                }
+            }
         }
 
         private void PrepareRulesetItemData()
@@ -476,9 +476,9 @@ namespace MMRando
                         if (currentItem.TimeAvailable == 0)
                         {
                             currentItem.TimeAvailable = 63;
-                        };
+                        }
                         break;
-                };
+                }
 
                 lineNumber++;
 
@@ -509,9 +509,9 @@ namespace MMRando
                 {
                     int[] conditionaloption = Array.ConvertAll(conditions.Split(','), int.Parse);
                     conditional.Add(conditionaloption.ToList());
-                };
+                }
                 currentItem.Conditionals = conditional;
-            };
+            }
         }
 
         private void ProcessDependenciesForItem(ItemObject currentItem, string line)
@@ -527,9 +527,9 @@ namespace MMRando
                 foreach (string dependency in line.Split(','))
                 {
                     dependencies.Add(Convert.ToInt32(dependency));
-                };
+                }
                 currentItem.DependsOnItems = dependencies;
-            };
+            }
         }
 
         public void SeedRNG()
@@ -1340,12 +1340,12 @@ namespace MMRando
             for (int i = Items.BottleCatchFairy; i <= Items.BottleCatchMushroom; i++)
             {
                 itemPool.Add(i);
-            };
+            }
 
             for (int i = Items.BottleCatchFairy; i <= Items.BottleCatchMushroom; i++)
             {
                 PlaceItem(i, itemPool);
-            };
+            }
         }
 
         /// <summary>
@@ -1356,7 +1356,7 @@ namespace MMRando
             for (int i = Items.ChestLensCaveRedRupee; i <= Items.ChestToGoronRaceGrotto; i++)
             {
                 ItemList[i].ReplacesItemId = i;
-            };
+            }
         }
 
         /// <summary>
@@ -1367,7 +1367,7 @@ namespace MMRando
             for (int i = Items.ShopItemTradingPostRedPotion; i <= Items.ShopItemZoraRedPotion; i++)
             {
                 ItemList[i].ReplacesItemId = i;
-            };
+            }
 
             ItemList[Items.ItemBombBag].ReplacesItemId = Items.ItemBombBag;
             ItemList[Items.UpgradeBigBombBag].ReplacesItemId = Items.UpgradeBigBombBag;
@@ -1382,7 +1382,7 @@ namespace MMRando
             for (int i = Items.ItemWoodfallMap; i <= Items.ItemStoneTowerKey4; i++)
             {
                 ItemList[i].ReplacesItemId = i;
-            };
+            }
         }
 
         /// <summary>
@@ -1489,7 +1489,7 @@ namespace MMRando
                 }
 
                 ItemList[i].ReplacesItemId = i;
-            };
+            }
         }
 
         /// <summary>

@@ -36,10 +36,12 @@ namespace MMRando.Utils
         {
             ROM = AddVCHeader(ROM);
             GetApp5(ROM, VCDir);
-            ProcessStartInfo p = new ProcessStartInfo();
-            p.FileName = "wadpacker.exe";
-            p.Arguments = "mm.tik mm.tmd mm.cert \"" + FileName + "\" -i NMRE";
-            p.WorkingDirectory = VCDir;
+            ProcessStartInfo p = new ProcessStartInfo
+            {
+                FileName = "wadpacker.exe",
+                Arguments = "mm.tik mm.tmd mm.cert \"" + FileName + "\" -i NMRE",
+                WorkingDirectory = VCDir
+            };
             Process.Start(p);
         }
 

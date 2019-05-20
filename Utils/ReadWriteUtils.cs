@@ -13,7 +13,7 @@ namespace MMRando.Utils
             for (int i = 0; i < Addr.Length; i++)
             {
                 Arr_Insert(data, 0, data.Length, file, Addr[i]);
-            };
+            }
         }
 
         public static void WriteROMAddr(int[] Addr, byte[] data)
@@ -27,11 +27,11 @@ namespace MMRando.Utils
                 {
                     rdata[0] += 0xA;
                     rdata[1] -= 0x70;
-                };
+                }
                 int f = RomUtils.GetFileIndexForWriting(rAddr);
                 int dest = rAddr - RomData.MMFileList[f].Addr;
                 Arr_Insert(rdata, 0, rdata.Length, RomData.MMFileList[f].Data, dest);
-            };
+            }
         }
 
         public static void WriteToROM(int Addr, byte val)

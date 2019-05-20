@@ -45,15 +45,15 @@ namespace MMRando.Utils
                 if (saddr > 0x4000000)
                 {
                     break;
-                };
+                }
                 if (saddr != 0)
                 {
                     s.File = RomUtils.AddrToFile((int)saddr);
                     s.Number = i >> 4;
                     RomData.SceneList.Add(s);
-                };
+                }
                 i += 16;
-            };
+            }
         }
 
         public static void GetMaps()
@@ -76,16 +76,16 @@ namespace MMRando.Utils
                             m.File = RomUtils.AddrToFile((int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, mapsaddr));
                             RomData.SceneList[i].Maps.Add(m);
                             mapsaddr += 8;
-                        };
+                        }
                         break;
-                    };
+                    }
                     if (cmd == 0x14)
                     {
                         break;
-                    };
+                    }
                     j += 8;
-                };
-            };
+                }
+            }
         }
 
         public static void GetMapHeaders()
@@ -119,30 +119,30 @@ namespace MMRando.Utils
                                 if (((p < nextlowest) || (nextlowest == -1)) && ((p > setupsaddr) && (setupsaddr != -1)))
                                 {
                                     nextlowest = p;
-                                };
-                            };
-                        };
+                                }
+                            }
+                        }
                         k += 8;
-                    };
+                    }
                     if ((setupsaddr == -1) || (nextlowest == -1))
                     {
                         continue;
-                    };
+                    }
                     for (k = setupsaddr; k < nextlowest; k += 4)
                     {
                         byte s = RomData.MMFileList[f].Data[k];
                         if (s != 0x03)
                         {
                             break;
-                        };
+                        }
                         int p = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, k) & 0xFFFFFF;
                         Map m = new Map();
                         m.File = f;
                         m.Header = p;
                         RomData.SceneList[i].Maps.Add(m);
-                    };
-                };
-            };
+                    }
+                }
+            }
         }
 
         private static List<Actor> ReadMapActors(byte[] Map, int Addr, int Count)
@@ -162,7 +162,7 @@ namespace MMRando.Utils
                 a.r.z = (short)ReadWriteUtils.Arr_ReadU16(Map, Addr + (i * 16) + 12);
                 a.v = ReadWriteUtils.Arr_ReadU16(Map, Addr + (i * 16) + 14);
                 Actors.Add(a);
-            };
+            }
             return Actors;
         }
 
@@ -172,7 +172,7 @@ namespace MMRando.Utils
             for (int i = 0; i < Count; i++)
             {
                 Objects.Add(ReadWriteUtils.Arr_ReadU16(Map, Addr + (i * 2)));
-            };
+            }
             return Objects;
         }
 
@@ -210,7 +210,7 @@ namespace MMRando.Utils
             for (int i = 0; i < scene.Maps.Count; i++)
             {
                 UpdateMap(scene.Maps[i]);
-            };
+            }
         }
 
         public static void GetActors()
@@ -231,22 +231,22 @@ namespace MMRando.Utils
                             int ActorAddr = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, k + 4) & 0xFFFFFF;
                             RomData.SceneList[i].Maps[j].ActorAddr = ActorAddr;
                             RomData.SceneList[i].Maps[j].Actors = ReadMapActors(RomData.MMFileList[f].Data, ActorAddr, ActorCount);
-                        };
+                        }
                         if (cmd == 0x0B)
                         {
                             byte ObjectCount = RomData.MMFileList[f].Data[k + 1];
                             int ObjectAddr = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, k + 4) & 0xFFFFFF;
                             RomData.SceneList[i].Maps[j].ObjAddr = ObjectAddr;
                             RomData.SceneList[i].Maps[j].Objects = ReadMapObjects(RomData.MMFileList[f].Data, ObjectAddr, ObjectCount);
-                        };
+                        }
                         if (cmd == 0x14)
                         {
                             break;
-                        };
+                        }
                         k += 8;
-                    };
-                };
-            };
+                    }
+                }
+            }
         }
 
     }

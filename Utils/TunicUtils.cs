@@ -22,7 +22,7 @@ namespace MMRando.Utils
             else
             {
                 return y0 * ((x1 - x) / (x1 - x0)) + y1 * ((x - x0) / (x1 - x0));
-            };
+            }
         }
 
         private static ushort ToRGBA5551(Color c)
@@ -38,7 +38,7 @@ namespace MMRando.Utils
             else
             {
                 a = 0;
-            };
+            }
             return (ushort)((r << 11) | (g << 6) | (b << 1) | a);
         }
 
@@ -56,13 +56,13 @@ namespace MMRando.Utils
             float r = 0f;
             float g = 0f;
             float b = 0f;
-            float d = 1.0f / (float)count;
+            float d = 1.0f / count;
             for (int i = 0; i < count; i++)
             {
-                r += (float)c[i].R * d;
-                g += (float)c[i].G * d;
-                b += (float)c[i].B * d;
-            };
+                r += c[i].R * d;
+                g += c[i].G * d;
+                b += c[i].B * d;
+            }
             return Color.FromArgb((int)Math.Round(r), (int)Math.Round(g), (int)Math.Round(b));
         }
 
@@ -77,7 +77,7 @@ namespace MMRando.Utils
             else
             {
                 a = GetAverageColour(c, count);
-            };
+            }
             float rot = target.GetHue() - a.GetHue();
             float avgb = a.GetBrightness();
             float avgs = a.GetSaturation();
@@ -87,7 +87,7 @@ namespace MMRando.Utils
                 {
                     s[i] = c[i];
                     continue;
-                };
+                }
                 float h = c[i].GetHue();
                 float b = c[i].GetBrightness();
                 float sat = c[i].GetSaturation();
@@ -100,7 +100,7 @@ namespace MMRando.Utils
                 {
                     sat = target.GetSaturation();
                     h = target.GetHue();
-                };
+                }
                 if (zora && grad)
                 {
                     if (i > 351)
@@ -111,29 +111,29 @@ namespace MMRando.Utils
                         h = target.GetHue();
                         sat = target.GetSaturation();
                         b = Interpolate(target.GetBrightness(), c[511].GetBrightness(), x0, x1, x);
-                    };
-                };
+                    }
+                }
                 h %= 360f;
                 if (h < 0f)
                 {
                     h += 360f;
-                };
+                }
                 if (b < 0.0f)
                 {
                     b = 0.0f;
-                };
+                }
                 if (b > 1.0f)
                 {
                     b = 1.0f;
-                };
+                }
                 if (sat < 0.0f)
                 {
                     sat = 0.0f;
-                };
+                }
                 if (sat > 1.0f)
                 {
                     sat = 1.0f;
-                };
+                }
                 s[i] = ColorUtils.FromAHSB(c[i].A, h, sat, b);
                 //this code is a mess
                 if (zora && grad)
@@ -153,29 +153,29 @@ namespace MMRando.Utils
                         if (rr < 0)
                         {
                             rr = 0;
-                        };
+                        }
                         if (rr > 255)
                         {
                             rr = 255;
-                        };
+                        }
                         if (gg < 0)
                         {
                             gg = 0;
-                        };
+                        }
                         if (gg > 255)
                         {
                             gg = 255;
-                        };
+                        }
                         if (bb < 0)
                         {
                             bb = 0;
-                        };
+                        }
                         if (bb > 255)
                         {
                             bb = 255;
-                        };
+                        }
                         s[i] = Color.FromArgb(rr, gg, bb);
-                    };
+                    }
                 }
                 else if (zora)
                 {
@@ -190,31 +190,31 @@ namespace MMRando.Utils
                         if (rr < 0)
                         {
                             rr = 0;
-                        };
+                        }
                         if (rr > 255)
                         {
                             rr = 255;
-                        };
+                        }
                         if (gg < 0)
                         {
                             gg = 0;
-                        };
+                        }
                         if (gg > 255)
                         {
                             gg = 255;
-                        };
+                        }
                         if (bb < 0)
                         {
                             bb = 0;
-                        };
+                        }
                         if (bb > 255)
                         {
                             bb = 255;
-                        };
+                        }
                         s[i] = Color.FromArgb(rr, gg, bb);
-                    };
-                };
-            };
+                    }
+                }
+            }
             return s;
         }
 
@@ -227,7 +227,7 @@ namespace MMRando.Utils
                 ushort rgba = (ushort)((RomData.MMFileList[file].Data[ca] << 8) 
                     | RomData.MMFileList[file].Data[ca + 1]);
                 c[i] = FromRGBA5551(rgba);
-            };
+            }
             return c;
         }
 
@@ -239,7 +239,7 @@ namespace MMRando.Utils
                 ushort rgba = ToRGBA5551(c[i]);
                 RomData.MMFileList[file].Data[ca] = (byte)(rgba >> 8);
                 RomData.MMFileList[file].Data[ca + 1] = (byte)(rgba & 0xFF);
-            };
+            }
         }
 
         public static void UpdateFormTunics(List<int[]> addresses, Color target)
@@ -253,8 +253,8 @@ namespace MMRando.Utils
                     Color[] c = ReadColours(f, a, sizes[i]);
                     c = ShiftHue(c, target, sizes[i], zora[i], grad[i], fd[i]);
                     WriteColours(f, a, sizes[i], c);
-                };
-            };
+                }
+            }
         }
 
     }
