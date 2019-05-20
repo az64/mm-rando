@@ -77,7 +77,7 @@ namespace MMRando.Utils
                 message.Contains("increased life");
         }
 
-        public static void WriteGossipMessage(List<string> hints, Random random)
+        public static void WriteGossipHints(List<string> hints, Random random)
         {
             var messageList = GetMessageTable();
             for (ushort textId = GOSSIP_START_ID; textId < GOSSIP_END_ID; textId++)

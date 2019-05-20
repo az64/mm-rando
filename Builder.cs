@@ -353,7 +353,7 @@ namespace MMRando
 
             if (_settings.EnableGossipHints)
             {
-                MessageUtils.WriteGossipMessage(_randomized.GossipQuotes, _randomized.Random);
+                MessageUtils.WriteGossipHints(_randomized.GossipQuotes, _randomized.Random);
             }
         }
 
