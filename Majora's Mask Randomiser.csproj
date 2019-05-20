@@ -76,7 +76,7 @@
     <Compile Include="Models\Rom\GetItemEntry.cs" />
     <Compile Include="Models\Rom\Map.cs" />
     <Compile Include="Models\Rom\MMFile.cs" />
-    <Compile Include="Models\Rom\MMMessage.cs" />
+    <Compile Include="Models\Rom\MessageEntry.cs" />
     <Compile Include="Models\Rom\MMSequence.cs" />
     <Compile Include="Models\Rom\Scene.cs" />
     <Compile Include="Models\Rom\SequenceInfo.cs" />
