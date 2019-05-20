@@ -176,24 +176,16 @@ namespace MMRando
                     .DestinationMessage[Random.Next(destinationMessageLength)];
 
                 // Sound differs if hint is fake
-                string soundAddress;
-                if (isFake)
-                {
-                    soundAddress = "\x1E\x69\x0A";
-                }
-                else
-                {
-                    soundAddress = "\x1E\x69\x0C";
-                }
+                ushort soundEffectId = (ushort)(isFake ? 0x690A : 0x690C);
 
-                var quote = BuildGossipQuote(soundAddress, sourceMessage, destinationMessage);
+                var quote = BuildGossipQuote(soundEffectId, sourceMessage, destinationMessage);
 
                 gossipQuotes.Add(quote);
             }
 
-            for (int i = 0; i < Values.JunkGossipMessages.Count; i++)
+            for (int i = 0; i < Gossip.JunkMessages.Count; i++)
             {
-                gossipQuotes.Add(Values.JunkGossipMessages[i]);
+                gossipQuotes.Add(Gossip.JunkMessages[i]);
             }
 
             _randomized.GossipQuotes = gossipQuotes;
@@ -220,20 +212,16 @@ namespace MMRando
             }
         }
 
-        public string BuildGossipQuote(string soundAddress, string sourceMessage, string destinationMessage)
+        public string BuildGossipQuote(ushort soundEffectId, string sourceMessage, string destinationMessage)
         {
-            int randomMessageStartIndex = Random.Next(Values.GossipMessageStartSentences.Count);
-            int randomMessageMidIndex = Random.Next(Values.GossipMessageMidSentences.Count);
+            int startIndex = Random.Next(Gossip.MessageStartSentences.Count);
+            int midIndex = Random.Next(Gossip.MessageMidSentences.Count);
+            string start = Gossip.MessageStartSentences[startIndex];
+            string mid = Gossip.MessageMidSentences[midIndex];
 
-            var quote = new StringBuilder();
+            string sfx = $"{(char)((soundEffectId >> 8) & 0xFF)}{(char)(soundEffectId & 0xFF)}";
 
-            quote.Append(soundAddress);
-            quote.Append(Values.GossipMessageStartSentences[randomMessageStartIndex]);
-            quote.Append("\x01" + sourceMessage + "\x00\x11");
-            quote.Append(Values.GossipMessageMidSentences[randomMessageMidIndex]);
-            quote.Append("\x06" + destinationMessage + "\x00" + "...\xBF");
-
-            return quote.ToString();
+            return $"\x1E{sfx}{start} \x01{sourceMessage}\x00\x11{mid} \x06{destinationMessage}\x00" + "...\xBF";
         }
 
         #endregion
@@ -399,11 +387,11 @@ namespace MMRando
                     else
                     {
                         c[0] = 0;
-                    };
+                    }
 
                     Values.TatlColours[4, i] = BitConverter.ToUInt32(c, 0);
-                };
-            };
+                }
+            }
         }
 
         private void PrepareRulesetItemData()
@@ -488,9 +476,9 @@ namespace MMRando
                         if (currentItem.TimeAvailable == 0)
                         {
                             currentItem.TimeAvailable = 63;
-                        };
+                        }
                         break;
-                };
+                }
 
                 lineNumber++;
 
@@ -521,9 +509,9 @@ namespace MMRando
                 {
                     int[] conditionaloption = Array.ConvertAll(conditions.Split(','), int.Parse);
                     conditional.Add(conditionaloption.ToList());
-                };
+                }
                 currentItem.Conditionals = conditional;
-            };
+            }
         }
 
         private void ProcessDependenciesForItem(ItemObject currentItem, string line)
@@ -539,9 +527,9 @@ namespace MMRando
                 foreach (string dependency in line.Split(','))
                 {
                     dependencies.Add(Convert.ToInt32(dependency));
-                };
+                }
                 currentItem.DependsOnItems = dependencies;
-            };
+            }
         }
 
         public void SeedRNG()
@@ -1352,12 +1340,12 @@ namespace MMRando
             for (int i = Items.BottleCatchFairy; i <= Items.BottleCatchMushroom; i++)
             {
                 itemPool.Add(i);
-            };
+            }
 
             for (int i = Items.BottleCatchFairy; i <= Items.BottleCatchMushroom; i++)
             {
                 PlaceItem(i, itemPool);
-            };
+            }
         }
 
         /// <summary>
@@ -1368,7 +1356,7 @@ namespace MMRando
             for (int i = Items.ChestLensCaveRedRupee; i <= Items.ChestToGoronRaceGrotto; i++)
             {
                 ItemList[i].ReplacesItemId = i;
-            };
+            }
         }
 
         /// <summary>
@@ -1379,7 +1367,7 @@ namespace MMRando
             for (int i = Items.ShopItemTradingPostRedPotion; i <= Items.ShopItemZoraRedPotion; i++)
             {
                 ItemList[i].ReplacesItemId = i;
-            };
+            }
 
             ItemList[Items.ItemBombBag].ReplacesItemId = Items.ItemBombBag;
             ItemList[Items.UpgradeBigBombBag].ReplacesItemId = Items.UpgradeBigBombBag;
@@ -1394,7 +1382,7 @@ namespace MMRando
             for (int i = Items.ItemWoodfallMap; i <= Items.ItemStoneTowerKey4; i++)
             {
                 ItemList[i].ReplacesItemId = i;
-            };
+            }
         }
 
         /// <summary>
@@ -1501,7 +1489,7 @@ namespace MMRando
                 }
 
                 ItemList[i].ReplacesItemId = i;
-            };
+            }
         }
 
         /// <summary>

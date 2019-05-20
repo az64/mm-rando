@@ -16,7 +16,7 @@ namespace MMRando.Utils
                 if (src[i] == b)
                 {
                     return i;
-                };
+                }
             }
             return -1;
         }
@@ -40,7 +40,7 @@ namespace MMRando.Utils
                     {
                         cmp1++;
                         cmp2++;
-                    };
+                    }
                     int len = cmp2 - pos;
                     if (found[1] < len)
                     {
@@ -49,11 +49,11 @@ namespace MMRando.Utils
                         if (found[1] == 0x111)
                         {
                             break;
-                        };
-                    };
+                        }
+                    }
                     search++;
-                };
-            };
+                }
+            }
             return found;
         }
 
@@ -63,7 +63,7 @@ namespace MMRando.Utils
             {
                 LAprev = false;
                 return LAfound;
-            };
+            }
             LAprev = false;
             int[] found = Search(src, pos, end);
             if (found[1] > 2)
@@ -73,8 +73,8 @@ namespace MMRando.Utils
                 {
                     found[1] = 1;
                     LAprev = true;
-                };
-            };
+                }
+            }
             return found;
         }
 
@@ -97,12 +97,11 @@ namespace MMRando.Utils
             for (int i = 0; i < 8; i++)
             {
                 dest.Add((byte)0);
-            };
+            }
             //do compression
-            int code_byte_pos = 0;
             while (src_pos < src_end)
             {
-                code_byte_pos = dest.Count;
+                int code_byte_pos = dest.Count;
                 dest.Add((byte)0);
                 for (int i = 0; i < 8; i++)
                 {
@@ -121,7 +120,7 @@ namespace MMRando.Utils
                             dest.Add((byte)(delta >> 8));
                             dest.Add((byte)(delta & 0xFF));
                             dest.Add((byte)((found[1] - 0x12) & 0xFF));
-                        };
+                        }
                         src_pos += found[1];
                     }
                     else
@@ -129,13 +128,13 @@ namespace MMRando.Utils
                         dest[code_byte_pos] |= (byte)(1 << (7 - i));
                         dest.Add(src[src_pos]);
                         src_pos++;
-                    };
-                };
-            };
+                    }
+                }
+            }
             while (dest.Count % 16 != 0)
             {
                 dest.Add((byte)0);
-            };
+            }
             return dest.ToArray();
         }
 
@@ -151,10 +150,9 @@ namespace MMRando.Utils
             int src_pos = 16;
             int src_len = CmpFile.Length;
             int dest_pos = 0;
-            byte code = 0;
             while ((src_pos < src_len) && (dest_pos < dest_len))
             {
-                code = CmpFile[src_pos];
+                byte code = CmpFile[src_pos];
                 src_pos++;
                 for (int i = 0; i < 8; i++)
                 {
@@ -184,17 +182,17 @@ namespace MMRando.Utils
                         else
                         {
                             n += 2;
-                        };
+                        }
                         for (int j = 0; j < n; j++)
                         {
                             dest[dest_pos] = dest[copy_from];
                             dest_pos++;
                             copy_from++;
-                        };
-                    };
+                        }
+                    }
                     code <<= 1;
-                };
-            };
+                }
+            }
             return dest;
         }
 

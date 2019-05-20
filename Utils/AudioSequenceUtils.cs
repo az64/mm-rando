@@ -24,7 +24,7 @@ namespace MMRando.Utils
                     entry.Size = 0;
                     OldSeq.Add(entry);
                     continue;
-                };
+                }
                 int entryaddr = Addresses.SeqTable + (i * 16);
                 entry.Addr = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, entryaddr - basea);
                 entry.Size = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, (entryaddr - basea) + 4);
@@ -48,12 +48,12 @@ namespace MMRando.Utils
                             {
                                 entry.Data = OldSeq[0x18].Data;
                                 entry.Size = OldSeq[0x18].Size;
-                            };
-                        };
-                    };
-                };
+                            }
+                        }
+                    }
+                }
                 OldSeq.Add(entry);
-            };
+            }
             List<MMSequence> NewSeq = new List<MMSequence>();
             int addr = 0;
             byte[] NewAudioSeq = new byte[0];
@@ -67,7 +67,7 @@ namespace MMRando.Utils
                 else
                 {
                     newentry.Addr = addr;
-                };
+                }
                 int j = SeqList.FindIndex(u => u.Replaces == i);
                 if (j != -1)
                 {
@@ -86,23 +86,23 @@ namespace MMRando.Utils
                         if (data[1] != 0x20)
                         {
                             data[1] = 0x20;
-                        };
+                        }
                         newentry.Size = len;
                         newentry.Data = data;
-                    };
+                    }
                 }
                 else
                 {
                     newentry.Size = OldSeq[i].Size;
                     newentry.Data = OldSeq[i].Data;
-                };
+                }
                 NewSeq.Add(newentry);
                 if (newentry.Data != null)
                 {
                     NewAudioSeq = NewAudioSeq.Concat(newentry.Data).ToArray();
-                };
+                }
                 addr += newentry.Size;
-            };
+            }
             if (addr > (RomData.MMFileList[4].End - RomData.MMFileList[4].Addr))
             {
                 MMFile newa = new MMFile();
@@ -127,7 +127,7 @@ namespace MMRando.Utils
             {
                 ReadWriteUtils.Arr_WriteU32(RomData.MMFileList[f].Data, (Addresses.SeqTable + (i * 16)) - basea, (uint)NewSeq[i].Addr);
                 ReadWriteUtils.Arr_WriteU32(RomData.MMFileList[f].Data, 4 + (Addresses.SeqTable + (i * 16)) - basea, (uint)NewSeq[i].Size);
-            };
+            }
             //update inst sets
             f = RomUtils.GetFileIndexForWriting(Addresses.InstSetMap);
             basea = RomData.MMFileList[f].Addr;
@@ -142,12 +142,12 @@ namespace MMRando.Utils
                 else
                 {
                     j = SeqList.FindIndex(u => u.Replaces == i);
-                };
+                }
                 if (j != -1)
                 {
                     RomData.MMFileList[f].Data[paddr] = (byte)SeqList[j].Instrument;
-                };
-            };
+                }
+            }
         }
 
     }
