@@ -1,7 +1,7 @@
-﻿using MMRando.Constants;
-using MMRando.Models.Rom;
+﻿using MMRando.Models.Rom;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using static MMRando.RomData;
 
@@ -10,46 +10,66 @@ namespace MMRando.Utils
 
     public static class MessageUtils
     {
+        const int MESSAGE_DATA_ADDRESS = 0xAD1000;
+        const int MESSAGE_TABLE_ADDRESS = 0xC5D0D8;
+
+        const int GOSSIP_START_ID = 0x20B0;
+        const int GOSSIP_END_ID = 0x20E8;
+
+        static ReadOnlyCollection<int> GossipExclude
+            = new ReadOnlyCollection<int>(new int[] {
+                0x20D0,
+                0x20D1,
+                0x20D2
+            });
+
+        static ReadOnlyCollection<byte> MessageHeader
+            = new ReadOnlyCollection<byte>(new byte[] {
+                2, 0, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
+        });
+
         //todo - allow rebuilding text file
 
         private static void WriteMessage(int addr, byte[] msg)
         {
-            int fileIndex = RomUtils.GetFileIndexForWriting(Addresses.TextFile);
+            int fileIndex = RomUtils.GetFileIndexForWriting(MESSAGE_DATA_ADDRESS);
             ReadWriteUtils.Arr_Insert(msg, 0, msg.Length, MMFileList[fileIndex].Data, addr);
         }
 
-        private static MMMessage FindMessage(int address)
+        private static Dictionary<ushort, MessageEntry> GetMessageTable()
         {
-            int fileIndex = RomUtils.GetFileIndexForWriting(Addresses.TextTable);
-            int baseAddress = Addresses.TextTable - MMFileList[fileIndex].Addr;
+            Dictionary<ushort, MessageEntry> messageTable = new Dictionary<ushort, MessageEntry>();
 
-            MMMessage message = new MMMessage();
+            int fileIndex = RomUtils.GetFileIndexForWriting(MESSAGE_TABLE_ADDRESS);
+            MMFile file = MMFileList[fileIndex];
+            int baseAddress = MESSAGE_TABLE_ADDRESS - file.Addr;
+            var data = file.Data;
 
             while (true)
             {
-                int x = (MMFileList[fileIndex].Data[baseAddress] << 8)
-                    + MMFileList[fileIndex].Data[baseAddress + 1];
-
-                if (address == x)
+                ushort textId = ReadWriteUtils.Arr_ReadU16(data, baseAddress);
+                if (textId >= 0xFFFD) //This id is still valid, but hard to determine it's size
                 {
-                    var data = MMFileList[fileIndex].Data;
-                    message.Address = (int)(ReadWriteUtils.Arr_ReadU32(data, baseAddress + 4) & 0xFFFFFF);
-                    message.Size = (int)(ReadWriteUtils.Arr_ReadU32(data, baseAddress + 12) & 0xFFFFFF) - message.Address;
                     break;
                 }
 
-                if (x > address)
-                {
-                    return null;
-                }
+                int address = ReadWriteUtils.Arr_ReadS32(data, baseAddress + 4) & 0xFFFFFF;
+                int addressNext = ReadWriteUtils.Arr_ReadS32(data, baseAddress + 12) & 0xFFFFFF;
 
+                MessageEntry message = new MessageEntry()
+                {
+                    Id = textId,
+                    Address = address,
+                    Size = addressNext - address
+                };
+                messageTable.Add(textId, message);
                 baseAddress += 8;
             }
 
-            return message;
+            return messageTable;
         }
 
-        public static bool IsBadMessage(string message)
+        private static bool IsBadMessage(string message)
         {
             return message.Contains("a segment of health") || message.Contains("currency") ||
                 message.Contains("money") || message.Contains("cash") ||
@@ -57,50 +77,43 @@ namespace MMRando.Utils
                 message.Contains("increased life");
         }
 
-        public static void WriteGossipMessage(List<string> messages, Random RNG)
+        public static void WriteGossipMessage(List<string> hints, Random random)
         {
-
-            for (int i = Addresses.GossipStart; i < Addresses.GossipEnd; i++)
+            var messageList = GetMessageTable();
+            for (ushort textId = GOSSIP_START_ID; textId < GOSSIP_END_ID; textId++)
             {
-                if (Addresses.GossipExclude.Contains(i))
+                if (GossipExclude.Contains(textId)
+                    || !messageList.TryGetValue(textId, out MessageEntry message))
                 {
                     continue;
                 }
 
-                MMMessage message = FindMessage(i);
-                if (message == null)
-                {
-                    continue;
-                }
-
-                int randomMessageIndex;
+                int selectedIndex;
+                string selectedHint;
                 int length = message.Size + 1;
                 do
                 {
-                    randomMessageIndex = RNG.Next(messages.Count);
+                    selectedIndex = random.Next(hints.Count);
+                    selectedHint = hints[selectedIndex];
 
-                    if (IsBadMessage(messages[randomMessageIndex]) && RNG.Next(8) != 0)
+                    if (IsBadMessage(selectedHint) && random.Next(8) != 0)
                     {
                         continue;
                     }
 
-                    length = messages[randomMessageIndex].Length + Values.MessageHeader.Count;
+                    length = selectedHint.Length + MessageHeader.Count;
 
                 } while (length > message.Size);
 
                 byte[] data = new byte[length];
-                ReadWriteUtils.Arr_Insert(Values.MessageHeader.ToArray(), 0, Values.MessageHeader.Count, data, 0);
+                byte[] msg = Array.ConvertAll(selectedHint.ToCharArray(), item => (byte)item);
 
-                for (int k = 0; k < messages[randomMessageIndex].Length; k++)
-                {
-                    data[k + Values.MessageHeader.Count] = (byte)messages[randomMessageIndex][k];
-                }
+                MessageHeader.ToArray().CopyTo(data, 0);
+                msg.CopyTo(data, MessageHeader.Count);
 
                 WriteMessage(message.Address, data);
-                messages.RemoveAt(randomMessageIndex);
-            };
+                hints.RemoveAt(selectedIndex);
+            }
         }
-
     }
-
 }

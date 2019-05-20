@@ -176,24 +176,16 @@ namespace MMRando
                     .DestinationMessage[Random.Next(destinationMessageLength)];
 
                 // Sound differs if hint is fake
-                string soundAddress;
-                if (isFake)
-                {
-                    soundAddress = "\x1E\x69\x0A";
-                }
-                else
-                {
-                    soundAddress = "\x1E\x69\x0C";
-                }
+                ushort soundEffectId = (ushort)(isFake ? 0x690A : 0x690C);
 
-                var quote = BuildGossipQuote(soundAddress, sourceMessage, destinationMessage);
+                var quote = BuildGossipQuote(soundEffectId, sourceMessage, destinationMessage);
 
                 gossipQuotes.Add(quote);
             }
 
-            for (int i = 0; i < Values.JunkGossipMessages.Count; i++)
+            for (int i = 0; i < Gossip.JunkMessages.Count; i++)
             {
-                gossipQuotes.Add(Values.JunkGossipMessages[i]);
+                gossipQuotes.Add(Gossip.JunkMessages[i]);
             }
 
             _randomized.GossipQuotes = gossipQuotes;
@@ -220,20 +212,16 @@ namespace MMRando
             }
         }
 
-        public string BuildGossipQuote(string soundAddress, string sourceMessage, string destinationMessage)
+        public string BuildGossipQuote(ushort soundEffectId, string sourceMessage, string destinationMessage)
         {
-            int randomMessageStartIndex = Random.Next(Values.GossipMessageStartSentences.Count);
-            int randomMessageMidIndex = Random.Next(Values.GossipMessageMidSentences.Count);
+            int startIndex = Random.Next(Gossip.MessageStartSentences.Count);
+            int midIndex = Random.Next(Gossip.MessageMidSentences.Count);
+            string start = Gossip.MessageStartSentences[startIndex];
+            string mid = Gossip.MessageMidSentences[midIndex];
 
-            var quote = new StringBuilder();
+            string sfx = $"{(char)((soundEffectId >> 8) & 0xFF)}{(char)(soundEffectId & 0xFF)}";
 
-            quote.Append(soundAddress);
-            quote.Append(Values.GossipMessageStartSentences[randomMessageStartIndex]);
-            quote.Append("\x01" + sourceMessage + "\x00\x11");
-            quote.Append(Values.GossipMessageMidSentences[randomMessageMidIndex]);
-            quote.Append("\x06" + destinationMessage + "\x00" + "...\xBF");
-
-            return quote.ToString();
+            return $"\x1E{sfx}{start} \x01{sourceMessage}\x00\x11{mid} \x06{destinationMessage}\x00" + "...\xBF";
         }
 
         #endregion

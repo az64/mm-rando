@@ -89,6 +89,11 @@ namespace MMRando.Utils
             return (uint)((Arr[Src] << 24) | (Arr[Src + 1] << 16) | (Arr[Src + 2] << 8) | Arr[Src + 3]);
         }
 
+        public static int Arr_ReadS32(byte[] Arr, int Src)
+        {
+            return (Arr[Src] << 24) | (Arr[Src + 1] << 16) | (Arr[Src + 2] << 8) | Arr[Src + 3];
+        }
+
         public static ushort Arr_ReadU16(byte[] Arr, int Src)
         {
             return (ushort)((Arr[Src] << 8) | (Arr[Src + 1]));

@@ -1,8 +1,9 @@
 ﻿
 namespace MMRando.Models.Rom
 {
-    public class MMMessage
+    public class MessageEntry
     {
+        public ushort Id;
         public int Address;
         public int Size;
     }
