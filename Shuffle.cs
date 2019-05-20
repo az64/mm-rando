@@ -1450,6 +1450,11 @@ namespace MMRando
             {
                 PreserveBottleCatchContents();
             }
+
+            if (!Settings.AddMoonItems)
+            {
+                PreserveMoonItems();
+            }
         }
 
         /// <summary>
@@ -1512,6 +1517,17 @@ namespace MMRando
         private void PreserveDungeonItems()
         {
             for (int i = Items.ItemWoodfallMap; i <= Items.ItemStoneTowerKey4; i++)
+            {
+                ItemList[i].ReplacesItemId = i;
+            };
+        }
+
+        /// <summary>
+        /// Keeps moon items vanilla
+        /// </summary>
+        private void PreserveMoonItems()
+        {
+            for (int i = Items.HeartPieceDekuTrial; i <= Items.MaskFierceDeity; i++)
             {
                 ItemList[i].ReplacesItemId = i;
             };

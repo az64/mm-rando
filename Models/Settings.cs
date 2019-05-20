@@ -120,6 +120,11 @@ namespace MMRando.Models
         /// </summary>
         public bool FreeHints { get; set; }
 
+        /// <summary>
+        /// Add moon items to the randomization pool
+        /// </summary>
+        public bool AddMoonItems { get; set; }
+
 
 
         // Gimmicks

@@ -215,6 +215,9 @@ namespace MMRando
             cAdditional.Checked = false;
             UpdateSingleSetting(() => Settings.AddOther = false);
 
+            cMoonItems.Checked = false;
+            UpdateSingleSetting(() => Settings.AddMoonItems = false);
+
         }
 
         private void cN64_CheckedChanged(object sender, EventArgs e)
@@ -245,6 +248,11 @@ namespace MMRando
         private void cAdditional_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => Settings.AddOther = cAdditional.Checked);
+        }
+
+        private void cMoonItems_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => Settings.AddMoonItems = cMoonItems.Checked);
         }
 
         private void cBGM_CheckedChanged(object sender, EventArgs e)
@@ -402,6 +410,7 @@ namespace MMRando
                 cGossip.Enabled = false;
                 cAdditional.Enabled = false;
                 cUserItems.Enabled = false;
+                cMoonItems.Enabled = false;
             }
             else
             {
@@ -415,6 +424,7 @@ namespace MMRando
                 cGossip.Enabled = true;
                 cAdditional.Enabled = true;
                 cUserItems.Enabled = true;
+                cMoonItems.Enabled = true;
             };
 
             if (Settings.UseCustomItemList)
@@ -424,6 +434,7 @@ namespace MMRando
                 cBottled.Enabled = false;
                 cShop.Enabled = false;
                 cAdditional.Enabled = false;
+                cMoonItems.Enabled = false;
             }
             else
             {
@@ -434,6 +445,7 @@ namespace MMRando
                     cBottled.Enabled = true;
                     cShop.Enabled = true;
                     cAdditional.Enabled = true;
+                    cMoonItems.Enabled = true;
                 }
             }
         }
@@ -537,6 +549,7 @@ namespace MMRando
         {
             int[] O = new int[3];
 
+            if (Settings.AddMoonItems) { O[0] += 32768; };
             if (Settings.FreeHints) { O[0] += 16384; };
             if (Settings.UseCustomItemList) { O[0] += 8192; };
             if (Settings.AddOther) { O[0] += 4096; };
@@ -600,6 +613,7 @@ namespace MMRando
             int Combos = (int)Base36.Decode(O[1]);
             int ColourAndMisc = (int)Base36.Decode(O[2]);
 
+            Settings.AddMoonItems = (Checks & 32768) > 0;
             Settings.FreeHints = (Checks & 16384) > 0;
             Settings.UseCustomItemList = (Checks & 8192) > 0;
             Settings.AddOther = (Checks & 4096) > 0;
@@ -631,6 +645,7 @@ namespace MMRando
             cCutsc.Checked = Settings.ShortenCutscenes;
             cQText.Checked = Settings.QuickTextEnabled;
             cFreeHints.Checked = Settings.FreeHints;
+            cMoonItems.Checked = Settings.AddMoonItems;
             //cN64.Checked = Settings.GenerateROM;
 
 

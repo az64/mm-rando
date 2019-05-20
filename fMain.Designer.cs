@@ -104,6 +104,7 @@ namespace MMRando
             this.cDummy = new System.Windows.Forms.CheckBox();
             this.lHrule = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.cMoonItems = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -260,6 +261,7 @@ namespace MMRando
             // 
             // tabMain
             // 
+            this.tabMain.Controls.Add(this.cMoonItems);
             this.tabMain.Controls.Add(this.label3);
             this.tabMain.Controls.Add(this.label2);
             this.tabMain.Controls.Add(this.cAdditional);
@@ -311,7 +313,7 @@ namespace MMRando
             this.cAdditional.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cAdditional.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cAdditional.ForeColor = System.Drawing.Color.Black;
-            this.cAdditional.Location = new System.Drawing.Point(208, 147);
+            this.cAdditional.Location = new System.Drawing.Point(208, 170);
             this.cAdditional.Name = "cAdditional";
             this.cAdditional.Size = new System.Drawing.Size(98, 17);
             this.cAdditional.TabIndex = 12;
@@ -825,14 +827,14 @@ namespace MMRando
             // mLogicEdit
             // 
             this.mLogicEdit.Name = "mLogicEdit";
-            this.mLogicEdit.Size = new System.Drawing.Size(150, 22);
+            this.mLogicEdit.Size = new System.Drawing.Size(180, 22);
             this.mLogicEdit.Text = "Logic editor";
             this.mLogicEdit.Click += new System.EventHandler(this.mLogicEdit_Click);
             // 
             // mItemIncl
             // 
             this.mItemIncl.Name = "mItemIncl";
-            this.mItemIncl.Size = new System.Drawing.Size(150, 22);
+            this.mItemIncl.Size = new System.Drawing.Size(180, 22);
             this.mItemIncl.Text = "Item list editor";
             this.mItemIncl.Click += new System.EventHandler(this.mItemIncl_Click);
             // 
@@ -972,6 +974,21 @@ namespace MMRando
             this.label5.TabIndex = 14;
             this.label5.Text = "_____________________________________________________";
             // 
+            // cMoonItems
+            // 
+            this.cMoonItems.AutoSize = true;
+            this.cMoonItems.BackColor = System.Drawing.Color.Transparent;
+            this.cMoonItems.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cMoonItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cMoonItems.ForeColor = System.Drawing.Color.Black;
+            this.cMoonItems.Location = new System.Drawing.Point(226, 147);
+            this.cMoonItems.Name = "cMoonItems";
+            this.cMoonItems.Size = new System.Drawing.Size(80, 17);
+            this.cMoonItems.TabIndex = 15;
+            this.cMoonItems.Text = "Moon items";
+            this.cMoonItems.UseVisualStyleBackColor = false;
+            this.cMoonItems.CheckedChanged += new System.EventHandler(this.cMoonItems_CheckedChanged);
+            // 
             // MainRandomizerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1088,6 +1105,7 @@ namespace MMRando
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox cFreeHints;
         private System.Windows.Forms.CheckBox cHTMLLog;
+        private System.Windows.Forms.CheckBox cMoonItems;
     }
 }
 
