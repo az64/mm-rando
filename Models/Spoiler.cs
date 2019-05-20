@@ -19,7 +19,7 @@ namespace MMRando.Models
 
         public List<ItemObject> ItemList { get; set; }
 
-        public int[] NewEntranceIndices { get; set; }
+        public int[] NewDestinationIndices { get; set; }
 
         public string[] Destinations { get; set; } = new string[]
         {

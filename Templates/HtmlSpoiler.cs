@@ -71,7 +71,7 @@ namespace MMRando.Templates
             
             #line 1 "C:\dev\mm-rando\Templates\HtmlSpoiler.tt"
 		 for (int i = 0; i < 4; i++) { 
-			int newEntranceIndex = spoiler.NewEntranceIndices[i]; 
+			int newEntranceIndex = spoiler.NewDestinationIndices[i]; 
 			string destination = spoiler.Destinations[i];
 			string newDestination = spoiler.Destinations[newEntranceIndex];
             

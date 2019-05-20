@@ -168,14 +168,14 @@ namespace MMRando
                 if (i == 2)
                 {
                     ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
-                        (byte)((Values.OldExits[_randomized.NewEntranceIndices[i + 1]] & 0xFF00) >> 8),
-                        (byte)(Values.OldExits[_randomized.NewEntranceIndices[i + 1]] & 0xFF) });
+                        (byte)((Values.OldExits[_randomized.NewDestinationIndices[i + 1]] & 0xFF00) >> 8),
+                        (byte)(Values.OldExits[_randomized.NewDestinationIndices[i + 1]] & 0xFF) });
                 }
                 else
                 {
                     ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
-                        (byte)((Values.OldExits[_randomized.NewEntranceIndices[i]] & 0xFF00) >> 8),
-                        (byte)(Values.OldExits[_randomized.NewEntranceIndices[i]] & 0xFF) });
+                        (byte)((Values.OldExits[_randomized.NewDestinationIndices[i]] & 0xFF00) >> 8),
+                        (byte)(Values.OldExits[_randomized.NewDestinationIndices[i]] & 0xFF) });
                 }
             }
 

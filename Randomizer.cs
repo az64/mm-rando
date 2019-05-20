@@ -308,7 +308,7 @@ namespace MMRando
             }
 
             _randomized.NewEntrances = newEntrances;
-            _randomized.NewEntranceIndices = newEntranceIndices;
+            _randomized.NewDestinationIndices = newEntranceIndices;
             _randomized.NewExits = newExits;
             _randomized.NewExitIndices = newExitIndices;
             _randomized.NewDCFlags = newDCFlags;
