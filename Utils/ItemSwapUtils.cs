@@ -29,47 +29,36 @@ namespace MMRando.Utils
             RomData.GetItemIndices = new List<int>();
             RomData.BottleIndices = new List<int[]>();
             string[] lines = Properties.Resources.ITEM_INDICES.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-            int i = 0;
             bool bottle = false;
-            while (i < lines.Length)
+            foreach (var line in lines)
             {
-                if (lines[i] == "bottle")
+                if (line.StartsWith("-"))
+                {
+                    continue;
+                }
+                else if (line == "bottle")
                 {
                     bottle = true;
-                    i++;
+                    continue;
                 }
-                else if (lines[i] == "endbottle")
+                else if (line == "endbottle")
                 {
                     bottle = false;
-                    i++;
+                    continue;
+                }
+                else if (bottle)
+                {
+                    RomData.GetItemIndices.Add(-1);
+                    int[] indices = Array.ConvertAll(
+                        line.Split(','), item => Convert.ToInt32(item, 16));
+                    RomData.BottleIndices.Add(indices);
                 }
                 else
                 {
-                    if (lines[i].StartsWith("-"))
-                    {
-                        i++;
-                        continue;
-                    };
-                    if (bottle)
-                    {
-                        RomData.GetItemIndices.Add(-1);
-                        string[] sindices = lines[i].Split(',');
-                        int k = sindices.Length;
-                        int[] indices = new int[k];
-                        for (int j = 0; j < k; j++)
-                        {
-                            indices[j] = Convert.ToInt32(sindices[j], 16);
-                        };
-                        RomData.BottleIndices.Add(indices);
-                    }
-                    else
-                    {
-                        RomData.BottleIndices.Add(null);
-                        RomData.GetItemIndices.Add(Convert.ToInt32(lines[i], 16));
-                    }
-
-                    i++;
+                    RomData.BottleIndices.Add(null);
+                    RomData.GetItemIndices.Add(Convert.ToInt32(line, 16));
                 }
+
             }
         }
 
@@ -78,6 +67,7 @@ namespace MMRando.Utils
             RomData.BottleList = new List<BottleCatchEntry[]>();
             int f = RomUtils.GetFileIndexForWriting(Addresses.BottleCatchTable);
             int baseaddr = Addresses.BottleCatchTable - RomData.MMFileList[f].Addr;
+            var fileData = RomData.MMFileList[f].Data;
             for (int i = 0; i < RomData.BottleIndices.Count; i++)
             {
                 if (RomData.BottleIndices[i] == null)
@@ -89,13 +79,15 @@ namespace MMRando.Utils
                     BottleCatchEntry[] bi = new BottleCatchEntry[RomData.BottleIndices[i].Length];
                     for (int j = 0; j < RomData.BottleIndices[i].Length; j++)
                     {
-                        BottleCatchEntry b = new BottleCatchEntry();
-                        int offset = RomData.BottleIndices[i][j] * 6;
-                        b.ItemGained = RomData.MMFileList[f].Data[baseaddr + offset + 3];
-                        b.Index = RomData.MMFileList[f].Data[baseaddr + offset + 4];
-                        b.Message = RomData.MMFileList[f].Data[baseaddr + offset + 5];
+                        int offset = RomData.BottleIndices[i][j] * 6 + baseaddr;
+                        BottleCatchEntry b = new BottleCatchEntry
+                        {
+                            ItemGained = fileData[offset + 3],
+                            Index = fileData[offset + 4],
+                            Message = fileData[offset + 5]
+                        };
                         bi[j] = b;
-                    };
+                    }
                     RomData.BottleList.Add(bi);
                 }
             }
@@ -106,6 +98,7 @@ namespace MMRando.Utils
             RomData.GetItemList = new List<GetItemEntry>();
             int f = RomUtils.GetFileIndexForWriting(Addresses.GetItemTable);
             int baseaddr = Addresses.GetItemTable - RomData.MMFileList[f].Addr;
+            var fileData = RomData.MMFileList[f].Data;
             for (int i = 0; i < RomData.GetItemIndices.Count; i++)
             {
                 if (RomData.GetItemIndices[i] == -1)
@@ -114,16 +107,16 @@ namespace MMRando.Utils
                 }
                 else
                 {
-                    int offset = (RomData.GetItemIndices[i] - 1) * 8;
-                    GetItemEntry g = new GetItemEntry();
-                    g.ItemGained = RomData.MMFileList[f].Data[baseaddr + offset];
-                    g.Flag = RomData.MMFileList[f].Data[baseaddr + offset + 1];
-                    g.Index = RomData.MMFileList[f].Data[baseaddr + offset + 2];
-                    g.Type = RomData.MMFileList[f].Data[baseaddr + offset + 3];
-                    g.Message = (short)((RomData.MMFileList[f].Data[baseaddr + offset + 4] << 8)
-                        | RomData.MMFileList[f].Data[baseaddr + offset + 5]);
-                    g.Object = (short)((RomData.MMFileList[f].Data[baseaddr + offset + 6] << 8) 
-                        | RomData.MMFileList[f].Data[baseaddr + offset + 7]);
+                    int offset = (RomData.GetItemIndices[i] - 1) * 8 + baseaddr;
+                    GetItemEntry g = new GetItemEntry
+                    {
+                        ItemGained = fileData[offset],
+                        Flag = fileData[offset + 1],
+                        Index = fileData[offset + 2],
+                        Type = fileData[offset + 3],
+                        Message = (short)((fileData[offset + 4] << 8) | fileData[offset + 5]),
+                        Object = (short)((fileData[offset + 6] << 8) | fileData[offset + 7])
+                    };
                     RomData.GetItemList.Add(g);
                 }
             }
@@ -140,13 +133,14 @@ namespace MMRando.Utils
         {
             int f = RomUtils.GetFileIndexForWriting(Addresses.BottleCatchTable);
             int baseaddr = Addresses.BottleCatchTable - RomData.MMFileList[f].Addr;
+            var fileData = RomData.MMFileList[f].Data;
             for (int i = 0; i < RomData.BottleIndices[ItemSlot].Length; i++)
             {
-                int offset = RomData.BottleIndices[ItemSlot][i] * 6;
-                RomData.MMFileList[f].Data[baseaddr + offset + 3] = RomData.BottleList[NewItem][0].ItemGained;
-                RomData.MMFileList[f].Data[baseaddr + offset + 4] = RomData.BottleList[NewItem][0].Index;
-                RomData.MMFileList[f].Data[baseaddr + offset + 5] = RomData.BottleList[NewItem][0].Message;
-            };
+                int offset = RomData.BottleIndices[ItemSlot][i] * 6 + baseaddr;
+                fileData[offset + 3] = RomData.BottleList[NewItem][0].ItemGained;
+                fileData[offset + 4] = RomData.BottleList[NewItem][0].Index;
+                fileData[offset + 5] = RomData.BottleList[NewItem][0].Message;
+            }
         }
 
         public static void WriteNewItem(int ItemSlot, int NewItem, bool IsRepeatable, bool RepeatCycle)
@@ -158,15 +152,17 @@ namespace MMRando.Utils
             {
                 itemIndex = 0x6A; // Place items intended for Gold Dust at the Goron Race Bottle location.
             }
-            int offset = (itemIndex - 1) * 8;
-            RomData.MMFileList[f].Data[baseaddr + offset] = RomData.GetItemList[NewItem].ItemGained;
-            RomData.MMFileList[f].Data[baseaddr + offset + 1] = RomData.GetItemList[NewItem].Flag;
-            RomData.MMFileList[f].Data[baseaddr + offset + 2] = RomData.GetItemList[NewItem].Index;
-            RomData.MMFileList[f].Data[baseaddr + offset + 3] = RomData.GetItemList[NewItem].Type;
-            RomData.MMFileList[f].Data[baseaddr + offset + 4] = (byte)(RomData.GetItemList[NewItem].Message >> 8);
-            RomData.MMFileList[f].Data[baseaddr + offset + 5] = (byte)(RomData.GetItemList[NewItem].Message & 0xFF);
-            RomData.MMFileList[f].Data[baseaddr + offset + 6] = (byte)(RomData.GetItemList[NewItem].Object >> 8);
-            RomData.MMFileList[f].Data[baseaddr + offset + 7] = (byte)(RomData.GetItemList[NewItem].Object & 0xFF);
+            int offset = (itemIndex - 1) * 8 + baseaddr;
+            var newItem = RomData.GetItemList[NewItem];
+            var fileData = RomData.MMFileList[f].Data;
+            fileData[offset] = newItem.ItemGained;
+            fileData[offset + 1] = newItem.Flag;
+            fileData[offset + 2] = newItem.Index;
+            fileData[offset + 3] = newItem.Type;
+            fileData[offset + 4] = (byte)(newItem.Message >> 8);
+            fileData[offset + 5] = (byte)(newItem.Message & 0xFF);
+            fileData[offset + 6] = (byte)(newItem.Object >> 8);
+            fileData[offset + 7] = (byte)(newItem.Object & 0xFF);
 
             if (RepeatCycle)
             {
