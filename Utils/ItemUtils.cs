@@ -4,12 +4,13 @@
     {
         public static bool IsAreaOrOther(int itemId)
         {
-            return (itemId >= Items.AreaSouthAccess && itemId <= Items.AreaInvertedStoneTowerNew);
+            return (itemId >= Items.AreaSouthAccess && itemId <= Items.AreaInvertedStoneTowerNew)
+                || (itemId >= Items.OtherOneMask && itemId <= Items.AreaMoonAccess);
         }
 
         public static bool IsOutOfRange(int itemId)
         {
-            return itemId > Items.ChestToGoronRaceGrotto;
+            return itemId > Items.MaskFierceDeity;
         }
 
         public static bool IsShopItem(int itemIndex)
@@ -44,9 +45,18 @@
                    && itemId <= Items.TradeItemMamaLetter;
         }
 
-        public static bool IsItemDefinedPastAreas(int itemId)
+        public static int GetItemOffset(int itemId)
         {
-            return itemId > Items.AreaInvertedStoneTowerNew;
+            var offset = 0;
+            if (itemId > Items.AreaInvertedStoneTowerNew)
+            {
+                offset += Values.NumberOfAreasAndOther;
+            }
+            if (itemId > Items.AreaMoonAccess)
+            {
+                offset += 5;
+            }
+            return offset;
         }
 
         public static bool IsDungeonItem(int itemIndex)
@@ -59,6 +69,11 @@
         {
             return itemIndex >= Items.BottleCatchFairy
                    && itemIndex <= Items.BottleCatchMushroom;
+        }
+
+        public static bool IsMoonItem(int itemIndex)
+        {
+            return itemIndex >= Items.HeartPieceDekuTrial && itemIndex <= Items.MaskFierceDeity;
         }
 
         internal static bool IsDeed(int item)

@@ -293,11 +293,16 @@ namespace MMRando
         public const int ChestToGoronRaceGrotto = 254; //contents?
 
         //moon items
-        public const int HeartPieceDekuTrial = 255;
-        public const int HeartPieceGoronTrial = 256;
-        public const int HeartPieceZoraTrial = 257;
-        public const int HeartPieceLinkTrial = 258;
-        public const int MaskFierceDeity = 259;
+        public const int OtherOneMask = 255;
+        public const int OtherTwoMasks = 256;
+        public const int OtherThreeMasks = 257;
+        public const int OtherFourMasks = 258;
+        public const int AreaMoonAccess = 259;
+        public const int HeartPieceDekuTrial = 260;
+        public const int HeartPieceGoronTrial = 261;
+        public const int HeartPieceZoraTrial = 262;
+        public const int HeartPieceLinkTrial = 263;
+        public const int MaskFierceDeity = 264;
 
         public static readonly ReadOnlyCollection<int> REPEATABLE
             = new ReadOnlyCollection<int>(new int[] {
@@ -898,6 +903,11 @@ namespace MMRando
                 "Map: Great Bay",
                 "Map: Stone Tower",
                 "Goron Racetrack Grotto",
+                "One Mask",
+                "Two Masks",
+                "Three Masks",
+                "Four Masks",
+                "Moon Access",
                 "Deku Trial HP",
                 "Goron Trial HP",
                 "Zora Trial HP",
@@ -905,7 +915,7 @@ namespace MMRando
                 "Fierce Deity's Mask",
         });
 
-        internal static readonly int TotalNumberOfItems = 260;
+        internal static readonly int TotalNumberOfItems = 265;
     }
 
 }
