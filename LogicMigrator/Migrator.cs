@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using MMRando.Extensions;
+using MMRando.Utils;
 using static MMRando.MainRandomizerForm;
 
 namespace MMRando.LogicMigrator
 {
     public static partial class Migrator
     {
+        public const int CurrentVersion = 2;
+
         public static string ApplyMigrations(string logic)
         {
             var lines = logic.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).ToList();
@@ -46,6 +49,11 @@ namespace MMRando.LogicMigrator
 
         private static void AddItemNames(List<string> lines)
         {
+            if (lines[1] == "- Deku Mask")
+            {
+                lines[0] = "-version 1";
+                return;
+            }
             lines.RemoveAll(line => line.StartsWith("-"));
             var itemNames = new string[] {"Deku Mask", "Hero's Bow", "Fire Arrow", "Ice Arrow", "Light Arrow", "Bomb Bag (20)", "Magic Bean",
                 "Powder Keg", "Pictobox", "Lens of Truth", "Hookshot", "Great Fairy's Sword", "Witch Bottle", "Aliens Bottle", "Gold Dust",
@@ -174,6 +182,26 @@ namespace MMRando.LogicMigrator
             {
                 "One Mask", "Two Masks", "Three Masks", "Four Masks", "Moon Access", "Deku Trial HP", "Goron Trial HP", "Zora Trial HP", "Link Trial HP", "Fierce Deity's Mask"
             };
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section => section.Split(',').Select(id => 
+                        {
+                            var itemId = int.Parse(id);
+                            if (itemId >= Items.OtherOneMask)
+                            {
+                                itemId += newItems.Length;
+                            }
+                            return itemId;
+                        }).ToList()).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
             foreach (var item in newItems)
             {
                 lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - Items.OtherOneMask]}");
