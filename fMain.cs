@@ -501,6 +501,7 @@ namespace MMRando
             cFreeHints.Enabled = v;
             cHTMLLog.Enabled = v;
             cN64.Enabled = v;
+            cMoonItems.Enabled = v;
 
             bopen.Enabled = v;
             bRandomise.Enabled = v;
