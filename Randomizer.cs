@@ -409,7 +409,7 @@ namespace MMRando
                 string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
                 for (int i = 0; i < 4; i++)
                 {
-                    log.AppendLine($"{destinations[i],-21} >> {destinations[_newEnts[i]]}");
+                    log.AppendLine($"{destinations[i],-21} >> {destinations[spoiler.NewDestinationIndices[i]]}");
                 }
                 log.AppendLine("");
             }
