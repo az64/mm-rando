@@ -68,7 +68,7 @@
 
 0
 2
-- Goron Race Bottle
+- Gold Dust
 103
 
 15
@@ -389,7 +389,7 @@
 0
 0
 - Romani Mask
-91,115
+115,104
 
 0
 8
@@ -1043,7 +1043,7 @@
 
 0
 0
-- Mountain Village Grotto (Spring)
+- Mountain Village Grotto Bottle (Spring)
 103
 
 0
