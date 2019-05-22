@@ -260,28 +260,28 @@ namespace MMRando
             ReadWriteUtils.WriteToROM(Items.ITEM_ADDRS[Item], Items.ITEM_VALUES[Item]);
             switch (Item)
             {
-                case 1: //bow
+                case Items.ItemBow:
                     ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x01);
                     break;
-                case 5: //bomb bag
+                case Items.ItemBombBag:
                     ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x08);
                     break;
-                case 19: //sword upgrade
+                case Items.UpgradeRazorSword: //sword upgrade
                     ReadWriteUtils.WriteToROM(0xC5CE00, (byte)0x4E);
                     break;
-                case 20:
+                case Items.UpgradeGildedSword:
                     ReadWriteUtils.WriteToROM(0xC5CE00, (byte)0x4F);
                     break;
-                case 22: //quiver upgrade
+                case Items.UpgradeBigQuiver: //quiver upgrade
                     ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x02);
                     break;
-                case 23:
+                case Items.UpgradeBiggestQuiver:
                     ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x03);
                     break;
-                case 24://bomb bag upgrade
+                case Items.UpgradeBigBombBag://bomb bag upgrade
                     ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x10);
                     break;
-                case 25:
+                case Items.UpgradeBiggestBombBag:
                     ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x18);
                     break;
                 default:
