@@ -2162,6 +2162,282 @@
     "Name": "",
     "Repeatable": false,
     "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 99,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 100,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 101,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 102,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 103,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 104,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 105,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 106,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 107,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 108,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 109,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 110,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 111,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 112,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 113,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 114,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 115,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 116,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 117,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 118,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 119,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 120,
+    "Name": "",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 121,
+    "Name": "Woodfall Map",
+    "Repeatable": false,
+    "CycleRepeatable": false,
     "GetItemIndex": 62,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2176,8 +2452,8 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 99,
-    "Name": "",
+    "MMRIndex": 122,
+    "Name": "Woodfall Compass",
     "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 63,
@@ -2194,9 +2470,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 100,
-    "Name": "",
-    "Repeatable": false,
+    "MMRIndex": 123,
+    "Name": "Woodfall Boss Key",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 61,
     "BottleIndexes": [],
@@ -2212,9 +2488,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 101,
-    "Name": "",
-    "Repeatable": false,
+    "MMRIndex": 124,
+    "Name": "Woodfall Key 1",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 60,
     "BottleIndexes": [],
@@ -2230,8 +2506,8 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 102,
-    "Name": "",
+    "MMRIndex": 125,
+    "Name": "Snowhead Map",
     "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 84,
@@ -2248,8 +2524,8 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 103,
-    "Name": "",
+    "MMRIndex": 126,
+    "Name": "Snowhead Compass",
     "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 87,
@@ -2266,9 +2542,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 104,
-    "Name": "",
-    "Repeatable": false,
+    "MMRIndex": 127,
+    "Name": "Snowhead Boss Key",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 78,
     "BottleIndexes": [],
@@ -2284,9 +2560,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 105,
-    "Name": "",
-    "Repeatable": false,
+    "MMRIndex": 128,
+    "Name": "Snowhead Key 1",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 70,
     "BottleIndexes": [],
@@ -2302,9 +2578,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 106,
-    "Name": "",
-    "Repeatable": false,
+    "MMRIndex": 129,
+    "Name": "Snowhead Key 2",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 71,
     "BottleIndexes": [],
@@ -2320,9 +2596,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 107,
-    "Name": "",
-    "Repeatable": false,
+    "MMRIndex": 130,
+    "Name": "Snowhead Key 3",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 72,
     "BottleIndexes": [],
@@ -2338,8 +2614,8 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 108,
-    "Name": "",
+    "MMRIndex": 131,
+    "Name": "Great Bay Map",
     "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 85,
@@ -2356,8 +2632,8 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 109,
-    "Name": "",
+    "MMRIndex": 132,
+    "Name": "Great Bay Compass",
     "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 88,
@@ -2374,9 +2650,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 110,
-    "Name": "",
-    "Repeatable": false,
+    "MMRIndex": 133,
+    "Name": "Great Bay Boss Key",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 79,
     "BottleIndexes": [],
@@ -2392,9 +2668,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 111,
-    "Name": "",
-    "Repeatable": false,
+    "MMRIndex": 134,
+    "Name": "Great Bay Key 1",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 64,
     "BottleIndexes": [],
@@ -2410,8 +2686,8 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 112,
-    "Name": "",
+    "MMRIndex": 135,
+    "Name": "Stone Tower Map",
     "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 86,
@@ -2428,8 +2704,8 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 113,
-    "Name": "",
+    "MMRIndex": 136,
+    "Name": "Stone Tower Compass",
     "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 108,
@@ -2446,9 +2722,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 114,
-    "Name": "",
-    "Repeatable": false,
+    "MMRIndex": 137,
+    "Name": "Stone Tower Boss Key",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 83,
     "BottleIndexes": [],
@@ -2464,9 +2740,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 115,
-    "Name": "",
-    "Repeatable": false,
+    "MMRIndex": 138,
+    "Name": "Stone Tower Key 1",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 73,
     "BottleIndexes": [],
@@ -2482,9 +2758,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 116,
-    "Name": "",
-    "Repeatable": false,
+    "MMRIndex": 139,
+    "Name": "Stone Tower Key 2",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 74,
     "BottleIndexes": [],
@@ -2500,9 +2776,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 117,
-    "Name": "",
-    "Repeatable": false,
+    "MMRIndex": 140,
+    "Name": "Stone Tower Key 3",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 75,
     "BottleIndexes": [],
@@ -2518,9 +2794,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 118,
-    "Name": "",
-    "Repeatable": false,
+    "MMRIndex": 141,
+    "Name": "Stone Tower Key 4",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 77,
     "BottleIndexes": [],
@@ -2536,10 +2812,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 119,
-    "Name": "",
-    "Repeatable": false,
-    "CycleRepeatable": false,
+    "MMRIndex": 142,
+    "Name": "Trading Post Red Potion",
+    "Repeatable": true,
+    "CycleRepeatable": true,
     "GetItemIndex": 205,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2556,10 +2832,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 120,
-    "Name": "",
-    "Repeatable": false,
-    "CycleRepeatable": false,
+    "MMRIndex": 143,
+    "Name": "Trading Post Green Potion",
+    "Repeatable": true,
+    "CycleRepeatable": true,
     "GetItemIndex": 187,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2575,10 +2851,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 121,
-    "Name": "Woodfall Map",
-    "Repeatable": false,
-    "CycleRepeatable": false,
+    "MMRIndex": 144,
+    "Name": "Trading Post Shield",
+    "Repeatable": true,
+    "CycleRepeatable": true,
     "GetItemIndex": 188,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2594,10 +2870,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 122,
-    "Name": "Woodfall Compass",
-    "Repeatable": false,
-    "CycleRepeatable": false,
+    "MMRIndex": 145,
+    "Name": "Trading Post Fairy",
+    "Repeatable": true,
+    "CycleRepeatable": true,
     "GetItemIndex": 189,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2613,10 +2889,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 123,
-    "Name": "Woodfall Boss Key",
+    "MMRIndex": 146,
+    "Name": "Trading Post Stick",
     "Repeatable": true,
-    "CycleRepeatable": false,
+    "CycleRepeatable": true,
     "GetItemIndex": 190,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2632,10 +2908,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 124,
-    "Name": "Woodfall Key 1",
+    "MMRIndex": 147,
+    "Name": "Trading Post Arrow 30",
     "Repeatable": true,
-    "CycleRepeatable": false,
+    "CycleRepeatable": true,
     "GetItemIndex": 191,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2651,10 +2927,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 125,
-    "Name": "Snowhead Map",
-    "Repeatable": false,
-    "CycleRepeatable": false,
+    "MMRIndex": 148,
+    "Name": "Trading Post Nut 10",
+    "Repeatable": true,
+    "CycleRepeatable": true,
     "GetItemIndex": 192,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2669,10 +2945,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 126,
-    "Name": "Snowhead Compass",
-    "Repeatable": false,
-    "CycleRepeatable": false,
+    "MMRIndex": 149,
+    "Name": "Trading Post Arrow 50",
+    "Repeatable": true,
+    "CycleRepeatable": true,
     "GetItemIndex": 193,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2688,10 +2964,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 127,
-    "Name": "Snowhead Boss Key",
+    "MMRIndex": 150,
+    "Name": "Witch Shop Blue Potion",
     "Repeatable": true,
-    "CycleRepeatable": false,
+    "CycleRepeatable": true,
     "GetItemIndex": 194,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2707,10 +2983,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 128,
-    "Name": "Snowhead Key 1",
+    "MMRIndex": 151,
+    "Name": "Witch Shop Red Potion",
     "Repeatable": true,
-    "CycleRepeatable": false,
+    "CycleRepeatable": true,
     "GetItemIndex": 195,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2726,10 +3002,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 129,
-    "Name": "Snowhead Key 2",
+    "MMRIndex": 152,
+    "Name": "Witch Shop Green Potion",
     "Repeatable": true,
-    "CycleRepeatable": false,
+    "CycleRepeatable": true,
     "GetItemIndex": 196,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2744,10 +3020,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 130,
-    "Name": "Snowhead Key 3",
+    "MMRIndex": 153,
+    "Name": "Bomb Shop Bomb 10",
     "Repeatable": true,
-    "CycleRepeatable": false,
+    "CycleRepeatable": true,
     "GetItemIndex": 197,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2760,10 +3036,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 131,
-    "Name": "Great Bay Map",
-    "Repeatable": false,
-    "CycleRepeatable": false,
+    "MMRIndex": 154,
+    "Name": "Bomb Shop Chu 10",
+    "Repeatable": true,
+    "CycleRepeatable": true,
     "GetItemIndex": 198,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2776,10 +3052,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 132,
-    "Name": "Great Bay Compass",
-    "Repeatable": false,
-    "CycleRepeatable": false,
+    "MMRIndex": 155,
+    "Name": "Goron Shop Bomb 10",
+    "Repeatable": true,
+    "CycleRepeatable": true,
     "GetItemIndex": 199,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2793,10 +3069,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 133,
-    "Name": "Great Bay Boss Key",
+    "MMRIndex": 156,
+    "Name": "Goron Shop Arrow 10",
     "Repeatable": true,
-    "CycleRepeatable": false,
+    "CycleRepeatable": true,
     "GetItemIndex": 200,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2811,10 +3087,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 134,
-    "Name": "Great Bay Key 1",
+    "MMRIndex": 157,
+    "Name": "Goron Shop Red Potion",
     "Repeatable": true,
-    "CycleRepeatable": false,
+    "CycleRepeatable": true,
     "GetItemIndex": 201,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2830,10 +3106,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 135,
-    "Name": "Stone Tower Map",
-    "Repeatable": false,
-    "CycleRepeatable": false,
+    "MMRIndex": 158,
+    "Name": "Zora Shop Shield",
+    "Repeatable": true,
+    "CycleRepeatable": true,
     "GetItemIndex": 202,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2848,10 +3124,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 136,
-    "Name": "Stone Tower Compass",
-    "Repeatable": false,
-    "CycleRepeatable": false,
+    "MMRIndex": 159,
+    "Name": "Zora Shop Arrow 10",
+    "Repeatable": true,
+    "CycleRepeatable": true,
     "GetItemIndex": 203,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2866,10 +3142,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 137,
-    "Name": "Stone Tower Boss Key",
+    "MMRIndex": 160,
+    "Name": "Zora Shop Red Potion",
     "Repeatable": true,
-    "CycleRepeatable": false,
+    "CycleRepeatable": true,
     "GetItemIndex": 204,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -2885,9 +3161,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 138,
-    "Name": "Stone Tower Key 1",
-    "Repeatable": true,
+    "MMRIndex": 161,
+    "Name": "Bottle: Fairy",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": -1,
     "BottleIndexes": [
@@ -2905,9 +3181,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 139,
-    "Name": "Stone Tower Key 2",
-    "Repeatable": true,
+    "MMRIndex": 162,
+    "Name": "Bottle: Deku Princess",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": -1,
     "BottleIndexes": [
@@ -2925,9 +3201,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 140,
-    "Name": "Stone Tower Key 3",
-    "Repeatable": true,
+    "MMRIndex": 163,
+    "Name": "Bottle: Fish",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": -1,
     "BottleIndexes": [
@@ -2944,9 +3220,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 141,
-    "Name": "Stone Tower Key 4",
-    "Repeatable": true,
+    "MMRIndex": 164,
+    "Name": "Bottle: Bug",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": -1,
     "BottleIndexes": [
@@ -2965,10 +3241,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 142,
-    "Name": "Trading Post Red Potion",
-    "Repeatable": true,
-    "CycleRepeatable": true,
+    "MMRIndex": 165,
+    "Name": "Bottle: Poe",
+    "Repeatable": false,
+    "CycleRepeatable": false,
     "GetItemIndex": -1,
     "BottleIndexes": [
       11
@@ -2983,10 +3259,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 143,
-    "Name": "Trading Post Green Potion",
-    "Repeatable": true,
-    "CycleRepeatable": true,
+    "MMRIndex": 166,
+    "Name": "Bottle: Big Poe",
+    "Repeatable": false,
+    "CycleRepeatable": false,
     "GetItemIndex": -1,
     "BottleIndexes": [
       12
@@ -3001,10 +3277,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 144,
-    "Name": "Trading Post Shield",
-    "Repeatable": true,
-    "CycleRepeatable": true,
+    "MMRIndex": 167,
+    "Name": "Bottle: Spring Water",
+    "Repeatable": false,
+    "CycleRepeatable": false,
     "GetItemIndex": -1,
     "BottleIndexes": [
       4
@@ -3020,10 +3296,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 145,
-    "Name": "Trading Post Fairy",
-    "Repeatable": true,
-    "CycleRepeatable": true,
+    "MMRIndex": 168,
+    "Name": "Bottle: Hot Spring Water",
+    "Repeatable": false,
+    "CycleRepeatable": false,
     "GetItemIndex": -1,
     "BottleIndexes": [
       5,
@@ -3041,10 +3317,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 146,
-    "Name": "Trading Post Stick",
-    "Repeatable": true,
-    "CycleRepeatable": true,
+    "MMRIndex": 169,
+    "Name": "Bottle: Zora Egg",
+    "Repeatable": false,
+    "CycleRepeatable": false,
     "GetItemIndex": -1,
     "BottleIndexes": [
       7
@@ -3059,10 +3335,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 147,
-    "Name": "Trading Post Arrow 30",
-    "Repeatable": true,
-    "CycleRepeatable": true,
+    "MMRIndex": 170,
+    "Name": "Bottle: Mushroom",
+    "Repeatable": false,
+    "CycleRepeatable": false,
     "GetItemIndex": -1,
     "BottleIndexes": [
       10
@@ -3077,10 +3353,10 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 148,
-    "Name": "Trading Post Nut 10",
+    "MMRIndex": 171,
+    "Name": "Lens Cave 20r",
     "Repeatable": true,
-    "CycleRepeatable": true,
+    "CycleRepeatable": false,
     "GetItemIndex": 221,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -3097,10 +3373,10 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 149,
-    "Name": "Trading Post Arrow 50",
+    "MMRIndex": 172,
+    "Name": "Lens Cave 50r",
     "Repeatable": true,
-    "CycleRepeatable": true,
+    "CycleRepeatable": false,
     "GetItemIndex": 244,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -3117,10 +3393,10 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 150,
-    "Name": "Witch Shop Blue Potion",
+    "MMRIndex": 173,
+    "Name": "Bean Grotto 20r",
     "Repeatable": true,
-    "CycleRepeatable": true,
+    "CycleRepeatable": false,
     "GetItemIndex": 222,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -3137,10 +3413,10 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 151,
-    "Name": "Witch Shop Red Potion",
+    "MMRIndex": 174,
+    "Name": "HSW Grotto 20r",
     "Repeatable": true,
-    "CycleRepeatable": true,
+    "CycleRepeatable": false,
     "GetItemIndex": 223,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -3157,10 +3433,10 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 152,
-    "Name": "Witch Shop Green Potion",
+    "MMRIndex": 175,
+    "Name": "Graveyard Bad Bats",
     "Repeatable": true,
-    "CycleRepeatable": true,
+    "CycleRepeatable": false,
     "GetItemIndex": 245,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -3177,10 +3453,10 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 153,
-    "Name": "Bomb Shop Bomb 10",
+    "MMRIndex": 176,
+    "Name": "Ikana Grotto",
     "Repeatable": true,
-    "CycleRepeatable": true,
+    "CycleRepeatable": false,
     "GetItemIndex": 209,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -3197,10 +3473,10 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 154,
-    "Name": "Bomb Shop Chu 10",
+    "MMRIndex": 177,
+    "Name": "PF 20r Lower",
     "Repeatable": true,
-    "CycleRepeatable": true,
+    "CycleRepeatable": false,
     "GetItemIndex": 224,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -3217,10 +3493,10 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 155,
-    "Name": "Goron Shop Bomb 10",
+    "MMRIndex": 178,
+    "Name": "PF 20r Upper",
     "Repeatable": true,
-    "CycleRepeatable": true,
+    "CycleRepeatable": false,
     "GetItemIndex": 225,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -3237,10 +3513,10 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 156,
-    "Name": "Goron Shop Arrow 10",
+    "MMRIndex": 179,
+    "Name": "PF Tank 20r",
     "Repeatable": true,
-    "CycleRepeatable": true,
+    "CycleRepeatable": false,
     "GetItemIndex": 226,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -3257,10 +3533,10 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 157,
-    "Name": "Goron Shop Red Potion",
+    "MMRIndex": 180,
+    "Name": "PF Guard Room 100r",
     "Repeatable": true,
-    "CycleRepeatable": true,
+    "CycleRepeatable": false,
     "GetItemIndex": 251,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -3277,10 +3553,10 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 158,
-    "Name": "Zora Shop Shield",
+    "MMRIndex": 181,
+    "Name": "PF HP Room 20r",
     "Repeatable": true,
-    "CycleRepeatable": true,
+    "CycleRepeatable": false,
     "GetItemIndex": 227,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -3297,10 +3573,10 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 159,
-    "Name": "Zora Shop Arrow 10",
+    "MMRIndex": 182,
+    "Name": "PF HP Room 5r",
     "Repeatable": true,
-    "CycleRepeatable": true,
+    "CycleRepeatable": false,
     "GetItemIndex": 261,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -3317,10 +3593,10 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 160,
-    "Name": "Zora Shop Red Potion",
+    "MMRIndex": 183,
+    "Name": "PF Maze 20r",
     "Repeatable": true,
-    "CycleRepeatable": true,
+    "CycleRepeatable": false,
     "GetItemIndex": 228,
     "BottleIndexes": [],
     "GiveItemAddresses": [],
@@ -3337,9 +3613,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 161,
-    "Name": "Bottle: Fairy",
-    "Repeatable": false,
+    "MMRIndex": 184,
+    "Name": "PR 20r (1)",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 229,
     "BottleIndexes": [],
@@ -3357,9 +3633,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 162,
-    "Name": "Bottle: Deku Princess",
-    "Repeatable": false,
+    "MMRIndex": 185,
+    "Name": "PR 20r (2)",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 230,
     "BottleIndexes": [],
@@ -3377,9 +3653,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 163,
-    "Name": "Bottle: Fish",
-    "Repeatable": false,
+    "MMRIndex": 186,
+    "Name": "Bombers' Hideout 100r",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 252,
     "BottleIndexes": [],
@@ -3397,9 +3673,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 164,
-    "Name": "Bottle: Bug",
-    "Repeatable": false,
+    "MMRIndex": 187,
+    "Name": "Termina Bombchu Grotto",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 215,
     "BottleIndexes": [],
@@ -3413,9 +3689,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 165,
-    "Name": "Bottle: Poe",
-    "Repeatable": false,
+    "MMRIndex": 188,
+    "Name": "Termina 20r Grotto",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 220,
     "BottleIndexes": [],
@@ -3433,9 +3709,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 166,
-    "Name": "Bottle: Big Poe",
-    "Repeatable": false,
+    "MMRIndex": 189,
+    "Name": "Termina Underwater 20r",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 231,
     "BottleIndexes": [],
@@ -3453,9 +3729,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 167,
-    "Name": "Bottle: Spring Water",
-    "Repeatable": false,
+    "MMRIndex": 190,
+    "Name": "Termina Grass 20r",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 232,
     "BottleIndexes": [],
@@ -3473,9 +3749,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 168,
-    "Name": "Bottle: Hot Spring Water",
-    "Repeatable": false,
+    "MMRIndex": 191,
+    "Name": "Termina Stump 20r",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 233,
     "BottleIndexes": [],
@@ -3493,9 +3769,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 169,
-    "Name": "Bottle: Zora Egg",
-    "Repeatable": false,
+    "MMRIndex": 192,
+    "Name": "Great Bay Coast Grotto",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 212,
     "BottleIndexes": [],
@@ -3513,9 +3789,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 170,
-    "Name": "Bottle: Mushroom",
-    "Repeatable": false,
+    "MMRIndex": 193,
+    "Name": "Great Bay Cape Ledge (1)",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 234,
     "BottleIndexes": [],
@@ -3533,8 +3809,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 171,
-    "Name": "Lens Cave 20r",
+    "MMRIndex": 194,
+    "Name": "Great Bay Cape Ledge (2)",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 235,
@@ -3553,8 +3829,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 172,
-    "Name": "Lens Cave 50r",
+    "MMRIndex": 195,
+    "Name": "Great Bay Cape Grotto",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 210,
@@ -3569,8 +3845,8 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 173,
-    "Name": "Bean Grotto 20r",
+    "MMRIndex": 196,
+    "Name": "Great Bay Cape Underwater",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 246,
@@ -3589,8 +3865,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 174,
-    "Name": "HSW Grotto 20r",
+    "MMRIndex": 197,
+    "Name": "PF Exterior 20r (1)",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 236,
@@ -3609,8 +3885,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 175,
-    "Name": "Graveyard Bad Bats",
+    "MMRIndex": 198,
+    "Name": "PF Exterior 20r (2)",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 237,
@@ -3629,8 +3905,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 176,
-    "Name": "Ikana Grotto",
+    "MMRIndex": 199,
+    "Name": "PF Exterior 20r (3)",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 238,
@@ -3649,8 +3925,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 177,
-    "Name": "PF 20r Lower",
+    "MMRIndex": 200,
+    "Name": "Path to Swamp Grotto",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 219,
@@ -3669,8 +3945,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 178,
-    "Name": "PF 20r Upper",
+    "MMRIndex": 201,
+    "Name": "Doggy Racetrack 50r",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 247,
@@ -3689,8 +3965,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 179,
-    "Name": "PF Tank 20r",
+    "MMRIndex": 202,
+    "Name": "Graveyard Grotto",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 213,
@@ -3705,8 +3981,8 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 180,
-    "Name": "PF Guard Room 100r",
+    "MMRIndex": 203,
+    "Name": "Swamp Grotto",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 218,
@@ -3725,8 +4001,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 181,
-    "Name": "PF HP Room 20r",
+    "MMRIndex": 204,
+    "Name": "Woodfall 5r",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 262,
@@ -3745,8 +4021,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 182,
-    "Name": "PF HP Room 5r",
+    "MMRIndex": 205,
+    "Name": "Woodfall 20r",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 239,
@@ -3765,8 +4041,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 183,
-    "Name": "PF Maze 20r",
+    "MMRIndex": 206,
+    "Name": "Well Right Path 50r",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 248,
@@ -3785,8 +4061,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 184,
-    "Name": "PR 20r (1)",
+    "MMRIndex": 207,
+    "Name": "Well Left Path 50r",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 249,
@@ -3805,8 +4081,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 185,
-    "Name": "PR 20r (2)",
+    "MMRIndex": 208,
+    "Name": "Mountain Village Chest (Spring)",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 240,
@@ -3825,9 +4101,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 186,
-    "Name": "Bombers' Hideout 100r",
-    "Repeatable": true,
+    "MMRIndex": 209,
+    "Name": "Mountain Village Grotto Bottle (Spring)",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 216,
     "BottleIndexes": [],
@@ -3845,8 +4121,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 187,
-    "Name": "Termina Bombchu Grotto",
+    "MMRIndex": 210,
+    "Name": "Path to Ikana 20r",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 241,
@@ -3865,8 +4141,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 188,
-    "Name": "Termina 20r Grotto",
+    "MMRIndex": 211,
+    "Name": "Path to Ikana Grotto",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 211,
@@ -3885,8 +4161,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 189,
-    "Name": "Termina Underwater 20r",
+    "MMRIndex": 212,
+    "Name": "Stone Tower 100r",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 253,
@@ -3905,8 +4181,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 190,
-    "Name": "Termina Grass 20r",
+    "MMRIndex": 213,
+    "Name": "Stone Tower Bombchu 10",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 266,
@@ -3921,8 +4197,8 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 191,
-    "Name": "Termina Stump 20r",
+    "MMRIndex": 214,
+    "Name": "Stone Tower Magic Bean",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 265,
@@ -3937,8 +4213,8 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 192,
-    "Name": "Great Bay Coast Grotto",
+    "MMRIndex": 215,
+    "Name": "Path to Snowhead Grotto",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 208,
@@ -3957,8 +4233,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 193,
-    "Name": "Great Bay Cape Ledge (1)",
+    "MMRIndex": 216,
+    "Name": "Twin Islands 20r",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 242,
@@ -3977,9 +4253,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 194,
-    "Name": "Great Bay Cape Ledge (2)",
-    "Repeatable": true,
+    "MMRIndex": 217,
+    "Name": "Secret Shrine HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 263,
     "BottleIndexes": [],
@@ -3993,8 +4269,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 195,
-    "Name": "Great Bay Cape Grotto",
+    "MMRIndex": 218,
+    "Name": "Secret Shrine Dinolfos",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 254,
@@ -4013,8 +4289,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 196,
-    "Name": "Great Bay Cape Underwater",
+    "MMRIndex": 219,
+    "Name": "Secret Shrine Wizzrobe",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 255,
@@ -4033,8 +4309,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 197,
-    "Name": "PF Exterior 20r (1)",
+    "MMRIndex": 220,
+    "Name": "Secret Shrine Wart",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 256,
@@ -4053,8 +4329,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 198,
-    "Name": "PF Exterior 20r (2)",
+    "MMRIndex": 221,
+    "Name": "Secret Shrine Garo Master",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 257,
@@ -4073,8 +4349,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 199,
-    "Name": "PF Exterior 20r (3)",
+    "MMRIndex": 222,
+    "Name": "Inn Staff Room",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 258,
@@ -4093,8 +4369,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 200,
-    "Name": "Path to Swamp Grotto",
+    "MMRIndex": 223,
+    "Name": "Inn Guest Room",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 259,
@@ -4113,8 +4389,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 201,
-    "Name": "Doggy Racetrack 50r",
+    "MMRIndex": 224,
+    "Name": "Mystery Woods Grotto",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 217,
@@ -4133,8 +4409,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 202,
-    "Name": "Graveyard Grotto",
+    "MMRIndex": 225,
+    "Name": "East Clock Town 100r",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 260,
@@ -4153,8 +4429,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 203,
-    "Name": "Swamp Grotto",
+    "MMRIndex": 226,
+    "Name": "South Clock Town 20r",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 243,
@@ -4173,8 +4449,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 204,
-    "Name": "Woodfall 5r",
+    "MMRIndex": 227,
+    "Name": "South Clock Town 50r",
     "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 250,
@@ -4193,9 +4469,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 205,
-    "Name": "Woodfall 20r",
-    "Repeatable": true,
+    "MMRIndex": 228,
+    "Name": "Bank HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 264,
     "BottleIndexes": [],
@@ -4209,9 +4485,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 206,
-    "Name": "Well Right Path 50r",
-    "Repeatable": true,
+    "MMRIndex": 229,
+    "Name": "South Clock Town HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 267,
     "BottleIndexes": [],
@@ -4225,9 +4501,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 207,
-    "Name": "Well Left Path 50r",
-    "Repeatable": true,
+    "MMRIndex": 230,
+    "Name": "North Clock Town HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 268,
     "BottleIndexes": [],
@@ -4241,9 +4517,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 208,
-    "Name": "Mountain Village Chest (Spring)",
-    "Repeatable": true,
+    "MMRIndex": 231,
+    "Name": "Path to Swamp HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 269,
     "BottleIndexes": [],
@@ -4257,8 +4533,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 209,
-    "Name": "Mountain Village Grotto Bottle (Spring)",
+    "MMRIndex": 232,
+    "Name": "Swamp Scrub HP",
     "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 270,
@@ -4273,9 +4549,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 210,
-    "Name": "Path to Ikana 20r",
-    "Repeatable": true,
+    "MMRIndex": 233,
+    "Name": "Deku Palace HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 271,
     "BottleIndexes": [],
@@ -4289,9 +4565,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 211,
-    "Name": "Path to Ikana Grotto",
-    "Repeatable": true,
+    "MMRIndex": 234,
+    "Name": "Goron Village Scrub HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 272,
     "BottleIndexes": [],
@@ -4305,9 +4581,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 212,
-    "Name": "Stone Tower 100r",
-    "Repeatable": true,
+    "MMRIndex": 235,
+    "Name": "Bio Baba Grotto HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 273,
     "BottleIndexes": [],
@@ -4321,9 +4597,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 213,
-    "Name": "Stone Tower Bombchu 10",
-    "Repeatable": true,
+    "MMRIndex": 236,
+    "Name": "Lab Fish HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 274,
     "BottleIndexes": [],
@@ -4337,9 +4613,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 214,
-    "Name": "Stone Tower Magic Bean",
-    "Repeatable": true,
+    "MMRIndex": 237,
+    "Name": "Great Bay Like-Like HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 275,
     "BottleIndexes": [],
@@ -4353,9 +4629,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 215,
-    "Name": "Path to Snowhead Grotto",
-    "Repeatable": true,
+    "MMRIndex": 238,
+    "Name": "Pirates' Fortress HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 276,
     "BottleIndexes": [],
@@ -4369,9 +4645,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 216,
-    "Name": "Twin Islands 20r",
-    "Repeatable": true,
+    "MMRIndex": 239,
+    "Name": "Zora Hall Scrub HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 277,
     "BottleIndexes": [],
@@ -4385,8 +4661,8 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 217,
-    "Name": "Secret Shrine HP",
+    "MMRIndex": 240,
+    "Name": "Path to Snowhead HP",
     "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 278,
@@ -4401,9 +4677,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 218,
-    "Name": "Secret Shrine Dinolfos",
-    "Repeatable": true,
+    "MMRIndex": 241,
+    "Name": "Great Bay Coast HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 279,
     "BottleIndexes": [],
@@ -4417,9 +4693,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 219,
-    "Name": "Secret Shrine Wizzrobe",
-    "Repeatable": true,
+    "MMRIndex": 242,
+    "Name": "Ikana Scrub HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 280,
     "BottleIndexes": [],
@@ -4433,9 +4709,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 220,
-    "Name": "Secret Shrine Wart",
-    "Repeatable": true,
+    "MMRIndex": 243,
+    "Name": "Ikana Castle HP",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 281,
     "BottleIndexes": [],
@@ -4449,9 +4725,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 221,
-    "Name": "Secret Shrine Garo Master",
-    "Repeatable": true,
+    "MMRIndex": 244,
+    "Name": "Odolwa Heart Container",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 282,
     "BottleIndexes": [],
@@ -4465,9 +4741,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 222,
-    "Name": "Inn Staff Room",
-    "Repeatable": true,
+    "MMRIndex": 245,
+    "Name": "Goht Heart Container",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 283,
     "BottleIndexes": [],
@@ -4481,9 +4757,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 223,
-    "Name": "Inn Guest Room",
-    "Repeatable": true,
+    "MMRIndex": 246,
+    "Name": "Gyorg Heart Container",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 284,
     "BottleIndexes": [],
@@ -4497,9 +4773,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 224,
-    "Name": "Mystery Woods Grotto",
-    "Repeatable": true,
+    "MMRIndex": 247,
+    "Name": "Twinmold Heart Container",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 285,
     "BottleIndexes": [],
@@ -4513,9 +4789,9 @@
     "IsUsefulItem": false
   },
   {
-    "MMRIndex": 225,
-    "Name": "East Clock Town 100r",
-    "Repeatable": true,
+    "MMRIndex": 248,
+    "Name": "Map: Clock Town",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 180,
     "BottleIndexes": [],
@@ -4530,9 +4806,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 226,
-    "Name": "South Clock Town 20r",
-    "Repeatable": true,
+    "MMRIndex": 249,
+    "Name": "Map: Woodfall",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 181,
     "BottleIndexes": [],
@@ -4547,9 +4823,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 227,
-    "Name": "South Clock Town 50r",
-    "Repeatable": true,
+    "MMRIndex": 250,
+    "Name": "Map: Snowhead",
+    "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 182,
     "BottleIndexes": [],
@@ -4564,8 +4840,8 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 228,
-    "Name": "Bank HP",
+    "MMRIndex": 251,
+    "Name": "Map: Romani Ranch",
     "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 183,
@@ -4581,8 +4857,8 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 229,
-    "Name": "South Clock Town HP",
+    "MMRIndex": 252,
+    "Name": "Map: Great Bay",
     "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 184,
@@ -4598,8 +4874,8 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 230,
-    "Name": "North Clock Town HP",
+    "MMRIndex": 253,
+    "Name": "Map: Stone Tower",
     "Repeatable": false,
     "CycleRepeatable": false,
     "GetItemIndex": 185,
@@ -4615,9 +4891,9 @@
     "IsUsefulItem": true
   },
   {
-    "MMRIndex": 231,
-    "Name": "Path to Swamp HP",
-    "Repeatable": false,
+    "MMRIndex": 254,
+    "Name": "Goron Racetrack Grotto",
+    "Repeatable": true,
     "CycleRepeatable": false,
     "GetItemIndex": 214,
     "BottleIndexes": [],
@@ -4628,282 +4904,6 @@
     "ItemHints": [
       "explosive mice"
     ],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 232,
-    "Name": "Swamp Scrub HP",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 233,
-    "Name": "Deku Palace HP",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 234,
-    "Name": "Goron Village Scrub HP",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 235,
-    "Name": "Bio Baba Grotto HP",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 236,
-    "Name": "Lab Fish HP",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 237,
-    "Name": "Great Bay Like-Like HP",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 238,
-    "Name": "Pirates' Fortress HP",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 239,
-    "Name": "Zora Hall Scrub HP",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 240,
-    "Name": "Path to Snowhead HP",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 241,
-    "Name": "Great Bay Coast HP",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 242,
-    "Name": "Ikana Scrub HP",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 243,
-    "Name": "Ikana Castle HP",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 244,
-    "Name": "Odolwa Heart Container",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 245,
-    "Name": "Goht Heart Container",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 246,
-    "Name": "Gyorg Heart Container",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 247,
-    "Name": "Twinmold Heart Container",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 248,
-    "Name": "Map: Clock Town",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 249,
-    "Name": "Map: Woodfall",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 250,
-    "Name": "Map: Snowhead",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 251,
-    "Name": "Map: Romani Ranch",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 252,
-    "Name": "Map: Great Bay",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 253,
-    "Name": "Map: Stone Tower",
-    "Repeatable": false,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
-    "IsUsefulItem": true
-  },
-  {
-    "MMRIndex": 254,
-    "Name": "Goron Racetrack Grotto",
-    "Repeatable": true,
-    "CycleRepeatable": false,
-    "GetItemIndex": -1,
-    "BottleIndexes": [],
-    "GiveItemAddresses": [],
-    "LocationHints": [],
-    "ItemHints": [],
     "IsUsefulItem": true
   }
 ]

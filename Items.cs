@@ -914,29 +914,37 @@ namespace MMRando
                     Repeatable = REPEATABLE.Contains(i),
                     CycleRepeatable = CYCLE_REPEATABLE.Contains(i),
                 };
-                if (i < gossipList.Count)
+                items.Add(info);
+
+                if (i >= 98 && i < 98 + Constants.Values.NumberOfAreasAndOther)
                 {
-                    info.LocationHints = gossipList[i].SourceMessage.ToList();
-                    info.ItemHints = gossipList[i].DestinationMessage.ToList();
-                    info.IsUsefulItem = !MessageUtils.IsBadMessage(gossipList[i].DestinationMessage[0]);
+                    continue;
                 }
-                if (i < ITEM_ADDRS.Count)
+
+                int shiftIndex = (i >= 98) ? i - Constants.Values.NumberOfAreasAndOther : i;
+
+                if (shiftIndex < gossipList.Count)
+                {
+                    info.LocationHints = gossipList[shiftIndex].SourceMessage.ToList();
+                    info.ItemHints = gossipList[shiftIndex].DestinationMessage.ToList();
+                    info.IsUsefulItem = !MessageUtils.IsBadMessage(gossipList[shiftIndex].DestinationMessage[0]);
+                }
+                if (shiftIndex < ITEM_ADDRS.Count)
                 {
                     info.GiveItemAddresses.Add(new WriteByte()
                     {
-                        Address = ITEM_ADDRS[i],
-                        Value = ITEM_VALUES[i],
+                        Address = ITEM_ADDRS[shiftIndex],
+                        Value = ITEM_VALUES[shiftIndex],
                     });
                 }
-                if (i < RomData.GetItemIndices.Count)
+                if (shiftIndex < RomData.GetItemIndices.Count)
                 {
-                    info.GetItemIndex = RomData.GetItemIndices[i];
-                    if (RomData.BottleIndices[i] != null)
+                    info.GetItemIndex = RomData.GetItemIndices[shiftIndex];
+                    if (RomData.BottleIndices[shiftIndex] != null)
                     {
-                        info.BottleIndexes = RomData.BottleIndices[i].ToList();
+                        info.BottleIndexes = RomData.BottleIndices[shiftIndex].ToList();
                     }
                 }
-                items.Add(info);
             }
             ItemInfo.Serialize(items, "test_output.json");
         }
