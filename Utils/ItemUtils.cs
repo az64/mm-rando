@@ -76,6 +76,11 @@
             return itemIndex >= Items.HeartPieceDekuTrial && itemIndex <= Items.MaskFierceDeity;
         }
 
+        public static bool IsOtherItem(int itemIndex)
+        {
+            return itemIndex >= Items.ChestLensCaveRedRupee && itemIndex <= Items.ChestToGoronRaceGrotto;
+        }
+
         internal static bool IsDeed(int item)
         {
             return item >= Items.TradeItemLandDeed

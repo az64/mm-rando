@@ -166,6 +166,26 @@ namespace MMRando
                     continue;
                 };
 
+                // Skip hint for song of soaring
+                if (Settings.ExcludeSongOfSoaring && itemIndex == Items.SongSoaring)
+                {
+                    continue;
+                }
+
+                // Skip hints for moon items
+                if (!Settings.AddMoonItems
+                    && ItemUtils.IsMoonItem(itemIndex))
+                {
+                    continue;
+                }
+
+                // Skip hints for other items
+                if (!Settings.AddOther
+                    && ItemUtils.IsOtherItem(itemIndex))
+                {
+                    continue;
+                }
+
                 int sourceItemId = ItemList[itemIndex].ReplacesItemId;
                 sourceItemId -= ItemUtils.GetItemOffset(sourceItemId);
 
