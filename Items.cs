@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using MMRando.Utils;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace MMRando
 {
@@ -204,8 +207,8 @@ namespace MMRando
         public const int ChestLensCavePurpleRupee = 172;
         public const int ChestBeanGrottoRedRupee = 173;
         public const int ChestHotSpringGrottoRedRupee = 174;
-        public const int ChestBadBatsGrottoPurpleRupee = 175; 
-        public const int ChestIkanaGrottoRecoveryHeart = 176; 
+        public const int ChestBadBatsGrottoPurpleRupee = 175;
+        public const int ChestIkanaGrottoRecoveryHeart = 176;
         public const int ChestPiratesFortressRedRupee1 = 177;
         public const int ChestPiratesFortressRedRupee2 = 178;
         public const int ChestInsidePiratesFortressTankRedRupee = 179;
@@ -245,12 +248,12 @@ namespace MMRando
         public const int ChestInvertedStoneTowerBombchu10 = 213;
         public const int ChestInvertedStoneTowerBean = 214;
         public const int ChestToSnowheadGrotto = 215; //contents? 
-        public const int ChestToGoronVillageRedRupee = 216; 
+        public const int ChestToGoronVillageRedRupee = 216;
         public const int ChestSecretShrineHeartPiece = 217; //Heart Piece
-        public const int ChestSecretShrineDinoGrotto = 218; 
-        public const int ChestSecretShrineWizzGrotto = 219; 
-        public const int ChestSecretShrineWartGrotto = 220; 
-        public const int ChestSecretShrineGaroGrotto = 221; 
+        public const int ChestSecretShrineDinoGrotto = 218;
+        public const int ChestSecretShrineWizzGrotto = 219;
+        public const int ChestSecretShrineWartGrotto = 220;
+        public const int ChestSecretShrineGaroGrotto = 221;
         public const int ChestInnStaffRoom = 222; //contents? 
         public const int ChestInnGuestRoom = 223; //contents? 
         public const int ChestWoodsGrotto = 224; //contents? 
@@ -893,6 +896,49 @@ namespace MMRando
         });
 
         internal static readonly int TotalNumberOfItems = 255;
-    }
 
+
+        public static void GenerateItemInfo()
+        {
+            List<ItemInfo> items = new List<ItemInfo>();
+            var gossipList = Randomizer.GetGossipList();
+            ItemSwapUtils.InitIndices();
+
+
+            for (int i = 0; i < TotalNumberOfItems; i++)
+            {
+                ItemInfo info = new ItemInfo()
+                {
+                    MMRIndex = i,
+                    Name = ITEM_NAMES[i],
+                    Repeatable = REPEATABLE.Contains(i),
+                    CycleRepeatable = CYCLE_REPEATABLE.Contains(i),
+                };
+                if (i < gossipList.Count)
+                {
+                    info.LocationHints = gossipList[i].SourceMessage.ToList();
+                    info.ItemHints = gossipList[i].DestinationMessage.ToList();
+                    info.IsUsefulItem = !MessageUtils.IsBadMessage(gossipList[i].DestinationMessage[0]);
+                }
+                if (i < ITEM_ADDRS.Count)
+                {
+                    info.GiveItemAddresses.Add(new WriteByte()
+                    {
+                        Address = ITEM_ADDRS[i],
+                        Value = ITEM_VALUES[i],
+                    });
+                }
+                if (i < RomData.GetItemIndices.Count)
+                {
+                    info.GetItemIndex = RomData.GetItemIndices[i];
+                    if (RomData.BottleIndices[i] != null)
+                    {
+                        info.BottleIndexes = RomData.BottleIndices[i].ToList();
+                    }
+                }
+                items.Add(info);
+            }
+            ItemInfo.Serialize(items, "test_output.json");
+        }
+    }
 }

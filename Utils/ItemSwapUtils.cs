@@ -24,7 +24,7 @@ namespace MMRando.Utils
             SceneUtils.ResetSceneFlagMask();
         }
 
-        private static void InitIndices()
+        public static void InitIndices()
         {
             RomData.GetItemIndices = new List<int>();
             RomData.BottleIndices = new List<int[]>();

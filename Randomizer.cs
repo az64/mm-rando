@@ -8,7 +8,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace MMRando
 {
@@ -111,7 +110,7 @@ namespace MMRando
         private void MakeGossipQuotes()
         {
             var gossipQuotes = new List<string>();
-            ReadAndPopulateGossipList();
+            GossipList = GetGossipList();
 
             for (int itemIndex = 0; itemIndex < ItemList.Count; itemIndex++)
             {
@@ -191,9 +190,9 @@ namespace MMRando
             _randomized.GossipQuotes = gossipQuotes;
         }
 
-        private void ReadAndPopulateGossipList()
+        public static List<Gossip> GetGossipList()
         {
-            GossipList = new List<Gossip>();
+            var gossipList = new List<Gossip>();
 
             string[] gossipLines = Properties.Resources.GOSSIP
                 .Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
@@ -208,8 +207,9 @@ namespace MMRando
                     DestinationMessage = destinationMessage
                 };
 
-                GossipList.Add(nextGossip);
+                gossipList.Add(nextGossip);
             }
+            return gossipList;
         }
 
         public string BuildGossipQuote(ushort soundEffectId, string sourceMessage, string destinationMessage)

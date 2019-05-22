@@ -69,7 +69,7 @@ namespace MMRando.Utils
             return messageTable;
         }
 
-        private static bool IsBadMessage(string message)
+        public static bool IsBadMessage(string message)
         {
             return message.Contains("a segment of health") || message.Contains("currency") ||
                 message.Contains("money") || message.Contains("cash") ||
