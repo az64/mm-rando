@@ -219,6 +219,22 @@ namespace MMRando
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "floor-" + floorType.ToString());
             }
+
+            if(_settings.ClockSpeed != Values.VanillaClockSpeed)
+            {
+                WriteClockSpeed(_settings.ClockSpeed);
+            }
+        }
+
+        /// <summary>
+        /// Overwrite the clockspeed (see Settings.ClockSpeed for details)
+        /// </summary>
+        /// <param name="clockSpeed"></param>
+        private void WriteClockSpeed(byte clockSpeed)
+        {
+            var addr = 0x00BC66D4;
+            uint val = 0x240B0000 + (uint)clockSpeed;
+            ReadWriteUtils.WriteToROM(addr, val);
         }
 
         /// <summary>

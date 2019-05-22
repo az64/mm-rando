@@ -17,6 +17,7 @@ namespace MMRando.Constants
         /// Item indices ranging from 98 and to (inclusive) 120 define 
         /// areas and other (epona, explosive, arrow). In total they make up 23 entries.
         /// </summary>
+        public const byte VanillaClockSpeed = 3;
         public const int NumberOfAreasAndOther = 23;
 
         public static readonly uint[,] TatlColours = new uint[,] { // normal, npc, check, enemy, boss
@@ -46,5 +47,6 @@ namespace MMRando.Constants
             = new ReadOnlyCollection<int>(new int[] {
                 0x02, 0x80, 0x20, 0x80
         });
+
     }
 }
