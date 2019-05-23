@@ -21,8 +21,8 @@ namespace MMRando
         static int BottleCatchTable = 0xCD7C08;
 
         static int GossipStart = 0x20B0;
-        static int GossipEnd = 0x20E8;
-        static int[] GossipExclude = { 0x20D0, 0x20D1, 0x20D2 };
+        static int GossipEnd = 0x2116;
+        static int[] GossipExclude = { 0x20D0, 0x20D1, 0x20D2, 0x20F3, 0x20F7, 0x20F8, 0x20F9 };
 
         private class MMFile
         {
