@@ -109,119 +109,8 @@ namespace MMRando
 
         private void MakeGossipQuotes()
         {
-            var gossipQuotes = new List<string>();
-            GossipList = GetGossipList();
-
-            for (int itemIndex = 0; itemIndex < ItemList.Count; itemIndex++)
-            {
-                if (!ItemList[itemIndex].ReplacesAnotherItem)
-                {
-                    continue;
-                }
-
-                // Skip hints for vanilla bottle content
-                if ((!_settings.RandomizeBottleCatchContents)
-                    && ItemUtils.IsBottleCatchContent(itemIndex))
-                {
-                    continue;
-                }
-
-                // Skip hints for vanilla shop items
-                if ((!_settings.AddShopItems)
-                    && ItemUtils.IsShopItem(itemIndex))
-                {
-                    continue;
-                }
-
-                // Skip hints for vanilla dungeon items
-                if (!_settings.AddDungeonItems
-                    && ItemUtils.IsDungeonItem(itemIndex))
-                {
-                    continue;
-                }
-
-                int sourceItemId = ItemList[itemIndex].ReplacesItemId;
-                if (ItemUtils.IsItemDefinedPastAreas(sourceItemId))
-                {
-                    sourceItemId -= Values.NumberOfAreasAndOther;
-                }
-
-                int toItemId = itemIndex;
-                if (ItemUtils.IsItemDefinedPastAreas(toItemId))
-                {
-                    toItemId -= Values.NumberOfAreasAndOther;
-                }
-
-                // 5% chance of being fake
-                bool isFake = (Random.Next(100) < 5);
-                if (isFake)
-                {
-                    sourceItemId = Random.Next(GossipList.Count);
-                }
-
-                int sourceMessageLength = GossipList[sourceItemId]
-                    .SourceMessage
-                    .Length;
-
-                int destinationMessageLength = GossipList[toItemId]
-                    .DestinationMessage
-                    .Length;
-
-                // Randomize messages
-                string sourceMessage = GossipList[sourceItemId]
-                    .SourceMessage[Random.Next(sourceMessageLength)];
-
-                string destinationMessage = GossipList[toItemId]
-                    .DestinationMessage[Random.Next(destinationMessageLength)];
-
-                // Sound differs if hint is fake
-                ushort soundEffectId = (ushort)(isFake ? 0x690A : 0x690C);
-
-                var quote = BuildGossipQuote(soundEffectId, sourceMessage, destinationMessage);
-
-                gossipQuotes.Add(quote);
-            }
-
-            for (int i = 0; i < Gossip.JunkMessages.Count; i++)
-            {
-                gossipQuotes.Add(Gossip.JunkMessages[i]);
-            }
-
-            _randomized.GossipQuotes = gossipQuotes;
-        }
-
-        public static List<Gossip> GetGossipList()
-        {
-            var gossipList = new List<Gossip>();
-
-            string[] gossipLines = Properties.Resources.GOSSIP
-                .Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-
-            for (int i = 0; i < gossipLines.Length; i += 2)
-            {
-                var sourceMessage = gossipLines[i].Split(';');
-                var destinationMessage = gossipLines[i + 1].Split(';');
-                var nextGossip = new Gossip
-                {
-                    SourceMessage = sourceMessage,
-                    DestinationMessage = destinationMessage
-                };
-
-                gossipList.Add(nextGossip);
-            }
-            return gossipList;
-        }
-
-        public string BuildGossipQuote(ushort soundEffectId, string sourceMessage, string destinationMessage)
-        {
-            int startIndex = Random.Next(Gossip.MessageStartSentences.Count);
-            int midIndex = Random.Next(Gossip.MessageMidSentences.Count);
-            string start = Gossip.MessageStartSentences[startIndex];
-            string mid = Gossip.MessageMidSentences[midIndex];
-
-            string sfx = $"{(char)((soundEffectId >> 8) & 0xFF)}{(char)(soundEffectId & 0xFF)}";
-
-            return $"\x1E{sfx}{start} \x01{sourceMessage}\x00\x11{mid} \x06{destinationMessage}\x00" + "...\xBF";
+            _randomized.GossipQuotes = MessageUtils.MakeGossipQuotes
+                (_settings, ItemList, _random);
         }
 
         #endregion
@@ -1519,11 +1408,11 @@ namespace MMRando
                 if (_settings.EnableGossipHints)
                 {
                     worker.ReportProgress(35, "Making gossip quotes...");
-                }
 
-                //gossip
-                SeedRNG();
-                MakeGossipQuotes();
+                    //gossip
+                    SeedRNG();
+                    MakeGossipQuotes();
+                }
             }
 
             worker.ReportProgress(40, "Coloring Tatl...");

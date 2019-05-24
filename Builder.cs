@@ -19,11 +19,13 @@ namespace MMRando
     {
         private RandomizedResult _randomized;
         private Settings _settings;
+        private MessageTable _messageTable;
 
         public Builder(RandomizedResult randomized)
         {
             _randomized = randomized;
             _settings = randomized.Settings;
+            _messageTable = new MessageTable();
         }
 
         private void WriteAudioSeq()
@@ -353,7 +355,7 @@ namespace MMRando
 
             if (_settings.EnableGossipHints)
             {
-                MessageUtils.WriteGossipHints(_randomized.GossipQuotes, _randomized.Random);
+                _messageTable.UpdateMessages(_randomized.GossipQuotes);
             }
         }
 
@@ -426,6 +428,7 @@ namespace MMRando
                 using (BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open, FileAccess.Read)))
                 {
                     RomUtils.ReadFileTable(OldROM);
+                    _messageTable.InitializeTable();
                 }
             }
             worker.ReportProgress(50, "Writing Audio...");
@@ -464,8 +467,10 @@ namespace MMRando
             worker.ReportProgress(67, "Writing items...");
             WriteItems();
 
-            worker.ReportProgress(68, "Writing gossip...");
+            worker.ReportProgress(68, "Writing messages...");
             WriteGossipQuotes();
+            MessageTable.WriteMessageTable(_messageTable);
+
 
             worker.ReportProgress(70, "Writing startup...");
             WriteStartupStrings();
@@ -484,7 +489,6 @@ namespace MMRando
             worker.ReportProgress(100, "Done!");
 
         }
-
     }
 
 }

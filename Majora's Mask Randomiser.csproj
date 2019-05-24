@@ -68,6 +68,7 @@
     <Compile Include="ItemInfo.cs" />
     <Compile Include="Models\RandomizedResult.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
+    <Compile Include="Models\Rom\MessageTable.cs" />
     <Compile Include="Utils\AudioSequenceUtils.cs" />
     <Compile Include="Constants\Addresses.cs" />
     <Compile Include="Models\Gossip.cs" />

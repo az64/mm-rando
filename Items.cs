@@ -901,7 +901,7 @@ namespace MMRando
         public static void GenerateItemInfo()
         {
             List<ItemInfo> items = new List<ItemInfo>();
-            var gossipList = Randomizer.GetGossipList();
+            var gossipList = MessageUtils.GetGossipList();
             ItemSwapUtils.InitIndices();
 
 

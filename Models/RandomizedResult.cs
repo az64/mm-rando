@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MMRando.Models.Rom;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace MMRando.Models
 
         public Random Random { get; private set; }
         public List<ItemObject> ItemList { get; set; }
-        public List<string> GossipQuotes { get; set; }
+        public List<MessageEntry> GossipQuotes { get; set; }
 
 
         public int[] NewEntrances = new int[] { -1, -1, -1, -1 };
