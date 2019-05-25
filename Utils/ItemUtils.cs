@@ -48,11 +48,11 @@
         public static int GetItemOffset(int itemId)
         {
             var offset = 0;
-            if (itemId > Items.AreaInvertedStoneTowerNew)
+            if (itemId + offset >= Items.AreaSouthAccess)
             {
                 offset += Values.NumberOfAreasAndOther;
             }
-            if (itemId > Items.AreaMoonAccess)
+            if (itemId + offset >= Items.OtherOneMask)
             {
                 offset += 5;
             }

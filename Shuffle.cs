@@ -1624,11 +1624,8 @@ namespace MMRando
             {
                 int selectedItem = fItemEdit.selected_items[i];
 
-                if (selectedItem > Items.SongOath)
-                {
-                    // Skip entries describing areas and other
-                    selectedItem += Values.NumberOfAreasAndOther;
-                }
+                selectedItem += ItemUtils.GetItemOffset(selectedItem);
+
                 int selectedItemIndex = ItemList.FindIndex(u => u.ID == selectedItem);
 
                 if (selectedItemIndex != -1)
