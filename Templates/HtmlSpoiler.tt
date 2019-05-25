@@ -3,7 +3,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="ItemObject = MainRandomizerForm.ItemObject" #>
+<#@ import namespace="ItemObject = MMRando.Models.ItemObject" #>
 <html>
 <head>
 <style>
@@ -25,9 +25,9 @@
 		<th>New Destination</th>
 	</tr>
 <#		 for (int i = 0; i < 4; i++) { 
-			int _newEnt = spoiler.NewEnts[i]; 
-			string destination = spoiler.destinations[i];
-			string newDestination = spoiler.destinations[_newEnt];#>
+			int newEntranceIndex = spoiler.NewEntranceIndices[i]; 
+			string destination = spoiler.Destinations[i];
+			string newDestination = spoiler.Destinations[newEntranceIndex];#>
 	<tr>
 		<td><#= destination #></td>
 		<td class="spoiler"><span data-content="<#= newDestination #>"></span></td>
@@ -43,10 +43,10 @@
      <th>Replaced By</th>
  </tr>
 <# foreach (var item in spoiler.ItemList) {
-	string name = spoiler.ITEM_NAMES[item.ID];
-	string replaces = spoiler.ITEM_NAMES[item.ReplacesItemId];
+	string name = Items.ITEM_NAMES[item.ID];
+	string replaces = Items.ITEM_NAMES[item.ReplacesItemId];
 	ItemObject replacedByObj = spoiler.ItemList.First(i => i.ReplacesItemId == item.ID);
-	string replacedBy = spoiler.ITEM_NAMES[replacedByObj.ID];
+	string replacedBy = Items.ITEM_NAMES[replacedByObj.ID];
 #>
  <tr>
 	<td><#= name #></td>
