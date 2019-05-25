@@ -1,4 +1,5 @@
 ﻿using MMRando.Forms;
+using MMRando.Forms.ToolTips;
 using MMRando.Models;
 using MMRando.Utils;
 using System;
@@ -40,6 +41,7 @@ namespace MMRando
         {
             InitializeComponent();
             InitializeSettings();
+            InitializeToolTips();
 
             _randomizer = new Randomizer(_settings);
 
@@ -50,6 +52,44 @@ namespace MMRando
 
 
             Text = AssemblyVersion;
+        }
+
+        private void InitializeToolTips()
+        {
+            // ROM Settings
+            ToolTipBuilder.SetToolTip(cN64, "Check to output a randomized patched .z64 ROM that can be loaded into a N64 Emulator");
+            ToolTipBuilder.SetToolTip(cVC, "Check to output a randomized patched .WAD file that can be loaded into a Wii Virtual Channel");
+            ToolTipBuilder.SetToolTip(cSpoiler, "Check to output a spoiler log.\n\n The spoiler log contains a list over all items, and their shuffled locations.\n In addition, the spoiler log contains version information, seed and settings string used in the randomization.");
+            ToolTipBuilder.SetToolTip(cHTMLLog, "Check to output a html spoiler log (Requires spoiler log to be checked).\n\n Similar to the regular spoiler log, but readable in browsers. The locations/items are hidden by default, and hovering over them will make them visible.");
+
+            // Main Settings
+            ToolTipBuilder.SetToolTip(cMode, "Select mode of logic:\n - Casual/glitchless: The randomization logic ensures that no glitches are required to beat the game.\n - Using glitches: The randomization logic allows for placement of items that are only obtainable using known glitches\n - Vanilla Layout: All items are left vanilla\n - User logic: Upload your own custom logic to be used in the randomization\n - No logic: Completely random, no guarantee the game is beatable");
+
+            ToolTipBuilder.SetToolTip(cUserItems, "Check to only randomize a custom list of items.\n\nThe item list can be edited from the menu: Customize -> Item List Editor. When checked, some settings will become disabled.");
+            ToolTipBuilder.SetToolTip(cMixSongs, "Check to enable songs being placed among items in the randomization pool");
+            ToolTipBuilder.SetToolTip(cDChests, "Check to enable keys, boss keys, maps and compasses being placed in the randomization pool");
+            ToolTipBuilder.SetToolTip(cShop, "Check to enable shop items being placed in the randomization pool");
+            ToolTipBuilder.SetToolTip(cBottled, "Check to enable captured bottle contents being randomized");
+            ToolTipBuilder.SetToolTip(cSoS, "Check to exclude song of soaring from being placed in the randomization pool");
+            ToolTipBuilder.SetToolTip(cGossip, "Check to enable gossip stones displaying hints on where certain items are located");
+            ToolTipBuilder.SetToolTip(cDEnt, "Check to enable randomization of dungeon entrances. \n\nStone Tower Temple is always vanilla, but Inverted Stone Tower Temple is randomized.");
+            ToolTipBuilder.SetToolTip(cAdditional, "Check to enable miscellaneous items being placed in the randomization pool.\n\nAmong the miscellaneous items are:\nFreestanding heartpieces, overworld chests, (hidden) grotto chests, tingle maps and bank heartpiece");
+            ToolTipBuilder.SetToolTip(cEnemy, "Check to enable randomization of enemies. May cause softlocks in some circumstances, use at your own risk.");
+
+            // Gimmicks
+            ToolTipBuilder.SetToolTip(cDMult, "Select a damage mode, affecting how much damage Link takes:\n\n - Default: Link takes normal damage\n - 2x: Link takes double damage\n - 4x: Link takes quadruple damage\n - 1-hit KO: Any damage kills Link\n - Doom: Hardcore mode. Link's hearts are slowly being drained continuously");
+            ToolTipBuilder.SetToolTip(cDType, "Select an effect to occur whenever Link is being damaged:\n\n - Default: Vanilla effects occur\n - Fire: All damage burns Link\n - Ice: All damage freezes Link\n - Shock: All damage shocks link\n - Knockdown: All damage knocks Link down\n - Random: Any random effect of the above");
+            ToolTipBuilder.SetToolTip(cGravity, "Select a movement modifier:\n\n - Default: No movement modifier\n - High speed: Link moves at a much higher velocity\n - Super low gravity: Link can jump very high\n - Low gravity: Link can jump high\n - High gravity: Link can barely jump");
+            ToolTipBuilder.SetToolTip(cFloors, "Select a floortype for every floor ingame:\n\n - Default: Vanilla floortypes\n - Sand: Link sinks slowly into every floor, affecting movement speed\n - Ice: Every floor is slippery\n - Snow: Similar to sand \n - Random: Any random floortypes of the above");
+
+            // Comforts/cosmetics
+            ToolTipBuilder.SetToolTip(cCutsc, "Select to enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened");
+            ToolTipBuilder.SetToolTip(cQText, "Select to enable quick text. Dialogs are fast-forwarded to choices/end of dialog");
+            ToolTipBuilder.SetToolTip(cBGM, "Select to randomize background music sequences that are played throughout the game.");
+            ToolTipBuilder.SetToolTip(cFreeHints, "Select to enable reading gossip stone hints without requiring mask of truth.");
+            ToolTipBuilder.SetToolTip(bTunic, "Select the colour of Link's Tunic");
+            ToolTipBuilder.SetToolTip(cLink, "Select a character model to replace Link's default model");
+            ToolTipBuilder.SetToolTip(cTatl, "Select a color scheme to replace Tatl's default color scheme");
         }
 
         #region Forms Code
