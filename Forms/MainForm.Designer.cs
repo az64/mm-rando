@@ -104,6 +104,9 @@ namespace MMRando
             this.cDummy = new System.Windows.Forms.CheckBox();
             this.lHrule = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.cPatch = new System.Windows.Forms.CheckBox();
+            this.bApplyPatch = new System.Windows.Forms.Button();
+            this.openPatch = new System.Windows.Forms.OpenFileDialog();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -162,6 +165,8 @@ namespace MMRando
             // 
             // tabROMSettings
             // 
+            this.tabROMSettings.Controls.Add(this.bApplyPatch);
+            this.tabROMSettings.Controls.Add(this.cPatch);
             this.tabROMSettings.Controls.Add(this.cHTMLLog);
             this.tabROMSettings.Controls.Add(this.label1);
             this.tabROMSettings.Controls.Add(this.cSpoiler);
@@ -972,7 +977,36 @@ namespace MMRando
             this.label5.TabIndex = 14;
             this.label5.Text = "_____________________________________________________";
             // 
-            // MainRandomizerForm
+            // cPatch
+            // 
+            this.cPatch.AutoSize = true;
+            this.cPatch.BackColor = System.Drawing.Color.Transparent;
+            this.cPatch.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cPatch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cPatch.ForeColor = System.Drawing.Color.Black;
+            this.cPatch.Location = new System.Drawing.Point(116, 116);
+            this.cPatch.Name = "cPatch";
+            this.cPatch.Size = new System.Drawing.Size(54, 17);
+            this.cPatch.TabIndex = 15;
+            this.cPatch.Text = "Patch";
+            this.cPatch.UseVisualStyleBackColor = false;
+            this.cPatch.CheckedChanged += new System.EventHandler(this.cPatch_CheckedChanged);
+            // 
+            // bApplyPatch
+            // 
+            this.bApplyPatch.Location = new System.Drawing.Point(6, 240);
+            this.bApplyPatch.Name = "bApplyPatch";
+            this.bApplyPatch.Size = new System.Drawing.Size(334, 23);
+            this.bApplyPatch.TabIndex = 16;
+            this.bApplyPatch.Text = "Apply Patch";
+            this.bApplyPatch.UseVisualStyleBackColor = true;
+            this.bApplyPatch.Click += new System.EventHandler(this.bApplyPatch_Click);
+            // 
+            // openPatch
+            // 
+            this.openPatch.Filter = "MMR Patch files|*.mmr";
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -995,7 +1029,7 @@ namespace MMRando
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mMenu;
             this.MaximizeBox = false;
-            this.Name = "MainRandomizerForm";
+            this.Name = "MainForm";
             this.Load += new System.EventHandler(this.mmrMain_Load);
             this.tSettings.ResumeLayout(false);
             this.tabROMSettings.ResumeLayout(false);
@@ -1088,6 +1122,9 @@ namespace MMRando
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox cFreeHints;
         private System.Windows.Forms.CheckBox cHTMLLog;
+        private System.Windows.Forms.CheckBox cPatch;
+        private System.Windows.Forms.Button bApplyPatch;
+        private System.Windows.Forms.OpenFileDialog openPatch;
     }
 }
 

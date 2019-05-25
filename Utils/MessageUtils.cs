@@ -47,14 +47,14 @@ namespace MMRando.Utils
 
             while (true)
             {
-                ushort textId = ReadWriteUtils.Arr_ReadU16(data, baseAddress);
+                ushort textId = ReadWriteUtils.Arr_ReadU16(data.ReadonlyData, baseAddress);
                 if (textId >= 0xFFFD) //This id is still valid, but hard to determine it's size
                 {
                     break;
                 }
 
-                int address = ReadWriteUtils.Arr_ReadS32(data, baseAddress + 4) & 0xFFFFFF;
-                int addressNext = ReadWriteUtils.Arr_ReadS32(data, baseAddress + 12) & 0xFFFFFF;
+                int address = ReadWriteUtils.Arr_ReadS32(data.ReadonlyData, baseAddress + 4) & 0xFFFFFF;
+                int addressNext = ReadWriteUtils.Arr_ReadS32(data.ReadonlyData, baseAddress + 12) & 0xFFFFFF;
 
                 MessageEntry message = new MessageEntry()
                 {

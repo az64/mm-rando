@@ -115,8 +115,10 @@ namespace MMRando
         {
             if (_settings.GenerateROM && !ValidateInputFile()) return;
 
-            saveROM.FileName = _settings.DefaultOutputROMFilename;
-            if ((_settings.GenerateROM || _settings.OutputVC) && saveROM.ShowDialog() != DialogResult.OK)
+            saveROM.FileName = !string.IsNullOrWhiteSpace(_settings.InputPatchFilename)
+                ? Path.ChangeExtension(Path.GetFileName(_settings.InputPatchFilename), "z64")
+                : _settings.DefaultOutputROMFilename;
+            if ((_settings.GenerateROM || _settings.OutputVC || _settings.GeneratePatch || _settings.GenerateSpoilerLog) && saveROM.ShowDialog() != DialogResult.OK)
             {
                 MessageBox.Show("No output directory selected; Nothing will be saved.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -127,6 +129,15 @@ namespace MMRando
 
             EnableAllControls(false);
             bgWorker.RunWorkerAsync();
+        }
+
+        private void bApplyPatch_Click(object sender, EventArgs e)
+        {
+            if (openPatch.ShowDialog() == DialogResult.OK)
+            {
+                _settings.InputPatchFilename = openPatch.FileName;
+                bRandomise_Click(sender, e);
+            }
         }
 
         private void tSString_Enter(object sender, EventArgs e)
@@ -268,6 +279,11 @@ namespace MMRando
                 UpdateSingleSetting(() => _settings.GenerateHTMLLog = false);
             }
 
+        }
+
+        private void cPatch_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.GeneratePatch = cPatch.Checked);
         }
 
         private void cHTMLLog_CheckedChanged(object sender,EventArgs e)
@@ -531,6 +547,8 @@ namespace MMRando
             cFreeHints.Enabled = v;
             cHTMLLog.Enabled = v;
             cN64.Enabled = v;
+            cPatch.Enabled = v;
+            bApplyPatch.Enabled = v;
 
             bopen.Enabled = v;
             bRandomise.Enabled = v;
@@ -585,7 +603,7 @@ namespace MMRando
         /// </summary>
         private void TryRandomize(BackgroundWorker worker, DoWorkEventArgs e)
         {
-            if (!_settings.GenerateROM && !_settings.GenerateSpoilerLog)
+            if (!_settings.GenerateROM && !_settings.GenerateSpoilerLog && !_settings.GeneratePatch)
             {
                 MessageBox.Show($"No output selected", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -593,18 +611,31 @@ namespace MMRando
             }
 
             RandomizedResult randomized;
-            try
+            if (string.IsNullOrWhiteSpace(_settings.InputPatchFilename))
             {
-                randomized = _randomizer.Randomize(worker, e);
+                try
+                {
+                    randomized = _randomizer.Randomize(worker, e);
+                }
+                catch (Exception ex)
+                {
+                    string nl = Environment.NewLine;
+                    MessageBox.Show($"Error randomizing logic: {ex.Message}{nl}{nl}Please try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                
+                if (_settings.GenerateSpoilerLog
+                    && _settings.LogicMode != LogicMode.Vanilla)
+                {
+                    SpoilerUtils.CreateSpoilerLog(randomized, _settings);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                string nl = Environment.NewLine;
-                MessageBox.Show($"Error randomizing logic: {ex.Message}{nl}{nl}Please try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                randomized = new RandomizedResult(_settings, null);
             }
 
-            if (_settings.GenerateROM)
+            if (_settings.GenerateROM || _settings.GeneratePatch)
             {
                 if (!ValidateInputFile()) return;
 
@@ -629,12 +660,7 @@ namespace MMRando
                 }
             }
 
-
-            if (_settings.GenerateSpoilerLog
-                && _settings.LogicMode != LogicMode.Vanilla)
-            {
-                SpoilerUtils.CreateSpoilerLog(randomized, _settings);
-            }
+            _settings.InputPatchFilename = null;
 
             MessageBox.Show("Generation complete!",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.None);

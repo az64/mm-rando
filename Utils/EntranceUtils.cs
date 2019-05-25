@@ -9,11 +9,11 @@
             int f = RomUtils.GetFileIndexForWriting(offset);
 
             offset -= RomData.MMFileList[f].Addr;
-            uint p1 = ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, offset);
+            uint p1 = ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data.ReadonlyData, offset);
             offset = ((ent >> 4) & 0x1F) * 4;
 
             p1 = (uint)((p1 & 0xFFFFFF) + 0xA96540 - RomData.MMFileList[f].Addr);
-            p1 = ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, (int)(p1 + offset));
+            p1 = ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data.ReadonlyData, (int)(p1 + offset));
             p1 = (uint)((p1 & 0xFFFFFF) + 0xA96540 - RomData.MMFileList[f].Addr);
 
             offset = (ent & 0xF) << 2;
@@ -26,7 +26,7 @@
 
             for (int i = 0; i < newe.Length; i++)
             {
-                data[i] = ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, GetEntranceAddr(newe[i]));
+                data[i] = ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data.ReadonlyData, GetEntranceAddr(newe[i]));
             }
 
             for (int i = 0; i < newe.Length; i++)

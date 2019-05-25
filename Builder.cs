@@ -438,53 +438,64 @@ namespace MMRando
 
         public void MakeROM(string InFile, string FileName, BackgroundWorker worker)
         {
-            if (_settings.GenerateROM) { 
-                using (BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open, FileAccess.Read)))
+            using (BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open, FileAccess.Read)))
+            {
+                RomUtils.ReadFileTable(OldROM);
+            }
+
+            if (!string.IsNullOrWhiteSpace(_settings.InputPatchFilename))
+            {
+                RomUtils.ApplyPatch(_settings.InputPatchFilename);
+            }
+            else
+            {
+                worker.ReportProgress(50, "Writing Audio...");
+                WriteAudioSeq();
+
+                worker.ReportProgress(55, "Writing Character...");
+                WriteLinkAppearance();
+                if (_settings.LogicMode != LogicMode.Vanilla)
                 {
-                    RomUtils.ReadFileTable(OldROM);
+                    worker.ReportProgress(60, "Applying hacks...");
+                    ResourceUtils.ApplyHack(Values.ModsDirectory + "title-screen");
+                    ResourceUtils.ApplyHack(Values.ModsDirectory + "misc-changes");
+                    ResourceUtils.ApplyHack(Values.ModsDirectory + "cm-cs");
+                    WriteFileSelect();
+                }
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "init-file");
+
+                worker.ReportProgress(61, "Writing quick text...");
+                WriteQuickText();
+
+                worker.ReportProgress(62, "Writing cutscenes...");
+                WriteCutscenes();
+
+                worker.ReportProgress(63, "Writing Tatl...");
+                WriteTatlColour();
+
+                worker.ReportProgress(64, "Writing dungeons...");
+                WriteDungeons();
+
+                worker.ReportProgress(65, "Writing gimmicks...");
+                WriteGimmicks();
+
+                worker.ReportProgress(66, "Writing enemies...");
+                WriteEnemies();
+
+                worker.ReportProgress(67, "Writing items...");
+                WriteItems();
+
+                worker.ReportProgress(68, "Writing gossip...");
+                WriteGossipQuotes();
+
+                worker.ReportProgress(70, "Writing startup...");
+                WriteStartupStrings();
+
+                if (_settings.GeneratePatch)
+                {
+                    RomUtils.CreatePatch(FileName);
                 }
             }
-            worker.ReportProgress(50, "Writing Audio...");
-            WriteAudioSeq();
-
-            worker.ReportProgress(55, "Writing Character...");
-            WriteLinkAppearance();
-            if (_settings.LogicMode != LogicMode.Vanilla)
-            {
-                worker.ReportProgress(60, "Applying hacks...");
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "title-screen");
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "misc-changes");
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "cm-cs");
-                WriteFileSelect();
-            }
-            ResourceUtils.ApplyHack(Values.ModsDirectory + "init-file");
-
-            worker.ReportProgress(61, "Writing quick text...");
-            WriteQuickText();
-
-            worker.ReportProgress(62, "Writing cutscenes...");
-            WriteCutscenes();
-
-            worker.ReportProgress(63, "Writing Tatl...");
-            WriteTatlColour();
-
-            worker.ReportProgress(64, "Writing dungeons...");
-            WriteDungeons();
-
-            worker.ReportProgress(65, "Writing gimmicks...");
-            WriteGimmicks();
-
-            worker.ReportProgress(66, "Writing enemies...");
-            WriteEnemies();
-
-            worker.ReportProgress(67, "Writing items...");
-            WriteItems();
-
-            worker.ReportProgress(68, "Writing gossip...");
-            WriteGossipQuotes();
-
-            worker.ReportProgress(70, "Writing startup...");
-            WriteStartupStrings();
 
             if (_settings.GenerateROM)
             {

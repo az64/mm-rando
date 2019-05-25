@@ -1,6 +1,10 @@
-﻿using MMRando.Utils;
+﻿using MMRando.Models;
+using MMRando.Models.Rom;
+using MMRando.Utils;
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 
 namespace MMRando.Utils
 {
@@ -45,18 +49,24 @@ namespace MMRando.Utils
         {
             int f = RomUtils.GetFileIndexForWriting(Addr);
             int dest = Addr - RomData.MMFileList[f].Addr;
-            RomData.MMFileList[f].Data[dest] = (byte)((val & 0xFF00) >> 8);
-            RomData.MMFileList[f].Data[dest + 1] = (byte)(val & 0xFF);
+            RomData.MMFileList[f].Data.Write(dest, new byte[]
+            {
+                (byte)((val & 0xFF00) >> 8),
+                (byte)(val & 0xFF)
+            });
         }
 
         public static void WriteToROM(int Addr, uint val)
         {
             int f = RomUtils.GetFileIndexForWriting(Addr);
             int dest = Addr - RomData.MMFileList[f].Addr;
-            RomData.MMFileList[f].Data[dest] = (byte)((val & 0xFF000000) >> 24);
-            RomData.MMFileList[f].Data[dest + 1] = (byte)((val & 0xFF0000) >> 16);
-            RomData.MMFileList[f].Data[dest + 2] = (byte)((val & 0xFF00) >> 8);
-            RomData.MMFileList[f].Data[dest + 3] = (byte)(val & 0xFF);
+            RomData.MMFileList[f].Data.Write(dest, new byte[]
+            {
+                (byte)((val & 0xFF000000) >> 24),
+                (byte)((val & 0xFF0000) >> 16),
+                (byte)((val & 0xFF00) >> 8),
+                (byte)(val & 0xFF)
+            });
         }
 
         public static void WriteToROM(int Addr, byte[] val)
@@ -72,6 +82,11 @@ namespace MMRando.Utils
             {
                 dest[addr + i] = src[start + i];
             }
+        }
+
+        public static void Arr_Insert(byte[] src, int start, int len, ChangeTrackingArray<byte> dest, int addr)
+        {
+            dest.Write(addr, src.Skip(start).Take(len).ToArray());
         }
 
         public static uint Byteswap32(uint val)
@@ -94,7 +109,17 @@ namespace MMRando.Utils
             return (Arr[Src] << 24) | (Arr[Src + 1] << 16) | (Arr[Src + 2] << 8) | Arr[Src + 3];
         }
 
-        public static ushort Arr_ReadU16(byte[] Arr, int Src)
+        public static uint Arr_ReadU32(ReadOnlyCollection<byte> Arr, int Src)
+        {
+            return (uint)((Arr[Src] << 24) | (Arr[Src + 1] << 16) | (Arr[Src + 2] << 8) | Arr[Src + 3]);
+        }
+
+        public static int Arr_ReadS32(ReadOnlyCollection<byte> Arr, int Src)
+        {
+            return (Arr[Src] << 24) | (Arr[Src + 1] << 16) | (Arr[Src + 2] << 8) | Arr[Src + 3];
+        }
+
+        public static ushort Arr_ReadU16(ReadOnlyCollection<byte> Arr, int Src)
         {
             return (ushort)((Arr[Src] << 8) | (Arr[Src + 1]));
         }
@@ -107,10 +132,30 @@ namespace MMRando.Utils
             Arr[Dest + 3] = (byte)(val & 0xFF);
         }
 
+        public static void Arr_WriteU32(ChangeTrackingArray<byte> Arr, int Dest, uint val)
+        {
+            Arr.Write(Dest, new byte[]
+            {
+                (byte)((val & 0xFF000000) >> 24),
+                (byte)((val & 0xFF0000) >> 16),
+                (byte)((val & 0xFF00) >> 8),
+                (byte)(val & 0xFF)
+            });
+        }
+
         public static void Arr_WriteU16(byte[] Arr, int Dest, ushort val)
         {
             Arr[Dest] = (byte)((val & 0xFF00) >> 8);
             Arr[Dest + 1] = (byte)(val & 0xFF);
+        }
+
+        public static void Arr_WriteU16(ChangeTrackingArray<byte> Arr, int Dest, ushort val)
+        {
+            Arr.Write(Dest, new byte[]
+            {
+                (byte)((val & 0xFF00) >> 8),
+                (byte)(val & 0xFF)
+            });
         }
 
         public static uint ReadU32(BinaryReader ROM)

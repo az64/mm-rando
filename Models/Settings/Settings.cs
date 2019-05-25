@@ -29,6 +29,11 @@ namespace MMRando.Models
         public string InputROMFilename { get; set; }
 
         /// <summary>
+        /// Filepath to the input patch file
+        /// </summary>
+        public string InputPatchFilename { get; set; }
+
+        /// <summary>
         /// Filepath to the input logic file
         /// </summary>
         public string UserLogicFileName { get; set; }
@@ -36,7 +41,17 @@ namespace MMRando.Models
         /// <summary>
         /// Default Filename for the output ROM
         /// </summary>
-        public string DefaultOutputROMFilename { get; set; }
+        public string DefaultOutputROMFilename
+        {
+            get
+            {
+                string settings = this.ToString();
+                string appendSeed = GenerateSpoilerLog ? $"{Seed}_" : "";
+                string filename = $"MMR_{appendSeed}{settings}";
+
+                return filename + ".z64";
+            }
+        }
 
         /// <summary>
         /// Filepath to the output ROM
@@ -63,6 +78,11 @@ namespace MMRando.Models
         /// </summary>
         public bool UseCustomItemList { get; set; }
 
+        /// <summary>
+        /// Generate patch file
+        /// </summary>
+        public bool GeneratePatch { get; set; }
+
         #endregion
 
         #region Random Elements
@@ -78,7 +98,6 @@ namespace MMRando.Models
             set
             {
                 _seed = value;
-                UpdateOutputFilenames();
             }
         }
 
@@ -305,15 +324,6 @@ namespace MMRando.Models
             parts[3] = ClockSpeed;
 
             return parts;
-        }
-
-        private void UpdateOutputFilenames()
-        {
-            string settings = this.ToString();
-            string appendSeed = GenerateSpoilerLog ? $"{Seed}_" : "";
-            string filename = $"MMR_{appendSeed}{settings}";
-
-            DefaultOutputROMFilename = filename + ".z64";
         }
 
         private string EncodeSettings()

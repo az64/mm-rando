@@ -1,5 +1,4 @@
-﻿
-namespace MMRando.Models.Rom
+﻿namespace MMRando.Models.Rom
 {
     public class MMFile
     {
@@ -7,7 +6,7 @@ namespace MMRando.Models.Rom
         public int End;
         public int Cmp_Addr;
         public int Cmp_End;
-        public byte[] Data;
+        public ChangeTrackingArray<byte> Data;
         public bool IsCompressed;
         public bool WasEdited;
     }
