@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MMRando.Extensions;
-using MMRando.Utils;
-using static MMRando.MainRandomizerForm;
+using MMRando.Models;
 
 namespace MMRando.LogicMigrator
 {

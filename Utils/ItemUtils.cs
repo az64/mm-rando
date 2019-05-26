@@ -1,4 +1,6 @@
-﻿namespace MMRando.Utils
+﻿using MMRando.Constants;
+
+namespace MMRando.Utils
 {
     public static class ItemUtils
     {
