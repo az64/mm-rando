@@ -419,6 +419,30 @@ namespace MMRando
         }
 
 
+        private void cClockSpeed_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            byte clockSpeed;
+            switch (cClockSpeed.SelectedIndex)
+            {
+                default:
+                case 0: // Default
+                    clockSpeed = 3;
+                    break;
+                case 1: // Slow
+                    clockSpeed = 2;
+                    break;
+                case 2: // Super slow
+                    clockSpeed = 1;
+                    break;
+                case 3: // Fast
+                    clockSpeed = 6;
+                    break;
+                case 4: // Super fast
+                    clockSpeed = 18;
+                    break;
+            }
+            UpdateSingleSetting(() => _settings.ClockSpeed = clockSpeed);
+        }
 
         /// <summary>
         /// Checks for settings that invalidate others, and disable the checkboxes for them.
@@ -552,6 +576,7 @@ namespace MMRando
             cDType.SelectedIndex = 0;
             cGravity.SelectedIndex = 0;
             cFloors.SelectedIndex = 0;
+            cClockSpeed.SelectedIndex = 0;
             cMode.SelectedIndex = 0;
             cLink.SelectedIndex = 0;
             cTatl.SelectedIndex = 0;
