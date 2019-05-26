@@ -64,7 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\ToolTips\ToolTipBuilder.cs" />
+    <Compile Include="Forms\Tooltips\TooltipBuilder.cs" />
     <Compile Include="Models\RandomizedResult.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
     <Compile Include="Utils\AudioSequenceUtils.cs" />

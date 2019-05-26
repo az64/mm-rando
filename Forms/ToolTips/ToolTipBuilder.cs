@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
-namespace MMRando.Forms.ToolTips
+namespace MMRando.Forms.Tooltips
 {
-    public static class ToolTipBuilder
+    public static class TooltipBuilder
     {
-        public static void SetToolTip(Control control, string text)
+        public static void SetTooltip(Control control, string text)
         {
-            var toolTip = new ToolTip();
+            var tooltip = new ToolTip();
 
             // Set up the delays for the ToolTip.
-            toolTip.InitialDelay = 1000;
-            toolTip.ReshowDelay = 500;
+            tooltip.InitialDelay = 1000;
+            tooltip.ReshowDelay = 500;
             // Force the ToolTip text to be displayed whether or not the form is active.
-            toolTip.ShowAlways = true;
+            tooltip.ShowAlways = true;
 
-            toolTip.SetToolTip(control, text);
+            tooltip.SetToolTip(control, text);
         }
     }
 }
