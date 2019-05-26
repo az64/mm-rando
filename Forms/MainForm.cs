@@ -111,7 +111,7 @@ namespace MMRando
             tROMName.Text = _settings.InputROMFilename;
         }
 
-        private void bRandomise_Click(object sender, EventArgs e)
+        private void Randomize()
         {
             if (_settings.GenerateROM && !ValidateInputFile()) return;
 
@@ -131,12 +131,17 @@ namespace MMRando
             bgWorker.RunWorkerAsync();
         }
 
+        private void bRandomise_Click(object sender, EventArgs e)
+        {
+            Randomize();
+        }
+
         private void bApplyPatch_Click(object sender, EventArgs e)
         {
             if (openPatch.ShowDialog() == DialogResult.OK)
             {
                 _settings.InputPatchFilename = openPatch.FileName;
-                bRandomise_Click(sender, e);
+                Randomize();
             }
         }
 

@@ -137,11 +137,12 @@ namespace MMRando.Utils
             for (int i = 0; i < RomData.BottleIndices[ItemSlot].Length; i++)
             {
                 int offset = RomData.BottleIndices[ItemSlot][i] * 6 + baseaddr;
+                var newBottle = RomData.BottleList[NewItem][0];
                 fileData.Write(offset + 3, new byte[]
                 {
-                    RomData.BottleList[NewItem][0].ItemGained,
-                    RomData.BottleList[NewItem][0].Index,
-                    RomData.BottleList[NewItem][0].Message,
+                    newBottle.ItemGained,
+                    newBottle.Index,
+                    newBottle.Message,
                 });
             }
         }

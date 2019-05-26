@@ -12,8 +12,9 @@ namespace MMRando.Utils
         {
             int f = RomUtils.GetFileIndexForWriting(Addresses.ObjTable);
             int basea = Addresses.ObjTable - RomData.MMFileList[f].Addr;
-            return (int)(ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data.ReadonlyData, basea + (obj * 8) + 4)
-                - ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data.ReadonlyData, basea + (obj * 8)));
+            var fileData = RomData.MMFileList[f].Data.ReadonlyData;
+            return (int)(ReadWriteUtils.Arr_ReadU32(fileData, basea + (obj * 8) + 4)
+                - ReadWriteUtils.Arr_ReadU32(fileData, basea + (obj * 8)));
         }
 
         public static void InsertObj(byte[] obj, int replace)
