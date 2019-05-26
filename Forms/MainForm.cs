@@ -41,7 +41,7 @@ namespace MMRando
         {
             InitializeComponent();
             InitializeSettings();
-            InitializeToolTips();
+            InitializeTooltips();
 
             _randomizer = new Randomizer(_settings);
 
@@ -54,7 +54,7 @@ namespace MMRando
             Text = AssemblyVersion;
         }
 
-        private void InitializeToolTips()
+        private void InitializeTooltips()
         {
             // ROM Settings
             TooltipBuilder.SetTooltip(cN64, " output a randomized patched .z64 ROM that can be loaded into a N64 Emulator.");
