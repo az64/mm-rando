@@ -162,10 +162,10 @@ namespace MMRando
                 }
 
                 int sourceItemId = ItemList[itemIndex].ReplacesItemId;
-                sourceItemId -= ItemUtils.GetItemOffset(sourceItemId);
+                sourceItemId = ItemUtils.SubtractItemOffset(sourceItemId);
 
                 int toItemId = itemIndex;
-                toItemId -= ItemUtils.GetItemOffset(toItemId);
+                toItemId = ItemUtils.SubtractItemOffset(toItemId);
 
                 // 5% chance of being fake
                 bool isFake = (Random.Next(100) < 5);
@@ -1549,7 +1549,7 @@ namespace MMRando
             {
                 int selectedItem = _settings.CustomItemList[i];
 
-                selectedItem += ItemUtils.GetItemOffset(selectedItem);
+                selectedItem = ItemUtils.AddItemOffset(selectedItem);
 
                 int selectedItemIndex = ItemList.FindIndex(u => u.ID == selectedItem);
 

@@ -326,9 +326,11 @@ namespace MMRando
                 bool isCycleRepeatable = Items.CYCLE_REPEATABLE.Contains(itemId);
                 int replacesItemId = _randomized.ItemList[i].ReplacesItemId;
 
-                itemId -= ItemUtils.GetItemOffset(itemId);
+                Debug.WriteLine($"Writing {Items.ITEM_NAMES[itemId]} --> {Items.ITEM_NAMES[replacesItemId]}");
 
-                replacesItemId -= ItemUtils.GetItemOffset(replacesItemId);
+                itemId = ItemUtils.SubtractItemOffset(itemId);
+
+                replacesItemId = ItemUtils.SubtractItemOffset(replacesItemId);
 
                 if (ItemUtils.IsBottleCatchContent(i))
                 {
@@ -336,7 +338,6 @@ namespace MMRando
                 }
                 else
                 {
-                    Debug.WriteLine($"Writing {Items.ITEM_NAMES[itemId]} --> {Items.ITEM_NAMES[replacesItemId]}");
                     ItemSwapUtils.WriteNewItem(replacesItemId, itemId, isRepeatable, isCycleRepeatable);
                 }
             }

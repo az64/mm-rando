@@ -47,18 +47,30 @@ namespace MMRando.Utils
                    && itemId <= Items.TradeItemMamaLetter;
         }
 
-        public static int GetItemOffset(int itemId)
+        public static int AddItemOffset(int itemId)
         {
-            var offset = 0;
-            if (itemId + offset >= Items.AreaSouthAccess)
+            if (itemId >= Items.AreaSouthAccess)
             {
-                offset += Values.NumberOfAreasAndOther;
+                itemId += Values.NumberOfAreasAndOther;
             }
-            if (itemId + offset >= Items.OtherOneMask)
+            if (itemId >= Items.OtherOneMask)
             {
-                offset += 5;
+                itemId += 5;
             }
-            return offset;
+            return itemId;
+        }
+
+        public static int SubtractItemOffset(int itemId)
+        {
+            if (itemId >= Items.OtherOneMask)
+            {
+                itemId -= 5;
+            }
+            if (itemId >= Items.AreaSouthAccess)
+            {
+                itemId -= Values.NumberOfAreasAndOther;
+            }
+            return itemId;
         }
 
         public static bool IsDungeonItem(int itemIndex)
