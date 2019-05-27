@@ -103,34 +103,35 @@ namespace MMRando.Templates
                     "tem.ConditionalItemIds, function(conditionals) { return all(conditionals, functi" +
                     "on(id) { return logic[id].Acquired; }); }));\r\n            \r\n\t\t\tif (!item.Acquire" +
                     "d && item.IsFakeItem && item.IsAvailable) {\r\n\t\t\t\titem.Acquired = true;\r\n\t\t\t\treca" +
-                    "lculate = true;\r\n\t\t\t}\r\n        \r\n\t\t\tif (rowItem) {\r\n\t\t\t\trowItem.className = \"\";\r" +
-                    "\n\t\t\t\trowItem.classList.add(item.IsAvailable ? \"available\" : \"unavailable\");\r\n\t\t\t" +
-                    "\tvar replacedBy = rowItem.querySelector(\".replacedby\");\r\n\t\t\t\tvar newLocation = r" +
-                    "owItem.querySelector(\".newlocation\");\r\n\t\t\t\tvar checkboxes = rowItem.querySelecto" +
-                    "rAll(\"input\");\r\n\t\t\t\tcheckboxes[0].checked = item.Checked;\r\n\t\t\t\tcheckboxes[1].che" +
-                    "cked = item.Acquired;\r\n\t\t\t\tif (item.Checked) {\r\n\t\t\t\t\treplacedBy.classList.remove" +
-                    "(\"spoiler\");\r\n\t\t\t\t} else {\r\n\t\t\t\t\treplacedBy.classList.add(\"spoiler\");\r\n\t\t\t\t}\r\n\t\t" +
-                    "\t\tif (item.Acquired) {\r\n\t\t\t\t\tnewLocation.classList.remove(\"spoiler\");\r\n\t\t\t\t} els" +
-                    "e {\r\n\t\t\t\t\tnewLocation.classList.add(\"spoiler\");\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t\tif (recalcu" +
-                    "late) {\r\n\t\t\trecalculateItems();\r\n\t\t}\r\n\t}\r\n\r\n\tlogic[0].Checked = true;\r\n\tlogic[do" +
-                    "cument.querySelector(\"tr[data-id=\'0\']\").dataset.replacedbyid].Acquired = true;\r\n" +
-                    "\tdocument.querySelector(\"tr[data-id=\'0\'] input\").checked = true;\r\n\trecalculateIt" +
-                    "ems();\r\n\r\n\tvar rows = document.querySelectorAll(\"tr\");\r\n\tfor (var i = 1; i < row" +
-                    "s.length; i++) {\r\n\t\tvar row = rows[i];\r\n\t\tvar checkboxes = row.querySelectorAll(" +
-                    "\"input\");\r\n\t\tif (checkboxes.length > 0) {\r\n\t\t\tcheckboxes[0].addEventListener(\"cl" +
-                    "ick\", function(e) {\r\n\t\t\t\tvar row = e.target.closest(\"tr\");\r\n\t\t\t\tvar rowId = pars" +
-                    "eInt(row.dataset.id);\r\n\t\t\t\tvar replacedById = parseInt(row.dataset.replacedbyid)" +
-                    ";\r\n\t\t\t\tvar newLocationId = parseInt(row.dataset.newlocationid);\r\n\t\t\t\tlogic[rowId" +
-                    "].Checked = e.target.checked;\r\n\t\t\t\tlogic[replacedById].Acquired = e.target.check" +
-                    "ed;\r\n\t\t\t\trecalculateItems();\r\n\t\t\t});\r\n\t\t\tcheckboxes[1].addEventListener(\"click\"," +
-                    " function(e) {\r\n\t\t\t\tvar row = e.target.closest(\"tr\");\r\n\t\t\t\tvar rowId = parseInt(" +
-                    "row.dataset.id);\r\n\t\t\t\tvar replacedById = parseInt(row.dataset.replacedbyid);\r\n\t\t" +
-                    "\t\tvar newLocationId = parseInt(row.dataset.newlocationid);\r\n\t\t\t\tlogic[newLocatio" +
-                    "nId].Checked = e.target.checked;\r\n\t\t\t\tlogic[rowId].Acquired = e.target.checked;\r" +
-                    "\n\t\t\t\trecalculateItems();\r\n\t\t\t});\r\n\t\t}\r\n\t}\r\n\r\n\tdocument.querySelector(\"#highlight" +
-                    "-checks\").addEventListener(\"click\", function(e) {\r\n\t\tdocument.querySelector(\"tab" +
-                    "le#item-replacements\").className = e.target.checked ? \"show-highlight\" : \"\";\r\n\t}" +
-                    ");\r\n</script>\r\n</html>");
+                    "lculate = true;\r\n\t\t\t}\r\n\t\t\tif (item.Acquired && item.IsFakeItem && !item.IsAvaila" +
+                    "ble) {\r\n\t\t\t\titem.Acquired = false;\r\n\t\t\t\trecalculate = true;\r\n\t\t\t}\r\n        \r\n\t\t\t" +
+                    "if (rowItem) {\r\n\t\t\t\trowItem.className = \"\";\r\n\t\t\t\trowItem.classList.add(item.IsAv" +
+                    "ailable ? \"available\" : \"unavailable\");\r\n\t\t\t\tvar replacedBy = rowItem.querySelec" +
+                    "tor(\".replacedby\");\r\n\t\t\t\tvar newLocation = rowItem.querySelector(\".newlocation\")" +
+                    ";\r\n\t\t\t\tvar checkboxes = rowItem.querySelectorAll(\"input\");\r\n\t\t\t\tcheckboxes[0].ch" +
+                    "ecked = item.Checked;\r\n\t\t\t\tcheckboxes[1].checked = item.Acquired;\r\n\t\t\t\tif (item." +
+                    "Checked) {\r\n\t\t\t\t\treplacedBy.classList.remove(\"spoiler\");\r\n\t\t\t\t} else {\r\n\t\t\t\t\trep" +
+                    "lacedBy.classList.add(\"spoiler\");\r\n\t\t\t\t}\r\n\t\t\t\tif (item.Acquired) {\r\n\t\t\t\t\tnewLoca" +
+                    "tion.classList.remove(\"spoiler\");\r\n\t\t\t\t} else {\r\n\t\t\t\t\tnewLocation.classList.add(" +
+                    "\"spoiler\");\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t\tif (recalculate) {\r\n\t\t\trecalculateItems();\r\n\t\t}" +
+                    "\r\n\t}\r\n\r\n\tlogic[0].Checked = true;\r\n\tlogic[document.querySelector(\"tr[data-id=\'0\'" +
+                    "]\").dataset.replacedbyid].Acquired = true;\r\n\tdocument.querySelector(\"tr[data-id=" +
+                    "\'0\'] input\").checked = true;\r\n\trecalculateItems();\r\n\r\n\tvar rows = document.query" +
+                    "SelectorAll(\"tr\");\r\n\tfor (var i = 1; i < rows.length; i++) {\r\n\t\tvar row = rows[i" +
+                    "];\r\n\t\tvar checkboxes = row.querySelectorAll(\"input\");\r\n\t\tif (checkboxes.length >" +
+                    " 0) {\r\n\t\t\tcheckboxes[0].addEventListener(\"click\", function(e) {\r\n\t\t\t\tvar row = e" +
+                    ".target.closest(\"tr\");\r\n\t\t\t\tvar rowId = parseInt(row.dataset.id);\r\n\t\t\t\tvar repla" +
+                    "cedById = parseInt(row.dataset.replacedbyid);\r\n\t\t\t\tvar newLocationId = parseInt(" +
+                    "row.dataset.newlocationid);\r\n\t\t\t\tlogic[rowId].Checked = e.target.checked;\r\n\t\t\t\tl" +
+                    "ogic[replacedById].Acquired = e.target.checked;\r\n\t\t\t\trecalculateItems();\r\n\t\t\t});" +
+                    "\r\n\t\t\tcheckboxes[1].addEventListener(\"click\", function(e) {\r\n\t\t\t\tvar row = e.targ" +
+                    "et.closest(\"tr\");\r\n\t\t\t\tvar rowId = parseInt(row.dataset.id);\r\n\t\t\t\tvar replacedBy" +
+                    "Id = parseInt(row.dataset.replacedbyid);\r\n\t\t\t\tvar newLocationId = parseInt(row.d" +
+                    "ataset.newlocationid);\r\n\t\t\t\tlogic[newLocationId].Checked = e.target.checked;\r\n\t\t" +
+                    "\t\tlogic[rowId].Acquired = e.target.checked;\r\n\t\t\t\trecalculateItems();\r\n\t\t\t});\r\n\t\t" +
+                    "}\r\n\t}\r\n\r\n\tdocument.querySelector(\"#highlight-checks\").addEventListener(\"click\", " +
+                    "function(e) {\r\n\t\tdocument.querySelector(\"table#item-replacements\").className = e" +
+                    ".target.checked ? \"show-highlight\" : \"\";\r\n\t});\r\n</script>\r\n</html>");
             return this.GenerationEnvironment.ToString();
         }
     }

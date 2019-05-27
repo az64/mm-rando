@@ -94,6 +94,10 @@
 				item.Acquired = true;
 				recalculate = true;
 			}
+			if (item.Acquired && item.IsFakeItem && !item.IsAvailable) {
+				item.Acquired = false;
+				recalculate = true;
+			}
         
 			if (rowItem) {
 				rowItem.className = "";
