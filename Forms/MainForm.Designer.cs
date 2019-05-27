@@ -788,9 +788,9 @@ namespace MMRando
             // 
             // bApplyPatch
             // 
-            this.bApplyPatch.Location = new System.Drawing.Point(111, 32);
+            this.bApplyPatch.Location = new System.Drawing.Point(6, 32);
             this.bApplyPatch.Name = "bApplyPatch";
-            this.bApplyPatch.Size = new System.Drawing.Size(229, 26);
+            this.bApplyPatch.Size = new System.Drawing.Size(335, 26);
             this.bApplyPatch.TabIndex = 16;
             this.bApplyPatch.Text = "Apply Patch";
             this.bApplyPatch.UseVisualStyleBackColor = true;
@@ -1023,7 +1023,6 @@ namespace MMRando
             this.ttOutput.Size = new System.Drawing.Size(354, 89);
             this.ttOutput.TabIndex = 15;
             this.ttOutput.SelectedIndexChanged += new System.EventHandler(this.ttOutput_Changed);
-
             // 
             // tpOutputSettings
             // 
@@ -1039,7 +1038,6 @@ namespace MMRando
             this.tpOutputSettings.TabIndex = 0;
             this.tpOutputSettings.Text = "Ouput settings";
             this.tpOutputSettings.UseVisualStyleBackColor = true;
-
             // 
             // tpPatchSettings
             // 

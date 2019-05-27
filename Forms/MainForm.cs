@@ -83,7 +83,7 @@ namespace MMRando
             pProgress.Value = 0;
             lStatus.Text = "Ready...";
             EnableAllControls(true);
-            EnableCheckBoxes();
+            ToggleCheckBoxes();
         }
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -153,7 +153,7 @@ namespace MMRando
             {
                 _settings.Update(tSString.Text);
                 UpdateCheckboxes();
-                EnableCheckBoxes();
+                ToggleCheckBoxes();
             }
             catch
             {
@@ -440,7 +440,7 @@ namespace MMRando
         /// <summary>
         /// Checks for settings that invalidate others, and disable the checkboxes for them.
         /// </summary>
-        private void EnableCheckBoxes()
+        private void ToggleCheckBoxes()
         {
 
             if (_settings.LogicMode == LogicMode.Vanilla)
@@ -491,6 +491,12 @@ namespace MMRando
                     cAdditional.Enabled = true;
                 }
             }
+
+            if (ttOutput.SelectedTab.TabIndex == 1)
+            {
+                TogglePatchSettings(false);
+            }
+
         }
 
         /// <summary>
@@ -510,7 +516,7 @@ namespace MMRando
 
             update?.Invoke();
             UpdateSettingsString();
-            EnableCheckBoxes();
+            ToggleCheckBoxes(); // why was this here?
 
             _isUpdating = false;
         }
@@ -687,33 +693,18 @@ namespace MMRando
         private void BLoadPatch_Click(object sender, EventArgs e)
         {
             openPatch.ShowDialog();
-
             _settings.InputPatchFilename = openPatch.FileName;
             tPatch.Text = _settings.InputPatchFilename;
         }
 
         private void ttOutput_Changed(object sender, EventArgs e)
         {
+            ToggleCheckBoxes();
+
             if(ttOutput.SelectedTab.TabIndex == 0)
             {
-                TogglePatchSettings(true);
-
-            }
-            else
-            {
-                TogglePatchSettings(false);
-            }
-
-            //I cannot figure out why I have to do this twice, but they wont toggle if I don't.
-
-            if (ttOutput.SelectedTab.TabIndex == 0)
-            {
-                TogglePatchSettings(true);
-
-            }
-            else
-            {
-                TogglePatchSettings(false);
+                _settings.InputPatchFilename = null;
+                tPatch.Text = null;
             }
         }
 
