@@ -58,6 +58,8 @@ namespace MMRando
             this.lMode = new System.Windows.Forms.Label();
             this.cMode = new System.Windows.Forms.ComboBox();
             this.tabGimmick = new System.Windows.Forms.TabPage();
+            this.lClockSpeed = new System.Windows.Forms.Label();
+            this.cClockSpeed = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lFloors = new System.Windows.Forms.Label();
             this.lGravity = new System.Windows.Forms.Label();
@@ -104,8 +106,6 @@ namespace MMRando
             this.cDummy = new System.Windows.Forms.CheckBox();
             this.lHrule = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cClockSpeed = new System.Windows.Forms.ComboBox();
-            this.lClockSpeed = new System.Windows.Forms.Label();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -117,7 +117,7 @@ namespace MMRando
             // bopen
             // 
             this.bopen.Location = new System.Drawing.Point(4, 46);
-            this.bopen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.bopen.Margin = new System.Windows.Forms.Padding(4);
             this.bopen.Name = "bopen";
             this.bopen.Size = new System.Drawing.Size(137, 33);
             this.bopen.TabIndex = 0;
@@ -132,7 +132,7 @@ namespace MMRando
             // tROMName
             // 
             this.tROMName.Location = new System.Drawing.Point(145, 50);
-            this.tROMName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tROMName.Margin = new System.Windows.Forms.Padding(4);
             this.tROMName.Name = "tROMName";
             this.tROMName.ReadOnly = true;
             this.tROMName.Size = new System.Drawing.Size(305, 22);
@@ -144,7 +144,7 @@ namespace MMRando
             this.cUserItems.AutoSize = true;
             this.cUserItems.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cUserItems.Location = new System.Drawing.Point(253, 55);
-            this.cUserItems.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cUserItems.Margin = new System.Windows.Forms.Padding(4);
             this.cUserItems.Name = "cUserItems";
             this.cUserItems.Size = new System.Drawing.Size(155, 21);
             this.cUserItems.TabIndex = 11;
@@ -160,7 +160,7 @@ namespace MMRando
             this.tSettings.Controls.Add(this.tabGimmick);
             this.tSettings.Controls.Add(this.tabComfort);
             this.tSettings.Location = new System.Drawing.Point(0, 28);
-            this.tSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tSettings.Margin = new System.Windows.Forms.Padding(4);
             this.tSettings.Name = "tSettings";
             this.tSettings.SelectedIndex = 0;
             this.tSettings.Size = new System.Drawing.Size(472, 367);
@@ -177,9 +177,9 @@ namespace MMRando
             this.tabROMSettings.Controls.Add(this.cN64);
             this.tabROMSettings.Controls.Add(this.lOutput);
             this.tabROMSettings.Location = new System.Drawing.Point(4, 28);
-            this.tabROMSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabROMSettings.Margin = new System.Windows.Forms.Padding(4);
             this.tabROMSettings.Name = "tabROMSettings";
-            this.tabROMSettings.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabROMSettings.Padding = new System.Windows.Forms.Padding(4);
             this.tabROMSettings.Size = new System.Drawing.Size(464, 335);
             this.tabROMSettings.TabIndex = 3;
             this.tabROMSettings.Text = "ROM Settings";
@@ -193,7 +193,7 @@ namespace MMRando
             this.cHTMLLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cHTMLLog.ForeColor = System.Drawing.Color.Black;
             this.cHTMLLog.Location = new System.Drawing.Point(268, 114);
-            this.cHTMLLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cHTMLLog.Margin = new System.Windows.Forms.Padding(4);
             this.cHTMLLog.Name = "cHTMLLog";
             this.cHTMLLog.Size = new System.Drawing.Size(166, 21);
             this.cHTMLLog.TabIndex = 14;
@@ -219,7 +219,7 @@ namespace MMRando
             this.cSpoiler.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cSpoiler.ForeColor = System.Drawing.Color.Black;
             this.cSpoiler.Location = new System.Drawing.Point(83, 114);
-            this.cSpoiler.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cSpoiler.Margin = new System.Windows.Forms.Padding(4);
             this.cSpoiler.Name = "cSpoiler";
             this.cSpoiler.Size = new System.Drawing.Size(142, 21);
             this.cSpoiler.TabIndex = 8;
@@ -235,7 +235,7 @@ namespace MMRando
             this.cVC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cVC.ForeColor = System.Drawing.Color.Black;
             this.cVC.Location = new System.Drawing.Point(232, 86);
-            this.cVC.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cVC.Margin = new System.Windows.Forms.Padding(4);
             this.cVC.Name = "cVC";
             this.cVC.Size = new System.Drawing.Size(202, 21);
             this.cVC.TabIndex = 9;
@@ -253,7 +253,7 @@ namespace MMRando
             this.cN64.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cN64.ForeColor = System.Drawing.Color.Black;
             this.cN64.Location = new System.Drawing.Point(128, 86);
-            this.cN64.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cN64.Margin = new System.Windows.Forms.Padding(4);
             this.cN64.Name = "cN64";
             this.cN64.Size = new System.Drawing.Size(92, 21);
             this.cN64.TabIndex = 10;
@@ -288,9 +288,9 @@ namespace MMRando
             this.tabMain.Controls.Add(this.lMode);
             this.tabMain.Controls.Add(this.cMode);
             this.tabMain.Location = new System.Drawing.Point(4, 28);
-            this.tabMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabMain.Margin = new System.Windows.Forms.Padding(4);
             this.tabMain.Name = "tabMain";
-            this.tabMain.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabMain.Padding = new System.Windows.Forms.Padding(4);
             this.tabMain.Size = new System.Drawing.Size(464, 335);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main Settings";
@@ -328,7 +328,7 @@ namespace MMRando
             this.cAdditional.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cAdditional.ForeColor = System.Drawing.Color.Black;
             this.cAdditional.Location = new System.Drawing.Point(277, 181);
-            this.cAdditional.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cAdditional.Margin = new System.Windows.Forms.Padding(4);
             this.cAdditional.Name = "cAdditional";
             this.cAdditional.Size = new System.Drawing.Size(127, 21);
             this.cAdditional.TabIndex = 12;
@@ -344,7 +344,7 @@ namespace MMRando
             this.cGossip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cGossip.ForeColor = System.Drawing.Color.Black;
             this.cGossip.Location = new System.Drawing.Point(259, 124);
-            this.cGossip.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cGossip.Margin = new System.Windows.Forms.Padding(4);
             this.cGossip.Name = "cGossip";
             this.cGossip.Size = new System.Drawing.Size(147, 21);
             this.cGossip.TabIndex = 11;
@@ -360,7 +360,7 @@ namespace MMRando
             this.cSoS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cSoS.ForeColor = System.Drawing.Color.Black;
             this.cSoS.Location = new System.Drawing.Point(217, 96);
-            this.cSoS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cSoS.Margin = new System.Windows.Forms.Padding(4);
             this.cSoS.Name = "cSoS";
             this.cSoS.Size = new System.Drawing.Size(185, 21);
             this.cSoS.TabIndex = 10;
@@ -376,7 +376,7 @@ namespace MMRando
             this.cMixSongs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cMixSongs.ForeColor = System.Drawing.Color.Black;
             this.cMixSongs.Location = new System.Drawing.Point(27, 96);
-            this.cMixSongs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cMixSongs.Margin = new System.Windows.Forms.Padding(4);
             this.cMixSongs.Name = "cMixSongs";
             this.cMixSongs.Size = new System.Drawing.Size(157, 21);
             this.cMixSongs.TabIndex = 3;
@@ -392,7 +392,7 @@ namespace MMRando
             this.cEnemy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cEnemy.ForeColor = System.Drawing.Color.Black;
             this.cEnemy.Location = new System.Drawing.Point(188, 292);
-            this.cEnemy.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cEnemy.Margin = new System.Windows.Forms.Padding(4);
             this.cEnemy.Name = "cEnemy";
             this.cEnemy.Size = new System.Drawing.Size(84, 21);
             this.cEnemy.TabIndex = 9;
@@ -408,7 +408,7 @@ namespace MMRando
             this.cDChests.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cDChests.ForeColor = System.Drawing.Color.Black;
             this.cDChests.Location = new System.Drawing.Point(60, 124);
-            this.cDChests.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cDChests.Margin = new System.Windows.Forms.Padding(4);
             this.cDChests.Name = "cDChests";
             this.cDChests.Size = new System.Drawing.Size(125, 21);
             this.cDChests.TabIndex = 4;
@@ -424,7 +424,7 @@ namespace MMRando
             this.cBottled.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBottled.ForeColor = System.Drawing.Color.Black;
             this.cBottled.Location = new System.Drawing.Point(12, 181);
-            this.cBottled.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cBottled.Margin = new System.Windows.Forms.Padding(4);
             this.cBottled.Name = "cBottled";
             this.cBottled.Size = new System.Drawing.Size(172, 21);
             this.cBottled.TabIndex = 5;
@@ -440,7 +440,7 @@ namespace MMRando
             this.cDEnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cDEnt.ForeColor = System.Drawing.Color.Black;
             this.cDEnt.Location = new System.Drawing.Point(248, 153);
-            this.cDEnt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cDEnt.Margin = new System.Windows.Forms.Padding(4);
             this.cDEnt.Name = "cDEnt";
             this.cDEnt.Size = new System.Drawing.Size(155, 21);
             this.cDEnt.TabIndex = 7;
@@ -456,7 +456,7 @@ namespace MMRando
             this.cShop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cShop.ForeColor = System.Drawing.Color.Black;
             this.cShop.Location = new System.Drawing.Point(85, 153);
-            this.cShop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cShop.Margin = new System.Windows.Forms.Padding(4);
             this.cShop.Name = "cShop";
             this.cShop.Size = new System.Drawing.Size(100, 21);
             this.cShop.TabIndex = 6;
@@ -488,7 +488,7 @@ namespace MMRando
             "User Logic",
             "No Logic"});
             this.cMode.Location = new System.Drawing.Point(120, 22);
-            this.cMode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cMode.Margin = new System.Windows.Forms.Padding(4);
             this.cMode.Name = "cMode";
             this.cMode.Size = new System.Drawing.Size(295, 24);
             this.cMode.TabIndex = 1;
@@ -508,12 +508,39 @@ namespace MMRando
             this.tabGimmick.Controls.Add(this.cDMult);
             this.tabGimmick.Controls.Add(this.cGravity);
             this.tabGimmick.Location = new System.Drawing.Point(4, 28);
-            this.tabGimmick.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabGimmick.Margin = new System.Windows.Forms.Padding(4);
             this.tabGimmick.Name = "tabGimmick";
             this.tabGimmick.Size = new System.Drawing.Size(464, 335);
             this.tabGimmick.TabIndex = 2;
             this.tabGimmick.Text = "Gimmicks";
             this.tabGimmick.UseVisualStyleBackColor = true;
+            // 
+            // lClockSpeed
+            // 
+            this.lClockSpeed.AutoSize = true;
+            this.lClockSpeed.Location = new System.Drawing.Point(73, 218);
+            this.lClockSpeed.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lClockSpeed.Name = "lClockSpeed";
+            this.lClockSpeed.Size = new System.Drawing.Size(85, 17);
+            this.lClockSpeed.TabIndex = 16;
+            this.lClockSpeed.Text = "Clock speed";
+            // 
+            // cClockSpeed
+            // 
+            this.cClockSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cClockSpeed.FormattingEnabled = true;
+            this.cClockSpeed.Items.AddRange(new object[] {
+            "Default (100%)",
+            "66%",
+            "33%",
+            "200%",
+            "600% (nope mode)"});
+            this.cClockSpeed.Location = new System.Drawing.Point(169, 215);
+            this.cClockSpeed.Margin = new System.Windows.Forms.Padding(4);
+            this.cClockSpeed.Name = "cClockSpeed";
+            this.cClockSpeed.Size = new System.Drawing.Size(209, 24);
+            this.cClockSpeed.TabIndex = 15;
+            this.cClockSpeed.SelectedIndexChanged += new System.EventHandler(this.cClockSpeed_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -581,7 +608,7 @@ namespace MMRando
             "Snow",
             "Random"});
             this.cFloors.Location = new System.Drawing.Point(169, 183);
-            this.cFloors.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cFloors.Margin = new System.Windows.Forms.Padding(4);
             this.cFloors.Name = "cFloors";
             this.cFloors.Size = new System.Drawing.Size(209, 24);
             this.cFloors.TabIndex = 0;
@@ -599,7 +626,7 @@ namespace MMRando
             "Knockdown",
             "Random"});
             this.cDType.Location = new System.Drawing.Point(169, 117);
-            this.cDType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cDType.Margin = new System.Windows.Forms.Padding(4);
             this.cDType.Name = "cDType";
             this.cDType.Size = new System.Drawing.Size(209, 24);
             this.cDType.TabIndex = 0;
@@ -616,7 +643,7 @@ namespace MMRando
             "1-hit KO",
             "Doom"});
             this.cDMult.Location = new System.Drawing.Point(169, 84);
-            this.cDMult.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cDMult.Margin = new System.Windows.Forms.Padding(4);
             this.cDMult.Name = "cDMult";
             this.cDMult.Size = new System.Drawing.Size(209, 24);
             this.cDMult.TabIndex = 0;
@@ -633,7 +660,7 @@ namespace MMRando
             "Low gravity",
             "High gravity"});
             this.cGravity.Location = new System.Drawing.Point(169, 150);
-            this.cGravity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cGravity.Margin = new System.Windows.Forms.Padding(4);
             this.cGravity.Name = "cGravity";
             this.cGravity.Size = new System.Drawing.Size(209, 24);
             this.cGravity.TabIndex = 0;
@@ -652,9 +679,9 @@ namespace MMRando
             this.tabComfort.Controls.Add(this.lLink);
             this.tabComfort.Controls.Add(this.bTunic);
             this.tabComfort.Location = new System.Drawing.Point(4, 28);
-            this.tabComfort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabComfort.Margin = new System.Windows.Forms.Padding(4);
             this.tabComfort.Name = "tabComfort";
-            this.tabComfort.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabComfort.Padding = new System.Windows.Forms.Padding(4);
             this.tabComfort.Size = new System.Drawing.Size(464, 335);
             this.tabComfort.TabIndex = 1;
             this.tabComfort.Text = "Comfort/Cosmetics";
@@ -668,7 +695,7 @@ namespace MMRando
             this.cFreeHints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cFreeHints.ForeColor = System.Drawing.Color.Black;
             this.cFreeHints.Location = new System.Drawing.Point(69, 113);
-            this.cFreeHints.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cFreeHints.Margin = new System.Windows.Forms.Padding(4);
             this.cFreeHints.Name = "cFreeHints";
             this.cFreeHints.Size = new System.Drawing.Size(93, 21);
             this.cFreeHints.TabIndex = 15;
@@ -688,7 +715,7 @@ namespace MMRando
             "Random",
             "Rainbow (cycle)"});
             this.cTatl.Location = new System.Drawing.Point(312, 101);
-            this.cTatl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cTatl.Margin = new System.Windows.Forms.Padding(4);
             this.cTatl.Name = "cTatl";
             this.cTatl.Size = new System.Drawing.Size(140, 24);
             this.cTatl.TabIndex = 12;
@@ -702,7 +729,7 @@ namespace MMRando
             this.cCutsc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cCutsc.ForeColor = System.Drawing.Color.Black;
             this.cCutsc.Location = new System.Drawing.Point(12, 28);
-            this.cCutsc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cCutsc.Margin = new System.Windows.Forms.Padding(4);
             this.cCutsc.Name = "cCutsc";
             this.cCutsc.Size = new System.Drawing.Size(148, 21);
             this.cCutsc.TabIndex = 5;
@@ -731,7 +758,7 @@ namespace MMRando
             this.cQText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cQText.ForeColor = System.Drawing.Color.Black;
             this.cQText.Location = new System.Drawing.Point(67, 57);
-            this.cQText.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cQText.Margin = new System.Windows.Forms.Padding(4);
             this.cQText.Name = "cQText";
             this.cQText.Size = new System.Drawing.Size(92, 21);
             this.cQText.TabIndex = 6;
@@ -749,7 +776,7 @@ namespace MMRando
             "Adult Link (Risky!)",
             "Kafei"});
             this.cLink.Location = new System.Drawing.Point(312, 68);
-            this.cLink.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cLink.Margin = new System.Windows.Forms.Padding(4);
             this.cLink.Name = "cLink";
             this.cLink.Size = new System.Drawing.Size(140, 24);
             this.cLink.TabIndex = 10;
@@ -776,7 +803,7 @@ namespace MMRando
             this.cBGM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBGM.ForeColor = System.Drawing.Color.Black;
             this.cBGM.Location = new System.Drawing.Point(20, 85);
-            this.cBGM.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cBGM.Margin = new System.Windows.Forms.Padding(4);
             this.cBGM.Name = "cBGM";
             this.cBGM.Size = new System.Drawing.Size(141, 21);
             this.cBGM.TabIndex = 8;
@@ -802,7 +829,7 @@ namespace MMRando
             this.bTunic.BackColor = System.Drawing.Color.White;
             this.bTunic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bTunic.Location = new System.Drawing.Point(312, 32);
-            this.bTunic.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.bTunic.Margin = new System.Windows.Forms.Padding(4);
             this.bTunic.Name = "bTunic";
             this.bTunic.Size = new System.Drawing.Size(141, 28);
             this.bTunic.TabIndex = 8;
@@ -821,7 +848,7 @@ namespace MMRando
             // bRandomise
             // 
             this.bRandomise.Location = new System.Drawing.Point(340, 425);
-            this.bRandomise.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.bRandomise.Margin = new System.Windows.Forms.Padding(4);
             this.bRandomise.Name = "bRandomise";
             this.bRandomise.Size = new System.Drawing.Size(123, 62);
             this.bRandomise.TabIndex = 5;
@@ -948,7 +975,7 @@ namespace MMRando
             // tSeed
             // 
             this.tSeed.Location = new System.Drawing.Point(108, 428);
-            this.tSeed.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tSeed.Margin = new System.Windows.Forms.Padding(4);
             this.tSeed.MaxLength = 10;
             this.tSeed.Name = "tSeed";
             this.tSeed.Size = new System.Drawing.Size(223, 22);
@@ -973,7 +1000,7 @@ namespace MMRando
             // tSString
             // 
             this.tSString.Location = new System.Drawing.Point(108, 459);
-            this.tSString.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tSString.Margin = new System.Windows.Forms.Padding(4);
             this.tSString.Name = "tSString";
             this.tSString.Size = new System.Drawing.Size(223, 22);
             this.tSString.TabIndex = 6;
@@ -1000,7 +1027,7 @@ namespace MMRando
             this.cDummy.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cDummy.Enabled = false;
             this.cDummy.Location = new System.Drawing.Point(349, 494);
-            this.cDummy.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cDummy.Margin = new System.Windows.Forms.Padding(4);
             this.cDummy.Name = "cDummy";
             this.cDummy.Size = new System.Drawing.Size(98, 21);
             this.cDummy.TabIndex = 9;
@@ -1030,33 +1057,6 @@ namespace MMRando
             this.label5.TabIndex = 14;
             this.label5.Text = "_____________________________________________________";
             // 
-            // cClockSpeed
-            // 
-            this.cClockSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cClockSpeed.FormattingEnabled = true;
-            this.cClockSpeed.Items.AddRange(new object[] {
-            "Default",
-            "Slow",
-            "Super slow",
-            "Fast",
-            "Super fast (nope mode)"});
-            this.cClockSpeed.Location = new System.Drawing.Point(169, 215);
-            this.cClockSpeed.Margin = new System.Windows.Forms.Padding(4);
-            this.cClockSpeed.Name = "cClockSpeed";
-            this.cClockSpeed.Size = new System.Drawing.Size(209, 24);
-            this.cClockSpeed.TabIndex = 15;
-            this.cClockSpeed.SelectedIndexChanged += new System.EventHandler(this.cClockSpeed_SelectedIndexChanged);
-            // 
-            // lClockSpeed
-            // 
-            this.lClockSpeed.AutoSize = true;
-            this.lClockSpeed.Location = new System.Drawing.Point(73, 218);
-            this.lClockSpeed.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lClockSpeed.Name = "lClockSpeed";
-            this.lClockSpeed.Size = new System.Drawing.Size(85, 17);
-            this.lClockSpeed.TabIndex = 16;
-            this.lClockSpeed.Text = "Clock speed";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1079,7 +1079,7 @@ namespace MMRando
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mMenu;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Load += new System.EventHandler(this.mmrMain_Load);
