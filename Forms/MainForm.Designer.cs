@@ -1037,7 +1037,7 @@ namespace MMRando
             this.tpOutputSettings.Padding = new System.Windows.Forms.Padding(3);
             this.tpOutputSettings.Size = new System.Drawing.Size(346, 63);
             this.tpOutputSettings.TabIndex = 0;
-            this.tpOutputSettings.Text = "Ouput settings";
+            this.tpOutputSettings.Text = "Output settings";
             this.tpOutputSettings.UseVisualStyleBackColor = true;
             // 
             // tpPatchSettings
