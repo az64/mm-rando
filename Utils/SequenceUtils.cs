@@ -68,7 +68,7 @@ namespace MMRando.Utils
             };
         }
 
-        public static void RebuildAudioSeq(List<MMRando.Models.Rom.SequenceInfo> SequenceList)
+        public static void RebuildAudioSeq(List<SequenceInfo> SequenceList)
         {
             List<MMSequence> OldSeq = new List<MMSequence>();
             int f = RomUtils.GetFileIndexForWriting(Addresses.SeqTable);

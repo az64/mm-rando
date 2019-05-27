@@ -927,7 +927,7 @@ namespace MMRando
                 {
                     info.LocationHints = gossipList[shiftIndex].SourceMessage.ToList();
                     info.ItemHints = gossipList[shiftIndex].DestinationMessage.ToList();
-                    info.IsUsefulItem = !MessageUtils.IsBadMessage(gossipList[shiftIndex].DestinationMessage[0]);
+                    info.IsUsefulItem = !IsBadMessage(gossipList[shiftIndex].DestinationMessage[0]);
                 }
                 if (shiftIndex < ITEM_ADDRS.Count)
                 {
@@ -947,6 +947,14 @@ namespace MMRando
                 }
             }
             ItemInfo.Serialize(items, "test_output.json");
+
+            bool IsBadMessage(string message)
+            {
+                return message.Contains("a segment of health") || message.Contains("currency") ||
+                    message.Contains("money") || message.Contains("cash") ||
+                    message.Contains("wealth") || message.Contains("riches and stuff") ||
+                    message.Contains("increased life");
+            }
         }
     }
 }

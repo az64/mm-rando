@@ -28,14 +28,6 @@ namespace MMRando.Utils
         });
 
 
-        public static bool IsBadMessage(string message)
-        {
-            return message.Contains("a segment of health") || message.Contains("currency") ||
-                message.Contains("money") || message.Contains("cash") ||
-                message.Contains("wealth") || message.Contains("riches and stuff") ||
-                message.Contains("increased life");
-        }
-
         public static List<Gossip> GetGossipList()
         {
             var gossipList = new List<Gossip>();

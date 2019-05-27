@@ -286,7 +286,6 @@ namespace MMRando
         private void PrepareRulesetItemData()
         {
             ItemList = new List<ItemObject>();
-
             if (_settings.LogicMode == LogicMode.Casual
                 || _settings.LogicMode == LogicMode.Glitched
                 || _settings.LogicMode == LogicMode.UserLogic)
@@ -304,9 +303,16 @@ namespace MMRando
 
         private void AddRequirementsForSongOath()
         {
-            int[] OathReq = new int[] { 100, 103, 108, 113 };
-            ItemList[Items.SongOath].DependsOnItems = new List<int>();
-            ItemList[Items.SongOath].DependsOnItems.Add(OathReq[Random.Next(4)]);
+            int[] OathReq = new int[] {
+                Items.AreaWoodFallTempleClear,
+                Items.AreaSnowheadTempleClear,
+                Items.AreaGreatBayTempleClear,
+                Items.AreaStoneTowerClear };
+
+            ItemList[Items.SongOath].DependsOnItems = new List<int>
+            {
+                OathReq[Random.Next(4)]
+            };
         }
 
         /// <summary>

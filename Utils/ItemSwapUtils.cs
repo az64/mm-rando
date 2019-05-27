@@ -143,12 +143,12 @@ namespace MMRando.Utils
             }
         }
 
-        public static void WriteNewItem(int ItemSlot, int NewItem, bool IsRepeatable, bool RepeatCycle)
+        public static void WriteNewItem(int itemSlot, int NewItem, bool IsRepeatable, bool RepeatCycle)
         {
             int f = RomUtils.GetFileIndexForWriting(Addresses.GetItemTable);
             int baseaddr = Addresses.GetItemTable - RomData.MMFileList[f].Addr;
-            var itemIndex = RomData.GetItemIndices[ItemSlot];
-            if (ItemSlot == Items.ItemGoldDust)
+            var itemIndex = RomData.GetItemIndices[itemSlot];
+            if (itemSlot == Items.ItemGoldDust)
             {
                 itemIndex = 0x6A; // Place items intended for Gold Dust at the Goron Race Bottle location.
             }

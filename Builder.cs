@@ -291,26 +291,26 @@ namespace MMRando
             }
 
             //write free item (start item default = Deku Mask)
-            var freeItemIndex = _randomized.ItemList.FindIndex(u => u.ReplacesItemId == Items.MaskDeku);
-            WriteFreeItem(_randomized.ItemList[freeItemIndex].ID);
+            var freeItem = _randomized.ItemList.Find(u => u.ReplacesItemId == Items.MaskDeku);
+            WriteFreeItem(freeItem.ID);
 
             //write everything else
             ItemSwapUtils.ReplaceGetItemTable(Values.ModsDirectory);
             ItemSwapUtils.InitItems();
 
-            for (int i = 0; i < _randomized.ItemList.Count; i++)
+            foreach (var item in _randomized.ItemList)
             {
-                var itemId = _randomized.ItemList[i].ID;
-
                 // Unused item
-                if (_randomized.ItemList[i].ReplacesItemId == -1)
+                if (item.ReplacesItemId == -1)
                 {
                     continue;
-                };
+                }
 
-                bool isRepeatable = Items.REPEATABLE.Contains(itemId);
-                bool isCycleRepeatable = Items.CYCLE_REPEATABLE.Contains(itemId);
-                int replacesItemId = _randomized.ItemList[i].ReplacesItemId;
+                bool isRepeatable = Items.REPEATABLE.Contains(item.ID);
+                bool isCycleRepeatable = Items.CYCLE_REPEATABLE.Contains(item.ID);
+
+                var itemId = item.ID;
+                int replacesItemId = item.ReplacesItemId;
 
                 if (ItemUtils.IsItemDefinedPastAreas(itemId))
                 {
@@ -324,7 +324,7 @@ namespace MMRando
                     replacesItemId -= Values.NumberOfAreasAndOther;
                 }
 
-                if (ItemUtils.IsBottleCatchContent(i))
+                if (ItemUtils.IsBottleCatchContent(item.ID))
                 {
                     ItemSwapUtils.WriteNewBottle(replacesItemId, itemId);
                 }
