@@ -390,9 +390,20 @@ namespace MMRando
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             if (_isUpdating)
             {
                 return;
+            }
+
+            switch (cMode.SelectedIndex)
+            {
+                case 0: _settings.LogicMode = LogicMode.Casual; break;
+                case 1: _settings.LogicMode = LogicMode.Glitched; break;
+                case 2: _settings.LogicMode = LogicMode.NoLogic; break;
+                case 3: _settings.LogicMode = LogicMode.UserLogic; break;
+                case 4: _settings.LogicMode = LogicMode.Vanilla; break;
+                default: return;
             }
 
             if (_settings.LogicMode == LogicMode.UserLogic

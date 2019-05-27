@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace MMRando
 {
@@ -803,7 +804,7 @@ namespace MMRando
             // 
             // cTunic
             // 
-            this.cTunic.Color = System.Drawing.Color.ForestGreen;
+            this.cTunic.Color = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(105)))), ((int)(((byte)(27)))));
             // 
             // bRandomise
             // 
