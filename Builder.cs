@@ -379,8 +379,8 @@ namespace MMRando
             ResourceUtils.ApplyHack(Values.ModsDirectory + "file-select");
             byte[] SkyboxDefault = new byte[] { 0x91, 0x78, 0x9B, 0x28, 0x00, 0x28 };
             List<int[]> Addrs = ResourceUtils.GetAddresses(Values.AddrsDirectory + "skybox-init");
-            Random R = new Random();
-            int rot = R.Next(360);
+            //Random R = new Random();
+            int rot = 0;// R.Next(360);
             for (int i = 0; i < 2; i++)
             {
                 Color c = Color.FromArgb(SkyboxDefault[i * 3], SkyboxDefault[i * 3 + 1], SkyboxDefault[i * 3 + 2]);
@@ -398,7 +398,7 @@ namespace MMRando
                 ReadWriteUtils.WriteROMAddr(Addrs[i], new byte[] { SkyboxDefault[i * 2], SkyboxDefault[i * 2 + 1] });
             }
 
-            rot = R.Next(360);
+            rot = 0;// R.Next(360);
             byte[] FSDefault = new byte[] { 0x64, 0x96, 0xFF, 0x96, 0xFF, 0xFF, 0x64, 0xFF, 0xFF };
             Addrs = ResourceUtils.GetAddresses(Values.AddrsDirectory + "fs-colour");
             for (int i = 0; i < 3; i++)
@@ -442,6 +442,8 @@ namespace MMRando
             {
                 RomUtils.ReadFileTable(OldROM);
             }
+
+            var originalMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
 
             if (!string.IsNullOrWhiteSpace(_settings.InputPatchFilename))
             {
@@ -493,7 +495,7 @@ namespace MMRando
 
                 if (_settings.GeneratePatch)
                 {
-                    RomUtils.CreatePatch(FileName);
+                    RomUtils.CreatePatch(FileName, originalMMFileList);
                 }
             }
 

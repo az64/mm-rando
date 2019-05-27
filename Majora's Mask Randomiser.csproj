@@ -67,7 +67,6 @@
     <Compile Include="Models\ChangeTrackingArray.cs" />
     <Compile Include="Models\RandomizedResult.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
-    <Compile Include="Utils\AudioSequenceUtils.cs" />
     <Compile Include="Constants\Addresses.cs" />
     <Compile Include="Models\Gossip.cs" />
     <Compile Include="Models\ItemObject.cs" />

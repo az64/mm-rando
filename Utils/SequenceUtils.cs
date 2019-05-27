@@ -87,12 +87,12 @@ namespace MMRando.Utils
                 }
 
                 int entryaddr = Addresses.SeqTable + (i * 16);
-                entry.Addr = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data.ReadonlyData, entryaddr - basea);
-                entry.Size = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data.ReadonlyData, (entryaddr - basea) + 4);
+                entry.Addr = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, entryaddr - basea);
+                entry.Size = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, (entryaddr - basea) + 4);
                 if (entry.Size > 0)
                 {
                     entry.Data = new byte[entry.Size];
-                    Array.Copy(RomData.MMFileList[4].Data.ReadonlyData.ToArray(), entry.Addr, entry.Data, 0, entry.Size);
+                    Array.Copy(RomData.MMFileList[4].Data, entry.Addr, entry.Data, 0, entry.Size);
                 }
                 else
                 {
@@ -177,17 +177,16 @@ namespace MMRando.Utils
                 newa.Addr = RomData.MMFileList[RomData.MMFileList.Count - 1].End;
                 newa.End = newa.Addr + addr;
                 newa.IsCompressed = false;
-                newa.Data = new ChangeTrackingArray<byte>(new byte[NewAudioSeq.Length]);
-                newa.Data.Write(0, NewAudioSeq);
+                newa.Data = NewAudioSeq;
                 RomData.MMFileList.Add(newa);
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "reloc-audio");
-                RomData.MMFileList[4].Data = new ChangeTrackingArray<byte>(new byte[0]);
+                RomData.MMFileList[4].Data = new byte[0];
                 RomData.MMFileList[4].Cmp_Addr = -1;
                 RomData.MMFileList[4].Cmp_End = -1;
             }
             else
             {
-                RomData.MMFileList[4].Data = new ChangeTrackingArray<byte>(NewAudioSeq);
+                RomData.MMFileList[4].Data = NewAudioSeq;
             }
 
             //update pointer table

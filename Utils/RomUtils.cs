@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Compression;
 using MMRando.Models;
+using System.Collections.ObjectModel;
 
 namespace MMRando.Utils
 {
@@ -50,10 +51,9 @@ namespace MMRando.Utils
             {
                 Addr = start,
                 IsCompressed = false,
-                Data = new ChangeTrackingArray<byte>(new byte[buffer.Length]),
+                Data = buffer,
                 End = start + buffer.Length
             };
-            newfile.Data.Write(0, buffer);
             RomData.MMFileList.Add(newfile);
             return newfile.Addr;
         }
@@ -64,12 +64,16 @@ namespace MMRando.Utils
                 file => RAddr >= file.Addr && RAddr < file.End);
         }
 
-        public static void CheckCompressed(int fileIndex)
+        public static void CheckCompressed(int fileIndex, List<MMFile> mmFileList = null)
         {
-            var file = RomData.MMFileList[fileIndex];
+            if (mmFileList == null)
+            {
+                mmFileList = RomData.MMFileList;
+            }
+            var file = mmFileList[fileIndex];
             if (file.IsCompressed && !file.WasEdited)
             {
-                file.Data = new ChangeTrackingArray<byte>(Yaz0Utils.Decompress(file.Data.ReadonlyData.ToArray()));
+                file.Data = Yaz0Utils.Decompress(file.Data);
                 file.WasEdited = true;
             }
         }
@@ -135,26 +139,71 @@ namespace MMRando.Utils
             }
         }
 
-        public static void CreatePatch(string filename)
+        public static void CreatePatch(string filename, List<MMFile> originalMMFiles)
         {
             using (var filestream = File.Open(Path.ChangeExtension(filename, "mmr"), FileMode.Create))
-            using (var compressStream = new GZipStream(filestream, CompressionMode.Compress))
-            using (var writer = new BinaryWriter(compressStream))
+            //using (var compressStream = new GZipStream(filestream, CompressionMode.Compress))
+            using (var writer = new BinaryWriter(filestream))
             {
                 for (var fileIndex = 0; fileIndex < RomData.MMFileList.Count; fileIndex++)
                 {
                     var file = RomData.MMFileList[fileIndex];
-                    if (file.Data == null)
+                    if (file.Data == null || (file.IsCompressed && !file.WasEdited))
                     {
                         continue;
                     }
-                    foreach (var change in file.Data.Changes)
+                    if (fileIndex >= originalMMFiles.Count)
                     {
                         writer.Write(ReadWriteUtils.Byteswap32((uint)fileIndex));
-                        writer.Write(ReadWriteUtils.Byteswap32((uint)change.Item1));
-                        writer.Write(ReadWriteUtils.Byteswap32((uint)change.Item2.Length));
-                        writer.Write(change.Item2);
+                        writer.Write(ReadWriteUtils.Byteswap32((uint)0));
+                        writer.Write(ReadWriteUtils.Byteswap32((uint)file.Data.Length));
+                        writer.Write(file.Data);
+                        continue;
                     }
+                    CheckCompressed(fileIndex, originalMMFiles);
+                    var originalFile = originalMMFiles[fileIndex];
+                    if (file.Data.Length != originalFile.Data.Length)
+                    {
+                        writer.Write(ReadWriteUtils.Byteswap32((uint)fileIndex));
+                        writer.Write(-1);
+                        writer.Write(ReadWriteUtils.Byteswap32((uint)file.Data.Length));
+                        writer.Write(file.Data);
+                        continue;
+                    }
+                    //hrz-9fm7eq-9pke0v-3
+                    int? modifiedIndex = null;
+                    var modifiedBuffer = new List<byte>();
+                    for (var i = 0; i <= file.Data.Length; i++)
+                    {
+                        if (i == file.Data.Length || file.Data[i] == originalFile.Data[i])
+                        {
+                            if (modifiedBuffer.Any())
+                            {
+                                writer.Write(ReadWriteUtils.Byteswap32((uint)fileIndex));
+                                writer.Write(ReadWriteUtils.Byteswap32((uint)modifiedIndex.Value));
+                                writer.Write(ReadWriteUtils.Byteswap32((uint)modifiedBuffer.Count));
+                                writer.Write(modifiedBuffer.ToArray());
+                                modifiedBuffer.Clear();
+                                modifiedIndex = null;
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            if (!modifiedIndex.HasValue)
+                            {
+                                modifiedIndex = i;
+                            }
+                            modifiedBuffer.Add(file.Data[i]);
+                        }
+                    }
+                    //foreach (var change in file.Data.Changes)
+                    //{
+                    //    writer.Write(ReadWriteUtils.Byteswap32((uint)fileIndex));
+                    //    writer.Write(ReadWriteUtils.Byteswap32((uint)change.Item1));
+                    //    writer.Write(ReadWriteUtils.Byteswap32((uint)change.Item2.Length));
+                    //    writer.Write(change.Item2);
+                    //}
                 }
             }
         }
@@ -162,10 +211,10 @@ namespace MMRando.Utils
         public static void ApplyPatch(string filename)
         {
             using (var filestream = File.Open(filename, FileMode.Open))
-            using (var compressStream = new GZipStream(filestream, CompressionMode.Decompress))
+            //using (var compressStream = new GZipStream(filestream, CompressionMode.Decompress))
             using (var memoryStream = new MemoryStream())
             {
-                compressStream.CopyTo(memoryStream);
+                filestream.CopyTo(memoryStream);
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 using (var reader = new BinaryReader(memoryStream))
                 {
@@ -182,13 +231,25 @@ namespace MMRando.Utils
                             {
                                 Addr = start,
                                 IsCompressed = false,
-                                Data = new ChangeTrackingArray<byte>(data),
+                                Data = data,
                                 End = start + data.Length
                             };
                             RomData.MMFileList.Add(newFile);
                         }
-                        CheckCompressed(fileIndex);
-                        RomData.MMFileList[fileIndex].Data.Write(index, data);
+                        if (index == -1)
+                        {
+                            RomData.MMFileList[fileIndex].Data = data;
+                            if (data.Length == 0)
+                            {
+                                RomData.MMFileList[fileIndex].Cmp_Addr = -1;
+                                RomData.MMFileList[fileIndex].Cmp_End = -1;
+                            }
+                        }
+                        else
+                        {
+                            CheckCompressed(fileIndex);
+                            ReadWriteUtils.Arr_Insert(data, 0, data.Length, RomData.MMFileList[fileIndex].Data, index);
+                        }
                     }
                 }
             }
@@ -200,9 +261,16 @@ namespace MMRando.Utils
             {
                 if (file.IsCompressed && file.WasEdited)
                 {
-                    file.Data = new ChangeTrackingArray<byte>(Yaz0Utils.Compress(file.Data.ReadonlyData.ToArray()));
+                    file.Data = Yaz0Utils.Compress(file.Data);
                 }
             });
+            //for (var i = 0; i < RomData.MMFileList.Count; i++)
+            //{
+            //    if (RomData.MMFileList[i].Data != null)
+            //    {
+            //        CheckCompressed(i);
+            //    }
+            //}
             byte[] ROM = new byte[0x2000000];
             int ROMAddr = 0;
             for (int i = 0; i < RomData.MMFileList.Count; i++)
@@ -217,7 +285,7 @@ namespace MMRando.Utils
                 {
                     RomData.MMFileList[i].Cmp_End = ROMAddr + file_len;
                 }
-                ReadWriteUtils.Arr_Insert(RomData.MMFileList[i].Data.ReadonlyData.ToArray(), 0, file_len, ROM, ROMAddr);
+                ReadWriteUtils.Arr_Insert(RomData.MMFileList[i].Data, 0, file_len, ROM, ROMAddr);
                 ROMAddr += file_len;
             }
             UpdateFileTable(ROM);
@@ -288,13 +356,13 @@ namespace MMRando.Utils
                 {
                     byte[] CmpFile = new byte[RomData.MMFileList[i].Cmp_End - RomData.MMFileList[i].Cmp_Addr];
                     ROM.Read(CmpFile, 0, CmpFile.Length);
-                    RomData.MMFileList[i].Data = new ChangeTrackingArray<byte>(CmpFile);
+                    RomData.MMFileList[i].Data = CmpFile;
                 }
                 else
                 {
                     var buffer = new byte[RomData.MMFileList[i].End - RomData.MMFileList[i].Addr];
                     ROM.Read(buffer, 0, buffer.Length);
-                    RomData.MMFileList[i].Data = new ChangeTrackingArray<byte>(buffer);
+                    RomData.MMFileList[i].Data = buffer;
                 }
             }
         }

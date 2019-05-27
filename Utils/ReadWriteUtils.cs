@@ -49,24 +49,26 @@ namespace MMRando.Utils
         {
             int f = RomUtils.GetFileIndexForWriting(Addr);
             int dest = Addr - RomData.MMFileList[f].Addr;
-            RomData.MMFileList[f].Data.Write(dest, new byte[]
+            var data = new byte[]
             {
                 (byte)((val & 0xFF00) >> 8),
                 (byte)(val & 0xFF)
-            });
+            };
+            Arr_Insert(data, 0, data.Length, RomData.MMFileList[f].Data, dest);
         }
 
         public static void WriteToROM(int Addr, uint val)
         {
             int f = RomUtils.GetFileIndexForWriting(Addr);
             int dest = Addr - RomData.MMFileList[f].Addr;
-            RomData.MMFileList[f].Data.Write(dest, new byte[]
+            var data = new byte[]
             {
                 (byte)((val & 0xFF000000) >> 24),
                 (byte)((val & 0xFF0000) >> 16),
                 (byte)((val & 0xFF00) >> 8),
                 (byte)(val & 0xFF)
-            });
+            };
+            Arr_Insert(data, 0, data.Length, RomData.MMFileList[f].Data, dest);
         }
 
         public static void WriteToROM(int Addr, byte[] val)
@@ -109,17 +111,7 @@ namespace MMRando.Utils
             return (Arr[Src] << 24) | (Arr[Src + 1] << 16) | (Arr[Src + 2] << 8) | Arr[Src + 3];
         }
 
-        public static uint Arr_ReadU32(ReadOnlyCollection<byte> Arr, int Src)
-        {
-            return (uint)((Arr[Src] << 24) | (Arr[Src + 1] << 16) | (Arr[Src + 2] << 8) | Arr[Src + 3]);
-        }
-
-        public static int Arr_ReadS32(ReadOnlyCollection<byte> Arr, int Src)
-        {
-            return (Arr[Src] << 24) | (Arr[Src + 1] << 16) | (Arr[Src + 2] << 8) | Arr[Src + 3];
-        }
-
-        public static ushort Arr_ReadU16(ReadOnlyCollection<byte> Arr, int Src)
+        public static ushort Arr_ReadU16(byte[] Arr, int Src)
         {
             return (ushort)((Arr[Src] << 8) | (Arr[Src + 1]));
         }

@@ -237,11 +237,12 @@ namespace MMRando.Utils
             {
                 int ca = addr + (i * 2);
                 ushort rgba = ToRGBA5551(c[i]);
-                RomData.MMFileList[file].Data.Write(ca, new byte[]
+                var data = new byte[]
                 {
                     (byte)(rgba >> 8),
                     (byte)(rgba & 0xFF),
-                });
+                };
+                ReadWriteUtils.Arr_Insert(data, 0, data.Length, RomData.MMFileList[file].Data, ca);
             }
         }
 
