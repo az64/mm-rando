@@ -716,6 +716,13 @@ namespace MMRando
             {
                 _settings.InputPatchFilename = null;
                 tPatch.Text = null;
+
+                cFreeHints.Enabled = true;
+                cQText.Enabled = true;
+                cCutsc.Enabled = true;
+                tSeed.Enabled = true;
+                tSString.Enabled = true;
+                cLink.Enabled = true;
             }
         }
 
