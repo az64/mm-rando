@@ -138,11 +138,7 @@ namespace MMRando
 
         private void bApplyPatch_Click(object sender, EventArgs e)
         {
-            if (openPatch.ShowDialog() == DialogResult.OK)
-            {
-                _settings.InputPatchFilename = openPatch.FileName;
-                Randomize();
-            }
+            Randomize();
         }
 
         private void tSString_Enter(object sender, EventArgs e)
@@ -687,6 +683,108 @@ namespace MMRando
         }
 
         #endregion
+
+        private void BLoadPatch_Click(object sender, EventArgs e)
+        {
+            openPatch.ShowDialog();
+
+            _settings.InputPatchFilename = openPatch.FileName;
+            tPatch.Text = _settings.InputPatchFilename;
+        }
+
+        private void ttOutput_Changed(object sender, EventArgs e)
+        {
+            if(ttOutput.SelectedTab.TabIndex == 0)
+            {
+                TogglePatchSettings(true);
+
+            }
+            else
+            {
+                TogglePatchSettings(false);
+            }
+
+            //I cannot figure out why I have to do this twice, but they wont toggle if I don't.
+
+            if (ttOutput.SelectedTab.TabIndex == 0)
+            {
+                TogglePatchSettings(true);
+
+            }
+            else
+            {
+                TogglePatchSettings(false);
+            }
+        }
+
+
+        private void TogglePatchSettings(bool v)
+        {
+            cAdditional.Checked = false;
+            cAdditional.Enabled = v;
+
+            cBottled.Checked = false;
+            cBottled.Enabled = v;
+
+            cCutsc.Checked = false;
+            cCutsc.Enabled = v;
+
+            cDChests.Checked = false;
+            cDChests.Enabled = v;
+
+            cDEnt.Checked = false;
+            cDEnt.Enabled = v;
+
+            cMode.Enabled = v;
+
+            cDMult.Enabled = v;
+
+            cDType.Enabled = v;
+
+            cDummy.Checked = false;
+            cDummy.Enabled = v;
+
+            cEnemy.Checked = false;
+            cEnemy.Enabled = v;
+
+
+            cFloors.Enabled = v;
+
+            cGossip.Checked = false;
+            cGossip.Enabled = v;
+
+            cGravity.Enabled = v;
+
+            cLink.Enabled = v;
+
+            cMixSongs.Checked = false;
+            cMixSongs.Enabled = v;
+
+            cSoS.Checked = false;
+            cSoS.Enabled = v;
+
+            cShop.Checked = false;
+            cShop.Enabled = v;
+
+            cUserItems.Checked = false;
+            cUserItems.Enabled = v;
+
+            cQText.Checked = false;
+            cQText.Enabled = v;
+
+            cSpoiler.Checked = false;
+            cSpoiler.Enabled = v;
+
+            cFreeHints.Checked = false;
+            cFreeHints.Enabled = v;
+
+            cHTMLLog.Checked = false;
+            cHTMLLog.Enabled = v;
+
+            tSeed.Enabled = v;
+
+            tSString.Enabled = v;
+        }
     }
 
 }
