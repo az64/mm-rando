@@ -54,6 +54,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -66,6 +67,8 @@
   <ItemGroup>
     <Compile Include="Models\RandomizedResult.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
+    <Compile Include="Models\SpoilerItem.cs" />
+    <Compile Include="Models\ItemLogic.cs" />
     <Compile Include="Utils\AudioSequenceUtils.cs" />
     <Compile Include="Constants\Addresses.cs" />
     <Compile Include="Models\Gossip.cs" />

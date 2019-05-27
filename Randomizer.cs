@@ -394,51 +394,6 @@ namespace MMRando
             };
         }
 
-        private void CreateTextSpoilerLog(Spoiler spoiler, string path)
-        {
-            StringBuilder log = new StringBuilder();
-            log.AppendLine($"{"Version:",-17} {spoiler.Version}");
-            log.AppendLine($"{"Settings String:",-17} {spoiler.SettingsString}");
-            log.AppendLine($"{"Seed:",-17} {spoiler.Seed}");
-            log.AppendLine();
-
-            if (spoiler.RandomizeDungeonEntrances)
-            {
-                log.AppendLine($" {"Entrance",-21}    {"Destination"}");
-                log.AppendLine();
-                string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
-                for (int i = 0; i < 4; i++)
-                {
-                    log.AppendLine($"{destinations[i],-21} >> {destinations[spoiler.NewDestinationIndices[i]]}");
-                }
-                log.AppendLine("");
-            }
-
-            log.AppendLine($" {"Item",-40}    {"Location"}");
-            foreach (var item in spoiler.ItemList)
-            {
-                string name = Items.ITEM_NAMES[item.ID];
-                string replaces = Items.ITEM_NAMES[item.ReplacesItemId];
-                log.AppendLine($"{name,-40} >> {replaces}");
-            }
-
-            log.AppendLine();
-            log.AppendLine();
-
-            log.AppendLine($" {"Item",-40}    {"Location"}");
-            foreach (var item in spoiler.ItemList.OrderBy(item => item.ReplacesItemId))
-            {
-                string name = Items.ITEM_NAMES[item.ID];
-                string replaces = Items.ITEM_NAMES[item.ReplacesItemId];
-                log.AppendLine($"{name,-40} >> {replaces}");
-            }
-
-            using (StreamWriter sw = new StreamWriter(path))
-            {
-                sw.Write(log.ToString());
-            }
-        }
-
         private void PrepareRulesetItemData()
         {
             ItemList = new List<ItemObject>();
@@ -1556,6 +1511,8 @@ namespace MMRando
                     worker.ReportProgress(10, "Shuffling entrances...");
                     EntranceShuffle();
                 }
+
+                _randomized.Logic = ItemList.Select(io => new ItemLogic(io)).ToList();
 
                 worker.ReportProgress(30, "Shuffling items...");
                 RandomizeItems();

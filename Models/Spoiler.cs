@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
 
 namespace MMRando.Models
@@ -17,7 +19,26 @@ namespace MMRando.Models
 
         public int Seed { get; set; }
 
-        public List<ItemObject> ItemList { get; set; }
+        public List<SpoilerItem> ItemList { get; set; }
+
+        public List<ItemLogic> Logic { get; set; }
+
+        public string LogicJson
+        {
+            get
+            {
+                var serializer = new DataContractJsonSerializer(typeof(List<ItemLogic>));
+                using (var stream = new MemoryStream())
+                {
+                    serializer.WriteObject(stream, Logic);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    using (var reader = new StreamReader(stream))
+                    {
+                        return reader.ReadToEnd();
+                    }
+                }
+            }
+        }
 
         public int[] NewDestinationIndices { get; set; }
 

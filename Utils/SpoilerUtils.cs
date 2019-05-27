@@ -11,7 +11,13 @@ namespace MMRando.Utils
     {
         public static void CreateSpoilerLog(RandomizedResult randomized, Settings settings)
         {
-            var itemList = randomized.ItemList.Where(u => u.ReplacesAnotherItem).ToList();
+            var itemList = randomized.ItemList
+                .Where(u => u.ReplacesAnotherItem)
+                .Select(u => new SpoilerItem(u)
+                {
+                    ReplacedById = randomized.ItemList.Single(i => i.ReplacesItemId == u.ID).ID
+                })
+                .ToList();
             var settingsString = settings.ToString();
 
             var directory = Path.GetDirectoryName(settings.OutputROMFilename);
@@ -24,7 +30,8 @@ namespace MMRando.Utils
                 Seed = settings.Seed,
                 RandomizeDungeonEntrances = settings.RandomizeDungeonEntrances,
                 ItemList = itemList,
-                NewDestinationIndices = randomized.NewDestinationIndices
+                NewDestinationIndices = randomized.NewDestinationIndices,
+                Logic = randomized.Logic
             };
 
             if (settings.GenerateHTMLLog)
@@ -66,20 +73,16 @@ namespace MMRando.Utils
             log.AppendLine($" {"Item",-40}    {"Location"}");
             foreach (var item in spoiler.ItemList)
             {
-                string name = Items.ITEM_NAMES[item.ID];
-                string replaces = Items.ITEM_NAMES[item.ReplacesItemId];
-                log.AppendLine($"{name,-40} >> {replaces}");
+                log.AppendLine($"{item.Name,-40} >> {item.NewLocationName}");
             }
 
             log.AppendLine();
             log.AppendLine();
 
             log.AppendLine($" {"Item",-40}    {"Location"}");
-            foreach (var item in spoiler.ItemList)
+            foreach (var item in spoiler.ItemList.OrderBy(i => i.NewLocationId))
             {
-                string replaces = Items.ITEM_NAMES[item.ReplacesItemId];
-                string name = Items.ITEM_NAMES[item.ID];
-                log.AppendLine($"{replaces,-40} >> {name}");
+                log.AppendLine($"{item.Name,-40} >> {item.NewLocationName}");
             }
 
             using (StreamWriter sw = new StreamWriter(path))

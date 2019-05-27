@@ -1,16 +1,19 @@
-﻿<#@ template language="C#" #>
+﻿<#@ template language="C#" linePragmas="false" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="ItemObject = MMRando.Models.ItemObject" #>
 <html>
 <head>
 <style>
 	th{ text-align:left }
 	.spoiler{ background-color:black }
 	.spoiler:hover { background-color: white;  }
-	.spoiler [data-content]:before { content: attr(data-content); }
+	[data-content]:before { content: attr(data-content); }
+
+	.show-highlight .unavailable .itemname { background-color: #FFDDDD; }
+	.show-highlight .acquired .itemname { background-color: #DDFFDD; }
+	.show-highlight .available .itemname { background-color: #DDDDFF; }
 </style>
 </head>
 <label><b>Version:</b></label><span><#= spoiler.Version #></span><br/>
@@ -25,7 +28,7 @@
 		<th>New Destination</th>
 	</tr>
 <#		 for (int i = 0; i < 4; i++) { 
-			int newEntranceIndex = spoiler.NewEntranceIndices[i]; 
+			int newEntranceIndex = spoiler.NewDestinationIndices[i]; 
 			string destination = spoiler.Destinations[i];
 			string newDestination = spoiler.Destinations[newEntranceIndex];#>
 	<tr>
@@ -36,23 +39,120 @@
 </table>
 <# } #>
 <h2>Item Replacements</h2>
-<table border="1">
+<input type="checkbox" id="highlight-checks"/> Highlight available checks
+<table border="1" id="item-replacements">
  <tr>
-     <th>Item</th>
-     <th>New Location</th>
      <th>Replaced By</th>
+	 <th></th>
+     <th>Item</th>
+	 <th></th>
+     <th>New Location</th>
  </tr>
 <# foreach (var item in spoiler.ItemList) {
-	string name = Items.ITEM_NAMES[item.ID];
-	string replaces = Items.ITEM_NAMES[item.ReplacesItemId];
-	ItemObject replacedByObj = spoiler.ItemList.First(i => i.ReplacesItemId == item.ID);
-	string replacedBy = Items.ITEM_NAMES[replacedByObj.ID];
 #>
- <tr>
-	<td><#= name #></td>
-	<td class="spoiler"> <span data-content="<#= replaces #>"></span></td>
-	<td class="spoiler"> <span data-content="<#= replacedBy #>"></span></td>
+ <tr data-id="<#= item.Id #>" data-replacedbyid="<#= item.ReplacedById #>" data-newlocationid="<#= item.NewLocationId #>" class="unavailable">
+	<td class="spoiler replacedby"> <span data-content="<#= item.ReplacedByName #>"></span></td>
+	<td><input type="checkbox"/></td>
+	<td class="itemname"><#= item.Name #></td>
+	<td><input type="checkbox"/></td>
+	<td class="spoiler newlocation"> <span data-content="<#= item.NewLocationName #>"></span></td>
  </tr>
 <# } #>
 </table>
+<script>
+	var logic = <#= spoiler.LogicJson #>
+
+	function all(list, predicate) {
+		for (var i = 0; i < list.length; i++) {
+			if (!predicate(list[i])) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	function any(list, predicate) {
+		for (var i = 0; i < list.length; i++) {
+			if (predicate(list[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	function recalculateItems() {
+		var recalculate = false;
+		for (var i = 0; i < logic.length; i++) {
+			var item = logic[i];
+			var rowItem = document.querySelector("tr[data-id='" + item.ItemId + "']");
+			item.IsAvailable = 
+				(item.RequiredItemIds === null || all(item.RequiredItemIds, function(id) { return logic[id].Acquired; }))
+				&& 
+				(item.ConditionalItemIds === null || any(item.ConditionalItemIds, function(conditionals) { return all(conditionals, function(id) { return logic[id].Acquired; }); }));
+            
+			if (!item.Acquired && item.IsFakeItem && item.IsAvailable) {
+				item.Acquired = true;
+				recalculate = true;
+			}
+        
+			if (rowItem) {
+				rowItem.className = "";
+				rowItem.classList.add(item.IsAvailable ? "available" : "unavailable");
+				var replacedBy = rowItem.querySelector(".replacedby");
+				var newLocation = rowItem.querySelector(".newlocation");
+				var checkboxes = rowItem.querySelectorAll("input");
+				checkboxes[0].checked = item.Checked;
+				checkboxes[1].checked = item.Acquired;
+				if (item.Checked) {
+					replacedBy.classList.remove("spoiler");
+				} else {
+					replacedBy.classList.add("spoiler");
+				}
+				if (item.Acquired) {
+					newLocation.classList.remove("spoiler");
+				} else {
+					newLocation.classList.add("spoiler");
+				}
+			}
+		}
+		if (recalculate) {
+			recalculateItems();
+		}
+	}
+
+	logic[0].Checked = true;
+	logic[document.querySelector("tr[data-id='0']").dataset.replacedbyid].Acquired = true;
+	document.querySelector("tr[data-id='0'] input").checked = true;
+	recalculateItems();
+
+	var rows = document.querySelectorAll("tr");
+	for (var i = 1; i < rows.length; i++) {
+		var row = rows[i];
+		var checkboxes = row.querySelectorAll("input");
+		if (checkboxes.length > 0) {
+			checkboxes[0].addEventListener("click", function(e) {
+				var row = e.target.closest("tr");
+				var rowId = parseInt(row.dataset.id);
+				var replacedById = parseInt(row.dataset.replacedbyid);
+				var newLocationId = parseInt(row.dataset.newlocationid);
+				logic[rowId].Checked = e.target.checked;
+				logic[replacedById].Acquired = e.target.checked;
+				recalculateItems();
+			});
+			checkboxes[1].addEventListener("click", function(e) {
+				var row = e.target.closest("tr");
+				var rowId = parseInt(row.dataset.id);
+				var replacedById = parseInt(row.dataset.replacedbyid);
+				var newLocationId = parseInt(row.dataset.newlocationid);
+				logic[newLocationId].Checked = e.target.checked;
+				logic[rowId].Acquired = e.target.checked;
+				recalculateItems();
+			});
+		}
+	}
+
+	document.querySelector("#highlight-checks").addEventListener("click", function(e) {
+		document.querySelector("table#item-replacements").className = e.target.checked ? "show-highlight" : "";
+	});
+</script>
 </html>
