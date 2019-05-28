@@ -245,22 +245,18 @@ namespace MMRando
 
         private void cUserItems_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
 
             cDChests.Checked = false;
-            UpdateSingleSetting(() => _settings.AddDungeonItems = false);
 
             cShop.Checked = false;
-            UpdateSingleSetting(() => _settings.AddShopItems = false);
 
             cBottled.Checked = false;
-            UpdateSingleSetting(() => _settings.RandomizeBottleCatchContents = false);
 
             cSoS.Checked = false;
-            UpdateSingleSetting(() => _settings.ExcludeSongOfSoaring = false);
 
             cAdditional.Checked = false;
-            UpdateSingleSetting(() => _settings.AddOther = false);
+
+            UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
 
         }
 
@@ -717,31 +713,21 @@ namespace MMRando
                 _settings.InputPatchFilename = null;
                 tPatch.Text = null;
 
-                cFreeHints.Enabled = true;
-                cQText.Enabled = true;
-                cCutsc.Enabled = true;
-                tSeed.Enabled = true;
-                tSString.Enabled = true;
-                cLink.Enabled = true;
+                TogglePatchSettings(true);
             }
         }
 
 
         private void TogglePatchSettings(bool v)
         {
-            cAdditional.Checked = false;
             cAdditional.Enabled = v;
 
-            cBottled.Checked = false;
             cBottled.Enabled = v;
 
-            cCutsc.Checked = false;
             cCutsc.Enabled = v;
 
-            cDChests.Checked = false;
             cDChests.Enabled = v;
 
-            cDEnt.Checked = false;
             cDEnt.Enabled = v;
 
             cMode.Enabled = v;
@@ -750,44 +736,33 @@ namespace MMRando
 
             cDType.Enabled = v;
 
-            cDummy.Checked = false;
             cDummy.Enabled = v;
 
-            cEnemy.Checked = false;
             cEnemy.Enabled = v;
-
 
             cFloors.Enabled = v;
 
-            cGossip.Checked = false;
             cGossip.Enabled = v;
 
             cGravity.Enabled = v;
 
             cLink.Enabled = v;
 
-            cMixSongs.Checked = false;
             cMixSongs.Enabled = v;
 
-            cSoS.Checked = false;
             cSoS.Enabled = v;
 
-            cShop.Checked = false;
             cShop.Enabled = v;
 
-            cUserItems.Checked = false;
             cUserItems.Enabled = v;
+            UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
 
-            cQText.Checked = false;
             cQText.Enabled = v;
 
-            cSpoiler.Checked = false;
             cSpoiler.Enabled = v;
 
-            cFreeHints.Checked = false;
             cFreeHints.Enabled = v;
 
-            cHTMLLog.Checked = false;
             cHTMLLog.Enabled = v;
 
             tSeed.Enabled = v;
