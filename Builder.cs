@@ -170,14 +170,14 @@ namespace MMRando
                 if (i == 2)
                 {
                     ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
-                        (byte)((Values.OldExits[_randomized.NewEntranceIndices[i + 1]] & 0xFF00) >> 8),
-                        (byte)(Values.OldExits[_randomized.NewEntranceIndices[i + 1]] & 0xFF) });
+                        (byte)((Values.OldExits[_randomized.NewDestinationIndices[i + 1]] & 0xFF00) >> 8),
+                        (byte)(Values.OldExits[_randomized.NewDestinationIndices[i + 1]] & 0xFF) });
                 }
                 else
                 {
                     ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
-                        (byte)((Values.OldExits[_randomized.NewEntranceIndices[i]] & 0xFF00) >> 8),
-                        (byte)(Values.OldExits[_randomized.NewEntranceIndices[i]] & 0xFF) });
+                        (byte)((Values.OldExits[_randomized.NewDestinationIndices[i]] & 0xFF00) >> 8),
+                        (byte)(Values.OldExits[_randomized.NewDestinationIndices[i]] & 0xFF) });
                 }
             }
 
@@ -221,6 +221,22 @@ namespace MMRando
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "floor-" + floorType.ToString());
             }
+
+            if(_settings.ClockSpeed != Values.VanillaClockSpeed)
+            {
+                WriteClockSpeed(_settings.ClockSpeed);
+            }
+        }
+
+        /// <summary>
+        /// Overwrite the clockspeed (see Settings.ClockSpeed for details)
+        /// </summary>
+        /// <param name="clockSpeed"></param>
+        private void WriteClockSpeed(byte clockSpeed)
+        {
+            var addr = 0x00BC66D4;
+            uint val = 0x240B0000 + (uint)clockSpeed;
+            ReadWriteUtils.WriteToROM(addr, val);
         }
 
         /// <summary>

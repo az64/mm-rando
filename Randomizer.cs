@@ -185,7 +185,7 @@ namespace MMRando
             }
 
             _randomized.NewEntrances = newEntrances;
-            _randomized.NewEntranceIndices = newEntranceIndices;
+            _randomized.NewDestinationIndices = newEntranceIndices;
             _randomized.NewExits = newExits;
             _randomized.NewExitIndices = newExitIndices;
             _randomized.NewDCFlags = newDCFlags;
@@ -279,7 +279,52 @@ namespace MMRando
                     }
 
                     Values.TatlColours[4, i] = BitConverter.ToUInt32(c, 0);
+                };
+            };
+        }
+
+        private void CreateTextSpoilerLog(Spoiler spoiler, string path)
+        {
+            StringBuilder log = new StringBuilder();
+            log.AppendLine($"{"Version:",-17} {spoiler.Version}");
+            log.AppendLine($"{"Settings String:",-17} {spoiler.SettingsString}");
+            log.AppendLine($"{"Seed:",-17} {spoiler.Seed}");
+            log.AppendLine();
+
+            if (spoiler.RandomizeDungeonEntrances)
+            {
+                log.AppendLine($" {"Entrance",-21}    {"Destination"}");
+                log.AppendLine();
+                string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
+                for (int i = 0; i < 4; i++)
+                {
+                    log.AppendLine($"{destinations[i],-21} >> {destinations[spoiler.NewDestinationIndices[i]]}");
                 }
+                log.AppendLine("");
+            }
+
+            log.AppendLine($" {"Item",-40}    {"Location"}");
+            foreach (var item in spoiler.ItemList)
+            {
+                string name = Items.ITEM_NAMES[item.ID];
+                string replaces = Items.ITEM_NAMES[item.ReplacesItemId];
+                log.AppendLine($"{name,-40} >> {replaces}");
+            }
+
+            log.AppendLine();
+            log.AppendLine();
+
+            log.AppendLine($" {"Item",-40}    {"Location"}");
+            foreach (var item in spoiler.ItemList.OrderBy(item => item.ReplacesItemId))
+            {
+                string name = Items.ITEM_NAMES[item.ID];
+                string replaces = Items.ITEM_NAMES[item.ReplacesItemId];
+                log.AppendLine($"{name,-40} >> {replaces}");
+            }
+
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                sw.Write(log.ToString());
             }
         }
 

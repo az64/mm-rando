@@ -24,7 +24,7 @@ namespace MMRando.Utils
                 Seed = settings.Seed,
                 RandomizeDungeonEntrances = settings.RandomizeDungeonEntrances,
                 ItemList = itemList,
-                NewEntranceIndices = randomized.NewEntranceIndices
+                NewDestinationIndices = randomized.NewDestinationIndices
             };
 
             if (settings.GenerateHTMLLog)
@@ -58,7 +58,7 @@ namespace MMRando.Utils
                 string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
                 for (int i = 0; i < 4; i++)
                 {
-                    log.AppendLine($"{destinations[i],-21} >> {destinations[spoiler.NewEntranceIndices[i]]}");
+                    log.AppendLine($"{destinations[i],-21} >> {destinations[spoiler.NewDestinationIndices[i]]}");
                 }
                 log.AppendLine("");
             }

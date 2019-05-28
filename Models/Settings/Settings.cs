@@ -1,17 +1,17 @@
 ﻿
+using MMRando.Constants;
 using MMRando.Utils;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace MMRando.Models
 {
 
     public class Settings
     {
-        // TODO make base36-string from settings
-        // TODO make settings from base36-string
-
-        // General
+        #region General settings
 
         /// <summary>
         ///  Outputs n64 rom if true (default: true)
@@ -63,17 +63,20 @@ namespace MMRando.Models
         /// </summary>
         public bool UseCustomItemList { get; set; }
 
+        #endregion
 
-        // Random Elements
+        #region Random Elements
 
         private int _seed;
 
         /// <summary>
         /// The randomizer seed
         /// </summary>
-        public int Seed {
+        public int Seed
+        {
             get => _seed;
-            set {
+            set
+            {
                 _seed = value;
                 UpdateOutputFilenames();
             }
@@ -139,9 +142,9 @@ namespace MMRando.Models
         /// </summary>
         public bool FreeHints { get; set; }
 
+        #endregion
 
-
-        // Gimmicks
+        #region Gimmicks
 
         /// <summary>
         /// Modifies the damage value when Link is damaged
@@ -163,7 +166,14 @@ namespace MMRando.Models
         /// </summary>
         public FloorType FloorType { get; set; }
 
-        // Comfort / Cosmetics
+        /// <summary>
+        /// Sets the clock speed from 0-255, default is 3. (DANGEROUS AF)
+        /// </summary>
+        public byte ClockSpeed { get; set; } = Values.VanillaClockSpeed;
+
+        #endregion
+
+        #region Comfort / Cosmetics
 
         /// <summary>
         /// Certain cutscenes will play shorter, or will be skipped
@@ -196,42 +206,56 @@ namespace MMRando.Models
         /// </summary>
         public List<int> CustomItemList { get; set; } = new List<int>();
 
+        #endregion
+
         // Functions
 
         public void Update(string settings)
         {
-            var bits = settings.Split('-');
-            int checks = (int)Base36Utils.Decode(bits[0]);
-            int combos = (int)Base36Utils.Decode(bits[1]);
-            int colourAndMisc = (int)Base36Utils.Decode(bits[2]);
+            var parts = settings.Split('-')
+                .Select(p => Base36Utils.Decode(p))
+                .ToArray();
 
-            FreeHints = (checks & 16384) > 0;
-            UseCustomItemList = (checks & 8192) > 0;
-            AddOther = (checks & 4096) > 0;
-            EnableGossipHints = (checks & 2048) > 0;
-            ExcludeSongOfSoaring = (checks & 1024) > 0;
-            GenerateSpoilerLog = (checks & 512) > 0;
-            AddSongs = (checks & 256) > 0;
-            RandomizeBottleCatchContents = (checks & 128) > 0;
-            AddDungeonItems = (checks & 64) > 0;
-            AddShopItems = (checks & 32) > 0;
-            RandomizeDungeonEntrances = (checks & 16) > 0;
-            RandomizeBGM = (checks & 8) > 0;
-            RandomizeEnemies = (checks & 4) > 0;
-            ShortenCutscenes = (checks & 2) > 0;
-            QuickTextEnabled = (checks & 1) > 0;
+            if (parts.Any(p => p > int.MaxValue))
+            {
+                throw new ArgumentException(nameof(settings));
+            }
 
-            var damageMultiplierIndex = (int)((combos & 0xF0000000) >> 28);
-            var damageTypeIndex = (combos & 0xF000000) >> 24;
-            var modeIndex = (combos & 0xFF0000) >> 16;
-            var characterIndex = (combos & 0xFF00) >> 8;
-            var tatlColorIndex = combos & 0xFF;
-            var gravityTypeIndex = (int)((colourAndMisc & 0xF0000000) >> 28);
-            var floorTypeIndex = (colourAndMisc & 0xF000000) >> 24;
+            int part1 = (int)parts[0];
+            int part2 = (int)parts[1];
+            int part3 = (int)parts[2];
+            int part4 = (int)parts[3];
+
+            FreeHints = (part1 & 16384) > 0;
+            UseCustomItemList = (part1 & 8192) > 0;
+            AddOther = (part1 & 4096) > 0;
+            EnableGossipHints = (part1 & 2048) > 0;
+            ExcludeSongOfSoaring = (part1 & 1024) > 0;
+            GenerateSpoilerLog = (part1 & 512) > 0;
+            AddSongs = (part1 & 256) > 0;
+            RandomizeBottleCatchContents = (part1 & 128) > 0;
+            AddDungeonItems = (part1 & 64) > 0;
+            AddShopItems = (part1 & 32) > 0;
+            RandomizeDungeonEntrances = (part1 & 16) > 0;
+            RandomizeBGM = (part1 & 8) > 0;
+            RandomizeEnemies = (part1 & 4) > 0;
+            ShortenCutscenes = (part1 & 2) > 0;
+            QuickTextEnabled = (part1 & 1) > 0;
+
+            var damageMultiplierIndex = (int)((part2 & 0xF0000000) >> 28);
+            var damageTypeIndex = (part2 & 0xF000000) >> 24;
+            var modeIndex = (part2 & 0xFF0000) >> 16;
+            var characterIndex = (part2 & 0xFF00) >> 8;
+            var tatlColorIndex = part2 & 0xFF;
+
+            var gravityTypeIndex = (int)((part3 & 0xF0000000) >> 28);
+            var floorTypeIndex = (part3 & 0xF000000) >> 24;
             var tunicColor = Color.FromArgb(
-                (colourAndMisc & 0xFF0000) >> 16,
-                (colourAndMisc & 0xFF00) >> 8,
-                colourAndMisc & 0xFF);
+                (part3 & 0xFF0000) >> 16,
+                (part3 & 0xFF00) >> 8,
+                part3 & 0xFF);
+
+            byte clockSpeed = (byte)(part4 & 0xFF);
 
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
@@ -241,43 +265,46 @@ namespace MMRando.Models
             MovementMode = (MovementMode)gravityTypeIndex;
             FloorType = (FloorType)floorTypeIndex;
             TunicColor = tunicColor;
+            ClockSpeed = clockSpeed;
 
         }
 
 
         private int[] BuildSettingsBytes()
         {
-            int[] bits = new int[3];
+            int[] parts = new int[4];
 
-            if (FreeHints) { bits[0] += 16384; };
-            if (UseCustomItemList) { bits[0] += 8192; };
-            if (AddOther) { bits[0] += 4096; };
-            if (EnableGossipHints) { bits[0] += 2048; };
-            if (ExcludeSongOfSoaring) { bits[0] += 1024; };
-            if (GenerateSpoilerLog) { bits[0] += 512; };
-            if (AddSongs) { bits[0] += 256; };
-            if (RandomizeBottleCatchContents) { bits[0] += 128; };
-            if (AddDungeonItems) { bits[0] += 64; };
-            if (AddShopItems) { bits[0] += 32; };
-            if (RandomizeDungeonEntrances) { bits[0] += 16; };
-            if (RandomizeBGM) { bits[0] += 8; };
-            if (RandomizeEnemies) { bits[0] += 4; };
-            if (ShortenCutscenes) { bits[0] += 2; };
-            if (QuickTextEnabled) { bits[0] += 1; };
+            if (FreeHints) { parts[0] += 16384; };
+            if (UseCustomItemList) { parts[0] += 8192; };
+            if (AddOther) { parts[0] += 4096; };
+            if (EnableGossipHints) { parts[0] += 2048; };
+            if (ExcludeSongOfSoaring) { parts[0] += 1024; };
+            if (GenerateSpoilerLog) { parts[0] += 512; };
+            if (AddSongs) { parts[0] += 256; };
+            if (RandomizeBottleCatchContents) { parts[0] += 128; };
+            if (AddDungeonItems) { parts[0] += 64; };
+            if (AddShopItems) { parts[0] += 32; };
+            if (RandomizeDungeonEntrances) { parts[0] += 16; };
+            if (RandomizeBGM) { parts[0] += 8; };
+            if (RandomizeEnemies) { parts[0] += 4; };
+            if (ShortenCutscenes) { parts[0] += 2; };
+            if (QuickTextEnabled) { parts[0] += 1; };
 
-            bits[1] = ((byte)LogicMode << 16)
+            parts[1] = ((byte)LogicMode << 16)
                 | ((byte)Character << 8)
                 | ((byte)TatlColorSchema)
                 | ((byte)DamageEffect << 24)
                     | ((byte)DamageMode << 28);
 
-            bits[2] = (TunicColor.R << 16)
+            parts[2] = (TunicColor.R << 16)
                 | (TunicColor.G << 8)
                 | (TunicColor.B)
                 | ((byte)FloorType << 24)
                     | ((byte)MovementMode << 28);
 
-            return bits;
+            parts[3] = ClockSpeed;
+
+            return parts;
         }
 
         private void UpdateOutputFilenames()
@@ -291,9 +318,11 @@ namespace MMRando.Models
 
         private string EncodeSettings()
         {
-            int[] options = BuildSettingsBytes();
+            var partsEncoded = BuildSettingsBytes()
+                .Select(p => Base36Utils.Encode(p))
+                .ToArray();
 
-            return $"{Base36Utils.Encode(options[0])}-{Base36Utils.Encode(options[1])}-{Base36Utils.Encode(options[2])}";
+            return string.Join("-", partsEncoded);
         }
 
         public override string ToString()
