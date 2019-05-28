@@ -86,11 +86,6 @@ namespace MMRando.Utils
             }
         }
 
-        public static void Arr_Insert(byte[] src, int start, int len, ChangeTrackingArray<byte> dest, int addr)
-        {
-            dest.Write(addr, src.Skip(start).Take(len).ToArray());
-        }
-
         public static uint Byteswap32(uint val)
         {
             return ((val & 0xFF) << 24) | ((val & 0xFF00) << 8) | ((val & 0xFF0000) >> 8) | ((val & 0xFF000000) >> 24);
@@ -124,30 +119,10 @@ namespace MMRando.Utils
             Arr[Dest + 3] = (byte)(val & 0xFF);
         }
 
-        public static void Arr_WriteU32(ChangeTrackingArray<byte> Arr, int Dest, uint val)
-        {
-            Arr.Write(Dest, new byte[]
-            {
-                (byte)((val & 0xFF000000) >> 24),
-                (byte)((val & 0xFF0000) >> 16),
-                (byte)((val & 0xFF00) >> 8),
-                (byte)(val & 0xFF)
-            });
-        }
-
         public static void Arr_WriteU16(byte[] Arr, int Dest, ushort val)
         {
             Arr[Dest] = (byte)((val & 0xFF00) >> 8);
             Arr[Dest + 1] = (byte)(val & 0xFF);
-        }
-
-        public static void Arr_WriteU16(ChangeTrackingArray<byte> Arr, int Dest, ushort val)
-        {
-            Arr.Write(Dest, new byte[]
-            {
-                (byte)((val & 0xFF00) >> 8),
-                (byte)(val & 0xFF)
-            });
         }
 
         public static uint ReadU32(BinaryReader ROM)

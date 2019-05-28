@@ -38,8 +38,8 @@ namespace MMRando.Utils
             hack_file.Close();
             if (name.EndsWith("title-screen"))
             {
-                //Random R = new Random();
-                int rot = 0;// R.Next(360);
+                Random R = new Random();
+                int rot = R.Next(360);
                 Color l;
                 float h;
                 for (int i = 0; i < 144 * 64; i++)
