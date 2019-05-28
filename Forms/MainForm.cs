@@ -83,7 +83,7 @@ namespace MMRando
             pProgress.Value = 0;
             lStatus.Text = "Ready...";
             EnableAllControls(true);
-            EnableCheckBoxes();
+            ToggleCheckBoxes();
         }
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -138,11 +138,7 @@ namespace MMRando
 
         private void bApplyPatch_Click(object sender, EventArgs e)
         {
-            if (openPatch.ShowDialog() == DialogResult.OK)
-            {
-                _settings.InputPatchFilename = openPatch.FileName;
-                Randomize();
-            }
+            Randomize();
         }
 
         private void tSString_Enter(object sender, EventArgs e)
@@ -157,7 +153,7 @@ namespace MMRando
             {
                 _settings.Update(tSString.Text);
                 UpdateCheckboxes();
-                EnableCheckBoxes();
+                ToggleCheckBoxes();
             }
             catch
             {
@@ -394,9 +390,20 @@ namespace MMRando
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             if (_isUpdating)
             {
                 return;
+            }
+
+            switch (cMode.SelectedIndex)
+            {
+                case 0: _settings.LogicMode = LogicMode.Casual; break;
+                case 1: _settings.LogicMode = LogicMode.Glitched; break;
+                case 2: _settings.LogicMode = LogicMode.NoLogic; break;
+                case 3: _settings.LogicMode = LogicMode.UserLogic; break;
+                case 4: _settings.LogicMode = LogicMode.Vanilla; break;
+                default: return;
             }
 
             if (_settings.LogicMode == LogicMode.UserLogic
@@ -444,7 +451,7 @@ namespace MMRando
         /// <summary>
         /// Checks for settings that invalidate others, and disable the checkboxes for them.
         /// </summary>
-        private void EnableCheckBoxes()
+        private void ToggleCheckBoxes()
         {
 
             if (_settings.LogicMode == LogicMode.Vanilla)
@@ -495,6 +502,12 @@ namespace MMRando
                     cAdditional.Enabled = true;
                 }
             }
+
+            if (ttOutput.SelectedTab.TabIndex == 1)
+            {
+                TogglePatchSettings(false);
+            }
+
         }
 
         /// <summary>
@@ -514,7 +527,7 @@ namespace MMRando
 
             update?.Invoke();
             UpdateSettingsString();
-            EnableCheckBoxes();
+            ToggleCheckBoxes(); // why was this here?
 
             _isUpdating = false;
         }
@@ -687,6 +700,100 @@ namespace MMRando
         }
 
         #endregion
+
+        private void BLoadPatch_Click(object sender, EventArgs e)
+        {
+            openPatch.ShowDialog();
+            _settings.InputPatchFilename = openPatch.FileName;
+            tPatch.Text = _settings.InputPatchFilename;
+        }
+
+        private void ttOutput_Changed(object sender, EventArgs e)
+        {
+            ToggleCheckBoxes();
+
+            if(ttOutput.SelectedTab.TabIndex == 0)
+            {
+                _settings.InputPatchFilename = null;
+                tPatch.Text = null;
+
+                cFreeHints.Enabled = true;
+                cQText.Enabled = true;
+                cCutsc.Enabled = true;
+                tSeed.Enabled = true;
+                tSString.Enabled = true;
+                cLink.Enabled = true;
+            }
+        }
+
+
+        private void TogglePatchSettings(bool v)
+        {
+            cAdditional.Checked = false;
+            cAdditional.Enabled = v;
+
+            cBottled.Checked = false;
+            cBottled.Enabled = v;
+
+            cCutsc.Checked = false;
+            cCutsc.Enabled = v;
+
+            cDChests.Checked = false;
+            cDChests.Enabled = v;
+
+            cDEnt.Checked = false;
+            cDEnt.Enabled = v;
+
+            cMode.Enabled = v;
+
+            cDMult.Enabled = v;
+
+            cDType.Enabled = v;
+
+            cDummy.Checked = false;
+            cDummy.Enabled = v;
+
+            cEnemy.Checked = false;
+            cEnemy.Enabled = v;
+
+
+            cFloors.Enabled = v;
+
+            cGossip.Checked = false;
+            cGossip.Enabled = v;
+
+            cGravity.Enabled = v;
+
+            cLink.Enabled = v;
+
+            cMixSongs.Checked = false;
+            cMixSongs.Enabled = v;
+
+            cSoS.Checked = false;
+            cSoS.Enabled = v;
+
+            cShop.Checked = false;
+            cShop.Enabled = v;
+
+            cUserItems.Checked = false;
+            cUserItems.Enabled = v;
+
+            cQText.Checked = false;
+            cQText.Enabled = v;
+
+            cSpoiler.Checked = false;
+            cSpoiler.Enabled = v;
+
+            cFreeHints.Checked = false;
+            cFreeHints.Enabled = v;
+
+            cHTMLLog.Checked = false;
+            cHTMLLog.Enabled = v;
+
+            tSeed.Enabled = v;
+
+            tSString.Enabled = v;
+        }
     }
 
 }
