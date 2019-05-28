@@ -32,9 +32,9 @@ namespace MMRando.Utils.Mzxrules
         /// Decompresses a block compressed with the Yaz algorithm with respect to a little endian machine
         /// </summary>
         /// <param name="sr"></param>
-        /// <param name="yazBlockSize">The size of the block without header?</param>
+        /// <param name="blockSize">The size of the block, including the header</param>
         /// <returns></returns>
-        public static byte[] Decode(Stream sr, int yazBlockSize)
+        public static byte[] Decode(Stream sr, int blockSize)
         {
             byte[] buf;
             int[] size;
@@ -48,8 +48,9 @@ namespace MMRando.Utils.Mzxrules
             Buffer.BlockCopy(buf, 0, size, 0, sizeof(int));
             sr.Position += 8;
 
-            buf = new byte[yazBlockSize];
-            sr.Read(buf, 0, yazBlockSize);
+            blockSize -= 0x10;
+            buf = new byte[blockSize];
+            sr.Read(buf, 0, blockSize);
 
             Decode(buf, out byte[] result, size[0]);
             return result;
