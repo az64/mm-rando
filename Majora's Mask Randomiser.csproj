@@ -130,6 +130,9 @@
     <Compile Include="Forms\NewItemForm.Designer.cs">
       <DependentUpon>NewItemForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Mzxrules\Align.cs" />
+    <Compile Include="Utils\Mzxrules\Endian.cs" />
+    <Compile Include="Utils\Mzxrules\Vectors.cs" />
     <Compile Include="Utils\SceneUtils.cs" />
     <Compile Include="Enemies.cs" />
     <Compile Include="Utils\EntranceUtils.cs" />
@@ -147,6 +150,7 @@
     <Compile Include="Utils\SequenceUtils.cs" />
     <Compile Include="Utils\VCInjectionUtils.cs" />
     <Compile Include="Utils\VectorUtils.cs" />
+    <Compile Include="Utils\Mzxrules\Yaz.cs" />
     <Compile Include="Utils\Yaz0Utils.cs" />
     <Compile Include="Utils\RomUtils.cs" />
     <Compile Include="Forms\AboutForm.cs">

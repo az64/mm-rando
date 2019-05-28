@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO.Compression;
+using MMRando.Utils.Mzxrules;
+using System.Diagnostics;
 
 namespace MMRando.Utils
 {
@@ -71,7 +73,10 @@ namespace MMRando.Utils
             var file = mmFileList[fileIndex];
             if (file.IsCompressed && !file.WasEdited)
             {
-                file.Data = Yaz0Utils.Decompress(file.Data);
+                using (var stream = new MemoryStream(file.Data))
+                {
+                    file.Data = Yaz.Decode(stream, file.Data.Length);
+                }
                 file.WasEdited = true;
             }
         }
@@ -251,7 +256,13 @@ namespace MMRando.Utils
             {
                 if (file.IsCompressed && file.WasEdited)
                 {
-                    file.Data = Yaz0Utils.Compress(file.Data);
+                    byte[] result;
+                    var newSize = Yaz.Encode(file.Data, file.Data.Length, out result);
+                    if (newSize >= 0)
+                    {
+                        file.Data = new byte[newSize];
+                        ReadWriteUtils.Arr_Insert(result, 0, newSize, file.Data, 0);
+                    }
                 }
             });
             byte[] ROM = new byte[0x2000000];
