@@ -768,6 +768,8 @@ namespace MMRando
             tSeed.Enabled = v;
 
             tSString.Enabled = v;
+
+            cPatch.Enabled = v;
         }
     }
 

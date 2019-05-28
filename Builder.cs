@@ -43,67 +43,77 @@ namespace MMRando
             SequenceUtils.RebuildAudioSeq(RomData.SequenceList);
         }
 
-        private void WriteLinkAppearance()
+        private void WritePlayerModel()
         {
             if (_settings.Character == Character.LinkMM)
             {
-                WriteTunicColour();
+                return;
             }
 
-            else if (_settings.Character == Character.LinkOOT
-                || _settings.Character == Character.AdultLink
-                || _settings.Character == Character.Kafei)
+            int characterIndex = (int)_settings.Character;
+
+            using (var b = new BinaryReader(File.Open($"{Values.ObjsDirectory}link-{characterIndex}", FileMode.Open)))
             {
-                int characterIndex = (int)_settings.Character;
-
-                BinaryReader b = new BinaryReader(File.Open(Values.ObjsDirectory + "link-" + characterIndex.ToString(), FileMode.Open));
-                byte[] obj = new byte[b.BaseStream.Length];
+                var obj = new byte[b.BaseStream.Length];
                 b.Read(obj, 0, obj.Length);
-                b.Close();
 
-                if (_settings.Character != Character.Kafei)
-                {
-                    WriteTunicColour(obj, characterIndex);
-                }
-
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-link-" + characterIndex.ToString());
+                ResourceUtils.ApplyHack($"{Values.ModsDirectory}fix-link-{characterIndex}");
                 ObjUtils.InsertObj(obj, 0x11);
+            }
 
-                if (_settings.Character == Character.Kafei)
+            if (_settings.Character == Character.Kafei)
+            {
+                using (var b = new BinaryReader(File.Open($"{Values.ObjsDirectory}kafei", FileMode.Open)))
                 {
-                    b = new BinaryReader(File.Open(Values.ObjsDirectory + "kafei", FileMode.Open));
-                    obj = new byte[b.BaseStream.Length];
+                    var obj = new byte[b.BaseStream.Length];
                     b.Read(obj, 0, obj.Length);
-                    b.Close();
-                    WriteTunicColour(obj, characterIndex);
+
                     ObjUtils.InsertObj(obj, 0x1C);
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-kafei");
                 }
             }
-            List<int[]> Others = ResourceUtils.GetAddresses(Values.AddrsDirectory + "tunic-forms");
-            TunicUtils.UpdateFormTunics(Others, _settings.TunicColor);
         }
 
-        private void WriteTunicColour()
+        private void WriteTunicColor()
         {
             Color t = _settings.TunicColor;
-            byte[] c = { t.R, t.G, t.B };
-            List<int[]> locs = ResourceUtils.GetAddresses(Values.AddrsDirectory + "tunic-colour");
-            for (int i = 0; i < locs.Count; i++)
+            byte[] color = { t.R, t.G, t.B };
+
+            var otherTunics = ResourceUtils.GetAddresses(Values.AddrsDirectory + "tunic-forms");
+            TunicUtils.UpdateFormTunics(otherTunics, _settings.TunicColor);
+
+            var playerModel = DeterminePlayerModel();
+            var characterIndex = (int)playerModel;
+            var locations = ResourceUtils.GetAddresses($"{Values.AddrsDirectory}tunic-{characterIndex}");
+            var objectIndex = playerModel == Character.Kafei ? 0x1C : 0x11;
+            var objectData = ObjUtils.GetObjectData(objectIndex);
+            for (int j = 0; j < locations.Count; j++)
             {
-                ReadWriteUtils.WriteROMAddr(locs[i], c);
+                ReadWriteUtils.WriteFileAddr(locations[j], color, objectData);
             }
+            ObjUtils.InsertObj(objectData, objectIndex);
         }
 
-        private void WriteTunicColour(byte[] obj, int i)
+        private Character DeterminePlayerModel()
         {
-            Color t = _settings.TunicColor;
-            byte[] c = { t.R, t.G, t.B };
-            List<int[]> locs = ResourceUtils.GetAddresses(Values.AddrsDirectory + "tunic-" + i.ToString());
-            for (int j = 0; j < locs.Count; j++)
+            var data = ObjUtils.GetObjectData(0x11);
+            if (data[0x107] == 0x05)
             {
-                ReadWriteUtils.WriteFileAddr(locs[j], c, obj);
+                return Character.LinkMM;
             }
+            if (data[0x107] == 0x07)
+            {
+                return Character.LinkOOT;
+            }
+            if (data[0xC6] == 0x02)
+            {
+                return Character.AdultLink;
+            }
+            if (data[0xC5] == 0x15)
+            {
+                return Character.Kafei;
+            }
+            throw new InvalidOperationException("Unable to determine player's model.");
         }
 
         private void WriteTatlColour()
@@ -451,18 +461,17 @@ namespace MMRando
 
             if (!string.IsNullOrWhiteSpace(_settings.InputPatchFilename))
             {
+                worker.ReportProgress(50, "Applying Patch...");
                 RomUtils.ApplyPatch(_settings.InputPatchFilename);
             }
             else
             {
-                worker.ReportProgress(50, "Writing Audio...");
-                WriteAudioSeq();
+                worker.ReportProgress(50, "Writing Player Model...");
+                WritePlayerModel();
 
-                worker.ReportProgress(55, "Writing Character...");
-                WriteLinkAppearance();
                 if (_settings.LogicMode != LogicMode.Vanilla)
                 {
-                    worker.ReportProgress(60, "Applying hacks...");
+                    worker.ReportProgress(55, "Applying hacks...");
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "title-screen");
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "misc-changes");
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "cm-cs");
@@ -470,38 +479,46 @@ namespace MMRando
                 }
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "init-file");
 
-                worker.ReportProgress(61, "Writing quick text...");
+                worker.ReportProgress(60, "Writing quick text...");
                 WriteQuickText();
 
-                worker.ReportProgress(62, "Writing cutscenes...");
+                worker.ReportProgress(61, "Writing cutscenes...");
                 WriteCutscenes();
 
-                worker.ReportProgress(63, "Writing Tatl...");
-                WriteTatlColour();
-
-                worker.ReportProgress(64, "Writing dungeons...");
+                worker.ReportProgress(62, "Writing dungeons...");
                 WriteDungeons();
 
-                worker.ReportProgress(65, "Writing gimmicks...");
+                worker.ReportProgress(63, "Writing gimmicks...");
                 WriteGimmicks();
 
-                worker.ReportProgress(66, "Writing enemies...");
+                worker.ReportProgress(64, "Writing enemies...");
                 WriteEnemies();
 
-                worker.ReportProgress(67, "Writing items...");
+                worker.ReportProgress(65, "Writing items...");
                 WriteItems();
 
-                worker.ReportProgress(68, "Writing gossip...");
+                worker.ReportProgress(66, "Writing gossip...");
                 WriteGossipQuotes();
 
-                worker.ReportProgress(70, "Writing startup...");
+                worker.ReportProgress(67, "Writing startup...");
                 WriteStartupStrings();
 
                 if (_settings.GeneratePatch)
                 {
+                    worker.ReportProgress(70, "Generating Patch...");
                     RomUtils.CreatePatch(FileName, originalMMFileList);
                 }
             }
+
+            // todo music randomizer doesn't work if this is called after WriteItems();
+            worker.ReportProgress(71, "Writing Audio...");
+            WriteAudioSeq();
+
+            worker.ReportProgress(72, "Writing Tatl...");
+            WriteTatlColour();
+
+            worker.ReportProgress(73, "Writing Tunic Color...");
+            WriteTunicColor();
 
             if (_settings.GenerateROM)
             {

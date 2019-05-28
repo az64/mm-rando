@@ -219,6 +219,9 @@
     <None Include="Resources\addresses\tatl-colour">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\addresses\tunic-0">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\addresses\tunic-1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

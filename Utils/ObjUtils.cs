@@ -17,6 +17,20 @@ namespace MMRando.Utils
                 - ReadWriteUtils.Arr_ReadU32(fileData, basea + (obj * 8)));
         }
 
+        public static byte[] GetObjectData(int objectIndex)
+        {
+            var objectTableFileIndex = RomUtils.GetFileIndexForWriting(Addresses.ObjTable);
+            var baseAddress = Addresses.ObjTable - RomData.MMFileList[objectTableFileIndex].Addr;
+            var objectAddress = ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[objectTableFileIndex].Data, baseAddress + (objectIndex * 8));
+            var objectFileIndex = RomData.MMFileList.FindIndex(f => f.Addr == objectAddress);
+            if (objectFileIndex == -1)
+            {
+                return null;
+            }
+            RomUtils.CheckCompressed(objectFileIndex);
+            return RomData.MMFileList[objectFileIndex].Data;
+        }
+
         public static void InsertObj(byte[] obj, int replace)
         {
             int f = RomUtils.GetFileIndexForWriting(Addresses.ObjTable);
