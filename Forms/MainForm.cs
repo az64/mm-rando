@@ -57,10 +57,10 @@ namespace MMRando
         private void InitializeTooltips()
         {
             // ROM Settings
-            TooltipBuilder.SetTooltip(cN64, " output a randomized patched .z64 ROM that can be loaded into a N64 Emulator.");
-            TooltipBuilder.SetTooltip(cVC, " output a randomized patched .WAD file that can be loaded into a Wii Virtual Channel.");
-            TooltipBuilder.SetTooltip(cSpoiler, " output a spoiler log.\n\n The spoiler log contains a list over all items, and their shuffled locations.\n In addition, the spoiler log contains version information, seed and settings string used in the randomization.");
-            TooltipBuilder.SetTooltip(cHTMLLog, " output a html spoiler log (Requires spoiler log to be checked).\n\n Similar to the regular spoiler log, but readable in browsers. The locations/items are hidden by default, and hovering over them will make them visible.");
+            TooltipBuilder.SetTooltip(cN64, "Output a randomized .z64 ROM that can be loaded into a N64 Emulator.");
+            TooltipBuilder.SetTooltip(cVC, "Output a randomized .WAD file that can be loaded into a Wii Virtual Channel.");
+            TooltipBuilder.SetTooltip(cSpoiler, "Output a spoiler log.\n\n The spoiler log contains a list over all items, and their shuffled locations.\n In addition, the spoiler log contains version information, seed and settings string used in the randomization.");
+            TooltipBuilder.SetTooltip(cHTMLLog, "Output a html spoiler log (Requires spoiler log to be checked).\n\n Similar to the regular spoiler log, but readable in browsers. The locations/items are hidden by default, and hovering over them will make them visible.");
 
             // Main Settings
             TooltipBuilder.SetTooltip(cMode, "Select mode of logic:\n - Casual/glitchless: The randomization logic ensures that no glitches are required to beat the game.\n - Using glitches: The randomization logic allows for placement of items that are only obtainable using known glitches.\n - Vanilla Layout: All items are left vanilla.\n - User logic: Upload your own custom logic to be used in the randomization.\n - No logic: Completely random, no guarantee the game is beatable.");
@@ -87,7 +87,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cQText, "Enable quick text. Dialogs are fast-forwarded to choices/end of dialog.");
             TooltipBuilder.SetTooltip(cBGM, "Select to randomize background music sequences that are played throughout the game.");
             TooltipBuilder.SetTooltip(cFreeHints, "Select to enable reading gossip stone hints without requiring the Mask of Truth.");
-            TooltipBuilder.SetTooltip(bTunic, "Select the colour of Link's Tunic.");
+            TooltipBuilder.SetTooltip(bTunic, "Select the color of Link's Tunic.");
             TooltipBuilder.SetTooltip(cLink, "Select a character model to replace Link's default model.");
             TooltipBuilder.SetTooltip(cTatl, "Select a color scheme to replace Tatl's default color scheme.");
         }
