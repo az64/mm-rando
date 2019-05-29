@@ -1509,7 +1509,6 @@ namespace MMRando
 
             // Make all items vanilla, and override using custom item list
             MakeAllItemsVanilla();
-            PreserveAreasAndOther();
 
             // Should these be vanilla by default? Why not check settings.
             ApplyCustomItemList();
@@ -1536,7 +1535,7 @@ namespace MMRando
                     continue;
                 }
 
-                PlaceItem(item, new List<int> { item });
+                ItemList[item].ReplacesItemId = item;
             }
         }
 
@@ -1562,23 +1561,6 @@ namespace MMRando
                 {
                     _settings.AddShopItems = true;
                 }
-            }
-        }
-
-        /// <summary>
-        /// Keeps area and other vanilla
-        /// </summary>
-        private void PreserveAreasAndOther()
-        {
-            for (int i = 0; i < ItemList.Count; i++)
-            {
-                if (ItemUtils.IsAreaOrOther(i)
-                    || ItemUtils.IsOutOfRange(i))
-                {
-                    continue;
-                }
-
-                ItemList[i].ReplacesItemId = i;
             }
         }
 
