@@ -67,7 +67,6 @@
     <Compile Include="Forms\Tooltips\TooltipBuilder.cs" />
     <Compile Include="Models\RandomizedResult.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
-    <Compile Include="Utils\AudioSequenceUtils.cs" />
     <Compile Include="Constants\Addresses.cs" />
     <Compile Include="Models\Gossip.cs" />
     <Compile Include="Models\ItemObject.cs" />
@@ -132,6 +131,9 @@
     <Compile Include="Forms\NewItemForm.Designer.cs">
       <DependentUpon>NewItemForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Mzxrules\Align.cs" />
+    <Compile Include="Utils\Mzxrules\Endian.cs" />
+    <Compile Include="Utils\Mzxrules\Vectors.cs" />
     <Compile Include="Utils\SceneUtils.cs" />
     <Compile Include="Enemies.cs" />
     <Compile Include="Utils\EntranceUtils.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="Utils\SequenceUtils.cs" />
     <Compile Include="Utils\VCInjectionUtils.cs" />
     <Compile Include="Utils\VectorUtils.cs" />
+    <Compile Include="Utils\Mzxrules\Yaz.cs" />
     <Compile Include="Utils\Yaz0Utils.cs" />
     <Compile Include="Utils\RomUtils.cs" />
     <Compile Include="Forms\AboutForm.cs">
@@ -215,6 +218,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\addresses\tatl-colour">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\addresses\tunic-0">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\addresses\tunic-1">

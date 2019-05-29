@@ -123,7 +123,7 @@ namespace MMRando
             pProgress.Value = 0;
             lStatus.Text = "Ready...";
             EnableAllControls(true);
-            EnableCheckBoxes();
+            ToggleCheckBoxes();
         }
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -151,12 +151,14 @@ namespace MMRando
             tROMName.Text = _settings.InputROMFilename;
         }
 
-        private void bRandomise_Click(object sender, EventArgs e)
+        private void Randomize()
         {
             if (_settings.GenerateROM && !ValidateInputFile()) return;
 
-            saveROM.FileName = _settings.DefaultOutputROMFilename;
-            if ((_settings.GenerateROM || _settings.OutputVC) && saveROM.ShowDialog() != DialogResult.OK)
+            saveROM.FileName = !string.IsNullOrWhiteSpace(_settings.InputPatchFilename)
+                ? Path.ChangeExtension(Path.GetFileName(_settings.InputPatchFilename), "z64")
+                : _settings.DefaultOutputROMFilename;
+            if ((_settings.GenerateROM || _settings.OutputVC || _settings.GeneratePatch || _settings.GenerateSpoilerLog) && saveROM.ShowDialog() != DialogResult.OK)
             {
                 MessageBox.Show("No output directory selected; Nothing will be saved.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -167,6 +169,16 @@ namespace MMRando
 
             EnableAllControls(false);
             bgWorker.RunWorkerAsync();
+        }
+
+        private void bRandomise_Click(object sender, EventArgs e)
+        {
+            Randomize();
+        }
+
+        private void bApplyPatch_Click(object sender, EventArgs e)
+        {
+            Randomize();
         }
 
         private void tSString_Enter(object sender, EventArgs e)
@@ -181,7 +193,7 @@ namespace MMRando
             {
                 _settings.Update(tSString.Text);
                 UpdateCheckboxes();
-                EnableCheckBoxes();
+                ToggleCheckBoxes();
             }
             catch
             {
@@ -273,22 +285,18 @@ namespace MMRando
 
         private void cUserItems_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
 
             cDChests.Checked = false;
-            UpdateSingleSetting(() => _settings.AddDungeonItems = false);
 
             cShop.Checked = false;
-            UpdateSingleSetting(() => _settings.AddShopItems = false);
 
             cBottled.Checked = false;
-            UpdateSingleSetting(() => _settings.RandomizeBottleCatchContents = false);
 
             cSoS.Checked = false;
-            UpdateSingleSetting(() => _settings.ExcludeSongOfSoaring = false);
 
             cAdditional.Checked = false;
-            UpdateSingleSetting(() => _settings.AddOther = false);
+
+            UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
 
         }
 
@@ -308,6 +316,11 @@ namespace MMRando
                 UpdateSingleSetting(() => _settings.GenerateHTMLLog = false);
             }
 
+        }
+
+        private void cPatch_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.GeneratePatch = cPatch.Checked);
         }
 
         private void cHTMLLog_CheckedChanged(object sender,EventArgs e)
@@ -413,9 +426,20 @@ namespace MMRando
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             if (_isUpdating)
             {
                 return;
+            }
+
+            switch (cMode.SelectedIndex)
+            {
+                case 0: _settings.LogicMode = LogicMode.Casual; break;
+                case 1: _settings.LogicMode = LogicMode.Glitched; break;
+                case 2: _settings.LogicMode = LogicMode.NoLogic; break;
+                case 3: _settings.LogicMode = LogicMode.UserLogic; break;
+                case 4: _settings.LogicMode = LogicMode.Vanilla; break;
+                default: return;
             }
 
             if (_settings.LogicMode == LogicMode.UserLogic
@@ -463,7 +487,7 @@ namespace MMRando
         /// <summary>
         /// Checks for settings that invalidate others, and disable the checkboxes for them.
         /// </summary>
-        private void EnableCheckBoxes()
+        private void ToggleCheckBoxes()
         {
 
             if (_settings.LogicMode == LogicMode.Vanilla)
@@ -514,6 +538,12 @@ namespace MMRando
                     cAdditional.Enabled = true;
                 }
             }
+
+            if (ttOutput.SelectedTab.TabIndex == 1)
+            {
+                TogglePatchSettings(false);
+            }
+
         }
 
         /// <summary>
@@ -533,7 +563,7 @@ namespace MMRando
 
             update?.Invoke();
             UpdateSettingsString();
-            EnableCheckBoxes();
+            ToggleCheckBoxes(); // why was this here?
 
             _isUpdating = false;
         }
@@ -571,6 +601,8 @@ namespace MMRando
             cFreeHints.Enabled = v;
             cHTMLLog.Enabled = v;
             cN64.Enabled = v;
+            cPatch.Enabled = v;
+            bApplyPatch.Enabled = v;
 
             bopen.Enabled = v;
             bRandomise.Enabled = v;
@@ -625,7 +657,7 @@ namespace MMRando
         /// </summary>
         private void TryRandomize(BackgroundWorker worker, DoWorkEventArgs e)
         {
-            if (!_settings.GenerateROM && !_settings.GenerateSpoilerLog)
+            if (!_settings.GenerateROM && !_settings.GenerateSpoilerLog && !_settings.GeneratePatch)
             {
                 MessageBox.Show($"No output selected", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -633,18 +665,31 @@ namespace MMRando
             }
 
             RandomizedResult randomized;
-            try
+            if (string.IsNullOrWhiteSpace(_settings.InputPatchFilename))
             {
-                randomized = _randomizer.Randomize(worker, e);
+                try
+                {
+                    randomized = _randomizer.Randomize(worker, e);
+                }
+                catch (Exception ex)
+                {
+                    string nl = Environment.NewLine;
+                    MessageBox.Show($"Error randomizing logic: {ex.Message}{nl}{nl}Please try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                
+                if (_settings.GenerateSpoilerLog
+                    && _settings.LogicMode != LogicMode.Vanilla)
+                {
+                    SpoilerUtils.CreateSpoilerLog(randomized, _settings);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                string nl = Environment.NewLine;
-                MessageBox.Show($"Error randomizing logic: {ex.Message}{nl}{nl}Please try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                randomized = new RandomizedResult(_settings, null);
             }
 
-            if (_settings.GenerateROM)
+            if (_settings.GenerateROM || _settings.GeneratePatch)
             {
                 if (!ValidateInputFile()) return;
 
@@ -669,12 +714,7 @@ namespace MMRando
                 }
             }
 
-
-            if (_settings.GenerateSpoilerLog
-                && _settings.LogicMode != LogicMode.Vanilla)
-            {
-                SpoilerUtils.CreateSpoilerLog(randomized, _settings);
-            }
+            _settings.InputPatchFilename = null;
 
             MessageBox.Show("Generation complete!",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
@@ -696,6 +736,83 @@ namespace MMRando
         }
 
         #endregion
+
+        private void BLoadPatch_Click(object sender, EventArgs e)
+        {
+            openPatch.ShowDialog();
+            _settings.InputPatchFilename = openPatch.FileName;
+            tPatch.Text = _settings.InputPatchFilename;
+        }
+
+        private void ttOutput_Changed(object sender, EventArgs e)
+        {
+            ToggleCheckBoxes();
+
+            if(ttOutput.SelectedTab.TabIndex == 0)
+            {
+                _settings.InputPatchFilename = null;
+                tPatch.Text = null;
+
+                TogglePatchSettings(true);
+            }
+        }
+
+
+        private void TogglePatchSettings(bool v)
+        {
+            cAdditional.Enabled = v;
+
+            cBottled.Enabled = v;
+
+            cCutsc.Enabled = v;
+
+            cDChests.Enabled = v;
+
+            cDEnt.Enabled = v;
+
+            cMode.Enabled = v;
+
+            cDMult.Enabled = v;
+
+            cDType.Enabled = v;
+
+            cDummy.Enabled = v;
+
+            cEnemy.Enabled = v;
+
+            cFloors.Enabled = v;
+
+            cGossip.Enabled = v;
+
+            cGravity.Enabled = v;
+
+            cLink.Enabled = v;
+
+            cMixSongs.Enabled = v;
+
+            cSoS.Enabled = v;
+
+            cShop.Enabled = v;
+
+            cUserItems.Enabled = v;
+            UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
+
+            cQText.Enabled = v;
+
+            cSpoiler.Enabled = v;
+
+            cFreeHints.Enabled = v;
+
+            cHTMLLog.Enabled = v;
+
+            tSeed.Enabled = v;
+
+            tSString.Enabled = v;
+
+            cPatch.Enabled = v;
+
+            cBGM.Enabled = v;
+        }
     }
 
 }
