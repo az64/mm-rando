@@ -137,9 +137,14 @@ namespace MMRando.Utils
             for (int i = 0; i < RomData.BottleIndices[ItemSlot].Length; i++)
             {
                 int offset = RomData.BottleIndices[ItemSlot][i] * 6 + baseaddr;
-                fileData[offset + 3] = RomData.BottleList[NewItem][0].ItemGained;
-                fileData[offset + 4] = RomData.BottleList[NewItem][0].Index;
-                fileData[offset + 5] = RomData.BottleList[NewItem][0].Message;
+                var newBottle = RomData.BottleList[NewItem][0];
+                var data = new byte[]
+                {
+                    newBottle.ItemGained,
+                    newBottle.Index,
+                    newBottle.Message,
+                };
+                ReadWriteUtils.Arr_Insert(data, 0, data.Length, fileData, offset + 3);
             }
         }
 
@@ -155,14 +160,18 @@ namespace MMRando.Utils
             int offset = (itemIndex - 1) * 8 + baseaddr;
             var newItem = RomData.GetItemList[NewItem];
             var fileData = RomData.MMFileList[f].Data;
-            fileData[offset] = newItem.ItemGained;
-            fileData[offset + 1] = newItem.Flag;
-            fileData[offset + 2] = newItem.Index;
-            fileData[offset + 3] = newItem.Type;
-            fileData[offset + 4] = (byte)(newItem.Message >> 8);
-            fileData[offset + 5] = (byte)(newItem.Message & 0xFF);
-            fileData[offset + 6] = (byte)(newItem.Object >> 8);
-            fileData[offset + 7] = (byte)(newItem.Object & 0xFF);
+            var data = new byte[]
+            {
+                newItem.ItemGained,
+                newItem.Flag,
+                newItem.Index,
+                newItem.Type,
+                (byte)(newItem.Message >> 8),
+                (byte)(newItem.Message & 0xFF),
+                (byte)(newItem.Object >> 8),
+                (byte)(newItem.Object & 0xFF),
+            };
+            ReadWriteUtils.Arr_Insert(data, 0, data.Length, fileData, offset);
 
             if (RepeatCycle)
             {

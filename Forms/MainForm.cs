@@ -1,4 +1,5 @@
 ﻿using MMRando.Forms;
+using MMRando.Forms.Tooltips;
 using MMRando.Models;
 using MMRando.Utils;
 using System;
@@ -40,6 +41,7 @@ namespace MMRando
         {
             InitializeComponent();
             InitializeSettings();
+            InitializeTooltips();
 
             _randomizer = new Randomizer(_settings);
 
@@ -50,6 +52,46 @@ namespace MMRando
 
 
             Text = AssemblyVersion;
+        }
+
+        private void InitializeTooltips()
+        {
+            // ROM Settings
+            TooltipBuilder.SetTooltip(cN64, "Output a randomized .z64 ROM that can be loaded into a N64 Emulator.");
+            TooltipBuilder.SetTooltip(cVC, "Output a randomized .WAD file that can be loaded into a Wii Virtual Channel.");
+            TooltipBuilder.SetTooltip(cSpoiler, "Output a spoiler log.\n\n The spoiler log contains a list over all items, and their shuffled locations.\n In addition, the spoiler log contains version information, seed and settings string used in the randomization.");
+            TooltipBuilder.SetTooltip(cHTMLLog, "Output a html spoiler log (Requires spoiler log to be checked).\n\n Similar to the regular spoiler log, but readable in browsers. The locations/items are hidden by default, and hovering over them will make them visible.");
+            TooltipBuilder.SetTooltip(cPatch, "Output a patch file that can be applied using the Patch settings tab to reproduce the same ROM.\nPatch file includes all settings except Tunic and Tatl color.");
+
+            // Main Settings
+            TooltipBuilder.SetTooltip(cMode, "Select mode of logic:\n - Casual/glitchless: The randomization logic ensures that no glitches are required to beat the game.\n - Using glitches: The randomization logic allows for placement of items that are only obtainable using known glitches.\n - Vanilla Layout: All items are left vanilla.\n - User logic: Upload your own custom logic to be used in the randomization.\n - No logic: Completely random, no guarantee the game is beatable.");
+
+            TooltipBuilder.SetTooltip(cUserItems, "Only randomize a custom list of items.\n\nThe item list can be edited from the menu: Customize -> Item List Editor. When checked, some settings will become disabled.");
+            TooltipBuilder.SetTooltip(cMixSongs, "Enable songs being placed among items in the randomization pool.");
+            TooltipBuilder.SetTooltip(cDChests, "Enable keys, boss keys, maps and compasses being placed in the randomization pool.");
+            TooltipBuilder.SetTooltip(cShop, "Enable shop items being placed in the randomization pool.");
+            TooltipBuilder.SetTooltip(cBottled, "Enable captured bottle contents being randomized.");
+            TooltipBuilder.SetTooltip(cSoS, "Exclude song of soaring from being placed in the randomization pool.");
+            TooltipBuilder.SetTooltip(cGossip, "Enable gossip stones displaying hints on where certain items are located.");
+            TooltipBuilder.SetTooltip(cDEnt, "Enable randomization of dungeon entrances. \n\nStone Tower Temple is always vanilla, but Inverted Stone Tower Temple is randomized.");
+            TooltipBuilder.SetTooltip(cAdditional, "Enable miscellaneous items being placed in the randomization pool.\n\nAmong the miscellaneous items are:\nFreestanding heartpieces, overworld chests, (hidden) grotto chests, Tingle's maps and bank heartpiece.");
+            TooltipBuilder.SetTooltip(cEnemy, "Enable randomization of enemies. May cause softlocks in some circumstances, use at your own risk.");
+            TooltipBuilder.SetTooltip(cMoonItems, "Enable moon items being placed in the randomization pool.\n\nIncludes the four Moon Trial Heart Pieces and the Fierce Deity's Mask.");
+
+            // Gimmicks
+            TooltipBuilder.SetTooltip(cDMult, "Select a damage mode, affecting how much damage Link takes:\n\n - Default: Link takes normal damage.\n - 2x: Link takes double damage.\n - 4x: Link takes quadruple damage.\n - 1-hit KO: Any damage kills Link.\n - Doom: Hardcore mode. Link's hearts are slowly being drained continuously.");
+            TooltipBuilder.SetTooltip(cDType, "Select an effect to occur whenever Link is being damaged:\n\n - Default: Vanilla effects occur.\n - Fire: All damage burns Link.\n - Ice: All damage freezes Link.\n - Shock: All damage shocks link.\n - Knockdown: All damage knocks Link down.\n - Random: Any random effect of the above.");
+            TooltipBuilder.SetTooltip(cGravity, "Select a movement modifier:\n\n - Default: No movement modifier.\n - High speed: Link moves at a much higher velocity.\n - Super low gravity: Link can jump very high.\n - Low gravity: Link can jump high.\n - High gravity: Link can barely jump.");
+            TooltipBuilder.SetTooltip(cFloors, "Select a floortype for every floor ingame:\n\n - Default: Vanilla floortypes.\n - Sand: Link sinks slowly into every floor, affecting movement speed.\n - Ice: Every floor is slippery.\n - Snow: Similar to sand. \n - Random: Any random floortypes of the above.");
+
+            // Comforts/cosmetics
+            TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
+            TooltipBuilder.SetTooltip(cQText, "Enable quick text. Dialogs are fast-forwarded to choices/end of dialog.");
+            TooltipBuilder.SetTooltip(cBGM, "Select to randomize background music sequences that are played throughout the game.");
+            TooltipBuilder.SetTooltip(cFreeHints, "Select to enable reading gossip stone hints without requiring the Mask of Truth.");
+            TooltipBuilder.SetTooltip(bTunic, "Select the color of Link's Tunic.");
+            TooltipBuilder.SetTooltip(cLink, "Select a character model to replace Link's default model.");
+            TooltipBuilder.SetTooltip(cTatl, "Select a color scheme to replace Tatl's default color scheme.");
         }
 
         #region Forms Code
@@ -83,7 +125,7 @@ namespace MMRando
             pProgress.Value = 0;
             lStatus.Text = "Ready...";
             EnableAllControls(true);
-            EnableCheckBoxes();
+            ToggleCheckBoxes();
         }
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -111,12 +153,14 @@ namespace MMRando
             tROMName.Text = _settings.InputROMFilename;
         }
 
-        private void bRandomise_Click(object sender, EventArgs e)
+        private void Randomize()
         {
             if (_settings.GenerateROM && !ValidateInputFile()) return;
 
-            saveROM.FileName = _settings.DefaultOutputROMFilename;
-            if ((_settings.GenerateROM || _settings.OutputVC) && saveROM.ShowDialog() != DialogResult.OK)
+            saveROM.FileName = !string.IsNullOrWhiteSpace(_settings.InputPatchFilename)
+                ? Path.ChangeExtension(Path.GetFileName(_settings.InputPatchFilename), "z64")
+                : _settings.DefaultOutputROMFilename;
+            if ((_settings.GenerateROM || _settings.OutputVC || _settings.GeneratePatch || _settings.GenerateSpoilerLog) && saveROM.ShowDialog() != DialogResult.OK)
             {
                 MessageBox.Show("No output directory selected; Nothing will be saved.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -127,6 +171,16 @@ namespace MMRando
 
             EnableAllControls(false);
             bgWorker.RunWorkerAsync();
+        }
+
+        private void bRandomise_Click(object sender, EventArgs e)
+        {
+            Randomize();
+        }
+
+        private void bApplyPatch_Click(object sender, EventArgs e)
+        {
+            Randomize();
         }
 
         private void tSString_Enter(object sender, EventArgs e)
@@ -141,7 +195,7 @@ namespace MMRando
             {
                 _settings.Update(tSString.Text);
                 UpdateCheckboxes();
-                EnableCheckBoxes();
+                ToggleCheckBoxes();
             }
             catch
             {
@@ -212,6 +266,7 @@ namespace MMRando
             cCutsc.Checked = _settings.ShortenCutscenes;
             cQText.Checked = _settings.QuickTextEnabled;
             cFreeHints.Checked = _settings.FreeHints;
+            cMoonItems.Checked = _settings.AddMoonItems;
 
             cDMult.SelectedIndex = (int)_settings.DamageMode;
             cDType.SelectedIndex = (int)_settings.DamageEffect;
@@ -233,22 +288,20 @@ namespace MMRando
 
         private void cUserItems_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
 
             cDChests.Checked = false;
-            UpdateSingleSetting(() => _settings.AddDungeonItems = false);
 
             cShop.Checked = false;
-            UpdateSingleSetting(() => _settings.AddShopItems = false);
 
             cBottled.Checked = false;
-            UpdateSingleSetting(() => _settings.RandomizeBottleCatchContents = false);
 
             cSoS.Checked = false;
-            UpdateSingleSetting(() => _settings.ExcludeSongOfSoaring = false);
 
             cAdditional.Checked = false;
-            UpdateSingleSetting(() => _settings.AddOther = false);
+
+            cMoonItems.Checked = false;
+
+            UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
 
         }
 
@@ -270,6 +323,11 @@ namespace MMRando
 
         }
 
+        private void cPatch_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.GeneratePatch = cPatch.Checked);
+        }
+
         private void cHTMLLog_CheckedChanged(object sender,EventArgs e)
         {
             UpdateSingleSetting(() => _settings.GenerateHTMLLog = cHTMLLog.Checked);
@@ -279,6 +337,11 @@ namespace MMRando
         private void cAdditional_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.AddOther = cAdditional.Checked);
+        }
+
+        private void cMoonItems_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.AddMoonItems = cMoonItems.Checked);
         }
 
         private void cBGM_CheckedChanged(object sender, EventArgs e)
@@ -373,9 +436,20 @@ namespace MMRando
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             if (_isUpdating)
             {
                 return;
+            }
+
+            switch (cMode.SelectedIndex)
+            {
+                case 0: _settings.LogicMode = LogicMode.Casual; break;
+                case 1: _settings.LogicMode = LogicMode.Glitched; break;
+                case 2: _settings.LogicMode = LogicMode.NoLogic; break;
+                case 3: _settings.LogicMode = LogicMode.UserLogic; break;
+                case 4: _settings.LogicMode = LogicMode.Vanilla; break;
+                default: return;
             }
 
             if (_settings.LogicMode == LogicMode.UserLogic
@@ -423,8 +497,9 @@ namespace MMRando
         /// <summary>
         /// Checks for settings that invalidate others, and disable the checkboxes for them.
         /// </summary>
-        private void EnableCheckBoxes()
+        private void ToggleCheckBoxes()
         {
+            var onMainTab = ttOutput.SelectedTab.TabIndex == 0;
 
             if (_settings.LogicMode == LogicMode.Vanilla)
             {
@@ -438,22 +513,24 @@ namespace MMRando
                 cGossip.Enabled = false;
                 cAdditional.Enabled = false;
                 cUserItems.Enabled = false;
+                cMoonItems.Enabled = false;
             }
             else
             {
-                cMixSongs.Enabled = true;
-                cSoS.Enabled = true;
-                cDChests.Enabled = true;
-                cDEnt.Enabled = true;
-                cBottled.Enabled = true;
-                cShop.Enabled = true;
-                cSpoiler.Enabled = true;
-                cGossip.Enabled = true;
-                cAdditional.Enabled = true;
-                cUserItems.Enabled = true;
+                cMixSongs.Enabled = onMainTab;
+                cSoS.Enabled = onMainTab;
+                cDChests.Enabled = onMainTab;
+                cDEnt.Enabled = onMainTab;
+                cBottled.Enabled = onMainTab;
+                cShop.Enabled = onMainTab;
+                cSpoiler.Enabled = onMainTab;
+                cGossip.Enabled = onMainTab;
+                cAdditional.Enabled = onMainTab;
+                cUserItems.Enabled = onMainTab;
+                cMoonItems.Enabled = onMainTab;
             }
 
-            cHTMLLog.Enabled = _settings.GenerateSpoilerLog;
+            cHTMLLog.Enabled = onMainTab && _settings.GenerateSpoilerLog;
 
             if (_settings.UseCustomItemList)
             {
@@ -462,16 +539,18 @@ namespace MMRando
                 cBottled.Enabled = false;
                 cShop.Enabled = false;
                 cAdditional.Enabled = false;
+                cMoonItems.Enabled = false;
             }
             else
             {
                 if (_settings.LogicMode != LogicMode.Vanilla)
                 {
-                    cSoS.Enabled = true;
-                    cDChests.Enabled = true;
-                    cBottled.Enabled = true;
-                    cShop.Enabled = true;
-                    cAdditional.Enabled = true;
+                    cSoS.Enabled = onMainTab;
+                    cDChests.Enabled = onMainTab;
+                    cBottled.Enabled = onMainTab;
+                    cShop.Enabled = onMainTab;
+                    cAdditional.Enabled = onMainTab;
+                    cMoonItems.Enabled = onMainTab;
                 }
             }
         }
@@ -493,7 +572,7 @@ namespace MMRando
 
             update?.Invoke();
             UpdateSettingsString();
-            EnableCheckBoxes();
+            ToggleCheckBoxes();
 
             _isUpdating = false;
         }
@@ -531,6 +610,9 @@ namespace MMRando
             cFreeHints.Enabled = v;
             cHTMLLog.Enabled = v;
             cN64.Enabled = v;
+            cMoonItems.Enabled = v;
+            cPatch.Enabled = v;
+            bApplyPatch.Enabled = v;
 
             bopen.Enabled = v;
             bRandomise.Enabled = v;
@@ -585,7 +667,7 @@ namespace MMRando
         /// </summary>
         private void TryRandomize(BackgroundWorker worker, DoWorkEventArgs e)
         {
-            if (!_settings.GenerateROM && !_settings.GenerateSpoilerLog)
+            if (!_settings.GenerateROM && !_settings.GenerateSpoilerLog && !_settings.GeneratePatch)
             {
                 MessageBox.Show($"No output selected", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -593,18 +675,31 @@ namespace MMRando
             }
 
             RandomizedResult randomized;
-            try
+            if (string.IsNullOrWhiteSpace(_settings.InputPatchFilename))
             {
-                randomized = _randomizer.Randomize(worker, e);
+                try
+                {
+                    randomized = _randomizer.Randomize(worker, e);
+                }
+                catch (Exception ex)
+                {
+                    string nl = Environment.NewLine;
+                    MessageBox.Show($"Error randomizing logic: {ex.Message}{nl}{nl}Please try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                
+                if (_settings.GenerateSpoilerLog
+                    && _settings.LogicMode != LogicMode.Vanilla)
+                {
+                    SpoilerUtils.CreateSpoilerLog(randomized, _settings);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                string nl = Environment.NewLine;
-                MessageBox.Show($"Error randomizing logic: {ex.Message}{nl}{nl}Please try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                randomized = new RandomizedResult(_settings, null);
             }
 
-            if (_settings.GenerateROM)
+            if (_settings.GenerateROM || _settings.GeneratePatch)
             {
                 if (!ValidateInputFile()) return;
 
@@ -629,12 +724,7 @@ namespace MMRando
                 }
             }
 
-
-            if (_settings.GenerateSpoilerLog
-                && _settings.LogicMode != LogicMode.Vanilla)
-            {
-                SpoilerUtils.CreateSpoilerLog(randomized, _settings);
-            }
+            _settings.InputPatchFilename = null;
 
             MessageBox.Show("Generation complete!",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
@@ -656,6 +746,55 @@ namespace MMRando
         }
 
         #endregion
+
+        private void BLoadPatch_Click(object sender, EventArgs e)
+        {
+            openPatch.ShowDialog();
+            _settings.InputPatchFilename = openPatch.FileName;
+            tPatch.Text = _settings.InputPatchFilename;
+        }
+
+        private void ttOutput_Changed(object sender, EventArgs e)
+        {
+            ToggleCheckBoxes();
+
+            TogglePatchSettings(ttOutput.SelectedTab.TabIndex == 0);
+        }
+
+
+        private void TogglePatchSettings(bool v)
+        {
+            // ROM Settings
+            cPatch.Enabled = v;
+
+            // Main Settings
+            cMode.Enabled = v;
+            cEnemy.Enabled = v;
+
+            //Gimmicks
+            cDMult.Enabled = v;
+            cDType.Enabled = v;
+            cGravity.Enabled = v;
+            cFloors.Enabled = v;
+
+
+            // Comfort/Cosmetics
+            cCutsc.Enabled = v;
+            cQText.Enabled = v;
+            cBGM.Enabled = v;
+            cFreeHints.Enabled = v;
+
+            cLink.Enabled = v;
+
+            // Other..?
+            cDummy.Enabled = v;
+
+            if (!v)
+            {
+                _settings.InputPatchFilename = null;
+                tPatch.Text = null;
+            }
+        }
     }
 
 }
