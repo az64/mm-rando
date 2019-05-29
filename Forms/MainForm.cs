@@ -76,6 +76,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cDEnt, "Enable randomization of dungeon entrances. \n\nStone Tower Temple is always vanilla, but Inverted Stone Tower Temple is randomized.");
             TooltipBuilder.SetTooltip(cAdditional, "Enable miscellaneous items being placed in the randomization pool.\n\nAmong the miscellaneous items are:\nFreestanding heartpieces, overworld chests, (hidden) grotto chests, Tingle's maps and bank heartpiece.");
             TooltipBuilder.SetTooltip(cEnemy, "Enable randomization of enemies. May cause softlocks in some circumstances, use at your own risk.");
+            TooltipBuilder.SetTooltip(cMoonItems, "Enable moon items being placed in the randomization pool.\n\nIncludes the four Moon Trial Heart Pieces and the Fierce Deity's Mask.");
 
             // Gimmicks
             TooltipBuilder.SetTooltip(cDMult, "Select a damage mode, affecting how much damage Link takes:\n\n - Default: Link takes normal damage.\n - 2x: Link takes double damage.\n - 4x: Link takes quadruple damage.\n - 1-hit KO: Any damage kills Link.\n - Doom: Hardcore mode. Link's hearts are slowly being drained continuously.");
@@ -265,6 +266,7 @@ namespace MMRando
             cCutsc.Checked = _settings.ShortenCutscenes;
             cQText.Checked = _settings.QuickTextEnabled;
             cFreeHints.Checked = _settings.FreeHints;
+            cMoonItems.Checked = _settings.AddMoonItems;
 
             cDMult.SelectedIndex = (int)_settings.DamageMode;
             cDType.SelectedIndex = (int)_settings.DamageEffect;
@@ -296,6 +298,8 @@ namespace MMRando
             cSoS.Checked = false;
 
             cAdditional.Checked = false;
+
+            cMoonItems.Checked = false;
 
             UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
 
@@ -333,6 +337,11 @@ namespace MMRando
         private void cAdditional_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.AddOther = cAdditional.Checked);
+        }
+
+        private void cMoonItems_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.AddMoonItems = cMoonItems.Checked);
         }
 
         private void cBGM_CheckedChanged(object sender, EventArgs e)
@@ -490,6 +499,7 @@ namespace MMRando
         /// </summary>
         private void ToggleCheckBoxes()
         {
+            var onMainTab = ttOutput.SelectedTab.TabIndex == 0;
 
             if (_settings.LogicMode == LogicMode.Vanilla)
             {
@@ -503,22 +513,24 @@ namespace MMRando
                 cGossip.Enabled = false;
                 cAdditional.Enabled = false;
                 cUserItems.Enabled = false;
+                cMoonItems.Enabled = false;
             }
             else
             {
-                cMixSongs.Enabled = true;
-                cSoS.Enabled = true;
-                cDChests.Enabled = true;
-                cDEnt.Enabled = true;
-                cBottled.Enabled = true;
-                cShop.Enabled = true;
-                cSpoiler.Enabled = true;
-                cGossip.Enabled = true;
-                cAdditional.Enabled = true;
-                cUserItems.Enabled = true;
+                cMixSongs.Enabled = onMainTab;
+                cSoS.Enabled = onMainTab;
+                cDChests.Enabled = onMainTab;
+                cDEnt.Enabled = onMainTab;
+                cBottled.Enabled = onMainTab;
+                cShop.Enabled = onMainTab;
+                cSpoiler.Enabled = onMainTab;
+                cGossip.Enabled = onMainTab;
+                cAdditional.Enabled = onMainTab;
+                cUserItems.Enabled = onMainTab;
+                cMoonItems.Enabled = onMainTab;
             }
 
-            cHTMLLog.Enabled = _settings.GenerateSpoilerLog;
+            cHTMLLog.Enabled = onMainTab && _settings.GenerateSpoilerLog;
 
             if (_settings.UseCustomItemList)
             {
@@ -527,24 +539,20 @@ namespace MMRando
                 cBottled.Enabled = false;
                 cShop.Enabled = false;
                 cAdditional.Enabled = false;
+                cMoonItems.Enabled = false;
             }
             else
             {
                 if (_settings.LogicMode != LogicMode.Vanilla)
                 {
-                    cSoS.Enabled = true;
-                    cDChests.Enabled = true;
-                    cBottled.Enabled = true;
-                    cShop.Enabled = true;
-                    cAdditional.Enabled = true;
+                    cSoS.Enabled = onMainTab;
+                    cDChests.Enabled = onMainTab;
+                    cBottled.Enabled = onMainTab;
+                    cShop.Enabled = onMainTab;
+                    cAdditional.Enabled = onMainTab;
+                    cMoonItems.Enabled = onMainTab;
                 }
             }
-
-            if (ttOutput.SelectedTab.TabIndex == 1)
-            {
-                TogglePatchSettings(false);
-            }
-
         }
 
         /// <summary>
@@ -602,6 +610,7 @@ namespace MMRando
             cFreeHints.Enabled = v;
             cHTMLLog.Enabled = v;
             cN64.Enabled = v;
+            cMoonItems.Enabled = v;
             cPatch.Enabled = v;
             bApplyPatch.Enabled = v;
 
@@ -749,70 +758,42 @@ namespace MMRando
         {
             ToggleCheckBoxes();
 
-            if(ttOutput.SelectedTab.TabIndex == 0)
-            {
-                _settings.InputPatchFilename = null;
-                tPatch.Text = null;
-
-                TogglePatchSettings(true);
-            }
+            TogglePatchSettings(ttOutput.SelectedTab.TabIndex == 0);
         }
 
 
         private void TogglePatchSettings(bool v)
         {
-            cAdditional.Enabled = v;
+            // ROM Settings
+            cPatch.Enabled = v;
 
-            cBottled.Enabled = v;
-
-            cCutsc.Enabled = v;
-
-            cDChests.Enabled = v;
-
-            cDEnt.Enabled = v;
-
+            // Main Settings
             cMode.Enabled = v;
-
-            cDMult.Enabled = v;
-
-            cDType.Enabled = v;
-
-            cDummy.Enabled = v;
-
             cEnemy.Enabled = v;
 
+            //Gimmicks
+            cDMult.Enabled = v;
+            cDType.Enabled = v;
+            cGravity.Enabled = v;
             cFloors.Enabled = v;
 
-            cGossip.Enabled = v;
 
-            cGravity.Enabled = v;
+            // Comfort/Cosmetics
+            cCutsc.Enabled = v;
+            cQText.Enabled = v;
+            cBGM.Enabled = v;
+            cFreeHints.Enabled = v;
 
             cLink.Enabled = v;
 
-            cMixSongs.Enabled = v;
+            // Other..?
+            cDummy.Enabled = v;
 
-            cSoS.Enabled = v;
-
-            cShop.Enabled = v;
-
-            cUserItems.Enabled = v;
-            UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
-
-            cQText.Enabled = v;
-
-            cSpoiler.Enabled = v;
-
-            cFreeHints.Enabled = v;
-
-            cHTMLLog.Enabled = v;
-
-            tSeed.Enabled = v;
-
-            tSString.Enabled = v;
-
-            cPatch.Enabled = v;
-
-            cBGM.Enabled = v;
+            if (!v)
+            {
+                _settings.InputPatchFilename = null;
+                tPatch.Text = null;
+            }
         }
     }
 

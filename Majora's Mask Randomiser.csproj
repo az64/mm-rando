@@ -122,6 +122,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Models\HtmlSpoiler.cs" />
+    <Compile Include="LogicMigrator\Migrator.cs" />
     <Compile Include="Models\Spoiler.cs" />
     <Compile Include="Templates\HtmlSpoiler.cs">
       <AutoGen>True</AutoGen>
@@ -148,6 +149,7 @@
     <Compile Include="Utils\SpoilerUtils.cs" />
     <Compile Include="Utils\TunicUtils.cs" />
     <Compile Include="Utils\ItemUtils.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Utils\SequenceUtils.cs" />
     <Compile Include="Utils\VCInjectionUtils.cs" />
     <Compile Include="Utils\VectorUtils.cs" />
@@ -793,6 +795,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

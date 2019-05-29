@@ -14,13 +14,17 @@ namespace MMRando.Utils
         const int MESSAGE_TABLE_ADDRESS = 0xC5D0D8;
 
         const int GOSSIP_START_ID = 0x20B0;
-        const int GOSSIP_END_ID = 0x20E8;
+        const int GOSSIP_END_ID = 0x2116;
 
         static ReadOnlyCollection<int> GossipExclude
             = new ReadOnlyCollection<int>(new int[] {
                 0x20D0,
                 0x20D1,
-                0x20D2
+                0x20D2,
+                0x20F3,
+                0x20F7,
+                0x20F8,
+                0x20F9,
             });
 
         static ReadOnlyCollection<byte> MessageHeader

@@ -141,17 +141,31 @@ namespace MMRando
                     continue;
                 }
 
-                int sourceItemId = ItemList[itemIndex].ReplacesItemId;
-                if (ItemUtils.IsItemDefinedPastAreas(sourceItemId))
+                // Skip hint for song of soaring
+                if (_settings.ExcludeSongOfSoaring && itemIndex == Items.SongSoaring)
                 {
-                    sourceItemId -= Values.NumberOfAreasAndOther;
+                    continue;
                 }
 
-                int toItemId = itemIndex;
-                if (ItemUtils.IsItemDefinedPastAreas(toItemId))
+                // Skip hints for moon items
+                if (!_settings.AddMoonItems
+                    && ItemUtils.IsMoonItem(itemIndex))
                 {
-                    toItemId -= Values.NumberOfAreasAndOther;
+                    continue;
                 }
+
+                // Skip hints for other items
+                if (!_settings.AddOther
+                    && ItemUtils.IsOtherItem(itemIndex))
+                {
+                    continue;
+                }
+
+                int sourceItemId = ItemList[itemIndex].ReplacesItemId;
+                sourceItemId = ItemUtils.SubtractItemOffset(sourceItemId);
+
+                int toItemId = itemIndex;
+                toItemId = ItemUtils.SubtractItemOffset(toItemId);
 
                 // 5% chance of being fake
                 bool isFake = (Random.Next(100) < 5);
@@ -1056,6 +1070,12 @@ namespace MMRando
                 return false;
             }
 
+            if (ItemUtils.IsTemporaryItem(currentItem) && ItemUtils.IsMoonItem(target))
+            {
+                Debug.WriteLine($"{currentItem} cannot be placed on the moon.");
+                return false;
+            }
+
             //check direct dependence
             ConditionRemoves = new List<int[]>();
             DependenceChecked = new Dictionary<int, Dependence> { { target, new Dependence { Type = DependenceType.Dependent } } };
@@ -1142,11 +1162,23 @@ namespace MMRando
             PlaceMasks(itemPool);
             PlaceRegularItems(itemPool);
             PlaceShopItems(itemPool);
+            PlaceMoonItems(itemPool);
             PlaceHeartpieces(itemPool);
             PlaceOther(itemPool);
             PlaceTingleMaps(itemPool);
 
             _randomized.ItemList = ItemList;
+        }
+
+        /// <summary>
+        /// Places moon items in the randomization pool.
+        /// </summary>
+        private void PlaceMoonItems(List<int> itemPool)
+        {
+            for (int i = Items.HeartPieceDekuTrial; i <= Items.MaskFierceDeity; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
         }
 
         /// <summary>
@@ -1363,6 +1395,11 @@ namespace MMRando
             {
                 PreserveBottleCatchContents();
             }
+
+            if (!_settings.AddMoonItems)
+            {
+                PreserveMoonItems();
+            }
         }
 
         /// <summary>
@@ -1427,6 +1464,17 @@ namespace MMRando
             for (int i = Items.ItemWoodfallMap; i <= Items.ItemStoneTowerKey4; i++)
             {
                 ItemList[i].ReplacesItemId = i;
+            };
+        }
+
+        /// <summary>
+        /// Keeps moon items vanilla
+        /// </summary>
+        private void PreserveMoonItems()
+        {
+            for (int i = Items.HeartPieceDekuTrial; i <= Items.MaskFierceDeity; i++)
+            {
+                ItemList[i].ReplacesItemId = i;
             }
         }
 
@@ -1461,7 +1509,6 @@ namespace MMRando
 
             // Make all items vanilla, and override using custom item list
             MakeAllItemsVanilla();
-            PreserveAreasAndOther();
 
             // Should these be vanilla by default? Why not check settings.
             ApplyCustomItemList();
@@ -1488,7 +1535,7 @@ namespace MMRando
                     continue;
                 }
 
-                PlaceItem(item, new List<int> { item });
+                ItemList[item].ReplacesItemId = item;
             }
         }
 
@@ -1501,11 +1548,8 @@ namespace MMRando
             {
                 int selectedItem = _settings.CustomItemList[i];
 
-                if (selectedItem > Items.SongOath)
-                {
-                    // Skip entries describing areas and other
-                    selectedItem += Values.NumberOfAreasAndOther;
-                }
+                selectedItem = ItemUtils.AddItemOffset(selectedItem);
+
                 int selectedItemIndex = ItemList.FindIndex(u => u.ID == selectedItem);
 
                 if (selectedItemIndex != -1)
@@ -1517,23 +1561,6 @@ namespace MMRando
                 {
                     _settings.AddShopItems = true;
                 }
-            }
-        }
-
-        /// <summary>
-        /// Keeps area and other vanilla
-        /// </summary>
-        private void PreserveAreasAndOther()
-        {
-            for (int i = 0; i < ItemList.Count; i++)
-            {
-                if (ItemUtils.IsAreaOrOther(i)
-                    || ItemUtils.IsOutOfRange(i))
-                {
-                    continue;
-                }
-
-                ItemList[i].ReplacesItemId = i;
             }
         }
 
