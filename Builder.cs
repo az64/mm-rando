@@ -500,6 +500,8 @@ namespace MMRando
                 worker.ReportProgress(68, "Writing startup...");
                 WriteStartupStrings();
 
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "fierce-deity-anywhere");
+
                 if (_settings.GeneratePatch)
                 {
                     worker.ReportProgress(70, "Generating patch...");

@@ -288,6 +288,9 @@
     <None Include="Resources\mods\dm-4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\mods\fierce-deity-anywhere">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\mods\file-select">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
