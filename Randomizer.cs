@@ -423,15 +423,6 @@ namespace MMRando
             {
                 PopulateItemListWithoutLogic();
             }
-
-            AddRequirementsForSongOath();
-        }
-
-        private void AddRequirementsForSongOath()
-        {
-            int[] OathReq = new int[] { 100, 103, 108, 113 };
-            ItemList[Items.SongOath].DependsOnItems = new List<int>();
-            ItemList[Items.SongOath].DependsOnItems.Add(OathReq[Random.Next(4)]);
         }
 
         /// <summary>

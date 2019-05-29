@@ -8,7 +8,7 @@ namespace MMRando.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 2;
+        public const int CurrentVersion = 3;
 
         public static string ApplyMigrations(string logic)
         {
@@ -27,6 +27,11 @@ namespace MMRando.LogicMigrator
             if (GetVersion(lines) < 2)
             {
                 AddMoonItems(lines);
+            }
+
+            if (GetVersion(lines) < 3)
+            {
+                AddRequirementsForSongOath(lines);
             }
 
             return string.Join("\r\n", lines);
@@ -209,6 +214,16 @@ namespace MMRando.LogicMigrator
                 lines.Insert(item.ID * 5 + 4, "0");
                 lines.Insert(item.ID * 5 + 5, "0");
             }
+        }
+
+        private static void AddRequirementsForSongOath(List<string> lines)
+        {
+            lines[0] = "-version 3";
+            var oathIndex = lines.FindIndex(s => s == "- Oath to Order");
+            lines[oathIndex + 1] = "";
+            lines[oathIndex + 2] = $"{Items.AreaWoodFallTempleClear};{Items.AreaSnowheadTempleClear};{Items.AreaGreatBayTempleClear};{Items.AreaStoneTowerClear}";
+            lines[oathIndex + 3] = "0";
+            lines[oathIndex + 4] = "0";
         }
     }
 }

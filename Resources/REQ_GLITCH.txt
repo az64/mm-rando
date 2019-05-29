@@ -1,4 +1,4 @@
--version 2
+-version 3
 - Deku Mask
 
 
@@ -486,7 +486,7 @@
 0
 - Oath to Order
 
-
+100;103;108;113
 0
 0
 - Poison swamp access
