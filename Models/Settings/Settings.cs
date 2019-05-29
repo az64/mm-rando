@@ -248,7 +248,6 @@ namespace MMRando.Models
             int part1 = (int)parts[0];
             int part2 = (int)parts[1];
             int part3 = (int)parts[2];
-            int part4 = (int)parts[3];
 
             AddMoonItems = (part1 & 32768) > 0;
             FreeHints = (part1 & 16384) > 0;
@@ -280,8 +279,6 @@ namespace MMRando.Models
                 (part3 & 0xFF00) >> 8,
                 part3 & 0xFF);
 
-            byte clockSpeed = (byte)(part4 & 0xFF);
-
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
             LogicMode = (LogicMode)modeIndex;
@@ -290,14 +287,13 @@ namespace MMRando.Models
             MovementMode = (MovementMode)gravityTypeIndex;
             FloorType = (FloorType)floorTypeIndex;
             TunicColor = tunicColor;
-            ClockSpeed = clockSpeed;
 
         }
 
 
         private int[] BuildSettingsBytes()
         {
-            int[] parts = new int[4];
+            int[] parts = new int[3];
 
             if (AddMoonItems) { parts[0] += 32768; };
             if (FreeHints) { parts[0] += 16384; };
@@ -327,8 +323,6 @@ namespace MMRando.Models
                 | (TunicColor.B)
                 | ((byte)FloorType << 24)
                     | ((byte)MovementMode << 28);
-
-            parts[3] = ClockSpeed;
 
             return parts;
         }
