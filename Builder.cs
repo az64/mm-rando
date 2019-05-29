@@ -461,17 +461,21 @@ namespace MMRando
 
             if (!string.IsNullOrWhiteSpace(_settings.InputPatchFilename))
             {
-                worker.ReportProgress(50, "Applying Patch...");
+                worker.ReportProgress(50, "Applying patch...");
                 RomUtils.ApplyPatch(_settings.InputPatchFilename);
             }
             else
             {
-                worker.ReportProgress(50, "Writing Player Model...");
+                // todo music randomizer doesn't work if this is called after WriteItems(); because the reloc-audio hack is hardcoded
+                worker.ReportProgress(50, "Writing audio...");
+                WriteAudioSeq();
+
+                worker.ReportProgress(55, "Writing player model...");
                 WritePlayerModel();
 
                 if (_settings.LogicMode != LogicMode.Vanilla)
                 {
-                    worker.ReportProgress(55, "Applying hacks...");
+                    worker.ReportProgress(60, "Applying hacks...");
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "title-screen");
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "misc-changes");
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "cm-cs");
@@ -479,45 +483,41 @@ namespace MMRando
                 }
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "init-file");
 
-                worker.ReportProgress(60, "Writing quick text...");
+                worker.ReportProgress(61, "Writing quick text...");
                 WriteQuickText();
 
-                worker.ReportProgress(61, "Writing cutscenes...");
+                worker.ReportProgress(62, "Writing cutscenes...");
                 WriteCutscenes();
 
-                worker.ReportProgress(62, "Writing dungeons...");
+                worker.ReportProgress(63, "Writing dungeons...");
                 WriteDungeons();
 
-                worker.ReportProgress(63, "Writing gimmicks...");
+                worker.ReportProgress(64, "Writing gimmicks...");
                 WriteGimmicks();
 
-                worker.ReportProgress(64, "Writing enemies...");
+                worker.ReportProgress(65, "Writing enemies...");
                 WriteEnemies();
 
-                worker.ReportProgress(65, "Writing items...");
+                worker.ReportProgress(66, "Writing items...");
                 WriteItems();
 
-                worker.ReportProgress(66, "Writing gossip...");
+                worker.ReportProgress(67, "Writing gossip...");
                 WriteGossipQuotes();
 
-                worker.ReportProgress(67, "Writing startup...");
+                worker.ReportProgress(68, "Writing startup...");
                 WriteStartupStrings();
 
                 if (_settings.GeneratePatch)
                 {
-                    worker.ReportProgress(70, "Generating Patch...");
+                    worker.ReportProgress(70, "Generating patch...");
                     RomUtils.CreatePatch(FileName, originalMMFileList);
                 }
             }
 
-            // todo music randomizer doesn't work if this is called after WriteItems();
-            worker.ReportProgress(71, "Writing Audio...");
-            WriteAudioSeq();
-
-            worker.ReportProgress(72, "Writing Tatl...");
+            worker.ReportProgress(72, "Writing Tatl color...");
             WriteTatlColour();
 
-            worker.ReportProgress(73, "Writing Tunic Color...");
+            worker.ReportProgress(73, "Writing tunic color...");
             WriteTunicColor();
 
             if (_settings.GenerateROM)

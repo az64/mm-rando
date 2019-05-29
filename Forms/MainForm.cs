@@ -770,6 +770,8 @@ namespace MMRando
             tSString.Enabled = v;
 
             cPatch.Enabled = v;
+
+            cBGM.Enabled = v;
         }
     }
 
