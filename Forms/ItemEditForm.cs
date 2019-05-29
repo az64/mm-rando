@@ -94,6 +94,7 @@ namespace MMRando.Forms
 
         private void UpdateChecks(string c)
         {
+            SelectedItems = new List<int>();
             string[] v = c.Split('-');
             int[] vi = new int[8];
             for (int i = 0; i < 8; i++)
