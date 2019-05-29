@@ -1,4 +1,5 @@
 using MMRando.Constants;
+using MMRando.LogicMigrator;
 using MMRando.Models;
 using MMRando.Models.Rom;
 using MMRando.Utils;
@@ -448,6 +449,11 @@ namespace MMRando
         /// <param name="data">The lines from a logic file</param>
         private void PopulateItemListFromLogicData(string[] data)
         {
+            if (Migrator.GetVersion(data.ToList()) != Migrator.CurrentVersion)
+            {
+                throw new InvalidDataException("Logic file is out of date. Open it in the Logic Editor to bring it up to date.");
+            }
+
             int itemId = 0;
             int lineNumber = 0;
 
@@ -560,7 +566,6 @@ namespace MMRando
                 using (StreamReader Req = new StreamReader(File.Open(_settings.UserLogicFileName, FileMode.Open)))
                 {
                     lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-
                 }
             }
 

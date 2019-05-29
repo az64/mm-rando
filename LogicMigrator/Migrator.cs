@@ -37,7 +37,7 @@ namespace MMRando.LogicMigrator
             return string.Join("\r\n", lines);
         }
 
-        private static int GetVersion(List<string> lines)
+        public static int GetVersion(List<string> lines)
         {
             if (!lines[0].StartsWith("-version"))
             {

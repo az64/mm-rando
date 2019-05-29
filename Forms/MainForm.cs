@@ -681,6 +681,12 @@ namespace MMRando
                 {
                     randomized = _randomizer.Randomize(worker, e);
                 }
+                catch (InvalidDataException ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+
+                }
                 catch (Exception ex)
                 {
                     string nl = Environment.NewLine;
