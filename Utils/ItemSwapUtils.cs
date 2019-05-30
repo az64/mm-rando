@@ -153,31 +153,27 @@ namespace MMRando.Utils
             for (int i = 0; i < RomData.BottleIndices[location].Length; i++)
             {
                 int offset = RomData.BottleIndices[location][i] * 6 + baseaddr;
-                fileData[offset + 3] = RomData.BottleList[item][0].ItemGained;
-                fileData[offset + 4] = RomData.BottleList[item][0].Index;
-                fileData[offset + 5] = RomData.BottleList[item][0].Message;
+                var newBottle = RomData.BottleList[item][0];
+                var data = new byte[]
+                {
+                    newBottle.ItemGained,
+                    newBottle.Index,
+                    newBottle.Message,
+                };
+                ReadWriteUtils.Arr_Insert(data, 0, data.Length, fileData, offset + 3);
             }
         }
 
         public static void WriteNewItem(int location, int item)
         {
-            if (ItemUtils.IsItemDefinedPastAreas(location))
-            {
-                // Subtract amount of entries describing areas and other
-                location -= Values.NumberOfAreasAndOther;
-            }
-
-            if (ItemUtils.IsItemDefinedPastAreas(item))
-            {
-                // Subtract amount of entries describing areas and other
-                item -= Values.NumberOfAreasAndOther;
-            }
-
+            location = ItemUtils.SubtractItemOffset(location);
+            item = ItemUtils.SubtractItemOffset(item);
+            
             System.Diagnostics.Debug.WriteLine($"Writing {Items.ITEM_NAMES[item]} --> {Items.ITEM_NAMES[location]}");
-
+            
             bool isRepeatable = Items.REPEATABLE.Contains(item);
             bool isCycleRepeatable = Items.CYCLE_REPEATABLE.Contains(item);
-
+            
             int f = RomUtils.GetFileIndexForWriting(GET_ITEM_TABLE);
             int baseaddr = GET_ITEM_TABLE - RomData.MMFileList[f].Addr;
             var getItemIndex = RomData.GetItemIndices[location];
@@ -188,15 +184,20 @@ namespace MMRando.Utils
             int offset = (getItemIndex - 1) * 8 + baseaddr;
             var newItem = RomData.GetItemList[item];
             var fileData = RomData.MMFileList[f].Data;
-            fileData[offset] = newItem.ItemGained;
-            fileData[offset + 1] = newItem.Flag;
-            fileData[offset + 2] = newItem.Index;
-            fileData[offset + 3] = newItem.Type;
-            fileData[offset + 4] = (byte)(newItem.Message >> 8);
-            fileData[offset + 5] = (byte)(newItem.Message & 0xFF);
-            fileData[offset + 6] = (byte)(newItem.Object >> 8);
-            fileData[offset + 7] = (byte)(newItem.Object & 0xFF);
-
+            
+            var data = new byte[]
+            {
+                newItem.ItemGained,
+                newItem.Flag,
+                newItem.Index,
+                newItem.Type,
+                (byte)(newItem.Message >> 8),
+                (byte)(newItem.Message & 0xFF),
+                (byte)(newItem.Object >> 8),
+                (byte)(newItem.Object & 0xFF),
+            };
+            ReadWriteUtils.Arr_Insert(data, 0, data.Length, fileData, offset);
+            
             if (isCycleRepeatable)
             {
                 ReadWriteUtils.WriteToROM(cycle_repeat, (ushort)getItemIndex);

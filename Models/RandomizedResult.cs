@@ -12,7 +12,7 @@ namespace MMRando.Models
         public Random Random { get; private set; }
         public List<ItemObject> ItemList { get; set; }
         public List<MessageEntry> GossipQuotes { get; set; }
-
+        public List<ItemLogic> Logic { get; set; }
 
         public int[] NewEntrances = new int[] { -1, -1, -1, -1 };
         public int[] NewExits = new int[] { -1, -1, -1, -1 };

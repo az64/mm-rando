@@ -29,6 +29,11 @@ namespace MMRando.Models
         public string InputROMFilename { get; set; }
 
         /// <summary>
+        /// Filepath to the input patch file
+        /// </summary>
+        public string InputPatchFilename { get; set; }
+
+        /// <summary>
         /// Filepath to the input logic file
         /// </summary>
         public string UserLogicFileName { get; set; }
@@ -36,7 +41,17 @@ namespace MMRando.Models
         /// <summary>
         /// Default Filename for the output ROM
         /// </summary>
-        public string DefaultOutputROMFilename { get; set; }
+        public string DefaultOutputROMFilename
+        {
+            get
+            {
+                string settings = this.ToString();
+                string appendSeed = GenerateSpoilerLog ? $"{Seed}_" : "";
+                string filename = $"MMR_{appendSeed}{settings}";
+
+                return filename + ".z64";
+            }
+        }
 
         /// <summary>
         /// Filepath to the output ROM
@@ -63,6 +78,11 @@ namespace MMRando.Models
         /// </summary>
         public bool UseCustomItemList { get; set; }
 
+        /// <summary>
+        /// Generate patch file
+        /// </summary>
+        public bool GeneratePatch { get; set; }
+
         #endregion
 
         #region Random Elements
@@ -78,7 +98,6 @@ namespace MMRando.Models
             set
             {
                 _seed = value;
-                UpdateOutputFilenames();
             }
         }
 
@@ -101,6 +120,11 @@ namespace MMRando.Models
         /// Add shop items to the randomization pool
         /// </summary>
         public bool AddShopItems { get; set; }
+
+        /// <summary>
+        /// Add moon items to the randomization pool
+        /// </summary>
+        public bool AddMoonItems { get; set; }
 
         /// <summary>
         /// Add everything else to the randomization pool
@@ -224,8 +248,8 @@ namespace MMRando.Models
             int part1 = (int)parts[0];
             int part2 = (int)parts[1];
             int part3 = (int)parts[2];
-            int part4 = (int)parts[3];
 
+            AddMoonItems = (part1 & 32768) > 0;
             FreeHints = (part1 & 16384) > 0;
             UseCustomItemList = (part1 & 8192) > 0;
             AddOther = (part1 & 4096) > 0;
@@ -255,8 +279,6 @@ namespace MMRando.Models
                 (part3 & 0xFF00) >> 8,
                 part3 & 0xFF);
 
-            byte clockSpeed = (byte)(part4 & 0xFF);
-
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
             LogicMode = (LogicMode)modeIndex;
@@ -265,15 +287,15 @@ namespace MMRando.Models
             MovementMode = (MovementMode)gravityTypeIndex;
             FloorType = (FloorType)floorTypeIndex;
             TunicColor = tunicColor;
-            ClockSpeed = clockSpeed;
 
         }
 
 
         private int[] BuildSettingsBytes()
         {
-            int[] parts = new int[4];
+            int[] parts = new int[3];
 
+            if (AddMoonItems) { parts[0] += 32768; };
             if (FreeHints) { parts[0] += 16384; };
             if (UseCustomItemList) { parts[0] += 8192; };
             if (AddOther) { parts[0] += 4096; };
@@ -302,18 +324,7 @@ namespace MMRando.Models
                 | ((byte)FloorType << 24)
                     | ((byte)MovementMode << 28);
 
-            parts[3] = ClockSpeed;
-
             return parts;
-        }
-
-        private void UpdateOutputFilenames()
-        {
-            string settings = this.ToString();
-            string appendSeed = GenerateSpoilerLog ? $"{Seed}_" : "";
-            string filename = $"MMR_{appendSeed}{settings}";
-
-            DefaultOutputROMFilename = filename + ".z64";
         }
 
         private string EncodeSettings()

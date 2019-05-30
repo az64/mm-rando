@@ -1,4 +1,5 @@
 using MMRando.Constants;
+using MMRando.LogicMigrator;
 using MMRando.Models;
 using MMRando.Models.Rom;
 using MMRando.Utils;
@@ -8,6 +9,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace MMRando
 {
@@ -277,13 +279,14 @@ namespace MMRando
                     }
 
                     Values.TatlColours[4, i] = BitConverter.ToUInt32(c, 0);
-                };
-            };
+                }
+            }
         }
 
         private void PrepareRulesetItemData()
         {
             ItemList = new List<ItemObject>();
+
             if (_settings.LogicMode == LogicMode.Casual
                 || _settings.LogicMode == LogicMode.Glitched
                 || _settings.LogicMode == LogicMode.UserLogic)
@@ -295,22 +298,6 @@ namespace MMRando
             {
                 PopulateItemListWithoutLogic();
             }
-
-            AddRequirementsForSongOath();
-        }
-
-        private void AddRequirementsForSongOath()
-        {
-            int[] OathReq = new int[] {
-                Items.AreaWoodFallTempleClear,
-                Items.AreaSnowheadTempleClear,
-                Items.AreaGreatBayTempleClear,
-                Items.AreaStoneTowerClear };
-
-            ItemList[Items.SongOath].DependsOnItems = new List<int>
-            {
-                OathReq[Random.Next(4)]
-            };
         }
 
         /// <summary>
@@ -336,6 +323,11 @@ namespace MMRando
         /// <param name="data">The lines from a logic file</param>
         private void PopulateItemListFromLogicData(string[] data)
         {
+            if (Migrator.GetVersion(data.ToList()) != Migrator.CurrentVersion)
+            {
+                throw new InvalidDataException("Logic file is out of date. Open it in the Logic Editor to bring it up to date.");
+            }
+
             int itemId = 0;
             int lineNumber = 0;
 
@@ -448,7 +440,6 @@ namespace MMRando
                 using (StreamReader Req = new StreamReader(File.Open(_settings.UserLogicFileName, FileMode.Open)))
                 {
                     lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-
                 }
             }
 
@@ -904,6 +895,12 @@ namespace MMRando
                 return false;
             }
 
+            if (ItemUtils.IsTemporaryItem(currentItem) && ItemUtils.IsMoonItem(target))
+            {
+                Debug.WriteLine($"{currentItem} cannot be placed on the moon.");
+                return false;
+            }
+
             //check direct dependence
             ConditionRemoves = new List<int[]>();
             DependenceChecked = new Dictionary<int, Dependence> { { target, new Dependence { Type = DependenceType.Dependent } } };
@@ -990,11 +987,23 @@ namespace MMRando
             PlaceMasks(itemPool);
             PlaceRegularItems(itemPool);
             PlaceShopItems(itemPool);
+            PlaceMoonItems(itemPool);
             PlaceHeartpieces(itemPool);
             PlaceOther(itemPool);
             PlaceTingleMaps(itemPool);
 
             _randomized.ItemList = ItemList;
+        }
+
+        /// <summary>
+        /// Places moon items in the randomization pool.
+        /// </summary>
+        private void PlaceMoonItems(List<int> itemPool)
+        {
+            for (int i = Items.HeartPieceDekuTrial; i <= Items.MaskFierceDeity; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
         }
 
         /// <summary>
@@ -1211,6 +1220,11 @@ namespace MMRando
             {
                 PreserveBottleCatchContents();
             }
+
+            if (!_settings.AddMoonItems)
+            {
+                PreserveMoonItems();
+            }
         }
 
         /// <summary>
@@ -1232,6 +1246,10 @@ namespace MMRando
             var itemPool = new List<int>();
             for (int i = Items.BottleCatchFairy; i <= Items.BottleCatchMushroom; i++)
             {
+                if (ItemList[i].ReplacesAnotherItem)
+                {
+                    continue;
+                }
                 itemPool.Add(i);
             }
 
@@ -1275,6 +1293,17 @@ namespace MMRando
             for (int i = Items.ItemWoodfallMap; i <= Items.ItemStoneTowerKey4; i++)
             {
                 ItemList[i].ReplacesItemId = i;
+            };
+        }
+
+        /// <summary>
+        /// Keeps moon items vanilla
+        /// </summary>
+        private void PreserveMoonItems()
+        {
+            for (int i = Items.HeartPieceDekuTrial; i <= Items.MaskFierceDeity; i++)
+            {
+                ItemList[i].ReplacesItemId = i;
             }
         }
 
@@ -1309,7 +1338,6 @@ namespace MMRando
 
             // Make all items vanilla, and override using custom item list
             MakeAllItemsVanilla();
-            PreserveAreasAndOther();
 
             // Should these be vanilla by default? Why not check settings.
             ApplyCustomItemList();
@@ -1336,7 +1364,7 @@ namespace MMRando
                     continue;
                 }
 
-                PlaceItem(item, new List<int> { item });
+                ItemList[item].ReplacesItemId = item;
             }
         }
 
@@ -1349,11 +1377,8 @@ namespace MMRando
             {
                 int selectedItem = _settings.CustomItemList[i];
 
-                if (selectedItem > Items.SongOath)
-                {
-                    // Skip entries describing areas and other
-                    selectedItem += Values.NumberOfAreasAndOther;
-                }
+                selectedItem = ItemUtils.AddItemOffset(selectedItem);
+
                 int selectedItemIndex = ItemList.FindIndex(u => u.ID == selectedItem);
 
                 if (selectedItemIndex != -1)
@@ -1365,23 +1390,6 @@ namespace MMRando
                 {
                     _settings.AddShopItems = true;
                 }
-            }
-        }
-
-        /// <summary>
-        /// Keeps area and other vanilla
-        /// </summary>
-        private void PreserveAreasAndOther()
-        {
-            for (int i = 0; i < ItemList.Count; i++)
-            {
-                if (ItemUtils.IsAreaOrOther(i)
-                    || ItemUtils.IsOutOfRange(i))
-                {
-                    continue;
-                }
-
-                ItemList[i].ReplacesItemId = i;
             }
         }
 
@@ -1404,6 +1412,8 @@ namespace MMRando
                     worker.ReportProgress(10, "Shuffling entrances...");
                     EntranceShuffle();
                 }
+
+                _randomized.Logic = ItemList.Select(io => new ItemLogic(io)).ToList();
 
                 worker.ReportProgress(30, "Shuffling items...");
                 RandomizeItems();
