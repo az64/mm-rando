@@ -5,12 +5,10 @@ using MMRando.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace MMRando
 {
@@ -317,37 +315,18 @@ namespace MMRando
             foreach (var item in _randomized.ItemList)
             {
                 // Unused item
-                if (item.ReplacesItemId == -1)
+                if (!item.ReplacesAnotherItem)
                 {
                     continue;
                 }
 
-                bool isRepeatable = Items.REPEATABLE.Contains(item.ID);
-                bool isCycleRepeatable = Items.CYCLE_REPEATABLE.Contains(item.ID);
-
-                var itemId = item.ID;
-                int replacesItemId = item.ReplacesItemId;
-
-                if (ItemUtils.IsItemDefinedPastAreas(itemId))
-                {
-                    // Subtract amount of entries describing areas and other
-                    itemId -= Values.NumberOfAreasAndOther;
-                }
-
-                if (ItemUtils.IsItemDefinedPastAreas(replacesItemId))
-                {
-                    // Subtract amount of entries describing areas and other
-                    replacesItemId -= Values.NumberOfAreasAndOther;
-                }
-
                 if (ItemUtils.IsBottleCatchContent(item.ID))
                 {
-                    ItemSwapUtils.WriteNewBottle(replacesItemId, itemId);
+                    ItemSwapUtils.WriteNewBottle(item.ReplacesItemId, item.ID);
                 }
                 else
                 {
-                    Debug.WriteLine($"Writing {Items.ITEM_NAMES[itemId]} --> {Items.ITEM_NAMES[replacesItemId]}");
-                    ItemSwapUtils.WriteNewItem(replacesItemId, itemId, isRepeatable, isCycleRepeatable);
+                    ItemSwapUtils.WriteNewItem(item.ReplacesItemId, item.ID);
                 }
             }
 

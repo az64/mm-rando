@@ -1,24 +1,23 @@
-﻿using MMRando.Constants;
-using MMRando.Models.Rom;
+﻿using MMRando.Models.Rom;
 
 namespace MMRando.Utils
 {
 
     public static class ObjUtils
     {
-
+        const int OBJECT_TABLE = 0xC58C80;
         public static int GetObjSize(int obj)
         {
-            int f = RomUtils.GetFileIndexForWriting(Addresses.ObjTable);
-            int basea = Addresses.ObjTable - RomData.MMFileList[f].Addr;
+            int f = RomUtils.GetFileIndexForWriting(OBJECT_TABLE);
+            int basea = OBJECT_TABLE - RomData.MMFileList[f].Addr;
             return (int)(ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, basea + (obj * 8) + 4)
                 - ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, basea + (obj * 8)));
         }
 
         public static void InsertObj(byte[] obj, int replace)
         {
-            int f = RomUtils.GetFileIndexForWriting(Addresses.ObjTable);
-            int basea = Addresses.ObjTable - RomData.MMFileList[f].Addr;
+            int f = RomUtils.GetFileIndexForWriting(OBJECT_TABLE);
+            int basea = OBJECT_TABLE - RomData.MMFileList[f].Addr;
             uint replaceaddr = ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, basea + (replace * 8));
             int objf = RomData.MMFileList.FindIndex(u => u.Addr == replaceaddr);
             if (objf == -1)
