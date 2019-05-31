@@ -51,7 +51,7 @@ namespace MMRando.Utils
         {
             if (itemId >= Items.AreaSouthAccess)
             {
-                itemId += Values.NumberOfAreasAndOther;
+                itemId += Items.NumberOfAreasAndOther;
             }
             if (itemId >= Items.OtherOneMask)
             {
@@ -68,7 +68,7 @@ namespace MMRando.Utils
             }
             if (itemId >= Items.AreaSouthAccess)
             {
-                itemId -= Values.NumberOfAreasAndOther;
+                itemId -= Items.NumberOfAreasAndOther;
             }
             return itemId;
         }

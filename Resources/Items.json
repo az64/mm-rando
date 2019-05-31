@@ -4905,5 +4905,145 @@
       "explosive mice"
     ],
     "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 255,
+    "Name": "One Mask",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 256,
+    "Name": "Two Masks",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 257,
+    "Name": "Three Masks",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 258,
+    "Name": "Four Masks",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 259,
+    "Name": "Moon Access",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": -1,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [],
+    "ItemHints": [],
+    "IsUsefulItem": true
+  },
+  {
+    "MMRIndex": 260,
+    "Name": "Deku Trial HP",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": 287,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [
+      "a masked child's game"
+    ],
+    "ItemHints": [
+      "a segment of health"
+    ],
+    "IsUsefulItem": false
+  },
+  {
+    "MMRIndex": 261,
+    "Name": "Goron Trial HP",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": 288,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [
+      "a masked child's game"
+    ],
+    "ItemHints": [
+      "a segment of health"
+    ],
+    "IsUsefulItem": false
+  },
+  {
+    "MMRIndex": 262,
+    "Name": "Zora Trial HP",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": 289,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [
+      "a masked child's game"
+    ],
+    "ItemHints": [
+      "a segment of health"
+    ],
+    "IsUsefulItem": false
+  },
+  {
+    "MMRIndex": 263,
+    "Name": "Link Trial HP",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": 290,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [
+      "a masked child's game"
+    ],
+    "ItemHints": [
+      "a segment of health"
+    ],
+    "IsUsefulItem": false
+  },
+  {
+    "MMRIndex": 264,
+    "Name": "Fierce Deity's Mask",
+    "Repeatable": false,
+    "CycleRepeatable": false,
+    "GetItemIndex": 123,
+    "BottleIndexes": [],
+    "GiveItemAddresses": [],
+    "LocationHints": [
+      "the lonely child"
+    ],
+    "ItemHints": [
+      "the wrath of a god"
+    ],
+    "IsUsefulItem": true
   }
 ]
