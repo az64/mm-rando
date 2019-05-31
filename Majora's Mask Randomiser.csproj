@@ -206,7 +206,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include=".editorconfig" />
     <None Include="Resources\addresses\d-check">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

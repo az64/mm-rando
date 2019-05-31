@@ -327,7 +327,7 @@ namespace MMRando
                 // Unused item
                 if (!item.ReplacesAnotherItem)
                 {
-                    continue
+                    continue;
                 }
 
                 if (ItemUtils.IsBottleCatchContent(item.ID))
@@ -432,6 +432,7 @@ namespace MMRando
             using (BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open, FileAccess.Read)))
             {
                 RomUtils.ReadFileTable(OldROM);
+                _messageTable.InitializeTable();
             }
 
             List<MMFile> originalMMFileList = null;
@@ -482,8 +483,9 @@ namespace MMRando
                 worker.ReportProgress(66, "Writing items...");
                 WriteItems();
 
-                worker.ReportProgress(67, "Writing gossip...");
+                worker.ReportProgress(67, "Writing messages...");
                 WriteGossipQuotes();
+                MessageTable.WriteMessageTable(_messageTable);
 
                 worker.ReportProgress(68, "Writing startup...");
                 WriteStartupStrings();

@@ -1,4 +1,4 @@
-using MMRando.Models.Rom;
+﻿using MMRando.Models.Rom;
 using System.Collections.Generic;
 
 namespace MMRando.Utils

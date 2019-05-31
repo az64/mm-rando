@@ -1,5 +1,4 @@
-﻿using MMRando.Constants;
-using MMRando.Models;
+﻿using MMRando.Models;
 using MMRando.Models.Rom;
 using System;
 using System.Collections.Generic;
@@ -90,17 +89,8 @@ namespace MMRando.Utils
                     continue;
                 }
 
-                int sourceItemId = item.ReplacesItemId;
-                if (ItemUtils.IsItemDefinedPastAreas(sourceItemId))
-                {
-                    sourceItemId -= Values.NumberOfAreasAndOther;
-                }
-
-                int toItemId = item.ID;
-                if (ItemUtils.IsItemDefinedPastAreas(toItemId))
-                {
-                    toItemId -= Values.NumberOfAreasAndOther;
-                }
+                int sourceItemId = ItemUtils.SubtractItemOffset(item.ReplacesItemId);
+                int toItemId = ItemUtils.SubtractItemOffset(item.ID);
 
                 // 5% chance of being fake
                 bool isFake = (random.Next(100) < 5);

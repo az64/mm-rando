@@ -1,5 +1,4 @@
-﻿using MMRando.Constants;
-using MMRando.Models.Rom;
+﻿using MMRando.Models.Rom;
 using System;
 using System.Collections.Generic;
 
@@ -133,17 +132,8 @@ namespace MMRando.Utils
 
         public static void WriteNewBottle(int location, int item)
         {
-            if (ItemUtils.IsItemDefinedPastAreas(location))
-            {
-                // Subtract amount of entries describing areas and other
-                location -= Values.NumberOfAreasAndOther;
-            }
-
-            if (ItemUtils.IsItemDefinedPastAreas(item))
-            {
-                // Subtract amount of entries describing areas and other
-                item -= Values.NumberOfAreasAndOther;
-            }
+            location = ItemUtils.SubtractItemOffset(location);
+            item = ItemUtils.SubtractItemOffset(item);
 
             System.Diagnostics.Debug.WriteLine($"Writing {Items.ITEM_NAMES[item]} --> {Items.ITEM_NAMES[location]}");
 
