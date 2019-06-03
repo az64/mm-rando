@@ -17,8 +17,11 @@ namespace MMRando.Utils
 
         public static bool IsShopItem(int itemIndex)
         {
-            return itemIndex >= Items.ShopItemTradingPostRedPotion
-                    && itemIndex <= Items.ShopItemZoraRedPotion;
+            return (itemIndex >= Items.ShopItemTradingPostRedPotion
+                    && itemIndex <= Items.ShopItemZoraRedPotion)
+                    || itemIndex == Items.ItemBombBag
+                    || itemIndex == Items.UpgradeBigBombBag
+                    || itemIndex == Items.MaskAllNight;
         }
 
         public static bool IsFakeItem(int itemId)
