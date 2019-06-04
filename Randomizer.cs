@@ -51,7 +51,7 @@ namespace MMRando
 
         Dictionary<int, List<int>> ForbiddenReplacedBy = new Dictionary<int, List<int>>
         {
-            // Deku_Mask should not be replaced by trade items, or items that can be downgraded.
+            // MaskDeku and SongHealing should not be replaced by trade items, or items that can be downgraded.
             {
                 Items.MaskDeku, new List<int>
                 {
@@ -60,7 +60,23 @@ namespace MMRando
                     Items.UpgradeBiggestQuiver,
                     Items.UpgradeBigBombBag,
                     Items.UpgradeBiggestBombBag,
-                    Items.UpgradeGiantWallet
+                    Items.UpgradeGiantWallet,
+                    Items.ChestMountainVillageGrottoBottle,
+                }
+                .Concat(Enumerable.Range(Items.TradeItemMoonTear, Items.TradeItemMamaLetter - Items.TradeItemMoonTear + 1))
+                .Concat(Enumerable.Range(Items.ItemBottleWitch, Items.ItemBottleMadameAroma - Items.ItemBottleWitch + 1))
+                .ToList()
+            },
+            {
+                Items.SongHealing, new List<int>
+                {
+                    Items.UpgradeGildedSword,
+                    Items.UpgradeMirrorShield,
+                    Items.UpgradeBiggestQuiver,
+                    Items.UpgradeBigBombBag,
+                    Items.UpgradeBiggestBombBag,
+                    Items.UpgradeGiantWallet,
+                    Items.ChestMountainVillageGrottoBottle,
                 }
                 .Concat(Enumerable.Range(Items.TradeItemMoonTear, Items.TradeItemMamaLetter - Items.TradeItemMoonTear + 1))
                 .Concat(Enumerable.Range(Items.ItemBottleWitch, Items.ItemBottleMadameAroma - Items.ItemBottleWitch + 1))
@@ -1052,6 +1068,11 @@ namespace MMRando
             }
 
             var availableItems = targets.ToList();
+            if (currentItem > Items.SongOath)
+            {
+                availableItems.Remove(Items.MaskDeku);
+                availableItems.Remove(Items.SongHealing);
+            }
 
             while (true)
             {
@@ -1060,15 +1081,7 @@ namespace MMRando
                     throw new Exception($"Unable to place {Items.ITEM_NAMES[currentItem]} anywhere.");
                 }
 
-                int targetItem = 0;
-                if (currentItem > Items.SongOath && availableItems.Contains(0))
-                {
-                    targetItem = Random.Next(1, availableItems.Count);
-                }
-                else
-                {
-                    targetItem = Random.Next(availableItems.Count);
-                }
+                int targetItem = Random.Next(availableItems.Count);
 
                 Debug.WriteLine($"----Attempting to place {Items.ITEM_NAMES[currentItem]} at {Items.ITEM_NAMES[availableItems[targetItem]]}.---");
 
@@ -1107,7 +1120,7 @@ namespace MMRando
             PlaceQuestItems(itemPool);
             PlaceTradeItems(itemPool);
             PlaceDungeonItems(itemPool);
-            PlaceFreeItem(itemPool);
+            PlaceFreeItems(itemPool);
             PlaceUpgrades(itemPool);
             PlaceSongs(itemPool);
             PlaceMasks(itemPool);
@@ -1205,7 +1218,7 @@ namespace MMRando
         /// </summary>
         private void PlaceSongs(List<int> itemPool)
         {
-            for (int i = Items.SongSoaring; i <= Items.SongOath; i++)
+            for (int i = Items.SongHealing; i <= Items.SongOath; i++)
             {
                 PlaceItem(i, itemPool);
             }
@@ -1245,26 +1258,38 @@ namespace MMRando
         }
 
         /// <summary>
-        /// Replace starting deku mask with free item if not already replaced.
+        /// Replace starting deku mask and song of healing with free items if not already replaced.
         /// </summary>
-        private void PlaceFreeItem(List<int> itemPool)
+        private void PlaceFreeItems(List<int> itemPool)
         {
-            if (ItemList.FindIndex(item => item.ReplacesItemId == Items.MaskDeku) != -1)
+            if (ItemList.FindIndex(item => item.ReplacesItemId == Items.MaskDeku) == -1)
             {
-                return;
-            }
-
-            int freeItem = Random.Next(Items.SongOath + 1);
-            if (ForbiddenReplacedBy.ContainsKey(Items.MaskDeku))
-            {
-                while (ItemList[freeItem].ReplacesItemId != -1
-                    || ForbiddenReplacedBy[Items.MaskDeku].Contains(freeItem))
+                int freeItem = Random.Next(Items.SongOath + 1);
+                if (ForbiddenReplacedBy.ContainsKey(Items.MaskDeku))
                 {
-                    freeItem = Random.Next(Items.SongOath + 1);
+                    while (ItemList[freeItem].ReplacesItemId != -1
+                        || ForbiddenReplacedBy[Items.MaskDeku].Contains(freeItem))
+                    {
+                        freeItem = Random.Next(Items.SongOath + 1);
+                    }
                 }
+                ItemList[freeItem].ReplacesItemId = Items.MaskDeku;
+                itemPool.Remove(Items.MaskDeku);
             }
-            ItemList[freeItem].ReplacesItemId = Items.MaskDeku;
-            itemPool.Remove(Items.MaskDeku);
+            if (ItemList.FindIndex(item => item.ReplacesItemId == Items.SongHealing) == -1)
+            {
+                int freeItem = Random.Next(Items.SongOath + 1);
+                if (ForbiddenReplacedBy.ContainsKey(Items.SongHealing))
+                {
+                    while (ItemList[freeItem].ReplacesItemId != -1
+                        || ForbiddenReplacedBy[Items.SongHealing].Contains(freeItem))
+                    {
+                        freeItem = Random.Next(Items.SongOath + 1);
+                    }
+                }
+                ItemList[freeItem].ReplacesItemId = Items.SongHealing;
+                itemPool.Remove(Items.SongHealing);
+            }
         }
 
         /// <summary>
@@ -1439,7 +1464,7 @@ namespace MMRando
         private void ShuffleSongs()
         {
             var itemPool = new List<int>();
-            for (int i = Items.SongSoaring; i <= Items.SongOath; i++)
+            for (int i = Items.SongHealing; i <= Items.SongOath; i++)
             {
                 if (ItemList[i].ReplacesAnotherItem)
                 {
@@ -1448,7 +1473,7 @@ namespace MMRando
                 itemPool.Add(i);
             }
 
-            for (int i = Items.SongSoaring; i <= Items.SongOath; i++)
+            for (int i = Items.SongHealing; i <= Items.SongOath; i++)
             {
                 PlaceItem(i, itemPool);
             }

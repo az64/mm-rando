@@ -103,5 +103,14 @@ namespace MMRando.Utils
             return item >= Items.TradeItemLandDeed
                     && item <= Items.TradeItemOceanDeed;
         }
+
+        public static bool IsHeartPiece(int itemIndex)
+        {
+            return (itemIndex >= Items.HeartPieceNotebookMayor && itemIndex <= Items.HeartPieceKnuckle)
+                || (itemIndex >= Items.HeartPieceSouthClockTown && itemIndex <= Items.HeartContainerStoneTower)
+                || (itemIndex >= Items.HeartPieceDekuTrial && itemIndex <= Items.HeartPieceLinkTrial)
+                || itemIndex == Items.ChestSecretShrineHeartPiece
+                || itemIndex == Items.HeartPieceBank;
+        }
     }
 }

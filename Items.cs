@@ -109,199 +109,200 @@ namespace MMRando
         public const int MaskZora = 89;
 
         //song
-        public const int SongSoaring = 90;
-        public const int SongEpona = 91;
-        public const int SongStorms = 92;
-        public const int SongSonata = 93;
-        public const int SongLullaby = 94;
-        public const int SongNewWaveBossaNova = 95;
-        public const int SongElegy = 96;
-        public const int SongOath = 97;
+        public const int SongHealing = 90;
+        public const int SongSoaring = 91;
+        public const int SongEpona = 92;
+        public const int SongStorms = 93;
+        public const int SongSonata = 94;
+        public const int SongLullaby = 95;
+        public const int SongNewWaveBossaNova = 96;
+        public const int SongElegy = 97;
+        public const int SongOath = 98;
 
         //areas/other
-        public const int AreaSouthAccess = 98;
-        public const int AreaWoodFallTempleAccess = 99;
-        public const int AreaWoodFallTempleClear = 100;
-        public const int AreaNorthAccess = 101;
-        public const int AreaSnowheadTempleAccess = 102;
-        public const int AreaSnowheadTempleClear = 103;
-        public const int OtherEpona = 104;
-        public const int AreaWestAccess = 105;
-        public const int AreaPiratesFortressAccess = 106;
-        public const int AreaGreatBayTempleAccess = 107;
-        public const int AreaGreatBayTempleClear = 108;
-        public const int AreaEastAccess = 109;
-        public const int AreaIkanaCanyonAccess = 110;
-        public const int AreaStoneTowerTempleAccess = 111;
-        public const int AreaInvertedStoneTowerTempleAccess = 112;
-        public const int AreaStoneTowerClear = 113;
-        public const int OtherExplosive = 114;
-        public const int OtherArrow = 115;
-        public const int AreaWoodfallNew = 116;
-        public const int AreaSnowheadNew = 117;
-        public const int AreaGreatBayNew = 118;
-        public const int AreaLANew = 119; // ??
-        public const int AreaInvertedStoneTowerNew = 120; // Seemingly not used
+        public const int AreaSouthAccess = 99;
+        public const int AreaWoodFallTempleAccess = 100;
+        public const int AreaWoodFallTempleClear = 101;
+        public const int AreaNorthAccess = 102;
+        public const int AreaSnowheadTempleAccess = 103;
+        public const int AreaSnowheadTempleClear = 104;
+        public const int OtherEpona = 105;
+        public const int AreaWestAccess = 106;
+        public const int AreaPiratesFortressAccess = 107;
+        public const int AreaGreatBayTempleAccess = 108;
+        public const int AreaGreatBayTempleClear = 109;
+        public const int AreaEastAccess = 110;
+        public const int AreaIkanaCanyonAccess = 111;
+        public const int AreaStoneTowerTempleAccess = 112;
+        public const int AreaInvertedStoneTowerTempleAccess = 113;
+        public const int AreaStoneTowerClear = 114;
+        public const int OtherExplosive = 115;
+        public const int OtherArrow = 116;
+        public const int AreaWoodfallNew = 117;
+        public const int AreaSnowheadNew = 118;
+        public const int AreaGreatBayNew = 119;
+        public const int AreaLANew = 120; // ??
+        public const int AreaInvertedStoneTowerNew = 121; // Seemingly not used
 
         //keysanity items
-        public const int ItemWoodfallMap = 121;
-        public const int ItemWoodfallCompass = 122;
-        public const int ItemWoodfallBossKey = 123;
-        public const int ItemWoodfallKey1 = 124;
-        public const int ItemSnowheadMap = 125;
-        public const int ItemSnowheadCompass = 126;
-        public const int ItemSnowheadBossKey = 127;
-        public const int ItemSnowheadKey1 = 128;
-        public const int ItemSnowheadKey2 = 129;
-        public const int ItemSnowheadKey3 = 130;
-        public const int ItemGreatBayMap = 131;
-        public const int ItemGreatBayCompass = 132;
-        public const int ItemGreatBayBossKey = 133;
-        public const int ItemGreatBayKey1 = 134;
-        public const int ItemStoneTowerMap = 135;
-        public const int ItemStoneTowerCompass = 136;
-        public const int ItemStoneTowerBossKey = 137;
-        public const int ItemStoneTowerKey1 = 138;
-        public const int ItemStoneTowerKey2 = 139;
-        public const int ItemStoneTowerKey3 = 140;
-        public const int ItemStoneTowerKey4 = 141;
+        public const int ItemWoodfallMap = 122;
+        public const int ItemWoodfallCompass = 123;
+        public const int ItemWoodfallBossKey = 124;
+        public const int ItemWoodfallKey1 = 125;
+        public const int ItemSnowheadMap = 126;
+        public const int ItemSnowheadCompass = 127;
+        public const int ItemSnowheadBossKey = 128;
+        public const int ItemSnowheadKey1 = 129;
+        public const int ItemSnowheadKey2 = 130;
+        public const int ItemSnowheadKey3 = 131;
+        public const int ItemGreatBayMap = 132;
+        public const int ItemGreatBayCompass = 133;
+        public const int ItemGreatBayBossKey = 134;
+        public const int ItemGreatBayKey1 = 135;
+        public const int ItemStoneTowerMap = 136;
+        public const int ItemStoneTowerCompass = 137;
+        public const int ItemStoneTowerBossKey = 138;
+        public const int ItemStoneTowerKey1 = 139;
+        public const int ItemStoneTowerKey2 = 140;
+        public const int ItemStoneTowerKey3 = 141;
+        public const int ItemStoneTowerKey4 = 142;
 
         //shop items
-        public const int ShopItemTradingPostRedPotion = 142;
-        public const int ShopItemTradingPostGreenPotion = 143;
-        public const int ShopItemTradingPostShield = 144;
-        public const int ShopItemTradingPostFairy = 145;
-        public const int ShopItemTradingPostStick = 146;
-        public const int ShopItemTradingPostArrow30 = 147;
-        public const int ShopItemTradingPostNut10 = 148;
-        public const int ShopItemTradingPostArrow50 = 149;
-        public const int ShopItemWitchBluePotion = 150;
-        public const int ShopItemWitchRedPotion = 151;
-        public const int ShopItemWitchGreenPotion = 152;
-        public const int ShopItemBombsBomb10 = 153;
-        public const int ShopItemBombsBombchu10 = 154;
-        public const int ShopItemGoronBomb10 = 155;
-        public const int ShopItemGoronArrow10 = 156;
-        public const int ShopItemGoronRedPotion = 157;
-        public const int ShopItemZoraShield = 158;
-        public const int ShopItemZoraArrow10 = 159;
-        public const int ShopItemZoraRedPotion = 160;
+        public const int ShopItemTradingPostRedPotion = 143;
+        public const int ShopItemTradingPostGreenPotion = 144;
+        public const int ShopItemTradingPostShield = 145;
+        public const int ShopItemTradingPostFairy = 146;
+        public const int ShopItemTradingPostStick = 147;
+        public const int ShopItemTradingPostArrow30 = 148;
+        public const int ShopItemTradingPostNut10 = 149;
+        public const int ShopItemTradingPostArrow50 = 150;
+        public const int ShopItemWitchBluePotion = 151;
+        public const int ShopItemWitchRedPotion = 152;
+        public const int ShopItemWitchGreenPotion = 153;
+        public const int ShopItemBombsBomb10 = 154;
+        public const int ShopItemBombsBombchu10 = 155;
+        public const int ShopItemGoronBomb10 = 156;
+        public const int ShopItemGoronArrow10 = 157;
+        public const int ShopItemGoronRedPotion = 158;
+        public const int ShopItemZoraShield = 159;
+        public const int ShopItemZoraArrow10 = 160;
+        public const int ShopItemZoraRedPotion = 161;
 
         //bottle catch
-        public const int BottleCatchFairy = 161;
-        public const int BottleCatchPrincess = 162;
-        public const int BottleCatchFish = 163;
-        public const int BottleCatchBug = 164;
-        public const int BottleCatchPoe = 165;
-        public const int BottleCatchBigPoe = 166;
-        public const int BottleCatchSpringWater = 167;
-        public const int BottleCatchHotSpringWater = 168;
-        public const int BottleCatchEgg = 169;
-        public const int BottleCatchMushroom = 170;
+        public const int BottleCatchFairy = 162;
+        public const int BottleCatchPrincess = 163;
+        public const int BottleCatchFish = 164;
+        public const int BottleCatchBug = 165;
+        public const int BottleCatchPoe = 166;
+        public const int BottleCatchBigPoe = 167;
+        public const int BottleCatchSpringWater = 168;
+        public const int BottleCatchHotSpringWater = 169;
+        public const int BottleCatchEgg = 170;
+        public const int BottleCatchMushroom = 171;
 
         //other chests and grottos
-        public const int ChestLensCaveRedRupee = 171;
-        public const int ChestLensCavePurpleRupee = 172;
-        public const int ChestBeanGrottoRedRupee = 173;
-        public const int ChestHotSpringGrottoRedRupee = 174;
-        public const int ChestBadBatsGrottoPurpleRupee = 175; 
-        public const int ChestIkanaGrottoRecoveryHeart = 176; 
-        public const int ChestPiratesFortressRedRupee1 = 177;
-        public const int ChestPiratesFortressRedRupee2 = 178;
-        public const int ChestInsidePiratesFortressTankRedRupee = 179;
-        public const int ChestInsidePiratesFortressGuardSilverRupee = 180;
-        public const int ChestInsidePiratesFortressHeartPieceRoomRedRupee = 181;
-        public const int ChestInsidePiratesFortressHeartPieceRoomBlueRupee = 182;
-        public const int ChestInsidePiratesFortressMazeRedRupee = 183;
-        public const int ChestPinacleRockRedRupee1 = 184;
-        public const int ChestPinacleRockRedRupee2 = 185;
-        public const int ChestBomberHideoutSilverRupee = 186;
-        public const int ChestTerminaGrottoBombchu = 187;
-        public const int ChestTerminaGrottoRedRupee = 188;
-        public const int ChestTerminaUnderwaterRedRupee = 189;
-        public const int ChestTerminaGrassRedRupee = 190;
-        public const int ChestTerminaStumpRedRupee = 191;
-        public const int ChestGreatBayCoastGrotto = 192; //contents? 
-        public const int ChestGreatBayCapeLedge1 = 193; //contents? 
-        public const int ChestGreatBayCapeLedge2 = 194; //contents? 
-        public const int ChestGreatBayCapeGrotto = 195; //contents? 
-        public const int ChestGreatBayCapeUnderwater = 196; //contents? 
-        public const int ChestPiratesFortressEntranceRedRupee1 = 197;
-        public const int ChestPiratesFortressEntranceRedRupee2 = 198;
-        public const int ChestPiratesFortressEntranceRedRupee3 = 199;
-        public const int ChestToSwampGrotto = 200; //contents? 
-        public const int ChestDogRacePurpleRupee = 201;
-        public const int ChestGraveyardGrotto = 202; //contents? 
-        public const int ChestSwampGrotto = 203;  //contents? 
-        public const int ChestWoodfallBlueRupee = 204;
-        public const int ChestWoodfallRedRupee = 205;
-        public const int ChestWellRightPurpleRupee = 206;
-        public const int ChestWellLeftPurpleRupee = 207;
-        public const int ChestMountainVillage = 208; //contents? 
-        public const int ChestMountainVillageGrottoBottle = 209; // originally RedRupee
-        public const int ChestToIkanaRedRupee = 210;
-        public const int ChestToIkanaGrotto = 211; //contents? 
-        public const int ChestInvertedStoneTowerSilverRupee = 212;
-        public const int ChestInvertedStoneTowerBombchu10 = 213;
-        public const int ChestInvertedStoneTowerBean = 214;
-        public const int ChestToSnowheadGrotto = 215; //contents? 
-        public const int ChestToGoronVillageRedRupee = 216; 
-        public const int ChestSecretShrineHeartPiece = 217; //Heart Piece
-        public const int ChestSecretShrineDinoGrotto = 218; 
-        public const int ChestSecretShrineWizzGrotto = 219; 
-        public const int ChestSecretShrineWartGrotto = 220; 
-        public const int ChestSecretShrineGaroGrotto = 221; 
-        public const int ChestInnStaffRoom = 222; //contents? 
-        public const int ChestInnGuestRoom = 223; //contents? 
-        public const int ChestWoodsGrotto = 224; //contents? 
-        public const int ChestEastClockTownSilverRupee = 225;
-        public const int ChestSouthClockTownRedRupee = 226;
-        public const int ChestSouthClockTownPurpleRupee = 227;
-        public const int HeartPieceBank = 228; //Heart Piece
+        public const int ChestLensCaveRedRupee = 172;
+        public const int ChestLensCavePurpleRupee = 173;
+        public const int ChestBeanGrottoRedRupee = 174;
+        public const int ChestHotSpringGrottoRedRupee = 175;
+        public const int ChestBadBatsGrottoPurpleRupee = 176; 
+        public const int ChestIkanaGrottoRecoveryHeart = 177; 
+        public const int ChestPiratesFortressRedRupee1 = 178;
+        public const int ChestPiratesFortressRedRupee2 = 179;
+        public const int ChestInsidePiratesFortressTankRedRupee = 180;
+        public const int ChestInsidePiratesFortressGuardSilverRupee = 181;
+        public const int ChestInsidePiratesFortressHeartPieceRoomRedRupee = 182;
+        public const int ChestInsidePiratesFortressHeartPieceRoomBlueRupee = 183;
+        public const int ChestInsidePiratesFortressMazeRedRupee = 184;
+        public const int ChestPinacleRockRedRupee1 = 185;
+        public const int ChestPinacleRockRedRupee2 = 186;
+        public const int ChestBomberHideoutSilverRupee = 187;
+        public const int ChestTerminaGrottoBombchu = 188;
+        public const int ChestTerminaGrottoRedRupee = 189;
+        public const int ChestTerminaUnderwaterRedRupee = 190;
+        public const int ChestTerminaGrassRedRupee = 191;
+        public const int ChestTerminaStumpRedRupee = 192;
+        public const int ChestGreatBayCoastGrotto = 193; //contents? 
+        public const int ChestGreatBayCapeLedge1 = 194; //contents? 
+        public const int ChestGreatBayCapeLedge2 = 195; //contents? 
+        public const int ChestGreatBayCapeGrotto = 196; //contents? 
+        public const int ChestGreatBayCapeUnderwater = 197; //contents? 
+        public const int ChestPiratesFortressEntranceRedRupee1 = 198;
+        public const int ChestPiratesFortressEntranceRedRupee2 = 199;
+        public const int ChestPiratesFortressEntranceRedRupee3 = 200;
+        public const int ChestToSwampGrotto = 201; //contents? 
+        public const int ChestDogRacePurpleRupee = 202;
+        public const int ChestGraveyardGrotto = 203; //contents? 
+        public const int ChestSwampGrotto = 204;  //contents? 
+        public const int ChestWoodfallBlueRupee = 205;
+        public const int ChestWoodfallRedRupee = 206;
+        public const int ChestWellRightPurpleRupee = 207;
+        public const int ChestWellLeftPurpleRupee = 208;
+        public const int ChestMountainVillage = 209; //contents? 
+        public const int ChestMountainVillageGrottoBottle = 210; // originally RedRupee
+        public const int ChestToIkanaRedRupee = 211;
+        public const int ChestToIkanaGrotto = 212; //contents? 
+        public const int ChestInvertedStoneTowerSilverRupee = 213;
+        public const int ChestInvertedStoneTowerBombchu10 = 214;
+        public const int ChestInvertedStoneTowerBean = 215;
+        public const int ChestToSnowheadGrotto = 216; //contents? 
+        public const int ChestToGoronVillageRedRupee = 217; 
+        public const int ChestSecretShrineHeartPiece = 218; //Heart Piece
+        public const int ChestSecretShrineDinoGrotto = 219; 
+        public const int ChestSecretShrineWizzGrotto = 220; 
+        public const int ChestSecretShrineWartGrotto = 221; 
+        public const int ChestSecretShrineGaroGrotto = 222; 
+        public const int ChestInnStaffRoom = 223; //contents? 
+        public const int ChestInnGuestRoom = 224; //contents? 
+        public const int ChestWoodsGrotto = 225; //contents? 
+        public const int ChestEastClockTownSilverRupee = 226;
+        public const int ChestSouthClockTownRedRupee = 227;
+        public const int ChestSouthClockTownPurpleRupee = 228;
+        public const int HeartPieceBank = 229; //Heart Piece
 
         //standing HPs
-        public const int HeartPieceSouthClockTown = 229;
-        public const int HeartPieceNorthClockTown = 230;
-        public const int HeartPieceToSwamp = 231;
-        public const int HeartPieceSwampScrub = 232;
-        public const int HeartPieceDekuPalace = 233;
-        public const int HeartPieceGoronVillageScrub = 234;
-        public const int HeartPieceZoraGrotto = 235;
-        public const int HeartPieceLabFish = 236;
-        public const int HeartPieceGreatBayCapeLikeLike = 237;
-        public const int HeartPiecePiratesFortress = 238;
-        public const int HeartPieceZoraHallScrub = 239;
-        public const int HeartPieceToSnowhead = 240;
-        public const int HeartPieceGreatBayCoast = 241;
-        public const int HeartPieceIkana = 242;
-        public const int HeartPieceCastle = 243;
-        public const int HeartContainerWoodfall = 244;
-        public const int HeartContainerSnowhead = 245;
-        public const int HeartContainerGreatBay = 246;
-        public const int HeartContainerStoneTower = 247;
+        public const int HeartPieceSouthClockTown = 230;
+        public const int HeartPieceNorthClockTown = 231;
+        public const int HeartPieceToSwamp = 232;
+        public const int HeartPieceSwampScrub = 233;
+        public const int HeartPieceDekuPalace = 234;
+        public const int HeartPieceGoronVillageScrub = 235;
+        public const int HeartPieceZoraGrotto = 236;
+        public const int HeartPieceLabFish = 237;
+        public const int HeartPieceGreatBayCapeLikeLike = 238;
+        public const int HeartPiecePiratesFortress = 239;
+        public const int HeartPieceZoraHallScrub = 240;
+        public const int HeartPieceToSnowhead = 241;
+        public const int HeartPieceGreatBayCoast = 242;
+        public const int HeartPieceIkana = 243;
+        public const int HeartPieceCastle = 244;
+        public const int HeartContainerWoodfall = 245;
+        public const int HeartContainerSnowhead = 246;
+        public const int HeartContainerGreatBay = 247;
+        public const int HeartContainerStoneTower = 248;
 
         //maps
-        public const int ItemTingleMapTown = 248;
-        public const int ItemTingleMapWoodfall = 249;
-        public const int ItemTingleMapSnowhead = 250;
-        public const int ItemTingleMapRanch = 251;
-        public const int ItemTingleMapGreatBay = 252;
-        public const int ItemTingleMapStoneTower = 253;
+        public const int ItemTingleMapTown = 249;
+        public const int ItemTingleMapWoodfall = 250;
+        public const int ItemTingleMapSnowhead = 251;
+        public const int ItemTingleMapRanch = 252;
+        public const int ItemTingleMapGreatBay = 253;
+        public const int ItemTingleMapStoneTower = 254;
 
         //oops I forgot one
-        public const int ChestToGoronRaceGrotto = 254; //contents?
+        public const int ChestToGoronRaceGrotto = 255; //contents?
 
         //moon items
-        public const int OtherOneMask = 255;
-        public const int OtherTwoMasks = 256;
-        public const int OtherThreeMasks = 257;
-        public const int OtherFourMasks = 258;
-        public const int AreaMoonAccess = 259;
-        public const int HeartPieceDekuTrial = 260;
-        public const int HeartPieceGoronTrial = 261;
-        public const int HeartPieceZoraTrial = 262;
-        public const int HeartPieceLinkTrial = 263;
-        public const int MaskFierceDeity = 264;
+        public const int OtherOneMask = 256;
+        public const int OtherTwoMasks = 257;
+        public const int OtherThreeMasks = 258;
+        public const int OtherFourMasks = 259;
+        public const int AreaMoonAccess = 260;
+        public const int HeartPieceDekuTrial = 261;
+        public const int HeartPieceGoronTrial = 262;
+        public const int HeartPieceZoraTrial = 263;
+        public const int HeartPieceLinkTrial = 264;
+        public const int MaskFierceDeity = 265;
 
         public static readonly ReadOnlyCollection<int> REPEATABLE
             = new ReadOnlyCollection<int>(new int[] {
@@ -535,6 +536,7 @@ namespace MMRando
                 0xC5CE4D,
                 0xC5CE72,
                 0xC5CE72,
+                0xC5CE72,
                 0xC5CE71,
                 0xC5CE73,
                 0xC5CE73,
@@ -564,9 +566,9 @@ namespace MMRando
                 0x12,
                 0x12,
                 0x04,
-                0x12,
-                0x13,
-                0x21,
+                0x02,
+                0x03,
+                0x20,
                 0x01,
                 0x01,
                 0x06,
@@ -635,14 +637,15 @@ namespace MMRando
                 0x49,
                 0x33,
                 0x34,
-                0xB0,
-                0x70,
+                0x20,
+                0x80,
+                0x40,
                 0x01,
                 0x40,
                 0x80,
-                0x31,
-                0x32,
-                0x34
+                0x01,
+                0x02,
+                0x04
         });
 
         public static readonly ReadOnlyCollection<string> ITEM_NAMES
@@ -737,6 +740,7 @@ namespace MMRando
                 "Giant's Mask",
                 "Goron Mask",
                 "Zora Mask",
+                "Song of Healing",
                 "Song of Soaring",
                 "Epona's Song",
                 "Song of Storms",
@@ -914,7 +918,7 @@ namespace MMRando
                 "Fierce Deity's Mask",
         });
 
-        internal static readonly int TotalNumberOfItems = 265;
+        internal static readonly int TotalNumberOfItems = 266;
     }
 
 }

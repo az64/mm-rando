@@ -100,6 +100,7 @@ namespace MMRando
             "Giant's Mask",
             "Goron Mask",
             "Zora Mask",
+            "Song of Healing",
             "Song of Soaring",
             "Epona's Song",
             "Song of Storms",
