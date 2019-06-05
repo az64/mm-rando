@@ -132,10 +132,10 @@ namespace MMRando.Utils
 
         public static void WriteNewBottle(int location, int item)
         {
+            System.Diagnostics.Debug.WriteLine($"Writing {Items.ITEM_NAMES[item]} --> {Items.ITEM_NAMES[location]}");
+
             location = ItemUtils.SubtractItemOffset(location);
             item = ItemUtils.SubtractItemOffset(item);
-
-            System.Diagnostics.Debug.WriteLine($"Writing {Items.ITEM_NAMES[item]} --> {Items.ITEM_NAMES[location]}");
 
             int f = RomUtils.GetFileIndexForWriting(BOTTLE_CATCH_TABLE);
             int baseaddr = BOTTLE_CATCH_TABLE - RomData.MMFileList[f].Addr;
@@ -156,10 +156,10 @@ namespace MMRando.Utils
 
         public static void WriteNewItem(int location, int item)
         {
+            System.Diagnostics.Debug.WriteLine($"Writing {Items.ITEM_NAMES[item]} --> {Items.ITEM_NAMES[location]}");
+
             location = ItemUtils.SubtractItemOffset(location);
             item = ItemUtils.SubtractItemOffset(item);
-            
-            System.Diagnostics.Debug.WriteLine($"Writing {Items.ITEM_NAMES[item]} --> {Items.ITEM_NAMES[location]}");
             
             bool isRepeatable = Items.REPEATABLE.Contains(item);
             bool isCycleRepeatable = Items.CYCLE_REPEATABLE.Contains(item);

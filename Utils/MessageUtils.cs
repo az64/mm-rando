@@ -23,6 +23,40 @@ namespace MMRando.Utils
                 0x20F7,
                 0x20F8,
                 0x20F9,
+
+                //non-existing entries
+                0x20C8,
+                0x20C9,
+                0x20CA,
+                0x20CB,
+                0x20CC,
+                0x20CD,
+                0x20CE,
+                0x20CF,
+                0x20D3,
+                0x20E8,
+                0x20E9,
+                0x20EA,
+                0x20EB,
+                0x20EC,
+                0x20ED,
+                0x20EE,
+                0x20EF,
+                0x20F0,
+                0x20F1,
+                0x20F2,
+                0x20F4,
+                0x20F5,
+                0x20F6,
+                0x20FA,
+                0x20FB,
+                0x20FC,
+                0x20FD,
+                0x20FE,
+                0x20FF,
+                0x2100,
+                0x2101,
+                0x2102,
             });
 
         static ReadOnlyCollection<byte> MessageHeader
@@ -51,6 +85,14 @@ namespace MMRando.Utils
                 gossipList.Add(nextGossip);
             }
             return gossipList;
+        }
+
+        private static bool IsBadMessage(string message)
+        {
+            return message.Contains("a segment of health") || message.Contains("currency") ||
+                message.Contains("money") || message.Contains("cash") ||
+                message.Contains("wealth") || message.Contains("riches and stuff") ||
+                message.Contains("increased life");
         }
 
         public static List<MessageEntry> MakeGossipQuotes(Settings settings, List<ItemObject> items, Random random)
@@ -93,10 +135,15 @@ namespace MMRando.Utils
                 int toItemId = ItemUtils.SubtractItemOffset(item.ID);
 
                 // 5% chance of being fake
-                bool isFake = (random.Next(100) < 5);
+                bool isFake = random.Next(100) < 5;
                 if (isFake)
                 {
                     sourceItemId = random.Next(GossipList.Count);
+                }
+
+                if (IsBadMessage(GossipList[toItemId].DestinationMessage[0]) && random.Next(8) != 0)
+                {
+                    continue;
                 }
 
                 int sourceMessageLength = GossipList[sourceItemId]
@@ -132,19 +179,13 @@ namespace MMRando.Utils
 
             for (ushort textId = GOSSIP_START_ID; textId < GOSSIP_END_ID; textId++)
             {
-                if (GossipExclude.Contains(textId)) //todo: exclude invalid ids
+                if (GossipExclude.Contains(textId))
                 {
                     continue;
                 }
 
                 int selectedIndex = random.Next(hints.Count);
                 string selectedHint = hints[selectedIndex];
-
-                //todo: reimplemement bad hint logic:
-                //if (IsBadMessage(selectedHint) && random.Next(8) != 0)
-                //{
-                //    continue;
-                //}
 
                 MessageEntry message = new MessageEntry()
                 {
