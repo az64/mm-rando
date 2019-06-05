@@ -204,6 +204,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include=".editorconfig" />
     <None Include="Resources\addresses\d-check">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -786,6 +787,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitattributes" />
     <Content Include="200px_majoramask_rtw_icon.ico" />
     <Content Include="Templates\HtmlSpoiler.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
