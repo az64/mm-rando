@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Forms\Tooltips\TooltipBuilder.cs" />
     <Compile Include="Models\RandomizedResult.cs" />
+    <Compile Include="Models\Rom\MessageTable.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
     <Compile Include="Models\SpoilerItem.cs" />
     <Compile Include="Models\ItemLogic.cs" />

@@ -1,18 +1,17 @@
-﻿using MMRando.Constants;
-using MMRando.Models;
-using MMRando.Models.Rom;
+﻿using MMRando.Models.Rom;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace MMRando.Utils
 {
 
     public class SceneUtils
     {
+        const int SCENE_TABLE = 0xC5A1E0;
+        const int SCENE_FLAG_MASKS = 0xC5C500;
         public static void ResetSceneFlagMask()
         {
-            ReadWriteUtils.WriteToROM(Addresses.SceneFlagMasks, (uint)0);
-            ReadWriteUtils.WriteToROM(Addresses.SceneFlagMasks + 0xC, (uint)0);
+            ReadWriteUtils.WriteToROM(SCENE_FLAG_MASKS, (uint)0);
+            ReadWriteUtils.WriteToROM(SCENE_FLAG_MASKS + 0xC, (uint)0);
         }
 
         public static void UpdateSceneFlagMask(int num)
@@ -29,16 +28,16 @@ namespace MMRando.Utils
             }
 
             int bit = 1 << (num & 7);
-            int f =RomUtils. GetFileIndexForWriting(Addresses.SceneFlagMasks);
-            int addr = Addresses.SceneFlagMasks - RomData.MMFileList[f].Addr + offset;
+            int f =RomUtils. GetFileIndexForWriting(SCENE_FLAG_MASKS);
+            int addr = SCENE_FLAG_MASKS - RomData.MMFileList[f].Addr + offset;
             RomData.MMFileList[f].Data[addr] |= (byte)bit;
         }
 
         public static void ReadSceneTable()
         {
             RomData.SceneList = new List<Scene>();
-            int f = RomUtils.GetFileIndexForWriting(Addresses.SceneTable);
-            int _SceneTable = Addresses.SceneTable - RomData.MMFileList[f].Addr;
+            int f = RomUtils.GetFileIndexForWriting(SCENE_TABLE);
+            int _SceneTable = SCENE_TABLE - RomData.MMFileList[f].Addr;
             int i = 0;
             while (true)
             {

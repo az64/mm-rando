@@ -1,9 +1,18 @@
-﻿using System.Collections.ObjectModel;
+﻿using MMRando.Utils;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace MMRando
 {
     public class Items
     {
+        /// <summary>
+        /// Item indices ranging from 98 and to (inclusive) 120 define 
+        /// areas and other (epona, explosive, arrow). In total they make up 23 entries.
+        /// </summary>
+        public const int NumberOfAreasAndOther = 23;
+
         // free
         public const int MaskDeku = 0;
 
@@ -205,8 +214,8 @@ namespace MMRando
         public const int ChestLensCavePurpleRupee = 173;
         public const int ChestBeanGrottoRedRupee = 174;
         public const int ChestHotSpringGrottoRedRupee = 175;
-        public const int ChestBadBatsGrottoPurpleRupee = 176; 
-        public const int ChestIkanaGrottoRecoveryHeart = 177; 
+        public const int ChestBadBatsGrottoPurpleRupee = 176;
+        public const int ChestIkanaGrottoRecoveryHeart = 177;
         public const int ChestPiratesFortressRedRupee1 = 178;
         public const int ChestPiratesFortressRedRupee2 = 179;
         public const int ChestInsidePiratesFortressTankRedRupee = 180;
@@ -246,12 +255,12 @@ namespace MMRando
         public const int ChestInvertedStoneTowerBombchu10 = 214;
         public const int ChestInvertedStoneTowerBean = 215;
         public const int ChestToSnowheadGrotto = 216; //contents? 
-        public const int ChestToGoronVillageRedRupee = 217; 
+        public const int ChestToGoronVillageRedRupee = 217;
         public const int ChestSecretShrineHeartPiece = 218; //Heart Piece
-        public const int ChestSecretShrineDinoGrotto = 219; 
-        public const int ChestSecretShrineWizzGrotto = 220; 
-        public const int ChestSecretShrineWartGrotto = 221; 
-        public const int ChestSecretShrineGaroGrotto = 222; 
+        public const int ChestSecretShrineDinoGrotto = 219;
+        public const int ChestSecretShrineWizzGrotto = 220;
+        public const int ChestSecretShrineWartGrotto = 221;
+        public const int ChestSecretShrineGaroGrotto = 222;
         public const int ChestInnStaffRoom = 223; //contents? 
         public const int ChestInnGuestRoom = 224; //contents? 
         public const int ChestWoodsGrotto = 225; //contents? 
@@ -919,6 +928,6 @@ namespace MMRando
         });
 
         internal static readonly int TotalNumberOfItems = 266;
-    }
 
+    }
 }
