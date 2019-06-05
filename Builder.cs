@@ -5,12 +5,10 @@ using MMRando.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace MMRando
 {
@@ -19,11 +17,13 @@ namespace MMRando
     {
         private RandomizedResult _randomized;
         private Settings _settings;
+        private MessageTable _messageTable;
 
         public Builder(RandomizedResult randomized)
         {
             _randomized = randomized;
             _settings = randomized.Settings;
+            _messageTable = new MessageTable();
         }
 
         private void WriteAudioSeq()
@@ -315,40 +315,28 @@ namespace MMRando
             }
 
             //write free item (start item default = Deku Mask)
-            var freeItemIndex = _randomized.ItemList.FindIndex(u => u.ReplacesItemId == Items.MaskDeku);
-            WriteFreeItem(_randomized.ItemList[freeItemIndex].ID);
+            var freeItem = _randomized.ItemList.Find(u => u.ReplacesItemId == Items.MaskDeku);
+            WriteFreeItem(freeItem.ID);
 
             //write everything else
             ItemSwapUtils.ReplaceGetItemTable(Values.ModsDirectory);
             ItemSwapUtils.InitItems();
 
-            for (int i = 0; i < _randomized.ItemList.Count; i++)
+            foreach (var item in _randomized.ItemList)
             {
-                var itemId = _randomized.ItemList[i].ID;
-
                 // Unused item
-                if (_randomized.ItemList[i].ReplacesItemId == -1)
+                if (!item.ReplacesAnotherItem)
                 {
                     continue;
-                };
+                }
 
-                bool isRepeatable = Items.REPEATABLE.Contains(itemId);
-                bool isCycleRepeatable = Items.CYCLE_REPEATABLE.Contains(itemId);
-                int replacesItemId = _randomized.ItemList[i].ReplacesItemId;
-
-                Debug.WriteLine($"Writing {Items.ITEM_NAMES[itemId]} --> {Items.ITEM_NAMES[replacesItemId]}");
-
-                itemId = ItemUtils.SubtractItemOffset(itemId);
-
-                replacesItemId = ItemUtils.SubtractItemOffset(replacesItemId);
-
-                if (ItemUtils.IsBottleCatchContent(i))
+                if (ItemUtils.IsBottleCatchContent(item.ID))
                 {
-                    ItemSwapUtils.WriteNewBottle(replacesItemId, itemId);
+                    ItemSwapUtils.WriteNewBottle(item.ReplacesItemId, item.ID);
                 }
                 else
                 {
-                    ItemSwapUtils.WriteNewItem(replacesItemId, itemId, isRepeatable, isCycleRepeatable);
+                    ItemSwapUtils.WriteNewItem(item.ReplacesItemId, item.ID);
                 }
             }
 
@@ -372,7 +360,7 @@ namespace MMRando
 
             if (_settings.EnableGossipHints)
             {
-                MessageUtils.WriteGossipHints(_randomized.GossipQuotes, _randomized.Random);
+                _messageTable.UpdateMessages(_randomized.GossipQuotes);
             }
         }
 
@@ -444,6 +432,7 @@ namespace MMRando
             using (BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open, FileAccess.Read)))
             {
                 RomUtils.ReadFileTable(OldROM);
+                _messageTable.InitializeTable();
             }
 
             List<MMFile> originalMMFileList = null;
@@ -494,8 +483,9 @@ namespace MMRando
                 worker.ReportProgress(66, "Writing items...");
                 WriteItems();
 
-                worker.ReportProgress(67, "Writing gossip...");
+                worker.ReportProgress(67, "Writing messages...");
                 WriteGossipQuotes();
+                MessageTable.WriteMessageTable(_messageTable);
 
                 worker.ReportProgress(68, "Writing startup...");
                 WriteStartupStrings();

@@ -25,8 +25,6 @@ namespace MMRando
 
         public List<ItemObject> ItemList { get; set; }
 
-        List<Gossip> GossipList { get; set; }
-
         #region Dependence and Conditions
         List<int> ConditionsChecked { get; set; }
         Dictionary<int, Dependence> DependenceChecked { get; set; }
@@ -111,132 +109,8 @@ namespace MMRando
 
         private void MakeGossipQuotes()
         {
-            var gossipQuotes = new List<string>();
-            ReadAndPopulateGossipList();
-
-            for (int itemIndex = 0; itemIndex < ItemList.Count; itemIndex++)
-            {
-                if (!ItemList[itemIndex].ReplacesAnotherItem)
-                {
-                    continue;
-                }
-
-                // Skip hints for vanilla bottle content
-                if ((!_settings.RandomizeBottleCatchContents)
-                    && ItemUtils.IsBottleCatchContent(itemIndex))
-                {
-                    continue;
-                }
-
-                // Skip hints for vanilla shop items
-                if ((!_settings.AddShopItems)
-                    && ItemUtils.IsShopItem(itemIndex))
-                {
-                    continue;
-                }
-
-                // Skip hints for vanilla dungeon items
-                if (!_settings.AddDungeonItems
-                    && ItemUtils.IsDungeonItem(itemIndex))
-                {
-                    continue;
-                }
-
-                // Skip hint for song of soaring
-                if (_settings.ExcludeSongOfSoaring && itemIndex == Items.SongSoaring)
-                {
-                    continue;
-                }
-
-                // Skip hints for moon items
-                if (!_settings.AddMoonItems
-                    && ItemUtils.IsMoonItem(itemIndex))
-                {
-                    continue;
-                }
-
-                // Skip hints for other items
-                if (!_settings.AddOther
-                    && ItemUtils.IsOtherItem(itemIndex))
-                {
-                    continue;
-                }
-
-                int sourceItemId = ItemList[itemIndex].ReplacesItemId;
-                sourceItemId = ItemUtils.SubtractItemOffset(sourceItemId);
-
-                int toItemId = itemIndex;
-                toItemId = ItemUtils.SubtractItemOffset(toItemId);
-
-                // 5% chance of being fake
-                bool isFake = (Random.Next(100) < 5);
-                if (isFake)
-                {
-                    sourceItemId = Random.Next(GossipList.Count);
-                }
-
-                int sourceMessageLength = GossipList[sourceItemId]
-                    .SourceMessage
-                    .Length;
-
-                int destinationMessageLength = GossipList[toItemId]
-                    .DestinationMessage
-                    .Length;
-
-                // Randomize messages
-                string sourceMessage = GossipList[sourceItemId]
-                    .SourceMessage[Random.Next(sourceMessageLength)];
-
-                string destinationMessage = GossipList[toItemId]
-                    .DestinationMessage[Random.Next(destinationMessageLength)];
-
-                // Sound differs if hint is fake
-                ushort soundEffectId = (ushort)(isFake ? 0x690A : 0x690C);
-
-                var quote = BuildGossipQuote(soundEffectId, sourceMessage, destinationMessage);
-
-                gossipQuotes.Add(quote);
-            }
-
-            for (int i = 0; i < Gossip.JunkMessages.Count; i++)
-            {
-                gossipQuotes.Add(Gossip.JunkMessages[i]);
-            }
-
-            _randomized.GossipQuotes = gossipQuotes;
-        }
-
-        private void ReadAndPopulateGossipList()
-        {
-            GossipList = new List<Gossip>();
-
-            string[] gossipLines = Properties.Resources.GOSSIP
-                .Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-
-            for (int i = 0; i < gossipLines.Length; i += 2)
-            {
-                var sourceMessage = gossipLines[i].Split(';');
-                var destinationMessage = gossipLines[i + 1].Split(';');
-                var nextGossip = new Gossip
-                {
-                    SourceMessage = sourceMessage,
-                    DestinationMessage = destinationMessage
-                };
-
-                GossipList.Add(nextGossip);
-            }
-        }
-
-        public string BuildGossipQuote(ushort soundEffectId, string sourceMessage, string destinationMessage)
-        {
-            int startIndex = Random.Next(Gossip.MessageStartSentences.Count);
-            int midIndex = Random.Next(Gossip.MessageMidSentences.Count);
-            string start = Gossip.MessageStartSentences[startIndex];
-            string mid = Gossip.MessageMidSentences[midIndex];
-
-            string sfx = $"{(char)((soundEffectId >> 8) & 0xFF)}{(char)(soundEffectId & 0xFF)}";
-
-            return $"\x1E{sfx}{start} \x01{sourceMessage}\x00\x11{mid} \x06{destinationMessage}\x00" + "...\xBF";
+            _randomized.GossipQuotes = MessageUtils.MakeGossipQuotes
+                (_settings, ItemList, _random);
         }
 
         #endregion
@@ -405,8 +279,8 @@ namespace MMRando
                     }
 
                     Values.TatlColours[4, i] = BitConverter.ToUInt32(c, 0);
-                };
-            };
+                }
+            }
         }
 
         private void PrepareRulesetItemData()
@@ -1548,11 +1422,11 @@ namespace MMRando
                 if (_settings.EnableGossipHints)
                 {
                     worker.ReportProgress(35, "Making gossip quotes...");
-                }
 
-                //gossip
-                SeedRNG();
-                MakeGossipQuotes();
+                    //gossip
+                    SeedRNG();
+                    MakeGossipQuotes();
+                }
             }
 
             worker.ReportProgress(40, "Coloring Tatl...");

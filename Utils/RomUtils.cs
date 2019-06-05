@@ -1,5 +1,4 @@
-﻿using MMRando.Constants;
-using MMRando.Models.Rom;
+﻿using MMRando.Models.Rom;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,7 +15,8 @@ namespace MMRando.Utils
 
     public static class RomUtils
     {
-
+        const int FILE_TABLE = 0x1A500;
+        const int SIGNATURE_ADDRESS = 0x1A4D0;
         public static void SetStrings(string filename, string ver, string setting)
         {
             ResourceUtils.ApplyHack(filename);
@@ -135,10 +135,11 @@ namespace MMRando.Utils
         {
             for (int i = 0; i < RomData.MMFileList.Count; i++)
             {
-                ReadWriteUtils.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16), (uint)RomData.MMFileList[i].Addr);
-                ReadWriteUtils.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16) + 4, (uint)RomData.MMFileList[i].End);
-                ReadWriteUtils.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16) + 8, (uint)RomData.MMFileList[i].Cmp_Addr);
-                ReadWriteUtils.Arr_WriteU32(ROM, Addresses.FileTable + (i * 16) + 12, (uint)RomData.MMFileList[i].Cmp_End);
+                int offset = FILE_TABLE + (i * 16);
+                ReadWriteUtils.Arr_WriteU32(ROM, offset, (uint)RomData.MMFileList[i].Addr);
+                ReadWriteUtils.Arr_WriteU32(ROM, offset + 4, (uint)RomData.MMFileList[i].End);
+                ReadWriteUtils.Arr_WriteU32(ROM, offset + 8, (uint)RomData.MMFileList[i].Cmp_Addr);
+                ReadWriteUtils.Arr_WriteU32(ROM, offset + 12, (uint)RomData.MMFileList[i].Cmp_End);
             }
         }
 
@@ -299,11 +300,11 @@ namespace MMRando.Utils
             string DateString = DateTime.UtcNow.ToString("yy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
             for (int i = 0; i < VersionString.Length; i++)
             {
-                ROM[Addresses.SignAddress + i] = (byte)VersionString[i];
+                ROM[SIGNATURE_ADDRESS + i] = (byte)VersionString[i];
             }
             for (int i = 0; i < DateString.Length; i++)
             {
-                ROM[Addresses.SignAddress + i + 12] = (byte)DateString[i];
+                ROM[SIGNATURE_ADDRESS + i + 12] = (byte)DateString[i];
             }
         }
 
@@ -364,7 +365,7 @@ namespace MMRando.Utils
         public static void ReadFileTable(BinaryReader ROM)
         {
             RomData.MMFileList = new List<MMFile>();
-            ROM.BaseStream.Seek(Addresses.FileTable, SeekOrigin.Begin);
+            ROM.BaseStream.Seek(FILE_TABLE, SeekOrigin.Begin);
             while (true)
             {
                 MMFile Current_File = new MMFile

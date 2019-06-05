@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Forms\Tooltips\TooltipBuilder.cs" />
     <Compile Include="Models\RandomizedResult.cs" />
+    <Compile Include="Models\Rom\MessageTable.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
     <Compile Include="Models\SpoilerItem.cs" />
     <Compile Include="Models\ItemLogic.cs" />
@@ -204,7 +205,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include=".editorconfig" />
     <None Include="Resources\addresses\d-check">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -787,7 +787,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".gitattributes" />
     <Content Include="200px_majoramask_rtw_icon.ico" />
     <Content Include="Templates\HtmlSpoiler.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

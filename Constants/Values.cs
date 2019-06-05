@@ -13,12 +13,7 @@ namespace MMRando.Constants
         public static string ObjsDirectory = MainDirectory + @"\Resources\models\";
         public static string VCDirectory = MainDirectory + @"\vc\";
 
-        /// <summary>
-        /// Item indices ranging from 98 and to (inclusive) 120 define 
-        /// areas and other (epona, explosive, arrow). In total they make up 23 entries.
-        /// </summary>
         public const byte VanillaClockSpeed = 3;
-        public const int NumberOfAreasAndOther = 23;
 
         public static readonly uint[,] TatlColours = new uint[,] { // normal, npc, check, enemy, boss
             { 0xffffe6ff, 0xdca05000, 0x9696ffff, 0x9696ff00, 0x00ff00ff, 0x00ff0000, 0xffff00ff, 0xc89b0000, 0xffff00ff, 0xc89b0000 },
