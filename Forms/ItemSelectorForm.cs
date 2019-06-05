@@ -266,6 +266,7 @@ namespace MMRando
             "Map: Great Bay",
             "Map: Stone Tower",
             "Goron Racetrack Grotto",
+            "Ikana Scrub 200r",
             "One Mask",
             "Two Masks",
             "Three Masks",

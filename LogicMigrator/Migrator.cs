@@ -8,7 +8,7 @@ namespace MMRando.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 4;
+        public const int CurrentVersion = 5;
 
         public static string ApplyMigrations(string logic)
         {
@@ -37,6 +37,11 @@ namespace MMRando.LogicMigrator
             if (GetVersion(lines) < 4)
             {
                 AddSongOfHealing(lines);
+            }
+
+            if (GetVersion(lines) < 5)
+            {
+                AddIkanaScrubGoldRupee(lines);
             }
 
             return string.Join("\r\n", lines);
@@ -277,6 +282,51 @@ namespace MMRando.LogicMigrator
             foreach (var id in requireSongOfHealing)
             {
                 lines[id * 5 + 2] = lines[id * 5 + 2].Length == 0 ? "90" : "90," + lines[id * 5 + 2];
+            }
+        }
+
+        private static void AddIkanaScrubGoldRupee(List<string> lines)
+        {
+            lines[0] = "-version 5";
+            var newItems = new ItemObject[]
+            {
+                new ItemObject
+                {
+                    ID = 256,
+                    DependsOnItems = new List<int> { 110, 89, 32 } // east access, zora mask, ocean deed
+                }
+            };
+            var itemNames = new string[]
+            {
+                "Ikana Scrub Gold Rupee"
+            };
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section => section.Split(',').Select(id =>
+                    {
+                        var itemId = int.Parse(id);
+                        if (itemId >= 256)
+                        {
+                            itemId += newItems.Length;
+                        }
+                        return itemId;
+                    }).ToList()).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+            foreach (var item in newItems)
+            {
+                lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 256]}");
+                lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
+                lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
+                lines.Insert(item.ID * 5 + 4, "0");
+                lines.Insert(item.ID * 5 + 5, "0");
             }
         }
     }

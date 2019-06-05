@@ -300,18 +300,19 @@ namespace MMRando
 
         //oops I forgot one
         public const int ChestToGoronRaceGrotto = 255; //contents?
+        public const int IkanaScrubGoldRupee = 256;
 
         //moon items
-        public const int OtherOneMask = 256;
-        public const int OtherTwoMasks = 257;
-        public const int OtherThreeMasks = 258;
-        public const int OtherFourMasks = 259;
-        public const int AreaMoonAccess = 260;
-        public const int HeartPieceDekuTrial = 261;
-        public const int HeartPieceGoronTrial = 262;
-        public const int HeartPieceZoraTrial = 263;
-        public const int HeartPieceLinkTrial = 264;
-        public const int MaskFierceDeity = 265;
+        public const int OtherOneMask = 257;
+        public const int OtherTwoMasks = 258;
+        public const int OtherThreeMasks = 259;
+        public const int OtherFourMasks = 260;
+        public const int AreaMoonAccess = 261;
+        public const int HeartPieceDekuTrial = 262;
+        public const int HeartPieceGoronTrial = 263;
+        public const int HeartPieceZoraTrial = 264;
+        public const int HeartPieceLinkTrial = 265;
+        public const int MaskFierceDeity = 266;
 
         public static readonly ReadOnlyCollection<int> REPEATABLE
             = new ReadOnlyCollection<int>(new int[] {
@@ -419,6 +420,7 @@ namespace MMRando
                 ChestSouthClockTownRedRupee,
                 ChestSouthClockTownPurpleRupee,
                 ChestToGoronRaceGrotto,
+                IkanaScrubGoldRupee,
         });
 
         public static readonly ReadOnlyCollection<int> CYCLE_REPEATABLE
@@ -915,6 +917,7 @@ namespace MMRando
                 "Map: Great Bay",
                 "Map: Stone Tower",
                 "Goron Racetrack Grotto",
+                "Ikana Scrub 200r",
                 "One Mask",
                 "Two Masks",
                 "Three Masks",

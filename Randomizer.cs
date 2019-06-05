@@ -5,6 +5,7 @@ using MMRando.Models.Rom;
 using MMRando.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -47,40 +48,24 @@ namespace MMRando
             Circular
         }
 
+        // Starting items should not be replaced by trade items, or items that can be downgraded.
+        ReadOnlyCollection<int> ForbiddenStartingItems = new List<int>
+            {
+                Items.UpgradeGildedSword,
+                Items.UpgradeMirrorShield,
+                Items.UpgradeBiggestQuiver,
+                Items.UpgradeBigBombBag,
+                Items.UpgradeBiggestBombBag,
+                Items.UpgradeGiantWallet,
+                Items.ChestMountainVillageGrottoBottle,
+            }
+            .Concat(Enumerable.Range(Items.TradeItemMoonTear, Items.TradeItemMamaLetter - Items.TradeItemMoonTear + 1))
+            .Concat(Enumerable.Range(Items.ItemBottleWitch, Items.ItemBottleMadameAroma - Items.ItemBottleWitch + 1))
+            .ToList()
+            .AsReadOnly();
+
         Dictionary<int, List<int>> ForbiddenReplacedBy = new Dictionary<int, List<int>>
         {
-            // MaskDeku and SongHealing should not be replaced by trade items, or items that can be downgraded.
-            {
-                Items.MaskDeku, new List<int>
-                {
-                    Items.UpgradeGildedSword,
-                    Items.UpgradeMirrorShield,
-                    Items.UpgradeBiggestQuiver,
-                    Items.UpgradeBigBombBag,
-                    Items.UpgradeBiggestBombBag,
-                    Items.UpgradeGiantWallet,
-                    Items.ChestMountainVillageGrottoBottle,
-                }
-                .Concat(Enumerable.Range(Items.TradeItemMoonTear, Items.TradeItemMamaLetter - Items.TradeItemMoonTear + 1))
-                .Concat(Enumerable.Range(Items.ItemBottleWitch, Items.ItemBottleMadameAroma - Items.ItemBottleWitch + 1))
-                .ToList()
-            },
-            {
-                Items.SongHealing, new List<int>
-                {
-                    Items.UpgradeGildedSword,
-                    Items.UpgradeMirrorShield,
-                    Items.UpgradeBiggestQuiver,
-                    Items.UpgradeBigBombBag,
-                    Items.UpgradeBiggestBombBag,
-                    Items.UpgradeGiantWallet,
-                    Items.ChestMountainVillageGrottoBottle,
-                }
-                .Concat(Enumerable.Range(Items.TradeItemMoonTear, Items.TradeItemMamaLetter - Items.TradeItemMoonTear + 1))
-                .Concat(Enumerable.Range(Items.ItemBottleWitch, Items.ItemBottleMadameAroma - Items.ItemBottleWitch + 1))
-                .ToList()
-            },
-
             // Keaton_Mask and Mama_Letter are obtained one directly after another
             // Keaton_Mask cannot be replaced by items that may be overwritten by item obtained at Mama_Letter
             {
@@ -1136,30 +1121,31 @@ namespace MMRando
         /// </summary>
         private void PlaceFreeItems(List<int> itemPool)
         {
+            var forbiddenStartingItems = ForbiddenStartingItems.ToList();
             if (ItemList.FindIndex(item => item.ReplacesItemId == Items.MaskDeku) == -1)
             {
                 int freeItem = Random.Next(Items.SongOath + 1);
-                if (ForbiddenReplacedBy.ContainsKey(Items.MaskDeku))
+                while (ItemList[freeItem].ReplacesItemId != -1
+                    || forbiddenStartingItems.Contains(freeItem))
                 {
-                    while (ItemList[freeItem].ReplacesItemId != -1
-                        || ForbiddenReplacedBy[Items.MaskDeku].Contains(freeItem))
-                    {
-                        freeItem = Random.Next(Items.SongOath + 1);
-                    }
+                    freeItem = Random.Next(Items.SongOath + 1);
                 }
                 ItemList[freeItem].ReplacesItemId = Items.MaskDeku;
                 itemPool.Remove(Items.MaskDeku);
+
+                if (freeItem == Items.ItemBow || freeItem == Items.UpgradeBigQuiver)
+                {
+                    forbiddenStartingItems.Add(Items.ItemBow);
+                    forbiddenStartingItems.Add(Items.UpgradeBigQuiver);
+                }
             }
             if (ItemList.FindIndex(item => item.ReplacesItemId == Items.SongHealing) == -1)
             {
                 int freeItem = Random.Next(Items.SongOath + 1);
-                if (ForbiddenReplacedBy.ContainsKey(Items.SongHealing))
+                while (ItemList[freeItem].ReplacesItemId != -1
+                    || forbiddenStartingItems.Contains(freeItem))
                 {
-                    while (ItemList[freeItem].ReplacesItemId != -1
-                        || ForbiddenReplacedBy[Items.SongHealing].Contains(freeItem))
-                    {
-                        freeItem = Random.Next(Items.SongOath + 1);
-                    }
+                    freeItem = Random.Next(Items.SongOath + 1);
                 }
                 ItemList[freeItem].ReplacesItemId = Items.SongHealing;
                 itemPool.Remove(Items.SongHealing);
