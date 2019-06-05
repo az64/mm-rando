@@ -15,8 +15,6 @@ namespace MMRando.Models.Rom
 
         Dictionary<ushort, MessageEntry> messages = new Dictionary<ushort, MessageEntry>();
 
-        public static object MMFileList { get; private set; }
-
         public void UpdateMessages(MessageEntry message)
         {
             if (messages.ContainsKey(message.Id))
@@ -45,7 +43,7 @@ namespace MMRando.Models.Rom
             fileIndex = RomUtils.GetFileIndexForWriting(MESSAGE_DATA_ADDRESS);
             file = RomData.MMFileList[fileIndex];
 
-            var mesg_data = file.Data;
+            var message_data = file.Data;
 
             while (true)
             {
@@ -58,7 +56,7 @@ namespace MMRando.Models.Rom
                 int address = ReadWriteUtils.Arr_ReadS32(code_data, code_baseAddr + 4) & 0xFFFFFF;
 
                 byte[] header = new byte[11];
-                Array.Copy(mesg_data, address, header, 0, 11);
+                Array.Copy(message_data, address, header, 0, 11);
 
                 int cur = address + 11 - 1;
                 string message = "";
@@ -66,9 +64,9 @@ namespace MMRando.Models.Rom
                 do
                 {
                     cur++;
-                    message += (char)mesg_data[cur];
+                    message += (char)message_data[cur];
                 }
-                while (mesg_data[cur] != 0xBF);
+                while (message_data[cur] != 0xBF);
 
 
                 MessageEntry messageEntry = new MessageEntry()
@@ -99,7 +97,7 @@ namespace MMRando.Models.Rom
 
             if (new_message_data_size > MAX_SIZE)
             {
-                throw new Exception($"Message data bigger than 0x{MAX_SIZE} bytes");
+                throw new Exception($"Message data bigger than 0x{MAX_SIZE:X} bytes");
             }
             byte[] new_message_data = new byte[new_message_data_size];
 
