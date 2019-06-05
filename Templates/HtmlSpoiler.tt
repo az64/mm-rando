@@ -127,6 +127,11 @@
 	logic[0].Checked = true;
 	logic[document.querySelector("tr[data-id='0']").dataset.replacedbyid].Acquired = true;
 	document.querySelector("tr[data-id='0'] input").checked = true;
+
+	logic[90].Checked = true;
+	logic[document.querySelector("tr[data-id='90']").dataset.replacedbyid].Acquired = true;
+	document.querySelector("tr[data-id='90'] input").checked = true;
+
 	recalculateItems();
 
 	var rows = document.querySelectorAll("tr");

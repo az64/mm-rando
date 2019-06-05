@@ -930,7 +930,7 @@ namespace MMRando
                 "Fierce Deity's Mask",
         });
 
-        internal static readonly int TotalNumberOfItems = 266;
+        internal static readonly int TotalNumberOfItems = 267;
 
     }
 }

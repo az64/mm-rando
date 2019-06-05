@@ -1027,6 +1027,7 @@ namespace MMRando
             }
 
             PlaceItem(Items.ChestToGoronRaceGrotto, itemPool);
+            PlaceItem(Items.IkanaScrubGoldRupee, itemPool);
         }
 
         /// <summary>
@@ -1275,7 +1276,7 @@ namespace MMRando
         /// </summary>
         private void PreserveOther()
         {
-            for (int i = Items.ChestLensCaveRedRupee; i <= Items.ChestToGoronRaceGrotto; i++)
+            for (int i = Items.ChestLensCaveRedRupee; i <= Items.IkanaScrubGoldRupee; i++)
             {
                 ItemList[i].ReplacesItemId = i;
             }

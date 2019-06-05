@@ -95,7 +95,7 @@ namespace MMRando.Utils
 
         public static bool IsOtherItem(int itemIndex)
         {
-            return itemIndex >= Items.ChestLensCaveRedRupee && itemIndex <= Items.ChestToGoronRaceGrotto;
+            return itemIndex >= Items.ChestLensCaveRedRupee && itemIndex <= Items.IkanaScrubGoldRupee;
         }
 
         internal static bool IsDeed(int item)
