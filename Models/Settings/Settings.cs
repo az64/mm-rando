@@ -198,7 +198,7 @@ namespace MMRando.Models
         /// <summary>
         /// Randomize sound effects
         /// </summary>
-        public bool RandomizeSounds { get; set; } = true;
+        public bool RandomizeSounds { get; set; };
 
         #endregion
 
