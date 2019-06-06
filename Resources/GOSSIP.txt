@@ -178,6 +178,8 @@ a healed spirit;the lost champion
 a mountain spirit
 a healed spirit;a fallen guitarist
 an ocean spirit
+a new file;a quest's inception
+a soothing melody
 a stone tablet
 white wings
 a reunion
@@ -474,5 +476,3 @@ a masked child's game
 a segment of health
 the lonely child
 the wrath of a god
-a new file;a quest's inception
-a soothing melody
