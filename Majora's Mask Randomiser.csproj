@@ -69,6 +69,11 @@
     <Compile Include="Models\RandomizedResult.cs" />
     <Compile Include="Models\Rom\MessageTable.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
+    <Compile Include="Models\SoundEffects\SoundEffects.cs" />
+    <Compile Include="Models\SoundEffects\SoundEffectTag.cs" />
+    <Compile Include="Models\SoundEffects\SoundExtensions.cs" />
+    <Compile Include="Models\SoundEffects\SoundAttributes.cs" />
+    <Compile Include="Models\SoundEffects\SoundEffect.cs" />
     <Compile Include="Models\SpoilerItem.cs" />
     <Compile Include="Models\ItemLogic.cs" />
     <Compile Include="Constants\Addresses.cs" />

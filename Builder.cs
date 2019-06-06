@@ -1,10 +1,12 @@
 ﻿using MMRando.Constants;
 using MMRando.Models;
 using MMRando.Models.Rom;
+using MMRando.Models.SoundEffects;
 using MMRando.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -257,6 +259,23 @@ namespace MMRando
             ReadWriteUtils.WriteToROM(address, val);
         }
 
+        private void WriteSoundEffects()
+        {
+            if (!_randomized.Settings.RandomizeSounds)
+            {
+                return;
+            }
+
+            foreach(var sounds in _randomized.SoundEffects)
+            {
+                var oldSound = sounds.Key;
+                var newSound = sounds.Value;
+
+                oldSound.ReplaceWith(newSound);
+                Debug.WriteLine($"Writing SFX {newSound} --> {oldSound}");
+            }
+        }
+
         private void WriteEnemies()
         {
             if (_settings.RandomizeEnemies)
@@ -451,6 +470,9 @@ namespace MMRando
                 // todo music randomizer doesn't work if this is called after WriteItems(); because the reloc-audio hack is hardcoded
                 worker.ReportProgress(50, "Writing audio...");
                 WriteAudioSeq();
+
+                worker.ReportProgress(53, "Writing sound effects...");
+                WriteSoundEffects();
 
                 worker.ReportProgress(55, "Writing player model...");
                 WritePlayerModel();

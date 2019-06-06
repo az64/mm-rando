@@ -195,6 +195,11 @@ namespace MMRando.Models
         /// </summary>
         public byte ClockSpeed { get; set; } = Values.VanillaClockSpeed;
 
+        /// <summary>
+        /// Randomize sound effects
+        /// </summary>
+        public bool RandomizeSounds { get; set; } = true;
+
         #endregion
 
         #region Comfort / Cosmetics
@@ -232,7 +237,7 @@ namespace MMRando.Models
 
         #endregion
 
-        // Functions
+        #region Functions
 
         public void Update(string settings)
         {
@@ -340,5 +345,7 @@ namespace MMRando.Models
         {
             return EncodeSettings();
         }
+
+        #endregion
     }
 }

@@ -2,6 +2,7 @@ using MMRando.Constants;
 using MMRando.LogicMigrator;
 using MMRando.Models;
 using MMRando.Models.Rom;
+using MMRando.Models.SoundEffects;
 using MMRando.Utils;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace MMRando
 {
@@ -192,7 +192,7 @@ namespace MMRando
             _randomized.NewDCMasks = newDCMasks;
         }
 
-        #region Sequences and BGM
+        #region Sequences, sounds and BGM
 
         private void BGMShuffle()
         {
@@ -256,6 +256,29 @@ namespace MMRando
 
             SequenceUtils.ReadSequenceInfo();
             BGMShuffle();
+        }
+
+        private void SoundEffectShuffle()
+        {
+            if (!_settings.RandomizeSounds)
+            {
+                return;
+            }
+
+            var shuffledSoundEffects = new Dictionary<SoundEffect, SoundEffect>();
+
+            var replacableSounds = SoundEffects.Replacable();
+            foreach (var sound in replacableSounds)
+            {
+                var soundPool = SoundEffects.FilterByTags(sound.ReplacableByTags());
+
+                if (soundPool.Count > 0)
+                {
+                    shuffledSoundEffects[sound] = soundPool[_random.Next(soundPool.Count)];
+                }
+            }
+
+            _randomized.SoundEffects = shuffledSoundEffects;
         }
 
         #endregion
@@ -1440,6 +1463,10 @@ namespace MMRando
             //Sort BGM
             SeedRNG();
             SortBGM();
+
+            // Shuffle sound effects
+            worker.ReportProgress(48, "Randomizing Sound effects...");
+            SoundEffectShuffle();
 
             return _randomized;
         }
