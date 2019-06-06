@@ -296,10 +296,10 @@ namespace MMRando
                 switch (id)
                 {
                     case Items.ItemBow:
-                        startingItems[0xC5CE6F] = 0x01;
+                        PutOrCombine(startingItems, 0xC5CE6F, 0x01);
                         break;
                     case Items.ItemBombBag:
-                        startingItems[0xC5CE6F] = 0x08;
+                        PutOrCombine(startingItems, 0xC5CE6F, 0x08);
                         break;
                     case Items.UpgradeRazorSword: //sword upgrade
                         startingItems[0xC5CE00] = 0x4E;
@@ -308,16 +308,16 @@ namespace MMRando
                         startingItems[0xC5CE00] = 0x4F;
                         break;
                     case Items.UpgradeBigQuiver: //quiver upgrade
-                        startingItems[0xC5CE6F] = 0x02;
+                        PutOrCombine(startingItems, 0xC5CE6F, 0x02);
                         break;
                     case Items.UpgradeBiggestQuiver:
-                        startingItems[0xC5CE6F] = 0x03;
+                        PutOrCombine(startingItems, 0xC5CE6F, 0x03);
                         break;
                     case Items.UpgradeBigBombBag://bomb bag upgrade
-                        startingItems[0xC5CE6F] = 0x10;
+                        PutOrCombine(startingItems, 0xC5CE6F, 0x10);
                         break;
                     case Items.UpgradeBiggestBombBag:
-                        startingItems[0xC5CE6F] = 0x18;
+                        PutOrCombine(startingItems, 0xC5CE6F, 0x18);
                         break;
                     default:
                         break;

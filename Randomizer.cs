@@ -49,7 +49,7 @@ namespace MMRando
         }
 
         // Starting items should not be replaced by trade items, or items that can be downgraded.
-        ReadOnlyCollection<int> ForbiddenStartingItems = new List<int>
+        private readonly ReadOnlyCollection<int> ForbiddenStartingItems = new List<int>
             {
                 Items.UpgradeGildedSword,
                 Items.UpgradeMirrorShield,
@@ -63,8 +63,33 @@ namespace MMRando
             .Concat(Enumerable.Range(Items.ItemBottleWitch, Items.ItemBottleMadameAroma - Items.ItemBottleWitch + 1))
             .ToList()
             .AsReadOnly();
+        private readonly ReadOnlyCollection<ReadOnlyCollection<int>> ForbiddenStartTogether = new List<List<int>>()
+        {
+            new List<int>
+            {
+                Items.ItemBow,
+                Items.UpgradeBigQuiver,
+                Items.UpgradeBiggestQuiver,
+            },
+            new List<int>
+            {
+                Items.ItemBombBag,
+                Items.UpgradeBigBombBag,
+                Items.UpgradeBiggestBombBag,
+            },
+            new List<int>
+            {
+                Items.UpgradeAdultWallet,
+                Items.UpgradeGiantWallet,
+            },
+            new List<int>
+            {
+                Items.UpgradeRazorSword,
+                Items.UpgradeGildedSword,
+            },
+        }.Select(list => list.AsReadOnly()).ToList().AsReadOnly();
 
-        Dictionary<int, List<int>> ForbiddenReplacedBy = new Dictionary<int, List<int>>
+        private readonly Dictionary<int, List<int>> ForbiddenReplacedBy = new Dictionary<int, List<int>>
         {
             // Keaton_Mask and Mama_Letter are obtained one directly after another
             // Keaton_Mask cannot be replaced by items that may be overwritten by item obtained at Mama_Letter
@@ -90,7 +115,7 @@ namespace MMRando
             },
         };
 
-        Dictionary<int, List<int>> ForbiddenPlacedAt = new Dictionary<int, List<int>>
+        private readonly Dictionary<int, List<int>> ForbiddenPlacedAt = new Dictionary<int, List<int>>
         {
         };
 
@@ -1134,10 +1159,10 @@ namespace MMRando
                 ItemList[freeItem].ReplacesItemId = Items.MaskDeku;
                 itemPool.Remove(Items.MaskDeku);
 
-                if (freeItem == Items.ItemBow || freeItem == Items.UpgradeBigQuiver)
+                var forbiddenStartTogether = ForbiddenStartTogether.FirstOrDefault(list => list.Contains(freeItem));
+                if (forbiddenStartTogether != null)
                 {
-                    forbiddenStartingItems.Add(Items.ItemBow);
-                    forbiddenStartingItems.Add(Items.UpgradeBigQuiver);
+                    forbiddenStartingItems.AddRange(forbiddenStartTogether);
                 }
             }
             if (ItemList.FindIndex(item => item.ReplacesItemId == Items.SongHealing) == -1)
