@@ -16,9 +16,13 @@
 	.show-highlight .available .itemname { background-color: #DDDDFF; }
 </style>
 </head>
-<label><b>Version:</b></label><span><#= spoiler.Version #></span><br/>
-<label><b>Settings String:</b></label><span><#= spoiler.SettingsString #></span><br/>
-<label><b>Seed:</b></label><span><#= spoiler.Seed #><span><br/><br/>
+<label><b>Version: </b></label><span><#= spoiler.Version #></span><br/>
+<label><b>Settings String: </b></label><span><#= spoiler.SettingsString #></span><br/>
+<label><b>Seed: </b></label><span><#= spoiler.Seed #><span><br/>
+<# if (spoiler.CustomItemListString != null) { #>
+<label><b>Custom Item List: </b></label><span><#= spoiler.CustomItemListString #><span><br/>
+<# } #>
+<br/>
 <# if (spoiler.RandomizeDungeonEntrances) { 
 #>
 <h2>Dungeon Entrance Replacements</h2>

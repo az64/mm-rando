@@ -38,13 +38,19 @@ namespace MMRando.Templates
 	.show-highlight .available .itemname { background-color: #DDDDFF; }
 </style>
 </head>
-<label><b>Version:</b></label><span>");
+<label><b>Version: </b></label><span>");
             this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.Version));
-            this.Write("</span><br/>\r\n<label><b>Settings String:</b></label><span>");
+            this.Write("</span><br/>\r\n<label><b>Settings String: </b></label><span>");
             this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.SettingsString));
-            this.Write("</span><br/>\r\n<label><b>Seed:</b></label><span>");
+            this.Write("</span><br/>\r\n<label><b>Seed: </b></label><span>");
             this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.Seed));
-            this.Write("<span><br/><br/>\r\n");
+            this.Write("<span><br/>\n");
+ if (spoiler.CustomItemListString != null) { 
+            this.Write("<label><b>Custom Item List: </b></label><span>");
+            this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.CustomItemListString));
+            this.Write("<span><br/>\n");
+ } 
+            this.Write("\n<br/>\r\n");
  if (spoiler.RandomizeDungeonEntrances) { 
 
             this.Write("<h2>Dungeon Entrance Replacements</h2>\r\n<table border=\"1\">\r\n\t<tr>\r\n\t\t<th>Entrance" +

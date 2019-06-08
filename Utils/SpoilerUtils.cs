@@ -31,7 +31,8 @@ namespace MMRando.Utils
                 RandomizeDungeonEntrances = settings.RandomizeDungeonEntrances,
                 ItemList = itemList,
                 NewDestinationIndices = randomized.NewDestinationIndices,
-                Logic = randomized.Logic
+                Logic = randomized.Logic,
+                CustomItemListString = settings.UseCustomItemList ? settings.CustomItemListString : null,
             };
 
             if (settings.GenerateHTMLLog)
@@ -56,6 +57,10 @@ namespace MMRando.Utils
             log.AppendLine($"{"Version:",-17} {spoiler.Version}");
             log.AppendLine($"{"Settings String:",-17} {spoiler.SettingsString}");
             log.AppendLine($"{"Seed:",-17} {spoiler.Seed}");
+            if (spoiler.CustomItemListString != null)
+            {
+                log.AppendLine($"{"Custom Item List:",-17} {spoiler.CustomItemListString}");
+            }
             log.AppendLine();
 
             if (spoiler.RandomizeDungeonEntrances)

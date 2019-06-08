@@ -45,7 +45,7 @@ namespace MMRando
 
             _randomizer = new Randomizer(_settings);
 
-            ItemEditor = new ItemEditForm(_settings.CustomItemList);
+            ItemEditor = new ItemEditForm(_settings);
             LogicEditor = new LogicEditorForm();
             Manual = new ManualForm();
             About = new AboutForm();

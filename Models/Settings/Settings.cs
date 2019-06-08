@@ -230,6 +230,11 @@ namespace MMRando.Models
         /// </summary>
         public List<int> CustomItemList { get; set; } = new List<int>();
 
+        /// <summary>
+        ///  Custom item list string
+        /// </summary>
+        public string CustomItemListString { get; set; }
+
         #endregion
 
         // Functions

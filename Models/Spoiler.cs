@@ -23,6 +23,8 @@ namespace MMRando.Models
 
         public List<ItemLogic> Logic { get; set; }
 
+        public string CustomItemListString { get; set; }
+
         public string LogicJson
         {
             get
