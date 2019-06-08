@@ -265,58 +265,94 @@ namespace MMRando
             }
         }
 
-        private void WriteFreeItem(int Item)
+        private void PutOrCombine(Dictionary<int, byte> dictionary, int key, byte value, bool add = false)
         {
-            ReadWriteUtils.WriteToROM(Items.ITEM_ADDRS[Item], Items.ITEM_VALUES[Item]);
-            switch (Item)
+            if (!dictionary.ContainsKey(key))
             {
-                case Items.ItemBow:
-                    ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x01);
-                    break;
-                case Items.ItemBombBag:
-                    ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x08);
-                    break;
-                case Items.UpgradeRazorSword: //sword upgrade
-                    ReadWriteUtils.WriteToROM(0xC5CE00, (byte)0x4E);
-                    break;
-                case Items.UpgradeGildedSword:
-                    ReadWriteUtils.WriteToROM(0xC5CE00, (byte)0x4F);
-                    break;
-                case Items.UpgradeBigQuiver: //quiver upgrade
-                    ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x02);
-                    break;
-                case Items.UpgradeBiggestQuiver:
-                    ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x03);
-                    break;
-                case Items.UpgradeBigBombBag://bomb bag upgrade
-                    ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x10);
-                    break;
-                case Items.UpgradeBiggestBombBag:
-                    ReadWriteUtils.WriteToROM(0xC5CE6F, (byte)0x18);
-                    break;
-                default:
-                    break;
+                dictionary[key] = 0;
+            }
+            dictionary[key] = add ? (byte)(dictionary[key] + value) : (byte)(dictionary[key] | value);
+        }
+
+        private void WriteFreeItems(params int[] itemIds)
+        {
+            Dictionary<int, byte> startingItems = new Dictionary<int, byte>();
+            if (!itemIds.Contains(Items.UpgradeRazorSword) && !itemIds.Contains(Items.UpgradeGildedSword))
+            {
+                PutOrCombine(startingItems, 0xC5CE21, 0x01); // add Kokiri Sword
+            }
+            if (!itemIds.Contains(Items.UpgradeMirrorShield))
+            {
+                PutOrCombine(startingItems, 0xC5CE21, 0x10); // add Hero's Shield
+            }
+            PutOrCombine(startingItems, 0xC5CE72, 0x10); // add Song of Time
+
+            foreach (var id in itemIds)
+            {
+                var itemAddress = Items.ITEM_ADDRS[id];
+                var itemValue = Items.ITEM_VALUES[id];
+                PutOrCombine(startingItems, itemAddress, itemValue, ItemUtils.IsHeartPiece(id));
+
+                switch (id)
+                {
+                    case Items.ItemBow:
+                        PutOrCombine(startingItems, 0xC5CE6F, 0x01);
+                        break;
+                    case Items.ItemBombBag:
+                        PutOrCombine(startingItems, 0xC5CE6F, 0x08);
+                        break;
+                    case Items.UpgradeRazorSword: //sword upgrade
+                        startingItems[0xC5CE00] = 0x4E;
+                        break;
+                    case Items.UpgradeGildedSword:
+                        startingItems[0xC5CE00] = 0x4F;
+                        break;
+                    case Items.UpgradeBigQuiver: //quiver upgrade
+                        PutOrCombine(startingItems, 0xC5CE6F, 0x02);
+                        break;
+                    case Items.UpgradeBiggestQuiver:
+                        PutOrCombine(startingItems, 0xC5CE6F, 0x03);
+                        break;
+                    case Items.UpgradeBigBombBag://bomb bag upgrade
+                        PutOrCombine(startingItems, 0xC5CE6F, 0x10);
+                        break;
+                    case Items.UpgradeBiggestBombBag:
+                        PutOrCombine(startingItems, 0xC5CE6F, 0x18);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            foreach (var kvp in startingItems)
+            {
+                ReadWriteUtils.WriteToROM(kvp.Key, kvp.Value);
             }
         }
 
         private void WriteItems()
         {
+            var freeItems = new List<int>();
             if (_settings.LogicMode == LogicMode.Vanilla)
             {
-                WriteFreeItem(Items.MaskDeku);
+                freeItems.Add(Items.MaskDeku);
+                freeItems.Add(Items.SongHealing);
 
                 if (_settings.ShortenCutscenes)
                 {
                     //giants cs were removed
-                    WriteFreeItem(Items.SongOath);
+                    freeItems.Add(Items.SongOath);
                 }
+
+                WriteFreeItems(freeItems.ToArray());
 
                 return;
             }
 
             //write free item (start item default = Deku Mask)
-            var freeItem = _randomized.ItemList.Find(u => u.ReplacesItemId == Items.MaskDeku);
-            WriteFreeItem(freeItem.ID);
+            freeItems.Add(_randomized.ItemList.Find(u => u.ReplacesItemId == Items.MaskDeku).ID);
+            freeItems.Add(_randomized.ItemList.Find(u => u.ReplacesItemId == Items.SongHealing).ID);
+            WriteFreeItems(freeItems.ToArray());
 
             //write everything else
             ItemSwapUtils.ReplaceGetItemTable(Values.ModsDirectory);
@@ -461,9 +497,11 @@ namespace MMRando
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "title-screen");
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "misc-changes");
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "cm-cs");
+                    ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-song-of-healing");
                     WriteFileSelect();
                 }
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "init-file");
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "fierce-deity-anywhere");
 
                 worker.ReportProgress(61, "Writing quick text...");
                 WriteQuickText();
@@ -489,8 +527,6 @@ namespace MMRando
 
                 worker.ReportProgress(68, "Writing startup...");
                 WriteStartupStrings();
-
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "fierce-deity-anywhere");
 
                 if (_settings.GeneratePatch)
                 {

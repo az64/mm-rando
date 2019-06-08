@@ -178,6 +178,8 @@ a healed spirit;the lost champion
 a mountain spirit
 a healed spirit;a fallen guitarist
 an ocean spirit
+a new file;a quest's inception
+a soothing melody
 a stone tablet
 white wings
 a reunion
@@ -462,6 +464,8 @@ a map maker;a forest fairy
 a world map
 a hidden cave
 explosive mice
+an eastern merchant
+currency;money;cash;wealth;riches and stuff
 a masked child's game
 a segment of health
 a masked child's game

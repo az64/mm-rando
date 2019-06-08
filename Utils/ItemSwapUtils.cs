@@ -158,11 +158,11 @@ namespace MMRando.Utils
         {
             System.Diagnostics.Debug.WriteLine($"Writing {Items.ITEM_NAMES[item]} --> {Items.ITEM_NAMES[location]}");
 
-            location = ItemUtils.SubtractItemOffset(location);
-            item = ItemUtils.SubtractItemOffset(item);
-            
             bool isRepeatable = Items.REPEATABLE.Contains(item);
             bool isCycleRepeatable = Items.CYCLE_REPEATABLE.Contains(item);
+
+            location = ItemUtils.SubtractItemOffset(location);
+            item = ItemUtils.SubtractItemOffset(item);
             
             int f = RomUtils.GetFileIndexForWriting(GET_ITEM_TABLE);
             int baseaddr = GET_ITEM_TABLE - RomData.MMFileList[f].Addr;

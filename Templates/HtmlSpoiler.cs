@@ -116,22 +116,25 @@ namespace MMRando.Templates
                     "\"spoiler\");\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t\tif (recalculate) {\r\n\t\t\trecalculateItems();\r\n\t\t}" +
                     "\r\n\t}\r\n\r\n\tlogic[0].Checked = true;\r\n\tlogic[document.querySelector(\"tr[data-id=\'0\'" +
                     "]\").dataset.replacedbyid].Acquired = true;\r\n\tdocument.querySelector(\"tr[data-id=" +
-                    "\'0\'] input\").checked = true;\r\n\trecalculateItems();\r\n\r\n\tvar rows = document.query" +
-                    "SelectorAll(\"tr\");\r\n\tfor (var i = 1; i < rows.length; i++) {\r\n\t\tvar row = rows[i" +
-                    "];\r\n\t\tvar checkboxes = row.querySelectorAll(\"input\");\r\n\t\tif (checkboxes.length >" +
-                    " 0) {\r\n\t\t\tcheckboxes[0].addEventListener(\"click\", function(e) {\r\n\t\t\t\tvar row = e" +
-                    ".target.closest(\"tr\");\r\n\t\t\t\tvar rowId = parseInt(row.dataset.id);\r\n\t\t\t\tvar repla" +
-                    "cedById = parseInt(row.dataset.replacedbyid);\r\n\t\t\t\tvar newLocationId = parseInt(" +
-                    "row.dataset.newlocationid);\r\n\t\t\t\tlogic[rowId].Checked = e.target.checked;\r\n\t\t\t\tl" +
-                    "ogic[replacedById].Acquired = e.target.checked;\r\n\t\t\t\trecalculateItems();\r\n\t\t\t});" +
-                    "\r\n\t\t\tcheckboxes[1].addEventListener(\"click\", function(e) {\r\n\t\t\t\tvar row = e.targ" +
-                    "et.closest(\"tr\");\r\n\t\t\t\tvar rowId = parseInt(row.dataset.id);\r\n\t\t\t\tvar replacedBy" +
-                    "Id = parseInt(row.dataset.replacedbyid);\r\n\t\t\t\tvar newLocationId = parseInt(row.d" +
-                    "ataset.newlocationid);\r\n\t\t\t\tlogic[newLocationId].Checked = e.target.checked;\r\n\t\t" +
-                    "\t\tlogic[rowId].Acquired = e.target.checked;\r\n\t\t\t\trecalculateItems();\r\n\t\t\t});\r\n\t\t" +
-                    "}\r\n\t}\r\n\r\n\tdocument.querySelector(\"#highlight-checks\").addEventListener(\"click\", " +
-                    "function(e) {\r\n\t\tdocument.querySelector(\"table#item-replacements\").className = e" +
-                    ".target.checked ? \"show-highlight\" : \"\";\r\n\t});\r\n</script>\r\n</html>");
+                    "\'0\'] input\").checked = true;\r\n\r\n\tlogic[90].Checked = true;\r\n\tlogic[document.quer" +
+                    "ySelector(\"tr[data-id=\'90\']\").dataset.replacedbyid].Acquired = true;\r\n\tdocument." +
+                    "querySelector(\"tr[data-id=\'90\'] input\").checked = true;\n\r\n\trecalculateItems();\r\n" +
+                    "\r\n\tvar rows = document.querySelectorAll(\"tr\");\r\n\tfor (var i = 1; i < rows.length" +
+                    "; i++) {\r\n\t\tvar row = rows[i];\r\n\t\tvar checkboxes = row.querySelectorAll(\"input\")" +
+                    ";\r\n\t\tif (checkboxes.length > 0) {\r\n\t\t\tcheckboxes[0].addEventListener(\"click\", fu" +
+                    "nction(e) {\r\n\t\t\t\tvar row = e.target.closest(\"tr\");\r\n\t\t\t\tvar rowId = parseInt(row" +
+                    ".dataset.id);\r\n\t\t\t\tvar replacedById = parseInt(row.dataset.replacedbyid);\r\n\t\t\t\tv" +
+                    "ar newLocationId = parseInt(row.dataset.newlocationid);\r\n\t\t\t\tlogic[rowId].Checke" +
+                    "d = e.target.checked;\r\n\t\t\t\tlogic[replacedById].Acquired = e.target.checked;\r\n\t\t\t" +
+                    "\trecalculateItems();\r\n\t\t\t});\r\n\t\t\tcheckboxes[1].addEventListener(\"click\", functio" +
+                    "n(e) {\r\n\t\t\t\tvar row = e.target.closest(\"tr\");\r\n\t\t\t\tvar rowId = parseInt(row.data" +
+                    "set.id);\r\n\t\t\t\tvar replacedById = parseInt(row.dataset.replacedbyid);\r\n\t\t\t\tvar ne" +
+                    "wLocationId = parseInt(row.dataset.newlocationid);\r\n\t\t\t\tlogic[newLocationId].Che" +
+                    "cked = e.target.checked;\r\n\t\t\t\tlogic[rowId].Acquired = e.target.checked;\r\n\t\t\t\trec" +
+                    "alculateItems();\r\n\t\t\t});\r\n\t\t}\r\n\t}\r\n\r\n\tdocument.querySelector(\"#highlight-checks\"" +
+                    ").addEventListener(\"click\", function(e) {\r\n\t\tdocument.querySelector(\"table#item-" +
+                    "replacements\").className = e.target.checked ? \"show-highlight\" : \"\";\r\n\t});\r\n</sc" +
+                    "ript>\r\n</html>");
             return this.GenerationEnvironment.ToString();
         }
     }
