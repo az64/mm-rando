@@ -1,21 +1,27 @@
-﻿namespace MMRando.Utils
+﻿using MMRando.Constants;
+
+namespace MMRando.Utils
 {
     public static class ItemUtils
     {
         public static bool IsAreaOrOther(int itemId)
         {
-            return (itemId >= Items.AreaSouthAccess && itemId <= Items.AreaInvertedStoneTowerNew);
+            return (itemId >= Items.AreaSouthAccess && itemId <= Items.AreaInvertedStoneTowerNew)
+                || (itemId >= Items.OtherOneMask && itemId <= Items.AreaMoonAccess);
         }
 
         public static bool IsOutOfRange(int itemId)
         {
-            return itemId > Items.ChestToGoronRaceGrotto;
+            return itemId > Items.MaskFierceDeity;
         }
 
         public static bool IsShopItem(int itemIndex)
         {
-            return itemIndex >= Items.ShopItemTradingPostRedPotion
-                    && itemIndex <= Items.ShopItemZoraRedPotion;
+            return (itemIndex >= Items.ShopItemTradingPostRedPotion
+                    && itemIndex <= Items.ShopItemZoraRedPotion)
+                    || itemIndex == Items.ItemBombBag
+                    || itemIndex == Items.UpgradeBigBombBag
+                    || itemIndex == Items.MaskAllNight;
         }
 
         public static bool IsFakeItem(int itemId)
@@ -44,9 +50,30 @@
                    && itemId <= Items.TradeItemMamaLetter;
         }
 
-        public static bool IsItemDefinedPastAreas(int itemId)
+        public static int AddItemOffset(int itemId)
         {
-            return itemId > Items.AreaInvertedStoneTowerNew;
+            if (itemId >= Items.AreaSouthAccess)
+            {
+                itemId += Items.NumberOfAreasAndOther;
+            }
+            if (itemId >= Items.OtherOneMask)
+            {
+                itemId += 5;
+            }
+            return itemId;
+        }
+
+        public static int SubtractItemOffset(int itemId)
+        {
+            if (itemId >= Items.OtherOneMask)
+            {
+                itemId -= 5;
+            }
+            if (itemId >= Items.AreaSouthAccess)
+            {
+                itemId -= Items.NumberOfAreasAndOther;
+            }
+            return itemId;
         }
 
         public static bool IsDungeonItem(int itemIndex)
@@ -61,10 +88,34 @@
                    && itemIndex <= Items.BottleCatchMushroom;
         }
 
+        public static bool IsMoonItem(int itemIndex)
+        {
+            return itemIndex >= Items.HeartPieceDekuTrial && itemIndex <= Items.MaskFierceDeity;
+        }
+
+        public static bool IsOtherItem(int itemIndex)
+        {
+            return itemIndex >= Items.ChestLensCaveRedRupee && itemIndex <= Items.IkanaScrubGoldRupee;
+        }
+
         internal static bool IsDeed(int item)
         {
             return item >= Items.TradeItemLandDeed
                     && item <= Items.TradeItemOceanDeed;
+        }
+
+        public static bool IsHeartPiece(int itemIndex)
+        {
+            return (itemIndex >= Items.HeartPieceNotebookMayor && itemIndex <= Items.HeartPieceKnuckle)
+                || (itemIndex >= Items.HeartPieceSouthClockTown && itemIndex <= Items.HeartContainerStoneTower)
+                || (itemIndex >= Items.HeartPieceDekuTrial && itemIndex <= Items.HeartPieceLinkTrial)
+                || itemIndex == Items.ChestSecretShrineHeartPiece
+                || itemIndex == Items.HeartPieceBank;
+        }
+
+        public static bool IsStartingItem(int itemIndex)
+        {
+            return itemIndex == Items.MaskDeku || itemIndex == Items.SongHealing;
         }
     }
 }

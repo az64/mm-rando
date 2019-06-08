@@ -1,6 +1,10 @@
-﻿using MMRando.Utils;
+﻿using MMRando.Models;
+using MMRando.Models.Rom;
+using MMRando.Utils;
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 
 namespace MMRando.Utils
 {
@@ -45,18 +49,26 @@ namespace MMRando.Utils
         {
             int f = RomUtils.GetFileIndexForWriting(Addr);
             int dest = Addr - RomData.MMFileList[f].Addr;
-            RomData.MMFileList[f].Data[dest] = (byte)((val & 0xFF00) >> 8);
-            RomData.MMFileList[f].Data[dest + 1] = (byte)(val & 0xFF);
+            var data = new byte[]
+            {
+                (byte)((val & 0xFF00) >> 8),
+                (byte)(val & 0xFF)
+            };
+            Arr_Insert(data, 0, data.Length, RomData.MMFileList[f].Data, dest);
         }
 
         public static void WriteToROM(int Addr, uint val)
         {
             int f = RomUtils.GetFileIndexForWriting(Addr);
             int dest = Addr - RomData.MMFileList[f].Addr;
-            RomData.MMFileList[f].Data[dest] = (byte)((val & 0xFF000000) >> 24);
-            RomData.MMFileList[f].Data[dest + 1] = (byte)((val & 0xFF0000) >> 16);
-            RomData.MMFileList[f].Data[dest + 2] = (byte)((val & 0xFF00) >> 8);
-            RomData.MMFileList[f].Data[dest + 3] = (byte)(val & 0xFF);
+            var data = new byte[]
+            {
+                (byte)((val & 0xFF000000) >> 24),
+                (byte)((val & 0xFF0000) >> 16),
+                (byte)((val & 0xFF00) >> 8),
+                (byte)(val & 0xFF)
+            };
+            Arr_Insert(data, 0, data.Length, RomData.MMFileList[f].Data, dest);
         }
 
         public static void WriteToROM(int Addr, byte[] val)

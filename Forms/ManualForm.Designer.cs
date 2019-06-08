@@ -252,7 +252,7 @@
             this.lHow.TabIndex = 3;
             this.lHow.Text = resources.GetString("lHow.Text");
             // 
-            // fManual
+            // ManualForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -261,7 +261,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "fManual";
+            this.Name = "ManualForm";
             this.Text = "Manual";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.fManual_FormClosing);
             this.tManual.ResumeLayout(false);

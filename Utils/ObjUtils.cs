@@ -1,24 +1,38 @@
-﻿using MMRando.Constants;
-using MMRando.Models.Rom;
+﻿using MMRando.Models.Rom;
 
 namespace MMRando.Utils
 {
 
     public static class ObjUtils
     {
-
+        const int OBJECT_TABLE = 0xC58C80;
         public static int GetObjSize(int obj)
         {
-            int f = RomUtils.GetFileIndexForWriting(Addresses.ObjTable);
-            int basea = Addresses.ObjTable - RomData.MMFileList[f].Addr;
-            return (int)(ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, basea + (obj * 8) + 4)
-                - ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, basea + (obj * 8)));
+            int f = RomUtils.GetFileIndexForWriting(OBJECT_TABLE);
+            int basea = OBJECT_TABLE - RomData.MMFileList[f].Addr;
+            var fileData = RomData.MMFileList[f].Data;
+            return (int)(ReadWriteUtils.Arr_ReadU32(fileData, basea + (obj * 8) + 4)
+                - ReadWriteUtils.Arr_ReadU32(fileData, basea + (obj * 8)));
+        }
+
+        public static byte[] GetObjectData(int objectIndex)
+        {
+            var objectTableFileIndex = RomUtils.GetFileIndexForWriting(OBJECT_TABLE);
+            var baseAddress = OBJECT_TABLE - RomData.MMFileList[objectTableFileIndex].Addr;
+            var objectAddress = ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[objectTableFileIndex].Data, baseAddress + (objectIndex * 8));
+            var objectFileIndex = RomData.MMFileList.FindIndex(f => f.Addr == objectAddress);
+            if (objectFileIndex == -1)
+            {
+                return null;
+            }
+            RomUtils.CheckCompressed(objectFileIndex);
+            return RomData.MMFileList[objectFileIndex].Data;
         }
 
         public static void InsertObj(byte[] obj, int replace)
         {
-            int f = RomUtils.GetFileIndexForWriting(Addresses.ObjTable);
-            int basea = Addresses.ObjTable - RomData.MMFileList[f].Addr;
+            int f = RomUtils.GetFileIndexForWriting(OBJECT_TABLE);
+            int basea = OBJECT_TABLE - RomData.MMFileList[f].Addr;
             uint replaceaddr = ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, basea + (replace * 8));
             int objf = RomData.MMFileList.FindIndex(u => u.Addr == replaceaddr);
             if (objf == -1)

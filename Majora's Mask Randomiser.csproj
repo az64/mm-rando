@@ -54,6 +54,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -64,10 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Tooltips\TooltipBuilder.cs" />
     <Compile Include="Models\RandomizedResult.cs" />
+    <Compile Include="Models\Rom\MessageTable.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
-    <Compile Include="Models\Settings\ClockSpeedMode.cs" />
-    <Compile Include="Utils\AudioSequenceUtils.cs" />
+    <Compile Include="Models\SpoilerItem.cs" />
+    <Compile Include="Models\ItemLogic.cs" />
     <Compile Include="Constants\Addresses.cs" />
     <Compile Include="Models\Gossip.cs" />
     <Compile Include="Models\ItemObject.cs" />
@@ -117,12 +120,13 @@
     <Compile Include="Models\Settings\FloorType.cs" />
     <Compile Include="Models\Settings\LogicMode.cs" />
     <Compile Include="Models\Settings\MovementMode.cs" />
-    <Compile Include="Models\Settings\SettingsObject.cs" />
+    <Compile Include="Models\Settings\Settings.cs" />
     <Compile Include="Models\Settings\TatlColorSchema.cs" />
     <Compile Include="Forms\NewItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Models\HtmlSpoiler.cs" />
+    <Compile Include="LogicMigrator\Migrator.cs" />
     <Compile Include="Models\Spoiler.cs" />
     <Compile Include="Templates\HtmlSpoiler.cs">
       <AutoGen>True</AutoGen>
@@ -132,6 +136,9 @@
     <Compile Include="Forms\NewItemForm.Designer.cs">
       <DependentUpon>NewItemForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Mzxrules\Align.cs" />
+    <Compile Include="Utils\Mzxrules\Endian.cs" />
+    <Compile Include="Utils\Mzxrules\Vectors.cs" />
     <Compile Include="Utils\SceneUtils.cs" />
     <Compile Include="Enemies.cs" />
     <Compile Include="Utils\EntranceUtils.cs" />
@@ -146,9 +153,11 @@
     <Compile Include="Utils\SpoilerUtils.cs" />
     <Compile Include="Utils\TunicUtils.cs" />
     <Compile Include="Utils\ItemUtils.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Utils\SequenceUtils.cs" />
     <Compile Include="Utils\VCInjectionUtils.cs" />
     <Compile Include="Utils\VectorUtils.cs" />
+    <Compile Include="Utils\Mzxrules\Yaz.cs" />
     <Compile Include="Utils\Yaz0Utils.cs" />
     <Compile Include="Utils\RomUtils.cs" />
     <Compile Include="Forms\AboutForm.cs">
@@ -217,6 +226,9 @@
     <None Include="Resources\addresses\tatl-colour">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\addresses\tunic-0">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\addresses\tunic-1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -275,6 +287,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\mods\dm-4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mods\fierce-deity-anywhere">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mods\fix-song-of-healing">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\mods\file-select">
@@ -787,6 +805,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

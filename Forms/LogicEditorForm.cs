@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MMRando.LogicMigrator;
 
 namespace MMRando
 {
@@ -26,7 +27,7 @@ namespace MMRando
         "Ocean Spider House HP", "Graveyard Iron Knuckle HP", "Postman's Hat", "All Night Mask", "Blast Mask", "Stone Mask", "Great Fairy's Mask",
         "Keaton Mask", "Bremen Mask", "Bunny Hood", "Don Gero's Mask", "Mask of Scents", "Romani Mask", "Circus Leader's Mask", "Kafei's Mask",
         "Couple's Mask", "Mask of Truth", "Kamaro's Mask", "Gibdo Mask", "Garo Mask", "Captain's Hat", "Giant's Mask", "Goron Mask", "Zora Mask",
-        "Song of Soaring", "Epona's Song", "Song of Storms", "Sonata of Awakening", "Goron Lullaby", "New Wave Bossa Nova",
+        "Song of Healing", "Song of Soaring", "Epona's Song", "Song of Storms", "Sonata of Awakening", "Goron Lullaby", "New Wave Bossa Nova",
         "Elegy of Emptiness", "Oath to Order", "Poison swamp access", "Woodfall Temple access", "Woodfall clear", "North access", "Snowhead Temple access",
         "Snowhead clear", "Epona access", "West access", "Pirates' Fortress access", "Great Bay Temple access", "Great Bay clear", "East access",
         "Ikana Canyon access", "Stone Tower Temple access", "Inverted Stone Tower Temple access", "Ikana clear", "Explosives", "Arrows", "(Unused)", "(Unused)", 
@@ -52,7 +53,8 @@ namespace MMRando
         "Path to Swamp HP", "Swamp Scrub HP", "Deku Palace HP", "Goron Village Scrub HP", "Bio Baba Grotto HP", "Lab Fish HP", "Great Bay Like-Like HP",
         "Pirates' Fortress HP", "Zora Hall Scrub HP", "Path to Snowhead HP", "Great Bay Coast HP", "Ikana Scrub HP", "Ikana Castle HP", 
         "Odolwa Heart Container", "Goht Heart Container", "Gyorg Heart Container", "Twinmold Heart Container", "Map: Clock Town", "Map: Woodfall",
-        "Map: Snowhead", "Map: Romani Ranch", "Map: Great Bay", "Map: Stone Tower", "Goron Racetrack Grotto" };
+        "Map: Snowhead", "Map: Romani Ranch", "Map: Great Bay", "Map: Stone Tower", "Goron Racetrack Grotto", "Ikana Scrub 200r", "One Mask", "Two Masks",
+        "Three Masks", "Four Masks", "Moon Access", "Deku Trial HP", "Goron Trial HP", "Zora Trial HP", "Link Trial HP", "Fierce Deity's Mask" };
 
         string[] ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();
 
@@ -287,7 +289,9 @@ namespace MMRando
             {
                 StreamReader LogicFile = new StreamReader(File.Open(openLogic.FileName, FileMode.Open));
                 ItemList = new List<ItemLogic>();
-                string[] lines = LogicFile.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                var logicString = LogicFile.ReadToEnd();
+                logicString = Migrator.ApplyMigrations(logicString);
+                string[] lines = logicString.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
                 ItemSelectorForm.ResetItems();
                 ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();
                 int i = 0;
@@ -352,6 +356,7 @@ namespace MMRando
             if (saveLogic.ShowDialog() == DialogResult.OK)
             {
                 StreamWriter LogicFile = new StreamWriter(File.Open(saveLogic.FileName, FileMode.Create));
+                LogicFile.WriteLine($"-version {Migrator.CurrentVersion}");
                 for (int i = 0; i < ItemList.Count; i++)
                 {
                     LogicFile.WriteLine("- " + ITEM_NAMES[i]);

@@ -100,6 +100,7 @@ namespace MMRando
             "Giant's Mask",
             "Goron Mask",
             "Zora Mask",
+            "Song of Healing",
             "Song of Soaring",
             "Epona's Song",
             "Song of Storms",
@@ -264,7 +265,18 @@ namespace MMRando
             "Map: Romani Ranch",
             "Map: Great Bay",
             "Map: Stone Tower",
-            "Goron Racetrack Grotto"
+            "Goron Racetrack Grotto",
+            "Ikana Scrub 200r",
+            "One Mask",
+            "Two Masks",
+            "Three Masks",
+            "Four Masks",
+            "Moon Access",
+            "Deku Trial HP",
+            "Goron Trial HP",
+            "Zora Trial HP",
+            "Link Trial HP",
+            "Fierce Deity's Mask",
         };
 
         private static string[] ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();
