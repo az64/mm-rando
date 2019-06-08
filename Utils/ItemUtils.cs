@@ -112,5 +112,10 @@ namespace MMRando.Utils
                 || itemIndex == Items.ChestSecretShrineHeartPiece
                 || itemIndex == Items.HeartPieceBank;
         }
+
+        public static bool IsStartingItem(int itemIndex)
+        {
+            return itemIndex == Items.MaskDeku || itemIndex == Items.SongHealing;
+        }
     }
 }
