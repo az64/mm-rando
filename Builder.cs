@@ -497,9 +497,11 @@ namespace MMRando
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "title-screen");
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "misc-changes");
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "cm-cs");
+                    ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-song-of-healing");
                     WriteFileSelect();
                 }
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "init-file");
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "fierce-deity-anywhere");
 
                 worker.ReportProgress(61, "Writing quick text...");
                 WriteQuickText();
@@ -525,8 +527,6 @@ namespace MMRando
 
                 worker.ReportProgress(68, "Writing startup...");
                 WriteStartupStrings();
-
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "fierce-deity-anywhere");
 
                 if (_settings.GeneratePatch)
                 {
