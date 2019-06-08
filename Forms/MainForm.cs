@@ -87,8 +87,9 @@ namespace MMRando
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
             TooltipBuilder.SetTooltip(cQText, "Enable quick text. Dialogs are fast-forwarded to choices/end of dialog.");
-            TooltipBuilder.SetTooltip(cBGM, "Select to randomize background music sequences that are played throughout the game.");
-            TooltipBuilder.SetTooltip(cFreeHints, "Select to enable reading gossip stone hints without requiring the Mask of Truth.");
+            TooltipBuilder.SetTooltip(cBGM, "Randomize background music sequences that are played throughout the game.");
+            TooltipBuilder.SetTooltip(cFreeHints, "Enable reading gossip stone hints without requiring the Mask of Truth.");
+            TooltipBuilder.SetTooltip(cClearHints, "Gossip stone hints will give clear item and location names.");
             TooltipBuilder.SetTooltip(bTunic, "Select the color of Link's Tunic.");
             TooltipBuilder.SetTooltip(cLink, "Select a character model to replace Link's default model.");
             TooltipBuilder.SetTooltip(cTatl, "Select a color scheme to replace Tatl's default color scheme.");
@@ -267,6 +268,7 @@ namespace MMRando
             cQText.Checked = _settings.QuickTextEnabled;
             cFreeHints.Checked = _settings.FreeHints;
             cMoonItems.Checked = _settings.AddMoonItems;
+            cClearHints.Checked = _settings.ClearHints;
 
             cDMult.SelectedIndex = (int)_settings.DamageMode;
             cDType.SelectedIndex = (int)_settings.DamageEffect;
@@ -412,6 +414,11 @@ namespace MMRando
         private void cFreeHints_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.FreeHints = cFreeHints.Checked);
+        }
+
+        private void cClearHints_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.ClearHints = cClearHints.Checked);
         }
 
         private void cQText_CheckedChanged(object sender, EventArgs e)
@@ -608,6 +615,7 @@ namespace MMRando
             cSpoiler.Enabled = v;
             cTatl.Enabled = v;
             cFreeHints.Enabled = v;
+            cClearHints.Enabled = v;
             cHTMLLog.Enabled = v;
             cN64.Enabled = v;
             cMoonItems.Enabled = v;
@@ -789,6 +797,7 @@ namespace MMRando
             cQText.Enabled = v;
             cBGM.Enabled = v;
             cFreeHints.Enabled = v;
+            cClearHints.Enabled = v;
 
             cLink.Enabled = v;
 

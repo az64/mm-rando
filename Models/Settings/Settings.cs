@@ -166,6 +166,11 @@ namespace MMRando.Models
         /// </summary>
         public bool FreeHints { get; set; }
 
+        /// <summary>
+        /// Clear hints
+        /// </summary>
+        public bool ClearHints { get; set; }
+
         #endregion
 
         #region Gimmicks
@@ -254,6 +259,7 @@ namespace MMRando.Models
             int part2 = (int)parts[1];
             int part3 = (int)parts[2];
 
+            ClearHints = (part1 & 65536) > 0;
             AddMoonItems = (part1 & 32768) > 0;
             FreeHints = (part1 & 16384) > 0;
             UseCustomItemList = (part1 & 8192) > 0;
@@ -300,6 +306,7 @@ namespace MMRando.Models
         {
             int[] parts = new int[3];
 
+            if (ClearHints) { parts[0] += 65536; };
             if (AddMoonItems) { parts[0] += 32768; };
             if (FreeHints) { parts[0] += 16384; };
             if (UseCustomItemList) { parts[0] += 8192; };

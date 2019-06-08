@@ -92,7 +92,8 @@ namespace MMRando.Utils
             return message.Contains("a segment of health") || message.Contains("currency") ||
                 message.Contains("money") || message.Contains("cash") ||
                 message.Contains("wealth") || message.Contains("riches and stuff") ||
-                message.Contains("increased life");
+                message.Contains("increased life") || message.Contains("Rupee") ||
+                message.Contains("Heart");
         }
 
         public static List<MessageEntry> MakeGossipQuotes(Settings settings, List<ItemObject> items, Random random)
@@ -101,7 +102,15 @@ namespace MMRando.Utils
                 return new List<MessageEntry>();
 
             var hints = new List<string>();
-            var GossipList = GetGossipList();
+            var GossipList = settings.ClearHints
+                ? items
+                .Where(io => !ItemUtils.IsFakeItem(io.ID))
+                .Select(io => new Gossip
+                {
+                    SourceMessage = new string[] { Items.LOCATION_NAMES[io.ID] },
+                    DestinationMessage = new string[] { Items.ITEM_NAMES[io.ID] },
+                }).ToList()
+                : GetGossipList();
 
             foreach (var item in items)
             {
@@ -134,14 +143,19 @@ namespace MMRando.Utils
                 int sourceItemId = ItemUtils.SubtractItemOffset(item.ReplacesItemId);
                 int toItemId = ItemUtils.SubtractItemOffset(item.ID);
 
-                // 5% chance of being fake
-                bool isFake = random.Next(100) < 5;
-                if (isFake)
+                ushort soundEffectId = 0x690C;
+                if (!settings.ClearHints)
                 {
-                    sourceItemId = random.Next(GossipList.Count);
+                    // 5% chance of being fake
+                    bool isFake = random.Next(100) < 5;
+                    if (isFake)
+                    {
+                        sourceItemId = random.Next(GossipList.Count);
+                        soundEffectId = 0x690A;
+                    }
                 }
 
-                if (IsBadMessage(GossipList[toItemId].DestinationMessage[0]) && random.Next(8) != 0)
+                if (IsBadMessage(GossipList[toItemId].DestinationMessage[0]) && (settings.ClearHints || random.Next(8) != 0))
                 {
                     continue;
                 }
@@ -161,17 +175,17 @@ namespace MMRando.Utils
                 string destinationMessage = GossipList[toItemId]
                     .DestinationMessage[random.Next(destinationMessageLength)];
 
-                // Sound differs if hint is fake
-                ushort soundEffectId = (ushort)(isFake ? 0x690A : 0x690C);
-
                 var quote = BuildGossipQuote(soundEffectId, sourceMessage, destinationMessage, random);
 
                 hints.Add(quote);
             }
 
-            for (int i = 0; i < Gossip.JunkMessages.Count; i++)
+            if (!settings.ClearHints)
             {
-                hints.Add(Gossip.JunkMessages[i]);
+                for (int i = 0; i < Gossip.JunkMessages.Count; i++)
+                {
+                    hints.Add(Gossip.JunkMessages[i]);
+                }
             }
 
             //trim the pool of messages
