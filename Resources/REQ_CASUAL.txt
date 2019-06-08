@@ -1275,8 +1275,8 @@
 0
 0
 - Goron Racetrack Grotto
-102,115,88
-
+102,115
+88;10
 0
 0
 - Ikana Scrub 200r
