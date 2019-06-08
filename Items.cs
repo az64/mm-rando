@@ -939,7 +939,7 @@ namespace MMRando
                 "Light Arrow Chest",
                 "Bomb Bag Purchase",
                 "Bean Man",
-                "Biggoron",
+                "Powder Keg Challenge",
                 "Koume",
                 "Lens of Truth Chest",
                 "Hookshot Chest",
