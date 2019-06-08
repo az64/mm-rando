@@ -1,5 +1,6 @@
 ﻿using MMRando.Forms;
 using MMRando.Models;
+using MMRando.Models.Settings;
 using MMRando.Utils;
 using System;
 using System.ComponentModel;
@@ -16,7 +17,7 @@ namespace MMRando
         private string _oldSettingsString = "";
         private int _seedOld = 0;
 
-        public Settings _settings { get; set; }
+        public SettingsObject _settings { get; set; }
 
         public AboutForm About { get; private set; }
         public ManualForm Manual { get; private set; }
@@ -421,24 +422,24 @@ namespace MMRando
 
         private void cClockSpeed_SelectedIndexChanged(object sender, EventArgs e)
         {
-            byte clockSpeed;
+            ClockSpeed clockSpeed;
             switch (cClockSpeed.SelectedIndex)
             {
                 default:
                 case 0: // Default
-                    clockSpeed = 3;
+                    clockSpeed = ClockSpeed.Default;
                     break;
                 case 1: // Slow
-                    clockSpeed = 2;
+                    clockSpeed = ClockSpeed.Slow;
                     break;
-                case 2: // Super slow
-                    clockSpeed = 1;
+                case 2: // Fast
+                    clockSpeed = ClockSpeed.Fast;
                     break;
-                case 3: // Fast
-                    clockSpeed = 6;
+                case 3: // Very Fast
+                    clockSpeed = ClockSpeed.VeryFast;
                     break;
                 case 4: // Super fast
-                    clockSpeed = 18;
+                    clockSpeed = ClockSpeed.SuperFast;
                     break;
             }
             UpdateSingleSetting(() => _settings.ClockSpeed = clockSpeed);
@@ -570,7 +571,7 @@ namespace MMRando
 
         public void InitializeSettings()
         {
-            _settings = new Settings();
+            _settings = new SettingsObject();
 
             cDMult.SelectedIndex = 0;
             cDType.SelectedIndex = 0;

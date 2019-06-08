@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace MMRando.Models
+namespace MMRando.Models.Settings
 {
 
-    public class Settings
+    public class SettingsObject
     {
         #region General settings
 
@@ -169,7 +169,7 @@ namespace MMRando.Models
         /// <summary>
         /// Sets the clock speed from 0-255, default is 3. (DANGEROUS AF)
         /// </summary>
-        public byte ClockSpeed { get; set; } = Values.VanillaClockSpeed;
+        public ClockSpeed ClockSpeed { get; set; } = ClockSpeed.Default;
 
         #endregion
 
@@ -255,7 +255,7 @@ namespace MMRando.Models
                 (part3 & 0xFF00) >> 8,
                 part3 & 0xFF);
 
-            byte clockSpeed = (byte)(part4 & 0xFF);
+            var clockSpeedIndex = (byte)(part4 & 0xFF);
 
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
@@ -265,7 +265,7 @@ namespace MMRando.Models
             MovementMode = (MovementMode)gravityTypeIndex;
             FloorType = (FloorType)floorTypeIndex;
             TunicColor = tunicColor;
-            ClockSpeed = clockSpeed;
+            ClockSpeed = (ClockSpeed)clockSpeedIndex;
 
         }
 
@@ -302,7 +302,7 @@ namespace MMRando.Models
                 | ((byte)FloorType << 24)
                     | ((byte)MovementMode << 28);
 
-            parts[3] = ClockSpeed;
+            parts[3] = (byte) ClockSpeed;
 
             return parts;
         }
