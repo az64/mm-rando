@@ -11,9 +11,9 @@
 	.spoiler:hover { background-color: white;  }
 	[data-content]:before { content: attr(data-content); }
 
-	.show-highlight .unavailable .itemname { background-color: #FFDDDD; }
-	.show-highlight .acquired .itemname { background-color: #DDFFDD; }
-	.show-highlight .available .itemname { background-color: #DDDDFF; }
+	.show-highlight .unavailable .newlocation { background-color: #FFDDDD; }
+	.show-highlight .acquired .newlocation { background-color: #DDFFDD; }
+	.show-highlight .available .newlocation { background-color: #DDDDFF; }
 </style>
 </head>
 <label><b>Version: </b></label><span><#= spoiler.Version #></span><br/>
@@ -46,18 +46,30 @@
 <input type="checkbox" id="highlight-checks"/> Highlight available checks
 <table border="1" id="item-replacements">
  <tr>
-     <th>Replaced By</th>
+     <th>Location</th>
 	 <th></th>
      <th>Item</th>
-	 <th></th>
-     <th>New Location</th>
  </tr>
-<# foreach (var item in spoiler.ItemList) {
+<# foreach (var item in spoiler.ItemList.OrderBy(item => item.NewLocationId)) {
 #>
- <tr data-id="<#= item.Id #>" data-replacedbyid="<#= item.ReplacedById #>" data-newlocationid="<#= item.NewLocationId #>" class="unavailable">
-	<td class="spoiler replacedby"> <span data-content="<#= item.ReplacedByName #>"></span></td>
+ <tr data-id="<#= item.Id #>" data-newlocationid="<#= item.NewLocationId #>" class="unavailable">
+	<td class="newlocation"><#= item.NewLocationName #></td>
 	<td><input type="checkbox"/></td>
-	<td class="itemname"><#= item.Name #></td>
+	<td class="spoiler itemname"> <span data-content="<#= item.Name #>"></span></td>
+ </tr>
+<# } #>
+</table>
+<h2>Item Locations</h2>
+<table border="1" id="item-locations">
+ <tr>
+     <th>Item</th>
+	 <th></th>
+     <th>Location</th>
+ </tr>
+<# foreach (var item in spoiler.ItemList.Where(item => !item.IsJunk)) {
+#>
+ <tr data-id="<#= item.Id #>" data-newlocationid="<#= item.NewLocationId #>">
+	<td><#= item.Name #></td>
 	<td><input type="checkbox"/></td>
 	<td class="spoiler newlocation"> <span data-content="<#= item.NewLocationName #>"></span></td>
  </tr>
@@ -88,7 +100,6 @@
 		var recalculate = false;
 		for (var i = 0; i < logic.length; i++) {
 			var item = logic[i];
-			var rowItem = document.querySelector("tr[data-id='" + item.ItemId + "']");
 			item.IsAvailable = 
 				(item.RequiredItemIds === null || all(item.RequiredItemIds, function(id) { return logic[id].Acquired; }))
 				&& 
@@ -103,23 +114,29 @@
 				recalculate = true;
 			}
         
-			if (rowItem) {
-				rowItem.className = "";
-				rowItem.classList.add(item.IsAvailable ? "available" : "unavailable");
-				var replacedBy = rowItem.querySelector(".replacedby");
-				var newLocation = rowItem.querySelector(".newlocation");
-				var checkboxes = rowItem.querySelectorAll("input");
-				checkboxes[0].checked = item.Checked;
-				checkboxes[1].checked = item.Acquired;
+			var locationRow = document.querySelector("#item-replacements tr[data-newlocationid='" + item.ItemId + "']");
+			if (locationRow) {
+				locationRow.className = "";
+				locationRow.classList.add(item.IsAvailable ? "available" : "unavailable");
+				var itemName = locationRow.querySelector(".itemname");
+                var checkbox = locationRow.querySelector("input");
+                checkbox.checked = item.Checked;
 				if (item.Checked) {
-					replacedBy.classList.remove("spoiler");
+					itemName.classList.remove("spoiler");
 				} else {
-					replacedBy.classList.add("spoiler");
+					itemName.classList.add("spoiler");
 				}
+			}
+        
+			var itemRow = document.querySelector("#item-locations tr[data-id='" + item.ItemId + "']");
+			if (itemRow) {
+				var itemName = itemRow.querySelector(".newlocation");
+                var checkbox = itemRow.querySelector("input");
+                checkbox.checked = item.Acquired;
 				if (item.Acquired) {
-					newLocation.classList.remove("spoiler");
+					itemName.classList.remove("spoiler");
 				} else {
-					newLocation.classList.add("spoiler");
+					itemName.classList.add("spoiler");
 				}
 			}
 		}
@@ -129,36 +146,26 @@
 	}
 
 	logic[0].Checked = true;
-	logic[document.querySelector("tr[data-id='0']").dataset.replacedbyid].Acquired = true;
-	document.querySelector("tr[data-id='0'] input").checked = true;
+	logic[document.querySelector("tr[data-newlocationid='0']").dataset.id].Acquired = true;
+	document.querySelector("tr[data-newlocationid='0'] input").checked = true;
 
 	logic[90].Checked = true;
-	logic[document.querySelector("tr[data-id='90']").dataset.replacedbyid].Acquired = true;
-	document.querySelector("tr[data-id='90'] input").checked = true;
+	logic[document.querySelector("tr[data-newlocationid='90']").dataset.id].Acquired = true;
+	document.querySelector("tr[data-newlocationid='90'] input").checked = true;
 
 	recalculateItems();
 
 	var rows = document.querySelectorAll("tr");
 	for (var i = 1; i < rows.length; i++) {
 		var row = rows[i];
-		var checkboxes = row.querySelectorAll("input");
-		if (checkboxes.length > 0) {
-			checkboxes[0].addEventListener("click", function(e) {
+		var checkbox = row.querySelector("input");
+		if (checkbox) {
+			checkbox.addEventListener("click", function(e) {
 				var row = e.target.closest("tr");
-				var rowId = parseInt(row.dataset.id);
-				var replacedById = parseInt(row.dataset.replacedbyid);
-				var newLocationId = parseInt(row.dataset.newlocationid);
-				logic[rowId].Checked = e.target.checked;
-				logic[replacedById].Acquired = e.target.checked;
-				recalculateItems();
-			});
-			checkboxes[1].addEventListener("click", function(e) {
-				var row = e.target.closest("tr");
-				var rowId = parseInt(row.dataset.id);
-				var replacedById = parseInt(row.dataset.replacedbyid);
+                var rowId = parseInt(row.dataset.id);
 				var newLocationId = parseInt(row.dataset.newlocationid);
 				logic[newLocationId].Checked = e.target.checked;
-				logic[rowId].Acquired = e.target.checked;
+                logic[rowId].Acquired = e.target.checked;
 				recalculateItems();
 			});
 		}

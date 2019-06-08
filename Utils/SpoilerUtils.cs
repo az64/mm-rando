@@ -13,10 +13,7 @@ namespace MMRando.Utils
         {
             var itemList = randomized.ItemList
                 .Where(u => u.ReplacesAnotherItem)
-                .Select(u => new SpoilerItem(u)
-                {
-                    ReplacedById = randomized.ItemList.Single(i => i.ReplacesItemId == u.ID).ID
-                })
+                .Select(u => new SpoilerItem(u))
                 .ToList();
             var settingsString = settings.ToString();
 
@@ -70,24 +67,24 @@ namespace MMRando.Utils
                 string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
                 for (int i = 0; i < 4; i++)
                 {
-                    log.AppendLine($"{destinations[i],-21} >> {destinations[spoiler.NewDestinationIndices[i]]}");
+                    log.AppendLine($"{destinations[i],-21} -> {destinations[spoiler.NewDestinationIndices[i]]}");
                 }
                 log.AppendLine("");
             }
 
-            log.AppendLine($" {"Item",-40}    {"Location"}");
+            log.AppendLine($" {"Location",-50}    {"Item"}");
             foreach (var item in spoiler.ItemList)
             {
-                log.AppendLine($"{item.Name,-40} >> {item.NewLocationName}");
+                log.AppendLine($"{item.NewLocationName,-50} -> {item.Name}");
             }
 
             log.AppendLine();
             log.AppendLine();
 
-            log.AppendLine($" {"Item",-40}    {"Location"}");
+            log.AppendLine($" {"Location",-50}    {"Item"}");
             foreach (var item in spoiler.ItemList.OrderBy(i => i.NewLocationId))
             {
-                log.AppendLine($"{item.Name,-40} >> {item.NewLocationName}");
+                log.AppendLine($"{item.NewLocationName,-50} -> {item.Name}");
             }
 
             using (StreamWriter sw = new StreamWriter(path))
