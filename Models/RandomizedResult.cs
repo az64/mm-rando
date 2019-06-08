@@ -1,4 +1,5 @@
-﻿using MMRando.Models.Settings;
+﻿using MMRando.Models.Rom;
+using MMRando.Models.Settings;
 using System;
 using System.Collections.Generic;
 
