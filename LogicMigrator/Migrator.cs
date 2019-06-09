@@ -8,7 +8,7 @@ namespace MMRando.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 3;
+        public const int CurrentVersion = 5;
 
         public static string ApplyMigrations(string logic)
         {
@@ -32,6 +32,16 @@ namespace MMRando.LogicMigrator
             if (GetVersion(lines) < 3)
             {
                 AddRequirementsForSongOath(lines);
+            }
+
+            if (GetVersion(lines) < 4)
+            {
+                AddSongOfHealing(lines);
+            }
+
+            if (GetVersion(lines) < 5)
+            {
+                AddIkanaScrubGoldRupee(lines);
             }
 
             return string.Join("\r\n", lines);
@@ -113,72 +123,72 @@ namespace MMRando.LogicMigrator
             {
                 new ItemObject
                 {
-                    ID = Items.OtherOneMask,
-                    Conditionals = Enumerable.Range(Items.MaskPostmanHat, 20).Select(i => new List<int> { i }).ToList()
+                    ID = 255,
+                    Conditionals = Enumerable.Range(68, 20).Select(i => new List<int> { i }).ToList()
                 },
                 new ItemObject
                 {
-                    ID = Items.OtherTwoMasks,
-                    Conditionals = Enumerable.Range(Items.MaskPostmanHat, 20).Combinations(2).Select(a => a.ToList()).ToList()
+                    ID = 256,
+                    Conditionals = Enumerable.Range(68, 20).Combinations(2).Select(a => a.ToList()).ToList()
                 },
                 new ItemObject
                 {
-                    ID = Items.OtherThreeMasks,
-                    Conditionals = Enumerable.Range(Items.MaskPostmanHat, 20).Combinations(3).Select(a => a.ToList()).ToList()
+                    ID = 257,
+                    Conditionals = Enumerable.Range(68, 20).Combinations(3).Select(a => a.ToList()).ToList()
                 },
                 new ItemObject
                 {
-                    ID = Items.OtherFourMasks,
-                    Conditionals = Enumerable.Range(Items.MaskPostmanHat, 20).Combinations(4).Select(a => a.ToList()).ToList()
+                    ID = 258,
+                    Conditionals = Enumerable.Range(68, 20).Combinations(4).Select(a => a.ToList()).ToList()
                 },
                 new ItemObject
                 {
-                    ID = Items.AreaMoonAccess,
+                    ID = 259,
                     DependsOnItems = new List<int>
                     {
-                        Items.SongOath, Items.AreaWoodFallTempleClear, Items.AreaSnowheadTempleClear, Items.AreaGreatBayTempleClear, Items.AreaStoneTowerClear
+                        97, 100, 103, 108, 113
                     }
                 },
                 new ItemObject
                 {
-                    ID = Items.HeartPieceDekuTrial,
+                    ID = 260,
                     DependsOnItems = new List<int>
                     {
-                        Items.AreaMoonAccess, Items.MaskDeku, Items.OtherOneMask
+                        259, 0, 255
                     }
                 },
                 new ItemObject
                 {
-                    ID = Items.HeartPieceGoronTrial,
+                    ID = 261,
                     DependsOnItems = new List<int>
                     {
-                        Items.AreaMoonAccess, Items.MaskGoron, Items.OtherTwoMasks
+                        259, 88, 256
                     }
                 },
                 new ItemObject
                 {
-                    ID = Items.HeartPieceZoraTrial,
+                    ID = 262,
                     DependsOnItems = new List<int>
                     {
-                        Items.AreaMoonAccess, Items.MaskZora, Items.OtherThreeMasks
+                        259, 89, 257
                     }
                 },
                 new ItemObject
                 {
-                    ID = Items.HeartPieceLinkTrial,
+                    ID = 263,
                     DependsOnItems = new List<int>
                     {
-                        Items.AreaMoonAccess, Items.OtherFourMasks, Items.OtherExplosive, Items.OtherArrow, Items.ItemFireArrow, Items.ItemHookshot
+                        259, 258, 114, 115, 2, 10
                     }
                 },
                 new ItemObject
                 {
-                    ID = Items.MaskFierceDeity,
+                    ID = 264,
                     DependsOnItems = new List<int>
                     {
-                        Items.AreaMoonAccess, Items.MaskDeku, Items.MaskGoron, Items.MaskZora, Items.OtherExplosive, Items.OtherArrow, Items.ItemFireArrow, Items.ItemHookshot
+                        259, 0, 88, 89, 114, 115, 2, 10
                     }
-                    .Concat(Enumerable.Range(Items.MaskPostmanHat, 20))
+                    .Concat(Enumerable.Range(68, 20))
                     .ToList()
                 }
             };
@@ -198,7 +208,7 @@ namespace MMRando.LogicMigrator
                     .Select(section => section.Split(',').Select(id => 
                         {
                             var itemId = int.Parse(id);
-                            if (itemId >= Items.OtherOneMask)
+                            if (itemId >= 255)
                             {
                                 itemId += newItems.Length;
                             }
@@ -208,7 +218,7 @@ namespace MMRando.LogicMigrator
             }
             foreach (var item in newItems)
             {
-                lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - Items.OtherOneMask]}");
+                lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 255]}");
                 lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
                 lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
                 lines.Insert(item.ID * 5 + 4, "0");
@@ -221,9 +231,103 @@ namespace MMRando.LogicMigrator
             lines[0] = "-version 3";
             var oathIndex = lines.FindIndex(s => s == "- Oath to Order");
             lines[oathIndex + 1] = "";
-            lines[oathIndex + 2] = $"{Items.AreaWoodFallTempleClear};{Items.AreaSnowheadTempleClear};{Items.AreaGreatBayTempleClear};{Items.AreaStoneTowerClear}";
+            lines[oathIndex + 2] = $"100;103;108;113";
             lines[oathIndex + 3] = "0";
             lines[oathIndex + 4] = "0";
+        }
+
+        private static void AddSongOfHealing(List<string> lines)
+        {
+            lines[0] = "-version 4";
+            var newItems = new ItemObject[]
+            {
+                new ItemObject
+                {
+                    ID = 90
+                }
+            };
+            var itemNames = new string[]
+            {
+                "Song of Healing"
+            };
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section => section.Split(',').Select(id =>
+                    {
+                        var itemId = int.Parse(id);
+                        if (itemId >= 90)
+                        {
+                            itemId += newItems.Length;
+                        }
+                        return itemId;
+                    }).ToList()).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+            foreach (var item in newItems)
+            {
+                lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 90]}");
+                lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
+                lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
+                lines.Insert(item.ID * 5 + 4, "0");
+                lines.Insert(item.ID * 5 + 5, "0");
+            }
+            var requireSongOfHealing = new int[] { 83, 84, 88, 89 }; // kamaro, gidbo, goron, zora masks
+            foreach (var id in requireSongOfHealing)
+            {
+                lines[id * 5 + 2] = lines[id * 5 + 2].Length == 0 ? "90" : "90," + lines[id * 5 + 2];
+            }
+        }
+
+        private static void AddIkanaScrubGoldRupee(List<string> lines)
+        {
+            lines[0] = "-version 5";
+            var newItems = new ItemObject[]
+            {
+                new ItemObject
+                {
+                    ID = 256,
+                    DependsOnItems = new List<int> { 110, 89, 32 } // east access, zora mask, ocean deed
+                }
+            };
+            var itemNames = new string[]
+            {
+                "Ikana Scrub Gold Rupee"
+            };
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section => section.Split(',').Select(id =>
+                    {
+                        var itemId = int.Parse(id);
+                        if (itemId >= 256)
+                        {
+                            itemId += newItems.Length;
+                        }
+                        return itemId;
+                    }).ToList()).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+            foreach (var item in newItems)
+            {
+                lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 256]}");
+                lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
+                lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
+                lines.Insert(item.ID * 5 + 4, "0");
+                lines.Insert(item.ID * 5 + 5, "0");
+            }
         }
     }
 }

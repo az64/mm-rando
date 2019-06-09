@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Forms\Tooltips\TooltipBuilder.cs" />
     <Compile Include="Models\RandomizedResult.cs" />
     <Compile Include="Models\Rom\MessageTable.cs" />
@@ -74,6 +75,8 @@
     <Compile Include="Models\SoundEffects\SoundExtensions.cs" />
     <Compile Include="Models\SoundEffects\SoundAttributes.cs" />
     <Compile Include="Models\SoundEffects\SoundEffect.cs" />
+    <Compile Include="Models\Settings\ClockSpeedMode.cs" />
+    <Compile Include="Models\Settings\SettingsObject.cs" />
     <Compile Include="Models\SpoilerItem.cs" />
     <Compile Include="Models\ItemLogic.cs" />
     <Compile Include="Constants\Addresses.cs" />
@@ -125,7 +128,6 @@
     <Compile Include="Models\Settings\FloorType.cs" />
     <Compile Include="Models\Settings\LogicMode.cs" />
     <Compile Include="Models\Settings\MovementMode.cs" />
-    <Compile Include="Models\Settings\Settings.cs" />
     <Compile Include="Models\Settings\TatlColorSchema.cs" />
     <Compile Include="Forms\NewItemForm.cs">
       <SubType>Form</SubType>
@@ -295,6 +297,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\mods\fierce-deity-anywhere">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mods\fix-song-of-healing">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\mods\file-select">

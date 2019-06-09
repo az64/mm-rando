@@ -43,10 +43,9 @@
             this.columnHeader1});
             this.lItems.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lItems.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lItems.Location = new System.Drawing.Point(4, 4);
-            this.lItems.Margin = new System.Windows.Forms.Padding(4);
+            this.lItems.Location = new System.Drawing.Point(3, 3);
             this.lItems.Name = "lItems";
-            this.lItems.Size = new System.Drawing.Size(443, 550);
+            this.lItems.Size = new System.Drawing.Size(332, 447);
             this.lItems.TabIndex = 1;
             this.lItems.UseCompatibleStateImageBehavior = false;
             this.lItems.View = System.Windows.Forms.View.List;
@@ -59,10 +58,9 @@
             // tSetting
             // 
             this.tSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tSetting.Location = new System.Drawing.Point(4, 562);
-            this.tSetting.Margin = new System.Windows.Forms.Padding(4);
+            this.tSetting.Location = new System.Drawing.Point(3, 456);
             this.tSetting.Name = "tSetting";
-            this.tSetting.Size = new System.Drawing.Size(443, 22);
+            this.tSetting.Size = new System.Drawing.Size(332, 20);
             this.tSetting.TabIndex = 2;
             this.tSetting.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tSetting_KeyDown);
             // 
@@ -74,22 +72,20 @@
             this.tLayout.Controls.Add(this.tSetting, 0, 1);
             this.tLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tLayout.Location = new System.Drawing.Point(0, 0);
-            this.tLayout.Margin = new System.Windows.Forms.Padding(4);
             this.tLayout.Name = "tLayout";
             this.tLayout.RowCount = 2;
             this.tLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tLayout.Size = new System.Drawing.Size(451, 592);
+            this.tLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tLayout.Size = new System.Drawing.Size(338, 481);
             this.tLayout.TabIndex = 3;
             // 
             // ItemEditForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 592);
+            this.ClientSize = new System.Drawing.Size(338, 481);
             this.Controls.Add(this.tLayout);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ItemEditForm";
             this.Text = "Item List Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.fItemEdit_FormClosing);

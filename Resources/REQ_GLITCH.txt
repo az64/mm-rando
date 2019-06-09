@@ -1,26 +1,26 @@
--version 3
+-version 5
 - Deku Mask
 
 
 0
 0
 - Hero's Bow
-99
-5;24;25;10;124
+100
+5;24;25;10;125
 0
 0
 - Fire Arrow
-102
+103
 5;24;25
 0
 0
 - Ice Arrow
-107,115,134
+108,116,135
 
 0
 0
 - Light Arrow
-111,114,138,139
+112,115,139,140
 
 0
 0
@@ -30,32 +30,32 @@
 0
 0
 - Magic Bean
-98
+99
 
 0
 0
 - Powder Keg
-101
-2;12;13;209;15;16;17
+102
+2;12;13;210;15;16;17
 0
 0
 - Pictobox
 
-12;13;209;15;16;17
+12;13;210;15;16;17
 0
 0
 - Lens of Truth
-101
+102
 
 0
 0
 - Hookshot
-106
+107
 0;1;22;23
 0
 0
 - Great Fairy's Sword
-112,111,113,72
+113,112,114,72
 
 0
 0
@@ -65,22 +65,22 @@
 0
 0
 - Aliens Bottle
-104,115
+105,116
 
 0
 2
 - Gold Dust
-103,88
+104,88
 
 15
 0
 - Beaver Race Bottle
-106,10
+107,10
 
 0
 0
 - Dampe Bottle
-109
+110
 
 0
 32
@@ -95,27 +95,27 @@
 0
 0
 - Razor Sword
-101,26
-2;12;13;209;15;16;17
+102,26
+2;12;13;210;15;16;17
 0
 12
 - Gilded Sword
-101,14
-2;12;13;209;15;16;17
+102,14
+2;12;13;210;15;16;17
 0
 48
 - Mirror Shield
-110
+111
 1,2,10;22,2,10;23,2,10;1,2,89;22,2,89;23,2,89;1,2,4;22,2,4;23,2,4
 0
 0
 - Town Archery Quiver (40)
-115
+116
 
 0
 0
 - Swamp Archery Quiver (50)
-115
+116
 
 0
 0
@@ -125,7 +125,7 @@
 0
 62
 - Mountain Bomb Bag (40)
-101,26,88
+102,26,88
 
 0
 0
@@ -135,7 +135,7 @@
 0
 0
 - Ocean Wallet (500)
-106,10
+107,10
 5;24;25;88
 0
 3
@@ -155,12 +155,12 @@
 0
 0
 - Mountain Title Deed
-101,0,30
+102,0,30
 
 0
 0
 - Ocean Title Deed
-106,88,31
+107,88,31
 
 0
 0
@@ -225,12 +225,12 @@
 0
 16
 - Town Archery HP
-115
+116
 
 0
 21
 - Honey and Darling HP
-115,114
+116,115
 
 0
 16
@@ -246,7 +246,7 @@
 0
 - Termina Field Gossips HP
 
-0,93;88,94;89,95
+0,94;88,95;89,96
 0
 0
 - Termina Field Business Scrub HP
@@ -255,7 +255,7 @@
 0
 0
 - Swamp Archery HP
-115
+116
 
 0
 21
@@ -265,32 +265,32 @@
 0
 0
 - Boat Archery HP
-100
+101
 
 0
 0
 - Frog Choir HP
-3,76,100,103,108,113
+3,76,101,104,109,114
 
 0
 0
 - Beaver Race HP
-106,10
+107,10
 
 0
 0
 - Seahorse HP
-106,8
-12;13;209;15;16;17
+107,8
+12;13;210;15;16;17
 0
 0
 - Fisherman Game HP
-108,10
+109,10
 
 0
 0
 - Evan HP
-106
+107
 
 0
 0
@@ -300,7 +300,7 @@
 0
 16
 - Poe Hut HP
-110
+111
 
 0
 0
@@ -320,22 +320,22 @@
 0
 0
 - Woodfall Chest HP
-114
+115
 
 0
 0
 - Twin Islands Chest HP
-103,89
+104,89
 
 0
 0
 - Ocean Spider House HP
-105,115
+106,116
 
 0
 0
 - Graveyard Iron Knuckle HP
-114
+115
 
 0
 0
@@ -355,8 +355,8 @@
 0
 2
 - Stone Mask
-109,9
-12;13;209;15;16;17
+110,9
+12;13;210;15;16;17
 0
 0
 - Great Fairy's Mask
@@ -380,17 +380,17 @@
 0
 16
 - Don Gero's Mask
-101,88
+102,88
 
 0
 0
 - Mask of Scents
-100
-12;13;209;15;16;17
+101
+12;13;210;15;16;17
 0
 0
 - Romani Mask
-91,115
+92,116
 
 0
 8
@@ -405,102 +405,107 @@
 0
 21
 - Couple's Mask
-110,35
+111,35
 
 0
 32
 - Mask of Truth
-100
-89,12;89,13;89,209;89,15;89,16;89,17;10,12;10,13;10,209;10,15;10,16;10,17
+101
+89,12;89,13;89,210;89,15;89,16;89,17;10,12;10,13;10,210;10,15;10,16;10,17
 0
 0
 - Kamaro's Mask
-
+90
 
 0
 42
 - Gibdo Mask
-110
+90,111
 
 0
 0
 - Garo Mask
-91
+92
 
 0
 21
 - Captain's Hat
-109
+110
 
 0
 0
 - Giant's Mask
-112,114
+113,115
 
 0
 0
 - Goron Mask
-101,9
+90,102,9
 
 0
 0
 - Zora Mask
-105
+90,106
+
+0
+0
+- Song of Healing
+
 
 0
 0
 - Song of Soaring
-98
+99
 5;24;25;0
 0
 0
 - Epona's Song
-104
+105
 
 0
 1
 - Song of Storms
-109
+110
 
 0
 0
 - Sonata of Awakening
-98,0
+99,0
 
 0
 0
 - Goron Lullaby
-101,88
+102,88
 
 0
 0
 - New Wave Bossa Nova
-106
-12;13;209;15;16;17
+107
+12;13;210;15;16;17
 0
 0
 - Elegy of Emptiness
-110,115,2,21
+111,116,2,21
 
 0
 0
 - Oath to Order
 
-100;103;108;113
+101;104;109;114
 0
 0
 - Poison swamp access
 
-12;13;209;15;16;17;5;24;25;89;1,0;22,0;23,0;1,88;22,88;23,88
+12;13;210;15;16;17;5;24;25;89;1,0;22,0;23,0;1,88;22,88;23,88
 0
 0
 - Woodfall Temple access
-0,93,98
+0,94,99
 
 0
 0
 - Woodfall clear
-99,121,122,123,124,0
+100,122,123,124,125,0
 1;22;23;5;24;25
 0
 0
@@ -511,11 +516,11 @@
 0
 - Snowhead Temple access
 
-5;24;25;88,94
+5;24;25;88,95
 0
 0
 - Snowhead clear
-102,115,2,125,126,127,128,129,130,88
+103,116,2,126,127,128,129,130,131,88
 
 0
 0
@@ -525,47 +530,47 @@
 0
 0
 - West access
-114
+115
 
 0
 0
 - Pirates' Fortress access
-105,89
+106,89
 
 0
 0
 - Great Bay Temple access
-105,89,95
+106,89,96
 
 0
 0
 - Great Bay clear
-107,114,131,132,133,134,89
+108,115,132,133,134,135,89
 
 0
 0
 - East access
-114
+115
 
 0
 0
 - Ikana Canyon access
-109
-
-0
-0
-- Stone Tower Temple access
 110
 
 0
 0
+- Stone Tower Temple access
+111
+
+0
+0
 - Inverted Stone Tower Temple access
-111,115,4
+112,116,4
 
 0
 0
 - Ikana clear
-112,115,10,135,136,137,138,139,140,141
+113,116,10,136,137,138,139,140,141,142
 
 0
 0
@@ -580,133 +585,133 @@
 0
 0
 - (Unused)
-99,114
+100,115
 
 0
 0
 - (Unused)
-102,114,115,2
+103,115,116,2
 
 0
 0
 - (Unused)
-107,114
+108,115
 
 0
 0
 - (Unused)
-111,114
+112,115
 0;10
 0
 0
 - (Unused)
-112,114,115
+113,115,116
 
 0
 0
 - Woodfall Map
-99
+100
 0;10;5;24;25
 0
 0
 - Woodfall Compass
-99,124
+100,125
 
 0
 0
 - Woodfall Boss Key
-99,115
+100,116
 0;5;24;25
 0
 0
 - Woodfall Key 1
-99
+100
 0;10;5;24;25
 0
 0
 - Snowhead Map
-102
+103
 89;5;24;25
 0
 0
 - Snowhead Compass
-102
-128;10;5;24;25
+103
+129;10;5;24;25
 0
 0
 - Snowhead Boss Key
-102,114
+103,115
 10;1,2;22,2;23,2
 0
 0
 - Snowhead Key 1 - block room
-102
+103
 10;5;24;25
 0
 0
 - Snowhead Key 2 - icicle room
-102,114
+103,115
 
 0
 0
 - Snowhead Key 3 - bridge room
-102
+103
 5;24;25
 0
 0
 - Great Bay Map
-107,89
+108,89
 10;5;24;25
 0
 0
 - Great Bay Compass
-107,89
+108,89
 
 0
 0
 - Great Bay Boss Key
-107,89,114
+108,89,115
 
 0
 0
 - Great Bay Key 1
-107,89
+108,89
 
 0
 0
 - Stone Tower Map
-111,114,139
+112,115,140
 
 0
 0
 - Stone Tower Compass
-111,114
+112,115
 
 0
 0
 - Stone Tower Boss Key
-112,114
+113,115
 1,4;22,4;23,4;10
 0
 0
 - Stone Tower Key 1 - armos room
-111,114,139
+112,115,140
 
 0
 0
 - Stone Tower Key 2 - eyegore room
-111,114
+112,115
 
 0
 0
 - Stone Tower Key 3 - updraft room
-112,114
+113,115
 
 0
 0
 - Stone Tower Key 4 - death armos maze
-112,114
-96;10
+113,115
+97;10
 0
 0
 - Trading Post Red Potion
@@ -750,7 +755,7 @@
 0
 0
 - Witch Shop Blue Potion
-170
+171
 
 0
 0
@@ -775,162 +780,162 @@
 0
 0
 - Goron Shop Bomb 10
-101
+102
 
 0
 0
 - Goron Shop Arrow 10
-101
+102
 
 0
 0
 - Goron Shop Red Potion
-101
+102
 
 0
 0
 - Zora Shop Shield
-105
+106
 
 0
 0
 - Zora Shop Arrow 10
-105
+106
 
 0
 0
 - Zora Shop Red Potion
-105
+106
 
 0
 0
 - Bottle: Fairy
 
-12;13;209;15;16;17
+12;13;210;15;16;17
 0
 0
 - Bottle: Deku Princess
-100,169,164,163
-12;13;209;15;16;17
+101,170,165,164
+12;13;210;15;16;17
 0
 0
 - Bottle: Fish
 
-12;13;209;15;16;17
+12;13;210;15;16;17
 0
 0
 - Bottle: Bug
 
-12;13;209;15;16;17
+12;13;210;15;16;17
 0
 0
 - Bottle: Poe
-112,115,4,0,114
-12;13;209;15;16;17
+113,116,4,0,115
+12;13;210;15;16;17
 0
 0
 - Bottle: Big Poe
-109,169,164,163
-12,6,5;13,6,5;209,6,5;15,6,5;16,6,5;17,6,5;12,6,24;13,6,24;209,6,24;15,6,24;16,6,24;17,6,24;12,6,25;13,6,25;209,6,25;15,6,25;16,6,25;17,6,25
+110,170,165,164
+12,6,5;13,6,5;210,6,5;15,6,5;16,6,5;17,6,5;12,6,24;13,6,24;210,6,24;15,6,24;16,6,24;17,6,24;12,6,25;13,6,25;210,6,25;15,6,25;16,6,25;17,6,25
 0
 0
 - Bottle: Spring Water
 
-12;13;209;15;16;17
+12;13;210;15;16;17
 0
 0
 - Bottle: Hot Spring Water
-101,114
-12;13;209;15;16;17
+102,115
+12;13;210;15;16;17
 0
 0
 - Bottle: Zora Egg
-106,163
-12;13;209;15;16;17
+107,164
+12;13;210;15;16;17
 0
 0
 - Bottle: Mushroom
 77
-12;13;209;15;16;17
+12;13;210;15;16;17
 0
 0
 - Lens Cave 20r
-101
+102
 
 0
 0
 - Lens Cave 50r
-101,114
+102,115
 
 0
 0
 - Bean Grotto 20r
-98,0,10
+99,0,10
 
 0
 0
 - HSW Grotto 20r
-101,114
+102,115
 
 0
 0
 - Graveyard Bad Bats
-109
-
-0
-0
-- Ikana Grotto
 110
 
 0
 0
+- Ikana Grotto
+111
+
+0
+0
 - PF 20r Lower
-106
+107
 
 0
 0
 - PF 20r Upper
-106,10
+107,10
 
 0
 0
 - PF Tank 20r
-106,10
+107,10
 
 0
 0
 - PF Guard Room 100r
-106,10
+107,10
 
 0
 0
 - PF HP Room 20r
-106,88
+107,88
 
 0
 0
 - PF HP Room 5r
-106,88
+107,88
 
 0
 0
 - PF Maze 20r
-106,88
+107,88
 
 0
 0
 - PR 20r (1)
-106
+107
 
 0
 0
 - PR 20r (2)
-106
+107
 
 0
 0
 - Bombers' Hideout 100r
-114
+115
 
 0
 0
@@ -960,42 +965,42 @@
 0
 0
 - Great Bay Coast Grotto
-105
+106
 
 0
 0
 - Great Bay Cape Ledge (1)
-105,10
+106,10
 0;5;24;25
 0
 0
 - Great Bay Cape Ledge (2)
-105,10
+106,10
 
 0
 0
 - Great Bay Cape Grotto
-105
+106
 5;24;25;70;88
 0
 0
 - Great Bay Cape Underwater
-105,89
+106,89
 
 0
 0
 - PF Exterior 20r (1)
-106
+107
 
 0
 0
 - PF Exterior 20r (2)
-106
+107
 
 0
 0
 - PF Exterior 20r (3)
-106
+107
 
 0
 0
@@ -1010,42 +1015,42 @@
 0
 16
 - Graveyard Grotto
-109,114
+110,115
 
 0
 0
 - Swamp Grotto
-98
+99
 
 0
 0
 - Woodfall 5r
-98,0
+99,0
 
 0
 0
 - Woodfall 20r
-98,0
+99,0
 
 0
 0
 - Well Right Path 50r
-110,84,167,164
+111,84,168,165
 
 0
 0
 - Well Left Path 50r
-110,84,163,164,6
+111,84,164,165,6
 
 0
 0
 - Mountain Village Chest (Spring)
-103
+104
 
 0
 0
 - Mountain Village Grotto Bottle (Spring)
-103,88
+104,88
 
 0
 0
@@ -1055,57 +1060,57 @@
 0
 0
 - Path to Ikana Grotto
-109,88
+110,88
 
 0
 0
 - Stone Tower 100r
-111,115,4,6,167
+112,116,4,6,168
 
 0
 0
 - Stone Tower Bombchu 10
-111,115,4,6,167
+112,116,4,6,168
 
 0
 0
 - Stone Tower Magic Bean
-111,115,4,6,167
+112,116,4,6,168
 
 0
 0
 - Path to Snowhead Grotto
-101,114,88
+102,115,88
 
 0
 0
 - Twin Islands 20r
-103,89
+104,89
 
 0
 0
 - Secret Shrine HP
-110,115,4
+111,116,4
 
 0
 0
 - Secret Shrine Dinolfos
-110,115,4
+111,116,4
 
 0
 0
 - Secret Shrine Wizzrobe
-110,115,4
+111,116,4
 
 0
 0
 - Secret Shrine Wart
-110,115,4,114
+111,116,4,115
 
 0
 0
 - Secret Shrine Garo Master
-110,115,4
+111,116,4
 
 0
 0
@@ -1155,7 +1160,7 @@
 0
 0
 - Path to Swamp HP
-115
+116
 
 0
 0
@@ -1165,12 +1170,12 @@
 0
 0
 - Deku Palace HP
-98
+99
 
 0
 0
 - Goron Village Scrub HP
-101,114
+102,115
 
 0
 0
@@ -1180,62 +1185,62 @@
 0
 0
 - Lab Fish HP
-105,163
+106,164
 
 0
 0
 - Great Bay Like-Like HP
-106
+107
 
 0
 0
 - Pirates' Fortress HP
-106,88
+107,88
 
 0
 0
 - Zora Hall Scrub HP
-106
+107
 
 0
 0
 - Path to Snowhead HP
-101,114
+102,115
 
 0
 0
 - Great Bay Coast HP
-106,10
+107,10
 5;24;25;70;88
 0
 0
 - Ikana Scrub HP
-110,114
+111,115
 
 0
 0
 - Ikana Castle HP
-110,114
+111,115
 
 0
 0
 - Odolwa Heart Container
-99,115,0,121,122,123,124
+100,116,0,122,123,124,125
 
 0
 0
 - Goht Heart Container
-102,115,2,88,114,125,126,127,128,129,130
+103,116,2,88,115,126,127,128,129,130,131
 
 0
 0
 - Gyorg Heart Container
-107,89,115,2,3,114,10,131,132,133,134
+108,89,116,2,3,115,10,132,133,134,135
 
 0
 0
 - Twinmold Heart Container
-112,0,10,114,115,4,135,136,137,138,139,140,141
+113,0,10,115,116,4,136,137,138,139,140,141,142
 
 0
 0
@@ -1250,7 +1255,7 @@
 0
 0
 - Map: Snowhead
-101
+102
 1;22;23;0;10
 0
 0
@@ -1260,17 +1265,22 @@
 0
 0
 - Map: Great Bay
-105
+106
 1;22;23;10
 0
 0
 - Map: Stone Tower
-110
+111
 1;22;23;10
 0
 0
 - Goron Racetrack Grotto
-101,114
+102,115
+
+0
+0
+- Ikana Scrub 200r
+110,89,32
 
 0
 0
@@ -1295,32 +1305,32 @@
 0
 0
 - Moon Access
-97,100,103,108,113
+98,101,104,109,114
 
 0
 0
 - Deku Trial HP
-259,0,255
+261,0,257
 
 0
 0
 - Goron Trial HP
-259,88,256
+261,88,258
 
 0
 0
 - Zora Trial HP
-259,89,257
+261,89,259
 
 0
 0
 - Link Trial HP
-259,258,114,115,2,10
+261,260,115,116,2,10
 
 0
 0
 - Fierce Deity's Mask
-259,0,88,89,114,115,2,10,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87
+261,0,88,89,115,116,2,10,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87
 
 0
 0

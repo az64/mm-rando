@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MMRando.Models;
+using MMRando.Models.Settings;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -19,7 +21,7 @@ namespace MMRando.Forms
         "Ocean Spider House HP", "Graveyard Iron Knuckle HP", "Postman's Hat", "All Night Mask", "Blast Mask", "Stone Mask", "Great Fairy's Mask",
         "Keaton Mask", "Bremen Mask", "Bunny Hood", "Don Gero's Mask", "Mask of Scents", "Romani Mask", "Circus Leader's Mask", "Kafei's Mask",
         "Couple's Mask", "Mask of Truth", "Kamaro's Mask", "Gibdo Mask", "Garo Mask", "Captain's Hat", "Giant's Mask", "Goron Mask", "Zora Mask",
-        "Song of Soaring", "Epona's Song", "Song of Storms", "Sonata of Awakening", "Goron Lullaby", "New Wave Bossa Nova",
+        "Song of Healing", "Song of Soaring", "Epona's Song", "Song of Storms", "Sonata of Awakening", "Goron Lullaby", "New Wave Bossa Nova",
         "Elegy of Emptiness", "Oath to Order",
         "Woodfall Map", "Woodfall Compass", "Woodfall Boss Key", "Woodfall Key 1", "Snowhead Map", "Snowhead Compass", "Snowhead Boss Key",
         "Snowhead Key 1", "Snowhead Key 2", "Snowhead Key 3", "Great Bay Map", "Great Bay Compass", "Great Bay Boss Key", "Great Bay Key 1",
@@ -42,25 +44,25 @@ namespace MMRando.Forms
         "Path to Swamp HP", "Swamp Scrub HP", "Deku Palace HP", "Goron Village Scrub HP", "Bio Baba Grotto HP", "Lab Fish HP", "Great Bay Like-Like HP",
         "Pirates' Fortress HP", "Zora Hall Scrub HP", "Path to Snowhead HP", "Great Bay Coast HP", "Ikana Scrub HP", "Ikana Castle HP", 
         "Odolwa Heart Container", "Goht Heart Container", "Gyorg Heart Container", "Twinmold Heart Container", "Map: Clock Town", "Map: Woodfall",
-        "Map: Snowhead", "Map: Romani Ranch", "Map: Great Bay", "Map: Stone Tower", "Goron Racetrack Grotto", "Deku Trial HP", "Goron Trial HP",
-        "Zora Trial HP", "Link Trial HP", "Fierce Deity's Mask" };
+        "Map: Snowhead", "Map: Romani Ranch", "Map: Great Bay", "Map: Stone Tower", "Goron Racetrack Grotto", "Ikana Scrub 200r", "Deku Trial HP",
+        "Goron Trial HP", "Zora Trial HP", "Link Trial HP", "Fierce Deity's Mask" };
 
         bool updating = false;
-        public static List<int> SelectedItems;
+        private readonly SettingsObject _settings;
 
-        public ItemEditForm(List<int> selectedItems)
+        public ItemEditForm(SettingsObject settings)
         {
             InitializeComponent();
 
-            SelectedItems = selectedItems;
+            _settings = settings;
 
             for (int i = 0; i < ITEM_NAMES.Length; i++)
             {
                 lItems.Items.Add(ITEM_NAMES[i]);
-            };
-            if(selectedItems != null)
+            }
+            if (_settings.CustomItemList != null)
             {
-                UpdateString(selectedItems);
+                UpdateString(_settings.CustomItemList);
             }
             else
             {
@@ -90,11 +92,13 @@ namespace MMRando.Forms
             };
             tSetting.Text = ns[7] + "-" + ns[6] + "-" + ns[5] + "-" + ns[4] + "-"
                 + ns[3] + "-" + ns[2] + "-" + ns[1] + "-" + ns[0];
+            _settings.CustomItemListString = tSetting.Text;
         }
 
         private void UpdateChecks(string c)
         {
-            SelectedItems = new List<int>();
+            _settings.CustomItemListString = c;
+            _settings.CustomItemList.Clear();
             string[] v = c.Split('-');
             int[] vi = new int[8];
             for (int i = 0; i < 8; i++)
@@ -110,12 +114,12 @@ namespace MMRando.Forms
                 int k = i % 32;
                 if (((vi[j] >> k) & 1) > 0)
                 {
-                    SelectedItems.Add(i);
+                    _settings.CustomItemList.Add(i);
                 };
             };
             foreach (ListViewItem l in lItems.Items)
             {
-                if (SelectedItems.Contains(l.Index))
+                if (_settings.CustomItemList.Contains(l.Index))
                 {
                     l.Checked = true;
                 }
@@ -145,13 +149,13 @@ namespace MMRando.Forms
             updating = true;
             if (e.Item.Checked)
             {
-                SelectedItems.Add(e.Item.Index);
+                _settings.CustomItemList.Add(e.Item.Index);
             }
             else
             {
-                SelectedItems.Remove(e.Item.Index);
+                _settings.CustomItemList.Remove(e.Item.Index);
             }
-            UpdateString(SelectedItems);
+            UpdateString(_settings.CustomItemList);
             updating = false;
         }
 

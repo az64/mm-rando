@@ -95,13 +95,27 @@ namespace MMRando.Utils
 
         public static bool IsOtherItem(int itemIndex)
         {
-            return itemIndex >= Items.ChestLensCaveRedRupee && itemIndex <= Items.ChestToGoronRaceGrotto;
+            return itemIndex >= Items.ChestLensCaveRedRupee && itemIndex <= Items.IkanaScrubGoldRupee;
         }
 
         internal static bool IsDeed(int item)
         {
             return item >= Items.TradeItemLandDeed
                     && item <= Items.TradeItemOceanDeed;
+        }
+
+        public static bool IsHeartPiece(int itemIndex)
+        {
+            return (itemIndex >= Items.HeartPieceNotebookMayor && itemIndex <= Items.HeartPieceKnuckle)
+                || (itemIndex >= Items.HeartPieceSouthClockTown && itemIndex <= Items.HeartContainerStoneTower)
+                || (itemIndex >= Items.HeartPieceDekuTrial && itemIndex <= Items.HeartPieceLinkTrial)
+                || itemIndex == Items.ChestSecretShrineHeartPiece
+                || itemIndex == Items.HeartPieceBank;
+        }
+
+        public static bool IsStartingItem(int itemIndex)
+        {
+            return itemIndex == Items.MaskDeku || itemIndex == Items.SongHealing;
         }
     }
 }

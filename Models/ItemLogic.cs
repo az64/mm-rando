@@ -41,12 +41,12 @@ namespace MMRando.Models
                     break;
                 case Items.BottleCatchPrincess:
                 case Items.BottleCatchBigPoe:
-                    RequiredItemIds.Remove(Items.BottleCatchEgg);
-                    RequiredItemIds.Remove(Items.BottleCatchBug);
-                    RequiredItemIds.Remove(Items.BottleCatchFish);
+                    RequiredItemIds?.Remove(Items.BottleCatchEgg);
+                    RequiredItemIds?.Remove(Items.BottleCatchBug);
+                    RequiredItemIds?.Remove(Items.BottleCatchFish);
                     break;
                 case Items.BottleCatchEgg:
-                    RequiredItemIds.Remove(Items.BottleCatchFish);
+                    RequiredItemIds?.Remove(Items.BottleCatchFish);
                     break;
             }
         }

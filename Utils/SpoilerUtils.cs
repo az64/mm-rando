@@ -1,6 +1,5 @@
 ﻿using MMRando.Models;
-using System;
-using System.Collections.Generic;
+using MMRando.Models.Settings;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,14 +8,11 @@ namespace MMRando.Utils
 {
     public static class SpoilerUtils
     {
-        public static void CreateSpoilerLog(RandomizedResult randomized, Settings settings)
+        public static void CreateSpoilerLog(RandomizedResult randomized, SettingsObject settings)
         {
             var itemList = randomized.ItemList
                 .Where(u => u.ReplacesAnotherItem)
-                .Select(u => new SpoilerItem(u)
-                {
-                    ReplacedById = randomized.ItemList.Single(i => i.ReplacesItemId == u.ID).ID
-                })
+                .Select(u => new SpoilerItem(u))
                 .ToList();
             var settingsString = settings.ToString();
 
@@ -31,7 +27,8 @@ namespace MMRando.Utils
                 RandomizeDungeonEntrances = settings.RandomizeDungeonEntrances,
                 ItemList = itemList,
                 NewDestinationIndices = randomized.NewDestinationIndices,
-                Logic = randomized.Logic
+                Logic = randomized.Logic,
+                CustomItemListString = settings.UseCustomItemList ? settings.CustomItemListString : null,
             };
 
             if (settings.GenerateHTMLLog)
@@ -56,6 +53,10 @@ namespace MMRando.Utils
             log.AppendLine($"{"Version:",-17} {spoiler.Version}");
             log.AppendLine($"{"Settings String:",-17} {spoiler.SettingsString}");
             log.AppendLine($"{"Seed:",-17} {spoiler.Seed}");
+            if (spoiler.CustomItemListString != null)
+            {
+                log.AppendLine($"{"Custom Item List:",-17} {spoiler.CustomItemListString}");
+            }
             log.AppendLine();
 
             if (spoiler.RandomizeDungeonEntrances)
@@ -65,24 +66,24 @@ namespace MMRando.Utils
                 string[] destinations = new string[] { "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay" };
                 for (int i = 0; i < 4; i++)
                 {
-                    log.AppendLine($"{destinations[i],-21} >> {destinations[spoiler.NewDestinationIndices[i]]}");
+                    log.AppendLine($"{destinations[i],-21} -> {destinations[spoiler.NewDestinationIndices[i]]}");
                 }
                 log.AppendLine("");
             }
 
-            log.AppendLine($" {"Item",-40}    {"Location"}");
+            log.AppendLine($" {"Location",-50}    {"Item"}");
             foreach (var item in spoiler.ItemList)
             {
-                log.AppendLine($"{item.Name,-40} >> {item.NewLocationName}");
+                log.AppendLine($"{item.NewLocationName,-50} -> {item.Name}");
             }
 
             log.AppendLine();
             log.AppendLine();
 
-            log.AppendLine($" {"Item",-40}    {"Location"}");
+            log.AppendLine($" {"Location",-50}    {"Item"}");
             foreach (var item in spoiler.ItemList.OrderBy(i => i.NewLocationId))
             {
-                log.AppendLine($"{item.Name,-40} >> {item.NewLocationName}");
+                log.AppendLine($"{item.NewLocationName,-50} -> {item.Name}");
             }
 
             using (StreamWriter sw = new StreamWriter(path))
