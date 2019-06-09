@@ -10,18 +10,19 @@ namespace MMRando.Models.SoundEffects
     /// Extensive overview of sound ids can be found in this google spreadsheet:
     /// https://docs.google.com/spreadsheets/d/1YVJ7GdzNZUese6H8d40lzpxp8ZfWlt75c-lzBzKngmo/edit#gid=1343879920
     /// </summary>
+
     public enum SoundEffect
     {
         // Environment
 
+        [Replacable(0x24040800, 0x00EABA44, 0x00B8D038, 0x00EABC38, 0x00EACAC8), Tags(Long)]
+        CuccoMorning = 0x2013,
         [Replacable(0x24050800, 0x00DFC774), Tags(Short, LowHpBeep), ReplacableByTags(Short)]
         DogBark = 0x20D8,
         [Tags(Long)]
         CowMoo = 0x20DF,
         [Replacable(0x24050800, 0x00DFC7B4), Tags(Short, LowHpBeep), ReplacableByTags(Short)]
         DogBarkAngry = 0x2110,
-        [Replacable(0x24040800, 0x00EABA44, 0x00B8D038, 0x00EABC38, 0x00EACAC8), Tags(Long), ReplacableByTags(Long)]
-        CuccoMorning = 0x2013,
 
         // System
 

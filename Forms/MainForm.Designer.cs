@@ -73,6 +73,7 @@ namespace MMRando
             this.cDMult = new System.Windows.Forms.ComboBox();
             this.cGravity = new System.Windows.Forms.ComboBox();
             this.tabComfort = new System.Windows.Forms.TabPage();
+            this.cRandomizeSFX = new System.Windows.Forms.CheckBox();
             this.cClearHints = new System.Windows.Forms.CheckBox();
             this.cFreeHints = new System.Windows.Forms.CheckBox();
             this.cTatl = new System.Windows.Forms.ComboBox();
@@ -677,6 +678,7 @@ namespace MMRando
             // 
             // tabComfort
             // 
+            this.tabComfort.Controls.Add(this.cRandomizeSFX);
             this.tabComfort.Controls.Add(this.cClearHints);
             this.tabComfort.Controls.Add(this.cFreeHints);
             this.tabComfort.Controls.Add(this.cTatl);
@@ -696,6 +698,21 @@ namespace MMRando
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
             // 
+            // cRandomizeSFX
+            // 
+            this.cRandomizeSFX.AutoSize = true;
+            this.cRandomizeSFX.BackColor = System.Drawing.Color.Transparent;
+            this.cRandomizeSFX.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cRandomizeSFX.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cRandomizeSFX.ForeColor = System.Drawing.Color.Black;
+            this.cRandomizeSFX.Location = new System.Drawing.Point(22, 92);
+            this.cRandomizeSFX.Name = "cRandomizeSFX";
+            this.cRandomizeSFX.Size = new System.Drawing.Size(102, 17);
+            this.cRandomizeSFX.TabIndex = 17;
+            this.cRandomizeSFX.Text = "Randomize SFX";
+            this.cRandomizeSFX.UseVisualStyleBackColor = false;
+            this.cRandomizeSFX.CheckedChanged += new System.EventHandler(this.cRandomizeSFX_CheckedChanged);
+            // 
             // cClearHints
             // 
             this.cClearHints.AutoSize = true;
@@ -703,7 +720,7 @@ namespace MMRando
             this.cClearHints.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cClearHints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cClearHints.ForeColor = System.Drawing.Color.Black;
-            this.cClearHints.Location = new System.Drawing.Point(49, 115);
+            this.cClearHints.Location = new System.Drawing.Point(49, 138);
             this.cClearHints.Name = "cClearHints";
             this.cClearHints.Size = new System.Drawing.Size(75, 17);
             this.cClearHints.TabIndex = 16;
@@ -718,7 +735,7 @@ namespace MMRando
             this.cFreeHints.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cFreeHints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cFreeHints.ForeColor = System.Drawing.Color.Black;
-            this.cFreeHints.Location = new System.Drawing.Point(52, 92);
+            this.cFreeHints.Location = new System.Drawing.Point(52, 115);
             this.cFreeHints.Name = "cFreeHints";
             this.cFreeHints.Size = new System.Drawing.Size(72, 17);
             this.cFreeHints.TabIndex = 15;
@@ -1263,6 +1280,7 @@ namespace MMRando
         private System.Windows.Forms.CheckBox cClearHints;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cClockSpeed;
+        private System.Windows.Forms.CheckBox cRandomizeSFX;
     }
 }
 

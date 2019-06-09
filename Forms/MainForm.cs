@@ -507,6 +507,11 @@ namespace MMRando
             ItemEditor.Show();
         }
 
+        private void cRandomizeSFX_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.RandomizeSounds = cRandomizeSFX.Checked);
+        }
+
 
 
         /// <summary>
@@ -821,6 +826,7 @@ namespace MMRando
                 tPatch.Text = null;
             }
         }
+
     }
 
 }

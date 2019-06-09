@@ -265,6 +265,7 @@ namespace MMRando.Models.Settings
             int part3 = (int)parts[2];
             int part4 = (int)parts[3];
 
+            RandomizeSounds = (part1 & 131072) > 0;
             ClearHints = (part1 & 65536) > 0;
             AddMoonItems = (part1 & 32768) > 0;
             FreeHints = (part1 & 16384) > 0;
@@ -315,35 +316,36 @@ namespace MMRando.Models.Settings
         {
             int[] parts = new int[4];
 
-            if (ClearHints) { parts[0] += 65536; };
-            if (AddMoonItems) { parts[0] += 32768; };
-            if (FreeHints) { parts[0] += 16384; };
-            if (UseCustomItemList) { parts[0] += 8192; };
-            if (AddOther) { parts[0] += 4096; };
-            if (EnableGossipHints) { parts[0] += 2048; };
-            if (ExcludeSongOfSoaring) { parts[0] += 1024; };
-            if (GenerateSpoilerLog) { parts[0] += 512; };
-            if (AddSongs) { parts[0] += 256; };
-            if (RandomizeBottleCatchContents) { parts[0] += 128; };
-            if (AddDungeonItems) { parts[0] += 64; };
-            if (AddShopItems) { parts[0] += 32; };
-            if (RandomizeDungeonEntrances) { parts[0] += 16; };
-            if (RandomizeBGM) { parts[0] += 8; };
-            if (RandomizeEnemies) { parts[0] += 4; };
-            if (ShortenCutscenes) { parts[0] += 2; };
-            if (QuickTextEnabled) { parts[0] += 1; };
+            if (RandomizeSounds) { parts[0] += 131072; }
+            if (ClearHints) { parts[0] += 65536; }
+            if (AddMoonItems) { parts[0] += 32768; }
+            if (FreeHints) { parts[0] += 16384; }
+            if (UseCustomItemList) { parts[0] += 8192; }
+            if (AddOther) { parts[0] += 4096; }
+            if (EnableGossipHints) { parts[0] += 2048; }
+            if (ExcludeSongOfSoaring) { parts[0] += 1024; }
+            if (GenerateSpoilerLog) { parts[0] += 512; }
+            if (AddSongs) { parts[0] += 256; }
+            if (RandomizeBottleCatchContents) { parts[0] += 128; }
+            if (AddDungeonItems) { parts[0] += 64; }
+            if (AddShopItems) { parts[0] += 32; }
+            if (RandomizeDungeonEntrances) { parts[0] += 16; }
+            if (RandomizeBGM) { parts[0] += 8; }
+            if (RandomizeEnemies) { parts[0] += 4; }
+            if (ShortenCutscenes) { parts[0] += 2; }
+            if (QuickTextEnabled) { parts[0] += 1; }
 
             parts[1] = ((byte)LogicMode << 16)
                 | ((byte)Character << 8)
                 | ((byte)TatlColorSchema)
                 | ((byte)DamageEffect << 24)
-                    | ((byte)DamageMode << 28);
+                | ((byte)DamageMode << 28);
 
             parts[2] = (TunicColor.R << 16)
                 | (TunicColor.G << 8)
                 | (TunicColor.B)
                 | ((byte)FloorType << 24)
-                    | ((byte)MovementMode << 28);
+                | ((byte)MovementMode << 28);
 
             parts[3] = (byte) ClockSpeed;
 
