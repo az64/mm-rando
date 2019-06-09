@@ -19,7 +19,7 @@ namespace MMRando.Models.SoundEffects
         }
 
         /// <summary>
-        /// <para>Checks if current soundeffect has been tagged with Tag.Replacable</para> 
+        /// <para>Checks if current soundeffect has Replacable attribute</para> 
         /// 
         /// <para>Returns false if sound has no tags</para>
         /// </summary>
@@ -48,7 +48,7 @@ namespace MMRando.Models.SoundEffects
         }
 
         /// <summary>
-        /// <para>Replaces current sound effect with a new one</para>
+        /// <para>Replaces current sound effect with a new one, by overwriting the original instruction in the ROM</para>
         /// 
         /// Throws InvalidOperationException if current sound cannot be replaced
         /// </summary>
