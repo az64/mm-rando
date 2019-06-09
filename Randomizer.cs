@@ -58,6 +58,11 @@ namespace MMRando
                 Items.UpgradeBiggestBombBag,
                 Items.UpgradeGiantWallet,
                 Items.ChestMountainVillageGrottoBottle,
+
+                // Starting with Magic Bean or Powder Keg doesn't actually give you one,
+                // nor do you get one when you play Song of Time.
+                Items.ItemMagicBean,
+                Items.ItemPowderKeg,
             }
             .Concat(Enumerable.Range(Items.TradeItemMoonTear, Items.TradeItemMamaLetter - Items.TradeItemMoonTear + 1))
             .Concat(Enumerable.Range(Items.ItemBottleWitch, Items.ItemBottleMadameAroma - Items.ItemBottleWitch + 1))
