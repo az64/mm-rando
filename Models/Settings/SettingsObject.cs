@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace MMRando.Models
+namespace MMRando.Models.Settings
 {
 
-    public class Settings
+    public class SettingsObject
     {
         #region General settings
 
@@ -196,9 +196,9 @@ namespace MMRando.Models
         public FloorType FloorType { get; set; }
 
         /// <summary>
-        /// Sets the clock speed from 0-255, default is 3. (DANGEROUS AF)
+        /// Sets the clock speed.
         /// </summary>
-        public byte ClockSpeed { get; set; } = Values.VanillaClockSpeed;
+        public ClockSpeed ClockSpeed { get; set; } = ClockSpeed.Default;
 
         #endregion
 
@@ -258,6 +258,7 @@ namespace MMRando.Models
             int part1 = (int)parts[0];
             int part2 = (int)parts[1];
             int part3 = (int)parts[2];
+            int part4 = (int)parts[3];
 
             ClearHints = (part1 & 65536) > 0;
             AddMoonItems = (part1 & 32768) > 0;
@@ -290,6 +291,8 @@ namespace MMRando.Models
                 (part3 & 0xFF00) >> 8,
                 part3 & 0xFF);
 
+            var clockSpeedIndex = (byte)(part4 & 0xFF);
+
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
             LogicMode = (LogicMode)modeIndex;
@@ -298,13 +301,14 @@ namespace MMRando.Models
             MovementMode = (MovementMode)gravityTypeIndex;
             FloorType = (FloorType)floorTypeIndex;
             TunicColor = tunicColor;
+            ClockSpeed = (ClockSpeed)clockSpeedIndex;
 
         }
 
 
         private int[] BuildSettingsBytes()
         {
-            int[] parts = new int[3];
+            int[] parts = new int[4];
 
             if (ClearHints) { parts[0] += 65536; };
             if (AddMoonItems) { parts[0] += 32768; };
@@ -335,6 +339,8 @@ namespace MMRando.Models
                 | (TunicColor.B)
                 | ((byte)FloorType << 24)
                     | ((byte)MovementMode << 28);
+
+            parts[3] = (byte) ClockSpeed;
 
             return parts;
         }

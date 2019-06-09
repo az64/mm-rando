@@ -1,4 +1,5 @@
 ﻿using MMRando.Models;
+using MMRando.Models.Settings;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -47,9 +48,9 @@ namespace MMRando.Forms
         "Goron Trial HP", "Zora Trial HP", "Link Trial HP", "Fierce Deity's Mask" };
 
         bool updating = false;
-        private readonly Settings _settings;
+        private readonly SettingsObject _settings;
 
-        public ItemEditForm(Settings settings)
+        public ItemEditForm(SettingsObject settings)
         {
             InitializeComponent();
 

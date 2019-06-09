@@ -1,6 +1,7 @@
 ﻿using MMRando.Forms;
 using MMRando.Forms.Tooltips;
 using MMRando.Models;
+using MMRando.Models.Settings;
 using MMRando.Utils;
 using System;
 using System.ComponentModel;
@@ -17,7 +18,7 @@ namespace MMRando
         private string _oldSettingsString = "";
         private int _seedOld = 0;
 
-        public Settings _settings { get; set; }
+        public SettingsObject _settings { get; set; }
 
         public AboutForm About { get; private set; }
         public ManualForm Manual { get; private set; }
@@ -83,6 +84,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cDType, "Select an effect to occur whenever Link is being damaged:\n\n - Default: Vanilla effects occur.\n - Fire: All damage burns Link.\n - Ice: All damage freezes Link.\n - Shock: All damage shocks link.\n - Knockdown: All damage knocks Link down.\n - Random: Any random effect of the above.");
             TooltipBuilder.SetTooltip(cGravity, "Select a movement modifier:\n\n - Default: No movement modifier.\n - High speed: Link moves at a much higher velocity.\n - Super low gravity: Link can jump very high.\n - Low gravity: Link can jump high.\n - High gravity: Link can barely jump.");
             TooltipBuilder.SetTooltip(cFloors, "Select a floortype for every floor ingame:\n\n - Default: Vanilla floortypes.\n - Sand: Link sinks slowly into every floor, affecting movement speed.\n - Ice: Every floor is slippery.\n - Snow: Similar to sand. \n - Random: Any random floortypes of the above.");
+            TooltipBuilder.SetTooltip(cClockSpeed, "Modify the speed of time. \n\nNote: The slowdown effect of playing inverted song of time does not scale with time speed.");
 
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
@@ -269,6 +271,7 @@ namespace MMRando
             cFreeHints.Checked = _settings.FreeHints;
             cMoonItems.Checked = _settings.AddMoonItems;
             cClearHints.Checked = _settings.ClearHints;
+            cClockSpeed.SelectedIndex = (int) _settings.ClockSpeed;
 
             cDMult.SelectedIndex = (int)_settings.DamageMode;
             cDType.SelectedIndex = (int)_settings.DamageEffect;
@@ -469,6 +472,11 @@ namespace MMRando
             _settings.UserLogicFileName = openLogic.FileName;
         }
 
+        private void cClockSpeed_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.ClockSpeed = (ClockSpeed)cClockSpeed.SelectedIndex);
+        }
+
         private void cVC_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.OutputVC = cVC.Checked);
@@ -603,6 +611,7 @@ namespace MMRando
             cDummy.Enabled = v;
             cEnemy.Enabled = v;
             cFloors.Enabled = v;
+            cClockSpeed.Enabled = v;
             cGossip.Enabled = v;
             cGravity.Enabled = v;
             cLink.Enabled = v;
@@ -636,7 +645,7 @@ namespace MMRando
 
         public void InitializeSettings()
         {
-            _settings = new Settings();
+            _settings = new SettingsObject();
 
             cDMult.SelectedIndex = 0;
             cDType.SelectedIndex = 0;
@@ -645,6 +654,7 @@ namespace MMRando
             cMode.SelectedIndex = 0;
             cLink.SelectedIndex = 0;
             cTatl.SelectedIndex = 0;
+            cClockSpeed.SelectedIndex = 0;
             cSpoiler.Checked = true;
             cSoS.Checked = true;
             cGossip.Checked = true;
@@ -790,6 +800,7 @@ namespace MMRando
             cDType.Enabled = v;
             cGravity.Enabled = v;
             cFloors.Enabled = v;
+            cClockSpeed.Enabled = v;
 
 
             // Comfort/Cosmetics

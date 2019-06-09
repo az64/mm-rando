@@ -1,6 +1,7 @@
 ﻿using MMRando.Constants;
 using MMRando.Models;
 using MMRando.Models.Rom;
+using MMRando.Models.Settings;
 using MMRando.Utils;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace MMRando
     public class Builder
     {
         private RandomizedResult _randomized;
-        private Settings _settings;
+        private SettingsObject _settings;
         private MessageTable _messageTable;
 
         public Builder(RandomizedResult randomized)
@@ -230,7 +231,7 @@ namespace MMRando
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "floor-" + floorType.ToString());
             }
 
-            if(_settings.ClockSpeed != Values.VanillaClockSpeed)
+            if(_settings.ClockSpeed != ClockSpeed.Default)
             {
                 WriteClockSpeed(_settings.ClockSpeed);
             }
@@ -240,10 +241,31 @@ namespace MMRando
         /// Overwrite the clockspeed (see Settings.ClockSpeed for details)
         /// </summary>
         /// <param name="clockSpeed"></param>
-        private void WriteClockSpeed(byte clockSpeed)
+        private void WriteClockSpeed(ClockSpeed clockSpeed)
         {
+            byte speed;
+            switch (clockSpeed)
+            {
+                default:
+                case ClockSpeed.Default:
+                    speed = 3;
+                    break;
+                case ClockSpeed.Slow:
+                    speed = 2;
+                    break;
+                case ClockSpeed.Fast:
+                    speed = 6;
+                    break;
+                case ClockSpeed.VeryFast:
+                    speed = 9;
+                    break;
+                case ClockSpeed.SuperFast:
+                    speed = 18;
+                    break;
+            }
+
             var addr = 0x00BC66D4;
-            uint val = 0x240B0000 + (uint)clockSpeed;
+            uint val = 0x240B0000 + (uint)speed;
             ReadWriteUtils.WriteToROM(addr, val);
         }
 

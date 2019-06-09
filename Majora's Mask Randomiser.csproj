@@ -70,6 +70,8 @@
     <Compile Include="Models\RandomizedResult.cs" />
     <Compile Include="Models\Rom\MessageTable.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
+    <Compile Include="Models\Settings\ClockSpeedMode.cs" />
+    <Compile Include="Models\Settings\SettingsObject.cs" />
     <Compile Include="Models\SpoilerItem.cs" />
     <Compile Include="Models\ItemLogic.cs" />
     <Compile Include="Constants\Addresses.cs" />
@@ -121,7 +123,6 @@
     <Compile Include="Models\Settings\FloorType.cs" />
     <Compile Include="Models\Settings\LogicMode.cs" />
     <Compile Include="Models\Settings\MovementMode.cs" />
-    <Compile Include="Models\Settings\Settings.cs" />
     <Compile Include="Models\Settings\TatlColorSchema.cs" />
     <Compile Include="Forms\NewItemForm.cs">
       <SubType>Form</SubType>

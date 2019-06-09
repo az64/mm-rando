@@ -115,6 +115,8 @@ namespace MMRando
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
             this.cClearHints = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cClockSpeed = new System.Windows.Forms.ComboBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -515,6 +517,8 @@ namespace MMRando
             // 
             // tabGimmick
             // 
+            this.tabGimmick.Controls.Add(this.label6);
+            this.tabGimmick.Controls.Add(this.cClockSpeed);
             this.tabGimmick.Controls.Add(this.label4);
             this.tabGimmick.Controls.Add(this.lFloors);
             this.tabGimmick.Controls.Add(this.lGravity);
@@ -1105,6 +1109,31 @@ namespace MMRando
             this.cClearHints.UseVisualStyleBackColor = false;
             this.cClearHints.CheckedChanged += new System.EventHandler(this.cClearHints_CheckedChanged);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(52, 179);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(69, 13);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Clock speed:";
+            // 
+            // cClockSpeed
+            // 
+            this.cClockSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cClockSpeed.FormattingEnabled = true;
+            this.cClockSpeed.Items.AddRange(new object[] {
+            "100% (Default)",
+            "66%",
+            "200%",
+            "300%",
+            "600% (nope mode)"});
+            this.cClockSpeed.Location = new System.Drawing.Point(127, 176);
+            this.cClockSpeed.Name = "cClockSpeed";
+            this.cClockSpeed.Size = new System.Drawing.Size(158, 21);
+            this.cClockSpeed.TabIndex = 15;
+            this.cClockSpeed.SelectedIndexChanged += new System.EventHandler(this.cClockSpeed_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1232,6 +1261,8 @@ namespace MMRando
         private System.Windows.Forms.TextBox tPatch;
         private System.Windows.Forms.Button bLoadPatch;
         private System.Windows.Forms.CheckBox cClearHints;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cClockSpeed;
     }
 }
 
