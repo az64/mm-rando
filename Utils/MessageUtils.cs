@@ -1,4 +1,5 @@
-﻿using MMRando.Models;
+﻿using MMRando.Extensions;
+using MMRando.Models;
 using MMRando.Models.Rom;
 using System;
 using System.Collections.Generic;
@@ -225,7 +226,7 @@ namespace MMRando.Utils
 
             string sfx = $"{(char)((soundEffectId >> 8) & 0xFF)}{(char)(soundEffectId & 0xFF)}";
 
-            return $"\x1E{sfx}{start} \x01{sourceMessage}\x00\x11{mid} \x06{destinationMessage}\x00" + "...\xBF";
+            return $"\x1E{sfx}{start} \x01{sourceMessage}\x00 {mid} \x06{destinationMessage}\x00...\xBF".Wrap(35, "\x11");
         }
     }
 }
