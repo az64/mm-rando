@@ -60,6 +60,7 @@
             this.bConAdd = new System.Windows.Forms.Button();
             this.bConClear = new System.Windows.Forms.Button();
             this.lConditional = new System.Windows.Forms.ListBox();
+            this.bConEdit = new System.Windows.Forms.Button();
             this.openLogic = new System.Windows.Forms.OpenFileDialog();
             this.saveLogic = new System.Windows.Forms.SaveFileDialog();
             this.mMenu = new System.Windows.Forms.MenuStrip();
@@ -69,7 +70,6 @@
             this.mSave = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_new_item = new System.Windows.Forms.Button();
             this.button_goto = new System.Windows.Forms.Button();
-            this.bConEdit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nItem)).BeginInit();
             this.tMain.SuspendLayout();
             this.tTimes.SuspendLayout();
@@ -510,6 +510,17 @@
             this.lConditional.TabIndex = 2;
             this.lConditional.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lConditional_MouseDoubleClick);
             // 
+            // bConEdit
+            // 
+            this.bConEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bConEdit.Location = new System.Drawing.Point(76, 351);
+            this.bConEdit.Name = "bConEdit";
+            this.bConEdit.Size = new System.Drawing.Size(67, 30);
+            this.bConEdit.TabIndex = 3;
+            this.bConEdit.Text = "Edit";
+            this.bConEdit.UseVisualStyleBackColor = true;
+            this.bConEdit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.bConEdit_MouseClick);
+            // 
             // mMenu
             // 
             this.mMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -574,18 +585,7 @@
             this.button_goto.UseVisualStyleBackColor = true;
             this.button_goto.Click += new System.EventHandler(this.button_goto_Click);
             // 
-            // bConEdit
-            // 
-            this.bConEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bConEdit.Location = new System.Drawing.Point(76, 351);
-            this.bConEdit.Name = "bConEdit";
-            this.bConEdit.Size = new System.Drawing.Size(67, 30);
-            this.bConEdit.TabIndex = 3;
-            this.bConEdit.Text = "Edit";
-            this.bConEdit.UseVisualStyleBackColor = true;
-            this.bConEdit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.bConEdit_MouseClick);
-            // 
-            // fLogicEdit
+            // LogicEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -600,7 +600,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "fLogicEdit";
+            this.Name = "LogicEditorForm";
             this.Text = "Logic Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.fLogicEdit_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.nItem)).EndInit();

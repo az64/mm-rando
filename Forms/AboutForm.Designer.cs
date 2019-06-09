@@ -65,7 +65,7 @@
             this.discordLinkLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.discordLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.discordLinkLabel_LinkClicked);
             // 
-            // fAbout
+            // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -76,7 +76,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "fAbout";
+            this.Name = "AboutForm";
             this.Text = "About";
             this.ResumeLayout(false);
             this.PerformLayout();

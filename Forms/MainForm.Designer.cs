@@ -61,6 +61,8 @@ namespace MMRando
             this.lMode = new System.Windows.Forms.Label();
             this.cMode = new System.Windows.Forms.ComboBox();
             this.tabGimmick = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cClockSpeed = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lFloors = new System.Windows.Forms.Label();
             this.lGravity = new System.Windows.Forms.Label();
@@ -71,6 +73,7 @@ namespace MMRando
             this.cDMult = new System.Windows.Forms.ComboBox();
             this.cGravity = new System.Windows.Forms.ComboBox();
             this.tabComfort = new System.Windows.Forms.TabPage();
+            this.cClearHints = new System.Windows.Forms.CheckBox();
             this.cFreeHints = new System.Windows.Forms.CheckBox();
             this.cTatl = new System.Windows.Forms.ComboBox();
             this.cCutsc = new System.Windows.Forms.CheckBox();
@@ -114,9 +117,6 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cClearHints = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cClockSpeed = new System.Windows.Forms.ComboBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -535,6 +535,31 @@ namespace MMRando
             this.tabGimmick.Text = "Gimmicks";
             this.tabGimmick.UseVisualStyleBackColor = true;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(52, 179);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(69, 13);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Clock speed:";
+            // 
+            // cClockSpeed
+            // 
+            this.cClockSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cClockSpeed.FormattingEnabled = true;
+            this.cClockSpeed.Items.AddRange(new object[] {
+            "100% (Default)",
+            "66%",
+            "200%",
+            "300%",
+            "600% (nope mode)"});
+            this.cClockSpeed.Location = new System.Drawing.Point(127, 176);
+            this.cClockSpeed.Name = "cClockSpeed";
+            this.cClockSpeed.Size = new System.Drawing.Size(158, 21);
+            this.cClockSpeed.TabIndex = 15;
+            this.cClockSpeed.SelectedIndexChanged += new System.EventHandler(this.cClockSpeed_SelectedIndexChanged);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -670,6 +695,21 @@ namespace MMRando
             this.tabComfort.TabIndex = 1;
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
+            // 
+            // cClearHints
+            // 
+            this.cClearHints.AutoSize = true;
+            this.cClearHints.BackColor = System.Drawing.Color.Transparent;
+            this.cClearHints.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cClearHints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cClearHints.ForeColor = System.Drawing.Color.Black;
+            this.cClearHints.Location = new System.Drawing.Point(49, 115);
+            this.cClearHints.Name = "cClearHints";
+            this.cClearHints.Size = new System.Drawing.Size(75, 17);
+            this.cClearHints.TabIndex = 16;
+            this.cClearHints.Text = "Clear hints";
+            this.cClearHints.UseVisualStyleBackColor = false;
+            this.cClearHints.CheckedChanged += new System.EventHandler(this.cClearHints_CheckedChanged);
             // 
             // cFreeHints
             // 
@@ -1093,46 +1133,6 @@ namespace MMRando
             this.bLoadPatch.Text = "Load Patch...";
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
-            // 
-            // cClearHints
-            // 
-            this.cClearHints.AutoSize = true;
-            this.cClearHints.BackColor = System.Drawing.Color.Transparent;
-            this.cClearHints.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cClearHints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cClearHints.ForeColor = System.Drawing.Color.Black;
-            this.cClearHints.Location = new System.Drawing.Point(49, 115);
-            this.cClearHints.Name = "cClearHints";
-            this.cClearHints.Size = new System.Drawing.Size(75, 17);
-            this.cClearHints.TabIndex = 16;
-            this.cClearHints.Text = "Clear hints";
-            this.cClearHints.UseVisualStyleBackColor = false;
-            this.cClearHints.CheckedChanged += new System.EventHandler(this.cClearHints_CheckedChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(52, 179);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(69, 13);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Clock speed:";
-            // 
-            // cClockSpeed
-            // 
-            this.cClockSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cClockSpeed.FormattingEnabled = true;
-            this.cClockSpeed.Items.AddRange(new object[] {
-            "100% (Default)",
-            "66%",
-            "200%",
-            "300%",
-            "600% (nope mode)"});
-            this.cClockSpeed.Location = new System.Drawing.Point(127, 176);
-            this.cClockSpeed.Name = "cClockSpeed";
-            this.cClockSpeed.Size = new System.Drawing.Size(158, 21);
-            this.cClockSpeed.TabIndex = 15;
-            this.cClockSpeed.SelectedIndexChanged += new System.EventHandler(this.cClockSpeed_SelectedIndexChanged);
             // 
             // MainForm
             // 
