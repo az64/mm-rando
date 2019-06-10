@@ -313,6 +313,9 @@ namespace MMRando
         private void cN64_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.GenerateROM = cN64.Checked);
+            cVC.Enabled = cN64.Checked;
+            cVC.Checked &= cVC.Enabled;
+            UpdateSingleSetting(() => _settings.OutputVC = cVC.Enabled);
         }
 
         private void cSpoiler_CheckedChanged(object sender, EventArgs e)
