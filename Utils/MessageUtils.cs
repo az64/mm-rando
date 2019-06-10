@@ -121,25 +121,54 @@ namespace MMRando.Utils
                     continue;
                 }
 
-                // Skip hints for vanilla bottle content
-                if ((!settings.RandomizeBottleCatchContents)
-                    && ItemUtils.IsBottleCatchContent(item.ID))
+                if (settings.ClearHints)
                 {
-                    continue;
+                    // skip free items
+                    if (item.ReplacesItemId == Items.MaskDeku || item.ReplacesItemId == Items.SongHealing)
+                    {
+                        continue;
+                    }
                 }
 
-                // Skip hints for vanilla shop items
-                if ((!settings.AddShopItems)
-                    && ItemUtils.IsShopItem(item.ID))
+                // skip non-randomized items.
+                if (settings.UseCustomItemList)
                 {
-                    continue;
+                    if (!settings.CustomItemList.Contains(item.ID))
+                    {
+                        continue;
+                    }
                 }
-
-                // Skip hints for vanilla dungeon items
-                if (!settings.AddDungeonItems
-                    && ItemUtils.IsDungeonItem(item.ID))
+                else
                 {
-                    continue;
+                    if (settings.ExcludeSongOfSoaring && item.ID == Items.SongSoaring)
+                    {
+                        continue;
+                    }
+
+                    if (!settings.AddDungeonItems && ItemUtils.IsDungeonItem(item.ID))
+                    {
+                        continue;
+                    }
+
+                    if (!settings.AddShopItems && ItemUtils.IsShopItem(item.ID))
+                    {
+                        continue;
+                    }
+
+                    if (!settings.AddOther && ItemUtils.IsOtherItem(item.ID))
+                    {
+                        continue;
+                    }
+
+                    if (!settings.RandomizeBottleCatchContents && ItemUtils.IsBottleCatchContent(item.ID))
+                    {
+                        continue;
+                    }
+
+                    if (!settings.AddMoonItems && ItemUtils.IsMoonItem(item.ID))
+                    {
+                        continue;
+                    }
                 }
 
                 int sourceItemId = ItemUtils.SubtractItemOffset(item.ReplacesItemId);
@@ -184,10 +213,14 @@ namespace MMRando.Utils
 
             if (!settings.ClearHints)
             {
-                for (int i = 0; i < Gossip.JunkMessages.Count; i++)
-                {
-                    hints.Add(Gossip.JunkMessages[i]);
-                }
+                hints.AddRange(Gossip.JunkMessages);
+            }
+
+            var numberOfGossipStones = GOSSIP_END_ID - GOSSIP_START_ID - GossipExclude.Count;
+            while (hints.Count < numberOfGossipStones)
+            {
+                var hintsToAdd = numberOfGossipStones - hints.Count;
+                hints.AddRange(Gossip.JunkMessages.Take(hintsToAdd));
             }
 
             //trim the pool of messages
