@@ -538,22 +538,22 @@ namespace MMRando
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(52, 179);
+            this.label6.Location = new System.Drawing.Point(22, 179);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(69, 13);
+            this.label6.Size = new System.Drawing.Size(99, 13);
             this.label6.TabIndex = 16;
-            this.label6.Text = "Clock speed:";
+            this.label6.Text = "Clock speed (beta):";
             // 
             // cClockSpeed
             // 
             this.cClockSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cClockSpeed.FormattingEnabled = true;
             this.cClockSpeed.Items.AddRange(new object[] {
-            "100% (Default)",
-            "66%",
-            "200%",
-            "300%",
-            "600% (nope mode)"});
+            "Default",
+            "2/3x",
+            "2x",
+            "3x",
+            "6x (nope mode)"});
             this.cClockSpeed.Location = new System.Drawing.Point(127, 176);
             this.cClockSpeed.Name = "cClockSpeed";
             this.cClockSpeed.Size = new System.Drawing.Size(158, 21);
