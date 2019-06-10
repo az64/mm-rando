@@ -2,12 +2,13 @@
 using MMRando.Utils;
 using System;
 using System.Linq;
-using static MMRando.Models.SoundEffects.SoundEffectAttributes;
 
 namespace MMRando.Models.SoundEffects
 {
     public static class SoundEffectExtensions
     {
+        public const ushort BaseSoundOffset = 0x0800;
+
         private static TAttribute GetAttribute<TAttribute>(this SoundEffect value) where TAttribute : Attribute
         {
             var type = value.GetType();
@@ -68,9 +69,8 @@ namespace MMRando.Models.SoundEffects
             }
 
             var replacableAttribute = source.GetAttribute<ReplacableAttribute>();
-            var baseValue = replacableAttribute.Value;
             var addresses = replacableAttribute.Addresses;
-            var newValue = (ushort)(baseValue + newSound);
+            var newValue = (ushort)(BaseSoundOffset + newSound);
 
             foreach (var address in addresses)
             {

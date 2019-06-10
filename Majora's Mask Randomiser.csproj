@@ -70,13 +70,16 @@
     <Compile Include="Models\RandomizedResult.cs" />
     <Compile Include="Models\Rom\MessageTable.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
+    <Compile Include="Models\SoundEffects\ReplacableAttribute.cs" />
+    <Compile Include="Models\SoundEffects\ReplacableByTagsAttribute.cs" />
+    <Compile Include="Models\SoundEffects\ReplacableInMessageAttribute.cs" />
     <Compile Include="Models\SoundEffects\SoundEffects.cs" />
     <Compile Include="Models\SoundEffects\SoundEffectTag.cs" />
     <Compile Include="Models\SoundEffects\SoundEffectExtensions.cs" />
-    <Compile Include="Models\SoundEffects\SoundEffectAttributes.cs" />
     <Compile Include="Models\SoundEffects\SoundEffect.cs" />
     <Compile Include="Models\Settings\ClockSpeedMode.cs" />
     <Compile Include="Models\Settings\SettingsObject.cs" />
+    <Compile Include="Models\SoundEffects\TagsAttribute.cs" />
     <Compile Include="Models\SpoilerItem.cs" />
     <Compile Include="Models\ItemLogic.cs" />
     <Compile Include="Constants\Addresses.cs" />
