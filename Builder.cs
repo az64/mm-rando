@@ -244,29 +244,43 @@ namespace MMRando
         private void WriteClockSpeed(ClockSpeed clockSpeed)
         {
             byte speed;
+            short invertedModifier;
             switch (clockSpeed)
             {
                 default:
                 case ClockSpeed.Default:
                     speed = 3;
+                    invertedModifier = -2;
+                    break;
+                case ClockSpeed.VerySlow:
+                    speed = 1;
+                    invertedModifier = 0;
                     break;
                 case ClockSpeed.Slow:
                     speed = 2;
+                    invertedModifier = -1;
                     break;
                 case ClockSpeed.Fast:
                     speed = 6;
+                    invertedModifier = -4;
                     break;
                 case ClockSpeed.VeryFast:
                     speed = 9;
+                    invertedModifier = -6;
                     break;
                 case ClockSpeed.SuperFast:
                     speed = 18;
+                    invertedModifier = -12;
                     break;
             }
 
             var addr = 0x00BC66D4;
             uint val = 0x240B0000 + (uint)speed;
             ReadWriteUtils.WriteToROM(addr, val);
+
+            var codeFileAddress = 0xB3C000;
+            var invertedModifierOffset = 0xB1B8E;
+            ReadWriteUtils.WriteToROM(codeFileAddress + invertedModifierOffset, (ushort)invertedModifier);
         }
 
         /// <summary>

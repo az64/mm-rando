@@ -550,10 +550,11 @@ namespace MMRando
             this.cClockSpeed.FormattingEnabled = true;
             this.cClockSpeed.Items.AddRange(new object[] {
             "Default",
+            "1/3x",
             "2/3x",
             "2x",
             "3x",
-            "6x (nope mode)"});
+            "6x"});
             this.cClockSpeed.Location = new System.Drawing.Point(127, 176);
             this.cClockSpeed.Name = "cClockSpeed";
             this.cClockSpeed.Size = new System.Drawing.Size(158, 21);
