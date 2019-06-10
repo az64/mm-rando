@@ -13,11 +13,11 @@ namespace MMRando.Models.SoundEffects
         public sealed class ReplacableAttribute : Attribute
         {
             public ReadOnlyCollection<int> Addresses { get; private set; }
-            public uint Instruction { get; private set; }
+            public ushort Value { get; private set; }
 
-            public ReplacableAttribute(uint instruction, int address, params int[] additionalAddresses)
+            public ReplacableAttribute(int address, params int[] additionalAddresses)
             {
-                Instruction = instruction & 0xFFFF0F00;
+                Value = 0x0800;
 
                 var addresses = new List<int> { address };
                 if (additionalAddresses?.Length > 0)

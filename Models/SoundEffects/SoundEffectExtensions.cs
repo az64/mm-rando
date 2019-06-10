@@ -68,13 +68,13 @@ namespace MMRando.Models.SoundEffects
             }
 
             var replacableAttribute = source.GetAttribute<ReplacableAttribute>();
-            var baseInstruction = replacableAttribute.Instruction;
+            var baseValue = replacableAttribute.Value;
             var addresses = replacableAttribute.Addresses;
-            var instruction = baseInstruction + (ushort)newSound;
+            var newValue = (ushort)(baseValue + newSound);
 
             foreach (var address in addresses)
             {
-                ReadWriteUtils.WriteToROM(address, instruction);
+                ReadWriteUtils.WriteToROM(address, newValue);
             }
         }
 
