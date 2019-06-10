@@ -10,7 +10,7 @@ namespace MMRando.Models.Rom
         const int MESSAGE_TABLE_ADDRESS = 0xC5D0D8;
         const int MESSAGE_TABLE_END_ADDRESS = 0xC66040; //address of null record
 
-        const int MAX_RECORDS = MESSAGE_TABLE_END_ADDRESS - MESSAGE_TABLE_ADDRESS / 8;
+        const int MAX_RECORDS = (MESSAGE_TABLE_END_ADDRESS - MESSAGE_TABLE_ADDRESS) / 8;
         const int MAX_SIZE = 0xB3B000 - MESSAGE_DATA_ADDRESS;
 
         Dictionary<ushort, MessageEntry> messages = new Dictionary<ushort, MessageEntry>();
