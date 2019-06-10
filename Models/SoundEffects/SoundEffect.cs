@@ -1,4 +1,4 @@
-﻿using static MMRando.Models.SoundEffects.SoundAttributes;
+﻿using static MMRando.Models.SoundEffects.SoundEffectAttributes;
 using static MMRando.Models.SoundEffects.SoundEffectTag;
 
 namespace MMRando.Models.SoundEffects
@@ -15,8 +15,10 @@ namespace MMRando.Models.SoundEffects
     {
         // Environment
 
-        [Replacable(0x24040800, 0x00EABA44, 0x00B8D038, 0x00EABC38, 0x00EACAC8), Tags(Long)]
+        [Replacable(0x24040800, 0x00EABA44/*, 0x00B8D038*/, 0x00EABC38, 0x00EACAC8), Tags(Long)]
         CuccoMorning = 0x2013,
+        [Replacable(0x24040800, /*0x00B8D060 0x00EABA54*/ 0x00EABC48, 0x00EACABC), Tags(Long)]
+        WolfHowlEvening = 0x20AE, 
         [Replacable(0x24050800, 0x00DFC774), Tags(Short, LowHpBeep), ReplacableByTags(Short)]
         DogBark = 0x20D8,
         [Tags(Long)]
@@ -59,7 +61,7 @@ namespace MMRando.Models.SoundEffects
         ReceptionistMmm = 0x612C,
         [Tags(Short, LowHpBeep)]
         MutohScoff = 0x614F,
-        [Tags(Short, LowHpBeep)]
+        [ReplacableInMessage(0x696F, 10100, 10101, 10107, 10111, 10114, 10123, 10141, 10149, 10155, 10427, 10429, 10431, 10589), Tags(Short, LowHpBeep)]
         PostmanGreeting = 0x616F,
         [Tags(Short, LowHpBeep)]
         MikauBaybee = 0x6175,
@@ -67,5 +69,7 @@ namespace MMRando.Models.SoundEffects
         MikauYay = 0x6176,
         [Tags(Long)]
         TingleChuckle = 0x617A,
+        [ReplacableInMessage(0x6959, 10540, 10541, 10543, 10547, 10573, 10574), Tags(Long)]
+        GuruGuruLalala = 0x6159,
     }
 }

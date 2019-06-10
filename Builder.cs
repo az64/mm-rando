@@ -293,7 +293,14 @@ namespace MMRando
                 var oldSound = sounds.Key;
                 var newSound = sounds.Value;
 
-                oldSound.ReplaceWith(newSound);
+                if (oldSound.IsReplacableInMessage())
+                {
+                    oldSound.ReplaceInMessageWith(newSound, _messageTable);
+                }
+                else
+                {
+                    oldSound.ReplaceWith(newSound);
+                }
                 Debug.WriteLine($"Writing SFX {newSound} --> {oldSound}");
             }
         }
@@ -529,9 +536,6 @@ namespace MMRando
                 worker.ReportProgress(50, "Writing audio...");
                 WriteAudioSeq();
 
-                worker.ReportProgress(53, "Writing sound effects...");
-                WriteSoundEffects();
-
                 worker.ReportProgress(55, "Writing player model...");
                 WritePlayerModel();
 
@@ -565,11 +569,15 @@ namespace MMRando
                 worker.ReportProgress(66, "Writing items...");
                 WriteItems();
 
-                worker.ReportProgress(67, "Writing messages...");
+                worker.ReportProgress(67, "Writing sound effects...");
+                WriteSoundEffects();
+
+                worker.ReportProgress(68, "Writing messages...");
                 WriteGossipQuotes();
+
                 MessageTable.WriteMessageTable(_messageTable);
 
-                worker.ReportProgress(68, "Writing startup...");
+                worker.ReportProgress(69, "Writing startup...");
                 WriteStartupStrings();
 
                 if (_settings.GeneratePatch)

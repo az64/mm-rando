@@ -72,8 +72,8 @@
     <Compile Include="Models\Rom\Enemy.cs" />
     <Compile Include="Models\SoundEffects\SoundEffects.cs" />
     <Compile Include="Models\SoundEffects\SoundEffectTag.cs" />
-    <Compile Include="Models\SoundEffects\SoundExtensions.cs" />
-    <Compile Include="Models\SoundEffects\SoundAttributes.cs" />
+    <Compile Include="Models\SoundEffects\SoundEffectExtensions.cs" />
+    <Compile Include="Models\SoundEffects\SoundEffectAttributes.cs" />
     <Compile Include="Models\SoundEffects\SoundEffect.cs" />
     <Compile Include="Models\Settings\ClockSpeedMode.cs" />
     <Compile Include="Models\Settings\SettingsObject.cs" />

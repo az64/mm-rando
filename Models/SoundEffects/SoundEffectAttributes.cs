@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace MMRando.Models.SoundEffects
 {
-    public static class SoundAttributes
+    public static class SoundEffectAttributes
     {
         /// <summary>
         /// Marks a sound effect as replacable, requiring a base instruction and at least one address
@@ -26,6 +26,28 @@ namespace MMRando.Models.SoundEffects
                 }
 
                 Addresses = new ReadOnlyCollection<int>(addresses);
+            }
+        }
+
+        /// <summary>
+        /// Marks a sound effect from a message as replacable, requiring a sound id and at least one address
+        /// </summary>
+        [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
+        public sealed class ReplacableInMessageAttribute : Attribute
+        {
+            public ReadOnlyCollection<ushort> MessageIds { get; private set; }
+            public ushort SoundId { get; private set; }
+            public ReplacableInMessageAttribute(ushort soundId, ushort messageId, params ushort[] additionalMessageIds)
+            {
+                SoundId = soundId;
+
+                var messageIds = new List<ushort> { messageId };
+                if (additionalMessageIds?.Length > 0)
+                {
+                    messageIds.AddRange(additionalMessageIds);
+                }
+
+                MessageIds = new ReadOnlyCollection<ushort>(messageIds);
             }
         }
 
