@@ -15,9 +15,9 @@ namespace MMRando.Models.SoundEffects
     {
         // Environment
 
-        [Replacable(0x24040800, 0x00EABA44/*, 0x00B8D038*/, 0x00EABC38, 0x00EACAC8), Tags(Long)]
+        [Replacable(0x24040800, 0x00EABA44,0x00EABC38, 0x00EACAC8), Tags(Long)]
         CuccoMorning = 0x2013,
-        [Replacable(0x24040800, /*0x00B8D060 0x00EABA54*/ 0x00EABC48, 0x00EACABC), Tags(Long)]
+        [Replacable(0x24040800, 0x00EABC48, 0x00EACABC), Tags(Long)]
         WolfHowlEvening = 0x20AE, 
         [Replacable(0x24050800, 0x00DFC774), Tags(Short, LowHpBeep), ReplacableByTags(Short)]
         DogBark = 0x20D8,
