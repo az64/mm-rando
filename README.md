@@ -1,5 +1,5 @@
-Majora's Mask Randomiser (external version)
+Majora's Mask Randomizer (external version)
 
-An item, music, and enemy randomiser for Majora's Mask.
+An item, music, and enemy randomizer for Majora's Mask.
 
 Discord: https://discord.gg/7jBRhhJ
