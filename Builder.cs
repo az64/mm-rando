@@ -274,11 +274,13 @@ namespace MMRando
                     break;
             }
 
-            var addr = 0x00BC66D4;
-            uint val = 0x240B0000 + (uint)speed;
-            ReadWriteUtils.WriteToROM(addr, val);
+            ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-clock-speed");
 
             var codeFileAddress = 0xB3C000;
+            var hackAddressOffset = 0x8A674;
+            var modificationOffset = 0x1B;
+            ReadWriteUtils.WriteToROM(codeFileAddress + hackAddressOffset + modificationOffset, speed);
+            
             var invertedModifierOffset = 0xB1B8E;
             ReadWriteUtils.WriteToROM(codeFileAddress + invertedModifierOffset, (ushort)invertedModifier);
         }
