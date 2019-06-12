@@ -4,8 +4,8 @@ namespace MMRando.Models
 {
     public class Gossip
     {
-        public string[] SourceMessage { get; set; }
-        public string[] DestinationMessage { get; set; }
+        public string[] LocationMessage { get; set; }
+        public string[] ItemMessage { get; set; }
 
 
         public static readonly ReadOnlyCollection<string> MessageStartSentences
