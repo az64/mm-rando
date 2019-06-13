@@ -235,6 +235,18 @@ namespace MMRando
             {
                 WriteClockSpeed(_settings.ClockSpeed);
             }
+
+            if (_settings.HideClock)
+            {
+                WriteHideClock();
+            }
+        }
+
+        private void WriteHideClock()
+        {
+            var codeFileAddress = 0xB3C000;
+            var offset = 0x73B7C; // branch for UI is time hasn't changed
+            ReadWriteUtils.WriteToROM(codeFileAddress + offset, 0x10); // change to always branch
         }
 
         /// <summary>

@@ -117,6 +117,8 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
+            this.cHideClock = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -517,6 +519,8 @@ namespace MMRando
             // 
             // tabGimmick
             // 
+            this.tabGimmick.Controls.Add(this.label7);
+            this.tabGimmick.Controls.Add(this.cHideClock);
             this.tabGimmick.Controls.Add(this.label6);
             this.tabGimmick.Controls.Add(this.cClockSpeed);
             this.tabGimmick.Controls.Add(this.label4);
@@ -1135,6 +1139,31 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
+            // cHideClock
+            // 
+            this.cHideClock.AutoSize = true;
+            this.cHideClock.BackColor = System.Drawing.Color.Transparent;
+            this.cHideClock.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cHideClock.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cHideClock.ForeColor = System.Drawing.Color.Black;
+            this.cHideClock.Location = new System.Drawing.Point(48, 224);
+            this.cHideClock.Name = "cHideClock";
+            this.cHideClock.Size = new System.Drawing.Size(92, 17);
+            this.cHideClock.TabIndex = 17;
+            this.cHideClock.Text = "Hide Clock UI";
+            this.cHideClock.UseVisualStyleBackColor = false;
+            this.cHideClock.CheckedChanged += new System.EventHandler(this.cHideClock_CheckedChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label7.Location = new System.Drawing.Point(13, 200);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(325, 13);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "_____________________________________________________";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1264,6 +1293,8 @@ namespace MMRando
         private System.Windows.Forms.CheckBox cClearHints;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cClockSpeed;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox cHideClock;
     }
 }
 

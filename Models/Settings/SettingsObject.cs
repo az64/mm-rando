@@ -200,6 +200,11 @@ namespace MMRando.Models.Settings
         /// </summary>
         public ClockSpeed ClockSpeed { get; set; } = ClockSpeed.Default;
 
+        /// <summary>
+        /// Hides the clock UI.
+        /// </summary>
+        public bool HideClock { get; set; }
+
         #endregion
 
         #region Comfort / Cosmetics
@@ -260,6 +265,7 @@ namespace MMRando.Models.Settings
             int part3 = (int)parts[2];
             int part4 = (int)parts[3];
 
+            HideClock = (part1 & 131072) > 0;
             ClearHints = (part1 & 65536) > 0;
             AddMoonItems = (part1 & 32768) > 0;
             FreeHints = (part1 & 16384) > 0;
@@ -310,6 +316,7 @@ namespace MMRando.Models.Settings
         {
             int[] parts = new int[4];
 
+            if (HideClock) { parts[0] += 131072; };
             if (ClearHints) { parts[0] += 65536; };
             if (AddMoonItems) { parts[0] += 32768; };
             if (FreeHints) { parts[0] += 16384; };

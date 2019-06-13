@@ -85,6 +85,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cGravity, "Select a movement modifier:\n\n - Default: No movement modifier.\n - High speed: Link moves at a much higher velocity.\n - Super low gravity: Link can jump very high.\n - Low gravity: Link can jump high.\n - High gravity: Link can barely jump.");
             TooltipBuilder.SetTooltip(cFloors, "Select a floortype for every floor ingame:\n\n - Default: Vanilla floortypes.\n - Sand: Link sinks slowly into every floor, affecting movement speed.\n - Ice: Every floor is slippery.\n - Snow: Similar to sand. \n - Random: Any random floortypes of the above.");
             TooltipBuilder.SetTooltip(cClockSpeed, "Modify the speed of time. \n\nNote: The slowdown effect of playing inverted song of time does not scale with time speed.");
+            TooltipBuilder.SetTooltip(cHideClock, "Clock UI will be hidden.");
 
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
@@ -271,6 +272,7 @@ namespace MMRando
             cFreeHints.Checked = _settings.FreeHints;
             cMoonItems.Checked = _settings.AddMoonItems;
             cClearHints.Checked = _settings.ClearHints;
+            cHideClock.Checked = _settings.HideClock;
             cClockSpeed.SelectedIndex = (int) _settings.ClockSpeed;
 
             cDMult.SelectedIndex = (int)_settings.DamageMode;
@@ -425,6 +427,11 @@ namespace MMRando
         private void cClearHints_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.ClearHints = cClearHints.Checked);
+        }
+
+        private void cHideClock_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.HideClock = cHideClock.Checked);
         }
 
         private void cQText_CheckedChanged(object sender, EventArgs e)
@@ -615,6 +622,7 @@ namespace MMRando
             cEnemy.Enabled = v;
             cFloors.Enabled = v;
             cClockSpeed.Enabled = v;
+            cHideClock.Enabled = v;
             cGossip.Enabled = v;
             cGravity.Enabled = v;
             cLink.Enabled = v;
@@ -804,6 +812,7 @@ namespace MMRando
             cGravity.Enabled = v;
             cFloors.Enabled = v;
             cClockSpeed.Enabled = v;
+            cHideClock.Enabled = v;
 
 
             // Comfort/Cosmetics
@@ -825,5 +834,4 @@ namespace MMRando
             }
         }
     }
-
 }
