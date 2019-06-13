@@ -1,4 +1,5 @@
-﻿using MMRando.Extensions;
+﻿using MMRando.Attributes;
+using MMRando.Extensions;
 using MMRando.GameObjects;
 using MMRando.Models;
 using MMRando.Models.Rom;
@@ -119,6 +120,11 @@ namespace MMRando.Utils
                 }
 
                 unusedItems.Add(item);
+
+                if (Gossip.AllowDuplicateHintsAboutLocation.Contains(item.ReplacesItemId))
+                {
+                    unusedItems.Add(item);
+                }
             }
 
             List<MessageEntry> finalHints = new List<MessageEntry>();
@@ -136,7 +142,7 @@ namespace MMRando.Utils
                         var candidateItem = chosen.Type == GossipRestrictAttribute.RestrictionType.Item
                             ? items.Single(io => io.ID == chosen.Id)
                             : items.Single(io => io.ReplacesItemId == chosen.Id);
-                        if (isMoonGossipStone || !unusedItems.Contains(candidateItem))
+                        if (isMoonGossipStone || unusedItems.Contains(candidateItem))
                         {
                             item = candidateItem;
                         }

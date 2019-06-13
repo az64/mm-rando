@@ -65,6 +65,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\GossipAlreadyAcquiredTextIdAttribute.cs" />
+    <Compile Include="Attributes\GossipRestrictAttribute.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="Extensions\GossipQuoteExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
