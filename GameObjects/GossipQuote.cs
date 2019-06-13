@@ -159,7 +159,7 @@ namespace MMRando.GameObjects
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.MaskFierceDeity)]
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.ItemIceArrow)]
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.ItemHookshot)]
-        // todo add more
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemFairySword)]
         CanyonRavine = 0x20C5,
 
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.SongEpona)]
