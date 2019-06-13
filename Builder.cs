@@ -281,8 +281,15 @@ namespace MMRando
             var modificationOffset = 0x1B;
             ReadWriteUtils.WriteToROM(codeFileAddress + hackAddressOffset + modificationOffset, speed);
             
-            var invertedModifierOffset = 0xB1B8E;
-            ReadWriteUtils.WriteToROM(codeFileAddress + invertedModifierOffset, (ushort)invertedModifier);
+            var invertedModifierOffsets = new List<int>
+            {
+                0xB1B8E,
+                0x7405E
+            };
+            foreach (var offset in invertedModifierOffsets)
+            {
+                ReadWriteUtils.WriteToROM(codeFileAddress + offset, (ushort)invertedModifier);
+            }
         }
 
         /// <summary>
