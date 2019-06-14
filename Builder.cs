@@ -44,6 +44,16 @@ namespace MMRando
             SequenceUtils.RebuildAudioSeq(RomData.SequenceList);
         }
 
+        private void WriteMuteMusic()
+        {
+            if (_settings.NoBGM)
+            {
+                var codeFileAddress = 0xB3C000;
+                var offset = 0x135A08; // address is read when scene music is loaded
+                ReadWriteUtils.WriteToROM(codeFileAddress + offset, 0x01); // change to non-zero so it doesn't play
+            }
+        }
+
         private void WritePlayerModel()
         {
             if (_settings.Character == Character.LinkMM)
@@ -592,11 +602,10 @@ namespace MMRando
                 }
             }
 
-            worker.ReportProgress(72, "Writing Tatl color...");
+            worker.ReportProgress(72, "Writing cosmetics...");
             WriteTatlColour();
-
-            worker.ReportProgress(73, "Writing tunic color...");
             WriteTunicColor();
+            WriteMuteMusic();
 
             if (_settings.GenerateROM)
             {

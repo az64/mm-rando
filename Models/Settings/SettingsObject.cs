@@ -162,6 +162,11 @@ namespace MMRando.Models.Settings
         public bool RandomizeBGM { get; set; }
 
         /// <summary>
+        /// Mute background music
+        /// </summary>
+        public bool NoBGM { get; set; }
+
+        /// <summary>
         /// FrEe HiNtS FoR WeNiEs
         /// </summary>
         public bool FreeHints { get; set; }
@@ -265,6 +270,7 @@ namespace MMRando.Models.Settings
             int part3 = (int)parts[2];
             int part4 = (int)parts[3];
 
+            NoBGM = (part1 & 262144) > 0;
             HideClock = (part1 & 131072) > 0;
             ClearHints = (part1 & 65536) > 0;
             AddMoonItems = (part1 & 32768) > 0;
@@ -316,6 +322,7 @@ namespace MMRando.Models.Settings
         {
             int[] parts = new int[4];
 
+            if (NoBGM) { parts[0] += 262144; }
             if (HideClock) { parts[0] += 131072; };
             if (ClearHints) { parts[0] += 65536; };
             if (AddMoonItems) { parts[0] += 32768; };

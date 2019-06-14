@@ -91,6 +91,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
             TooltipBuilder.SetTooltip(cQText, "Enable quick text. Dialogs are fast-forwarded to choices/end of dialog.");
             TooltipBuilder.SetTooltip(cBGM, "Randomize background music sequences that are played throughout the game.");
+            TooltipBuilder.SetTooltip(cNoMusic, "Mute background music.");
             TooltipBuilder.SetTooltip(cFreeHints, "Enable reading gossip stone hints without requiring the Mask of Truth.");
             TooltipBuilder.SetTooltip(cClearHints, "Gossip stone hints will give clear item and location names.");
             TooltipBuilder.SetTooltip(bTunic, "Select the color of Link's Tunic.");
@@ -266,6 +267,7 @@ namespace MMRando
             cShop.Checked = _settings.AddShopItems;
             cDEnt.Checked = _settings.RandomizeDungeonEntrances;
             cBGM.Checked = _settings.RandomizeBGM;
+            cNoMusic.Checked = _settings.NoBGM;
             cEnemy.Checked = _settings.RandomizeEnemies;
             cCutsc.Checked = _settings.ShortenCutscenes;
             cQText.Checked = _settings.QuickTextEnabled;
@@ -357,6 +359,11 @@ namespace MMRando
         private void cBGM_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.RandomizeBGM = cBGM.Checked);
+        }
+
+        private void cNoMusic_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.NoBGM = cNoMusic.Checked);
         }
 
         private void cBottled_CheckedChanged(object sender, EventArgs e)
@@ -611,6 +618,7 @@ namespace MMRando
         {
             cAdditional.Enabled = v;
             cBGM.Enabled = v;
+            cNoMusic.Enabled = v;
             cBottled.Enabled = v;
             cCutsc.Enabled = v;
             cDChests.Enabled = v;
