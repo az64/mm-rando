@@ -131,14 +131,7 @@ namespace MMRando.Utils
                 }
 
                 // skip non-randomized items.
-                if (settings.UseCustomItemList)
-                {
-                    if (!settings.CustomItemList.Contains(item.ID))
-                    {
-                        continue;
-                    }
-                }
-                else
+                if (!settings.UseCustomItemList)
                 {
                     if (settings.ExcludeSongOfSoaring && item.ID == Items.SongSoaring)
                     {
@@ -173,6 +166,14 @@ namespace MMRando.Utils
 
                 int sourceItemId = ItemUtils.SubtractItemOffset(item.ReplacesItemId);
                 int toItemId = ItemUtils.SubtractItemOffset(item.ID);
+
+                if (settings.UseCustomItemList)
+                {
+                    if (!settings.CustomItemList.Contains(toItemId))
+                    {
+                        continue;
+                    }
+                }
 
                 ushort soundEffectId = 0x690C;
                 if (!settings.ClearHints)
