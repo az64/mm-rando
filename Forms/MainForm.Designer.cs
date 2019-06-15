@@ -75,6 +75,7 @@ namespace MMRando
             this.cDMult = new System.Windows.Forms.ComboBox();
             this.cGravity = new System.Windows.Forms.ComboBox();
             this.tabComfort = new System.Windows.Forms.TabPage();
+            this.cNoMusic = new System.Windows.Forms.CheckBox();
             this.cClearHints = new System.Windows.Forms.CheckBox();
             this.cFreeHints = new System.Windows.Forms.CheckBox();
             this.cTatl = new System.Windows.Forms.ComboBox();
@@ -119,7 +120,6 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cNoMusic = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -568,11 +568,11 @@ namespace MMRando
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(22, 179);
+            this.label6.Location = new System.Drawing.Point(52, 179);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(99, 13);
+            this.label6.Size = new System.Drawing.Size(69, 13);
             this.label6.TabIndex = 16;
-            this.label6.Text = "Clock speed (beta):";
+            this.label6.Text = "Clock speed:";
             // 
             // cClockSpeed
             // 
@@ -727,6 +727,21 @@ namespace MMRando
             this.tabComfort.TabIndex = 1;
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
+            // 
+            // cNoMusic
+            // 
+            this.cNoMusic.AutoSize = true;
+            this.cNoMusic.BackColor = System.Drawing.Color.Transparent;
+            this.cNoMusic.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cNoMusic.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cNoMusic.ForeColor = System.Drawing.Color.Black;
+            this.cNoMusic.Location = new System.Drawing.Point(54, 92);
+            this.cNoMusic.Name = "cNoMusic";
+            this.cNoMusic.Size = new System.Drawing.Size(70, 17);
+            this.cNoMusic.TabIndex = 17;
+            this.cNoMusic.Text = "No music";
+            this.cNoMusic.UseVisualStyleBackColor = false;
+            this.cNoMusic.CheckedChanged += new System.EventHandler(this.cNoMusic_CheckedChanged);
             // 
             // cClearHints
             // 
@@ -1165,21 +1180,6 @@ namespace MMRando
             this.bLoadPatch.Text = "Load Patch...";
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
-            // 
-            // cNoMusic
-            // 
-            this.cNoMusic.AutoSize = true;
-            this.cNoMusic.BackColor = System.Drawing.Color.Transparent;
-            this.cNoMusic.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cNoMusic.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cNoMusic.ForeColor = System.Drawing.Color.Black;
-            this.cNoMusic.Location = new System.Drawing.Point(54, 92);
-            this.cNoMusic.Name = "cNoMusic";
-            this.cNoMusic.Size = new System.Drawing.Size(70, 17);
-            this.cNoMusic.TabIndex = 17;
-            this.cNoMusic.Text = "No music";
-            this.cNoMusic.UseVisualStyleBackColor = false;
-            this.cNoMusic.CheckedChanged += new System.EventHandler(this.cNoMusic_CheckedChanged);
             // 
             // MainForm
             // 
