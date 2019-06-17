@@ -52,10 +52,8 @@ namespace MMRando
         // Starting items should not be replaced by trade items, or items that can be downgraded.
         private readonly ReadOnlyCollection<int> ForbiddenStartingItems = new List<int>
             {
-                Items.UpgradeBiggestQuiver,
                 Items.UpgradeBigBombBag,
                 Items.UpgradeBiggestBombBag,
-                Items.UpgradeGiantWallet,
                 Items.ChestMountainVillageGrottoBottle,
 
                 // Starting with Magic Bean or Powder Keg doesn't actually give you one,
