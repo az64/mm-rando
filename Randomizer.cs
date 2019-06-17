@@ -96,12 +96,6 @@ namespace MMRando
             {
                 Items.MaskKeaton,
                 new List<int> {
-                    Items.UpgradeGiantWallet,
-                    Items.UpgradeGildedSword,
-                    Items.UpgradeMirrorShield,
-                    Items.UpgradeBiggestQuiver,
-                    Items.UpgradeBigBombBag,
-                    Items.UpgradeBiggestBombBag,
                     Items.TradeItemMoonTear,
                     Items.TradeItemLandDeed,
                     Items.TradeItemSwampDeed,
