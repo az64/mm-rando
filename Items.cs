@@ -1114,8 +1114,8 @@ namespace MMRando
                 "Pirates' Fortress Interior Upper Chest",
                 "Pirates' Fortress Interior Tank Chest",
                 "Pirates' Fortress Interior Guard Room Chest",
-                "Pirates' Fortress Heart Piece Room Chest #1",
-                "Pirates' Fortress Heart Piece Room Chest #2",
+                "Pirates' Fortress Heart Piece Room Chest #1", // shallow?
+                "Pirates' Fortress Heart Piece Room Chest #2", // deep?
                 "Pirates' Fortress Maze Chest",
                 "Pinnacle Rock Lower Chest",
                 "Pinnacle Rock Upper Chest",
@@ -1130,8 +1130,8 @@ namespace MMRando
                 "Great Bay Cape Lower Ledge Chest",
                 "Great Bay Cape Grotto",
                 "Great Bay Cape Underwater Chest",
-                "Pirates' Fortress Exterior Corner Chest",
                 "Pirates' Fortress Exterior Log Chest",
+                "Pirates' Fortress Exterior Corner Chest",
                 "Pirates' Fortress Exterior Sand Chest",
                 "Path to Swamp Grotto",
                 "Doggy Racetrack Roof Chest",
