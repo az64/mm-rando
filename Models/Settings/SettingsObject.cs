@@ -176,6 +176,11 @@ namespace MMRando.Models.Settings
         /// </summary>
         public bool ClearHints { get; set; }
 
+        /// <summary>
+        /// Prevent downgrades
+        /// </summary>
+        public bool PreventDowngrades { get; set; }
+
         #endregion
 
         #region Gimmicks
@@ -270,6 +275,7 @@ namespace MMRando.Models.Settings
             int part3 = (int)parts[2];
             int part4 = (int)parts[3];
 
+            PreventDowngrades = (part1 & 524288) > 0;
             NoBGM = (part1 & 262144) > 0;
             HideClock = (part1 & 131072) > 0;
             ClearHints = (part1 & 65536) > 0;
@@ -322,6 +328,7 @@ namespace MMRando.Models.Settings
         {
             int[] parts = new int[4];
 
+            if (PreventDowngrades) { parts[0] += 524288; }
             if (NoBGM) { parts[0] += 262144; }
             if (HideClock) { parts[0] += 131072; };
             if (ClearHints) { parts[0] += 65536; };

@@ -425,6 +425,11 @@ namespace MMRando
             ItemSwapUtils.ReplaceGetItemTable(Values.ModsDirectory);
             ItemSwapUtils.InitItems();
 
+            if (_settings.PreventDowngrades)
+            {
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-downgrades");
+            }
+
             foreach (var item in _randomized.ItemList)
             {
                 // Unused item

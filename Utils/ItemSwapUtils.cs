@@ -21,7 +21,6 @@ namespace MMRando.Utils
             ReadWriteUtils.WriteToROM(0xBDAEA8, (uint)last_file + 2);
             ResourceUtils.ApplyHack(ModsDir + "standing-hearts");
             ResourceUtils.ApplyHack(ModsDir + "fix-item-checks");
-            ResourceUtils.ApplyHack(ModsDir + "fix-downgrades");
             cycle_repeat = 0xC72DF6;
             SceneUtils.ResetSceneFlagMask();
         }

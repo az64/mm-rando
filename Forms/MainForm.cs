@@ -94,6 +94,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cNoMusic, "Mute background music.");
             TooltipBuilder.SetTooltip(cFreeHints, "Enable reading gossip stone hints without requiring the Mask of Truth.");
             TooltipBuilder.SetTooltip(cClearHints, "Gossip stone hints will give clear item and location names.");
+            TooltipBuilder.SetTooltip(cNoDowngrades, "Downgrading items will be prevented.");
             TooltipBuilder.SetTooltip(bTunic, "Select the color of Link's Tunic.");
             TooltipBuilder.SetTooltip(cLink, "Select a character model to replace Link's default model.");
             TooltipBuilder.SetTooltip(cTatl, "Select a color scheme to replace Tatl's default color scheme.");
@@ -276,6 +277,7 @@ namespace MMRando
             cClearHints.Checked = _settings.ClearHints;
             cHideClock.Checked = _settings.HideClock;
             cClockSpeed.SelectedIndex = (int) _settings.ClockSpeed;
+            cNoDowngrades.Checked = _settings.PreventDowngrades;
 
             cDMult.SelectedIndex = (int)_settings.DamageMode;
             cDType.SelectedIndex = (int)_settings.DamageEffect;
@@ -434,6 +436,11 @@ namespace MMRando
         private void cClearHints_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.ClearHints = cClearHints.Checked);
+        }
+
+        private void cNoDowngrades_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.PreventDowngrades = cNoDowngrades.Checked);
         }
 
         private void cHideClock_CheckedChanged(object sender, EventArgs e)
@@ -644,6 +651,7 @@ namespace MMRando
             cTatl.Enabled = v;
             cFreeHints.Enabled = v;
             cClearHints.Enabled = v;
+            cNoDowngrades.Enabled = v;
             cHTMLLog.Enabled = v;
             cN64.Enabled = v;
             cMoonItems.Enabled = v;
@@ -677,6 +685,7 @@ namespace MMRando
             cSpoiler.Checked = true;
             cSoS.Checked = true;
             cGossip.Checked = true;
+            cNoDowngrades.Checked = true;
             cCutsc.Checked = true;
             cQText.Checked = true;
 
@@ -833,6 +842,7 @@ namespace MMRando
             cBGM.Enabled = v;
             cFreeHints.Enabled = v;
             cClearHints.Enabled = v;
+            cNoDowngrades.Enabled = v;
 
             cLink.Enabled = v;
 
