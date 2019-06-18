@@ -162,6 +162,11 @@ namespace MMRando.Models.Settings
         public bool RandomizeBGM { get; set; }
 
         /// <summary>
+        /// Mute background music
+        /// </summary>
+        public bool NoBGM { get; set; }
+
+        /// <summary>
         /// FrEe HiNtS FoR WeNiEs
         /// </summary>
         public bool FreeHints { get; set; }
@@ -170,6 +175,11 @@ namespace MMRando.Models.Settings
         /// Clear hints
         /// </summary>
         public bool ClearHints { get; set; }
+
+        /// <summary>
+        /// Prevent downgrades
+        /// </summary>
+        public bool PreventDowngrades { get; set; }
 
         #endregion
 
@@ -199,6 +209,11 @@ namespace MMRando.Models.Settings
         /// Sets the clock speed.
         /// </summary>
         public ClockSpeed ClockSpeed { get; set; } = ClockSpeed.Default;
+
+        /// <summary>
+        /// Hides the clock UI.
+        /// </summary>
+        public bool HideClock { get; set; }
 
         #endregion
 
@@ -260,6 +275,9 @@ namespace MMRando.Models.Settings
             int part3 = (int)parts[2];
             int part4 = (int)parts[3];
 
+            PreventDowngrades = (part1 & 524288) > 0;
+            NoBGM = (part1 & 262144) > 0;
+            HideClock = (part1 & 131072) > 0;
             ClearHints = (part1 & 65536) > 0;
             AddMoonItems = (part1 & 32768) > 0;
             FreeHints = (part1 & 16384) > 0;
@@ -310,6 +328,9 @@ namespace MMRando.Models.Settings
         {
             int[] parts = new int[4];
 
+            if (PreventDowngrades) { parts[0] += 524288; }
+            if (NoBGM) { parts[0] += 262144; }
+            if (HideClock) { parts[0] += 131072; };
             if (ClearHints) { parts[0] += 65536; };
             if (AddMoonItems) { parts[0] += 32768; };
             if (FreeHints) { parts[0] += 16384; };

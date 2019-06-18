@@ -85,13 +85,16 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cGravity, "Select a movement modifier:\n\n - Default: No movement modifier.\n - High speed: Link moves at a much higher velocity.\n - Super low gravity: Link can jump very high.\n - Low gravity: Link can jump high.\n - High gravity: Link can barely jump.");
             TooltipBuilder.SetTooltip(cFloors, "Select a floortype for every floor ingame:\n\n - Default: Vanilla floortypes.\n - Sand: Link sinks slowly into every floor, affecting movement speed.\n - Ice: Every floor is slippery.\n - Snow: Similar to sand. \n - Random: Any random floortypes of the above.");
             TooltipBuilder.SetTooltip(cClockSpeed, "Modify the speed of time. \n\nNote: The slowdown effect of playing inverted song of time does not scale with time speed.");
+            TooltipBuilder.SetTooltip(cHideClock, "Clock UI will be hidden.");
 
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
             TooltipBuilder.SetTooltip(cQText, "Enable quick text. Dialogs are fast-forwarded to choices/end of dialog.");
             TooltipBuilder.SetTooltip(cBGM, "Randomize background music sequences that are played throughout the game.");
+            TooltipBuilder.SetTooltip(cNoMusic, "Mute background music.");
             TooltipBuilder.SetTooltip(cFreeHints, "Enable reading gossip stone hints without requiring the Mask of Truth.");
             TooltipBuilder.SetTooltip(cClearHints, "Gossip stone hints will give clear item and location names.");
+            TooltipBuilder.SetTooltip(cNoDowngrades, "Downgrading items will be prevented.");
             TooltipBuilder.SetTooltip(bTunic, "Select the color of Link's Tunic.");
             TooltipBuilder.SetTooltip(cLink, "Select a character model to replace Link's default model.");
             TooltipBuilder.SetTooltip(cTatl, "Select a color scheme to replace Tatl's default color scheme.");
@@ -265,13 +268,16 @@ namespace MMRando
             cShop.Checked = _settings.AddShopItems;
             cDEnt.Checked = _settings.RandomizeDungeonEntrances;
             cBGM.Checked = _settings.RandomizeBGM;
+            cNoMusic.Checked = _settings.NoBGM;
             cEnemy.Checked = _settings.RandomizeEnemies;
             cCutsc.Checked = _settings.ShortenCutscenes;
             cQText.Checked = _settings.QuickTextEnabled;
             cFreeHints.Checked = _settings.FreeHints;
             cMoonItems.Checked = _settings.AddMoonItems;
             cClearHints.Checked = _settings.ClearHints;
+            cHideClock.Checked = _settings.HideClock;
             cClockSpeed.SelectedIndex = (int) _settings.ClockSpeed;
+            cNoDowngrades.Checked = _settings.PreventDowngrades;
 
             cDMult.SelectedIndex = (int)_settings.DamageMode;
             cDType.SelectedIndex = (int)_settings.DamageEffect;
@@ -315,7 +321,7 @@ namespace MMRando
             UpdateSingleSetting(() => _settings.GenerateROM = cN64.Checked);
             cVC.Enabled = cN64.Checked;
             cVC.Checked &= cVC.Enabled;
-            UpdateSingleSetting(() => _settings.OutputVC = cVC.Enabled);
+            UpdateSingleSetting(() => _settings.OutputVC = cVC.Enabled && cVC.Checked);
         }
 
         private void cSpoiler_CheckedChanged(object sender, EventArgs e)
@@ -355,6 +361,11 @@ namespace MMRando
         private void cBGM_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.RandomizeBGM = cBGM.Checked);
+        }
+
+        private void cNoMusic_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.NoBGM = cNoMusic.Checked);
         }
 
         private void cBottled_CheckedChanged(object sender, EventArgs e)
@@ -425,6 +436,16 @@ namespace MMRando
         private void cClearHints_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.ClearHints = cClearHints.Checked);
+        }
+
+        private void cNoDowngrades_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.PreventDowngrades = cNoDowngrades.Checked);
+        }
+
+        private void cHideClock_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.HideClock = cHideClock.Checked);
         }
 
         private void cQText_CheckedChanged(object sender, EventArgs e)
@@ -604,6 +625,7 @@ namespace MMRando
         {
             cAdditional.Enabled = v;
             cBGM.Enabled = v;
+            cNoMusic.Enabled = v;
             cBottled.Enabled = v;
             cCutsc.Enabled = v;
             cDChests.Enabled = v;
@@ -615,6 +637,7 @@ namespace MMRando
             cEnemy.Enabled = v;
             cFloors.Enabled = v;
             cClockSpeed.Enabled = v;
+            cHideClock.Enabled = v;
             cGossip.Enabled = v;
             cGravity.Enabled = v;
             cLink.Enabled = v;
@@ -628,6 +651,7 @@ namespace MMRando
             cTatl.Enabled = v;
             cFreeHints.Enabled = v;
             cClearHints.Enabled = v;
+            cNoDowngrades.Enabled = v;
             cHTMLLog.Enabled = v;
             cN64.Enabled = v;
             cMoonItems.Enabled = v;
@@ -661,6 +685,9 @@ namespace MMRando
             cSpoiler.Checked = true;
             cSoS.Checked = true;
             cGossip.Checked = true;
+            cNoDowngrades.Checked = true;
+            cCutsc.Checked = true;
+            cQText.Checked = true;
 
             bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
 
@@ -668,6 +695,8 @@ namespace MMRando
             _settings.GenerateSpoilerLog = true;
             _settings.ExcludeSongOfSoaring = true;
             _settings.EnableGossipHints = true;
+            _settings.ShortenCutscenes = true;
+            _settings.QuickTextEnabled = true;
             _settings.TunicColor = bTunic.BackColor;
             _settings.Seed = Math.Abs(Environment.TickCount);
 
@@ -804,6 +833,7 @@ namespace MMRando
             cGravity.Enabled = v;
             cFloors.Enabled = v;
             cClockSpeed.Enabled = v;
+            cHideClock.Enabled = v;
 
 
             // Comfort/Cosmetics
@@ -812,6 +842,7 @@ namespace MMRando
             cBGM.Enabled = v;
             cFreeHints.Enabled = v;
             cClearHints.Enabled = v;
+            cNoDowngrades.Enabled = v;
 
             cLink.Enabled = v;
 
@@ -825,5 +856,4 @@ namespace MMRando
             }
         }
     }
-
 }

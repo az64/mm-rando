@@ -44,6 +44,16 @@ namespace MMRando
             SequenceUtils.RebuildAudioSeq(RomData.SequenceList);
         }
 
+        private void WriteMuteMusic()
+        {
+            if (_settings.NoBGM)
+            {
+                var codeFileAddress = 0xB3C000;
+                var offset = 0x135A08; // address is read when scene music is loaded
+                ReadWriteUtils.WriteToROM(codeFileAddress + offset, 0x01); // change to non-zero so it doesn't play
+            }
+        }
+
         private void WritePlayerModel()
         {
             if (_settings.Character == Character.LinkMM)
@@ -235,6 +245,18 @@ namespace MMRando
             {
                 WriteClockSpeed(_settings.ClockSpeed);
             }
+
+            if (_settings.HideClock)
+            {
+                WriteHideClock();
+            }
+        }
+
+        private void WriteHideClock()
+        {
+            var codeFileAddress = 0xB3C000;
+            var offset = 0x73B7C; // branch for UI is time hasn't changed
+            ReadWriteUtils.WriteToROM(codeFileAddress + offset, 0x10); // change to always branch
         }
 
         /// <summary>
@@ -274,13 +296,22 @@ namespace MMRando
                     break;
             }
 
-            var addr = 0x00BC66D4;
-            uint val = 0x240B0000 + (uint)speed;
-            ReadWriteUtils.WriteToROM(addr, val);
+            ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-clock-speed");
 
             var codeFileAddress = 0xB3C000;
-            var invertedModifierOffset = 0xB1B8E;
-            ReadWriteUtils.WriteToROM(codeFileAddress + invertedModifierOffset, (ushort)invertedModifier);
+            var hackAddressOffset = 0x8A674;
+            var modificationOffset = 0x1B;
+            ReadWriteUtils.WriteToROM(codeFileAddress + hackAddressOffset + modificationOffset, speed);
+            
+            var invertedModifierOffsets = new List<int>
+            {
+                0xB1B8E,
+                0x7405E
+            };
+            foreach (var offset in invertedModifierOffsets)
+            {
+                ReadWriteUtils.WriteToROM(codeFileAddress + offset, (ushort)invertedModifier);
+            }
         }
 
         /// <summary>
@@ -393,6 +424,12 @@ namespace MMRando
             //write everything else
             ItemSwapUtils.ReplaceGetItemTable(Values.ModsDirectory);
             ItemSwapUtils.InitItems();
+
+            ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-epona");
+            if (_settings.PreventDowngrades)
+            {
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-downgrades");
+            }
 
             foreach (var item in _randomized.ItemList)
             {
@@ -571,11 +608,10 @@ namespace MMRando
                 }
             }
 
-            worker.ReportProgress(72, "Writing Tatl color...");
+            worker.ReportProgress(72, "Writing cosmetics...");
             WriteTatlColour();
-
-            worker.ReportProgress(73, "Writing tunic color...");
             WriteTunicColor();
+            WriteMuteMusic();
 
             if (_settings.GenerateROM)
             {

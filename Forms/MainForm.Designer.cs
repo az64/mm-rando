@@ -61,6 +61,8 @@ namespace MMRando
             this.lMode = new System.Windows.Forms.Label();
             this.cMode = new System.Windows.Forms.ComboBox();
             this.tabGimmick = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cHideClock = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.cClockSpeed = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -73,6 +75,7 @@ namespace MMRando
             this.cDMult = new System.Windows.Forms.ComboBox();
             this.cGravity = new System.Windows.Forms.ComboBox();
             this.tabComfort = new System.Windows.Forms.TabPage();
+            this.cNoMusic = new System.Windows.Forms.CheckBox();
             this.cClearHints = new System.Windows.Forms.CheckBox();
             this.cFreeHints = new System.Windows.Forms.CheckBox();
             this.cTatl = new System.Windows.Forms.ComboBox();
@@ -117,6 +120,7 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
+            this.cNoDowngrades = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -517,6 +521,8 @@ namespace MMRando
             // 
             // tabGimmick
             // 
+            this.tabGimmick.Controls.Add(this.label7);
+            this.tabGimmick.Controls.Add(this.cHideClock);
             this.tabGimmick.Controls.Add(this.label6);
             this.tabGimmick.Controls.Add(this.cClockSpeed);
             this.tabGimmick.Controls.Add(this.label4);
@@ -535,14 +541,39 @@ namespace MMRando
             this.tabGimmick.Text = "Gimmicks";
             this.tabGimmick.UseVisualStyleBackColor = true;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label7.Location = new System.Drawing.Point(13, 200);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(325, 13);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "_____________________________________________________";
+            // 
+            // cHideClock
+            // 
+            this.cHideClock.AutoSize = true;
+            this.cHideClock.BackColor = System.Drawing.Color.Transparent;
+            this.cHideClock.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cHideClock.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cHideClock.ForeColor = System.Drawing.Color.Black;
+            this.cHideClock.Location = new System.Drawing.Point(48, 224);
+            this.cHideClock.Name = "cHideClock";
+            this.cHideClock.Size = new System.Drawing.Size(92, 17);
+            this.cHideClock.TabIndex = 17;
+            this.cHideClock.Text = "Hide Clock UI";
+            this.cHideClock.UseVisualStyleBackColor = false;
+            this.cHideClock.CheckedChanged += new System.EventHandler(this.cHideClock_CheckedChanged);
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(22, 179);
+            this.label6.Location = new System.Drawing.Point(52, 179);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(99, 13);
+            this.label6.Size = new System.Drawing.Size(69, 13);
             this.label6.TabIndex = 16;
-            this.label6.Text = "Clock speed (beta):";
+            this.label6.Text = "Clock speed:";
             // 
             // cClockSpeed
             // 
@@ -678,6 +709,8 @@ namespace MMRando
             // 
             // tabComfort
             // 
+            this.tabComfort.Controls.Add(this.cNoDowngrades);
+            this.tabComfort.Controls.Add(this.cNoMusic);
             this.tabComfort.Controls.Add(this.cClearHints);
             this.tabComfort.Controls.Add(this.cFreeHints);
             this.tabComfort.Controls.Add(this.cTatl);
@@ -697,6 +730,21 @@ namespace MMRando
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
             // 
+            // cNoMusic
+            // 
+            this.cNoMusic.AutoSize = true;
+            this.cNoMusic.BackColor = System.Drawing.Color.Transparent;
+            this.cNoMusic.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cNoMusic.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cNoMusic.ForeColor = System.Drawing.Color.Black;
+            this.cNoMusic.Location = new System.Drawing.Point(54, 92);
+            this.cNoMusic.Name = "cNoMusic";
+            this.cNoMusic.Size = new System.Drawing.Size(70, 17);
+            this.cNoMusic.TabIndex = 17;
+            this.cNoMusic.Text = "No music";
+            this.cNoMusic.UseVisualStyleBackColor = false;
+            this.cNoMusic.CheckedChanged += new System.EventHandler(this.cNoMusic_CheckedChanged);
+            // 
             // cClearHints
             // 
             this.cClearHints.AutoSize = true;
@@ -704,7 +752,7 @@ namespace MMRando
             this.cClearHints.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cClearHints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cClearHints.ForeColor = System.Drawing.Color.Black;
-            this.cClearHints.Location = new System.Drawing.Point(49, 115);
+            this.cClearHints.Location = new System.Drawing.Point(49, 138);
             this.cClearHints.Name = "cClearHints";
             this.cClearHints.Size = new System.Drawing.Size(75, 17);
             this.cClearHints.TabIndex = 16;
@@ -719,7 +767,7 @@ namespace MMRando
             this.cFreeHints.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cFreeHints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cFreeHints.ForeColor = System.Drawing.Color.Black;
-            this.cFreeHints.Location = new System.Drawing.Point(52, 92);
+            this.cFreeHints.Location = new System.Drawing.Point(52, 115);
             this.cFreeHints.Name = "cFreeHints";
             this.cFreeHints.Size = new System.Drawing.Size(72, 17);
             this.cFreeHints.TabIndex = 15;
@@ -1135,6 +1183,21 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
+            // cNoDowngrades
+            // 
+            this.cNoDowngrades.AutoSize = true;
+            this.cNoDowngrades.BackColor = System.Drawing.Color.Transparent;
+            this.cNoDowngrades.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cNoDowngrades.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cNoDowngrades.ForeColor = System.Drawing.Color.Black;
+            this.cNoDowngrades.Location = new System.Drawing.Point(23, 161);
+            this.cNoDowngrades.Name = "cNoDowngrades";
+            this.cNoDowngrades.Size = new System.Drawing.Size(101, 17);
+            this.cNoDowngrades.TabIndex = 18;
+            this.cNoDowngrades.Text = "No downgrades";
+            this.cNoDowngrades.UseVisualStyleBackColor = false;
+            this.cNoDowngrades.CheckedChanged += new System.EventHandler(this.cNoDowngrades_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1264,6 +1327,10 @@ namespace MMRando
         private System.Windows.Forms.CheckBox cClearHints;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cClockSpeed;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox cHideClock;
+        private System.Windows.Forms.CheckBox cNoMusic;
+        private System.Windows.Forms.CheckBox cNoDowngrades;
     }
 }
 
