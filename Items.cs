@@ -316,6 +316,8 @@ namespace MMRando
 
         public static readonly ReadOnlyCollection<int> REPEATABLE
             = new ReadOnlyCollection<int>(new int[] {
+                ItemMagicBean,
+                ItemPowderKeg,
                 UpgradeRazorSword,
                 UpgradeGildedSword,
                 ItemGoldDust,
