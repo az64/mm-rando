@@ -294,6 +294,9 @@
     <None Include="Resources\mods\fierce-deity-anywhere">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\mods\fix-epona">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\mods\fix-downgrades">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

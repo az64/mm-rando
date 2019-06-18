@@ -425,6 +425,7 @@ namespace MMRando
             ItemSwapUtils.ReplaceGetItemTable(Values.ModsDirectory);
             ItemSwapUtils.InitItems();
 
+            ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-epona");
             if (_settings.PreventDowngrades)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-downgrades");
