@@ -677,6 +677,8 @@ namespace MMRando
             cSpoiler.Checked = true;
             cSoS.Checked = true;
             cGossip.Checked = true;
+            cCutsc.Checked = true;
+            cQText.Checked = true;
 
             bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
 
@@ -684,6 +686,8 @@ namespace MMRando
             _settings.GenerateSpoilerLog = true;
             _settings.ExcludeSongOfSoaring = true;
             _settings.EnableGossipHints = true;
+            _settings.ShortenCutscenes = true;
+            _settings.QuickTextEnabled = true;
             _settings.TunicColor = bTunic.BackColor;
             _settings.Seed = Math.Abs(Environment.TickCount);
 
