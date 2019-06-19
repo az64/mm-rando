@@ -681,6 +681,7 @@ namespace MMRando
             cMode.SelectedIndex = 0;
             cLink.SelectedIndex = 0;
             cTatl.SelectedIndex = 0;
+            cGossipHints.SelectedIndex = 0;
             cClockSpeed.SelectedIndex = 0;
             cSpoiler.Checked = true;
             cSoS.Checked = true;

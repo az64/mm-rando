@@ -244,6 +244,11 @@ namespace MMRando.Models.Settings
         /// </summary>
         public TatlColorSchema TatlColorSchema { get; set; }
 
+        /// <summary>
+        /// Method to write the gossip stone hints.
+        /// </summary>
+        public GossipHintStyle GossipHintStyle { get; set; }
+
 
         /// <summary>
         ///  Custom item list selections

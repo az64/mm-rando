@@ -56,7 +56,7 @@ namespace MMRando.Models
                 // todo
             });
 
-        public static readonly ReadOnlyCollection<int> AllowDuplicateHintsAboutLocation
+        public static readonly ReadOnlyCollection<int> GuaranteedLocationHints
             = new ReadOnlyCollection<int>(new int[]
             {
                 Items.HeartPieceLabFish,
@@ -64,8 +64,9 @@ namespace MMRando.Models
                 Items.HeartPieceDekuPlayground,
                 Items.MaskTruth,
                 Items.UpgradeGiantWallet,
+                Items.MaskRomani,
                 Items.MaskAllNight,
-                Items.MaskScents,
+                //Items.MaskScents,
                 Items.HeartPieceBoatArchery,
                 Items.ItemGoldDust
             });

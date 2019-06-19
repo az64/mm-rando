@@ -40,15 +40,6 @@ namespace MMRando.Utils
             return gossipList;
         }
 
-        private static bool IsBadMessage(string message)
-        {
-            return message.Contains("a segment of health") || message.Contains("currency") ||
-                message.Contains("money") || message.Contains("cash") ||
-                message.Contains("wealth") || message.Contains("riches and stuff") ||
-                message.Contains("increased life") || message.Contains("Rupee") ||
-                message.Contains("Heart");
-        }
-
         public static List<MessageEntry> MakeGossipQuotes(SettingsObject settings, List<ItemObject> items, Random random)
         {
             if (!settings.EnableGossipHints)
@@ -57,6 +48,9 @@ namespace MMRando.Utils
             var GossipList = GetGossipList();
 
             var unusedItems = new List<ItemObject>();
+            var competitiveHints = new List<string>();
+            var itemsInRegions = new Dictionary<string, List<ItemObject>>();
+            var itemsRequiredByLogic = new List<int>(); // todo
             foreach (var item in items)
             {
                 if (!item.ReplacesAnotherItem)
@@ -119,24 +113,53 @@ namespace MMRando.Utils
                     continue;
                 }
 
-                unusedItems.Add(item);
-
-                if (Gossip.AllowDuplicateHintsAboutLocation.Contains(item.ReplacesItemId))
+                if (settings.GossipHintStyle == GossipHintStyle.Competitive)
                 {
+                    var itemRegion = Items.HINT_REGIONS[item.ReplacesItemId];
+                    if (!itemsInRegions.ContainsKey(itemRegion))
+                    {
+                        itemsInRegions[itemRegion] = new List<ItemObject>();
+                    }
+                    itemsInRegions[itemRegion].Add(item);
+
+                    if (!Gossip.GuaranteedLocationHints.Contains(item.ReplacesItemId))
+                    {
+                        continue;
+                    }
+
                     unusedItems.Add(item);
                 }
+
+                unusedItems.Add(item);
+            }
+
+            foreach (var kvp in itemsInRegions)
+            {
+                var regionIsWayOfTheHero = kvp.Value.Any(io => itemsRequiredByLogic.Contains(io.ID));
+
+                ushort soundEffectId = 0x690C; // grandma curious
+                string start = Gossip.MessageStartSentences.Random(random);
+
+                string sfx = $"{(char)((soundEffectId >> 8) & 0xFF)}{(char)(soundEffectId & 0xFF)}";
+                var locationMessage = kvp.Key;
+                var mid = "is";
+                var itemMessage = regionIsWayOfTheHero
+                    ? "on the Way of the Hero"
+                    : "a foolish choice";
+
+                competitiveHints.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{itemMessage}\x00...\xBF".Wrap(35, "\x11"));
             }
 
             List<MessageEntry> finalHints = new List<MessageEntry>();
 
-            foreach (var gossipQuote in Enum.GetValues(typeof(GossipQuote)).Cast<GossipQuote>())
+            foreach (var gossipQuote in Enum.GetValues(typeof(GossipQuote)).Cast<GossipQuote>().OrderBy(gq => random.Next()))
             {
                 var isMoonGossipStone = gossipQuote >= GossipQuote.MoonMaskTruth; // or maybe check presence of GossipAlreadyAcquiredTextIdAttribute
                 var restrictionAttributes = gossipQuote.GetAttributes<GossipRestrictAttribute>().ToList();
                 ItemObject item = null;
                 while (item == null)
                 {
-                    if (restrictionAttributes.Any())
+                    if (restrictionAttributes.Any() && (isMoonGossipStone || settings.GossipHintStyle == GossipHintStyle.Relevant))
                     {
                         var chosen = restrictionAttributes.Random(random);
                         var candidateItem = chosen.Type == GossipRestrictAttribute.RestrictionType.Item
@@ -181,14 +204,14 @@ namespace MMRando.Utils
                     {
                         var itemId = ItemUtils.SubtractItemOffset(item.ID);
                         var locationId = ItemUtils.SubtractItemOffset(item.ReplacesItemId);
-                        if (isMoonGossipStone || random.Next(100) >= 5) // 5% chance of fake/junk hint if it's not a moon gossip stone
+                        if (isMoonGossipStone || settings.GossipHintStyle == GossipHintStyle.Competitive || random.Next(100) >= 5) // 5% chance of fake/junk hint if it's not a moon gossip stone or competitive style
                         {
                             itemName = GossipList[itemId].ItemMessage.Random(random);
                             locationName = GossipList[locationId].LocationMessage.Random(random);
                         }
                         else
                         {
-                            if (random.Next(2) == 0) // 50% change for fake hint. otherwise default to junk hint.
+                            if (random.Next(2) == 0) // 50% chance for fake hint. otherwise default to junk hint.
                             {
                                 soundEffectId = 0x690A; // grandma laugh
                                 itemName = GossipList[itemId].ItemMessage.Random(random);
@@ -203,7 +226,15 @@ namespace MMRando.Utils
                 }
                 if (messageText == null)
                 {
-                    messageText = Gossip.JunkMessages.Random(random);
+                    if (competitiveHints.Any())
+                    {
+                        messageText = competitiveHints.Random(random);
+                        competitiveHints.Remove(messageText);
+                    }
+                    else
+                    {
+                        messageText = Gossip.JunkMessages.Random(random);
+                    }
                 }
 
                 finalHints.Add(new MessageEntry()
