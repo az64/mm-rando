@@ -315,6 +315,7 @@ namespace MMRando.Models.Settings
                 part3 & 0xFF);
 
             var clockSpeedIndex = (byte)(part4 & 0xFF);
+            var gossipHintsIndex = (byte)((part4 & 0xFF00) >> 8);
 
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
@@ -325,6 +326,7 @@ namespace MMRando.Models.Settings
             FloorType = (FloorType)floorTypeIndex;
             TunicColor = tunicColor;
             ClockSpeed = (ClockSpeed)clockSpeedIndex;
+            GossipHintStyle = (GossipHintStyle)gossipHintsIndex;
 
         }
 
@@ -366,7 +368,8 @@ namespace MMRando.Models.Settings
                 | ((byte)FloorType << 24)
                     | ((byte)MovementMode << 28);
 
-            parts[3] = (byte) ClockSpeed;
+            parts[3] = (byte) ClockSpeed
+                | ((byte)GossipHintStyle << 8);
 
             return parts;
         }

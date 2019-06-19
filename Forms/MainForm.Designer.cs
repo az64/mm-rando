@@ -75,6 +75,8 @@ namespace MMRando
             this.cDMult = new System.Windows.Forms.ComboBox();
             this.cGravity = new System.Windows.Forms.ComboBox();
             this.tabComfort = new System.Windows.Forms.TabPage();
+            this.lGossip = new System.Windows.Forms.Label();
+            this.cGossipHints = new System.Windows.Forms.ComboBox();
             this.cNoDowngrades = new System.Windows.Forms.CheckBox();
             this.cNoMusic = new System.Windows.Forms.CheckBox();
             this.cClearHints = new System.Windows.Forms.CheckBox();
@@ -121,8 +123,6 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cGossipHints = new System.Windows.Forms.ComboBox();
-            this.lGossip = new System.Windows.Forms.Label();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -734,6 +734,33 @@ namespace MMRando
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
             // 
+            // lGossip
+            // 
+            this.lGossip.AutoSize = true;
+            this.lGossip.BackColor = System.Drawing.Color.Transparent;
+            this.lGossip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lGossip.ForeColor = System.Drawing.Color.Black;
+            this.lGossip.Location = new System.Drawing.Point(130, 112);
+            this.lGossip.Name = "lGossip";
+            this.lGossip.Size = new System.Drawing.Size(98, 13);
+            this.lGossip.TabIndex = 20;
+            this.lGossip.Text = "Gossip Stone hints:";
+            // 
+            // cGossipHints
+            // 
+            this.cGossipHints.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cGossipHints.FormattingEnabled = true;
+            this.cGossipHints.Items.AddRange(new object[] {
+            "Default",
+            "Random",
+            "Relevant",
+            "Competitive"});
+            this.cGossipHints.Location = new System.Drawing.Point(234, 109);
+            this.cGossipHints.Name = "cGossipHints";
+            this.cGossipHints.Size = new System.Drawing.Size(106, 21);
+            this.cGossipHints.TabIndex = 19;
+            this.cGossipHints.SelectedIndexChanged += new System.EventHandler(this.cGossipHints_SelectedIndexChanged);
+            // 
             // cNoDowngrades
             // 
             this.cNoDowngrades.AutoSize = true;
@@ -1201,31 +1228,6 @@ namespace MMRando
             this.bLoadPatch.Text = "Load Patch...";
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
-            // 
-            // cGossipHints
-            // 
-            this.cGossipHints.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cGossipHints.FormattingEnabled = true;
-            this.cGossipHints.Items.AddRange(new object[] {
-            "Default",
-            "Random",
-            "Consistent"});
-            this.cGossipHints.Location = new System.Drawing.Point(234, 109);
-            this.cGossipHints.Name = "cGossipHints";
-            this.cGossipHints.Size = new System.Drawing.Size(106, 21);
-            this.cGossipHints.TabIndex = 19;
-            // 
-            // lGossip
-            // 
-            this.lGossip.AutoSize = true;
-            this.lGossip.BackColor = System.Drawing.Color.Transparent;
-            this.lGossip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lGossip.ForeColor = System.Drawing.Color.Black;
-            this.lGossip.Location = new System.Drawing.Point(130, 112);
-            this.lGossip.Name = "lGossip";
-            this.lGossip.Size = new System.Drawing.Size(98, 13);
-            this.lGossip.TabIndex = 20;
-            this.lGossip.Text = "Gossip Stone hints:";
             // 
             // MainForm
             // 

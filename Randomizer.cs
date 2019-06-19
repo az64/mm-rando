@@ -130,7 +130,7 @@ namespace MMRando
         private void MakeGossipQuotes()
         {
             _randomized.GossipQuotes = MessageUtils.MakeGossipQuotes
-                (_settings, ItemList, _random);
+                (_randomized);
         }
 
         #endregion
