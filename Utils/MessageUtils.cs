@@ -76,7 +76,7 @@ namespace MMRando.Utils
                 // skip non-randomized items.
                 if (settings.UseCustomItemList)
                 {
-                    if (!settings.CustomItemList.Contains(item.ID))
+                    if (!settings.CustomItemList.Contains(ItemUtils.SubtractItemOffset(item.ID)))
                     {
                         continue;
                     }
@@ -166,41 +166,46 @@ namespace MMRando.Utils
                     unusedItems.Remove(item);
                 }
 
-                string messageText;
-                if (item != null && settings.ClearHints)
+                string messageText = null;
+                if (item != null)
                 {
                     ushort soundEffectId = 0x690C; // grandma curious
-                    var itemName = Items.ITEM_NAMES[item.ID];
-                    var locationName = Items.LOCATION_NAMES[item.ReplacesItemId];
-                    messageText = BuildGossipQuote(soundEffectId, locationName, itemName, random);
-                }
-                else
-                {
-                    if (item != null && (isMoonGossipStone || random.Next(100) >= 5))
+                    string itemName = null;
+                    string locationName = null;
+                    if (settings.ClearHints)
                     {
-                        // real hint
-                        ushort soundEffectId = 0x690C; // grandma curious
-                        var itemName = GossipList[item.ID].ItemMessage.Random(random);
-                        var locationName = GossipList[item.ReplacesItemId].LocationMessage.Random(random);
-                        messageText = BuildGossipQuote(soundEffectId, locationName, itemName, random);
+                        itemName = Items.ITEM_NAMES[item.ID];
+                        locationName = Items.LOCATION_NAMES[item.ReplacesItemId];
                     }
                     else
                     {
-                        // 5% chance of fake/junk hint
-                        if (item != null && random.Next(2) == 0)
+                        var itemId = ItemUtils.SubtractItemOffset(item.ID);
+                        var locationId = ItemUtils.SubtractItemOffset(item.ReplacesItemId);
+                        if (isMoonGossipStone || random.Next(100) >= 5) // 5% chance of fake/junk hint if it's not a moon gossip stone
                         {
-                            ushort soundEffectId = 0x690A; // grandma laugh
-                            var itemName = GossipList[item.ID].ItemMessage.Random(random);
-                            var locationName = GossipList.Random(random).LocationMessage.Random(random);
-                            messageText = BuildGossipQuote(soundEffectId, locationName, itemName, random);
+                            itemName = GossipList[itemId].ItemMessage.Random(random);
+                            locationName = GossipList[locationId].LocationMessage.Random(random);
                         }
                         else
                         {
-                            messageText = Gossip.JunkMessages.Random(random);
+                            if (random.Next(2) == 0) // 50% change for fake hint. otherwise default to junk hint.
+                            {
+                                soundEffectId = 0x690A; // grandma laugh
+                                itemName = GossipList[itemId].ItemMessage.Random(random);
+                                locationName = GossipList.Random(random).LocationMessage.Random(random);
+                            }
                         }
                     }
+                    if (itemName != null && locationName != null)
+                    {
+                        messageText = BuildGossipQuote(soundEffectId, locationName, itemName, random);
+                    }
                 }
-                
+                if (messageText == null)
+                {
+                    messageText = Gossip.JunkMessages.Random(random);
+                }
+
                 finalHints.Add(new MessageEntry()
                 {
                     Id = (ushort)gossipQuote,
