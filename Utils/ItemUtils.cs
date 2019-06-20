@@ -117,5 +117,11 @@ namespace MMRando.Utils
         {
             return itemId == Items.MaskDeku || itemId == Items.SongHealing;
         }
+
+        public static bool IsSong(int itemId)
+        {
+            return itemId >= Items.SongHealing
+                && itemId <= Items.SongOath;
+        }
     }
 }

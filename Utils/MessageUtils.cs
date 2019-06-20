@@ -189,7 +189,7 @@ namespace MMRando.Utils
                 if (randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Competitive)
                 {
                     var itemRegion = Items.HINT_REGIONS[item.ReplacesItemId];
-                    if (!string.IsNullOrWhiteSpace(itemRegion))
+                    if (!string.IsNullOrWhiteSpace(itemRegion) && (randomizedResult.Settings.AddSongs || !ItemUtils.IsSong(item.ID)))
                     {
                         if (!itemsInRegions.ContainsKey(itemRegion))
                         {
