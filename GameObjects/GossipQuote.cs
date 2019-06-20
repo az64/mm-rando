@@ -178,10 +178,56 @@ namespace MMRando.GameObjects
 
 
         // TerminaGossipGrotto
-        // 0x20F3
-        // 0x20F7
-        // 0x20F8
-        // 0x20F9
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.HeartPieceTerminaGossipStones)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.SongElegy)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskGiant)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemLightArrow)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.MaskGiant)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemStoneTowerMap)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemStoneTowerCompass)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemStoneTowerBossKey)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemStoneTowerKey1)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemStoneTowerKey2)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemStoneTowerKey3)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemStoneTowerKey4)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.HeartContainerStoneTower)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.HeartPieceLinkTrial)]
+        TerminaGossipLarge = 0x20F3,
+
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.SongNewWaveBossaNova)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskZora)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemIceArrow)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemGreatBayMap)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemGreatBayCompass)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemGreatBayBossKey)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemGreatBayKey1)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.HeartContainerGreatBay)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.HeartPieceZoraTrial)]
+        TerminaGossipGuitar = 0x20F7,
+
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.SongSonata)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskDeku)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemBow)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemWoodfallMap)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemWoodfallCompass)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemWoodfallBossKey)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemWoodfallKey1)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.HeartContainerWoodfall)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.HeartPieceDekuTrial)]
+        TerminaGossipPipes = 0x20F8,
+
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.SongLullaby)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskGoron)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemFireArrow)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemSnowheadMap)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemSnowheadCompass)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemSnowheadBossKey)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemSnowheadKey1)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemSnowheadKey2)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.ItemSnowheadKey3)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.HeartContainerSnowhead)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Items.HeartPieceGoronTrial)]
+        TerminaGossipDrums = 0x20F9,
 
 
         // Moon Gossip Stones
