@@ -593,7 +593,7 @@ namespace MMRando
                 }
             }
 
-            if (_settings.GossipHintStyle == GossipHintStyle.Default)
+            if (_settings.GossipHintStyle == GossipHintStyle.Default || _settings.LogicMode == LogicMode.Vanilla)
             {
                 cClearHints.Enabled = false;
             }
@@ -842,7 +842,6 @@ namespace MMRando
             cFloors.Enabled = v;
             cClockSpeed.Enabled = v;
             cHideClock.Enabled = v;
-            cGossipHints.Enabled = v;
 
 
             // Comfort/Cosmetics
@@ -850,8 +849,9 @@ namespace MMRando
             cQText.Enabled = v;
             cBGM.Enabled = v;
             cFreeHints.Enabled = v;
-            cClearHints.Enabled = v;
             cNoDowngrades.Enabled = v;
+            cClearHints.Enabled = _settings.LogicMode != LogicMode.Vanilla && _settings.GossipHintStyle != GossipHintStyle.Default && v;
+            cGossipHints.Enabled = _settings.LogicMode != LogicMode.Vanilla && v;
 
             cLink.Enabled = v;
 
