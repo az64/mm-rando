@@ -44,13 +44,13 @@ namespace MMRando.Templates
             this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.SettingsString));
             this.Write("</span><br/>\r\n<label><b>Seed: </b></label><span>");
             this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.Seed));
-            this.Write("<span><br/>\n");
+            this.Write("<span><br/>\r\n");
  if (spoiler.CustomItemListString != null) { 
             this.Write("<label><b>Custom Item List: </b></label><span>");
             this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.CustomItemListString));
-            this.Write("<span><br/>\n");
+            this.Write("<span><br/>\r\n");
  } 
-            this.Write("\n<br/>\r\n");
+            this.Write("<br/>\r\n");
  if (spoiler.RandomizeDungeonEntrances) { 
 
             this.Write("<h2>Dungeon Entrance Replacements</h2>\r\n<table border=\"1\">\r\n\t<tr>\r\n\t\t<th>Entrance" +
@@ -98,7 +98,22 @@ namespace MMRando.Templates
             this.Write(this.ToStringHelper.ToStringWithCulture(item.NewLocationName));
             this.Write("\"></span></td>\r\n </tr>\r\n");
  } 
-            this.Write("</table>\r\n<script>\r\n\tvar logic = ");
+            this.Write("</table>\r\n");
+ if (spoiler.GossipHints.Any()) { 
+
+            this.Write("<h2>Gossip Stone Hints</h2>\r\n<table border=\"1\">\r\n\t<tr>\r\n\t\t<th>Gossip Stone</th>\r\n" +
+                    "\t\t<th>Message</th>\r\n\t</tr>\r\n");
+	foreach (var hint in spoiler.GossipHints.OrderBy(h => h.Key.ToString())) { 
+
+            this.Write("\t<tr>\r\n\t\t<td>");
+            this.Write(this.ToStringHelper.ToStringWithCulture(hint.Key));
+            this.Write("</td>\r\n\t\t<td class=\"spoiler\"><span data-content=\"");
+            this.Write(this.ToStringHelper.ToStringWithCulture(hint.Value));
+            this.Write("\"></span></td>\r\n\t</tr>\r\n");
+ } 
+            this.Write("</table>\r\n");
+ } 
+            this.Write("<script>\r\n\tvar logic = ");
             this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.LogicJson));
             this.Write("\r\n\r\n\tfunction all(list, predicate) {\r\n\t\tfor (var i = 0; i < list.length; i++) {\r\n" +
                     "\t\t\tif (!predicate(list[i])) {\r\n\t\t\t\treturn false;\r\n\t\t\t}\r\n\t\t}\r\n\t\treturn true;\r\n\t}\r" +
@@ -116,31 +131,31 @@ namespace MMRando.Templates
                     "\tvar locationRow = document.querySelector(\"#item-replacements tr[data-newlocatio" +
                     "nid=\'\" + item.ItemId + \"\']\");\r\n\t\t\tif (locationRow) {\r\n\t\t\t\tlocationRow.className " +
                     "= \"\";\r\n\t\t\t\tlocationRow.classList.add(item.IsAvailable ? \"available\" : \"unavailab" +
-                    "le\");\r\n\t\t\t\tvar itemName = locationRow.querySelector(\".itemname\");\n              " +
-                    "  var checkbox = locationRow.querySelector(\"input\");\n                checkbox.ch" +
-                    "ecked = item.Checked;\r\n\t\t\t\tif (item.Checked) {\r\n\t\t\t\t\titemName.classList.remove(\"" +
-                    "spoiler\");\r\n\t\t\t\t} else {\r\n\t\t\t\t\titemName.classList.add(\"spoiler\");\r\n\t\t\t\t}\r\n\t\t\t}\r\n" +
-                    "        \r\n\t\t\tvar itemRow = document.querySelector(\"#item-locations tr[data-id=\'\"" +
-                    " + item.ItemId + \"\']\");\r\n\t\t\tif (itemRow) {\r\n\t\t\t\tvar itemName = itemRow.querySele" +
-                    "ctor(\".newlocation\");\n                var checkbox = itemRow.querySelector(\"inpu" +
-                    "t\");\n                checkbox.checked = item.Acquired;\r\n\t\t\t\tif (item.Acquired) {" +
-                    "\r\n\t\t\t\t\titemName.classList.remove(\"spoiler\");\r\n\t\t\t\t} else {\r\n\t\t\t\t\titemName.classL" +
-                    "ist.add(\"spoiler\");\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t\tif (recalculate) {\r\n\t\t\trecalculateItems" +
-                    "();\r\n\t\t}\r\n\t}\r\n\r\n\tlogic[0].Checked = true;\r\n\tlogic[document.querySelector(\"tr[dat" +
-                    "a-newlocationid=\'0\']\").dataset.id].Acquired = true;\r\n\tdocument.querySelector(\"tr" +
-                    "[data-newlocationid=\'0\'] input\").checked = true;\r\n\r\n\tlogic[90].Checked = true;\r\n" +
-                    "\tlogic[document.querySelector(\"tr[data-newlocationid=\'90\']\").dataset.id].Acquire" +
-                    "d = true;\r\n\tdocument.querySelector(\"tr[data-newlocationid=\'90\'] input\").checked " +
-                    "= true;\r\n\r\n\trecalculateItems();\r\n\r\n\tvar rows = document.querySelectorAll(\"tr\");\r" +
-                    "\n\tfor (var i = 1; i < rows.length; i++) {\r\n\t\tvar row = rows[i];\r\n\t\tvar checkbox " +
-                    "= row.querySelector(\"input\");\r\n\t\tif (checkbox) {\r\n\t\t\tcheckbox.addEventListener(\"" +
-                    "click\", function(e) {\r\n\t\t\t\tvar row = e.target.closest(\"tr\");\n                var" +
-                    " rowId = parseInt(row.dataset.id);\r\n\t\t\t\tvar newLocationId = parseInt(row.dataset" +
-                    ".newlocationid);\r\n\t\t\t\tlogic[newLocationId].Checked = e.target.checked;\n         " +
-                    "       logic[rowId].Acquired = e.target.checked;\r\n\t\t\t\trecalculateItems();\r\n\t\t\t})" +
-                    ";\r\n\t\t}\r\n\t}\r\n\r\n\tdocument.querySelector(\"#highlight-checks\").addEventListener(\"cli" +
-                    "ck\", function(e) {\r\n\t\tdocument.querySelector(\"table#item-replacements\").classNam" +
-                    "e = e.target.checked ? \"show-highlight\" : \"\";\r\n\t});\r\n</script>\r\n</html>");
+                    "le\");\r\n\t\t\t\tvar itemName = locationRow.querySelector(\".itemname\");\r\n             " +
+                    "   var checkbox = locationRow.querySelector(\"input\");\r\n                checkbox." +
+                    "checked = item.Checked;\r\n\t\t\t\tif (item.Checked) {\r\n\t\t\t\t\titemName.classList.remove" +
+                    "(\"spoiler\");\r\n\t\t\t\t} else {\r\n\t\t\t\t\titemName.classList.add(\"spoiler\");\r\n\t\t\t\t}\r\n\t\t\t}" +
+                    "\r\n        \r\n\t\t\tvar itemRow = document.querySelector(\"#item-locations tr[data-id=" +
+                    "\'\" + item.ItemId + \"\']\");\r\n\t\t\tif (itemRow) {\r\n\t\t\t\tvar itemName = itemRow.querySe" +
+                    "lector(\".newlocation\");\r\n                var checkbox = itemRow.querySelector(\"i" +
+                    "nput\");\r\n                checkbox.checked = item.Acquired;\r\n\t\t\t\tif (item.Acquire" +
+                    "d) {\r\n\t\t\t\t\titemName.classList.remove(\"spoiler\");\r\n\t\t\t\t} else {\r\n\t\t\t\t\titemName.cl" +
+                    "assList.add(\"spoiler\");\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t\tif (recalculate) {\r\n\t\t\trecalculateI" +
+                    "tems();\r\n\t\t}\r\n\t}\r\n\r\n\tlogic[0].Checked = true;\r\n\tlogic[document.querySelector(\"tr" +
+                    "[data-newlocationid=\'0\']\").dataset.id].Acquired = true;\r\n\tdocument.querySelector" +
+                    "(\"tr[data-newlocationid=\'0\'] input\").checked = true;\r\n\r\n\tlogic[90].Checked = tru" +
+                    "e;\r\n\tlogic[document.querySelector(\"tr[data-newlocationid=\'90\']\").dataset.id].Acq" +
+                    "uired = true;\r\n\tdocument.querySelector(\"tr[data-newlocationid=\'90\'] input\").chec" +
+                    "ked = true;\r\n\r\n\trecalculateItems();\r\n\r\n\tvar rows = document.querySelectorAll(\"tr" +
+                    "\");\r\n\tfor (var i = 1; i < rows.length; i++) {\r\n\t\tvar row = rows[i];\r\n\t\tvar check" +
+                    "box = row.querySelector(\"input\");\r\n\t\tif (checkbox) {\r\n\t\t\tcheckbox.addEventListen" +
+                    "er(\"click\", function(e) {\r\n\t\t\t\tvar row = e.target.closest(\"tr\");\r\n              " +
+                    "  var rowId = parseInt(row.dataset.id);\r\n\t\t\t\tvar newLocationId = parseInt(row.da" +
+                    "taset.newlocationid);\r\n\t\t\t\tlogic[newLocationId].Checked = e.target.checked;\r\n   " +
+                    "             logic[rowId].Acquired = e.target.checked;\r\n\t\t\t\trecalculateItems();\r" +
+                    "\n\t\t\t});\r\n\t\t}\r\n\t}\r\n\r\n\tdocument.querySelector(\"#highlight-checks\").addEventListene" +
+                    "r(\"click\", function(e) {\r\n\t\tdocument.querySelector(\"table#item-replacements\").cl" +
+                    "assName = e.target.checked ? \"show-highlight\" : \"\";\r\n\t});\r\n</script>\r\n</html>");
             return this.GenerationEnvironment.ToString();
         }
     }

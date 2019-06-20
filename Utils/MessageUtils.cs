@@ -47,7 +47,7 @@ namespace MMRando.Utils
                 return CheckedItems[itemId];
             }
             var itemObject = allItems[itemId];
-            var locationId = itemObject.ReplacesAnotherItem ? itemObject.ReplacesItemId : itemObject.ID;
+            var locationId = itemObject.ReplacesAnotherItem ? itemObject.ReplacesItemId : itemId;
             var locationLogic = itemLogic[locationId];
             var result = new List<int>();
             if (locationLogic.RequiredItemIds != null)
@@ -270,9 +270,10 @@ namespace MMRando.Utils
 
             foreach (var gossipQuote in Enum.GetValues(typeof(GossipQuote)).Cast<GossipQuote>().OrderBy(gq => randomizedResult.Random.Next()))
             {
-                var isMoonGossipStone = gossipQuote >= GossipQuote.MoonMaskTruth; // or maybe check presence of GossipAlreadyAcquiredTextIdAttribute
+                var isMoonGossipStone = gossipQuote.ToString().StartsWith("Moon");
                 var restrictionAttributes = gossipQuote.GetAttributes<GossipRestrictAttribute>().ToList();
                 ItemObject item = null;
+                var forceClear = false;
                 while (item == null)
                 {
                     if (restrictionAttributes.Any() && (isMoonGossipStone || randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Relevant))
@@ -284,6 +285,7 @@ namespace MMRando.Utils
                         if (isMoonGossipStone || unusedItems.Contains(candidateItem))
                         {
                             item = candidateItem;
+                            forceClear = chosen.ForceClear;
                         }
                         else
                         {
@@ -311,7 +313,7 @@ namespace MMRando.Utils
                     ushort soundEffectId = 0x690C; // grandma curious
                     string itemName = null;
                     string locationName = null;
-                    if (randomizedResult.Settings.ClearHints)
+                    if (forceClear || randomizedResult.Settings.ClearHints)
                     {
                         itemName = Items.ITEM_NAMES[item.ID];
                         locationName = Items.LOCATION_NAMES[item.ReplacesItemId];
@@ -359,21 +361,6 @@ namespace MMRando.Utils
                     Message = messageText,
                     Header = MessageHeader.ToArray()
                 });
-
-                var alreadyAcquired = gossipQuote.GetAttribute<GossipAlreadyAcquiredTextIdAttribute>();
-                if (alreadyAcquired != null)
-                {
-                    ushort soundEffectId = 0x690C; // grandma curious
-                    var itemName = Items.ITEM_NAMES[item.ID];
-                    var locationName = Items.LOCATION_NAMES[item.ReplacesItemId];
-                    messageText = BuildGossipQuote(soundEffectId, locationName, itemName, randomizedResult.Random);
-                    finalHints.Add(new MessageEntry()
-                    {
-                        Id = alreadyAcquired.AlreadyAcquiredTextId,
-                        Message = messageText,
-                        Header = MessageHeader.ToArray()
-                    });
-                }
             }
 
             return finalHints;

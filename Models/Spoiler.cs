@@ -1,4 +1,6 @@
-﻿using MMRando.Models;
+﻿using MMRando.GameObjects;
+using MMRando.Models;
+using MMRando.Models.Rom;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +24,8 @@ namespace MMRando.Models
         public List<SpoilerItem> ItemList { get; set; }
 
         public List<ItemLogic> Logic { get; set; }
+
+        public Dictionary<GossipQuote, string> GossipHints { get; set; }
 
         public string CustomItemListString { get; set; }
 

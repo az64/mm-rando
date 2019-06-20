@@ -7,11 +7,13 @@ namespace MMRando.Attributes
     {
         public int Id { get; private set; }
         public RestrictionType Type { get; private set; }
+        public bool ForceClear { get; private set; }
 
-        public GossipRestrictAttribute(RestrictionType type, int id)
+        public GossipRestrictAttribute(RestrictionType type, int id, bool forceClear = false)
         {
             Type = type;
             Id = id;
+            ForceClear = forceClear;
         }
 
         public enum RestrictionType

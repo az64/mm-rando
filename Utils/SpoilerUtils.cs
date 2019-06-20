@@ -1,8 +1,10 @@
-﻿using MMRando.Models;
+﻿using MMRando.GameObjects;
+using MMRando.Models;
 using MMRando.Models.Settings;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MMRando.Utils
 {
@@ -19,6 +21,7 @@ namespace MMRando.Utils
             var directory = Path.GetDirectoryName(settings.OutputROMFilename);
             var filename = $"{Path.GetFileNameWithoutExtension(settings.OutputROMFilename)}";
 
+            var plainTextRegex = new Regex("[^a-zA-Z0-9' .]+");
             Spoiler spoiler = new Spoiler()
             {
                 Version = MainForm.AssemblyVersion.Substring(26),
@@ -29,6 +32,7 @@ namespace MMRando.Utils
                 NewDestinationIndices = randomized.NewDestinationIndices,
                 Logic = randomized.Logic,
                 CustomItemListString = settings.UseCustomItemList ? settings.CustomItemListString : null,
+                GossipHints = randomized.GossipQuotes.ToDictionary(me => (GossipQuote) me.Id, me => plainTextRegex.Replace(me.Message.Replace("\x11", " "), "").Substring(1)),
             };
 
             if (settings.GenerateHTMLLog)
@@ -84,6 +88,18 @@ namespace MMRando.Utils
             foreach (var item in spoiler.ItemList.OrderBy(i => i.NewLocationId))
             {
                 log.AppendLine($"{item.NewLocationName,-50} -> {item.Name}");
+            }
+
+            if (spoiler.GossipHints.Any())
+            {
+                log.AppendLine();
+                log.AppendLine();
+
+                log.AppendLine($" {"Gossip Stone",-25}    {"Message"}");
+                foreach (var hint in spoiler.GossipHints.OrderBy(h => h.Key.ToString()))
+                {
+                    log.AppendLine($"{hint.Key,-25} -> {hint.Value}");
+                }
             }
 
             using (StreamWriter sw = new StreamWriter(path))

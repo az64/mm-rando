@@ -231,64 +231,104 @@ namespace MMRando.GameObjects
 
 
         // Moon Gossip Stones
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskTruth), GossipAlreadyAcquiredTextId(0x2103)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskTruth)]
         MoonMaskTruth = 0x20D4,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskTruth, true)]
+        MoonMaskTruthClear = 0x2103,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskKafei), GossipAlreadyAcquiredTextId(0x2104)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskKafei)]
         MoonMaskKafei = 0x20D5,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskKafei, true)]
+        MoonMaskKafeiClear = 0x2104,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskAllNight), GossipAlreadyAcquiredTextId(0x2105)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskAllNight)]
         MoonMaskAllNight = 0x20D6,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskAllNight, true)]
+        MoonMaskAllNightClear = 0x2105,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskBunnyHood), GossipAlreadyAcquiredTextId(0x2106)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskBunnyHood)]
         MoonMaskBunnyHood = 0x20D7,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskBunnyHood, true)]
+        MoonMaskBunnyHoodClear = 0x2106,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskKeaton), GossipAlreadyAcquiredTextId(0x2107)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskKeaton)]
         MoonMaskKeaton = 0x20D8,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskKeaton, true)]
+        MoonMaskKeatonClear = 0x2107,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskGaro), GossipAlreadyAcquiredTextId(0x2108)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskGaro)]
         MoonMaskGaro = 0x20D9,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskGaro, true)]
+        MoonMaskGaroClear = 0x2108,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskRomani), GossipAlreadyAcquiredTextId(0x2109)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskRomani)]
         MoonMaskRomani = 0x20DA,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskRomani, true)]
+        MoonMaskRomaniClear = 0x2109,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskCircusLeader), GossipAlreadyAcquiredTextId(0x210A)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskCircusLeader)]
         MoonMaskCircusLeader = 0x20DB,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskCircusLeader, true)]
+        MoonMaskCircusLeaderClear = 0x210A,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskPostmanHat), GossipAlreadyAcquiredTextId(0x210B)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskPostmanHat)]
         MoonMaskPostmanHat = 0x20DC,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskPostmanHat, true)]
+        MoonMaskPostmanHatClear = 0x210B,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskCouple), GossipAlreadyAcquiredTextId(0x210C)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskCouple)]
         MoonMaskCouple = 0x20DD,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskCouple, true)]
+        MoonMaskCoupleClear = 0x210C,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskGreatFairy), GossipAlreadyAcquiredTextId(0x210D)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskGreatFairy)]
         MoonMaskGreatFairy = 0x20DE,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskGreatFairy, true)]
+        MoonMaskGreatFairyClear = 0x210D,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskGibdo), GossipAlreadyAcquiredTextId(0x210E)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskGibdo)]
         MoonMaskGibdo = 0x20DF,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskGibdo, true)]
+        MoonMaskGibdoClear = 0x210E,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskDonGero), GossipAlreadyAcquiredTextId(0x210F)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskDonGero)]
         MoonMaskDonGero = 0x20E0,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskDonGero, true)]
+        MoonMaskDonGeroClear = 0x210F,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskKamaro), GossipAlreadyAcquiredTextId(0x2110)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskKamaro)]
         MoonMaskKamaro = 0x20E1,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskKamaro, true)]
+        MoonMaskKamaroClear = 0x2110,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskCaptainHat), GossipAlreadyAcquiredTextId(0x2111)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskCaptainHat)]
         MoonMaskCaptainHat = 0x20E2,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskCaptainHat, true)]
+        MoonMaskCaptainHatClear = 0x2111,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskStone), GossipAlreadyAcquiredTextId(0x2112)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskStone)]
         MoonMaskStone = 0x20E3,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskStone, true)]
+        MoonMaskStoneClear = 0x2112,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskBremen), GossipAlreadyAcquiredTextId(0x2113)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskBremen)]
         MoonMaskBremen = 0x20E4,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskBremen, true)]
+        MoonMaskBremenClear = 0x2113,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskBlast), GossipAlreadyAcquiredTextId(0x2114)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskBlast)]
         MoonMaskBlast = 0x20E5,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskBlast, true)]
+        MoonMaskBlastClear = 0x2114,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskScents), GossipAlreadyAcquiredTextId(0x2115)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskScents)]
         MoonMaskScents = 0x20E6,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskScents, true)]
+        MoonMaskScentsClear = 0x2115,
 
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskGiant), GossipAlreadyAcquiredTextId(0x2116)]
-        MomonMaskGiant = 0x20E7,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskGiant)]
+        MoonMaskGiant = 0x20E7,
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Items.MaskGiant, true)]
+        MoonMaskGiantClear = 0x2116,
     }
 }
