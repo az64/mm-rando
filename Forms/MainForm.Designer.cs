@@ -50,7 +50,6 @@ namespace MMRando
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cAdditional = new System.Windows.Forms.CheckBox();
-            this.cGossip = new System.Windows.Forms.CheckBox();
             this.cSoS = new System.Windows.Forms.CheckBox();
             this.cMixSongs = new System.Windows.Forms.CheckBox();
             this.cEnemy = new System.Windows.Forms.CheckBox();
@@ -302,7 +301,6 @@ namespace MMRando
             this.tabMain.Controls.Add(this.label3);
             this.tabMain.Controls.Add(this.label2);
             this.tabMain.Controls.Add(this.cAdditional);
-            this.tabMain.Controls.Add(this.cGossip);
             this.tabMain.Controls.Add(this.cSoS);
             this.tabMain.Controls.Add(this.cUserItems);
             this.tabMain.Controls.Add(this.cMixSongs);
@@ -328,7 +326,7 @@ namespace MMRando
             this.cMoonItems.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cMoonItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cMoonItems.ForeColor = System.Drawing.Color.Black;
-            this.cMoonItems.Location = new System.Drawing.Point(226, 147);
+            this.cMoonItems.Location = new System.Drawing.Point(226, 124);
             this.cMoonItems.Name = "cMoonItems";
             this.cMoonItems.Size = new System.Drawing.Size(80, 17);
             this.cMoonItems.TabIndex = 15;
@@ -365,28 +363,13 @@ namespace MMRando
             this.cAdditional.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cAdditional.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cAdditional.ForeColor = System.Drawing.Color.Black;
-            this.cAdditional.Location = new System.Drawing.Point(208, 170);
+            this.cAdditional.Location = new System.Drawing.Point(208, 147);
             this.cAdditional.Name = "cAdditional";
             this.cAdditional.Size = new System.Drawing.Size(98, 17);
             this.cAdditional.TabIndex = 12;
             this.cAdditional.Text = "Everything else";
             this.cAdditional.UseVisualStyleBackColor = false;
             this.cAdditional.CheckedChanged += new System.EventHandler(this.cAdditional_CheckedChanged);
-            // 
-            // cGossip
-            // 
-            this.cGossip.AutoSize = true;
-            this.cGossip.BackColor = System.Drawing.Color.Transparent;
-            this.cGossip.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cGossip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cGossip.ForeColor = System.Drawing.Color.Black;
-            this.cGossip.Location = new System.Drawing.Point(194, 101);
-            this.cGossip.Name = "cGossip";
-            this.cGossip.Size = new System.Drawing.Size(112, 17);
-            this.cGossip.TabIndex = 11;
-            this.cGossip.Text = "Gossip stone hints";
-            this.cGossip.UseVisualStyleBackColor = false;
-            this.cGossip.CheckedChanged += new System.EventHandler(this.cGossip_CheckedChanged);
             // 
             // cSoS
             // 
@@ -470,7 +453,7 @@ namespace MMRando
             this.cDEnt.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cDEnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cDEnt.ForeColor = System.Drawing.Color.Black;
-            this.cDEnt.Location = new System.Drawing.Point(186, 124);
+            this.cDEnt.Location = new System.Drawing.Point(186, 101);
             this.cDEnt.Name = "cDEnt";
             this.cDEnt.Size = new System.Drawing.Size(120, 17);
             this.cDEnt.TabIndex = 7;
@@ -1310,7 +1293,6 @@ namespace MMRando
         private System.Windows.Forms.ComboBox cDType;
         private System.Windows.Forms.ComboBox cDMult;
         private System.Windows.Forms.ComboBox cGravity;
-        private System.Windows.Forms.CheckBox cGossip;
         private System.Windows.Forms.SaveFileDialog saveWad;
         private System.Windows.Forms.CheckBox cVC;
         private System.Windows.Forms.CheckBox cN64;

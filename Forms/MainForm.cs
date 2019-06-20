@@ -73,7 +73,6 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cShop, "Enable shop items being placed in the randomization pool.");
             TooltipBuilder.SetTooltip(cBottled, "Enable captured bottle contents being randomized.");
             TooltipBuilder.SetTooltip(cSoS, "Exclude song of soaring from being placed in the randomization pool.");
-            TooltipBuilder.SetTooltip(cGossip, "Enable gossip stones displaying hints on where certain items are located.");
             TooltipBuilder.SetTooltip(cDEnt, "Enable randomization of dungeon entrances. \n\nStone Tower Temple is always vanilla, but Inverted Stone Tower Temple is randomized.");
             TooltipBuilder.SetTooltip(cAdditional, "Enable miscellaneous items being placed in the randomization pool.\n\nAmong the miscellaneous items are:\nFreestanding heartpieces, overworld chests, (hidden) grotto chests, Tingle's maps and bank heartpiece.");
             TooltipBuilder.SetTooltip(cEnemy, "Enable randomization of enemies. May cause softlocks in some circumstances, use at your own risk.");
@@ -260,7 +259,6 @@ namespace MMRando
         {
             cUserItems.Checked = _settings.UseCustomItemList;
             cAdditional.Checked = _settings.AddOther;
-            cGossip.Checked = _settings.EnableGossipHints;
             cSoS.Checked = _settings.ExcludeSongOfSoaring;
             cSpoiler.Checked = _settings.GenerateSpoilerLog;
             cMixSongs.Checked = _settings.AddSongs;
@@ -410,11 +408,6 @@ namespace MMRando
             UpdateSingleSetting(() => _settings.FloorType = (FloorType)cFloors.SelectedIndex);
         }
 
-        private void cGossip_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateSingleSetting(() => _settings.EnableGossipHints = cGossip.Checked);
-        }
-
         private void cGravity_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.MovementMode = (MovementMode)cGravity.SelectedIndex);
@@ -556,7 +549,7 @@ namespace MMRando
                 cBottled.Enabled = false;
                 cShop.Enabled = false;
                 cSpoiler.Enabled = false;
-                cGossip.Enabled = false;
+                cGossipHints.Enabled = false;
                 cAdditional.Enabled = false;
                 cUserItems.Enabled = false;
                 cMoonItems.Enabled = false;
@@ -570,7 +563,7 @@ namespace MMRando
                 cBottled.Enabled = onMainTab;
                 cShop.Enabled = onMainTab;
                 cSpoiler.Enabled = onMainTab;
-                cGossip.Enabled = onMainTab;
+                cGossipHints.Enabled = onMainTab;
                 cAdditional.Enabled = onMainTab;
                 cUserItems.Enabled = onMainTab;
                 cMoonItems.Enabled = onMainTab;
@@ -598,6 +591,15 @@ namespace MMRando
                     cAdditional.Enabled = onMainTab;
                     cMoonItems.Enabled = onMainTab;
                 }
+            }
+
+            if (_settings.GossipHintStyle == GossipHintStyle.Default)
+            {
+                cClearHints.Enabled = false;
+            }
+            else
+            {
+                cClearHints.Enabled = onMainTab;
             }
         }
 
@@ -646,7 +648,6 @@ namespace MMRando
             cClockSpeed.Enabled = v;
             cGossipHints.Enabled = v;
             cHideClock.Enabled = v;
-            cGossip.Enabled = v;
             cGravity.Enabled = v;
             cLink.Enabled = v;
             cMixSongs.Enabled = v;
@@ -693,7 +694,6 @@ namespace MMRando
             cClockSpeed.SelectedIndex = 0;
             cSpoiler.Checked = true;
             cSoS.Checked = true;
-            cGossip.Checked = true;
             cNoDowngrades.Checked = true;
             cCutsc.Checked = true;
             cQText.Checked = true;
@@ -703,7 +703,6 @@ namespace MMRando
             _settings.GenerateROM = true;
             _settings.GenerateSpoilerLog = true;
             _settings.ExcludeSongOfSoaring = true;
-            _settings.EnableGossipHints = true;
             _settings.ShortenCutscenes = true;
             _settings.QuickTextEnabled = true;
             _settings.TunicColor = bTunic.BackColor;

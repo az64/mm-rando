@@ -1456,7 +1456,7 @@ namespace MMRando
                 RandomizeItems();
 
 
-                if (_settings.EnableGossipHints)
+                if (_settings.GossipHintStyle != GossipHintStyle.Default)
                 {
                     worker.ReportProgress(35, "Making gossip quotes...");
 

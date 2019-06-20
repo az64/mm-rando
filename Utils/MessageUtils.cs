@@ -114,7 +114,7 @@ namespace MMRando.Utils
 
         public static List<MessageEntry> MakeGossipQuotes(RandomizedResult randomizedResult)
         {
-            if (!randomizedResult.Settings.EnableGossipHints)
+            if (randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Default)
                 return new List<MessageEntry>();
 
             var GossipList = GetGossipList();

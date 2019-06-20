@@ -467,7 +467,7 @@ namespace MMRando
                 WriteFreeHints();
             }
 
-            if (_settings.EnableGossipHints)
+            if (_settings.GossipHintStyle != GossipHintStyle.Default)
             {
                 _messageTable.UpdateMessages(_randomized.GossipQuotes);
             }
