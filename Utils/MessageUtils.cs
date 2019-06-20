@@ -213,6 +213,10 @@ namespace MMRando.Utils
             {
                 CheckedItems = new Dictionary<int, List<int>>();
                 var itemsRequiredByLogic = GetRequiredItems(Items.AreaMoonAccess, randomizedResult.ItemList, randomizedResult.Logic, new List<int> { Items.AreaMoonAccess });
+                if (itemsRequiredByLogic == null)
+                {
+                    throw new Exception("Unable to generate competitive hints, because Moon Access is unobtainable.");
+                }
 
                 var requiredHints = new List<string>();
                 var nonRequiredHints = new List<string>();
