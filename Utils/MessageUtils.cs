@@ -39,79 +39,6 @@ namespace MMRando.Utils
             return gossipList;
         }
 
-        private static Dictionary<int, List<int>> CheckedItems;
-        private static List<int> GetRequiredItems(int itemId, List<ItemObject> allItems, List<ItemLogic> itemLogic, List<int> logicPath)
-        {
-            if (CheckedItems.ContainsKey(itemId))
-            {
-                return CheckedItems[itemId];
-            }
-            var itemObject = allItems[itemId];
-            var locationId = itemObject.ReplacesAnotherItem ? itemObject.ReplacesItemId : itemId;
-            var locationLogic = itemLogic[locationId];
-            var result = new List<int>();
-            if (locationLogic.RequiredItemIds != null)
-            {
-                foreach (var requiredItemId in locationLogic.RequiredItemIds)
-                {
-                    if (logicPath.Contains(requiredItemId))
-                    {
-                        return null;
-                    }
-                    var childPath = logicPath.ToList();
-                    childPath.Add(requiredItemId);
-                    var requiredChildren = GetRequiredItems(requiredItemId, allItems, itemLogic, childPath);
-                    if (requiredChildren == null)
-                    {
-                        return null;
-                    }
-                    result.Add(requiredItemId);
-                    result.AddRange(requiredChildren);
-                }
-            }
-            if (locationLogic.ConditionalItemIds != null)
-            {
-                List<int> lowestRequirements = null;
-                foreach (var conditions in locationLogic.ConditionalItemIds)
-                {
-                    var conditionalRequirements = new List<int>();
-                    foreach (var conditionalItemId in conditions)
-                    {
-                        if (logicPath.Contains(conditionalItemId))
-                        {
-                            conditionalRequirements = null;
-                            break;
-                        }
-
-                        var childPath = logicPath.ToList();
-                        childPath.Add(conditionalItemId);
-                        var requiredChildren = GetRequiredItems(conditionalItemId, allItems, itemLogic, childPath);
-                        if (requiredChildren == null)
-                        {
-                            conditionalRequirements = null;
-                            break;
-                        }
-
-                        conditionalRequirements.Add(conditionalItemId);
-                        conditionalRequirements.AddRange(requiredChildren);
-                    }
-                    conditionalRequirements = conditionalRequirements?.Distinct().ToList();
-                    if (conditionalRequirements != null && (lowestRequirements == null || conditionalRequirements.Count < lowestRequirements.Count))
-                    {
-                        lowestRequirements = conditionalRequirements;
-                    }
-                }
-                if (lowestRequirements == null)
-                {
-                    return null;
-                }
-                result.AddRange(lowestRequirements);
-            }
-            result = result.Distinct().ToList();
-            CheckedItems[itemId] = result;
-            return result;
-        }
-
         public static List<MessageEntry> MakeGossipQuotes(RandomizedResult randomizedResult)
         {
             if (randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Default)
@@ -211,18 +138,11 @@ namespace MMRando.Utils
 
             if (randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Competitive)
             {
-                CheckedItems = new Dictionary<int, List<int>>();
-                var itemsRequiredByLogic = GetRequiredItems(Items.AreaMoonAccess, randomizedResult.ItemList, randomizedResult.Logic, new List<int> { Items.AreaMoonAccess });
-                if (itemsRequiredByLogic == null)
-                {
-                    throw new Exception("Unable to generate competitive hints, because Moon Access is unobtainable.");
-                }
-
                 var requiredHints = new List<string>();
                 var nonRequiredHints = new List<string>();
                 foreach (var kvp in itemsInRegions)
                 {
-                    var regionIsWayOfTheHero = kvp.Value.Any(io => itemsRequiredByLogic.Contains(io.ID));
+                    var regionHasRequiredItem = kvp.Value.Any(io => randomizedResult.RequiredItemsForMoonAccess.Contains(io.ID));
 
                     ushort soundEffectId = 0x690C; // grandma curious
                     string start = Gossip.MessageStartSentences.Random(randomizedResult.Random);
@@ -230,10 +150,10 @@ namespace MMRando.Utils
                     string sfx = $"{(char)((soundEffectId >> 8) & 0xFF)}{(char)(soundEffectId & 0xFF)}";
                     var locationMessage = kvp.Key;
                     var mid = "is";
-                    var itemMessage = regionIsWayOfTheHero
+                    var itemMessage = regionHasRequiredItem
                         ? "on the Way of the Hero"
                         : "a foolish choice";
-                    var list = regionIsWayOfTheHero
+                    var list = regionHasRequiredItem
                         ? requiredHints
                         : nonRequiredHints;
 

@@ -27,6 +27,8 @@ namespace MMRando.Models
 
         public Dictionary<GossipQuote, string> GossipHints { get; set; }
 
+        public List<SpoilerItem> PathToMoon { get; set; }
+
         public string CustomItemListString { get; set; }
 
         public string LogicJson

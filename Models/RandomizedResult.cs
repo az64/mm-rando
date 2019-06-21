@@ -2,6 +2,7 @@
 using MMRando.Models.Settings;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace MMRando.Models
 {
@@ -12,6 +13,7 @@ namespace MMRando.Models
         public List<ItemObject> ItemList { get; set; }
         public List<MessageEntry> GossipQuotes { get; set; }
         public List<ItemLogic> Logic { get; set; }
+        public ReadOnlyCollection<int> RequiredItemsForMoonAccess { get; set; }
 
         public int[] NewEntrances = new int[] { -1, -1, -1, -1 };
         public int[] NewExits = new int[] { -1, -1, -1, -1 };

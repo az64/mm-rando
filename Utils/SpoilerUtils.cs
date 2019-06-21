@@ -13,9 +13,7 @@ namespace MMRando.Utils
         public static void CreateSpoilerLog(RandomizedResult randomized, SettingsObject settings)
         {
             var itemList = randomized.ItemList
-                .Where(u => u.ReplacesAnotherItem)
-                .Select(u => new SpoilerItem(u))
-                .ToList();
+                .Select(u => new SpoilerItem(u, randomized.ItemList.SingleOrDefault(io => io.ID == u.ReplacesItemId)?.Name));
             var settingsString = settings.ToString();
 
             var directory = Path.GetDirectoryName(settings.OutputROMFilename);
@@ -28,11 +26,11 @@ namespace MMRando.Utils
                 SettingsString = settingsString,
                 Seed = settings.Seed,
                 RandomizeDungeonEntrances = settings.RandomizeDungeonEntrances,
-                ItemList = itemList,
+                ItemList = itemList.Where(u => !ItemUtils.IsFakeItem(u.Id)).ToList(),
                 NewDestinationIndices = randomized.NewDestinationIndices,
                 Logic = randomized.Logic,
                 CustomItemListString = settings.UseCustomItemList ? settings.CustomItemListString : null,
-                GossipHints = randomized.GossipQuotes.ToDictionary(me => (GossipQuote) me.Id, (me) =>
+                GossipHints = randomized.GossipQuotes?.ToDictionary(me => (GossipQuote) me.Id, (me) =>
                 {
                     var message = me.Message.Substring(1);
                     var soundEffect = message.Substring(0, 2);
@@ -53,6 +51,7 @@ namespace MMRando.Utils
                     }
                     return plainTextRegex.Replace(message.Replace("\x11", " "), "");
                 }),
+                PathToMoon = randomized.RequiredItemsForMoonAccess.Select(id => itemList.Single(si => si.Id == id)).ToList()
             };
 
             if (settings.GenerateHTMLLog)
@@ -110,7 +109,21 @@ namespace MMRando.Utils
                 log.AppendLine($"{item.NewLocationName,-50} -> {item.Name}");
             }
 
-            if (spoiler.GossipHints.Any())
+            if (spoiler.PathToMoon.Any())
+            {
+                log.AppendLine();
+                log.AppendLine();
+
+                log.AppendLine(" Path to the Moon");
+                log.AppendLine($" {"Item",-50}    {"Location"}");
+                foreach (var item in spoiler.PathToMoon)
+                {
+                    log.AppendLine($"{item.Name,-50}" + (!ItemUtils.IsFakeItem(item.Id) ? $" -> {item.NewLocationName}" : ""));
+                }
+            }
+
+
+            if (spoiler.GossipHints != null && spoiler.GossipHints.Any())
             {
                 log.AppendLine();
                 log.AppendLine();

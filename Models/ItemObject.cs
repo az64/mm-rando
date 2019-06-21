@@ -5,6 +5,7 @@ namespace MMRando.Models
     public class ItemObject
     {
         public int ID { get; set; }
+        public string Name { get; set; }
         public List<int> DependsOnItems { get; set; } = new List<int>();
         public List<List<int>> Conditionals { get; set; } = new List<List<int>>();
         public List<int> CannotRequireItems { get; set; } = new List<int>();
