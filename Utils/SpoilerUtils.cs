@@ -21,7 +21,7 @@ namespace MMRando.Utils
             var directory = Path.GetDirectoryName(settings.OutputROMFilename);
             var filename = $"{Path.GetFileNameWithoutExtension(settings.OutputROMFilename)}";
 
-            var plainTextRegex = new Regex("[^a-zA-Z0-9' .]+");
+            var plainTextRegex = new Regex("[^a-zA-Z0-9' .\\-]+");
             Spoiler spoiler = new Spoiler()
             {
                 Version = MainForm.AssemblyVersion.Substring(26),
@@ -32,7 +32,27 @@ namespace MMRando.Utils
                 NewDestinationIndices = randomized.NewDestinationIndices,
                 Logic = randomized.Logic,
                 CustomItemListString = settings.UseCustomItemList ? settings.CustomItemListString : null,
-                GossipHints = randomized.GossipQuotes.ToDictionary(me => (GossipQuote) me.Id, me => plainTextRegex.Replace(me.Message.Replace("\x11", " "), "").Substring(1)),
+                GossipHints = randomized.GossipQuotes.ToDictionary(me => (GossipQuote) me.Id, (me) =>
+                {
+                    var message = me.Message.Substring(1);
+                    var soundEffect = message.Substring(0, 2);
+                    message = message.Substring(2);
+                    if (soundEffect == "\x69\x0C")
+                    {
+                        // real
+                    }
+                    else if (soundEffect == "\x69\x0A")
+                    {
+                        // fake
+                        message = "FAKE - " + message;
+                    }
+                    else
+                    {
+                        // junk
+                        message = "JUNK - " + message;
+                    }
+                    return plainTextRegex.Replace(message.Replace("\x11", " "), "");
+                }),
             };
 
             if (settings.GenerateHTMLLog)
