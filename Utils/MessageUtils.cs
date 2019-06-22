@@ -142,7 +142,7 @@ namespace MMRando.Utils
                 var nonRequiredHints = new List<string>();
                 foreach (var kvp in itemsInRegions)
                 {
-                    var regionHasRequiredItem = kvp.Value.Any(io => randomizedResult.RequiredItemsForMoonAccess.Contains(io.ID));
+                    var regionHasRequiredItem = kvp.Value.Any(io => randomizedResult.RequiredItemsForMoonAccess.Any(mpi => mpi.ItemId == io.ID));
 
                     ushort soundEffectId = 0x690C; // grandma curious
                     string start = Gossip.MessageStartSentences.Random(randomizedResult.Random);

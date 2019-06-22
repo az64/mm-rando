@@ -1,13 +1,9 @@
 ﻿using MMRando.GameObjects;
-using MMRando.Models;
-using MMRando.Models.Rom;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Json;
-using System.Text;
 
 namespace MMRando.Models
 {
@@ -27,7 +23,7 @@ namespace MMRando.Models
 
         public Dictionary<GossipQuote, string> GossipHints { get; set; }
 
-        public List<SpoilerItem> PathToMoon { get; set; }
+        public ReadOnlyCollection<Tuple<int, SpoilerItem>> PathToMoon { get; set; }
 
         public string CustomItemListString { get; set; }
 

@@ -32,5 +32,10 @@ namespace MMRando.Extensions
             }
             return list[random.Next(list.Count)];
         }
+
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        {
+            return source.Distinct(new KeyEqualityComparer<TSource, TKey>(keySelector));
+        }
     }
 }

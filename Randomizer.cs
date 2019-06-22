@@ -1,4 +1,5 @@
 using MMRando.Constants;
+using MMRando.Extensions;
 using MMRando.LogicMigrator;
 using MMRando.Models;
 using MMRando.Models.Rom;
@@ -1430,8 +1431,8 @@ namespace MMRando
                 }
             }
         }
-        
-        private ReadOnlyCollection<int> GetRequiredItems(int itemId, List<ItemLogic> itemLogic, List<int> logicPath = null, Dictionary<int, ReadOnlyCollection<int>> checkedItems = null)
+
+        private ReadOnlyCollection<MoonPathItem> GetRequiredItems(int itemId, List<ItemLogic> itemLogic, List<int> logicPath = null, Dictionary<int, ReadOnlyCollection<MoonPathItem>> checkedItems = null, int depth = 0)
         {
             if (logicPath == null)
             {
@@ -1444,48 +1445,49 @@ namespace MMRando
             logicPath.Add(itemId);
             if (checkedItems == null)
             {
-                checkedItems = new Dictionary<int, ReadOnlyCollection<int>>();
+                checkedItems = new Dictionary<int, ReadOnlyCollection<MoonPathItem>>();
             }
             if (checkedItems.ContainsKey(itemId))
             {
-                return checkedItems[itemId];
+                var oldMinDepth = checkedItems[itemId].Min(t => (int?)t.Depth) ?? 0;
+                return checkedItems[itemId].Select(mpi => new MoonPathItem(mpi.Depth - oldMinDepth + depth, mpi.ItemId)).ToList().AsReadOnly();
             }
             var itemObject = ItemList[itemId];
             var locationId = itemObject.ReplacesAnotherItem ? itemObject.ReplacesItemId : itemId;
             var locationLogic = itemLogic[locationId];
-            var result = new List<int>();
+            var result = new List<MoonPathItem>();
             if (locationLogic.RequiredItemIds != null)
             {
                 foreach (var requiredItemId in locationLogic.RequiredItemIds)
                 {
-                    var requiredChildren = GetRequiredItems(requiredItemId, itemLogic, logicPath.ToList(), checkedItems);
+                    var requiredChildren = GetRequiredItems(requiredItemId, itemLogic, logicPath.ToList(), checkedItems, depth + 1);
                     if (requiredChildren == null)
                     {
                         return null;
                     }
-                    result.Add(requiredItemId);
+                    result.Add(new MoonPathItem(depth, requiredItemId));
                     result.AddRange(requiredChildren);
                 }
             }
             if (locationLogic.ConditionalItemIds != null)
             {
-                List<int> lowestRequirements = null;
+                List<MoonPathItem> lowestRequirements = null;
                 foreach (var conditions in locationLogic.ConditionalItemIds)
                 {
-                    var conditionalRequirements = new List<int>();
+                    var conditionalRequirements = new List<MoonPathItem>();
                     foreach (var conditionalItemId in conditions)
                     {
-                        var requiredChildren = GetRequiredItems(conditionalItemId, itemLogic, logicPath.ToList(), checkedItems);
+                        var requiredChildren = GetRequiredItems(conditionalItemId, itemLogic, logicPath.ToList(), checkedItems, depth + 1);
                         if (requiredChildren == null)
                         {
                             conditionalRequirements = null;
                             break;
                         }
 
-                        conditionalRequirements.Add(conditionalItemId);
+                        conditionalRequirements.Add(new MoonPathItem(depth, conditionalItemId));
                         conditionalRequirements.AddRange(requiredChildren);
                     }
-                    conditionalRequirements = conditionalRequirements?.Distinct().ToList();
+                    conditionalRequirements = conditionalRequirements?.DistinctBy(mpi => mpi.ItemId).ToList();
                     if (conditionalRequirements != null && (lowestRequirements == null || conditionalRequirements.Count < lowestRequirements.Count))
                     {
                         lowestRequirements = conditionalRequirements;
@@ -1497,7 +1499,7 @@ namespace MMRando
                 }
                 result.AddRange(lowestRequirements);
             }
-            var readonlyResult = result.Distinct().ToList().AsReadOnly();
+            var readonlyResult = result.DistinctBy(mpi => mpi.ItemId).ToList().AsReadOnly();
             checkedItems[itemId] = readonlyResult;
             return readonlyResult;
         }

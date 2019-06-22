@@ -1,6 +1,7 @@
 ﻿using MMRando.GameObjects;
 using MMRando.Models;
 using MMRando.Models.Settings;
+using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -51,7 +52,7 @@ namespace MMRando.Utils
                     }
                     return plainTextRegex.Replace(message.Replace("\x11", " "), "");
                 }),
-                PathToMoon = randomized.RequiredItemsForMoonAccess.Select(id => itemList.Single(si => si.Id == id)).ToList()
+                PathToMoon = randomized.RequiredItemsForMoonAccess.Select(mpi => new Tuple<int, SpoilerItem>(mpi.Depth, itemList.Single(si => si.Id == mpi.ItemId))).ToList().AsReadOnly()
             };
 
             if (settings.GenerateHTMLLog)
@@ -116,9 +117,37 @@ namespace MMRando.Utils
 
                 log.AppendLine(" Path to the Moon");
                 log.AppendLine($" {"Item",-50}    {"Location"}");
-                foreach (var item in spoiler.PathToMoon)
+                for (var i = 0; i < spoiler.PathToMoon.Count; i++)
                 {
-                    log.AppendLine($"{item.Name,-50}" + (!ItemUtils.IsFakeItem(item.Id) ? $" -> {item.NewLocationName}" : ""));
+                    var item = spoiler.PathToMoon[i];
+                    var prefix = "";
+                    for (var j = 0; j < item.Item1; j++)
+                    {
+                        // draw ├ or └
+                        var hasMore = false;
+                        var lastDepth = j == item.Item1 - 1;
+                        for (var k = i + 1; k < spoiler.PathToMoon.Count; k++)
+                        {
+                            if (spoiler.PathToMoon[k].Item1 - 1 == j)
+                            {
+                                hasMore = true;
+                                break;
+                            }
+                            if (spoiler.PathToMoon[k].Item1 - 1 < j)
+                            {
+                                break;
+                            }
+                        }
+                        if (hasMore)
+                        {
+                            prefix += lastDepth ? "├" : "│";
+                        }
+                        else
+                        {
+                            prefix += lastDepth ? "└" : " ";
+                        }
+                    }
+                    log.AppendLine($"{prefix + item.Item2.Name,-50}" + (!ItemUtils.IsFakeItem(item.Item2.Id) ? $" -> {item.Item2.NewLocationName}" : ""));
                 }
             }
 

@@ -13,7 +13,7 @@ namespace MMRando.Models
         public List<ItemObject> ItemList { get; set; }
         public List<MessageEntry> GossipQuotes { get; set; }
         public List<ItemLogic> Logic { get; set; }
-        public ReadOnlyCollection<int> RequiredItemsForMoonAccess { get; set; }
+        public ReadOnlyCollection<MoonPathItem> RequiredItemsForMoonAccess { get; set; }
 
         public int[] NewEntrances = new int[] { -1, -1, -1, -1 };
         public int[] NewExits = new int[] { -1, -1, -1, -1 };
