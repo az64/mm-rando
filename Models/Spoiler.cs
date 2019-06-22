@@ -23,8 +23,6 @@ namespace MMRando.Models
 
         public Dictionary<GossipQuote, string> GossipHints { get; set; }
 
-        public ReadOnlyCollection<Tuple<int, SpoilerItem>> PathToMoon { get; set; }
-
         public string CustomItemListString { get; set; }
 
         public string LogicJson
