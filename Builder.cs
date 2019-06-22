@@ -49,8 +49,8 @@ namespace MMRando
             if (_settings.NoBGM)
             {
                 var codeFileAddress = 0xB3C000;
-                var offset = 0x135A08; // address is read when scene music is loaded
-                ReadWriteUtils.WriteToROM(codeFileAddress + offset, 0x01); // change to non-zero so it doesn't play
+                var offset = 0x102350; // address for branch when scene music is loaded
+                ReadWriteUtils.WriteToROM(codeFileAddress + offset, 0x1000); // change to always branch (do not load)
             }
         }
 
