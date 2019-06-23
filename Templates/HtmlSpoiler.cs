@@ -99,7 +99,7 @@ namespace MMRando.Templates
             this.Write("\"></span></td>\r\n </tr>\r\n");
  } 
             this.Write("</table>\r\n");
- if (spoiler.GossipHints.Any()) { 
+ if (spoiler.GossipHints != null && spoiler.GossipHints.Any()) { 
 
             this.Write("<h2>Gossip Stone Hints</h2>\r\n<table border=\"1\">\r\n\t<tr>\r\n\t\t<th>Gossip Stone</th>\r\n" +
                     "\t\t<th>Message</th>\r\n\t</tr>\r\n");

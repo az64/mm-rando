@@ -75,7 +75,7 @@
  </tr>
 <# } #>
 </table>
-<# if (spoiler.GossipHints.Any()) { 
+<# if (spoiler.GossipHints != null && spoiler.GossipHints.Any()) { 
 #>
 <h2>Gossip Stone Hints</h2>
 <table border="1">
