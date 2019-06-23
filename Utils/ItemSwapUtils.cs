@@ -154,12 +154,9 @@ namespace MMRando.Utils
             }
         }
 
-        public static void WriteNewItem(int location, int item)
+        public static void WriteNewItem(int location, int item, bool isRepeatable, bool isCycleRepeatable)
         {
             System.Diagnostics.Debug.WriteLine($"Writing {Items.ITEM_NAMES[item]} --> {Items.ITEM_NAMES[location]}");
-
-            bool isRepeatable = Items.REPEATABLE.Contains(item);
-            bool isCycleRepeatable = Items.CYCLE_REPEATABLE.Contains(item);
 
             location = ItemUtils.SubtractItemOffset(location);
             item = ItemUtils.SubtractItemOffset(item);

@@ -433,6 +433,14 @@ namespace MMRando
 
             foreach (var item in _randomized.ItemList)
             {
+                bool isRepeatable = Items.REPEATABLE.Contains(item.ID);
+                bool isCycleRepeatable = Items.CYCLE_REPEATABLE.Contains(item.ID);
+
+                if (!_settings.PreventDowngrades)
+                {
+                    isRepeatable |= Items.DOWNGRADABLE_ITEMS.Contains(item.ID);
+                }
+
                 // Unused item
                 if (!item.ReplacesAnotherItem)
                 {
@@ -445,7 +453,7 @@ namespace MMRando
                 }
                 else
                 {
-                    ItemSwapUtils.WriteNewItem(item.ReplacesItemId, item.ID);
+                    ItemSwapUtils.WriteNewItem(item.ReplacesItemId, item.ID, isRepeatable, isCycleRepeatable);
                 }
             }
 

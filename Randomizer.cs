@@ -51,7 +51,7 @@ namespace MMRando
         }
 
         // Starting items should not be replaced by trade items, or items that can be downgraded.
-        private readonly ReadOnlyCollection<int> ForbiddenStartingItems = new List<int>
+        private readonly List<int> ForbiddenStartingItems = new List<int>
             {
                 Items.ChestMountainVillageGrottoBottle,
 
@@ -62,8 +62,7 @@ namespace MMRando
             }
             .Concat(Enumerable.Range(Items.TradeItemMoonTear, Items.TradeItemMamaLetter - Items.TradeItemMoonTear + 1))
             .Concat(Enumerable.Range(Items.ItemBottleWitch, Items.ItemBottleMadameAroma - Items.ItemBottleWitch + 1))
-            .ToList()
-            .AsReadOnly();
+            .ToList();
         private readonly ReadOnlyCollection<ReadOnlyCollection<int>> ForbiddenStartTogether = new List<List<int>>()
         {
             new List<int>
@@ -122,6 +121,11 @@ namespace MMRando
         public Randomizer(SettingsObject settings)
         {
             _settings = settings;
+            if (!_settings.PreventDowngrades)
+            {
+                ForbiddenReplacedBy[Items.MaskKeaton].AddRange(Items.DOWNGRADABLE_ITEMS);
+                ForbiddenStartingItems.AddRange(Items.DOWNGRADABLE_ITEMS);
+            }
         }
 
         //rando functions

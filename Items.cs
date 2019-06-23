@@ -314,6 +314,17 @@ namespace MMRando
         public const int HeartPieceLinkTrial = 265;
         public const int MaskFierceDeity = 266;
 
+        public static readonly ReadOnlyCollection<int> DOWNGRADABLE_ITEMS
+            = new ReadOnlyCollection<int>(new int[]
+            {
+                UpgradeMirrorShield,
+                UpgradeGildedSword,
+                UpgradeBiggestQuiver,
+                UpgradeBigBombBag,
+                UpgradeBiggestBombBag,
+                UpgradeGiantWallet,
+            });
+
         public static readonly ReadOnlyCollection<int> REPEATABLE
             = new ReadOnlyCollection<int>(new int[] {
                 ItemMagicBean,
