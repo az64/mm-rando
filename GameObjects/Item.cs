@@ -15,24 +15,28 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE25, 0x01)]
         [ItemName("Hero's Bow"), LocationName("Hero's Bow Chest"), RegionName("Woodfall Temple")]
         [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("a projectile", "a ranged weapon")]
+        [GetItem(0x2F, 0x00BF)]
         [GetItemIndex(0x22)]
         ItemBow = 1,
 
         [StartingItem(0xC5CE26, 0x02)]
         [ItemName("Fire Arrow"), LocationName("Fire Arrow Chest"), RegionName("Snowhead Temple")]
         [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("the power of fire", "a magical item")]
+        [GetItem(0x48, 0x0121)]
         [GetItemIndex(0x25)]
         ItemFireArrow = 2,
 
         [StartingItem(0xC5CE27, 0x03)]
         [ItemName("Ice Arrow"), LocationName("Ice Arrow"), RegionName("Great Bay Temple")]
         [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("the power of ice", "a magical item")]
+        [GetItem(0x49, 0x0121)]
         [GetItemIndex(0x26)]
         ItemIceArrow = 3,
 
         [StartingItem(0xC5CE28, 0x04)]
         [ItemName("Light Arrow"), LocationName("Light Arrow Chest"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("the power of light", "a magical item")]
+        [GetItem(0x4A, 0x0121)]
         [GetItemIndex(0x27)]
         ItemLightArrow = 4,
 
@@ -776,18 +780,21 @@ namespace MMRando.GameObjects
         [Repeatable, CycleRepeatable]
         [ItemName("Hero's Shield"), LocationName("Trading Post Hero's Shield"), RegionName("West Clock Town")]
         [GossipLocationHint("a town merchant", "a convenience store", "a market"), GossipItemHint("a basic guard", "protection")]
+        [ShopInventory(ShopInventoryAttribute.Room.TradingPost, 0x44, 0x12A0, 0x1400)]
         [GetItemIndex(0xBC)]
         ShopItemTradingPostShield = 145,
 
         [Repeatable, CycleRepeatable]
         [ItemName("Fairy"), LocationName("Trading Post Fairy"), RegionName("West Clock Town")]
         [GossipLocationHint("a town merchant", "a convenience store", "a market"), GossipItemHint("a winged friend", "a healer")]
+        [ShopInventory(ShopInventoryAttribute.Room.TradingPost, 0x5C, 0x1240, 0x1340)]
         [GetItemIndex(0xBD)]
         ShopItemTradingPostFairy = 146,
 
         [Repeatable, CycleRepeatable]
         [ItemName("Deku Stick"), LocationName("Trading Post Deku Stick"), RegionName("West Clock Town")]
         [GossipLocationHint("a town merchant", "a convenience store", "a market"), GossipItemHint("a flammable weapon", "a flimsy weapon")]
+        [ShopInventory(ShopInventoryAttribute.Room.TradingPost, 0x48, 0x12C0, 0x13E0)]
         [GetItemIndex(0xBE)]
         ShopItemTradingPostStick = 147,
 
@@ -800,6 +807,7 @@ namespace MMRando.GameObjects
         [Repeatable, CycleRepeatable]
         [ItemName("10 Deku Nuts"), LocationName("Trading Post 10 Deku Nuts"), RegionName("West Clock Town")]
         [GossipLocationHint("a town merchant", "a convenience store", "a market"), GossipItemHint("a flashing impact")]
+        [ShopInventory(ShopInventoryAttribute.Room.TradingPost, 0x46, 0x1300, 0x13C0)]
         [GetItemIndex(0xC0)]
         ShopItemTradingPostNut10 = 149,
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using MMRando.GameObjects;
 using MMRando.Extensions;
+using MMRando.Attributes;
 
 namespace MMRando.Utils
 {
@@ -156,6 +157,24 @@ namespace MMRando.Utils
             //    WriteToROM(0xB499B2, (ushort)getItemIndex);
             //    WriteToROM(0xC72B66, (ushort)getItemIndex);
             //}
+
+            // if appearance should match get item
+            {
+                var shopInventory = location.GetAttribute<ShopInventoryAttribute>();
+                if (shopInventory != null)
+                {
+                    var getItem = item.GetAttribute<GetItemAttribute>();
+                    if (getItem != null)
+                    {
+                        ReadWriteUtils.WriteToROM(shopInventory.RoomObjectAddress, getItem.Object);
+                        foreach (var address in shopInventory.ShopAddresses)
+                        {
+                            ReadWriteUtils.WriteToROM(address, getItem.Object);
+                            ReadWriteUtils.WriteToROM(address + 3, (byte)(getItem.Index - 1));
+                        }
+                    }
+                }
+            }
         }
 
     }

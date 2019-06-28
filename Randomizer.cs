@@ -419,7 +419,7 @@ namespace MMRando
             {
                 foreach (string conditions in line.Split(';'))
                 {
-                    currentItem.Conditionals.Add(Array.ConvertAll(conditions.Split(','), int.Parse).Cast<Item>().ToList());
+                    currentItem.Conditionals.Add(Array.ConvertAll(conditions.Split(','), int.Parse).Select(i => (Item)i).ToList());
                 }
             }
         }
