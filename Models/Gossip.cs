@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using MMRando.GameObjects;
 
 namespace MMRando.Models
 {
@@ -56,19 +57,19 @@ namespace MMRando.Models
                 // todo
             });
 
-        public static readonly ReadOnlyCollection<int> GuaranteedLocationHints
-            = new ReadOnlyCollection<int>(new int[]
+        public static readonly ReadOnlyCollection<Item> GuaranteedLocationHints
+            = new ReadOnlyCollection<Item>(new Item[]
             {
-                Items.HeartPieceLabFish,
-                Items.ItemBottleDampe,
-                Items.HeartPieceDekuPlayground,
-                Items.MaskTruth,
-                Items.UpgradeGiantWallet,
-                Items.MaskRomani,
-                Items.MaskAllNight,
-                //Items.MaskScents,
-                Items.HeartPieceBoatArchery,
-                Items.ItemGoldDust
+                Item.HeartPieceLabFish,
+                Item.ItemBottleDampe,
+                Item.HeartPieceDekuPlayground,
+                Item.MaskTruth,
+                Item.UpgradeGiantWallet,
+                Item.MaskRomani,
+                Item.MaskAllNight,
+                //Item.MaskScents,
+                Item.HeartPieceBoatArchery,
+                Item.ItemGoldDust
             });
     }
 }

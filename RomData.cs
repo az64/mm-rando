@@ -9,9 +9,7 @@ namespace MMRando
         public static List<SequenceInfo> TargetSequences { get; set; }
         public static List<MMFile> MMFileList { get; set; }
         public static List<Scene> SceneList { get; set; }
-        public static List<GetItemEntry> GetItemList { get; set; }
-        public static List<BottleCatchEntry[]> BottleList { get; set; }
-        public static List<int> GetItemIndices { get; set; }
-        public static List<int[]> BottleIndices { get; set; }
+        public static Dictionary<int, GetItemEntry> GetItemList { get; set; }
+        public static Dictionary<int, BottleCatchEntry> BottleList { get; set; }
     }
 }

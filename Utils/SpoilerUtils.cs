@@ -1,4 +1,5 @@
-﻿using MMRando.GameObjects;
+﻿using MMRando.Extensions;
+using MMRando.GameObjects;
 using MMRando.Models;
 using MMRando.Models.Settings;
 using System;
@@ -14,7 +15,7 @@ namespace MMRando.Utils
         public static void CreateSpoilerLog(RandomizedResult randomized, SettingsObject settings)
         {
             var itemList = randomized.ItemList
-                .Select(u => new SpoilerItem(u, randomized.ItemList.SingleOrDefault(io => io.ID == u.ReplacesItemId)?.Name));
+                .Select(u => new SpoilerItem(u, randomized.ItemList.SingleOrDefault(io => io.Item == u.NewLocation)?.Name));
             var settingsString = settings.ToString();
 
             var directory = Path.GetDirectoryName(settings.OutputROMFilename);
@@ -27,7 +28,7 @@ namespace MMRando.Utils
                 SettingsString = settingsString,
                 Seed = settings.Seed,
                 RandomizeDungeonEntrances = settings.RandomizeDungeonEntrances,
-                ItemList = itemList.Where(u => !ItemUtils.IsFakeItem(u.Id)).ToList(),
+                ItemList = itemList.Where(u => !u.Item.IsFake()).ToList(),
                 NewDestinationIndices = randomized.NewDestinationIndices,
                 Logic = randomized.Logic,
                 CustomItemListString = settings.UseCustomItemList ? settings.CustomItemListString : null,

@@ -121,12 +121,6 @@
   <data name="ENEMIES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ENEMIES.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="GOSSIP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GOSSIP.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="ITEM_INDICES" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ITEM_INDICES.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="REQ_CASUAL" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\REQ_CASUAL.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>

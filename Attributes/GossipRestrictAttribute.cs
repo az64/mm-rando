@@ -1,18 +1,19 @@
 ﻿using System;
+using MMRando.GameObjects;
 
 namespace MMRando.Attributes
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
     public class GossipRestrictAttribute : Attribute
     {
-        public int Id { get; private set; }
+        public Item Item { get; private set; }
         public RestrictionType Type { get; private set; }
         public bool ForceClear { get; private set; }
 
-        public GossipRestrictAttribute(RestrictionType type, int id, bool forceClear = false)
+        public GossipRestrictAttribute(RestrictionType type, Item item, bool forceClear = false)
         {
             Type = type;
-            Id = id;
+            Item = item;
             ForceClear = forceClear;
         }
 

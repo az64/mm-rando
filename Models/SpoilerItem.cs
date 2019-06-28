@@ -1,7 +1,12 @@
-﻿namespace MMRando.Models
+﻿using MMRando.Extensions;
+using MMRando.GameObjects;
+
+namespace MMRando.Models
 {
     public class SpoilerItem
     {
+        public Item Item { get; private set; }
+
         public int Id { get; private set; }
         public string Name { get; private set; }
 
@@ -12,10 +17,11 @@
 
         public SpoilerItem(ItemObject itemObject, string locationName)
         {
+            Item = itemObject.Item;
             Id = itemObject.ID;
-            Name = Id < Items.ITEM_NAMES.Count ? Items.ITEM_NAMES[Id] : itemObject.Name;
-            NewLocationId = itemObject.ReplacesAnotherItem ? itemObject.ReplacesItemId : Id;
-            NewLocationName = NewLocationId < Items.LOCATION_NAMES.Count ? Items.LOCATION_NAMES[NewLocationId] : locationName;
+            Name = itemObject.Item.Name() ?? itemObject.Name;
+            NewLocationId = itemObject.NewLocation.HasValue ? (int)itemObject.NewLocation : Id;
+            NewLocationName = itemObject.NewLocation?.Location() ?? locationName;
             IsJunk = Name.Contains("Rupee") || Name.Contains("Heart");
         }
     }

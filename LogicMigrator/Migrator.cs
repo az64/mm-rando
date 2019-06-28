@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using MMRando.Extensions;
-using MMRando.Models;
 
 namespace MMRando.LogicMigrator
 {
@@ -119,29 +118,29 @@ namespace MMRando.LogicMigrator
         private static void AddMoonItems(List<string> lines)
         {
             lines[0] = "-version 2";
-            var newItems = new ItemObject[]
+            var newItems = new MigrationItem[]
             {
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 255,
                     Conditionals = Enumerable.Range(68, 20).Select(i => new List<int> { i }).ToList()
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 256,
                     Conditionals = Enumerable.Range(68, 20).Combinations(2).Select(a => a.ToList()).ToList()
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 257,
                     Conditionals = Enumerable.Range(68, 20).Combinations(3).Select(a => a.ToList()).ToList()
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 258,
                     Conditionals = Enumerable.Range(68, 20).Combinations(4).Select(a => a.ToList()).ToList()
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 259,
                     DependsOnItems = new List<int>
@@ -149,7 +148,7 @@ namespace MMRando.LogicMigrator
                         97, 100, 103, 108, 113
                     }
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 260,
                     DependsOnItems = new List<int>
@@ -157,7 +156,7 @@ namespace MMRando.LogicMigrator
                         259, 0, 255
                     }
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 261,
                     DependsOnItems = new List<int>
@@ -165,7 +164,7 @@ namespace MMRando.LogicMigrator
                         259, 88, 256
                     }
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 262,
                     DependsOnItems = new List<int>
@@ -173,7 +172,7 @@ namespace MMRando.LogicMigrator
                         259, 89, 257
                     }
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 263,
                     DependsOnItems = new List<int>
@@ -181,7 +180,7 @@ namespace MMRando.LogicMigrator
                         259, 258, 114, 115, 2, 10
                     }
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 264,
                     DependsOnItems = new List<int>
@@ -239,9 +238,9 @@ namespace MMRando.LogicMigrator
         private static void AddSongOfHealing(List<string> lines)
         {
             lines[0] = "-version 4";
-            var newItems = new ItemObject[]
+            var newItems = new MigrationItem[]
             {
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 90
                 }
@@ -288,9 +287,9 @@ namespace MMRando.LogicMigrator
         private static void AddIkanaScrubGoldRupee(List<string> lines)
         {
             lines[0] = "-version 5";
-            var newItems = new ItemObject[]
+            var newItems = new MigrationItem[]
             {
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 256,
                     DependsOnItems = new List<int> { 110, 89, 32 } // east access, zora mask, ocean deed
@@ -328,6 +327,13 @@ namespace MMRando.LogicMigrator
                 lines.Insert(item.ID * 5 + 4, "0");
                 lines.Insert(item.ID * 5 + 5, "0");
             }
+        }
+
+        private class MigrationItem
+        {
+            public int ID;
+            public List<List<int>> Conditionals;
+            public List<int> DependsOnItems;
         }
     }
 }

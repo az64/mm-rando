@@ -1,62 +1,31 @@
 ﻿using MMRando.Constants;
+using System.Collections.Generic;
+using MMRando.GameObjects;
+using System;
+using System.Linq;
+using MMRando.Extensions;
+using MMRando.Attributes;
 
 namespace MMRando.Utils
 {
     public static class ItemUtils
     {
-        public static bool IsAreaOrOther(int itemId)
+        public static bool IsShopItem(Item item)
         {
-            return (itemId >= Items.AreaSouthAccess && itemId <= Items.AreaInvertedStoneTowerNew)
-                || (itemId >= Items.OtherOneMask && itemId <= Items.AreaMoonAccess);
-        }
-
-        public static bool IsOutOfRange(int itemId)
-        {
-            return itemId > Items.MaskFierceDeity;
-        }
-
-        public static bool IsShopItem(int itemId)
-        {
-            return (itemId >= Items.ShopItemTradingPostRedPotion
-                    && itemId <= Items.ShopItemZoraRedPotion)
-                    || itemId == Items.ItemBombBag
-                    || itemId == Items.UpgradeBigBombBag
-                    || itemId == Items.MaskAllNight;
-        }
-
-        public static bool IsFakeItem(int itemId)
-        {
-            return IsAreaOrOther(itemId) || IsOutOfRange(itemId);
-        }
-
-        public static bool IsTemporaryItem(int itemId)
-        {
-            return IsTradeItem(itemId) || IsKey(itemId) || itemId == Items.ItemGoldDust;
-        }
-
-        public static bool IsKey(int itemId)
-        {
-            return itemId == Items.ItemWoodfallKey1
-                || (itemId >= Items.ItemSnowheadKey1
-                    && itemId <= Items.ItemSnowheadKey3)
-                || itemId == Items.ItemGreatBayKey1
-                || (itemId >= Items.ItemStoneTowerKey1
-                    && itemId <= Items.ItemStoneTowerKey4);
-        }
-
-        private static bool IsTradeItem(int itemId)
-        {
-            return itemId >= Items.TradeItemMoonTear
-                   && itemId <= Items.TradeItemMamaLetter;
+            return (item >= Item.ShopItemTradingPostRedPotion
+                    && item <= Item.ShopItemZoraRedPotion)
+                    || item == Item.ItemBombBag
+                    || item == Item.UpgradeBigBombBag
+                    || item == Item.MaskAllNight;
         }
 
         public static int AddItemOffset(int itemId)
         {
-            if (itemId >= Items.AreaSouthAccess)
+            if (itemId >= (int)Item.AreaSouthAccess)
             {
                 itemId += Items.NumberOfAreasAndOther;
             }
-            if (itemId >= Items.OtherOneMask)
+            if (itemId >= (int)Item.OtherOneMask)
             {
                 itemId += 5;
             }
@@ -65,63 +34,100 @@ namespace MMRando.Utils
 
         public static int SubtractItemOffset(int itemId)
         {
-            if (itemId >= Items.OtherOneMask)
+            if (itemId >= (int)Item.OtherOneMask)
             {
                 itemId -= 5;
             }
-            if (itemId >= Items.AreaSouthAccess)
+            if (itemId >= (int)Item.AreaSouthAccess)
             {
                 itemId -= Items.NumberOfAreasAndOther;
             }
             return itemId;
         }
 
-        public static bool IsDungeonItem(int itemId)
+        // todo make this only dungoen keys. dumb name
+        public static bool IsDungeonItem(Item item)
         {
-            return itemId >= Items.ItemWoodfallMap
-                    && itemId <= Items.ItemStoneTowerKey4;
+            return item >= Item.ItemWoodfallMap
+                    && item <= Item.ItemStoneTowerKey4;
         }
 
-        public static bool IsBottleCatchContent(int itemId)
+        public static bool IsBottleCatchContent(Item item)
         {
-            return itemId >= Items.BottleCatchFairy
-                   && itemId <= Items.BottleCatchMushroom;
+            return item >= Item.BottleCatchFairy
+                   && item <= Item.BottleCatchMushroom;
         }
 
-        public static bool IsMoonItem(int itemId)
+        public static bool IsMoonLocation(Item location)
         {
-            return itemId >= Items.HeartPieceDekuTrial && itemId <= Items.MaskFierceDeity;
+            return location >= Item.HeartPieceDekuTrial && location <= Item.MaskFierceDeity;
         }
 
-        public static bool IsOtherItem(int itemId)
+        public static bool IsOtherItem(Item item)
         {
-            return itemId >= Items.ChestLensCaveRedRupee && itemId <= Items.IkanaScrubGoldRupee;
+            return item >= Item.ChestLensCaveRedRupee && item <= Item.IkanaScrubGoldRupee;
         }
 
-        internal static bool IsDeed(int item)
+        public static bool IsHeartPiece(Item item)
         {
-            return item >= Items.TradeItemLandDeed
-                    && item <= Items.TradeItemOceanDeed;
+            return (item >= Item.HeartPieceNotebookMayor && item <= Item.HeartPieceKnuckle)
+                || (item >= Item.HeartPieceSouthClockTown && item <= Item.HeartContainerStoneTower)
+                || (item >= Item.HeartPieceDekuTrial && item <= Item.HeartPieceLinkTrial)
+                || item == Item.ChestSecretShrineHeartPiece
+                || item == Item.HeartPieceBank;
         }
 
-        public static bool IsHeartPiece(int itemId)
+        public static bool IsStartingLocation(Item location)
         {
-            return (itemId >= Items.HeartPieceNotebookMayor && itemId <= Items.HeartPieceKnuckle)
-                || (itemId >= Items.HeartPieceSouthClockTown && itemId <= Items.HeartContainerStoneTower)
-                || (itemId >= Items.HeartPieceDekuTrial && itemId <= Items.HeartPieceLinkTrial)
-                || itemId == Items.ChestSecretShrineHeartPiece
-                || itemId == Items.HeartPieceBank;
+            return location == Item.MaskDeku || location == Item.SongHealing;
         }
 
-        public static bool IsStartingItem(int itemId)
+        public static bool IsSong(Item item)
         {
-            return itemId == Items.MaskDeku || itemId == Items.SongHealing;
+            return item >= Item.SongHealing
+                && item <= Item.SongOath;
         }
 
-        public static bool IsSong(int itemId)
+        // todo cache
+        public static IEnumerable<Item> DowngradableItems()
         {
-            return itemId >= Items.SongHealing
-                && itemId <= Items.SongOath;
+            return Enum.GetValues(typeof(Item))
+                .Cast<Item>()
+                .Where(item => item.IsDowngradable());
+        }
+
+        // todo cache
+        public static IEnumerable<Item> StartingItems()
+        {
+            return Enum.GetValues(typeof(Item))
+                .Cast<Item>()
+                .Where(item => item.HasAttribute<StartingItemAttribute>());
+        }
+
+        // todo cache
+        public static IEnumerable<Item> AllLocations()
+        {
+            return Enum.GetValues(typeof(Item))
+                .Cast<Item>()
+                .Where(item => item.Location() != null);
+        }
+
+        // todo cache
+        public static IEnumerable<int> AllGetItemIndices()
+        {
+            return Enum.GetValues(typeof(Item))
+                .Cast<Item>()
+                .Where(item => item.HasAttribute<GetItemIndexAttribute>())
+                .Select(item => item.GetAttribute<GetItemIndexAttribute>().Index);
+        }
+
+        // todo cache
+        public static IEnumerable<int> AllGetBottleItemIndices()
+        {
+            return Enum.GetValues(typeof(Item))
+                .Cast<Item>()
+                .Where(item => item.HasAttribute<GetBottleItemIndicesAttribute>())
+                .SelectMany(item => item.GetAttribute<GetBottleItemIndicesAttribute>().Indices);
         }
     }
 }

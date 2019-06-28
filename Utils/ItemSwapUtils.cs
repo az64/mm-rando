@@ -1,6 +1,8 @@
 ﻿using MMRando.Models.Rom;
 using System;
 using System.Collections.Generic;
+using MMRando.GameObjects;
+using MMRando.Extensions;
 
 namespace MMRando.Utils
 {
@@ -25,125 +27,63 @@ namespace MMRando.Utils
             SceneUtils.ResetSceneFlagMask();
         }
 
-        public static void InitIndices()
-        {
-            RomData.GetItemIndices = new List<int>();
-            RomData.BottleIndices = new List<int[]>();
-            string[] lines = Properties.Resources.ITEM_INDICES.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-            bool bottle = false;
-            foreach (var line in lines)
-            {
-                if (line.StartsWith("-"))
-                {
-                    continue;
-                }
-                else if (line == "bottle")
-                {
-                    bottle = true;
-                    continue;
-                }
-                else if (line == "endbottle")
-                {
-                    bottle = false;
-                    continue;
-                }
-                else if (bottle)
-                {
-                    RomData.GetItemIndices.Add(-1);
-                    int[] indices = Array.ConvertAll(
-                        line.Split(','), item => Convert.ToInt32(item, 16));
-                    RomData.BottleIndices.Add(indices);
-                }
-                else
-                {
-                    RomData.BottleIndices.Add(null);
-                    RomData.GetItemIndices.Add(Convert.ToInt32(line, 16));
-                }
-
-            }
-        }
-
         private static void InitGetBottleList()
         {
-            RomData.BottleList = new List<BottleCatchEntry[]>();
+            RomData.BottleList = new Dictionary<int, BottleCatchEntry>();
             int f = RomUtils.GetFileIndexForWriting(BOTTLE_CATCH_TABLE);
             int baseaddr = BOTTLE_CATCH_TABLE - RomData.MMFileList[f].Addr;
             var fileData = RomData.MMFileList[f].Data;
-            for (int i = 0; i < RomData.BottleIndices.Count; i++)
+            foreach (var getBottleItemIndex in ItemUtils.AllGetBottleItemIndices())
             {
-                if (RomData.BottleIndices[i] == null)
+                int offset = getBottleItemIndex * 6 + baseaddr;
+                RomData.BottleList[getBottleItemIndex] = new BottleCatchEntry
                 {
-                    RomData.BottleList.Add(null);
-                }
-                else
-                {
-                    BottleCatchEntry[] bi = new BottleCatchEntry[RomData.BottleIndices[i].Length];
-                    for (int j = 0; j < RomData.BottleIndices[i].Length; j++)
-                    {
-                        int offset = RomData.BottleIndices[i][j] * 6 + baseaddr;
-                        BottleCatchEntry b = new BottleCatchEntry
-                        {
-                            ItemGained = fileData[offset + 3],
-                            Index = fileData[offset + 4],
-                            Message = fileData[offset + 5]
-                        };
-                        bi[j] = b;
-                    }
-                    RomData.BottleList.Add(bi);
-                }
+                    ItemGained = fileData[offset + 3],
+                    Index = fileData[offset + 4],
+                    Message = fileData[offset + 5]
+                };
             }
         }
 
         private static void InitGetItemList()
         {
-            RomData.GetItemList = new List<GetItemEntry>();
+            RomData.GetItemList = new Dictionary<int, GetItemEntry>();
             int f = RomUtils.GetFileIndexForWriting(GET_ITEM_TABLE);
             int baseaddr = GET_ITEM_TABLE - RomData.MMFileList[f].Addr;
             var fileData = RomData.MMFileList[f].Data;
-            for (int i = 0; i < RomData.GetItemIndices.Count; i++)
+            foreach (var getItemIndex in ItemUtils.AllGetItemIndices())
             {
-                if (RomData.GetItemIndices[i] == -1)
+                int offset = (getItemIndex - 1) * 8 + baseaddr;
+                RomData.GetItemList[getItemIndex] = new GetItemEntry
                 {
-                    RomData.GetItemList.Add(null);
-                }
-                else
-                {
-                    int offset = (RomData.GetItemIndices[i] - 1) * 8 + baseaddr;
-                    GetItemEntry g = new GetItemEntry
-                    {
-                        ItemGained = fileData[offset],
-                        Flag = fileData[offset + 1],
-                        Index = fileData[offset + 2],
-                        Type = fileData[offset + 3],
-                        Message = (short)((fileData[offset + 4] << 8) | fileData[offset + 5]),
-                        Object = (short)((fileData[offset + 6] << 8) | fileData[offset + 7])
-                    };
-                    RomData.GetItemList.Add(g);
-                }
+                    ItemGained = fileData[offset],
+                    Flag = fileData[offset + 1],
+                    Index = fileData[offset + 2],
+                    Type = fileData[offset + 3],
+                    Message = (short)((fileData[offset + 4] << 8) | fileData[offset + 5]),
+                    Object = (short)((fileData[offset + 6] << 8) | fileData[offset + 7])
+                };
             }
         }
 
         public static void InitItems()
         {
-            InitIndices();
             InitGetItemList();
             InitGetBottleList();
         }
 
-        public static void WriteNewBottle(int location, int item)
+        public static void WriteNewBottle(Item location, Item item)
         {
-            System.Diagnostics.Debug.WriteLine($"Writing {Items.ITEM_NAMES[item]} --> {Items.ITEM_NAMES[location]}");
-
-            location = ItemUtils.SubtractItemOffset(location);
-            item = ItemUtils.SubtractItemOffset(item);
+            System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
 
             int f = RomUtils.GetFileIndexForWriting(BOTTLE_CATCH_TABLE);
             int baseaddr = BOTTLE_CATCH_TABLE - RomData.MMFileList[f].Addr;
             var fileData = RomData.MMFileList[f].Data;
-            for (int i = 0; i < RomData.BottleIndices[location].Length; i++)
+
+            foreach (var index in location.GetBottleItemIndices())
             {
-                int offset = RomData.BottleIndices[location][i] * 6 + baseaddr;
-                var newBottle = RomData.BottleList[item][0];
+                var offset = index * 6 + baseaddr;
+                var newBottle = RomData.BottleList[item.GetBottleItemIndices()[0]];
                 var data = new byte[]
                 {
                     newBottle.ItemGained,
@@ -154,22 +94,19 @@ namespace MMRando.Utils
             }
         }
 
-        public static void WriteNewItem(int location, int item, bool isRepeatable, bool isCycleRepeatable)
+        public static void WriteNewItem(Item location, Item item, bool isRepeatable, bool isCycleRepeatable)
         {
-            System.Diagnostics.Debug.WriteLine($"Writing {Items.ITEM_NAMES[item]} --> {Items.ITEM_NAMES[location]}");
-
-            location = ItemUtils.SubtractItemOffset(location);
-            item = ItemUtils.SubtractItemOffset(item);
+            System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
             
             int f = RomUtils.GetFileIndexForWriting(GET_ITEM_TABLE);
             int baseaddr = GET_ITEM_TABLE - RomData.MMFileList[f].Addr;
-            var getItemIndex = RomData.GetItemIndices[location];
-            if (location == Items.ItemGoldDust)
+            var getItemIndex = location.GetItemIndex().Value;
+            if (location == Item.ItemGoldDust)
             {
                 getItemIndex = 0x6A; // Place items intended for Gold Dust at the Goron Race Bottle location.
             }
             int offset = (getItemIndex - 1) * 8 + baseaddr;
-            var newItem = RomData.GetItemList[item];
+            var newItem = RomData.GetItemList[item.GetItemIndex().Value];
             var fileData = RomData.MMFileList[f].Data;
             
             var data = new byte[]
@@ -196,25 +133,25 @@ namespace MMRando.Utils
                 SceneUtils.UpdateSceneFlagMask(getItemIndex);
             }
 
-            if (item == Items.ItemBottleWitch)
+            if (item == Item.ItemBottleWitch)
             {
                 ReadWriteUtils.WriteToROM(0xB49982, (ushort)getItemIndex);
                 ReadWriteUtils.WriteToROM(0xC72B42, (ushort)getItemIndex);
             }
 
-            if (item == Items.ItemBottleMadameAroma)
+            if (item == Item.ItemBottleMadameAroma)
             {
                 ReadWriteUtils.WriteToROM(0xB4999A, (ushort)getItemIndex);
                 ReadWriteUtils.WriteToROM(0xC72B4E, (ushort)getItemIndex);
             }
 
-            if (item == Items.ItemBottleAliens)
+            if (item == Item.ItemBottleAliens)
             {
                 ReadWriteUtils.WriteToROM(0xB499A6, (ushort)getItemIndex);
                 ReadWriteUtils.WriteToROM(0xC72B5A, (ushort)getItemIndex);
             }
             // Goron Race Bottle now rewards a plain Gold Dust, so this is unnecessary until a proper fix for Goron Dust is found.
-            //if (NewItem == Items.ItemBottleGoronRace)
+            //if (item == Item.ItemBottleGoronRace)
             //{
             //    WriteToROM(0xB499B2, (ushort)getItemIndex);
             //    WriteToROM(0xC72B66, (ushort)getItemIndex);
