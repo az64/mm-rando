@@ -163,15 +163,12 @@ namespace MMRando.Utils
                 var shopInventory = location.GetAttribute<ShopInventoryAttribute>();
                 if (shopInventory != null)
                 {
-                    var getItem = item.GetAttribute<GetItemAttribute>();
-                    if (getItem != null)
+                    ReadWriteUtils.WriteToROM(shopInventory.RoomObjectAddress, (ushort)newItem.Object);
+                    foreach (var address in shopInventory.ShopAddresses)
                     {
-                        ReadWriteUtils.WriteToROM(shopInventory.RoomObjectAddress, getItem.Object);
-                        foreach (var address in shopInventory.ShopAddresses)
-                        {
-                            ReadWriteUtils.WriteToROM(address, getItem.Object);
-                            ReadWriteUtils.WriteToROM(address + 3, (byte)(getItem.Index - 1));
-                        }
+                        ReadWriteUtils.WriteToROM(address, (ushort)newItem.Object);
+                        var index = newItem.Index > 0x7F ? (byte)(0xFF - newItem.Index) : (byte)(newItem.Index - 1);
+                        ReadWriteUtils.WriteToROM(address + 3, index);
                     }
                 }
             }

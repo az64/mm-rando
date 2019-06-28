@@ -21,7 +21,12 @@ namespace MMRando.Attributes
 
         public enum Room
         {
-            TradingPost = 0x02683000
+            TradingPost = 0x02683000,
+            WitchShop = 0x01F66000,
+            BombShop = 0x02D7A000,
+            GoronShop = 0x0276E000,
+            ZoraShop = 0x02A44000,
+            CuriosityShop = 0x01FB5000,
         }
     }
 }

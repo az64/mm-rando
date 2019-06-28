@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="Attributes\CycleRepeatableAttribute.cs" />
     <Compile Include="Attributes\GetBottleItemIndicesAttribute.cs" />
-    <Compile Include="Attributes\GetItemAttribute.cs" />
     <Compile Include="Attributes\GetItemIndexAttribute.cs" />
     <Compile Include="Attributes\GossipItemHintAttribute.cs" />
     <Compile Include="Attributes\GossipLocationHintAttribute.cs" />
