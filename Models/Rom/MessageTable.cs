@@ -31,6 +31,15 @@ namespace MMRando.Models.Rom
             }
         }
 
+        public MessageEntry GetMessage(ushort id)
+        {
+            if (messages.ContainsKey(id))
+            {
+                return messages[id];
+            }
+            return null;
+        }
+
         public void InitializeTable()
         {
             Dictionary<ushort, MessageEntry> messageTable = new Dictionary<ushort, MessageEntry>();

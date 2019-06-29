@@ -5,6 +5,7 @@ using System.Text;
 
 namespace MMRando.Attributes
 {
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
     public class ShopInventoryAttribute : Attribute
     {
         private const int BaseShopInventoryDataAddress = 0x00CDDC60;

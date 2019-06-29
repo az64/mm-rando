@@ -39,7 +39,8 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE2A, 0x06)]
         [ItemName("Bomb Bag"), LocationName("Bomb Bag Purchase"), RegionName("West Clock Town")]
         [GossipLocationHint("a town shop"), GossipItemHint("an item carrier", "a vessel of explosives")]
-        [ShopInventory(ShopInventoryAttribute.Room.BombShop, 0x48, 0x1460, 0x14C0)] // todo this also affects bigger bomb bag
+        [ShopInventory(ShopInventoryAttribute.Room.BombShop, 0x48, 0x14C0)]
+        [ShopInventory(ShopInventoryAttribute.Room.CuriosityShop, 0x44, 0x1460)]
         [GetItemIndex(0x1B)]
         ItemBombBag = 5,
 
@@ -163,8 +164,8 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE2A, 0x06)]
         [ItemName("Big Bomb Bag"), LocationName("Big Bomb Bag Purchase"), RegionName("West Clock Town")]
         [GossipLocationHint("a town shop"), GossipItemHint("an item carrier", "a vessel of explosives")]
-        [ShopInventory(ShopInventoryAttribute.Room.BombShop, 0x48, 0x1480, 0x14E0)] // todo this also affects bomb bag
-        // todo also Curiosity Shop..?
+        [ShopInventory(ShopInventoryAttribute.Room.BombShop, 0x52, 0x14E0)]
+        [ShopInventory(ShopInventoryAttribute.Room.CuriosityShop, 0x5A, 0x1480)]
         [GetItemIndex(0x1C)]
         UpgradeBigBombBag = 24,
 
@@ -768,14 +769,14 @@ namespace MMRando.GameObjects
         [Repeatable, CycleRepeatable]
         [ItemName("Red Potion"), LocationName("Trading Post Red Potion"), RegionName("West Clock Town")]
         [GossipLocationHint("a town merchant", "a convenience store", "a market"), GossipItemHint("consumable strength", "a hearty drink", "a red drink")]
-        [ShopInventory(ShopInventoryAttribute.Room.TradingPost, 0x42, 0x1280, 0x13A0)] // todo affects other potions
+        [ShopInventory(ShopInventoryAttribute.Room.TradingPost, 0x42, 0x1280, 0x13A0)]
         [GetItemIndex(0xCD)]
         ShopItemTradingPostRedPotion = 143,
 
         [Repeatable, CycleRepeatable]
         [ItemName("Green Potion"), LocationName("Trading Post Green Potion"), RegionName("West Clock Town")]
         [GossipLocationHint("a town merchant", "a convenience store", "a market"), GossipItemHint("a magic potion", "a green drink")]
-        [ShopInventory(ShopInventoryAttribute.Room.TradingPost, 0x42, 0x1320, 0x1420)] // todo affects other potions
+        [ShopInventory(ShopInventoryAttribute.Room.TradingPost, 0x62, 0x1320, 0x1420)]
         [GetItemIndex(0xBB)]
         ShopItemTradingPostGreenPotion = 144,
 
@@ -803,7 +804,7 @@ namespace MMRando.GameObjects
         [Repeatable, CycleRepeatable]
         [ItemName("30 Arrows"), LocationName("Trading Post 30 Arrows"), RegionName("West Clock Town")]
         [GossipLocationHint("a town merchant", "a convenience store", "a market"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
-        [ShopInventory(ShopInventoryAttribute.Room.TradingPost, 0x4A, 0x1260, 0x1360)] // todo affects other arrows
+        [ShopInventory(ShopInventoryAttribute.Room.TradingPost, 0x4A, 0x1260, 0x1360)]
         [GetItemIndex(0xBF)]
         ShopItemTradingPostArrow30 = 148,
 
@@ -817,28 +818,28 @@ namespace MMRando.GameObjects
         [Repeatable, CycleRepeatable]
         [ItemName("50 Arrows"), LocationName("Trading Post 50 Arrows"), RegionName("West Clock Town")]
         [GossipLocationHint("a town merchant", "a convenience store", "a market"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
-        [ShopInventory(ShopInventoryAttribute.Room.TradingPost, 0x4A, 0x12E0, 0x1380)] // todo affects other arrows
+        [ShopInventory(ShopInventoryAttribute.Room.TradingPost, 0x64, 0x12E0, 0x1380)]
         [GetItemIndex(0xC1)]
         ShopItemTradingPostArrow50 = 150,
 
         [Repeatable, CycleRepeatable]
         [ItemName("Blue Potion"), LocationName("Witch Shop Blue Potion"), RegionName("Southern Swamp")]
         [GossipLocationHint("a sleeping witch", "a southern merchant"), GossipItemHint("consumable strength", "a magic potion", "a blue drink")]
-        [ShopInventory(ShopInventoryAttribute.Room.WitchShop, 0x42, 0x11E0)] // todo affects other potions
+        [ShopInventory(ShopInventoryAttribute.Room.WitchShop, 0x42, 0x1220)]
         [GetItemIndex(0xC2)]
         ShopItemWitchBluePotion = 151,
 
         [Repeatable, CycleRepeatable]
         [ItemName("Red Potion"), LocationName("Witch Shop Red Potion"), RegionName("Southern Swamp")]
         [GossipLocationHint("a sleeping witch", "a southern merchant"), GossipItemHint("consumable strength", "a hearty drink", "a red drink")]
-        [ShopInventory(ShopInventoryAttribute.Room.WitchShop, 0x42, 0x1200)] // todo affects other potions
+        [ShopInventory(ShopInventoryAttribute.Room.WitchShop, 0x48, 0x11E0)]
         [GetItemIndex(0xC3)]
         ShopItemWitchRedPotion = 152,
 
         [Repeatable, CycleRepeatable]
         [ItemName("Green Potion"), LocationName("Witch Shop Green Potion"), RegionName("Southern Swamp")]
         [GossipLocationHint("a sleeping witch", "a southern merchant"), GossipItemHint("a magic potion", "a green drink")]
-        [ShopInventory(ShopInventoryAttribute.Room.WitchShop, 0x42, 0x1220)] // todo affects other potions
+        [ShopInventory(ShopInventoryAttribute.Room.WitchShop, 0x4A, 0x1200)]
         [GetItemIndex(0xC4)]
         ShopItemWitchGreenPotion = 153,
 

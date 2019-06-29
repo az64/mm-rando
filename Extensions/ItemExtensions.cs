@@ -34,6 +34,11 @@ namespace MMRando.Extensions
             return item.GetAttribute<RegionNameAttribute>()?.Name;
         }
 
+        public static ShopTextAttribute ShopTexts(this Item item)
+        {
+            return item.GetAttribute<ShopTextAttribute>();
+        }
+
         public static string[] ItemHints(this Item item)
         {
             return item.GetAttribute<GossipItemHintAttribute>().Values;

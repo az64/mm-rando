@@ -95,7 +95,7 @@ namespace MMRando.Utils
             }
         }
 
-        public static void WriteNewItem(Item location, Item item, bool isRepeatable, bool isCycleRepeatable)
+        public static void WriteNewItem(Item location, Item item, bool isRepeatable, bool isCycleRepeatable, List<MessageEntry> newMessages)
         {
             System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
             
@@ -160,15 +160,28 @@ namespace MMRando.Utils
 
             // if appearance should match get item
             {
-                var shopInventory = location.GetAttribute<ShopInventoryAttribute>();
-                if (shopInventory != null)
+                var shopInventories = location.GetAttributes<ShopInventoryAttribute>();
+                foreach (var shopInventory in shopInventories)
                 {
                     ReadWriteUtils.WriteToROM(shopInventory.RoomObjectAddress, (ushort)newItem.Object);
                     foreach (var address in shopInventory.ShopAddresses)
                     {
                         ReadWriteUtils.WriteToROM(address, (ushort)newItem.Object);
                         var index = newItem.Index > 0x7F ? (byte)(0xFF - newItem.Index) : (byte)(newItem.Index - 1);
-                        ReadWriteUtils.WriteToROM(address + 3, index);
+                        ReadWriteUtils.WriteToROM(address + 0x03, index);
+
+                        var messageId = ReadWriteUtils.ReadU16(address + 0x0A);
+                        newMessages.Add(new MessageEntry
+                        {
+                            Id = messageId,
+                            Message = MessageUtils.BuildShopDescriptionMessage(item.ShopTexts()?.Name ?? item.Name(), 20, item.ShopTexts()?.Description ?? string.Empty)
+                        });
+
+                        newMessages.Add(new MessageEntry
+                        {
+                            Id = (ushort)(messageId + 1),
+                            Message = MessageUtils.BuildShopPurchaseMessage(item.ShopTexts()?.Name ?? item.Name(), 20, item.ShopTexts()?.IsMultiple ?? false)
+                        });
                     }
                 }
             }

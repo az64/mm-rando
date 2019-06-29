@@ -272,5 +272,15 @@ namespace MMRando.Utils
 
             return $"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{itemMessage}\x00...\xBF".Wrap(35, "\x11");
         }
+
+        public static string BuildShopDescriptionMessage(string title, int cost, string description)
+        {
+            return $"\x01{title}: {cost} Rupees\x11\x00{description.Wrap(35, "\x11")}\x1A\xBF";
+        }
+
+        public static string BuildShopPurchaseMessage(string title, int cost, bool isMultiple)
+        {
+            return $"{title}: {cost} Rupees\x11 \x11\x02\xC2I'll buy {(isMultiple ? "them" : "it")}\x11No thanks\xBF";
+        }
     }
 }

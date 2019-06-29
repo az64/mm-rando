@@ -13,6 +13,7 @@ using System.Reflection;
 using MMRando.GameObjects;
 using MMRando.Extensions;
 using MMRando.Attributes;
+using System.Text.RegularExpressions;
 
 namespace MMRando
 {
@@ -437,6 +438,7 @@ namespace MMRando
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-downgrades");
             }
 
+            var newMessages = new List<MessageEntry>();
             foreach (var item in _randomized.ItemList)
             {
                 bool isRepeatable = item.Item.HasAttribute<RepeatableAttribute>();
@@ -459,9 +461,23 @@ namespace MMRando
                 }
                 else
                 {
-                    ItemSwapUtils.WriteNewItem(item.NewLocation.Value, item.Item, isRepeatable, isCycleRepeatable);
+                    ItemSwapUtils.WriteNewItem(item.NewLocation.Value, item.Item, isRepeatable, isCycleRepeatable, newMessages);
                 }
             }
+
+            var copyRupeesRegex = new Regex(": [0-9]+ Rupees");
+            foreach (var newMessage in newMessages)
+            {
+                var oldMessage = _messageTable.GetMessage(newMessage.Id);
+                if (oldMessage != null)
+                {
+                    newMessage.Header = oldMessage.Header;
+                    var cost = copyRupeesRegex.Match(oldMessage.Message).Value;
+                    newMessage.Message = copyRupeesRegex.Replace(newMessage.Message, cost);
+                }
+            }
+
+            _messageTable.UpdateMessages(newMessages);
 
             if (_settings.AddShopItems)
             {
@@ -550,6 +566,33 @@ namespace MMRando
             RomUtils.SetStrings(Values.ModsDirectory + "logo-text", $"v{v}", _settings.ToString());
         }
 
+        private void WriteShopObjects()
+        {
+            RomUtils.CheckCompressed(1325); // trading post
+            var data = RomData.MMFileList[1325].Data.ToList();
+            data.RemoveRange(0x15C, 4); // reduce end padding from actors list
+            data.InsertRange(0x62, new byte[] { 0x00, 0xC1, 0x00, 0xAF }); // add extra objects
+            data[0x29] += 2; // increase object count by 2
+            data[0x37] += 4; // add 4 to actor list address
+            RomData.MMFileList[1325].Data = data.ToArray();
+
+            RomUtils.CheckCompressed(1503); // bomb shop
+            RomData.MMFileList[1503].Data[0x53] = 0x98; // add extra objects
+            RomData.MMFileList[1503].Data[0x29] += 1; // increase object count by 1
+
+            RomUtils.CheckCompressed(1142); // witch shop
+            data = RomData.MMFileList[1142].Data.ToList();
+            data.RemoveRange(0x78, 4); // reduce end padding from actors list
+            data.InsertRange(0x48, new byte[] { 0x00, 0xC1, 0x00, 0xC1 }); // add extra objects
+            data[0x29] += 2; // increase object count by 2
+            data[0x37] += 4; // add 4 to actor list address
+            RomData.MMFileList[1142].Data = data.ToArray();
+
+            RomUtils.CheckCompressed(1152); // curiosity shop
+            RomData.MMFileList[1152].Data[0x5B] = 0x98; // add extra objects
+            RomData.MMFileList[1152].Data[0x29] += 1; // increase object count by 1
+        }
+
         public void MakeROM(string InFile, string FileName, BackgroundWorker worker)
         {
             using (BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open, FileAccess.Read)))
@@ -604,6 +647,11 @@ namespace MMRando
 
                 worker.ReportProgress(65, "Writing enemies...");
                 WriteEnemies();
+
+                // if shop should match given items
+                {
+                    WriteShopObjects();
+                }
 
                 worker.ReportProgress(66, "Writing items...");
                 WriteItems();

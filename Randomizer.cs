@@ -954,7 +954,8 @@ namespace MMRando
 
         private void PlaceItem(Item currentItem, List<Item> targets)
         {
-            if (ItemList[(int)currentItem].NewLocation.HasValue)
+            var currentItemObject = ItemList[(int)currentItem];
+            if (currentItemObject.NewLocation.HasValue)
             {
                 return;
             }
@@ -973,23 +974,23 @@ namespace MMRando
                     throw new Exception($"Unable to place {currentItem.Name()} anywhere.");
                 }
 
-                int targetItem = Random.Next(availableItems.Count);
+                var targetLocation = availableItems.Random(Random);// Random.Next(availableItems.Count);
 
-                Debug.WriteLine($"----Attempting to place {currentItem.Name()} at {availableItems[targetItem].Location()}.---");
+                Debug.WriteLine($"----Attempting to place {currentItem.Name()} at {targetLocation.Location()}.---");
 
-                if (CheckMatch(currentItem, availableItems[targetItem]))
+                if (CheckMatch(currentItem, targetLocation))
                 {
-                    ItemList[(int)currentItem].NewLocation = availableItems[targetItem];
+                    currentItemObject.NewLocation = targetLocation;
 
-                    Debug.WriteLine($"----Placed {currentItem.Name()} at {availableItems[targetItem].Location()}----");
+                    Debug.WriteLine($"----Placed {currentItem.Name()} at {targetLocation.Location()}----");
 
-                    targets.Remove(availableItems[targetItem]);
+                    targets.Remove(targetLocation);
                     return;
                 }
                 else
                 {
-                    Debug.WriteLine($"----Failed to place {currentItem.Name()} at {availableItems[targetItem].Location()}----");
-                    availableItems.RemoveAt(targetItem);
+                    Debug.WriteLine($"----Failed to place {currentItem.Name()} at {targetLocation.Location()}----");
+                    availableItems.Remove(targetLocation);
                 }
             }
         }
