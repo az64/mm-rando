@@ -700,7 +700,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE73, 0x80)]
         [ItemName("Goron Lullaby"), LocationName("Baby Goron"), RegionName("Goron Village")]
         [GossipLocationHint("a lonely child", "an elder's son"), GossipItemHint("a sleepy melody", "a father's lullaby")]
-        [ShopText("This melody blankets listners in calm while making eyelids grow heavy.")]
+        [ShopText("This melody blankets listeners in calm while making eyelids grow heavy.")]
         [GetItemIndex(0x74)]
         SongLullaby = 95,
 
