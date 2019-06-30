@@ -160,29 +160,68 @@ namespace MMRando.Utils
 
             // if appearance should match get item
             {
+                var shopRooms = location.GetAttributes<ShopRoomAttribute>();
+                foreach (var shopRoom in shopRooms)
+                {
+                    ReadWriteUtils.WriteToROM(shopRoom.RoomObjectAddress, (ushort)newItem.Object);
+                }
+
                 var shopInventories = location.GetAttributes<ShopInventoryAttribute>();
                 foreach (var shopInventory in shopInventories)
                 {
-                    ReadWriteUtils.WriteToROM(shopInventory.RoomObjectAddress, (ushort)newItem.Object);
-                    foreach (var address in shopInventory.ShopAddresses)
+                    ReadWriteUtils.WriteToROM(shopInventory.ShopItemAddress, (ushort)newItem.Object);
+                    var index = newItem.Index > 0x7F ? (byte)(0xFF - newItem.Index) : (byte)(newItem.Index - 1);
+                    ReadWriteUtils.WriteToROM(shopInventory.ShopItemAddress + 0x03, index);
+
+                    var shopTexts = item.ShopTexts();
+                    string description;
+                    switch(shopInventory.Keeper)
                     {
-                        ReadWriteUtils.WriteToROM(address, (ushort)newItem.Object);
-                        var index = newItem.Index > 0x7F ? (byte)(0xFF - newItem.Index) : (byte)(newItem.Index - 1);
-                        ReadWriteUtils.WriteToROM(address + 0x03, index);
-
-                        var messageId = ReadWriteUtils.ReadU16(address + 0x0A);
-                        newMessages.Add(new MessageEntry
-                        {
-                            Id = messageId,
-                            Message = MessageUtils.BuildShopDescriptionMessage(item.ShopTexts()?.Name ?? item.Name(), 20, item.ShopTexts()?.Description ?? string.Empty)
-                        });
-
-                        newMessages.Add(new MessageEntry
-                        {
-                            Id = (ushort)(messageId + 1),
-                            Message = MessageUtils.BuildShopPurchaseMessage(item.ShopTexts()?.Name ?? item.Name(), 20, item.ShopTexts()?.IsMultiple ?? false)
-                        });
+                        case ShopInventoryAttribute.ShopKeeper.WitchShop:
+                            description = shopTexts.WitchShop;
+                            break;
+                        case ShopInventoryAttribute.ShopKeeper.TradingPostMain:
+                            description = shopTexts.TradingPostMain;
+                            break;
+                        case ShopInventoryAttribute.ShopKeeper.TradingPostPartTimer:
+                            description = shopTexts.TradingPostPartTimer;
+                            break;
+                        case ShopInventoryAttribute.ShopKeeper.CuriosityShop:
+                            description = shopTexts.CuriosityShop;
+                            break;
+                        case ShopInventoryAttribute.ShopKeeper.BombShop:
+                            description = shopTexts.BombShop;
+                            break;
+                        case ShopInventoryAttribute.ShopKeeper.ZoraShop:
+                            description = shopTexts.ZoraShop;
+                            break;
+                        case ShopInventoryAttribute.ShopKeeper.GoronShop:
+                            description = shopTexts.GoronShop;
+                            break;
+                        case ShopInventoryAttribute.ShopKeeper.GoronShopSpring:
+                            description = shopTexts.GoronShopSpring;
+                            break;
+                        default:
+                            description = null;
+                            break;
                     }
+                    if (description == null)
+                    {
+                        description = shopTexts.Default;
+                    }
+
+                    var messageId = ReadWriteUtils.ReadU16(shopInventory.ShopItemAddress + 0x0A);
+                    newMessages.Add(new MessageEntry
+                    {
+                        Id = messageId,
+                        Message = MessageUtils.BuildShopDescriptionMessage(item.Name(), 20, description)
+                    });
+
+                    newMessages.Add(new MessageEntry
+                    {
+                        Id = (ushort)(messageId + 1),
+                        Message = MessageUtils.BuildShopPurchaseMessage(item.Name(), 20, item.ShopTexts()?.IsMultiple ?? false)
+                    });
                 }
             }
         }

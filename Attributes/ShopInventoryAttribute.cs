@@ -9,25 +9,26 @@ namespace MMRando.Attributes
     public class ShopInventoryAttribute : Attribute
     {
         private const int BaseShopInventoryDataAddress = 0x00CDDC60;
-        private int[] _shopAddresses;
 
-        public int RoomObjectAddress { get; private set; }
-        public IEnumerable<int> ShopAddresses => _shopAddresses.Select(a => BaseShopInventoryDataAddress + a);
+        public int ShopItemAddress { get; private set; }
+        public ShopKeeper Keeper { get; private set; }
 
-        public ShopInventoryAttribute(Room room, int roomObjectOffset, params int[] shopAddresses)
+        public ShopInventoryAttribute(ShopKeeper shopKeeper, int shopItemIndex)
         {
-            _shopAddresses = shopAddresses;
-            RoomObjectAddress = (int)room + roomObjectOffset;
+            ShopItemAddress = BaseShopInventoryDataAddress + (int)shopKeeper + (shopItemIndex * 0x20);
+            Keeper = shopKeeper;
         }
 
-        public enum Room
+        public enum ShopKeeper
         {
-            TradingPost = 0x02683000,
-            WitchShop = 0x01F66000,
-            BombShop = 0x02D7A000,
-            GoronShop = 0x0276E000,
-            ZoraShop = 0x02A44000,
-            CuriosityShop = 0x01FB5000,
+            WitchShop = 0x11E0,
+            TradingPostMain = 0x1240,
+            TradingPostPartTimer = 0x1340,
+            CuriosityShop = 0x1440,
+            BombShop = 0x14C0,
+            ZoraShop = 0x1540,
+            GoronShop = 0x15A0,
+            GoronShopSpring = 0x1600,
         }
     }
 }

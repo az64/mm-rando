@@ -70,6 +70,7 @@
     <Compile Include="Attributes\GetItemIndexAttribute.cs" />
     <Compile Include="Attributes\GossipItemHintAttribute.cs" />
     <Compile Include="Attributes\GossipLocationHintAttribute.cs" />
+    <Compile Include="Attributes\ShopRoomAttribute.cs" />
     <Compile Include="Attributes\ShopTextAttribute.cs" />
     <Compile Include="Attributes\ShopInventoryAttribute.cs" />
     <Compile Include="Attributes\TemporaryAttribute.cs" />
