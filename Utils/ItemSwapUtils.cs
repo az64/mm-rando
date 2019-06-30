@@ -95,7 +95,7 @@ namespace MMRando.Utils
             }
         }
 
-        public static void WriteNewItem(Item location, Item item, bool isRepeatable, bool isCycleRepeatable, List<MessageEntry> newMessages)
+        public static void WriteNewItem(Item location, Item item, bool isRepeatable, bool isCycleRepeatable, List<MessageEntry> newMessages, bool updateShops)
         {
             System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
             
@@ -158,7 +158,7 @@ namespace MMRando.Utils
             //    WriteToROM(0xC72B66, (ushort)getItemIndex);
             //}
 
-            // if appearance should match get item
+            if (updateShops)
             {
                 var shopRooms = location.GetAttributes<ShopRoomAttribute>();
                 foreach (var shopRoom in shopRooms)

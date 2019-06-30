@@ -461,7 +461,7 @@ namespace MMRando
                 }
                 else
                 {
-                    ItemSwapUtils.WriteNewItem(item.NewLocation.Value, item.Item, isRepeatable, isCycleRepeatable, newMessages);
+                    ItemSwapUtils.WriteNewItem(item.NewLocation.Value, item.Item, isRepeatable, isCycleRepeatable, newMessages, _settings.UpdateShopAppearance);
                 }
             }
 

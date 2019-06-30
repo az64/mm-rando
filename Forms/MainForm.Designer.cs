@@ -122,6 +122,7 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
+            this.cShopAppearance = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -694,6 +695,7 @@ namespace MMRando
             // 
             // tabComfort
             // 
+            this.tabComfort.Controls.Add(this.cShopAppearance);
             this.tabComfort.Controls.Add(this.lGossip);
             this.tabComfort.Controls.Add(this.cGossipHints);
             this.tabComfort.Controls.Add(this.cNoDowngrades);
@@ -1212,6 +1214,21 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
+            // cShopAppearance
+            // 
+            this.cShopAppearance.AutoSize = true;
+            this.cShopAppearance.BackColor = System.Drawing.Color.Transparent;
+            this.cShopAppearance.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cShopAppearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cShopAppearance.ForeColor = System.Drawing.Color.Black;
+            this.cShopAppearance.Location = new System.Drawing.Point(32, 184);
+            this.cShopAppearance.Name = "cShopAppearance";
+            this.cShopAppearance.Size = new System.Drawing.Size(92, 17);
+            this.cShopAppearance.TabIndex = 21;
+            this.cShopAppearance.Text = "Update shops";
+            this.cShopAppearance.UseVisualStyleBackColor = false;
+            this.cShopAppearance.CheckedChanged += new System.EventHandler(this.cShopAppearance_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1346,6 +1363,7 @@ namespace MMRando
         private System.Windows.Forms.CheckBox cNoDowngrades;
         private System.Windows.Forms.Label lGossip;
         private System.Windows.Forms.ComboBox cGossipHints;
+        private System.Windows.Forms.CheckBox cShopAppearance;
     }
 }
 

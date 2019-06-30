@@ -94,6 +94,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cFreeHints, "Enable reading gossip stone hints without requiring the Mask of Truth.");
             TooltipBuilder.SetTooltip(cClearHints, "Gossip stone hints will give clear item and location names.");
             TooltipBuilder.SetTooltip(cNoDowngrades, "Downgrading items will be prevented.");
+            TooltipBuilder.SetTooltip(cShopAppearance, "Shops models and text will be updated to match the item they give.");
             TooltipBuilder.SetTooltip(bTunic, "Select the color of Link's Tunic.");
             TooltipBuilder.SetTooltip(cLink, "Select a character model to replace Link's default model.");
             TooltipBuilder.SetTooltip(cTatl, "Select a color scheme to replace Tatl's default color scheme.");
@@ -277,6 +278,7 @@ namespace MMRando
             cHideClock.Checked = _settings.HideClock;
             cClockSpeed.SelectedIndex = (int) _settings.ClockSpeed;
             cNoDowngrades.Checked = _settings.PreventDowngrades;
+            cShopAppearance.Checked = _settings.UpdateShopAppearance;
 
             cDMult.SelectedIndex = (int)_settings.DamageMode;
             cDType.SelectedIndex = (int)_settings.DamageEffect;
@@ -436,6 +438,11 @@ namespace MMRando
         private void cNoDowngrades_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.PreventDowngrades = cNoDowngrades.Checked);
+        }
+
+        private void cShopAppearance_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.UpdateShopAppearance = cShopAppearance.Checked);
         }
 
         private void cHideClock_CheckedChanged(object sender, EventArgs e)
@@ -661,6 +668,7 @@ namespace MMRando
             cFreeHints.Enabled = v;
             cClearHints.Enabled = v;
             cNoDowngrades.Enabled = v;
+            cShopAppearance.Enabled = v;
             cHTMLLog.Enabled = v;
             cN64.Enabled = v;
             cMoonItems.Enabled = v;
@@ -695,6 +703,7 @@ namespace MMRando
             cSpoiler.Checked = true;
             cSoS.Checked = true;
             cNoDowngrades.Checked = true;
+            cShopAppearance.Checked = true;
             cCutsc.Checked = true;
             cQText.Checked = true;
 
@@ -703,6 +712,8 @@ namespace MMRando
             _settings.GenerateROM = true;
             _settings.GenerateSpoilerLog = true;
             _settings.ExcludeSongOfSoaring = true;
+            _settings.PreventDowngrades = true;
+            _settings.UpdateShopAppearance = true;
             _settings.ShortenCutscenes = true;
             _settings.QuickTextEnabled = true;
             _settings.TunicColor = bTunic.BackColor;
@@ -850,6 +861,7 @@ namespace MMRando
             cBGM.Enabled = v;
             cFreeHints.Enabled = v;
             cNoDowngrades.Enabled = v;
+            cShopAppearance.Enabled = v;
             cClearHints.Enabled = _settings.LogicMode != LogicMode.Vanilla && _settings.GossipHintStyle != GossipHintStyle.Default && v;
             cGossipHints.Enabled = _settings.LogicMode != LogicMode.Vanilla && v;
 

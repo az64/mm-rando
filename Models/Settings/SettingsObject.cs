@@ -176,6 +176,11 @@ namespace MMRando.Models.Settings
         /// </summary>
         public bool PreventDowngrades { get; set; }
 
+        /// <summary>
+        /// Updates shop models and text
+        /// </summary>
+        public bool UpdateShopAppearance { get; set; }
+
         #endregion
 
         #region Gimmicks
@@ -275,6 +280,7 @@ namespace MMRando.Models.Settings
             int part3 = (int)parts[2];
             int part4 = (int)parts[3];
 
+            UpdateShopAppearance = (part1 & 1048576) > 0;
             PreventDowngrades = (part1 & 524288) > 0;
             NoBGM = (part1 & 262144) > 0;
             HideClock = (part1 & 131072) > 0;
@@ -330,6 +336,7 @@ namespace MMRando.Models.Settings
         {
             int[] parts = new int[4];
 
+            if (UpdateShopAppearance) { parts[0] += 1048576; }
             if (PreventDowngrades) { parts[0] += 524288; }
             if (NoBGM) { parts[0] += 262144; }
             if (HideClock) { parts[0] += 131072; };
