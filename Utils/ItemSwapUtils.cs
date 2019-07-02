@@ -95,7 +95,7 @@ namespace MMRando.Utils
             }
         }
 
-        public static void WriteNewItem(Item location, Item item, bool isRepeatable, bool isCycleRepeatable, List<MessageEntry> newMessages, bool updateShops)
+        public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShops, bool preventDowngrades)
         {
             System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
             
@@ -123,12 +123,13 @@ namespace MMRando.Utils
             };
             ReadWriteUtils.Arr_Insert(data, 0, data.Length, fileData, offset);
             
-            if (isCycleRepeatable)
+            if (item.IsCycleRepeatable())
             {
                 ReadWriteUtils.WriteToROM(cycle_repeat, (ushort)getItemIndex);
                 cycle_repeat += 2;
             }
 
+            var isRepeatable = item.IsRepeatable() || (!preventDowngrades && item.IsDowngradable());
             if (!isRepeatable)
             {
                 SceneUtils.UpdateSceneFlagMask(getItemIndex);

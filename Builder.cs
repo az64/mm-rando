@@ -441,14 +441,6 @@ namespace MMRando
             var newMessages = new List<MessageEntry>();
             foreach (var item in _randomized.ItemList)
             {
-                bool isRepeatable = item.Item.HasAttribute<RepeatableAttribute>();
-                bool isCycleRepeatable = item.Item.HasAttribute<CycleRepeatableAttribute>();
-
-                if (!_settings.PreventDowngrades)
-                {
-                    isRepeatable |= item.Item.HasAttribute<DowngradableAttribute>();
-                }
-
                 // Unused item
                 if (item.NewLocation == null)
                 {
@@ -461,7 +453,7 @@ namespace MMRando
                 }
                 else
                 {
-                    ItemSwapUtils.WriteNewItem(item.NewLocation.Value, item.Item, isRepeatable, isCycleRepeatable, newMessages, _settings.UpdateShopAppearance);
+                    ItemSwapUtils.WriteNewItem(item.NewLocation.Value, item.Item, newMessages, _settings.UpdateShopAppearance, _settings.PreventDowngrades);
                 }
             }
 
