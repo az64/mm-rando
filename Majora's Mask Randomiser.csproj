@@ -88,7 +88,6 @@
     <Compile Include="Forms\Tooltips\TooltipBuilder.cs" />
     <Compile Include="GameObjects\GossipQuote.cs" />
     <Compile Include="GameObjects\Item.cs" />
-    <Compile Include="Models\MoonPathItem.cs" />
     <Compile Include="Models\RandomizedResult.cs" />
     <Compile Include="Models\Rom\MessageTable.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
