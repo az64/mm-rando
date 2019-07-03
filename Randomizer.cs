@@ -333,9 +333,11 @@ namespace MMRando
         {
             for (var i = 0; i < Items.TotalNumberOfItems; i++)
             {
+                var item = (Item)i;
                 var currentItem = new ItemObject
                 {
                     ID = i,
+                    Name = item.Name() ?? item.ToString(),
                     TimeAvailable = 63
                 };
 
