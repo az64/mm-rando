@@ -13,15 +13,18 @@ namespace MMRando.Models
         public int NewLocationId { get; private set; }
         public string NewLocationName { get; private set; }
 
+        public string Region { get; private set; }
+
         public bool IsJunk { get; private set; }
 
-        public SpoilerItem(ItemObject itemObject, string locationName)
+        public SpoilerItem(ItemObject itemObject)
         {
             Item = itemObject.Item;
             Id = itemObject.ID;
             Name = itemObject.Item.Name() ?? itemObject.Name;
-            NewLocationId = itemObject.NewLocation.HasValue ? (int)itemObject.NewLocation : Id;
-            NewLocationName = itemObject.NewLocation?.Location() ?? locationName;
+            NewLocationId = (int)itemObject.NewLocation.Value;
+            NewLocationName = itemObject.NewLocation.Value.Location();
+            Region = itemObject.NewLocation.Value.Region();
             IsJunk = Name.Contains("Rupee") || Name.Contains("Heart");
         }
     }

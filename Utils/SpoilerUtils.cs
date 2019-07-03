@@ -15,7 +15,8 @@ namespace MMRando.Utils
         public static void CreateSpoilerLog(RandomizedResult randomized, SettingsObject settings)
         {
             var itemList = randomized.ItemList
-                .Select(u => new SpoilerItem(u, randomized.ItemList.SingleOrDefault(io => io.Item == u.NewLocation)?.Name));
+                .Where(io => !io.Item.IsFake())
+                .Select(u => new SpoilerItem(u));
             var settingsString = settings.ToString();
 
             var directory = Path.GetDirectoryName(settings.OutputROMFilename);
@@ -96,18 +97,14 @@ namespace MMRando.Utils
             }
 
             log.AppendLine($" {"Location",-50}    {"Item"}");
-            foreach (var item in spoiler.ItemList)
+            foreach (var region in spoiler.ItemList.GroupBy(item => item.Region).OrderBy(g => g.Key))
             {
-                log.AppendLine($"{item.NewLocationName,-50} -> {item.Name}");
-            }
-
-            log.AppendLine();
-            log.AppendLine();
-
-            log.AppendLine($" {"Location",-50}    {"Item"}");
-            foreach (var item in spoiler.ItemList.OrderBy(i => i.NewLocationId))
-            {
-                log.AppendLine($"{item.NewLocationName,-50} -> {item.Name}");
+                log.AppendLine();
+                log.AppendLine($" {region.Key}");
+                foreach (var item in region.OrderBy(item => item.NewLocationName))
+                {
+                    log.AppendLine($"{item.NewLocationName,-50} -> {item.Name}");
+                }
             }
 
 

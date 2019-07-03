@@ -6,7 +6,7 @@ namespace MMRando.GameObjects
     {
         // free
         [StartingItem(0xC5CE41, 0x32)]
-        [ItemName("Deku Mask"), LocationName("Starting Item #1")]
+        [ItemName("Deku Mask"), LocationName("Starting Item #1"), RegionName("Misc")]
         [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("a woodland spirit")]
         [ShopText("Wear it to assume Deku form.")]
         [GetItemIndex(0x78)]
@@ -663,7 +663,7 @@ namespace MMRando.GameObjects
 
         //song
         [StartingItem(0xC5CE72, 0x20)]
-        [ItemName("Song of Healing"), LocationName("Starting Item #2")]
+        [ItemName("Song of Healing"), LocationName("Starting Item #2"), RegionName("Misc")]
         [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("a soothing melody")]
         [ShopText("This melody will soothe restless spirits.")]
         [GetItemIndex(0x124)]
@@ -719,7 +719,7 @@ namespace MMRando.GameObjects
         SongElegy = 97,
 
         [StartingItem(0xC5CE72, 0x04)]
-        [ItemName("Oath to Order"), LocationName("Four Giants")]
+        [ItemName("Oath to Order"), LocationName("Four Giants"), RegionName("Misc")]
         [GossipLocationHint("cleansed evil", "a fallen evil"), GossipItemHint("a song of summoning", "a song of giants")]
         [ShopText("This melody will call the giants at the right moment.")]
         [GetItemIndex(0x77)]
@@ -1074,52 +1074,52 @@ namespace MMRando.GameObjects
         ShopItemZoraRedPotion = 161,
 
         //bottle catch
-        [ItemName("Bottle: Fairy"), LocationName("Bottle: Fairy")]
+        [ItemName("Bottle: Fairy"), LocationName("Bottle: Fairy"), RegionName("Bottle Catch")]
         [GossipLocationHint("a wandering healer"), GossipItemHint("a winged friend", "a healer")]
         [GetBottleItemIndices(0x00, 0x0D)]
         BottleCatchFairy = 162,
 
-        [ItemName("Bottle: Deku Princess"), LocationName("Bottle: Deku Princess")]
+        [ItemName("Bottle: Deku Princess"), LocationName("Bottle: Deku Princess"), RegionName("Bottle Catch")]
         [GossipLocationHint("a captured royal", "an imprisoned daughter"), GossipItemHint("a princess", "a woodland royal")]
         [GetBottleItemIndices(0x08)]
         BottleCatchPrincess = 163,
 
-        [ItemName("Bottle: Fish"), LocationName("Bottle: Fish")]
+        [ItemName("Bottle: Fish"), LocationName("Bottle: Fish"), RegionName("Bottle Catch")]
         [GossipLocationHint("a swimming creature", "a water dweller"), GossipItemHint("something fresh")]
         [GetBottleItemIndices(0x01)]
         BottleCatchFish = 164,
 
-        [ItemName("Bottle: Bug"), LocationName("Bottle: Bug")]
+        [ItemName("Bottle: Bug"), LocationName("Bottle: Bug"), RegionName("Bottle Catch")]
         [GossipLocationHint("an insect", "a scuttling creature"), GossipItemHint("an insect", "a scuttling creature")]
         [GetBottleItemIndices(0x02, 0x03)]
         BottleCatchBug = 165,
 
-        [ItemName("Bottle: Poe"), LocationName("Bottle: Poe")]
+        [ItemName("Bottle: Poe"), LocationName("Bottle: Poe"), RegionName("Bottle Catch")]
         [GossipLocationHint("a wandering ghost"), GossipItemHint("a captured spirit")]
         [GetBottleItemIndices(0x0B)]
         BottleCatchPoe = 166,
 
-        [ItemName("Bottle: Big Poe"), LocationName("Bottle: Big Poe")]
+        [ItemName("Bottle: Big Poe"), LocationName("Bottle: Big Poe"), RegionName("Bottle Catch")]
         [GossipLocationHint("a huge ghost"), GossipItemHint("a captured spirit")]
         [GetBottleItemIndices(0x0C)]
         BottleCatchBigPoe = 167,
 
-        [ItemName("Bottle: Spring Water"), LocationName("Bottle: Spring Water")]
+        [ItemName("Bottle: Spring Water"), LocationName("Bottle: Spring Water"), RegionName("Bottle Catch")]
         [GossipLocationHint("a common liquid"), GossipItemHint("a common liquid", "a fresh drink")]
         [GetBottleItemIndices(0x04)]
         BottleCatchSpringWater = 168,
 
-        [ItemName("Bottle: Hot Spring Water"), LocationName("Bottle: Hot Spring Water")]
+        [ItemName("Bottle: Hot Spring Water"), LocationName("Bottle: Hot Spring Water"), RegionName("Bottle Catch")]
         [GossipLocationHint("a hot liquid", "a boiling liquid"), GossipItemHint("a boiling liquid", "a hot liquid")]
         [GetBottleItemIndices(0x05, 0x06)]
         BottleCatchHotSpringWater = 169,
 
-        [ItemName("Bottle: Zora Egg"), LocationName("Bottle: Zora Egg")]
+        [ItemName("Bottle: Zora Egg"), LocationName("Bottle: Zora Egg"), RegionName("Bottle Catch")]
         [GossipLocationHint("a lost child"), GossipItemHint("a lost child")]
         [GetBottleItemIndices(0x07)]
         BottleCatchEgg = 170,
 
-        [ItemName("Bottle: Mushroom"), LocationName("Bottle: Mushroom")]
+        [ItemName("Bottle: Mushroom"), LocationName("Bottle: Mushroom"), RegionName("Bottle Catch")]
         [GossipLocationHint("a strange fungus"), GossipItemHint("a strange fungus")]
         [GetBottleItemIndices(0x0A)]
         BottleCatchMushroom = 171,
@@ -1702,31 +1702,31 @@ namespace MMRando.GameObjects
         OtherFourMasks = 260,
         AreaMoonAccess = 261,
 
-        [ItemName("Heart Piece"), LocationName("Deku Trial Heart Piece")]
+        [ItemName("Heart Piece"), LocationName("Deku Trial Heart Piece"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x11F)]
         HeartPieceDekuTrial = 262,
 
-        [ItemName("Heart Piece"), LocationName("Goron Trial Heart Piece")]
+        [ItemName("Heart Piece"), LocationName("Goron Trial Heart Piece"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x120)]
         HeartPieceGoronTrial = 263,
 
-        [ItemName("Heart Piece"), LocationName("Zora Trial Heart Piece")]
+        [ItemName("Heart Piece"), LocationName("Zora Trial Heart Piece"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x121)]
         HeartPieceZoraTrial = 264,
 
-        [ItemName("Heart Piece"), LocationName("Link Trial Heart Piece")]
+        [ItemName("Heart Piece"), LocationName("Link Trial Heart Piece"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x122)]
         HeartPieceLinkTrial = 265,
 
-        [ItemName("Fierce Deity's Mask"), LocationName("Majora Child")]
+        [ItemName("Fierce Deity's Mask"), LocationName("Majora Child"), RegionName("The Moon")]
         [GossipLocationHint("the lonely child"), GossipItemHint("the wrath of a god")]
         [ShopText("A mask that contains the merits of all masks.")]
         [GetItemIndex(0x7B)]

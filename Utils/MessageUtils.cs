@@ -91,8 +91,9 @@ namespace MMRando.Utils
 
                 if (randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Competitive)
                 {
+                    var preventRegions = new List<string> { "The Moon", "Bottle Catch", "Misc" };
                     var itemRegion = item.NewLocation.Value.Region();
-                    if (!string.IsNullOrWhiteSpace(itemRegion) && (randomizedResult.Settings.AddSongs || !ItemUtils.IsSong(item.Item)))
+                    if (!string.IsNullOrWhiteSpace(itemRegion) && !preventRegions.Contains(itemRegion) && (randomizedResult.Settings.AddSongs || !ItemUtils.IsSong(item.Item)))
                     {
                         if (!itemsInRegions.ContainsKey(itemRegion))
                         {
