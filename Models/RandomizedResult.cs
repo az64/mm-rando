@@ -1,5 +1,6 @@
 ﻿using MMRando.Models.Rom;
 using MMRando.Models.Settings;
+using MMRando.GameObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +14,8 @@ namespace MMRando.Models
         public List<ItemObject> ItemList { get; set; }
         public List<MessageEntry> GossipQuotes { get; set; }
         public List<ItemLogic> Logic { get; set; }
-        public ReadOnlyCollection<MoonPathItem> RequiredItemsForMoonAccess { get; set; }
+        public ReadOnlyCollection<Item> AllItemsOnPathToMoon { get; set; }
+        public ReadOnlyCollection<Item> ItemsRequiredForMoonAccess { get; set; }
 
         public int[] NewEntrances = new int[] { -1, -1, -1, -1 };
         public int[] NewExits = new int[] { -1, -1, -1, -1 };

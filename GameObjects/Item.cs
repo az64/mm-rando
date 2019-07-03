@@ -28,7 +28,7 @@ namespace MMRando.GameObjects
         ItemFireArrow = 2,
 
         [StartingItem(0xC5CE27, 0x03)]
-        [ItemName("Ice Arrow"), LocationName("Ice Arrow"), RegionName("Great Bay Temple")]
+        [ItemName("Ice Arrow"), LocationName("Ice Arrow Chest"), RegionName("Great Bay Temple")]
         [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("the power of ice", "a magical item")]
         [ShopText("Arm your bow with arrows that freeze.")]
         [GetItemIndex(0x26)]

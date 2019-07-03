@@ -1425,8 +1425,12 @@ namespace MMRando
             }
         }
 
-        private ReadOnlyCollection<MoonPathItem> GetRequiredItems(Item item, List<ItemLogic> itemLogic, List<Item> logicPath = null, Dictionary<Item, ReadOnlyCollection<MoonPathItem>> checkedItems = null, int depth = 0)
+        private ReadOnlyCollection<Item> GetRequiredItems(Item item, List<ItemLogic> itemLogic, List<Item> logicPath = null, Dictionary<Item, ReadOnlyCollection<Item>> checkedItems = null, Item? exclude = null)
         {
+            if (item == exclude)
+            {
+                return null;
+            }
             if (logicPath == null)
             {
                 logicPath = new List<Item>();
@@ -1438,63 +1442,62 @@ namespace MMRando
             logicPath.Add(item);
             if (checkedItems == null)
             {
-                checkedItems = new Dictionary<Item, ReadOnlyCollection<MoonPathItem>>();
+                checkedItems = new Dictionary<Item, ReadOnlyCollection<Item>>();
             }
             if (checkedItems.ContainsKey(item))
             {
-                var oldMinDepth = checkedItems[item].Min(t => (int?)t.Depth) ?? 0;
-                return checkedItems[item].Select(mpi => new MoonPathItem(mpi.Depth - oldMinDepth + depth, mpi.ItemId)).ToList().AsReadOnly();
+                return checkedItems[item];
             }
             var itemObject = ItemList[(int)item];
             var locationId = itemObject.NewLocation.HasValue ? itemObject.NewLocation : item;
             var locationLogic = itemLogic[(int)locationId];
-            var result = new List<MoonPathItem>();
+            var result = new List<Item>();
             if (locationLogic.RequiredItemIds != null)
             {
                 foreach (var requiredItemId in locationLogic.RequiredItemIds)
                 {
-                    var requiredChildren = GetRequiredItems((Item)requiredItemId, itemLogic, logicPath.ToList(), checkedItems, depth + 1);
+                    var requiredChildren = GetRequiredItems((Item)requiredItemId, itemLogic, logicPath.ToList(), checkedItems, exclude);
                     if (requiredChildren == null)
                     {
                         return null;
                     }
-                    result.Add(new MoonPathItem(depth, requiredItemId));
+                    result.Add((Item)requiredItemId);
                     result.AddRange(requiredChildren);
                 }
             }
             if (locationLogic.ConditionalItemIds != null)
             {
-                List<MoonPathItem> lowestRequirements = null;
+                var found = false;
                 foreach (var conditions in locationLogic.ConditionalItemIds)
                 {
-                    var conditionalRequirements = new List<MoonPathItem>();
+                    var conditionalRequirements = new List<Item>();
                     foreach (var conditionalItemId in conditions)
                     {
-                        var requiredChildren = GetRequiredItems((Item)conditionalItemId, itemLogic, logicPath.ToList(), checkedItems, depth + 1);
+                        var requiredChildren = GetRequiredItems((Item)conditionalItemId, itemLogic, logicPath.ToList(), checkedItems, exclude);
                         if (requiredChildren == null)
                         {
                             conditionalRequirements = null;
                             break;
                         }
 
-                        conditionalRequirements.Add(new MoonPathItem(depth, conditionalItemId));
+                        found = true;
+                        conditionalRequirements.Add((Item)conditionalItemId);
                         conditionalRequirements.AddRange(requiredChildren);
                     }
-                    conditionalRequirements = conditionalRequirements?.DistinctBy(mpi => mpi.ItemId).ToList();
-                    if (conditionalRequirements != null && (lowestRequirements == null || conditionalRequirements.Count < lowestRequirements.Count))
+
+                    if (conditionalRequirements != null)
                     {
-                        lowestRequirements = conditionalRequirements;
+                        result.AddRange(conditionalRequirements);
                     }
                 }
-                if (lowestRequirements == null)
+                if (!found)
                 {
                     return null;
                 }
-                result.AddRange(lowestRequirements);
             }
-            var readonlyResult = result.DistinctBy(mpi => mpi.ItemId).ToList().AsReadOnly();
-            checkedItems[item] = readonlyResult;
-            return readonlyResult;
+            var readOnlyResult = result.Distinct().ToList().AsReadOnly();
+            checkedItems[item] = readOnlyResult;
+            return readOnlyResult;
         }
 
         /// <summary>
@@ -1522,11 +1525,21 @@ namespace MMRando
                 worker.ReportProgress(30, "Shuffling items...");
                 RandomizeItems();
 
-                _randomized.RequiredItemsForMoonAccess = GetRequiredItems(Item.AreaMoonAccess, _randomized.Logic);
-                if (_randomized.RequiredItemsForMoonAccess == null)
+                _randomized.AllItemsOnPathToMoon = GetRequiredItems(Item.AreaMoonAccess, _randomized.Logic)?.Where(item => !item.IsFake()).ToList().AsReadOnly();
+                if (_randomized.AllItemsOnPathToMoon == null)
                 {
                     throw new Exception("Moon Access is unobtainable.");
                 }
+                var itemsRequiredForMoonAccess = new List<Item>();
+                foreach (var item in _randomized.AllItemsOnPathToMoon)
+                {
+                    var checkPaths = GetRequiredItems(Item.AreaMoonAccess, _randomized.Logic, exclude: item);
+                    if (checkPaths == null)
+                    {
+                        itemsRequiredForMoonAccess.Add(item);
+                    }
+                }
+                _randomized.ItemsRequiredForMoonAccess = itemsRequiredForMoonAccess.AsReadOnly();
 
                 if (_settings.GossipHintStyle != GossipHintStyle.Default)
                 {
