@@ -586,7 +586,7 @@ namespace MMRando.GameObjects
         MaskScents = 77,
 
         [StartingItem(0xC5CE48, 0x3C)]
-        [ItemName("Romani Mask"), LocationName("Cremia"), RegionName("Romani Ranch")]
+        [ItemName("Romani's Mask"), LocationName("Cremia"), RegionName("Romani Ranch")]
         [GossipLocationHint("the ranch lady", "an older sister"), GossipItemHint("proof of membership", "a cow's mask")]
         [ShopText("Wear it to show you're a member of the Milk Bar, Latte.")]
         [GetItemIndex(0x82)]
