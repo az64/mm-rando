@@ -14,6 +14,7 @@ namespace MMRando.GameObjects
 
         // items
         [StartingItem(0xC5CE25, 0x01)]
+        [StartingItem(0xC5CE6F, 0x01)]
         [ItemName("Hero's Bow"), LocationName("Hero's Bow Chest"), RegionName("Woodfall Temple")]
         [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("a projectile", "a ranged weapon")]
         [ShopText("Use it to shoot arrows.")]
@@ -42,6 +43,7 @@ namespace MMRando.GameObjects
         ItemLightArrow = 4,
 
         [StartingItem(0xC5CE2A, 0x06)]
+        [StartingItem(0xC5CE6F, 0x08)]
         [ItemName("Bomb Bag"), LocationName("Bomb Bag Purchase"), RegionName("West Clock Town")]
         [GossipLocationHint("a town shop"), GossipItemHint("an item carrier", "a vessel of explosives")]
         [ShopRoom(ShopRoomAttribute.Room.BombShop, 0x48)]
@@ -149,6 +151,7 @@ namespace MMRando.GameObjects
         //upgrades
         [Repeatable]
         [StartingItem(0xC5CE21, 0x02)]
+        [StartingItem(0xC5CE00, 0x4E)]
         [ItemName("Razor Sword"), LocationName("Mountain Smithy Day 1"), RegionName("Mountain Village")]
         [GossipLocationHint("the mountain smith"), GossipItemHint("a sharp blade")]
         [ShopText("A sharp sword forged at the smithy.")]
@@ -157,6 +160,7 @@ namespace MMRando.GameObjects
 
         [Downgradable, Repeatable]
         [StartingItem(0xC5CE21, 0x03)]
+        [StartingItem(0xC5CE00, 0x4F)]
         [ItemName("Gilded Sword"), LocationName("Mountain Smithy Day 2"), RegionName("Mountain Village")]
         [GossipLocationHint("the mountain smith"), GossipItemHint("a sharp blade")]
         [ShopText("A very sharp sword forged from gold dust.")]
@@ -172,6 +176,7 @@ namespace MMRando.GameObjects
         UpgradeMirrorShield = 21,
 
         [StartingItem(0xC5CE25, 0x01)]
+        [StartingItem(0xC5CE6F, 0x02)]
         [ItemName("Large Quiver"), LocationName("Town Archery #1"), RegionName("East Clock Town")]
         [GossipLocationHint("a town activity"), GossipItemHint("a projectile", "a ranged weapon")]
         [ShopText("This can hold up to a maximum of 40 arrows.")]
@@ -180,6 +185,7 @@ namespace MMRando.GameObjects
 
         [Downgradable]
         [StartingItem(0xC5CE25, 0x01)]
+        [StartingItem(0xC5CE6F, 0x03)]
         [ItemName("Largest Quiver"), LocationName("Swamp Archery #1"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a projectile", "a ranged weapon")]
         [ShopText("This can hold up to a maximum of 50 arrows.")]
@@ -188,6 +194,7 @@ namespace MMRando.GameObjects
 
         [Downgradable]
         [StartingItem(0xC5CE2A, 0x06)]
+        [StartingItem(0xC5CE6F, 0x10)]
         [ItemName("Big Bomb Bag"), LocationName("Big Bomb Bag Purchase"), RegionName("West Clock Town")]
         [GossipLocationHint("a town shop"), GossipItemHint("an item carrier", "a vessel of explosives")]
         [ShopRoom(ShopRoomAttribute.Room.BombShop, 0x52)]
@@ -200,6 +207,7 @@ namespace MMRando.GameObjects
 
         [Downgradable]
         [StartingItem(0xC5CE2A, 0x06)]
+        [StartingItem(0xC5CE6F, 0x18)]
         [ItemName("Biggest Bomb Bag"), LocationName("Biggest Bomb Bag Purchase"), RegionName("Goron Village")]
         [GossipLocationHint("a northern merchant"), GossipItemHint("an item carrier", "a vessel of explosives")]
         [ShopText("This can hold up to a maximum of 40 bombs.")]
@@ -1637,6 +1645,7 @@ namespace MMRando.GameObjects
         HeartPieceCastle = 244,
 
         [StartingItem(0xC5CDE9, 0x10, true)]
+        [StartingItem(0xC5CDEB, 0x10, true)]
         [ItemName("Heart Container"), LocationName("Odolwa Heart Container"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
@@ -1644,6 +1653,7 @@ namespace MMRando.GameObjects
         HeartContainerWoodfall = 245,
 
         [StartingItem(0xC5CDE9, 0x10, true)]
+        [StartingItem(0xC5CDEB, 0x10, true)]
         [ItemName("Heart Container"), LocationName("Goht Heart Container"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
@@ -1651,6 +1661,7 @@ namespace MMRando.GameObjects
         HeartContainerSnowhead = 246,
 
         [StartingItem(0xC5CDE9, 0x10, true)]
+        [StartingItem(0xC5CDEB, 0x10, true)]
         [ItemName("Heart Container"), LocationName("Gyorg Heart Container"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
@@ -1658,6 +1669,7 @@ namespace MMRando.GameObjects
         HeartContainerGreatBay = 247,
 
         [StartingItem(0xC5CDE9, 0x10, true)]
+        [StartingItem(0xC5CDEB, 0x10, true)]
         [ItemName("Heart Container"), LocationName("Twinmold Heart Container"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]

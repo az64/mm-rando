@@ -360,47 +360,22 @@ namespace MMRando
 
             // can't start with more than 15 hearts with this method. heart container value is two bytes
             // also need to handle cases with 4 or more starting heart pieces
-            PutOrCombine(startingItems, 0xC5CDE9, 0x10, true); // add Heart Container
-            PutOrCombine(startingItems, 0xC5CDE9, 0x10, true); // add Heart Container
-            PutOrCombine(startingItems, 0xC5CDE9, 0x10, true); // add Heart Container
+            for (var i = 0; i < 3; i++)
+            {
+                PutOrCombine(startingItems, 0xC5CDE9, 0x10, true); // add Heart Container
+                PutOrCombine(startingItems, 0xC5CDEB, 0x10, true); // add current health
+            }
 
             foreach (var item in items)
             {
-                var startingItem = item.GetAttribute<StartingItemAttribute>();
-                if (startingItem == null)
+                var startingItemValues = item.GetAttributes<StartingItemAttribute>();
+                if (!startingItemValues.Any())
                 {
                     throw new Exception($@"Invalid starting item ""{item}""");
                 }
-                PutOrCombine(startingItems, startingItem.Address, startingItem.Value, startingItem.IsAdditional);
-
-                switch (item)
+                foreach (var startingItem in startingItemValues)
                 {
-                    case Item.ItemBow:
-                        PutOrCombine(startingItems, 0xC5CE6F, 0x01);
-                        break;
-                    case Item.ItemBombBag:
-                        PutOrCombine(startingItems, 0xC5CE6F, 0x08);
-                        break;
-                    case Item.UpgradeRazorSword: //sword upgrade
-                        startingItems[0xC5CE00] = 0x4E;
-                        break;
-                    case Item.UpgradeGildedSword:
-                        startingItems[0xC5CE00] = 0x4F;
-                        break;
-                    case Item.UpgradeBigQuiver: //quiver upgrade
-                        PutOrCombine(startingItems, 0xC5CE6F, 0x02);
-                        break;
-                    case Item.UpgradeBiggestQuiver:
-                        PutOrCombine(startingItems, 0xC5CE6F, 0x03);
-                        break;
-                    case Item.UpgradeBigBombBag://bomb bag upgrade
-                        PutOrCombine(startingItems, 0xC5CE6F, 0x10);
-                        break;
-                    case Item.UpgradeBiggestBombBag:
-                        PutOrCombine(startingItems, 0xC5CE6F, 0x18);
-                        break;
-                    default:
-                        break;
+                    PutOrCombine(startingItems, startingItem.Address, startingItem.Value, startingItem.IsAdditional);
                 }
             }
 

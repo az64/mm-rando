@@ -5,6 +5,7 @@ using System.Text;
 
 namespace MMRando.Attributes
 {
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
     public class StartingItemAttribute : Attribute
     {
         public int Address { get; private set; }
