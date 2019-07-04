@@ -759,12 +759,14 @@ namespace MMRando.GameObjects
         AreaInvertedStoneTowerNew = 121, // Seemingly not used
 
         //keysanity items
+        [StartingItem(0xC5CE74, 0x04)]
         [ItemName("Woodfall Map"), LocationName("Woodfall Map Chest"), RegionName("Woodfall Temple")]
         [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("a navigation aid", "a paper guide")]
         [ShopText("The Dungeon Map for Woodfall Temple.")]
         [GetItemIndex(0x3E)]
         ItemWoodfallMap = 122,
 
+        [StartingItem(0xC5CE74, 0x02)]
         [ItemName("Woodfall Compass"), LocationName("Woodfall Compass Chest"), RegionName("Woodfall Temple")]
         [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("a navigation aid", "a magnetic needle")]
         [ShopText("The Compass for Woodfall Temple.")]
@@ -785,12 +787,14 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x3C)]
         ItemWoodfallKey1 = 125,
 
+        [StartingItem(0xC5CE75, 0x04)]
         [ItemName("Snowhead Map"), LocationName("Snowhead Map Chest"), RegionName("Snowhead Temple")]
         [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("a navigation aid", "a paper guide")]
         [ShopText("The Dungeon Map for Snowhead Temple.")]
         [GetItemIndex(0x54)]
         ItemSnowheadMap = 126,
 
+        [StartingItem(0xC5CE75, 0x02)]
         [ItemName("Snowhead Compass"), LocationName("Snowhead Compass Chest"), RegionName("Snowhead Temple")]
         [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("a navigation aid", "a magnetic needle")]
         [ShopText("The Compass for Snowhead Temple.")]
@@ -825,12 +829,14 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x48)]
         ItemSnowheadKey3 = 131,
 
+        [StartingItem(0xC5CE76, 0x04)]
         [ItemName("Great Bay Map"), LocationName("Great Bay Map Chest"), RegionName("Great Bay Temple")]
         [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("a navigation aid", "a paper guide")]
         [ShopText("The Dungeon Map for Great Bay Temple.")]
         [GetItemIndex(0x55)]
         ItemGreatBayMap = 132,
 
+        [StartingItem(0xC5CE76, 0x02)]
         [ItemName("Great Bay Compass"), LocationName("Great Bay Compass Chest"), RegionName("Great Bay Temple")]
         [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("a navigation aid", "a magnetic needle")]
         [ShopText("The Compass for Great Bay Temple.")]
@@ -851,12 +857,14 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x40)]
         ItemGreatBayKey1 = 135,
 
+        [StartingItem(0xC5CE77, 0x04)]
         [ItemName("Stone Tower Map"), LocationName("Stone Tower Map Chest"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("a navigation aid", "a paper guide")]
         [ShopText("The Dungeon Map for Stone Tower Temple.")]
         [GetItemIndex(0x56)]
         ItemStoneTowerMap = 136,
 
+        [StartingItem(0xC5CE77, 0x02)]
         [ItemName("Stone Tower Compass"), LocationName("Stone Tower Compass Chest"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("a navigation aid", "a magnetic needle")]
         [ShopText("The Compass for Stone Tower Temple.")]
