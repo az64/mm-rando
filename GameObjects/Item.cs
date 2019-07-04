@@ -286,42 +286,42 @@ namespace MMRando.GameObjects
         TradeItemMamaLetter = 36,
 
         //notebook hp
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Mayor"), RegionName("East Clock Town")]
         [GossipLocationHint("a town leader", "an upstanding figure"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x03)]
         HeartPieceNotebookMayor = 37,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Postman's Game"), RegionName("West Clock Town")]
         [GossipLocationHint("a hard worker", "a delivery person"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0xCE)]
         HeartPieceNotebookPostman = 38,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Rosa Sisters"), RegionName("West Clock Town")]
         [GossipLocationHint("traveling sisters", "twin entertainers"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x2B)]
         HeartPieceNotebookRosa = 39,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Toilet Hand"), RegionName("East Clock Town")]
         [GossipLocationHint("a mystery appearance", "a strange palm"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x2C)]
         HeartPieceNotebookHand = 40,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Grandma Short Story"), RegionName("East Clock Town")]
         [GossipLocationHint("an old lady"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x2D)]
         HeartPieceNotebookGran1 = 41,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Grandma Long Story"), RegionName("East Clock Town")]
         [GossipLocationHint("an old lady"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
@@ -329,175 +329,175 @@ namespace MMRando.GameObjects
         HeartPieceNotebookGran2 = 42,
 
         //other hp
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Keaton Quiz"), RegionName("North Clock Town")]
         [GossipLocationHint("the ghost of a fox", "a mysterious fox"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x30)]
         HeartPieceKeatonQuiz = 43,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Deku Playground"), RegionName("North Clock Town")]
         [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x31)]
         HeartPieceDekuPlayground = 44,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Town Archery #2"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x90)]
         HeartPieceTownArchery = 45,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Honey and Darling"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x94)]
         HeartPieceHoneyAndDarling = 46,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Swordsman's School"), RegionName("West Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x9F)]
         HeartPieceSwordsmanSchool = 47,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Postbox"), RegionName("South Clock Town")]
         [GossipLocationHint("an information carrier", "a correspondence box"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0xA2)]
         HeartPiecePostBox = 48,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Gossip Stones"), RegionName("Termina Field")]
         [GossipLocationHint("mysterious stones"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0xA3)]
         HeartPieceTerminaGossipStones = 49,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Business Scrub Purchase"), RegionName("Termina Field")]
         [GossipLocationHint("a hidden merchant"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0xA5)]
         HeartPieceTerminaBusinessScrub = 50,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Swamp Archery #2"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0xA6)]
         HeartPieceSwampArchery = 51,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Pictograph Contest"), RegionName("Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0xA7)]
         HeartPiecePictobox = 52,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Boat Archery"), RegionName("Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0xA8)]
         HeartPieceBoatArchery = 53,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Frog Choir"), RegionName("Mountain Village")]
         [GossipLocationHint("a reunion", "a chorus", "an amphibian choir"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0xAC)]
         HeartPieceChoir = 54,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Beaver Race #2"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a river dweller", "a race in the water"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0xAD)]
         HeartPieceBeaverRace = 55,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Seahorse"), RegionName("Pinnacle Rock")]
         [GossipLocationHint("a reunion"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0xAE)]
         HeartPieceSeaHorse = 56,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Fisherman Game"), RegionName("Great Bay Coast")]
         [GossipLocationHint("an ocean game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0xAF)]
         HeartPieceFishermanGame = 57,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Evan"), RegionName("Zora Hall")]
         [GossipLocationHint("a muse", "a composition", "a musician", "plagiarism"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0xB0)]
         HeartPieceEvan = 58,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Dog Race"), RegionName("Romani Ranch")]
         [GossipLocationHint("a sporting event"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0xB1)]
         HeartPieceDogRace = 59,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Poe Hut"), RegionName("Ikana Canyon")]
         [GossipLocationHint("a game of ghosts"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0xB2)]
         HeartPiecePoeHut = 60,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Treasure Chest Game"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x17)]
         HeartPieceTreasureChestGame = 61,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Peahat Grotto"), RegionName("Termina Field")]
         [GossipLocationHint("a hollow ground"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x18)]
         HeartPiecePeahat = 62,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Dodongo Grotto"), RegionName("Termina Field")]
         [GossipLocationHint("a hollow ground"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x20)]
         HeartPieceDodong = 63,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Woodfall Heart Piece Chest"), RegionName("Woodfall")]
         [GossipLocationHint("the swamp lands", "an exposed chest"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x29)]
         HeartPieceWoodFallChest = 64,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Twin Islands Heart Piece Chest"), RegionName("Twin Islands")]
         [GossipLocationHint("a spring treasure", "a defrosted land", "a submerged chest"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x2E)]
         HeartPieceTwinIslandsChest = 65,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Ocean Spider House Heart Piece Chest"), RegionName("Great Bay Coast")]
         [GossipLocationHint("the strange masks", "coloured faces"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x14)]
         HeartPieceOceanSpiderHouse = 66,
 
-        [StartingItem(0xC5CE70, 0x10)]
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Iron Knuckle Chest"), RegionName("Ikana Graveyard")]
         [GossipLocationHint("a hollow ground"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
@@ -1446,6 +1446,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xF2)]
         ChestToGoronVillageRedRupee = 217,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Secret Shrine Heart Piece Chest"), RegionName("Secret Shrine")]
         [GossipLocationHint("a secret place"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
@@ -1522,6 +1523,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xFA)]
         ChestSouthClockTownPurpleRupee = 228,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Bank Reward #2"), RegionName("West Clock Town")]
         [GossipLocationHint("being rich"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
@@ -1529,114 +1531,133 @@ namespace MMRando.GameObjects
         HeartPieceBank = 229, //Heart Piece
 
         //standing HPs
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("South Clock Town Heart Piece"), RegionName("South Clock Town")]
         [GossipLocationHint("the tower doors"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x10B)]
         HeartPieceSouthClockTown = 230,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("North Clock Town Heart Piece"), RegionName("North Clock Town")]
         [GossipLocationHint("a town playground"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x10C)]
         HeartPieceNorthClockTown = 231,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Path to Swamp Heart Piece"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a tree of bats"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x10D)]
         HeartPieceToSwamp = 232,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Swamp Scrub Heart Piece"), RegionName("Southern Swamp")]
         [GossipLocationHint("a tourist centre"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x10E)]
         HeartPieceSwampScrub = 233,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Deku Palace Heart Piece"), RegionName("Deku Palace")]
         [GossipLocationHint("the home of scrubs"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x10F)]
         HeartPieceDekuPalace = 234,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Goron Village Scrub Heart Piece"), RegionName("Goron Village")]
         [GossipLocationHint("a cold ledge"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x110)]
         HeartPieceGoronVillageScrub = 235,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Bio Baba Grotto Heart Piece"), RegionName("Termina Field")]
         [GossipLocationHint("a beehive"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x111)]
         HeartPieceZoraGrotto = 236,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Lab Fish Heart Piece"), RegionName("Great Bay Coast")]
         [GossipLocationHint("feeding the fish"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x112)]
         HeartPieceLabFish = 237,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Great Bay Like-Like Heart Piece"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a shield eater"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x113)]
         HeartPieceGreatBayCapeLikeLike = 238,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Pirates' Fortress Heart Piece"), RegionName("Pirates' Fortress Sewer")]
         [GossipLocationHint("a timed door"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x114)]
         HeartPiecePiratesFortress = 239,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Zora Hall Scrub Heart Piece"), RegionName("Zora Hall")]
         [GossipLocationHint("the singer's room"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x115)]
         HeartPieceZoraHallScrub = 240,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Path to Snowhead Heart Piece"), RegionName("Path to Snowhead")]
         [GossipLocationHint("a cold platform"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x116)]
         HeartPieceToSnowhead = 241,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Great Bay Coast Heart Piece"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a rock face"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x117)]
         HeartPieceGreatBayCoast = 242,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Ikana Scrub Heart Piece"), RegionName("Ikana Canyon")]
         [GossipLocationHint("a thief's doorstep"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x118)]
         HeartPieceIkana = 243,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Ikana Castle Heart Piece"), RegionName("Ikana Castle")]
         [GossipLocationHint("a fiery pillar"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x119)]
         HeartPieceCastle = 244,
 
+        [StartingItem(0xC5CDE9, 0x10, true)]
         [ItemName("Heart Container"), LocationName("Odolwa Heart Container"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
         [GetItemIndex(0x11A)]
         HeartContainerWoodfall = 245,
 
+        [StartingItem(0xC5CDE9, 0x10, true)]
         [ItemName("Heart Container"), LocationName("Goht Heart Container"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
         [GetItemIndex(0x11B)]
         HeartContainerSnowhead = 246,
 
+        [StartingItem(0xC5CDE9, 0x10, true)]
         [ItemName("Heart Container"), LocationName("Gyorg Heart Container"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
         [GetItemIndex(0x11C)]
         HeartContainerGreatBay = 247,
 
+        [StartingItem(0xC5CDE9, 0x10, true)]
         [ItemName("Heart Container"), LocationName("Twinmold Heart Container"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
@@ -1702,30 +1723,35 @@ namespace MMRando.GameObjects
         OtherFourMasks = 260,
         AreaMoonAccess = 261,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Deku Trial Heart Piece"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x11F)]
         HeartPieceDekuTrial = 262,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Goron Trial Heart Piece"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x120)]
         HeartPieceGoronTrial = 263,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Zora Trial Heart Piece"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x121)]
         HeartPieceZoraTrial = 264,
 
+        [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Heart Piece"), LocationName("Link Trial Heart Piece"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [GetItemIndex(0x122)]
         HeartPieceLinkTrial = 265,
 
+        [StartingItem(0xC5CE53, 0x35)]
         [ItemName("Fierce Deity's Mask"), LocationName("Majora Child"), RegionName("The Moon")]
         [GossipLocationHint("the lonely child"), GossipItemHint("the wrath of a god")]
         [ShopText("A mask that contains the merits of all masks.")]

@@ -358,6 +358,12 @@ namespace MMRando
             }
             PutOrCombine(startingItems, 0xC5CE72, 0x10); // add Song of Time
 
+            // can't start with more than 15 hearts with this method. heart container value is two bytes
+            // also need to handle cases with 4 or more starting heart pieces
+            PutOrCombine(startingItems, 0xC5CDE9, 0x10, true); // add Heart Container
+            PutOrCombine(startingItems, 0xC5CDE9, 0x10, true); // add Heart Container
+            PutOrCombine(startingItems, 0xC5CDE9, 0x10, true); // add Heart Container
+
             foreach (var item in items)
             {
                 var startingItem = item.GetAttribute<StartingItemAttribute>();
@@ -365,7 +371,7 @@ namespace MMRando
                 {
                     throw new Exception($@"Invalid starting item ""{item}""");
                 }
-                PutOrCombine(startingItems, startingItem.Address, startingItem.Value, ItemUtils.IsHeartPiece(item));
+                PutOrCombine(startingItems, startingItem.Address, startingItem.Value, startingItem.IsAdditional);
 
                 switch (item)
                 {

@@ -9,11 +9,13 @@ namespace MMRando.Attributes
     {
         public int Address { get; private set; }
         public byte Value { get; private set; }
+        public bool IsAdditional { get; private set; }
 
-        public StartingItemAttribute(int address, byte value)
+        public StartingItemAttribute(int address, byte value, bool isAdditional = false)
         {
             Address = address;
             Value = value;
+            IsAdditional = isAdditional;
         }
     }
 }

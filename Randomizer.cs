@@ -1166,7 +1166,7 @@ namespace MMRando
                 while (ItemList[(int)freeItem].NewLocation.HasValue
                     || forbiddenStartingItems.Contains(freeItem))
                 {
-                    freeItem = freeItem = availableStartingItems.Random(Random);
+                    freeItem = availableStartingItems.Random(Random);
                 }
                 ItemList[(int)freeItem].NewLocation = Item.MaskDeku;
                 itemPool.Remove(Item.MaskDeku);
