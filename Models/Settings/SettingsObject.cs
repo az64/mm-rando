@@ -132,6 +132,11 @@ namespace MMRando.Models.Settings
         public bool AddOther { get; set; }
 
         /// <summary>
+        /// Add pre-clocktown nut chest to the randomization pool
+        /// </summary>
+        public bool AddNutChest { get; set; }
+
+        /// <summary>
         /// Randomize the content of a bottle when catching (e.g. catching a fairy puts poe in bottle)
         /// </summary>
         public bool RandomizeBottleCatchContents { get; set; }
@@ -280,6 +285,7 @@ namespace MMRando.Models.Settings
             int part3 = (int)parts[2];
             int part4 = (int)parts[3];
 
+            AddNutChest = (part1 & 2097152) > 0;
             UpdateShopAppearance = (part1 & 1048576) > 0;
             PreventDowngrades = (part1 & 524288) > 0;
             NoBGM = (part1 & 262144) > 0;
@@ -336,6 +342,7 @@ namespace MMRando.Models.Settings
         {
             int[] parts = new int[4];
 
+            if (AddNutChest) { parts[0] += 2097152; }
             if (UpdateShopAppearance) { parts[0] += 1048576; }
             if (PreventDowngrades) { parts[0] += 524288; }
             if (NoBGM) { parts[0] += 262144; }

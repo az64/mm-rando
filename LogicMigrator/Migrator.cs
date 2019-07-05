@@ -7,7 +7,7 @@ namespace MMRando.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 5;
+        public const int CurrentVersion = 6;
 
         public static string ApplyMigrations(string logic)
         {
@@ -41,6 +41,11 @@ namespace MMRando.LogicMigrator
             if (GetVersion(lines) < 5)
             {
                 AddIkanaScrubGoldRupee(lines);
+            }
+
+            if (GetVersion(lines) < 6)
+            {
+                AddPreClocktownChestAndLinkTrialChests(lines);
             }
 
             return string.Join("\r\n", lines);
@@ -329,11 +334,68 @@ namespace MMRando.LogicMigrator
             }
         }
 
+        private static void AddPreClocktownChestAndLinkTrialChests(List<string> lines)
+        {
+            lines[0] = "-version 6";
+            var newItems = new MigrationItem[]
+            {
+                new MigrationItem
+                {
+                    ID = 267,
+                    DependsOnItems = new List<int> { 261, 260, 10 }
+                },
+                new MigrationItem
+                {
+                    ID = 268,
+                    DependsOnItems = new List<int> { 261, 260, 10 }
+                },
+                new MigrationItem
+                {
+                    ID = 269,
+                    DependsOnItems = new List<int> { 261 }
+                },
+            };
+            var itemNames = new string[]
+            {
+                "Link Trial 30 Arrows",
+                "Link Trial 10 Bombchu",
+                "Pre-Clocktown 10 Deku Nuts",
+            };
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section => section.Split(',').Select(id =>
+                    {
+                        var itemId = int.Parse(id);
+                        if (itemId >= 267)
+                        {
+                            itemId += newItems.Length;
+                        }
+                        return itemId;
+                    }).ToList()).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+            foreach (var item in newItems)
+            {
+                lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 267]}");
+                lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
+                lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
+                lines.Insert(item.ID * 5 + 4, "0");
+                lines.Insert(item.ID * 5 + 5, "0");
+            }
+        }
+
         private class MigrationItem
         {
             public int ID;
-            public List<List<int>> Conditionals;
-            public List<int> DependsOnItems;
+            public List<List<int>> Conditionals = new List<List<int>>();
+            public List<int> DependsOnItems = new List<int>();
         }
     }
 }

@@ -60,7 +60,7 @@ namespace MMRando.Utils
 
         public static bool IsMoonLocation(Item location)
         {
-            return location >= Item.HeartPieceDekuTrial && location <= Item.MaskFierceDeity;
+            return location >= Item.HeartPieceDekuTrial && location <= Item.ChestLinkTrialBombchu10;
         }
 
         public static bool IsOtherItem(Item item)

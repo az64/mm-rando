@@ -76,7 +76,8 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cDEnt, "Enable randomization of dungeon entrances. \n\nStone Tower Temple is always vanilla, but Inverted Stone Tower Temple is randomized.");
             TooltipBuilder.SetTooltip(cAdditional, "Enable miscellaneous items being placed in the randomization pool.\n\nAmong the miscellaneous items are:\nFreestanding heartpieces, overworld chests, (hidden) grotto chests, Tingle's maps and bank heartpiece.");
             TooltipBuilder.SetTooltip(cEnemy, "Enable randomization of enemies. May cause softlocks in some circumstances, use at your own risk.");
-            TooltipBuilder.SetTooltip(cMoonItems, "Enable moon items being placed in the randomization pool.\n\nIncludes the four Moon Trial Heart Pieces and the Fierce Deity's Mask.");
+            TooltipBuilder.SetTooltip(cMoonItems, "Enable moon items being placed in the randomization pool.\n\nIncludes the four Moon Trial Heart Pieces, Fierce Deity's Mask and the two Link Trial chests.");
+            TooltipBuilder.SetTooltip(cNutChest, "Enable randomization of the pre-clocktown deku nut chest. Not available when using Casual logic.");
 
             // Gimmicks
             TooltipBuilder.SetTooltip(cDMult, "Select a damage mode, affecting how much damage Link takes:\n\n - Default: Link takes normal damage.\n - 2x: Link takes double damage.\n - 4x: Link takes quadruple damage.\n - 1-hit KO: Any damage kills Link.\n - Doom: Hardcore mode. Link's hearts are slowly being drained continuously.");
@@ -279,6 +280,7 @@ namespace MMRando
             cClockSpeed.SelectedIndex = (int) _settings.ClockSpeed;
             cNoDowngrades.Checked = _settings.PreventDowngrades;
             cShopAppearance.Checked = _settings.UpdateShopAppearance;
+            cNutChest.Checked = _settings.AddNutChest;
 
             cDMult.SelectedIndex = (int)_settings.DamageMode;
             cDType.SelectedIndex = (int)_settings.DamageEffect;
@@ -313,6 +315,8 @@ namespace MMRando
             cAdditional.Checked = false;
 
             cMoonItems.Checked = false;
+
+            cNutChest.Checked = false;
 
             UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
 
@@ -358,6 +362,11 @@ namespace MMRando
         private void cMoonItems_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.AddMoonItems = cMoonItems.Checked);
+        }
+
+        private void cNutChest_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.AddNutChest = cNutChest.Checked);
         }
 
         private void cBGM_CheckedChanged(object sender, EventArgs e)
@@ -560,6 +569,7 @@ namespace MMRando
                 cAdditional.Enabled = false;
                 cUserItems.Enabled = false;
                 cMoonItems.Enabled = false;
+                cNutChest.Enabled = false;
             }
             else
             {
@@ -574,6 +584,7 @@ namespace MMRando
                 cAdditional.Enabled = onMainTab;
                 cUserItems.Enabled = onMainTab;
                 cMoonItems.Enabled = onMainTab;
+                cNutChest.Enabled = onMainTab && _settings.LogicMode != LogicMode.Casual;
             }
 
             cHTMLLog.Enabled = onMainTab && _settings.GenerateSpoilerLog;
@@ -586,6 +597,7 @@ namespace MMRando
                 cShop.Enabled = false;
                 cAdditional.Enabled = false;
                 cMoonItems.Enabled = false;
+                cNutChest.Enabled = false;
             }
             else
             {
@@ -597,6 +609,7 @@ namespace MMRando
                     cShop.Enabled = onMainTab;
                     cAdditional.Enabled = onMainTab;
                     cMoonItems.Enabled = onMainTab;
+                    cNutChest.Enabled = onMainTab && _settings.LogicMode != LogicMode.Casual;
                 }
             }
 
@@ -672,6 +685,7 @@ namespace MMRando
             cHTMLLog.Enabled = v;
             cN64.Enabled = v;
             cMoonItems.Enabled = v;
+            cNutChest.Enabled = v;
             cPatch.Enabled = v;
             bApplyPatch.Enabled = v;
 

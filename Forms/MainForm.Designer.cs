@@ -74,6 +74,7 @@ namespace MMRando
             this.cDMult = new System.Windows.Forms.ComboBox();
             this.cGravity = new System.Windows.Forms.ComboBox();
             this.tabComfort = new System.Windows.Forms.TabPage();
+            this.cShopAppearance = new System.Windows.Forms.CheckBox();
             this.lGossip = new System.Windows.Forms.Label();
             this.cGossipHints = new System.Windows.Forms.ComboBox();
             this.cNoDowngrades = new System.Windows.Forms.CheckBox();
@@ -122,7 +123,7 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cShopAppearance = new System.Windows.Forms.CheckBox();
+            this.cNutChest = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -298,6 +299,7 @@ namespace MMRando
             // 
             // tabMain
             // 
+            this.tabMain.Controls.Add(this.cNutChest);
             this.tabMain.Controls.Add(this.cMoonItems);
             this.tabMain.Controls.Add(this.label3);
             this.tabMain.Controls.Add(this.label2);
@@ -718,6 +720,21 @@ namespace MMRando
             this.tabComfort.TabIndex = 1;
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
+            // 
+            // cShopAppearance
+            // 
+            this.cShopAppearance.AutoSize = true;
+            this.cShopAppearance.BackColor = System.Drawing.Color.Transparent;
+            this.cShopAppearance.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cShopAppearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cShopAppearance.ForeColor = System.Drawing.Color.Black;
+            this.cShopAppearance.Location = new System.Drawing.Point(32, 184);
+            this.cShopAppearance.Name = "cShopAppearance";
+            this.cShopAppearance.Size = new System.Drawing.Size(92, 17);
+            this.cShopAppearance.TabIndex = 21;
+            this.cShopAppearance.Text = "Update shops";
+            this.cShopAppearance.UseVisualStyleBackColor = false;
+            this.cShopAppearance.CheckedChanged += new System.EventHandler(this.cShopAppearance_CheckedChanged);
             // 
             // lGossip
             // 
@@ -1214,20 +1231,20 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // cShopAppearance
+            // cNutChest
             // 
-            this.cShopAppearance.AutoSize = true;
-            this.cShopAppearance.BackColor = System.Drawing.Color.Transparent;
-            this.cShopAppearance.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cShopAppearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cShopAppearance.ForeColor = System.Drawing.Color.Black;
-            this.cShopAppearance.Location = new System.Drawing.Point(32, 184);
-            this.cShopAppearance.Name = "cShopAppearance";
-            this.cShopAppearance.Size = new System.Drawing.Size(92, 17);
-            this.cShopAppearance.TabIndex = 21;
-            this.cShopAppearance.Text = "Update shops";
-            this.cShopAppearance.UseVisualStyleBackColor = false;
-            this.cShopAppearance.CheckedChanged += new System.EventHandler(this.cShopAppearance_CheckedChanged);
+            this.cNutChest.AutoSize = true;
+            this.cNutChest.BackColor = System.Drawing.Color.Transparent;
+            this.cNutChest.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cNutChest.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cNutChest.ForeColor = System.Drawing.Color.Black;
+            this.cNutChest.Location = new System.Drawing.Point(162, 170);
+            this.cNutChest.Name = "cNutChest";
+            this.cNutChest.Size = new System.Drawing.Size(144, 17);
+            this.cNutChest.TabIndex = 16;
+            this.cNutChest.Text = "Pre-Clocktown Deku Nut";
+            this.cNutChest.UseVisualStyleBackColor = false;
+            this.cNutChest.CheckedChanged += new System.EventHandler(this.cNutChest_CheckedChanged);
             // 
             // MainForm
             // 
@@ -1364,6 +1381,7 @@ namespace MMRando
         private System.Windows.Forms.Label lGossip;
         private System.Windows.Forms.ComboBox cGossipHints;
         private System.Windows.Forms.CheckBox cShopAppearance;
+        private System.Windows.Forms.CheckBox cNutChest;
     }
 }
 

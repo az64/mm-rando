@@ -80,10 +80,16 @@ namespace MMRando.Utils
                     {
                         continue;
                     }
+
+                    if (!randomizedResult.Settings.AddNutChest && item.Item == Item.ChestPreClocktownDekuNut)
+                    {
+                        continue;
+                    }
                 }
 
+                var itemName = item.Item.Name();
                 if (randomizedResult.Settings.GossipHintStyle != GossipHintStyle.Competitive 
-                    && (ItemUtils.IsHeartPiece(item.Item) || ItemUtils.IsOtherItem(item.Item)) 
+                    && (itemName.Contains("Heart") || itemName.Contains("Rupee"))
                     && (randomizedResult.Settings.ClearHints || randomizedResult.Random.Next(8) != 0))
                 {
                     continue;

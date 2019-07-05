@@ -1777,5 +1777,26 @@ namespace MMRando.GameObjects
         [ShopText("A mask that contains the merits of all masks.")]
         [GetItemIndex(0x7B)]
         MaskFierceDeity = 266,
+
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Link Trial Garo Master Chest"), RegionName("The Moon")]
+        [GossipLocationHint("a masked child's game"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [GetItemIndex(0x126)]
+        ChestLinkTrialArrow30 = 267,
+
+        [Repeatable]
+        [ItemName("10 Bombchu"), LocationName("Link Trial Iron Knuckle Chest"), RegionName("The Moon")]
+        [GossipLocationHint("a masked child's game"), GossipItemHint("explosive mice")]
+        [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
+        [GetItemIndex(0x127)]
+        ChestLinkTrialBombchu10 = 268,
+
+        [Repeatable]
+        [ItemName("10 Deku Nuts"), LocationName("Pre-Clocktown Chest"), RegionName("Beneath Clocktown")]
+        [GossipLocationHint("the first chest"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.", isMultiple: true)]
+        [GetItemIndex(0x128)]
+        ChestPreClocktownDekuNut = 269,
     }
 }

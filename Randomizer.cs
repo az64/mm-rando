@@ -1034,7 +1034,7 @@ namespace MMRando
         /// </summary>
         private void PlaceMoonItems(List<Item> itemPool)
         {
-            for (var i = Item.HeartPieceDekuTrial; i <= Item.MaskFierceDeity; i++)
+            for (var i = Item.HeartPieceDekuTrial; i <= Item.ChestLinkTrialBombchu10; i++)
             {
                 PlaceItem(i, itemPool);
             }
@@ -1064,6 +1064,7 @@ namespace MMRando
 
             PlaceItem(Item.ChestToGoronRaceGrotto, itemPool);
             PlaceItem(Item.IkanaScrubGoldRupee, itemPool);
+            PlaceItem(Item.ChestPreClocktownDekuNut, itemPool);
         }
 
         /// <summary>
@@ -1263,6 +1264,11 @@ namespace MMRando
             {
                 PreserveMoonItems();
             }
+
+            if (!_settings.AddNutChest || _settings.LogicMode == LogicMode.Casual)
+            {
+                PreserveNutChest();
+            }
         }
 
         /// <summary>
@@ -1339,10 +1345,18 @@ namespace MMRando
         /// </summary>
         private void PreserveMoonItems()
         {
-            for (var i = Item.HeartPieceDekuTrial; i <= Item.MaskFierceDeity; i++)
+            for (var i = Item.HeartPieceDekuTrial; i <= Item.ChestLinkTrialBombchu10; i++)
             {
                 ItemList[(int)i].NewLocation = i;
             }
+        }
+
+        /// <summary>
+        /// Keeps moon items vanilla
+        /// </summary>
+        private void PreserveNutChest()
+        {
+            ItemList[(int)Item.ChestPreClocktownDekuNut].NewLocation = Item.ChestPreClocktownDekuNut;
         }
 
         /// <summary>
@@ -1452,7 +1466,7 @@ namespace MMRando
             var locationId = itemObject.NewLocation.HasValue ? itemObject.NewLocation : item;
             var locationLogic = itemLogic[(int)locationId];
             var result = new List<Item>();
-            if (locationLogic.RequiredItemIds != null)
+            if (locationLogic.RequiredItemIds != null && locationLogic.RequiredItemIds.Any())
             {
                 foreach (var requiredItemId in locationLogic.RequiredItemIds)
                 {
@@ -1465,7 +1479,7 @@ namespace MMRando
                     result.AddRange(requiredChildren);
                 }
             }
-            if (locationLogic.ConditionalItemIds != null)
+            if (locationLogic.ConditionalItemIds != null && locationLogic.ConditionalItemIds.Any())
             {
                 var found = false;
                 foreach (var conditions in locationLogic.ConditionalItemIds)
