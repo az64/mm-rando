@@ -348,23 +348,12 @@ namespace MMRando
         private void WriteFreeItems(params Item[] items)
         {
             Dictionary<int, byte> startingItems = new Dictionary<int, byte>();
-            if (!items.Contains(Item.UpgradeRazorSword) && !items.Contains(Item.UpgradeGildedSword))
-            {
-                PutOrCombine(startingItems, 0xC5CE21, 0x01); // add Kokiri Sword
-            }
-            if (!items.Contains(Item.UpgradeMirrorShield))
-            {
-                PutOrCombine(startingItems, 0xC5CE21, 0x10); // add Hero's Shield
-            }
             PutOrCombine(startingItems, 0xC5CE72, 0x10); // add Song of Time
 
             // can't start with more than 15 hearts with this method. heart container value is two bytes
             // also need to handle cases with 4 or more starting heart pieces
-            for (var i = 0; i < 3; i++)
-            {
-                PutOrCombine(startingItems, 0xC5CDE9, 0x10, true); // add Heart Container
-                PutOrCombine(startingItems, 0xC5CDEB, 0x10, true); // add current health
-            }
+            PutOrCombine(startingItems, 0xC5CDE9, 0x10, true); // add Heart Container
+            PutOrCombine(startingItems, 0xC5CDEB, 0x10, true); // add current health
 
             foreach (var item in items)
             {
@@ -407,6 +396,10 @@ namespace MMRando
             //write free item (start item default = Deku Mask)
             freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.MaskDeku).Item);
             freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.SongHealing).Item);
+            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingSword).Item);
+            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingShield).Item);
+            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingHeartContainer1).Item);
+            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingHeartContainer2).Item);
             WriteFreeItems(freeItems.ToArray());
 
             //write everything else
@@ -450,6 +443,13 @@ namespace MMRando
                 }
             }
 
+            // replace "Razor Sword is now blunt" message with get-item message for Kokiri Sword.
+            newMessages.Add(new MessageEntry
+            {
+                Id = 0xF9,
+                Header = new byte[] { 0x06, 0x00, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
+                Message = $"You got the \x01Kokiri Sword\x00!\u0011This is a hidden treasure of\u0011the Kokiri, but you can borrow it\u0011for a while.\u00BF",
+            });
             _messageTable.UpdateMessages(newMessages);
 
             if (_settings.AddShopItems)

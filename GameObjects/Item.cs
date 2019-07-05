@@ -6,7 +6,7 @@ namespace MMRando.GameObjects
     {
         // free
         [StartingItem(0xC5CE41, 0x32)]
-        [ItemName("Deku Mask"), LocationName("Starting Item #1"), RegionName("Misc")]
+        [ItemName("Deku Mask"), LocationName("Starting Item"), RegionName("Misc")]
         [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("a woodland spirit")]
         [ShopText("Wear it to assume Deku form.")]
         [GetItemIndex(0x78)]
@@ -671,7 +671,7 @@ namespace MMRando.GameObjects
 
         //song
         [StartingItem(0xC5CE72, 0x20)]
-        [ItemName("Song of Healing"), LocationName("Starting Item #2"), RegionName("Misc")]
+        [ItemName("Song of Healing"), LocationName("Starting Song"), RegionName("Misc")]
         [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("a soothing melody")]
         [ShopText("This melody will soothe restless spirits.")]
         [GetItemIndex(0x124)]
@@ -1798,5 +1798,36 @@ namespace MMRando.GameObjects
         [ShopText("Its flash blinds enemies.", isMultiple: true)]
         [GetItemIndex(0x128)]
         ChestPreClocktownDekuNut = 269,
+
+        [StartingItem(0xC5CE21, 0x01)]
+        [StartingItem(0xC5CE00, 0x4D)]
+        [ItemName("Kokiri Sword"), LocationName("Starting Sword"), RegionName("Misc")]
+        [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("a forest blade")]
+        [ShopText("A sword created by forest folk.")]
+        [GetItemIndex(0x37)]
+        StartingSword = 270,
+
+        [StartingItem(0xC5CE21, 0x10)]
+        [ItemName("Hero's Shield"), LocationName("Starting Shield"), RegionName("Misc")]
+        [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("a basic guard", "protection")]
+        [ShopText("Use it to defend yourself.")]
+        [GetItemIndex(0x129)]
+        StartingShield = 271,
+
+        [StartingItem(0xC5CDE9, 0x10, true)]
+        [StartingItem(0xC5CDEB, 0x10, true)]
+        [ItemName("Heart Container"), LocationName("Starting Heart Container #1"), RegionName("Misc")]
+        [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("increased life")]
+        [ShopText("Permanently increases your life energy.")]
+        [GetItemIndex(0x12A)]
+        StartingHeartContainer1 = 272,
+
+        [StartingItem(0xC5CDE9, 0x10, true)]
+        [StartingItem(0xC5CDEB, 0x10, true)]
+        [ItemName("Heart Container"), LocationName("Starting Heart Container #2"), RegionName("Misc")]
+        [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("increased life")]
+        [ShopText("Permanently increases your life energy.")]
+        [GetItemIndex(0x12B)]
+        StartingHeartContainer2 = 273,
     }
 }

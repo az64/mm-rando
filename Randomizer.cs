@@ -1269,6 +1269,11 @@ namespace MMRando
             {
                 PreserveNutChest();
             }
+
+            // if no crazy starting items
+            {
+                PreserveStartingItems();
+            }
         }
 
         /// <summary>
@@ -1352,11 +1357,22 @@ namespace MMRando
         }
 
         /// <summary>
-        /// Keeps moon items vanilla
+        /// Keeps nut chest vanilla
         /// </summary>
         private void PreserveNutChest()
         {
             ItemList[(int)Item.ChestPreClocktownDekuNut].NewLocation = Item.ChestPreClocktownDekuNut;
+        }
+
+        /// <summary>
+        /// Keeps regular starting items vanilla
+        /// </summary>
+        private void PreserveStartingItems()
+        {
+            for (var i = Item.StartingSword; i <= Item.StartingHeartContainer2; i++)
+            {
+                ItemList[(int)i].NewLocation = i;
+            }
         }
 
         /// <summary>
