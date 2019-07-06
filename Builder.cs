@@ -355,7 +355,18 @@ namespace MMRando
             PutOrCombine(startingItems, 0xC5CDE9, 0x10, true); // add Heart Container
             PutOrCombine(startingItems, 0xC5CDEB, 0x10, true); // add current health
 
-            foreach (var item in items)
+            var itemList = items.ToList();
+            while (itemList.Count(item => item.Name() == "Heart Piece") >= 4)
+            {
+                itemList.Add(Item.StartingHeartContainer1);
+                for (var i = 0; i < 4; i++)
+                {
+                    var heartPiece = itemList.First(item => item.Name() == "Heart Piece");
+                    itemList.Remove(heartPiece);
+                }
+            }
+
+            foreach (var item in itemList)
             {
                 var startingItemValues = item.GetAttributes<StartingItemAttribute>();
                 if (!startingItemValues.Any())
