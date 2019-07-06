@@ -45,7 +45,7 @@ namespace MMRando.LogicMigrator
 
             if (GetVersion(lines) < 6)
             {
-                AddPreClocktownChestAndLinkTrialChests(lines);
+                AddPreClocktownChestLinkTrialChestsAndStartingItems(lines);
             }
 
             return string.Join("\r\n", lines);
@@ -334,7 +334,7 @@ namespace MMRando.LogicMigrator
             }
         }
 
-        private static void AddPreClocktownChestAndLinkTrialChests(List<string> lines)
+        private static void AddPreClocktownChestLinkTrialChestsAndStartingItems(List<string> lines)
         {
             lines[0] = "-version 6";
             var newItems = new MigrationItem[]
@@ -354,12 +354,32 @@ namespace MMRando.LogicMigrator
                     ID = 269,
                     DependsOnItems = new List<int> { 261 }
                 },
+                new MigrationItem
+                {
+                    ID = 270,
+                },
+                new MigrationItem
+                {
+                    ID = 271,
+                },
+                new MigrationItem
+                {
+                    ID = 272,
+                },
+                new MigrationItem
+                {
+                    ID = 273,
+                },
             };
             var itemNames = new string[]
             {
                 "Link Trial 30 Arrows",
                 "Link Trial 10 Bombchu",
                 "Pre-Clocktown 10 Deku Nuts",
+                "Starting Sword",
+                "Starting Shield",
+                "Starting Heart 1",
+                "Starting Heart 2",
             };
             for (var i = 0; i < lines.Count; i++)
             {

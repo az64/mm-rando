@@ -393,13 +393,16 @@ namespace MMRando
                 return;
             }
 
-            //write free item (start item default = Deku Mask)
-            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.MaskDeku).Item);
-            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.SongHealing).Item);
-            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingSword).Item);
-            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingShield).Item);
-            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingHeartContainer1).Item);
-            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingHeartContainer2).Item);
+            if (!_settings.NoStartingItems)
+            {
+                //write free item (start item default = Deku Mask)
+                freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.MaskDeku).Item);
+                freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.SongHealing).Item);
+                freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingSword).Item);
+                freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingShield).Item);
+                freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingHeartContainer1).Item);
+                freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingHeartContainer2).Item);
+            }
             WriteFreeItems(freeItems.ToArray());
 
             //write everything else

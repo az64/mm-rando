@@ -85,8 +85,16 @@ namespace MMRando
             },
             new List<Item>
             {
+                Item.StartingSword,
                 Item.UpgradeRazorSword,
                 Item.UpgradeGildedSword,
+            },
+            new List<Item>
+            {
+                Item.UpgradeMirrorShield,
+                Item.StartingShield,
+                Item.ShopItemTradingPostShield,
+                Item.ShopItemZoraShield,
             },
         }.Select(list => list.AsReadOnly()).ToList().AsReadOnly();
 
@@ -1012,10 +1020,10 @@ namespace MMRando
 
             AddAllItems(itemPool);
 
+            PlaceFreeItems(itemPool);
             PlaceQuestItems(itemPool);
             PlaceTradeItems(itemPool);
             PlaceDungeonItems(itemPool);
-            PlaceFreeItems(itemPool);
             PlaceUpgrades(itemPool);
             PlaceSongs(itemPool);
             PlaceMasks(itemPool);
@@ -1025,8 +1033,20 @@ namespace MMRando
             PlaceHeartpieces(itemPool);
             PlaceOther(itemPool);
             PlaceTingleMaps(itemPool);
+            PlaceStartingItems(itemPool);
 
             _randomized.ItemList = ItemList;
+        }
+
+        /// <summary>
+        /// Places starting items in the randomization pool.
+        /// </summary>
+        private void PlaceStartingItems(List<Item> itemPool)
+        {
+            for (var i = Item.StartingSword; i <= Item.StartingHeartContainer2; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
         }
 
         /// <summary>
@@ -1159,35 +1179,42 @@ namespace MMRando
         /// </summary>
         private void PlaceFreeItems(List<Item> itemPool)
         {
-            var forbiddenStartingItems = ForbiddenStartingItems.ToList();
-            var availableStartingItems = ItemUtils.StartingItems().ToList();
-            if (ItemList.FindIndex(item => item.NewLocation == Item.MaskDeku) == -1)
+            var freeItemLocations = new List<Item>
             {
-                var freeItem = availableStartingItems.Random(Random);
-                while (ItemList[(int)freeItem].NewLocation.HasValue
-                    || forbiddenStartingItems.Contains(freeItem))
+                Item.MaskDeku,
+                Item.SongHealing,
+                Item.StartingShield,
+                Item.StartingSword,
+                Item.StartingHeartContainer1,
+                Item.StartingHeartContainer2,
+            };
+            var availableStartingItems = (_settings.NoStartingItems
+                ? ItemUtils.AllRupees()
+                : ItemUtils.StartingItems())
+                .Where(item => !ItemList[(int)item].NewLocation.HasValue && !ForbiddenStartingItems.Contains(item))
+                .Cast<Item?>()
+                .ToList();
+            foreach (var location in freeItemLocations)
+            {
+                var placedItem = ItemList.FirstOrDefault(item => item.NewLocation == location)?.Item;
+                if (placedItem == null)
                 {
-                    freeItem = availableStartingItems.Random(Random);
+                    placedItem = availableStartingItems.RandomOrDefault(Random);
+                    if (placedItem == null)
+                    {
+                        throw new Exception("Failed to replace a starting item.");
+                    }
+                    ItemList[(int)placedItem].NewLocation = location;
+                    itemPool.Remove(location);
+                    availableStartingItems.Remove(placedItem.Value);
                 }
-                ItemList[(int)freeItem].NewLocation = Item.MaskDeku;
-                itemPool.Remove(Item.MaskDeku);
 
-                var forbiddenStartTogether = ForbiddenStartTogether.FirstOrDefault(list => list.Contains(freeItem));
+
+                var forbiddenStartTogether = ForbiddenStartTogether.FirstOrDefault(list => list.Contains(placedItem.Value));
                 if (forbiddenStartTogether != null)
                 {
-                    forbiddenStartingItems.AddRange(forbiddenStartTogether);
+                    availableStartingItems.RemoveAll(item => forbiddenStartTogether.Contains(item.Value));
                 }
-            }
-            if (ItemList.FindIndex(item => item.NewLocation == Item.SongHealing) == -1)
-            {
-                var freeItem = availableStartingItems.Random(Random);
-                while (ItemList[(int)freeItem].NewLocation.HasValue
-                    || forbiddenStartingItems.Contains(freeItem))
-                {
-                    freeItem = availableStartingItems.Random(Random);
-                }
-                ItemList[(int)freeItem].NewLocation = Item.SongHealing;
-                itemPool.Remove(Item.SongHealing);
             }
         }
 
@@ -1270,7 +1297,7 @@ namespace MMRando
                 PreserveNutChest();
             }
 
-            // if no crazy starting items
+            if (!_settings.CrazyStartingItems)
             {
                 PreserveStartingItems();
             }

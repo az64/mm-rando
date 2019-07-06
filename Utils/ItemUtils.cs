@@ -79,7 +79,8 @@ namespace MMRando.Utils
 
         public static bool IsStartingLocation(Item location)
         {
-            return location == Item.MaskDeku || location == Item.SongHealing;
+            return location == Item.MaskDeku || location == Item.SongHealing
+                || (location >= Item.StartingSword && location <= Item.StartingHeartContainer2);
         }
 
         public static bool IsSong(Item item)
@@ -102,6 +103,14 @@ namespace MMRando.Utils
             return Enum.GetValues(typeof(Item))
                 .Cast<Item>()
                 .Where(item => item.HasAttribute<StartingItemAttribute>());
+        }
+
+        // todo cache
+        public static IEnumerable<Item> AllRupees()
+        {
+            return Enum.GetValues(typeof(Item))
+                .Cast<Item>()
+                .Where(item => item.Name()?.Contains("Rupee") == true);
         }
 
         // todo cache

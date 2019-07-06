@@ -85,6 +85,11 @@ namespace MMRando.Utils
                     {
                         continue;
                     }
+
+                    if (!randomizedResult.Settings.CrazyStartingItems && ItemUtils.IsStartingLocation(item.Item))
+                    {
+                        continue;
+                    }
                 }
 
                 var itemName = item.Item.Name();

@@ -46,6 +46,8 @@ namespace MMRando
             this.cN64 = new System.Windows.Forms.CheckBox();
             this.lOutput = new System.Windows.Forms.Label();
             this.tabMain = new System.Windows.Forms.TabPage();
+            this.cStartingItems = new System.Windows.Forms.CheckBox();
+            this.cNutChest = new System.Windows.Forms.CheckBox();
             this.cMoonItems = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -123,7 +125,7 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cNutChest = new System.Windows.Forms.CheckBox();
+            this.cNoStartingItems = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -299,6 +301,7 @@ namespace MMRando
             // 
             // tabMain
             // 
+            this.tabMain.Controls.Add(this.cStartingItems);
             this.tabMain.Controls.Add(this.cNutChest);
             this.tabMain.Controls.Add(this.cMoonItems);
             this.tabMain.Controls.Add(this.label3);
@@ -321,6 +324,36 @@ namespace MMRando
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main Settings";
             this.tabMain.UseVisualStyleBackColor = true;
+            // 
+            // cStartingItems
+            // 
+            this.cStartingItems.AutoSize = true;
+            this.cStartingItems.BackColor = System.Drawing.Color.Transparent;
+            this.cStartingItems.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cStartingItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cStartingItems.ForeColor = System.Drawing.Color.Black;
+            this.cStartingItems.Location = new System.Drawing.Point(23, 170);
+            this.cStartingItems.Name = "cStartingItems";
+            this.cStartingItems.Size = new System.Drawing.Size(119, 17);
+            this.cStartingItems.TabIndex = 17;
+            this.cStartingItems.Text = "Crazy Starting Items";
+            this.cStartingItems.UseVisualStyleBackColor = false;
+            this.cStartingItems.CheckedChanged += new System.EventHandler(this.cStartingItems_CheckedChanged);
+            // 
+            // cNutChest
+            // 
+            this.cNutChest.AutoSize = true;
+            this.cNutChest.BackColor = System.Drawing.Color.Transparent;
+            this.cNutChest.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cNutChest.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cNutChest.ForeColor = System.Drawing.Color.Black;
+            this.cNutChest.Location = new System.Drawing.Point(162, 170);
+            this.cNutChest.Name = "cNutChest";
+            this.cNutChest.Size = new System.Drawing.Size(144, 17);
+            this.cNutChest.TabIndex = 16;
+            this.cNutChest.Text = "Pre-Clocktown Deku Nut";
+            this.cNutChest.UseVisualStyleBackColor = false;
+            this.cNutChest.CheckedChanged += new System.EventHandler(this.cNutChest_CheckedChanged);
             // 
             // cMoonItems
             // 
@@ -509,6 +542,7 @@ namespace MMRando
             // 
             // tabGimmick
             // 
+            this.tabGimmick.Controls.Add(this.cNoStartingItems);
             this.tabGimmick.Controls.Add(this.label7);
             this.tabGimmick.Controls.Add(this.cHideClock);
             this.tabGimmick.Controls.Add(this.label6);
@@ -1231,20 +1265,20 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // cNutChest
+            // cNoStartingItems
             // 
-            this.cNutChest.AutoSize = true;
-            this.cNutChest.BackColor = System.Drawing.Color.Transparent;
-            this.cNutChest.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cNutChest.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cNutChest.ForeColor = System.Drawing.Color.Black;
-            this.cNutChest.Location = new System.Drawing.Point(162, 170);
-            this.cNutChest.Name = "cNutChest";
-            this.cNutChest.Size = new System.Drawing.Size(144, 17);
-            this.cNutChest.TabIndex = 16;
-            this.cNutChest.Text = "Pre-Clocktown Deku Nut";
-            this.cNutChest.UseVisualStyleBackColor = false;
-            this.cNutChest.CheckedChanged += new System.EventHandler(this.cNutChest_CheckedChanged);
+            this.cNoStartingItems.AutoSize = true;
+            this.cNoStartingItems.BackColor = System.Drawing.Color.Transparent;
+            this.cNoStartingItems.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cNoStartingItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cNoStartingItems.ForeColor = System.Drawing.Color.Black;
+            this.cNoStartingItems.Location = new System.Drawing.Point(178, 224);
+            this.cNoStartingItems.Name = "cNoStartingItems";
+            this.cNoStartingItems.Size = new System.Drawing.Size(107, 17);
+            this.cNoStartingItems.TabIndex = 19;
+            this.cNoStartingItems.Text = "No Starting Items";
+            this.cNoStartingItems.UseVisualStyleBackColor = false;
+            this.cNoStartingItems.CheckedChanged += new System.EventHandler(this.cNoStartingItems_CheckedChanged);
             // 
             // MainForm
             // 
@@ -1382,6 +1416,8 @@ namespace MMRando
         private System.Windows.Forms.ComboBox cGossipHints;
         private System.Windows.Forms.CheckBox cShopAppearance;
         private System.Windows.Forms.CheckBox cNutChest;
+        private System.Windows.Forms.CheckBox cStartingItems;
+        private System.Windows.Forms.CheckBox cNoStartingItems;
     }
 }
 
