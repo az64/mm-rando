@@ -1254,7 +1254,7 @@ namespace MMRando.GameObjects
         ChestBomberHideoutSilverRupee = 187,
 
         [Repeatable]
-        [ItemName("1 Bombchu"), LocationName("Termina Field Pillar Grotto"), RegionName("Termina Field")]
+        [ItemName("Bombchu"), LocationName("Termina Field Pillar Grotto"), RegionName("Termina Field")]
         [GossipLocationHint("a hollow pillar"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
         [GetItemIndex(0xD7)]
@@ -1310,7 +1310,7 @@ namespace MMRando.GameObjects
         ChestGreatBayCapeLedge2 = 195, //contents? 
 
         [Repeatable]
-        [ItemName("1 Bombchu"), LocationName("Great Bay Cape Grotto"), RegionName("Great Bay Cape")]
+        [ItemName("Bombchu"), LocationName("Great Bay Cape Grotto"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a beach cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
         [GetItemIndex(0xD2)]
@@ -1421,7 +1421,7 @@ namespace MMRando.GameObjects
         ChestToIkanaRedRupee = 211,
 
         [Repeatable]
-        [ItemName("1 Bombchu"), LocationName("Path to Ikana Grotto"), RegionName("Road to Ikana")]
+        [ItemName("Bombchu"), LocationName("Path to Ikana Grotto"), RegionName("Road to Ikana")]
         [GossipLocationHint("a blocked cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.", isMultiple: true)]
         [GetItemIndex(0xD3)]
@@ -1723,7 +1723,7 @@ namespace MMRando.GameObjects
 
         //oops I forgot one
         [Repeatable]
-        [ItemName("1 Bombchu"), LocationName("Goron Racetrack Grotto"), RegionName("Twin Islands")]
+        [ItemName("Bombchu"), LocationName("Goron Racetrack Grotto"), RegionName("Twin Islands")]
         [GossipLocationHint("a hidden cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
         [GetItemIndex(0xD6)]
