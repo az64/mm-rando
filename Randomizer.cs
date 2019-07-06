@@ -489,12 +489,6 @@ namespace MMRando
                 return Dependence.NotDependent;
             }
 
-            // permanent items ignore dependencies of Blast Mask check
-            if (target == Item.MaskBlast && !currentItem.IsTemporary())
-            {
-                return Dependence.NotDependent;
-            }
-
             //check timing
             if (ItemList[(int)currentItem].TimeNeeded != 0 && dependencyPath.Skip(1).All(p => p.IsFake() || ItemList.Single(i => i.NewLocation == p).Item.IsTemporary()))
             {
@@ -611,6 +605,11 @@ namespace MMRando
             for (int i = 0; i < ItemList[(int)target].DependsOnItems.Count; i++)
             {
                 var dependency = ItemList[(int)target].DependsOnItems[i];
+                if (!currentItem.IsTemporary() && target == Item.MaskBlast && (dependency == Item.TradeItemKafeiLetter || dependency == Item.TradeItemPendant))
+                {
+                    // Permanent items ignore Kafei Letter and Pendant on Blast Mask check.
+                    continue;
+                }
                 if (dependency == currentItem)
                 {
                     Debug.WriteLine($"{target} has direct dependence on {currentItem}");
@@ -871,7 +870,8 @@ namespace MMRando
             {
                 if (!currentItem.IsTemporary())
                 {
-                    ItemList[(int)target].DependsOnItems = null;
+                    ItemList[(int)target].DependsOnItems?.Remove(Item.TradeItemKafeiLetter);
+                    ItemList[(int)target].DependsOnItems?.Remove(Item.TradeItemPendant);
                 }
             }
 
