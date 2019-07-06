@@ -1177,11 +1177,11 @@ namespace MMRando.GameObjects
         ChestBadBatsGrottoPurpleRupee = 176,
 
         [Repeatable]
-        [ItemName("Recovery Heart"), LocationName("Secret Shrine Grotto"), RegionName("Ikana Canyon")]
-        [GossipLocationHint("a waterfall cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
-        [ShopText("Recovers a small amount of life energy.")]
+        [ItemName("5 Bombchu"), LocationName("Secret Shrine Grotto"), RegionName("Ikana Canyon")]
+        [GossipLocationHint("a waterfall cave"), GossipItemHint("explosive mice")]
+        [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.")]
         [GetItemIndex(0xD1)]
-        ChestIkanaGrottoRecoveryHeart = 177,
+        ChestIkanaSecretShrineGrotto = 177,
 
         [Repeatable]
         [ItemName("Red Rupee"), LocationName("Pirates' Fortress Interior Lower Chest"), RegionName("Pirates' Fortress Interior")]
@@ -1359,8 +1359,8 @@ namespace MMRando.GameObjects
         ChestDogRacePurpleRupee = 202,
 
         [Repeatable]
-        [ItemName("1 Bombchu"), LocationName("Ikana Graveyard Grotto"), RegionName("Ikana Graveyard")]
-        [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
+        [ItemName("5 Bombchu"), LocationName("Ikana Graveyard Grotto"), RegionName("Ikana Graveyard")]
+        [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.")]
         [GossipLocationHint("a circled cave"), GossipItemHint("explosive mice")]
         [GetItemIndex(0xD5)]
         ChestGraveyardGrotto = 203, //contents? 
@@ -1422,7 +1422,7 @@ namespace MMRando.GameObjects
 
         [Repeatable]
         [ItemName("1 Bombchu"), LocationName("Path to Ikana Grotto"), RegionName("Road to Ikana")]
-        [GossipLocationHint("a blocked cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [GossipLocationHint("a blocked cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.", isMultiple: true)]
         [GetItemIndex(0xD3)]
         ChestToIkanaGrotto = 212, //contents? 
