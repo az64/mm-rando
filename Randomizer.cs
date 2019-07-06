@@ -1024,6 +1024,7 @@ namespace MMRando
             PlaceQuestItems(itemPool);
             PlaceTradeItems(itemPool);
             PlaceDungeonItems(itemPool);
+            PlaceStartingItems(itemPool);
             PlaceUpgrades(itemPool);
             PlaceSongs(itemPool);
             PlaceMasks(itemPool);
@@ -1033,7 +1034,6 @@ namespace MMRando
             PlaceHeartpieces(itemPool);
             PlaceOther(itemPool);
             PlaceTingleMaps(itemPool);
-            PlaceStartingItems(itemPool);
 
             _randomized.ItemList = ItemList;
         }
