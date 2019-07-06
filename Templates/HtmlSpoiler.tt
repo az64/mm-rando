@@ -14,6 +14,7 @@
 	.show-highlight .unavailable .newlocation { background-color: #FFDDDD; }
 	.show-highlight .acquired .newlocation { background-color: #DDFFDD; }
 	.show-highlight .available .newlocation { background-color: #DDDDFF; }
+    .region { text-align: center; font-weight: bold; }
 </style>
 </head>
 <label><b>Version: </b></label><span><#= spoiler.Version #></span><br/>
@@ -50,13 +51,16 @@
 	 <th></th>
      <th>Item</th>
  </tr>
-<# foreach (var item in spoiler.ItemList.OrderBy(item => item.NewLocationId)) {
+<# foreach (var region in spoiler.ItemList.GroupBy(item => item.Region).OrderBy(g => g.Key)) {
 #>
+ <tr class="region"><td colspan="3"><#= region.Key #></td></tr>
+ <# foreach (var item in region.OrderBy(item => item.NewLocationName)) { #>
  <tr data-id="<#= item.Id #>" data-newlocationid="<#= item.NewLocationId #>" class="unavailable">
 	<td class="newlocation"><#= item.NewLocationName #></td>
 	<td><input type="checkbox"/></td>
 	<td class="spoiler itemname"> <span data-content="<#= item.Name #>"></span></td>
  </tr>
+ <# } #>
 <# } #>
 </table>
 <h2>Item Locations</h2>
@@ -162,13 +166,12 @@
 		}
 	}
 
-	logic[0].Checked = true;
-	logic[document.querySelector("tr[data-newlocationid='0']").dataset.id].Acquired = true;
-	document.querySelector("tr[data-newlocationid='0'] input").checked = true;
-
-	logic[90].Checked = true;
-	logic[document.querySelector("tr[data-newlocationid='90']").dataset.id].Acquired = true;
-	document.querySelector("tr[data-newlocationid='90'] input").checked = true;
+    var startingLocations = [0, 90, 270, 271, 272, 273];
+    for (var id of startingLocations) {
+	    logic[id].Checked = true;
+	    logic[document.querySelector("tr[data-newlocationid='" + id + "']").dataset.id].Acquired = true;
+	    document.querySelector("tr[data-newlocationid='" + id + "'] input").checked = true;
+    }
 
 	recalculateItems();
 
