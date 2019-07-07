@@ -530,7 +530,7 @@ namespace MMRando
             this.cMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cMode.FormattingEnabled = true;
             this.cMode.Items.AddRange(new object[] {
-            "Casual/Glitchless",
+            "Casual",
             "Using Glitches",
             "Vanilla Layout",
             "User Logic",
