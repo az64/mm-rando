@@ -62,6 +62,7 @@ namespace MMRando
             this.lMode = new System.Windows.Forms.Label();
             this.cMode = new System.Windows.Forms.ComboBox();
             this.tabGimmick = new System.Windows.Forms.TabPage();
+            this.cNoStartingItems = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cHideClock = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -125,7 +126,7 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cNoStartingItems = new System.Windows.Forms.CheckBox();
+            this.cEponaSword = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -563,6 +564,21 @@ namespace MMRando
             this.tabGimmick.Text = "Gimmicks";
             this.tabGimmick.UseVisualStyleBackColor = true;
             // 
+            // cNoStartingItems
+            // 
+            this.cNoStartingItems.AutoSize = true;
+            this.cNoStartingItems.BackColor = System.Drawing.Color.Transparent;
+            this.cNoStartingItems.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cNoStartingItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cNoStartingItems.ForeColor = System.Drawing.Color.Black;
+            this.cNoStartingItems.Location = new System.Drawing.Point(178, 224);
+            this.cNoStartingItems.Name = "cNoStartingItems";
+            this.cNoStartingItems.Size = new System.Drawing.Size(107, 17);
+            this.cNoStartingItems.TabIndex = 19;
+            this.cNoStartingItems.Text = "No Starting Items";
+            this.cNoStartingItems.UseVisualStyleBackColor = false;
+            this.cNoStartingItems.CheckedChanged += new System.EventHandler(this.cNoStartingItems_CheckedChanged);
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -731,6 +747,7 @@ namespace MMRando
             // 
             // tabComfort
             // 
+            this.tabComfort.Controls.Add(this.cEponaSword);
             this.tabComfort.Controls.Add(this.cShopAppearance);
             this.tabComfort.Controls.Add(this.lGossip);
             this.tabComfort.Controls.Add(this.cGossipHints);
@@ -1265,20 +1282,20 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // cNoStartingItems
+            // cEponaSword
             // 
-            this.cNoStartingItems.AutoSize = true;
-            this.cNoStartingItems.BackColor = System.Drawing.Color.Transparent;
-            this.cNoStartingItems.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cNoStartingItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cNoStartingItems.ForeColor = System.Drawing.Color.Black;
-            this.cNoStartingItems.Location = new System.Drawing.Point(178, 224);
-            this.cNoStartingItems.Name = "cNoStartingItems";
-            this.cNoStartingItems.Size = new System.Drawing.Size(107, 17);
-            this.cNoStartingItems.TabIndex = 19;
-            this.cNoStartingItems.Text = "No Starting Items";
-            this.cNoStartingItems.UseVisualStyleBackColor = false;
-            this.cNoStartingItems.CheckedChanged += new System.EventHandler(this.cNoStartingItems_CheckedChanged);
+            this.cEponaSword.AutoSize = true;
+            this.cEponaSword.BackColor = System.Drawing.Color.Transparent;
+            this.cEponaSword.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cEponaSword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cEponaSword.ForeColor = System.Drawing.Color.Black;
+            this.cEponaSword.Location = new System.Drawing.Point(18, 207);
+            this.cEponaSword.Name = "cEponaSword";
+            this.cEponaSword.Size = new System.Drawing.Size(106, 17);
+            this.cEponaSword.TabIndex = 22;
+            this.cEponaSword.Text = "Fix Epona Sword";
+            this.cEponaSword.UseVisualStyleBackColor = false;
+            this.cEponaSword.CheckedChanged += new System.EventHandler(this.cEponaSword_CheckedChanged);
             // 
             // MainForm
             // 
@@ -1418,6 +1435,7 @@ namespace MMRando
         private System.Windows.Forms.CheckBox cNutChest;
         private System.Windows.Forms.CheckBox cStartingItems;
         private System.Windows.Forms.CheckBox cNoStartingItems;
+        private System.Windows.Forms.CheckBox cEponaSword;
     }
 }
 

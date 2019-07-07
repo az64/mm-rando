@@ -191,6 +191,11 @@ namespace MMRando.Models.Settings
         /// </summary>
         public bool UpdateShopAppearance { get; set; }
 
+        /// <summary>
+        /// Change epona B button behavior to prevent player losing sword if they don't have a bow.
+        /// </summary>
+        public bool FixEponaSword { get; set; }
+
         #endregion
 
         #region Gimmicks
@@ -295,6 +300,7 @@ namespace MMRando.Models.Settings
             int part3 = (int)parts[2];
             int part4 = (int)parts[3];
 
+            FixEponaSword = (part1 & 16777216) > 0;
             NoStartingItems = (part1 & 8388608) > 0;
             CrazyStartingItems = (part1 & 4194304) > 0;
             AddNutChest = (part1 & 2097152) > 0;
@@ -354,6 +360,7 @@ namespace MMRando.Models.Settings
         {
             int[] parts = new int[4];
 
+            if (FixEponaSword) { parts[0] += 16777216; }
             if (NoStartingItems) { parts[0] += 8388608; }
             if (CrazyStartingItems) { parts[0] += 4194304; }
             if (AddNutChest) { parts[0] += 2097152; }
