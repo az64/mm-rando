@@ -910,7 +910,14 @@ namespace MMRando
                 }
                 else if (ItemList[(int)currentItem].TimeNeeded != 0 && dependency.IsTemporary() && dependencyPath.Skip(1).All(p => p.IsFake() || ItemList.Single(j => j.NewLocation == p).Item.IsTemporary()))
                 {
-                    ItemList[(int)dependency].TimeNeeded &= ItemList[(int)currentItem].TimeNeeded;
+                    if (ItemList[(int)dependency].TimeNeeded == 0)
+                    {
+                        ItemList[(int)dependency].TimeNeeded = ItemList[(int)currentItem].TimeNeeded;
+                    }
+                    else
+                    {
+                        ItemList[(int)dependency].TimeNeeded &= ItemList[(int)currentItem].TimeNeeded;
+                    }
                 }
             }
 
