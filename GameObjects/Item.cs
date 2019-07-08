@@ -1423,7 +1423,7 @@ namespace MMRando.GameObjects
         [Repeatable]
         [ItemName("Bombchu"), LocationName("Path to Ikana Grotto"), RegionName("Road to Ikana")]
         [GossipLocationHint("a blocked cave"), GossipItemHint("explosive mice")]
-        [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.", isMultiple: true)]
+        [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
         [GetItemIndex(0xD3)]
         ChestToIkanaGrotto = 212, //contents? 
 

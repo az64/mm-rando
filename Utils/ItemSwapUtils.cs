@@ -215,12 +215,14 @@ namespace MMRando.Utils
                     newMessages.Add(new MessageEntry
                     {
                         Id = messageId,
+                        Header = null,
                         Message = MessageUtils.BuildShopDescriptionMessage(item.Name(), 20, description)
                     });
 
                     newMessages.Add(new MessageEntry
                     {
                         Id = (ushort)(messageId + 1),
+                        Header = null,
                         Message = MessageUtils.BuildShopPurchaseMessage(item.Name(), 20, item.ShopTexts()?.IsMultiple ?? false)
                     });
                 }

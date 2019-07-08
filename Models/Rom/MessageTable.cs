@@ -19,6 +19,10 @@ namespace MMRando.Models.Rom
         {
             if (messages.ContainsKey(message.Id))
             {
+                if (message.Header == null)
+                {
+                    message.Header = messages[message.Id].Header;
+                }
                 messages[message.Id] = message;
             }
         }
