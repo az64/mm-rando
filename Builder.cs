@@ -459,74 +459,60 @@ namespace MMRando
                 foreach (var tingleText in Enum.GetValues(typeof(TingleText)).Cast<TingleText>())
                 {
                     var tingleShop = tingleText.GetAttribute<TingleShopAttribute>();
-                    var item1 = _randomized.ItemList.First(io => io.NewLocation.Value == tingleShop.Items[0]).Item;
-                    var item2 = _randomized.ItemList.First(io => io.NewLocation.Value == tingleShop.Items[1]).Item;
+                    var item1 = _randomized.ItemList.First(io => io.NewLocation == tingleShop.Items[0]).Item;
+                    var item2 = _randomized.ItemList.First(io => io.NewLocation == tingleShop.Items[1]).Item;
                     newMessages.Add(new MessageEntry
                     {
                         Id = (ushort)tingleText,
                         Header = null,
-                        Message = $"\u0002\u00C3{item1.Name()}\u0011{item2.Name()}\u0011No Thanks\u00BF"
+                        Message = $"\u0002\u00C3{item1.Name() + " ", -22}\u0001{tingleShop.Prices[0], 2} Rupees\u0011\u0002{item2.Name() + " ", -22}\u0001{tingleShop.Prices[1], 2} Rupees\u0011\u0002No Thanks\u00BF"
                     });
                 }
 
                 // update business scrub
-                var businessScrubItem = _randomized.ItemList.First(io => io.NewLocation.Value == Item.HeartPieceTerminaBusinessScrub).Item;
+                var businessScrubItem = _randomized.ItemList.First(io => io.NewLocation == Item.HeartPieceTerminaBusinessScrub).Item;
                 var itemIsMultiple = businessScrubItem.ShopTexts().IsMultiple;
                 newMessages.Add(new MessageEntry
                 {
-                    Id = 0x00, // todo
+                    Id = 0x1631,
                     Header = null,
-                    Message = $"Please! I'll sell you {(itemIsMultiple ? "" : "a ")}\u0001{businessScrubItem.Name()}\u0000 if you just keep this place a secret...".Wrap(35, "\u0011")
+                    Message = $"\x1E\x3A\xD2Please! I'll sell you {(itemIsMultiple ? "" : "a ")}\u0001{businessScrubItem.Name()}\u0000 if you just keep this place a secret...\x19\xBF".Wrap(35, "\u0011")
                 });
                 newMessages.Add(new MessageEntry
                 {
-                    Id = 0x00, // todo
+                    Id = 0x1632,
                     Header = null,
-                    Message = $"150 Rupees for {(itemIsMultiple ? "the lot" : "one")}!" // todo text color
+                    Message = $"\u0006150 Rupees\u0000 for {(itemIsMultiple ? "the lot" : "one")}!\u0011 \u0011\u0002\u00C2I'll buy {(itemIsMultiple ? "them" : "it")}\u0011No thanks\u00BF"
                 });
                 newMessages.Add(new MessageEntry
                 {
-                    Id = 0x00, // todo
+                    Id = 0x1634,
                     Header = null,
-                    Message = $"What about {(itemIsMultiple ? "" : "one ")}for 100 Rupees?" // todo text color
+                    Message = $"What about {(itemIsMultiple ? "" : "one ")}for \u0006100 Rupees\u0000?\u0011 \u0011\u0002\u00C2I'll buy {(itemIsMultiple ? "them" : "it")}\u0011No thanks\u00BF"
                 });
 
                 // update biggest bomb bag purchase
-                var biggestBombBagItem = _randomized.ItemList.First(io => io.NewLocation.Value == Item.UpgradeBiggestBombBag).Item;
+                var biggestBombBagItem = _randomized.ItemList.First(io => io.NewLocation == Item.UpgradeBiggestBombBag).Item;
                 itemIsMultiple = biggestBombBagItem.ShopTexts().IsMultiple;
                 newMessages.Add(new MessageEntry
                 {
-                    Id = 0x00, // todo
+                    Id = 0x15FF,
                     Header = null,
-                    Message = $"Right now, I've got a special\u0011offer just for you." // todo text color
+                    Message = $"\x1E\x39\x8CRight now, I've got a \u0001special\u0011\u0000offer just for you.\u0019\u00BF"
                 });
                 newMessages.Add(new MessageEntry
                 {
-                    Id = 0x00, // todo
+                    Id = 0x1600,
                     Header = null,
-                    Message = $"I'll give you {(itemIsMultiple ? "" : "my ")}{biggestBombBagItem.Name()}, regularly priced at 1000 Rupees...".Wrap(35, "\u0011") // todo text color
+                    Message = $"\x1E\x38\x81I'll give you {(itemIsMultiple ? "" : "my ")}\u0001{biggestBombBagItem.Name()}\u0000, regularly priced at \u00061000 Rupees\u0000...".Wrap(35, "\u0011") + "\u0011\u0013\u0012In return, you'll give me just\u0011\u0006200 Rupees\u0000!\u0019\u00BF"
                 });
                 newMessages.Add(new MessageEntry
                 {
-                    Id = 0x00, // todo
+                    Id = 0x1606,
                     Header = null,
-                    Message = $"In return, you'll give me just\u0011200 Rupees!" // todo text color
-                });
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x00, // todo
-                    Header = null,
-                    Message = $"I'll give you {(itemIsMultiple ? "" : "my ")}{biggestBombBagItem.Name()}, regularly priced at 1000 Rupees, for just 200 Rupees!".Wrap(35, "\u0011") // todo text color
+                    Message = $"\x1E\x38\x81I'll give you {(itemIsMultiple ? "" : "my ")}\u0001{biggestBombBagItem.Name()}\u0000, regularly priced at \u00061000 Rupees\u0000, for just \u0006200 Rupees\u0000!\u0019\u00BF".Wrap(35, "\u0011")
                 });
             }
-
-            // replace bank text "you'll get an item that holds a lot of Rupees"
-            newMessages.Add(new MessageEntry
-            {
-                Id = 0x00, // todo
-                Header = null,
-                Message = $"For example, if you deposit\u0011200 Rupees, you'll get an item.", // todo text color
-            });
 
             // replace "Razor Sword is now blunt" message with get-item message for Kokiri Sword.
             newMessages.Add(new MessageEntry
