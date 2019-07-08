@@ -1652,6 +1652,7 @@ namespace MMRando.GameObjects
 
         [StartingItem(0xC5CDE9, 0x10, true)]
         [StartingItem(0xC5CDEB, 0x10, true)]
+        [StartingItem(0xC40E1B, 0x10, true)]
         [ItemName("Heart Container"), LocationName("Odolwa Heart Container"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
@@ -1660,6 +1661,7 @@ namespace MMRando.GameObjects
 
         [StartingItem(0xC5CDE9, 0x10, true)]
         [StartingItem(0xC5CDEB, 0x10, true)]
+        [StartingItem(0xC40E1B, 0x10, true)]
         [ItemName("Heart Container"), LocationName("Goht Heart Container"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
@@ -1668,6 +1670,7 @@ namespace MMRando.GameObjects
 
         [StartingItem(0xC5CDE9, 0x10, true)]
         [StartingItem(0xC5CDEB, 0x10, true)]
+        [StartingItem(0xC40E1B, 0x10, true)]
         [ItemName("Heart Container"), LocationName("Gyorg Heart Container"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
@@ -1676,6 +1679,7 @@ namespace MMRando.GameObjects
 
         [StartingItem(0xC5CDE9, 0x10, true)]
         [StartingItem(0xC5CDEB, 0x10, true)]
+        [StartingItem(0xC40E1B, 0x10, true)]
         [ItemName("Heart Container"), LocationName("Twinmold Heart Container"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
@@ -1814,6 +1818,7 @@ namespace MMRando.GameObjects
 
         [StartingItem(0xC5CDE9, 0x10, true)]
         [StartingItem(0xC5CDEB, 0x10, true)]
+        [StartingItem(0xC40E1B, 0x10, true)]
         [ItemName("Heart Container"), LocationName("Starting Heart Container #1"), RegionName("Misc")]
         [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
@@ -1822,6 +1827,7 @@ namespace MMRando.GameObjects
 
         [StartingItem(0xC5CDE9, 0x10, true)]
         [StartingItem(0xC5CDEB, 0x10, true)]
+        [StartingItem(0xC40E1B, 0x10, true)]
         [ItemName("Heart Container"), LocationName("Starting Heart Container #2"), RegionName("Misc")]
         [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]

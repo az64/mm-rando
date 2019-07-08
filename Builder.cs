@@ -354,6 +354,7 @@ namespace MMRando
             // also need to handle cases with 4 or more starting heart pieces
             PutOrCombine(startingItems, 0xC5CDE9, 0x10, true); // add Heart Container
             PutOrCombine(startingItems, 0xC5CDEB, 0x10, true); // add current health
+            PutOrCombine(startingItems, 0xC40E1B, 0x10, true); // add respawn health
 
             var itemList = items.ToList();
             while (itemList.Count(item => item.Name() == "Heart Piece") >= 4)
