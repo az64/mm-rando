@@ -47,9 +47,7 @@ namespace MMRando.GameObjects
         [ItemName("Bomb Bag"), LocationName("Bomb Bag Purchase"), RegionName("West Clock Town")]
         [GossipLocationHint("a town shop"), GossipItemHint("an item carrier", "a vessel of explosives")]
         [ShopRoom(ShopRoomAttribute.Room.BombShop, 0x48)]
-        [ShopRoom(ShopRoomAttribute.Room.CuriosityShop, 0x44)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.BombShop, 0)]
-        [ShopInventory(ShopInventoryAttribute.ShopKeeper.CuriosityShop, 1)]
         [ShopText("This can hold up to a maximum of 20 bombs.")]
         [GetItemIndex(0x1B)]
         ItemBombBag = 5,
@@ -198,7 +196,7 @@ namespace MMRando.GameObjects
         [ItemName("Big Bomb Bag"), LocationName("Big Bomb Bag Purchase"), RegionName("West Clock Town")]
         [GossipLocationHint("a town shop"), GossipItemHint("an item carrier", "a vessel of explosives")]
         [ShopRoom(ShopRoomAttribute.Room.BombShop, 0x52)]
-        [ShopRoom(ShopRoomAttribute.Room.CuriosityShop, 0x5A)]
+        [ShopRoom(ShopRoomAttribute.Room.CuriosityShop, 0x44)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.BombShop, 1)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.CuriosityShop, 2)]
         [ShopText("This can hold up to a maximum of 30 bombs.")]

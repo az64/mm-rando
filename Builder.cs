@@ -631,10 +631,6 @@ namespace MMRando
             data[0x29] += 2; // increase object count by 2
             data[0x37] += 4; // add 4 to actor list address
             RomData.MMFileList[1142].Data = data.ToArray();
-
-            RomUtils.CheckCompressed(1152); // curiosity shop
-            RomData.MMFileList[1152].Data[0x5B] = 0x98; // add extra objects
-            RomData.MMFileList[1152].Data[0x29] += 1; // increase object count by 1
         }
 
         public void MakeROM(string InFile, string FileName, BackgroundWorker worker)
