@@ -65,6 +65,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\ChestAttribute.cs" />
+    <Compile Include="Attributes\ChestTypeAttribute.cs" />
     <Compile Include="Attributes\CycleRepeatableAttribute.cs" />
     <Compile Include="Attributes\GetBottleItemIndicesAttribute.cs" />
     <Compile Include="Attributes\GetItemIndexAttribute.cs" />

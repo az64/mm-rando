@@ -158,6 +158,13 @@ namespace MMRando.Utils
                 + RomData.MMFileList[f].Data[src + 1]);
         }
 
+        public static byte Read(int address)
+        {
+            int f = RomUtils.GetFileIndexForWriting(address);
+            int src = address - RomData.MMFileList[f].Addr;
+            return RomData.MMFileList[f].Data[src];
+        }
+
     }
 
 }
