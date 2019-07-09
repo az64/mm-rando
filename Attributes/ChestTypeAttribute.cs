@@ -16,10 +16,10 @@ namespace MMRando.Attributes
 
         public enum ChestType
         {
-            LargeGold = 0x00,
-            SmallWooden,
-            SmallGold,
-            BossKey,
+            LargeGold = 0,
+            SmallWooden = 5,
+            SmallGold, // todo
+            BossKey = 2,
         }
     }
 }

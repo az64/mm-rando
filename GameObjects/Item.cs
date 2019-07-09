@@ -137,6 +137,7 @@ namespace MMRando.GameObjects
         [ItemName("Empty Bottle"), LocationName("Beaver Race #1"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a river dweller"), GossipItemHint("an empty vessel", "a glass container")]
         [ShopText("Carry various items in this.")]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x5A)]
         ItemBottleBeavers = 15,
 
@@ -525,7 +526,7 @@ namespace MMRando.GameObjects
         [ItemName("Heart Piece"), LocationName("Treasure Chest Game"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(ChestAttribute.AppearanceType.AppearsSwitch)] // todo?
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]//, Chest(ChestAttribute.AppearanceType.AppearsSwitch)] // todo?
         [GetItemIndex(0x17)]
         HeartPieceTreasureChestGame = 61,
 
@@ -1321,7 +1322,7 @@ namespace MMRando.GameObjects
         [ItemName("5 Bombchu"), LocationName("Secret Shrine Grotto"), RegionName("Ikana Canyon")]
         [GossipLocationHint("a waterfall cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02080000 + 0x93, 0x02080000 + 0x1E3, 0x02080000 + 0x2EB)]
         [GetItemIndex(0xD1)]
         ChestIkanaSecretShrineGrotto = 177,
 
@@ -1409,7 +1410,7 @@ namespace MMRando.GameObjects
         [ItemName("Bombchu"), LocationName("Termina Field Pillar Grotto"), RegionName("Termina Field")]
         [GossipLocationHint("a hollow pillar"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x025C5000 + 0x583)]
         [GetItemIndex(0xD7)]
         ChestTerminaGrottoBombchu = 188,
 
@@ -1417,7 +1418,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Termina Field Grass Grotto"), RegionName("Termina Field")]
         [GossipLocationHint("a grassy cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x025C5000 + 0x593)]
         [GetItemIndex(0xDC)]
         ChestTerminaGrottoRedRupee = 189,
 
@@ -1449,7 +1450,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Great Bay Coast Grotto"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a beach cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x026DE000 + 0x43F, 0x026DE000 + 0xFE3)]
         [GetItemIndex(0xD4)]
         ChestGreatBayCoastGrotto = 193, //contents? 
 
@@ -1473,7 +1474,7 @@ namespace MMRando.GameObjects
         [ItemName("Bombchu"), LocationName("Great Bay Cape Grotto"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a beach cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02715000 + 0x45B, 0x02715000 + 0xB47)]
         [GetItemIndex(0xD2)]
         ChestGreatBayCapeGrotto = 196, //contents? 
 
@@ -1513,7 +1514,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Path to Swamp Grotto"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a southern cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x027C1000 + 0x33B)]
         [GetItemIndex(0xDB)]
         ChestToSwampGrotto = 201, //contents? 
 
@@ -1529,7 +1530,7 @@ namespace MMRando.GameObjects
         [ItemName("5 Bombchu"), LocationName("Ikana Graveyard Grotto"), RegionName("Ikana Graveyard")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.")]
         [GossipLocationHint("a circled cave"), GossipItemHint("explosive mice")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x0280D000 + 0x353, 0x0280D000 + 0x54B)]
         [GetItemIndex(0xD5)]
         ChestGraveyardGrotto = 203, //contents? 
 
@@ -1537,7 +1538,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Near Swamp Spider House Grotto"), RegionName("Southern Swamp")]
         [GossipLocationHint("a southern cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x01F3A000 + 0x227, 0x02855000 + 0x2AF)]
         [GetItemIndex(0xDA)]
         ChestSwampGrotto = 204,  //contents? 
 
@@ -1584,7 +1585,7 @@ namespace MMRando.GameObjects
         [ItemName("Empty Bottle"), LocationName("Mountain Spring Grotto"), RegionName("Mountain Village")] // originally Red Rupee
         [GossipLocationHint("the springtime"), GossipItemHint("an empty vessel", "a glass container")] // originally "currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("Carry various items in this.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(ChestAttribute.AppearanceType.Normal)] // todo change chest type?
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold), GrottoChest(0x02BFC000 + 0x1F3, 0x02BFC000 + 0x2B3)] // todo change chest type?
         [GetItemIndex(0xD8)]
         ChestMountainVillageGrottoBottle = 210, // originally RedRupee
 
@@ -1600,7 +1601,7 @@ namespace MMRando.GameObjects
         [ItemName("Bombchu"), LocationName("Path to Ikana Grotto"), RegionName("Road to Ikana")]
         [GossipLocationHint("a blocked cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02B34000 + 0x523)]
         [GetItemIndex(0xD3)]
         ChestToIkanaGrotto = 212, //contents? 
 
@@ -1632,7 +1633,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Path to Snowhead Grotto"), RegionName("Path to Snowhead")]
         [GossipLocationHint("a snowy cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02C04000 + 0xAF, 0x02C04000 + 0x487)]
         [GetItemIndex(0xD0)]
         ChestToSnowheadGrotto = 216, //contents? 
 
@@ -1704,7 +1705,7 @@ namespace MMRando.GameObjects
         [ItemName("Purple Rupee"), LocationName("Mystery Woods Grotto"), RegionName("Southern Swamp")]
         [GossipLocationHint("a mystery cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 50 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02CFC000 + 0x5B)]
         [GetItemIndex(0xD9)]
         ChestWoodsGrotto = 225, //contents? 
 
@@ -1949,7 +1950,7 @@ namespace MMRando.GameObjects
         [ItemName("Bombchu"), LocationName("Goron Racetrack Grotto"), RegionName("Twin Islands")]
         [GossipLocationHint("a hidden cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02C23000 + 0x2D7, 0x02C34000 + 0x1DB)]
         [GetItemIndex(0xD6)]
         ChestToGoronRaceGrotto = 255, //contents?
 

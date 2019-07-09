@@ -227,6 +227,38 @@ namespace MMRando.Utils
                     });
                 }
             }
+
+            // if (updateChests)
+            {
+                var chestType = item.GetAttribute<ChestTypeAttribute>().Type;
+                var chestAttribute = location.GetAttribute<ChestAttribute>();
+                if (chestAttribute != null)
+                {
+                    foreach (var address in chestAttribute.Addresses)
+                    {
+                        var chestVariable = ReadWriteUtils.Read(address);
+                        chestVariable &= 0x0F; // remove existing chest type
+                        var newChestType = ChestAttribute.GetType(chestType, chestAttribute.Type);
+                        newChestType <<= 4;
+                        chestVariable |= newChestType;
+                        ReadWriteUtils.WriteToROM(address, chestVariable);
+                    }
+                }
+
+                var grottoChestAttribute = location.GetAttribute<GrottoChestAttribute>();
+                if (grottoChestAttribute != null)
+                {
+                    foreach (var address in grottoChestAttribute.Addresses)
+                    {
+                        var grottoVariable = ReadWriteUtils.Read(address);
+                        grottoVariable &= 0x1F; // remove existing chest type
+                        var newChestType = ChestAttribute.GetType(chestType, ChestAttribute.AppearanceType.Normal);
+                        newChestType <<= 5;
+                        grottoVariable |= newChestType; // add new chest type
+                        ReadWriteUtils.WriteToROM(address, grottoVariable);
+                    }
+                }
+            }
         }
 
     }
