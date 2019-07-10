@@ -357,12 +357,12 @@ namespace MMRando
             PutOrCombine(startingItems, 0xC40E1B, 0x10, true); // add respawn health
 
             var itemList = items.ToList();
-            while (itemList.Count(item => item.Name() == "Heart Piece") >= 4)
+            while (itemList.Count(item => item.Name() == "Piece of Heart") >= 4)
             {
                 itemList.Add(Item.StartingHeartContainer1);
                 for (var i = 0; i < 4; i++)
                 {
-                    var heartPiece = itemList.First(item => item.Name() == "Heart Piece");
+                    var heartPiece = itemList.First(item => item.Name() == "Piece of Heart");
                     itemList.Remove(heartPiece);
                 }
             }
