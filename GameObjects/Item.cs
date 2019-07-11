@@ -330,7 +330,7 @@ namespace MMRando.GameObjects
 
         //notebook hp
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Mayor"), RegionName("East Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Mayor"), RegionName("East Clock Town")]
         [GossipLocationHint("a town leader", "an upstanding figure"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -338,7 +338,7 @@ namespace MMRando.GameObjects
         HeartPieceNotebookMayor = 37,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Postman's Game"), RegionName("West Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Postman's Game"), RegionName("West Clock Town")]
         [GossipLocationHint("a hard worker", "a delivery person"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -346,7 +346,7 @@ namespace MMRando.GameObjects
         HeartPieceNotebookPostman = 38,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Rosa Sisters"), RegionName("West Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Rosa Sisters"), RegionName("West Clock Town")]
         [GossipLocationHint("traveling sisters", "twin entertainers"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -354,7 +354,7 @@ namespace MMRando.GameObjects
         HeartPieceNotebookRosa = 39,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Toilet Hand"), RegionName("East Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Toilet Hand"), RegionName("East Clock Town")]
         [GossipLocationHint("a mystery appearance", "a strange palm"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -362,7 +362,7 @@ namespace MMRando.GameObjects
         HeartPieceNotebookHand = 40,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Grandma Short Story"), RegionName("East Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Grandma Short Story"), RegionName("East Clock Town")]
         [GossipLocationHint("an old lady"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -370,7 +370,7 @@ namespace MMRando.GameObjects
         HeartPieceNotebookGran1 = 41,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Grandma Long Story"), RegionName("East Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Grandma Long Story"), RegionName("East Clock Town")]
         [GossipLocationHint("an old lady"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -379,7 +379,7 @@ namespace MMRando.GameObjects
 
         //other hp
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Keaton Quiz"), RegionName("North Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Keaton Quiz"), RegionName("North Clock Town")]
         [GossipLocationHint("the ghost of a fox", "a mysterious fox"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -387,7 +387,7 @@ namespace MMRando.GameObjects
         HeartPieceKeatonQuiz = 43,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Deku Playground"), RegionName("North Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Deku Playground"), RegionName("North Clock Town")]
         [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -395,7 +395,7 @@ namespace MMRando.GameObjects
         HeartPieceDekuPlayground = 44,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Town Archery #2"), RegionName("East Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Town Archery #2"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -403,7 +403,7 @@ namespace MMRando.GameObjects
         HeartPieceTownArchery = 45,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Honey and Darling"), RegionName("East Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Honey and Darling"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -411,7 +411,7 @@ namespace MMRando.GameObjects
         HeartPieceHoneyAndDarling = 46,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Swordsman's School"), RegionName("West Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Swordsman's School"), RegionName("West Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -419,7 +419,7 @@ namespace MMRando.GameObjects
         HeartPieceSwordsmanSchool = 47,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Postbox"), RegionName("South Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Postbox"), RegionName("South Clock Town")]
         [GossipLocationHint("an information carrier", "a correspondence box"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -427,7 +427,7 @@ namespace MMRando.GameObjects
         HeartPiecePostBox = 48,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Gossip Stones"), RegionName("Termina Field")]
+        [ItemName("Piece of Heart"), LocationName("Gossip Stones"), RegionName("Termina Field")]
         [GossipLocationHint("mysterious stones"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -435,7 +435,7 @@ namespace MMRando.GameObjects
         HeartPieceTerminaGossipStones = 49,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Business Scrub Purchase"), RegionName("Termina Field")]
+        [ItemName("Piece of Heart"), LocationName("Business Scrub Purchase"), RegionName("Termina Field")]
         [GossipLocationHint("a hidden merchant"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -443,7 +443,7 @@ namespace MMRando.GameObjects
         HeartPieceTerminaBusinessScrub = 50,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Swamp Archery #2"), RegionName("Road to Southern Swamp")]
+        [ItemName("Piece of Heart"), LocationName("Swamp Archery #2"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -451,7 +451,7 @@ namespace MMRando.GameObjects
         HeartPieceSwampArchery = 51,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Pictograph Contest"), RegionName("Southern Swamp")]
+        [ItemName("Piece of Heart"), LocationName("Pictograph Contest"), RegionName("Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -459,7 +459,7 @@ namespace MMRando.GameObjects
         HeartPiecePictobox = 52,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Boat Archery"), RegionName("Southern Swamp")]
+        [ItemName("Piece of Heart"), LocationName("Boat Archery"), RegionName("Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -467,7 +467,7 @@ namespace MMRando.GameObjects
         HeartPieceBoatArchery = 53,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Frog Choir"), RegionName("Mountain Village")]
+        [ItemName("Piece of Heart"), LocationName("Frog Choir"), RegionName("Mountain Village")]
         [GossipLocationHint("a reunion", "a chorus", "an amphibian choir"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -475,7 +475,7 @@ namespace MMRando.GameObjects
         HeartPieceChoir = 54,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Beaver Race #2"), RegionName("Great Bay Cape")]
+        [ItemName("Piece of Heart"), LocationName("Beaver Race #2"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a river dweller", "a race in the water"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -483,7 +483,7 @@ namespace MMRando.GameObjects
         HeartPieceBeaverRace = 55,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Seahorse"), RegionName("Pinnacle Rock")]
+        [ItemName("Piece of Heart"), LocationName("Seahorse"), RegionName("Pinnacle Rock")]
         [GossipLocationHint("a reunion"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -491,7 +491,7 @@ namespace MMRando.GameObjects
         HeartPieceSeaHorse = 56,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Fisherman Game"), RegionName("Great Bay Coast")]
+        [ItemName("Piece of Heart"), LocationName("Fisherman Game"), RegionName("Great Bay Coast")]
         [GossipLocationHint("an ocean game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -499,7 +499,7 @@ namespace MMRando.GameObjects
         HeartPieceFishermanGame = 57,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Evan"), RegionName("Zora Hall")]
+        [ItemName("Piece of Heart"), LocationName("Evan"), RegionName("Zora Hall")]
         [GossipLocationHint("a muse", "a composition", "a musician", "plagiarism"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -507,7 +507,7 @@ namespace MMRando.GameObjects
         HeartPieceEvan = 58,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Dog Race"), RegionName("Romani Ranch")]
+        [ItemName("Piece of Heart"), LocationName("Dog Race"), RegionName("Romani Ranch")]
         [GossipLocationHint("a sporting event"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -515,7 +515,7 @@ namespace MMRando.GameObjects
         HeartPieceDogRace = 59,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Poe Hut"), RegionName("Ikana Canyon")]
+        [ItemName("Piece of Heart"), LocationName("Poe Hut"), RegionName("Ikana Canyon")]
         [GossipLocationHint("a game of ghosts"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -523,7 +523,7 @@ namespace MMRando.GameObjects
         HeartPiecePoeHut = 60,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Treasure Chest Game"), RegionName("East Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Treasure Chest Game"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]//, Chest(ChestAttribute.AppearanceType.AppearsSwitch)] // todo?
@@ -531,7 +531,7 @@ namespace MMRando.GameObjects
         HeartPieceTreasureChestGame = 61,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Peahat Grotto"), RegionName("Termina Field")]
+        [ItemName("Piece of Heart"), LocationName("Peahat Grotto"), RegionName("Termina Field")]
         [GossipLocationHint("a hollow ground"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02ED3000 + 0x76, ChestAttribute.AppearanceType.AppearsClear)]
@@ -539,7 +539,7 @@ namespace MMRando.GameObjects
         HeartPiecePeahat = 62,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Dodongo Grotto"), RegionName("Termina Field")]
+        [ItemName("Piece of Heart"), LocationName("Dodongo Grotto"), RegionName("Termina Field")]
         [GossipLocationHint("a hollow ground"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02EBD000 + 0x76, ChestAttribute.AppearanceType.AppearsClear)]
@@ -547,7 +547,7 @@ namespace MMRando.GameObjects
         HeartPieceDodong = 63,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Woodfall Heart Piece Chest"), RegionName("Woodfall")]
+        [ItemName("Piece of Heart"), LocationName("Woodfall Bridge Chest"), RegionName("Woodfall")]
         [GossipLocationHint("the swamp lands", "an exposed chest"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02884000 + 0x252, ChestAttribute.AppearanceType.Normal, 0x02884000 + 0xA52)]
@@ -555,7 +555,7 @@ namespace MMRando.GameObjects
         HeartPieceWoodFallChest = 64,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Twin Islands Heart Piece Chest"), RegionName("Twin Islands")]
+        [ItemName("Piece of Heart"), LocationName("Twin Islands Underwater Ramp Chest"), RegionName("Twin Islands")]
         [GossipLocationHint("a spring treasure", "a defrosted land", "a submerged chest"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02C23000 + 0x2B6, ChestAttribute.AppearanceType.Normal, 0x02C34000 + 0x19A)]
@@ -563,7 +563,7 @@ namespace MMRando.GameObjects
         HeartPieceTwinIslandsChest = 65,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Ocean Spider House Heart Piece Chest"), RegionName("Great Bay Coast")]
+        [ItemName("Piece of Heart"), LocationName("Ocean Spider House Chest"), RegionName("Great Bay Coast")]
         [GossipLocationHint("the strange masks", "coloured faces"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x024DB000 + 0x76, ChestAttribute.AppearanceType.Normal)]
@@ -571,7 +571,7 @@ namespace MMRando.GameObjects
         HeartPieceOceanSpiderHouse = 66,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Iron Knuckle Chest"), RegionName("Ikana Graveyard")]
+        [ItemName("Piece of Heart"), LocationName("Iron Knuckle Chest"), RegionName("Ikana Graveyard")]
         [GossipLocationHint("a hollow ground"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x01FAB000 + 0xBA, ChestAttribute.AppearanceType.AppearsClear)]
@@ -1359,7 +1359,7 @@ namespace MMRando.GameObjects
         ChestInsidePiratesFortressGuardSilverRupee = 181,
 
         [Repeatable]
-        [ItemName("Red Rupee"), LocationName("Pirates' Fortress Heart Piece Room Shallow Chest"), RegionName("Pirates' Fortress Sewer")]
+        [ItemName("Red Rupee"), LocationName("Pirates' Fortress Cage Room Shallow Chest"), RegionName("Pirates' Fortress Sewer")]
         [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x023E6000 + 0x24E, ChestAttribute.AppearanceType.Normal)]
@@ -1367,7 +1367,7 @@ namespace MMRando.GameObjects
         ChestInsidePiratesFortressHeartPieceRoomRedRupee = 182,
 
         [Repeatable]
-        [ItemName("Blue Rupee"), LocationName("Pirates' Fortress Heart Piece Room Deep Chest"), RegionName("Pirates' Fortress Sewer")]
+        [ItemName("Blue Rupee"), LocationName("Pirates' Fortress Cage Room Deep Chest"), RegionName("Pirates' Fortress Sewer")]
         [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 5 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x023E6000 + 0x25E, ChestAttribute.AppearanceType.Normal)]
@@ -1646,12 +1646,12 @@ namespace MMRando.GameObjects
         ChestToGoronVillageRedRupee = 217,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Secret Shrine Heart Piece Chest"), RegionName("Secret Shrine")]
+        [ItemName("Piece of Heart"), LocationName("Secret Shrine Final Chest"), RegionName("Secret Shrine")]
         [GossipLocationHint("a secret place"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02C57000 + 0xB6, ChestAttribute.AppearanceType.AppearsSwitch)]
         [GetItemIndex(0x107)]
-        ChestSecretShrineHeartPiece = 218, //Heart Piece
+        ChestSecretShrineHeartPiece = 218,
 
         [Repeatable]
         [ItemName("Silver Rupee"), LocationName("Secret Shrine Dinolfos Chest"), RegionName("Secret Shrine")]
@@ -1734,16 +1734,16 @@ namespace MMRando.GameObjects
         ChestSouthClockTownPurpleRupee = 228,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Bank Reward #2"), RegionName("West Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Bank Reward #2"), RegionName("West Clock Town")]
         [GossipLocationHint("being rich"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x108)]
-        HeartPieceBank = 229, //Heart Piece
+        HeartPieceBank = 229,
 
         //standing HPs
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("South Clock Town Heart Piece"), RegionName("South Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Clock Tower Entrance"), RegionName("South Clock Town")]
         [GossipLocationHint("the tower doors"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1751,7 +1751,7 @@ namespace MMRando.GameObjects
         HeartPieceSouthClockTown = 230,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("North Clock Town Heart Piece"), RegionName("North Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("North Clock Town Tree"), RegionName("North Clock Town")]
         [GossipLocationHint("a town playground"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1759,7 +1759,7 @@ namespace MMRando.GameObjects
         HeartPieceNorthClockTown = 231,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Path to Swamp Heart Piece"), RegionName("Road to Southern Swamp")]
+        [ItemName("Piece of Heart"), LocationName("Path to Swamp Tree"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a tree of bats"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1767,7 +1767,7 @@ namespace MMRando.GameObjects
         HeartPieceToSwamp = 232,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Swamp Scrub Heart Piece"), RegionName("Southern Swamp")]
+        [ItemName("Piece of Heart"), LocationName("Swamp Tourist Center Roof"), RegionName("Southern Swamp")]
         [GossipLocationHint("a tourist centre"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1775,7 +1775,7 @@ namespace MMRando.GameObjects
         HeartPieceSwampScrub = 233,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Deku Palace Heart Piece"), RegionName("Deku Palace")]
+        [ItemName("Piece of Heart"), LocationName("Deku Palace West Garden"), RegionName("Deku Palace")]
         [GossipLocationHint("the home of scrubs"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1783,7 +1783,7 @@ namespace MMRando.GameObjects
         HeartPieceDekuPalace = 234,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Goron Village Scrub Heart Piece"), RegionName("Goron Village")]
+        [ItemName("Piece of Heart"), LocationName("Goron Village Ledge"), RegionName("Goron Village")]
         [GossipLocationHint("a cold ledge"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1791,7 +1791,7 @@ namespace MMRando.GameObjects
         HeartPieceGoronVillageScrub = 235,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Bio Baba Grotto Heart Piece"), RegionName("Termina Field")]
+        [ItemName("Piece of Heart"), LocationName("Bio Baba Grotto"), RegionName("Termina Field")]
         [GossipLocationHint("a beehive"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1799,7 +1799,7 @@ namespace MMRando.GameObjects
         HeartPieceZoraGrotto = 236,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Lab Fish Heart Piece"), RegionName("Great Bay Coast")]
+        [ItemName("Piece of Heart"), LocationName("Lab Fish"), RegionName("Great Bay Coast")]
         [GossipLocationHint("feeding the fish"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1807,7 +1807,7 @@ namespace MMRando.GameObjects
         HeartPieceLabFish = 237,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Great Bay Like-Like Heart Piece"), RegionName("Great Bay Cape")]
+        [ItemName("Piece of Heart"), LocationName("Great Bay Like-Like"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a shield eater"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1815,7 +1815,7 @@ namespace MMRando.GameObjects
         HeartPieceGreatBayCapeLikeLike = 238,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Pirates' Fortress Heart Piece"), RegionName("Pirates' Fortress Sewer")]
+        [ItemName("Piece of Heart"), LocationName("Pirates' Fortress Cage"), RegionName("Pirates' Fortress Sewer")]
         [GossipLocationHint("a timed door"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1823,7 +1823,7 @@ namespace MMRando.GameObjects
         HeartPiecePiratesFortress = 239,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Zora Hall Scrub Heart Piece"), RegionName("Zora Hall")]
+        [ItemName("Piece of Heart"), LocationName("Lulu's Room Ledge"), RegionName("Zora Hall")]
         [GossipLocationHint("the singer's room"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1831,7 +1831,7 @@ namespace MMRando.GameObjects
         HeartPieceZoraHallScrub = 240,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Path to Snowhead Heart Piece"), RegionName("Path to Snowhead")]
+        [ItemName("Piece of Heart"), LocationName("Path to Snowhead Pillar"), RegionName("Path to Snowhead")]
         [GossipLocationHint("a cold platform"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1839,7 +1839,7 @@ namespace MMRando.GameObjects
         HeartPieceToSnowhead = 241,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Great Bay Coast Heart Piece"), RegionName("Great Bay Coast")]
+        [ItemName("Piece of Heart"), LocationName("Great Bay Coast Ledge"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a rock face"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1847,7 +1847,7 @@ namespace MMRando.GameObjects
         HeartPieceGreatBayCoast = 242,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Ikana Scrub Heart Piece"), RegionName("Ikana Canyon")]
+        [ItemName("Piece of Heart"), LocationName("Ikana Canyon Ledge"), RegionName("Ikana Canyon")]
         [GossipLocationHint("a thief's doorstep"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1855,7 +1855,7 @@ namespace MMRando.GameObjects
         HeartPieceIkana = 243,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Ikana Castle Heart Piece"), RegionName("Ikana Castle")]
+        [ItemName("Piece of Heart"), LocationName("Ikana Castle Pillar"), RegionName("Ikana Castle")]
         [GossipLocationHint("a fiery pillar"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1970,7 +1970,7 @@ namespace MMRando.GameObjects
         AreaMoonAccess = 261,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Deku Trial Heart Piece"), RegionName("The Moon")]
+        [ItemName("Piece of Heart"), LocationName("Deku Trial Bonus"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1978,7 +1978,7 @@ namespace MMRando.GameObjects
         HeartPieceDekuTrial = 262,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Goron Trial Heart Piece"), RegionName("The Moon")]
+        [ItemName("Piece of Heart"), LocationName("Goron Trial Bonus"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1986,7 +1986,7 @@ namespace MMRando.GameObjects
         HeartPieceGoronTrial = 263,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Zora Trial Heart Piece"), RegionName("The Moon")]
+        [ItemName("Piece of Heart"), LocationName("Zora Trial Bonus"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1994,7 +1994,7 @@ namespace MMRando.GameObjects
         HeartPieceZoraTrial = 264,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Heart Piece"), LocationName("Link Trial Heart Piece"), RegionName("The Moon")]
+        [ItemName("Piece of Heart"), LocationName("Link Trial Bonus"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
