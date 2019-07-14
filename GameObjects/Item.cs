@@ -526,7 +526,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Treasure Chest Game"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]//, Chest(ChestAttribute.AppearanceType.AppearsSwitch)] // todo?
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x00F43F10 + 0x46A, ChestAttribute.AppearanceType.AppearsSwitch)]
         [GetItemIndex(0x17)]
         HeartPieceTreasureChestGame = 61,
 
