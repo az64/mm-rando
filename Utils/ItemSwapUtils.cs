@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MMRando.GameObjects;
 using MMRando.Extensions;
 using MMRando.Attributes;
+using MMRando.Constants;
 
 namespace MMRando.Utils
 {
@@ -258,6 +259,11 @@ namespace MMRando.Utils
                         ReadWriteUtils.WriteToROM(address, grottoVariable);
                     }
                 }
+            }
+
+            if (location == Item.StartingSword && item != Item.StartingSword)
+            {
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-sword-song-of-time");
             }
         }
 
