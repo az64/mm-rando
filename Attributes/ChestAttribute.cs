@@ -18,52 +18,18 @@ namespace MMRando.Attributes
 
         public enum AppearanceType
         {
-            Normal,
-            AppearsClear,
-            AppearsSwitch,
-            Invisible,
+            Normal = 0,
+            Invisible = 1,
+            AppearsClear = 2,
+            AppearsSwitch = 3,
         }
 
         public static byte GetType(ChestTypeAttribute.ChestType chestType, AppearanceType appearanceType)
         {
-            if (chestType == ChestTypeAttribute.ChestType.SmallGold)
-            {
-                chestType = ChestTypeAttribute.ChestType.SmallWooden; // todo?
-            }
-            switch (appearanceType)
-            {
-                case AppearanceType.Normal:
-                    return (byte)chestType;
-                case AppearanceType.Invisible:
-                    if (chestType == ChestTypeAttribute.ChestType.SmallWooden)
-                    {
-                        return 6; // invisible wooden chest
-                    }
-                    else
-                    {
-                        return 4; // invisible gold chest
-                    }
-                case AppearanceType.AppearsClear:
-                    if (chestType == ChestTypeAttribute.ChestType.SmallWooden)
-                    {
-                        return 7; // wooden chest - clear flag
-                    }
-                    else
-                    {
-                        return 1; // gold chest - clear flag
-                    }
-                case AppearanceType.AppearsSwitch:
-                    if (chestType == ChestTypeAttribute.ChestType.SmallWooden)
-                    {
-                        return 0xC; // wooden chest - switch flag
-                    }
-                    else
-                    {
-                        return 0xB; // gold chest - switch flag
-                    }
-                default:
-                    throw new ArgumentException("Invalid appearance type.", nameof(appearanceType));
-            }
+            var type = (byte)chestType;
+            type <<= 2;
+            type += (byte)appearanceType;
+            return type;
         }
     }
 

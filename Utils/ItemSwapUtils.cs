@@ -96,7 +96,7 @@ namespace MMRando.Utils
             }
         }
 
-        public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShops, bool preventDowngrades)
+        public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShops, bool preventDowngrades, bool updateChests = false)
         {
             System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
             
@@ -229,7 +229,7 @@ namespace MMRando.Utils
                 }
             }
 
-            // if (updateChests)
+            if (updateChests)
             {
                 var chestType = item.GetAttribute<ChestTypeAttribute>().Type;
                 var chestAttribute = location.GetAttribute<ChestAttribute>();
@@ -253,7 +253,7 @@ namespace MMRando.Utils
                     {
                         var grottoVariable = ReadWriteUtils.Read(address);
                         grottoVariable &= 0x1F; // remove existing chest type
-                        var newChestType = ChestAttribute.GetType(chestType, ChestAttribute.AppearanceType.Normal);
+                        var newChestType = (byte)chestType;
                         newChestType <<= 5;
                         grottoVariable |= newChestType; // add new chest type
                         ReadWriteUtils.WriteToROM(address, grottoVariable);
