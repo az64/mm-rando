@@ -1330,7 +1330,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Pirates' Fortress Interior Lower Chest"), RegionName("Pirates' Fortress Interior")]
         [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x020A2000 + 0x256, ChestAttribute.AppearanceType.Normal)] // todo check address
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x020A2000 + 0x256, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0xE0)]
         ChestPiratesFortressRedRupee1 = 178,
 
@@ -1338,7 +1338,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Pirates' Fortress Interior Upper Chest"), RegionName("Pirates' Fortress Interior")]
         [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x020A2000 + 0x266, ChestAttribute.AppearanceType.Normal)] // todo check address
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x020A2000 + 0x266, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0xE1)]
         ChestPiratesFortressRedRupee2 = 179,
 
@@ -1386,7 +1386,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Pinnacle Rock Lower Chest"), RegionName("Pinnacle Rock")]
         [GossipLocationHint("a marine trench"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02428000 + 0x24E, ChestAttribute.AppearanceType.Normal)] // todo check address
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02428000 + 0x24E, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0xE5)]
         ChestPinacleRockRedRupee1 = 185,
 
@@ -1394,7 +1394,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Pinnacle Rock Upper Chest"), RegionName("Pinnacle Rock")]
         [GossipLocationHint("a marine trench"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02428000 + 0x25E, ChestAttribute.AppearanceType.Normal)] // todo check address
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02428000 + 0x25E, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0xE6)]
         ChestPinacleRockRedRupee2 = 186,
 
@@ -1426,7 +1426,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Termina Field Underwater Chest"), RegionName("Termina Field")]
         [GossipLocationHint("a sunken chest"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x025C5000 + 0xD52, ChestAttribute.AppearanceType.Normal)] // todo check address
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x025C5000 + 0xD52, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0xE7)]
         ChestTerminaUnderwaterRedRupee = 190,
 
@@ -1434,7 +1434,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Termina Field Grass Chest"), RegionName("Termina Field")]
         [GossipLocationHint("a grassy chest"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x025C5000 + 0xD62, ChestAttribute.AppearanceType.Normal)] // todo check address
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x025C5000 + 0xD62, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0xE8)]
         ChestTerminaGrassRedRupee = 191,
 
@@ -1442,7 +1442,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Termina Field Stump Chest"), RegionName("Termina Field")]
         [GossipLocationHint("a tree's chest"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x025C5000 + 0xD72, ChestAttribute.AppearanceType.Normal)] // todo check address
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x025C5000 + 0xD72, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0xE9)]
         ChestTerminaStumpRedRupee = 192,
 
@@ -1458,7 +1458,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Great Bay Cape Ledge Without Tree Chest"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a high place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02715000 + 0x42A, ChestAttribute.AppearanceType.Normal, 0x02715000 + 0xB16)] // todo check address
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02715000 + 0x42A, ChestAttribute.AppearanceType.Normal, 0x02715000 + 0xB16)]
         [GetItemIndex(0xEA)]
         ChestGreatBayCapeLedge1 = 194, //contents? 
 
@@ -1466,7 +1466,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Great Bay Cape Ledge With Tree Chest"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a high place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02715000 + 0x43A, ChestAttribute.AppearanceType.Normal, 0x02715000 + 0xB26)] // todo check address
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02715000 + 0x43A, ChestAttribute.AppearanceType.Normal, 0x02715000 + 0xB26)]
         [GetItemIndex(0xEB)]
         ChestGreatBayCapeLedge2 = 195, //contents? 
 
@@ -1490,7 +1490,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Pirates' Fortress Exterior Log Chest"), RegionName("Pirates' Fortress Exterior")]
         [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02740000 + 0x196, ChestAttribute.AppearanceType.Normal)] // todo check address
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02740000 + 0x196, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0xEC)]
         ChestPiratesFortressEntranceRedRupee1 = 198,
 
@@ -1498,7 +1498,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Pirates' Fortress Exterior Sand Chest"), RegionName("Pirates' Fortress Exterior")]
         [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02740000 + 0x1A6, ChestAttribute.AppearanceType.Normal)] // todo check address
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02740000 + 0x1A6, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0xED)]
         ChestPiratesFortressEntranceRedRupee2 = 199,
 
@@ -1506,7 +1506,7 @@ namespace MMRando.GameObjects
         [ItemName("Red Rupee"), LocationName("Pirates' Fortress Exterior Corner Chest"), RegionName("Pirates' Fortress Exterior")]
         [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02740000 + 0x1B6, ChestAttribute.AppearanceType.Normal)] // todo check address
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02740000 + 0x1B6, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0xEE)]
         ChestPiratesFortressEntranceRedRupee3 = 200,
 
@@ -1562,7 +1562,7 @@ namespace MMRando.GameObjects
         [ItemName("Purple Rupee"), LocationName("Well Right Path Chest"), RegionName("Beneath the Well")]
         [GossipLocationHint("a frightful exchange"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 50 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x029F0000 + 0x106, ChestAttribute.AppearanceType.Invisible)] // todo check address
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x029F0000 + 0xE6, ChestAttribute.AppearanceType.Invisible)]
         [GetItemIndex(0xF8)]
         ChestWellRightPurpleRupee = 207,
 
@@ -1570,7 +1570,7 @@ namespace MMRando.GameObjects
         [ItemName("Purple Rupee"), LocationName("Well Left Path Chest"), RegionName("Beneath the Well")]
         [GossipLocationHint("a frightful exchange"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 50 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x029EA000 + 0xE6, ChestAttribute.AppearanceType.AppearsSwitch)] // todo check address
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x029EA000 + 0x106, ChestAttribute.AppearanceType.AppearsSwitch)]
         [GetItemIndex(0xF9)]
         ChestWellLeftPurpleRupee = 208,
 
