@@ -63,7 +63,7 @@ namespace MMRando.GameObjects
         [ItemName("Magic Bean"), LocationName("Bean Man"), RegionName("Deku Palace")]
         [GossipLocationHint("a hidden merchant", "a gorging merchant"), GossipItemHint("a plant seed")]
         [ShopText("Plant it in soft soil.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x11E)]
         ItemMagicBean = 6,
 
@@ -333,7 +333,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Mayor"), RegionName("East Clock Town")]
         [GossipLocationHint("a town leader", "an upstanding figure"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x03)]
         HeartPieceNotebookMayor = 37,
 
@@ -341,7 +341,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Postman's Game"), RegionName("West Clock Town")]
         [GossipLocationHint("a hard worker", "a delivery person"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xCE)]
         HeartPieceNotebookPostman = 38,
 
@@ -349,7 +349,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Rosa Sisters"), RegionName("West Clock Town")]
         [GossipLocationHint("traveling sisters", "twin entertainers"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x2B)]
         HeartPieceNotebookRosa = 39,
 
@@ -357,7 +357,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Toilet Hand"), RegionName("East Clock Town")]
         [GossipLocationHint("a mystery appearance", "a strange palm"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x2C)]
         HeartPieceNotebookHand = 40,
 
@@ -365,7 +365,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Grandma Short Story"), RegionName("East Clock Town")]
         [GossipLocationHint("an old lady"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x2D)]
         HeartPieceNotebookGran1 = 41,
 
@@ -373,7 +373,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Grandma Long Story"), RegionName("East Clock Town")]
         [GossipLocationHint("an old lady"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x2F)]
         HeartPieceNotebookGran2 = 42,
 
@@ -382,7 +382,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Keaton Quiz"), RegionName("North Clock Town")]
         [GossipLocationHint("the ghost of a fox", "a mysterious fox"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x30)]
         HeartPieceKeatonQuiz = 43,
 
@@ -390,7 +390,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Deku Playground"), RegionName("North Clock Town")]
         [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x31)]
         HeartPieceDekuPlayground = 44,
 
@@ -398,7 +398,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Town Archery #2"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x90)]
         HeartPieceTownArchery = 45,
 
@@ -406,7 +406,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Honey and Darling"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x94)]
         HeartPieceHoneyAndDarling = 46,
 
@@ -414,7 +414,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Swordsman's School"), RegionName("West Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x9F)]
         HeartPieceSwordsmanSchool = 47,
 
@@ -422,7 +422,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Postbox"), RegionName("South Clock Town")]
         [GossipLocationHint("an information carrier", "a correspondence box"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xA2)]
         HeartPiecePostBox = 48,
 
@@ -430,7 +430,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Gossip Stones"), RegionName("Termina Field")]
         [GossipLocationHint("mysterious stones"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xA3)]
         HeartPieceTerminaGossipStones = 49,
 
@@ -438,7 +438,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Business Scrub Purchase"), RegionName("Termina Field")]
         [GossipLocationHint("a hidden merchant"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xA5)]
         HeartPieceTerminaBusinessScrub = 50,
 
@@ -446,7 +446,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Swamp Archery #2"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xA6)]
         HeartPieceSwampArchery = 51,
 
@@ -454,7 +454,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Pictograph Contest"), RegionName("Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xA7)]
         HeartPiecePictobox = 52,
 
@@ -462,7 +462,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Boat Archery"), RegionName("Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xA8)]
         HeartPieceBoatArchery = 53,
 
@@ -470,7 +470,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Frog Choir"), RegionName("Mountain Village")]
         [GossipLocationHint("a reunion", "a chorus", "an amphibian choir"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xAC)]
         HeartPieceChoir = 54,
 
@@ -478,7 +478,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Beaver Race #2"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a river dweller", "a race in the water"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xAD)]
         HeartPieceBeaverRace = 55,
 
@@ -486,7 +486,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Seahorse"), RegionName("Pinnacle Rock")]
         [GossipLocationHint("a reunion"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xAE)]
         HeartPieceSeaHorse = 56,
 
@@ -494,7 +494,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Fisherman Game"), RegionName("Great Bay Coast")]
         [GossipLocationHint("an ocean game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xAF)]
         HeartPieceFishermanGame = 57,
 
@@ -502,7 +502,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Evan"), RegionName("Zora Hall")]
         [GossipLocationHint("a muse", "a composition", "a musician", "plagiarism"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xB0)]
         HeartPieceEvan = 58,
 
@@ -510,7 +510,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Dog Race"), RegionName("Romani Ranch")]
         [GossipLocationHint("a sporting event"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xB1)]
         HeartPieceDogRace = 59,
 
@@ -518,7 +518,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Poe Hut"), RegionName("Ikana Canyon")]
         [GossipLocationHint("a game of ghosts"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xB2)]
         HeartPiecePoeHut = 60,
 
@@ -526,7 +526,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Treasure Chest Game"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x00F43F10 + 0x46A, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0x46A, ChestAttribute.AppearanceType.AppearsSwitch)]
         [GetItemIndex(0x17)]
         HeartPieceTreasureChestGame = 61,
 
@@ -534,7 +534,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Peahat Grotto"), RegionName("Termina Field")]
         [GossipLocationHint("a hollow ground"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02ED3000 + 0x76, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02ED3000 + 0x76, ChestAttribute.AppearanceType.AppearsClear)]
         [GetItemIndex(0x18)]
         HeartPiecePeahat = 62,
 
@@ -542,7 +542,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Dodongo Grotto"), RegionName("Termina Field")]
         [GossipLocationHint("a hollow ground"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02EBD000 + 0x76, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02EBD000 + 0x76, ChestAttribute.AppearanceType.AppearsClear)]
         [GetItemIndex(0x20)]
         HeartPieceDodong = 63,
 
@@ -550,7 +550,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Woodfall Bridge Chest"), RegionName("Woodfall")]
         [GossipLocationHint("the swamp lands", "an exposed chest"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02884000 + 0x252, ChestAttribute.AppearanceType.Normal, 0x02884000 + 0xA52)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02884000 + 0x252, ChestAttribute.AppearanceType.Normal, 0x02884000 + 0xA52)]
         [GetItemIndex(0x29)]
         HeartPieceWoodFallChest = 64,
 
@@ -558,7 +558,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Twin Islands Underwater Ramp Chest"), RegionName("Twin Islands")]
         [GossipLocationHint("a spring treasure", "a defrosted land", "a submerged chest"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02C23000 + 0x2B6, ChestAttribute.AppearanceType.Normal, 0x02C34000 + 0x19A)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02C23000 + 0x2B6, ChestAttribute.AppearanceType.Normal, 0x02C34000 + 0x19A)]
         [GetItemIndex(0x2E)]
         HeartPieceTwinIslandsChest = 65,
 
@@ -566,7 +566,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Ocean Spider House Chest"), RegionName("Great Bay Coast")]
         [GossipLocationHint("the strange masks", "coloured faces"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x024DB000 + 0x76, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x024DB000 + 0x76, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0x14)]
         HeartPieceOceanSpiderHouse = 66,
 
@@ -574,7 +574,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Iron Knuckle Chest"), RegionName("Ikana Graveyard")]
         [GossipLocationHint("a hollow ground"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x01FAB000 + 0xBA, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x01FAB000 + 0xBA, ChestAttribute.AppearanceType.AppearsClear)]
         [GetItemIndex(0x44)]
         HeartPieceKnuckle = 67,
 
@@ -860,7 +860,7 @@ namespace MMRando.GameObjects
         [ItemName("Woodfall Map"), LocationName("Woodfall Map Chest"), RegionName("Woodfall Temple")]
         [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("a navigation aid", "a paper guide")]
         [ShopText("The Dungeon Map for Woodfall Temple.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x0221F000 + 0x12A, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x0221F000 + 0x12A, ChestAttribute.AppearanceType.AppearsClear)]
         [GetItemIndex(0x3E)]
         ItemWoodfallMap = 122,
 
@@ -868,7 +868,7 @@ namespace MMRando.GameObjects
         [ItemName("Woodfall Compass"), LocationName("Woodfall Compass Chest"), RegionName("Woodfall Temple")]
         [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("a navigation aid", "a magnetic needle")]
         [ShopText("The Compass for Woodfall Temple.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02215000 + 0xFA, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02215000 + 0xFA, ChestAttribute.AppearanceType.AppearsClear)]
         [GetItemIndex(0x3F)]
         ItemWoodfallCompass = 123,
 
@@ -892,7 +892,7 @@ namespace MMRando.GameObjects
         [ItemName("Snowhead Map"), LocationName("Snowhead Map Chest"), RegionName("Snowhead Temple")]
         [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("a navigation aid", "a paper guide")]
         [ShopText("The Dungeon Map for Snowhead Temple.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02346000 + 0x13A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02346000 + 0x13A, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0x54)]
         ItemSnowheadMap = 126,
 
@@ -900,7 +900,7 @@ namespace MMRando.GameObjects
         [ItemName("Snowhead Compass"), LocationName("Snowhead Compass Chest"), RegionName("Snowhead Temple")]
         [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("a navigation aid", "a magnetic needle")]
         [ShopText("The Compass for Snowhead Temple.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x022F2000 + 0x1BA, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x022F2000 + 0x1BA, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0x57)]
         ItemSnowheadCompass = 127,
 
@@ -940,7 +940,7 @@ namespace MMRando.GameObjects
         [ItemName("Great Bay Map"), LocationName("Great Bay Map Chest"), RegionName("Great Bay Temple")]
         [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("a navigation aid", "a paper guide")]
         [ShopText("The Dungeon Map for Great Bay Temple.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02905000 + 0x19A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02905000 + 0x19A, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0x55)]
         ItemGreatBayMap = 132,
 
@@ -948,7 +948,7 @@ namespace MMRando.GameObjects
         [ItemName("Great Bay Compass"), LocationName("Great Bay Compass Chest"), RegionName("Great Bay Temple")]
         [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("a navigation aid", "a magnetic needle")]
         [ShopText("The Compass for Great Bay Temple.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02914000 + 0x21A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02914000 + 0x21A, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0x58)]
         ItemGreatBayCompass = 133,
 
@@ -972,7 +972,7 @@ namespace MMRando.GameObjects
         [ItemName("Stone Tower Map"), LocationName("Stone Tower Map Chest"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("a navigation aid", "a paper guide")]
         [ShopText("The Dungeon Map for Stone Tower Temple.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x0210F000 + 0x222, ChestAttribute.AppearanceType.Normal, 0x02182000 + 0x21E)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x0210F000 + 0x222, ChestAttribute.AppearanceType.Normal, 0x02182000 + 0x21E)]
         [GetItemIndex(0x56)]
         ItemStoneTowerMap = 136,
 
@@ -980,7 +980,7 @@ namespace MMRando.GameObjects
         [ItemName("Stone Tower Compass"), LocationName("Stone Tower Compass Chest"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("a navigation aid", "a magnetic needle")]
         [ShopText("The Compass for Stone Tower Temple.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02104000 + 0x292, ChestAttribute.AppearanceType.Normal, 0x02177000 + 0x2DE)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02104000 + 0x292, ChestAttribute.AppearanceType.Normal, 0x02177000 + 0x2DE)]
         [GetItemIndex(0x6C)]
         ItemStoneTowerCompass = 137,
 
@@ -1159,7 +1159,7 @@ namespace MMRando.GameObjects
         [ShopRoom(ShopRoomAttribute.Room.BombShop, 0x42)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.BombShop, 2)]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0xC6)]
         ShopItemBombsBombchu10 = 155,
 
@@ -1617,14 +1617,14 @@ namespace MMRando.GameObjects
         [ItemName("10 Bombchu"), LocationName("Inverted Stone Tower Middle Chest"), RegionName("Stone Tower")]
         [GossipLocationHint("a sky below"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02BC9000 + 0x246, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02BC9000 + 0x246, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0x10A)]
         ChestInvertedStoneTowerBombchu10 = 214,
 
         [Repeatable]
         [ItemName("Magic Bean"), LocationName("Inverted Stone Tower Left Chest"), RegionName("Stone Tower")]
         [GossipLocationHint("a sky below"), GossipItemHint("a plant seed")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02BC9000 + 0x256, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02BC9000 + 0x256, ChestAttribute.AppearanceType.Normal)]
         [ShopText("Plant it in soft soil.")]
         [GetItemIndex(0x109)]
         ChestInvertedStoneTowerBean = 215,
@@ -1649,7 +1649,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Secret Shrine Final Chest"), RegionName("Secret Shrine")]
         [GossipLocationHint("a secret place"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02C57000 + 0xB6, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02C57000 + 0xB6, ChestAttribute.AppearanceType.AppearsSwitch)]
         [GetItemIndex(0x107)]
         ChestSecretShrineHeartPiece = 218,
 
@@ -1737,7 +1737,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Bank Reward #2"), RegionName("West Clock Town")]
         [GossipLocationHint("being rich"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x108)]
         HeartPieceBank = 229,
 
@@ -1746,7 +1746,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Clock Tower Entrance"), RegionName("South Clock Town")]
         [GossipLocationHint("the tower doors"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x10B)]
         HeartPieceSouthClockTown = 230,
 
@@ -1754,7 +1754,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("North Clock Town Tree"), RegionName("North Clock Town")]
         [GossipLocationHint("a town playground"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x10C)]
         HeartPieceNorthClockTown = 231,
 
@@ -1762,7 +1762,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Path to Swamp Tree"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a tree of bats"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x10D)]
         HeartPieceToSwamp = 232,
 
@@ -1770,7 +1770,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Swamp Tourist Center Roof"), RegionName("Southern Swamp")]
         [GossipLocationHint("a tourist centre"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x10E)]
         HeartPieceSwampScrub = 233,
 
@@ -1778,7 +1778,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Deku Palace West Garden"), RegionName("Deku Palace")]
         [GossipLocationHint("the home of scrubs"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x10F)]
         HeartPieceDekuPalace = 234,
 
@@ -1786,7 +1786,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Goron Village Ledge"), RegionName("Goron Village")]
         [GossipLocationHint("a cold ledge"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x110)]
         HeartPieceGoronVillageScrub = 235,
 
@@ -1794,7 +1794,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Bio Baba Grotto"), RegionName("Termina Field")]
         [GossipLocationHint("a beehive"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x111)]
         HeartPieceZoraGrotto = 236,
 
@@ -1802,7 +1802,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Lab Fish"), RegionName("Great Bay Coast")]
         [GossipLocationHint("feeding the fish"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x112)]
         HeartPieceLabFish = 237,
 
@@ -1810,7 +1810,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Great Bay Like-Like"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a shield eater"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x113)]
         HeartPieceGreatBayCapeLikeLike = 238,
 
@@ -1818,7 +1818,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Pirates' Fortress Cage"), RegionName("Pirates' Fortress Sewer")]
         [GossipLocationHint("a timed door"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x114)]
         HeartPiecePiratesFortress = 239,
 
@@ -1826,7 +1826,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Lulu's Room Ledge"), RegionName("Zora Hall")]
         [GossipLocationHint("the singer's room"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x115)]
         HeartPieceZoraHallScrub = 240,
 
@@ -1834,7 +1834,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Path to Snowhead Pillar"), RegionName("Path to Snowhead")]
         [GossipLocationHint("a cold platform"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x116)]
         HeartPieceToSnowhead = 241,
 
@@ -1842,7 +1842,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Great Bay Coast Ledge"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a rock face"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x117)]
         HeartPieceGreatBayCoast = 242,
 
@@ -1850,7 +1850,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Ikana Canyon Ledge"), RegionName("Ikana Canyon")]
         [GossipLocationHint("a thief's doorstep"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x118)]
         HeartPieceIkana = 243,
 
@@ -1858,7 +1858,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Ikana Castle Pillar"), RegionName("Ikana Castle")]
         [GossipLocationHint("a fiery pillar"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x119)]
         HeartPieceCastle = 244,
 
@@ -1973,7 +1973,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Deku Trial Bonus"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x11F)]
         HeartPieceDekuTrial = 262,
 
@@ -1981,7 +1981,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Goron Trial Bonus"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x120)]
         HeartPieceGoronTrial = 263,
 
@@ -1989,7 +1989,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Zora Trial Bonus"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x121)]
         HeartPieceZoraTrial = 264,
 
@@ -1997,7 +1997,7 @@ namespace MMRando.GameObjects
         [ItemName("Piece of Heart"), LocationName("Link Trial Bonus"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x122)]
         HeartPieceLinkTrial = 265,
 
@@ -2021,7 +2021,7 @@ namespace MMRando.GameObjects
         [ItemName("10 Bombchu"), LocationName("Link Trial Iron Knuckle Chest"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02D4E000 + 0xC6, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02D4E000 + 0xC6, ChestAttribute.AppearanceType.AppearsClear)]
         [GetItemIndex(0x127)]
         ChestLinkTrialBombchu10 = 268,
 
