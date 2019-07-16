@@ -98,6 +98,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cClearHints, "Gossip stone hints will give clear item and location names.");
             TooltipBuilder.SetTooltip(cNoDowngrades, "Downgrading items will be prevented.");
             TooltipBuilder.SetTooltip(cShopAppearance, "Shops models and text will be updated to match the item they give.");
+            TooltipBuilder.SetTooltip(cUpdateChests, "Chest appearance will be updated to match the item they contain.");
             TooltipBuilder.SetTooltip(cEponaSword, "Change Epona's B button behavior to prevent you from losing your sword if you don't have a bow.\nMay affect vanilla glitches that use Epona's B button.");
             TooltipBuilder.SetTooltip(bTunic, "Select the color of Link's Tunic.");
             TooltipBuilder.SetTooltip(cLink, "Select a character model to replace Link's default model.");
@@ -287,6 +288,7 @@ namespace MMRando
             cStartingItems.Checked = _settings.CrazyStartingItems;
             cNoStartingItems.Checked = _settings.NoStartingItems;
             cEponaSword.Checked = _settings.FixEponaSword;
+            cUpdateChests.Checked = _settings.UpdateChests;
 
             cDMult.SelectedIndex = (int)_settings.DamageMode;
             cDType.SelectedIndex = (int)_settings.DamageEffect;
@@ -465,6 +467,11 @@ namespace MMRando
         private void cShopAppearance_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.UpdateShopAppearance = cShopAppearance.Checked);
+        }
+
+        private void cUpdateChests_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.UpdateChests = cUpdateChests.Checked);
         }
 
         private void cEponaSword_CheckedChanged(object sender, EventArgs e)
@@ -721,6 +728,7 @@ namespace MMRando
             cNoStartingItems.Enabled = v;
             cPatch.Enabled = v;
             bApplyPatch.Enabled = v;
+            cUpdateChests.Enabled = v;
 
             bopen.Enabled = v;
             bRandomise.Enabled = v;
@@ -754,6 +762,7 @@ namespace MMRando
             cEponaSword.Checked = true;
             cCutsc.Checked = true;
             cQText.Checked = true;
+            cUpdateChests.Checked = true;
 
             bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
 
@@ -765,6 +774,7 @@ namespace MMRando
             _settings.FixEponaSword = true;
             _settings.ShortenCutscenes = true;
             _settings.QuickTextEnabled = true;
+            _settings.UpdateChests = true;
             _settings.TunicColor = bTunic.BackColor;
             _settings.Seed = Math.Abs(Environment.TickCount);
 
@@ -912,6 +922,7 @@ namespace MMRando
             cFreeHints.Enabled = v;
             cNoDowngrades.Enabled = v;
             cShopAppearance.Enabled = v;
+            cUpdateChests.Enabled = v;
             cEponaSword.Enabled = v;
             cClearHints.Enabled = _settings.LogicMode != LogicMode.Vanilla && _settings.GossipHintStyle != GossipHintStyle.Default && v;
             cGossipHints.Enabled = _settings.LogicMode != LogicMode.Vanilla && v;

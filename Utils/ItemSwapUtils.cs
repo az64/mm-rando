@@ -96,7 +96,7 @@ namespace MMRando.Utils
             }
         }
 
-        public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShops, bool preventDowngrades, bool updateChests = false)
+        public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShops, bool preventDowngrades, bool updateChests)
         {
             System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
             

@@ -77,6 +77,7 @@ namespace MMRando
             this.cDMult = new System.Windows.Forms.ComboBox();
             this.cGravity = new System.Windows.Forms.ComboBox();
             this.tabComfort = new System.Windows.Forms.TabPage();
+            this.cEponaSword = new System.Windows.Forms.CheckBox();
             this.cShopAppearance = new System.Windows.Forms.CheckBox();
             this.lGossip = new System.Windows.Forms.Label();
             this.cGossipHints = new System.Windows.Forms.ComboBox();
@@ -126,7 +127,7 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cEponaSword = new System.Windows.Forms.CheckBox();
+            this.cUpdateChests = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -747,6 +748,7 @@ namespace MMRando
             // 
             // tabComfort
             // 
+            this.tabComfort.Controls.Add(this.cUpdateChests);
             this.tabComfort.Controls.Add(this.cEponaSword);
             this.tabComfort.Controls.Add(this.cShopAppearance);
             this.tabComfort.Controls.Add(this.lGossip);
@@ -771,6 +773,21 @@ namespace MMRando
             this.tabComfort.TabIndex = 1;
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
+            // 
+            // cEponaSword
+            // 
+            this.cEponaSword.AutoSize = true;
+            this.cEponaSword.BackColor = System.Drawing.Color.Transparent;
+            this.cEponaSword.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cEponaSword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cEponaSword.ForeColor = System.Drawing.Color.Black;
+            this.cEponaSword.Location = new System.Drawing.Point(18, 231);
+            this.cEponaSword.Name = "cEponaSword";
+            this.cEponaSword.Size = new System.Drawing.Size(106, 17);
+            this.cEponaSword.TabIndex = 22;
+            this.cEponaSword.Text = "Fix Epona Sword";
+            this.cEponaSword.UseVisualStyleBackColor = false;
+            this.cEponaSword.CheckedChanged += new System.EventHandler(this.cEponaSword_CheckedChanged);
             // 
             // cShopAppearance
             // 
@@ -1282,20 +1299,20 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // cEponaSword
+            // cUpdateChests
             // 
-            this.cEponaSword.AutoSize = true;
-            this.cEponaSword.BackColor = System.Drawing.Color.Transparent;
-            this.cEponaSword.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cEponaSword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cEponaSword.ForeColor = System.Drawing.Color.Black;
-            this.cEponaSword.Location = new System.Drawing.Point(18, 207);
-            this.cEponaSword.Name = "cEponaSword";
-            this.cEponaSword.Size = new System.Drawing.Size(106, 17);
-            this.cEponaSword.TabIndex = 22;
-            this.cEponaSword.Text = "Fix Epona Sword";
-            this.cEponaSword.UseVisualStyleBackColor = false;
-            this.cEponaSword.CheckedChanged += new System.EventHandler(this.cEponaSword_CheckedChanged);
+            this.cUpdateChests.AutoSize = true;
+            this.cUpdateChests.BackColor = System.Drawing.Color.Transparent;
+            this.cUpdateChests.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cUpdateChests.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cUpdateChests.ForeColor = System.Drawing.Color.Black;
+            this.cUpdateChests.Location = new System.Drawing.Point(29, 208);
+            this.cUpdateChests.Name = "cUpdateChests";
+            this.cUpdateChests.Size = new System.Drawing.Size(95, 17);
+            this.cUpdateChests.TabIndex = 23;
+            this.cUpdateChests.Text = "Update chests";
+            this.cUpdateChests.UseVisualStyleBackColor = false;
+            this.cUpdateChests.CheckedChanged += new System.EventHandler(this.cUpdateChests_CheckedChanged);
             // 
             // MainForm
             // 
@@ -1436,6 +1453,7 @@ namespace MMRando
         private System.Windows.Forms.CheckBox cStartingItems;
         private System.Windows.Forms.CheckBox cNoStartingItems;
         private System.Windows.Forms.CheckBox cEponaSword;
+        private System.Windows.Forms.CheckBox cUpdateChests;
     }
 }
 

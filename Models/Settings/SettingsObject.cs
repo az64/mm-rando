@@ -192,6 +192,11 @@ namespace MMRando.Models.Settings
         public bool UpdateShopAppearance { get; set; }
 
         /// <summary>
+        /// Updates chest appearance to match contents
+        /// </summary>
+        public bool UpdateChests { get; set; }
+
+        /// <summary>
         /// Change epona B button behavior to prevent player losing sword if they don't have a bow.
         /// </summary>
         public bool FixEponaSword { get; set; }
@@ -300,6 +305,7 @@ namespace MMRando.Models.Settings
             int part3 = (int)parts[2];
             int part4 = (int)parts[3];
 
+            UpdateChests = (part1 & 33554432) > 0;
             FixEponaSword = (part1 & 16777216) > 0;
             NoStartingItems = (part1 & 8388608) > 0;
             CrazyStartingItems = (part1 & 4194304) > 0;
@@ -360,6 +366,7 @@ namespace MMRando.Models.Settings
         {
             int[] parts = new int[4];
 
+            if (UpdateChests) { parts[0] += 33554432; }
             if (FixEponaSword) { parts[0] += 16777216; }
             if (NoStartingItems) { parts[0] += 8388608; }
             if (CrazyStartingItems) { parts[0] += 4194304; }
