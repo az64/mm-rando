@@ -39,7 +39,8 @@ namespace MMRando.Models
             {
                 case Item.UpgradeBigBombBag:
                 case Item.MaskBlast:
-                    RequiredItemIds = null;
+                    RequiredItemIds?.Remove((int)Item.TradeItemKafeiLetter);
+                    RequiredItemIds?.Remove((int)Item.TradeItemPendant);
                     break;
                 case Item.BottleCatchPrincess:
                 case Item.BottleCatchBigPoe:
