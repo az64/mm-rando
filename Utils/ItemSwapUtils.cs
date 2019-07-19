@@ -160,110 +160,125 @@ namespace MMRando.Utils
             //    WriteToROM(0xC72B66, (ushort)getItemIndex);
             //}
 
-            if (updateShops)
+            if (location != item)
             {
-                var shopRooms = location.GetAttributes<ShopRoomAttribute>();
-                foreach (var shopRoom in shopRooms)
+                if (updateShops)
                 {
-                    ReadWriteUtils.WriteToROM(shopRoom.RoomObjectAddress, (ushort)newItem.Object);
+                    UpdateShop(location, item, newMessages);
                 }
 
-                var shopInventories = location.GetAttributes<ShopInventoryAttribute>();
-                foreach (var shopInventory in shopInventories)
+                if (updateChests)
                 {
-                    ReadWriteUtils.WriteToROM(shopInventory.ShopItemAddress, (ushort)newItem.Object);
-                    var index = newItem.Index > 0x7F ? (byte)(0xFF - newItem.Index) : (byte)(newItem.Index - 1);
-                    ReadWriteUtils.WriteToROM(shopInventory.ShopItemAddress + 0x03, index);
+                    UpdateChest(location, item);
+                }
 
-                    var shopTexts = item.ShopTexts();
-                    string description;
-                    switch(shopInventory.Keeper)
-                    {
-                        case ShopInventoryAttribute.ShopKeeper.WitchShop:
-                            description = shopTexts.WitchShop;
-                            break;
-                        case ShopInventoryAttribute.ShopKeeper.TradingPostMain:
-                            description = shopTexts.TradingPostMain;
-                            break;
-                        case ShopInventoryAttribute.ShopKeeper.TradingPostPartTimer:
-                            description = shopTexts.TradingPostPartTimer;
-                            break;
-                        case ShopInventoryAttribute.ShopKeeper.CuriosityShop:
-                            description = shopTexts.CuriosityShop;
-                            break;
-                        case ShopInventoryAttribute.ShopKeeper.BombShop:
-                            description = shopTexts.BombShop;
-                            break;
-                        case ShopInventoryAttribute.ShopKeeper.ZoraShop:
-                            description = shopTexts.ZoraShop;
-                            break;
-                        case ShopInventoryAttribute.ShopKeeper.GoronShop:
-                            description = shopTexts.GoronShop;
-                            break;
-                        case ShopInventoryAttribute.ShopKeeper.GoronShopSpring:
-                            description = shopTexts.GoronShopSpring;
-                            break;
-                        default:
-                            description = null;
-                            break;
-                    }
-                    if (description == null)
-                    {
-                        description = shopTexts.Default;
-                    }
+                if (location == Item.StartingSword)
+                {
+                    ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-sword-song-of-time");
+                }
+            }
+        }
 
-                    var messageId = ReadWriteUtils.ReadU16(shopInventory.ShopItemAddress + 0x0A);
-                    newMessages.Add(new MessageEntry
-                    {
-                        Id = messageId,
-                        Header = null,
-                        Message = MessageUtils.BuildShopDescriptionMessage(item.Name(), 20, description)
-                    });
+        private static void UpdateShop(Item location, Item item, List<MessageEntry> newMessages)
+        {
+            var newItem = RomData.GetItemList[item.GetItemIndex().Value];
 
-                    newMessages.Add(new MessageEntry
-                    {
-                        Id = (ushort)(messageId + 1),
-                        Header = null,
-                        Message = MessageUtils.BuildShopPurchaseMessage(item.Name(), 20, item.ShopTexts()?.IsMultiple ?? false)
-                    });
+            var shopRooms = location.GetAttributes<ShopRoomAttribute>();
+            foreach (var shopRoom in shopRooms)
+            {
+                ReadWriteUtils.WriteToROM(shopRoom.RoomObjectAddress, (ushort)newItem.Object);
+            }
+
+            var shopInventories = location.GetAttributes<ShopInventoryAttribute>();
+            foreach (var shopInventory in shopInventories)
+            {
+                ReadWriteUtils.WriteToROM(shopInventory.ShopItemAddress, (ushort)newItem.Object);
+                var index = newItem.Index > 0x7F ? (byte)(0xFF - newItem.Index) : (byte)(newItem.Index - 1);
+                ReadWriteUtils.WriteToROM(shopInventory.ShopItemAddress + 0x03, index);
+
+                var shopTexts = item.ShopTexts();
+                string description;
+                switch (shopInventory.Keeper)
+                {
+                    case ShopInventoryAttribute.ShopKeeper.WitchShop:
+                        description = shopTexts.WitchShop;
+                        break;
+                    case ShopInventoryAttribute.ShopKeeper.TradingPostMain:
+                        description = shopTexts.TradingPostMain;
+                        break;
+                    case ShopInventoryAttribute.ShopKeeper.TradingPostPartTimer:
+                        description = shopTexts.TradingPostPartTimer;
+                        break;
+                    case ShopInventoryAttribute.ShopKeeper.CuriosityShop:
+                        description = shopTexts.CuriosityShop;
+                        break;
+                    case ShopInventoryAttribute.ShopKeeper.BombShop:
+                        description = shopTexts.BombShop;
+                        break;
+                    case ShopInventoryAttribute.ShopKeeper.ZoraShop:
+                        description = shopTexts.ZoraShop;
+                        break;
+                    case ShopInventoryAttribute.ShopKeeper.GoronShop:
+                        description = shopTexts.GoronShop;
+                        break;
+                    case ShopInventoryAttribute.ShopKeeper.GoronShopSpring:
+                        description = shopTexts.GoronShopSpring;
+                        break;
+                    default:
+                        description = null;
+                        break;
+                }
+                if (description == null)
+                {
+                    description = shopTexts.Default;
+                }
+
+                var messageId = ReadWriteUtils.ReadU16(shopInventory.ShopItemAddress + 0x0A);
+                newMessages.Add(new MessageEntry
+                {
+                    Id = messageId,
+                    Header = null,
+                    Message = MessageUtils.BuildShopDescriptionMessage(item.Name(), 20, description)
+                });
+
+                newMessages.Add(new MessageEntry
+                {
+                    Id = (ushort)(messageId + 1),
+                    Header = null,
+                    Message = MessageUtils.BuildShopPurchaseMessage(item.Name(), 20, item.ShopTexts()?.IsMultiple ?? false)
+                });
+            }
+        }
+
+        private static void UpdateChest(Item location, Item item)
+        {
+            var chestType = item.GetAttribute<ChestTypeAttribute>().Type;
+            var chestAttribute = location.GetAttribute<ChestAttribute>();
+            if (chestAttribute != null)
+            {
+                foreach (var address in chestAttribute.Addresses)
+                {
+                    var chestVariable = ReadWriteUtils.Read(address);
+                    chestVariable &= 0x0F; // remove existing chest type
+                    var newChestType = ChestAttribute.GetType(chestType, chestAttribute.Type);
+                    newChestType <<= 4;
+                    chestVariable |= newChestType;
+                    ReadWriteUtils.WriteToROM(address, chestVariable);
                 }
             }
 
-            if (updateChests)
+            var grottoChestAttribute = location.GetAttribute<GrottoChestAttribute>();
+            if (grottoChestAttribute != null)
             {
-                var chestType = item.GetAttribute<ChestTypeAttribute>().Type;
-                var chestAttribute = location.GetAttribute<ChestAttribute>();
-                if (chestAttribute != null)
+                foreach (var address in grottoChestAttribute.Addresses)
                 {
-                    foreach (var address in chestAttribute.Addresses)
-                    {
-                        var chestVariable = ReadWriteUtils.Read(address);
-                        chestVariable &= 0x0F; // remove existing chest type
-                        var newChestType = ChestAttribute.GetType(chestType, chestAttribute.Type);
-                        newChestType <<= 4;
-                        chestVariable |= newChestType;
-                        ReadWriteUtils.WriteToROM(address, chestVariable);
-                    }
+                    var grottoVariable = ReadWriteUtils.Read(address);
+                    grottoVariable &= 0x1F; // remove existing chest type
+                    var newChestType = (byte)chestType;
+                    newChestType <<= 5;
+                    grottoVariable |= newChestType; // add new chest type
+                    ReadWriteUtils.WriteToROM(address, grottoVariable);
                 }
-
-                var grottoChestAttribute = location.GetAttribute<GrottoChestAttribute>();
-                if (grottoChestAttribute != null)
-                {
-                    foreach (var address in grottoChestAttribute.Addresses)
-                    {
-                        var grottoVariable = ReadWriteUtils.Read(address);
-                        grottoVariable &= 0x1F; // remove existing chest type
-                        var newChestType = (byte)chestType;
-                        newChestType <<= 5;
-                        grottoVariable |= newChestType; // add new chest type
-                        ReadWriteUtils.WriteToROM(address, grottoVariable);
-                    }
-                }
-            }
-
-            if (location == Item.StartingSword && item != Item.StartingSword)
-            {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-sword-song-of-time");
             }
         }
 
