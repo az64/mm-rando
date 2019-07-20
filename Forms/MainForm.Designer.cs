@@ -48,7 +48,7 @@ namespace MMRando
             this.label1 = new System.Windows.Forms.Label();
             this.tabMain = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cStartingItems = new System.Windows.Forms.CheckBox();
+            this.cCrazyStartingItems = new System.Windows.Forms.CheckBox();
             this.cBottled = new System.Windows.Forms.CheckBox();
             this.cDEnt = new System.Windows.Forms.CheckBox();
             this.cEnemy = new System.Windows.Forms.CheckBox();
@@ -65,7 +65,7 @@ namespace MMRando
             this.lMode = new System.Windows.Forms.Label();
             this.cMode = new System.Windows.Forms.ComboBox();
             this.tabGimmick = new System.Windows.Forms.TabPage();
-            this.cNoStartingItems = new System.Windows.Forms.CheckBox();
+            this.cRandomStartingItems = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cHideClock = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -84,20 +84,20 @@ namespace MMRando
             this.cEponaSword = new System.Windows.Forms.CheckBox();
             this.cShopAppearance = new System.Windows.Forms.CheckBox();
             this.lGossip = new System.Windows.Forms.Label();
-            this.cGossipHints = new System.Windows.Forms.ComboBox();
             this.cNoDowngrades = new System.Windows.Forms.CheckBox();
             this.cNoMusic = new System.Windows.Forms.CheckBox();
+            this.cGossipHints = new System.Windows.Forms.ComboBox();
             this.cClearHints = new System.Windows.Forms.CheckBox();
             this.cFreeHints = new System.Windows.Forms.CheckBox();
-            this.cTatl = new System.Windows.Forms.ComboBox();
             this.cCutsc = new System.Windows.Forms.CheckBox();
-            this.lTatl = new System.Windows.Forms.Label();
             this.cQText = new System.Windows.Forms.CheckBox();
-            this.cLink = new System.Windows.Forms.ComboBox();
-            this.lTunic = new System.Windows.Forms.Label();
             this.cBGM = new System.Windows.Forms.CheckBox();
-            this.lLink = new System.Windows.Forms.Label();
+            this.lTunic = new System.Windows.Forms.Label();
+            this.cTatl = new System.Windows.Forms.ComboBox();
+            this.cLink = new System.Windows.Forms.ComboBox();
             this.bTunic = new System.Windows.Forms.Button();
+            this.lTatl = new System.Windows.Forms.Label();
+            this.lLink = new System.Windows.Forms.Label();
             this.bApplyPatch = new System.Windows.Forms.Button();
             this.saveROM = new System.Windows.Forms.SaveFileDialog();
             this.cTunic = new System.Windows.Forms.ColorDialog();
@@ -213,7 +213,7 @@ namespace MMRando
             // 
             this.groupBox1.Controls.Add(this.cHTMLLog);
             this.groupBox1.Controls.Add(this.cSpoiler);
-            this.groupBox1.Location = new System.Drawing.Point(176, 75);
+            this.groupBox1.Location = new System.Drawing.Point(177, 75);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(141, 107);
             this.groupBox1.TabIndex = 17;
@@ -255,7 +255,7 @@ namespace MMRando
             this.gGameOutput.Controls.Add(this.cPatch);
             this.gGameOutput.Controls.Add(this.cN64);
             this.gGameOutput.Controls.Add(this.cVC);
-            this.gGameOutput.Location = new System.Drawing.Point(29, 75);
+            this.gGameOutput.Location = new System.Drawing.Point(30, 75);
             this.gGameOutput.Name = "gGameOutput";
             this.gGameOutput.Size = new System.Drawing.Size(141, 107);
             this.gGameOutput.TabIndex = 16;
@@ -336,31 +336,31 @@ namespace MMRando
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.cStartingItems);
+            this.groupBox3.Controls.Add(this.cCrazyStartingItems);
             this.groupBox3.Controls.Add(this.cBottled);
             this.groupBox3.Controls.Add(this.cDEnt);
             this.groupBox3.Controls.Add(this.cEnemy);
-            this.groupBox3.Location = new System.Drawing.Point(179, 49);
+            this.groupBox3.Location = new System.Drawing.Point(175, 49);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(162, 206);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Other Customizations";
             // 
-            // cStartingItems
+            // cCrazyStartingItems
             // 
-            this.cStartingItems.AutoSize = true;
-            this.cStartingItems.BackColor = System.Drawing.Color.Transparent;
-            this.cStartingItems.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cStartingItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cStartingItems.ForeColor = System.Drawing.Color.Black;
-            this.cStartingItems.Location = new System.Drawing.Point(27, 69);
-            this.cStartingItems.Name = "cStartingItems";
-            this.cStartingItems.Size = new System.Drawing.Size(119, 17);
-            this.cStartingItems.TabIndex = 17;
-            this.cStartingItems.Text = "Crazy Starting Items";
-            this.cStartingItems.UseVisualStyleBackColor = false;
-            this.cStartingItems.CheckedChanged += new System.EventHandler(this.cStartingItems_CheckedChanged);
+            this.cCrazyStartingItems.AutoSize = true;
+            this.cCrazyStartingItems.BackColor = System.Drawing.Color.Transparent;
+            this.cCrazyStartingItems.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cCrazyStartingItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cCrazyStartingItems.ForeColor = System.Drawing.Color.Black;
+            this.cCrazyStartingItems.Location = new System.Drawing.Point(27, 69);
+            this.cCrazyStartingItems.Name = "cCrazyStartingItems";
+            this.cCrazyStartingItems.Size = new System.Drawing.Size(119, 17);
+            this.cCrazyStartingItems.TabIndex = 17;
+            this.cCrazyStartingItems.Text = "Crazy Starting Items";
+            this.cCrazyStartingItems.UseVisualStyleBackColor = false;
+            this.cCrazyStartingItems.CheckedChanged += new System.EventHandler(this.cStartingItems_CheckedChanged);
             // 
             // cBottled
             // 
@@ -417,7 +417,7 @@ namespace MMRando
             this.groupBox2.Controls.Add(this.cMixSongs);
             this.groupBox2.Controls.Add(this.cAdditional);
             this.groupBox2.Controls.Add(this.cMoonItems);
-            this.groupBox2.Location = new System.Drawing.Point(16, 49);
+            this.groupBox2.Location = new System.Drawing.Point(10, 49);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(162, 206);
             this.groupBox2.TabIndex = 15;
@@ -581,7 +581,7 @@ namespace MMRando
             // 
             // tabGimmick
             // 
-            this.tabGimmick.Controls.Add(this.cNoStartingItems);
+            this.tabGimmick.Controls.Add(this.cRandomStartingItems);
             this.tabGimmick.Controls.Add(this.label7);
             this.tabGimmick.Controls.Add(this.cHideClock);
             this.tabGimmick.Controls.Add(this.label6);
@@ -597,25 +597,25 @@ namespace MMRando
             this.tabGimmick.Controls.Add(this.cGravity);
             this.tabGimmick.Location = new System.Drawing.Point(4, 25);
             this.tabGimmick.Name = "tabGimmick";
-            this.tabGimmick.Size = new System.Drawing.Size(347, 279);
+            this.tabGimmick.Size = new System.Drawing.Size(347, 264);
             this.tabGimmick.TabIndex = 2;
             this.tabGimmick.Text = "Gimmicks";
             this.tabGimmick.UseVisualStyleBackColor = true;
             // 
-            // cNoStartingItems
+            // cRandomStartingItems
             // 
-            this.cNoStartingItems.AutoSize = true;
-            this.cNoStartingItems.BackColor = System.Drawing.Color.Transparent;
-            this.cNoStartingItems.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cNoStartingItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cNoStartingItems.ForeColor = System.Drawing.Color.Black;
-            this.cNoStartingItems.Location = new System.Drawing.Point(161, 224);
-            this.cNoStartingItems.Name = "cNoStartingItems";
-            this.cNoStartingItems.Size = new System.Drawing.Size(133, 17);
-            this.cNoStartingItems.TabIndex = 19;
-            this.cNoStartingItems.Text = "Random Starting Items";
-            this.cNoStartingItems.UseVisualStyleBackColor = false;
-            this.cNoStartingItems.CheckedChanged += new System.EventHandler(this.cNoStartingItems_CheckedChanged);
+            this.cRandomStartingItems.AutoSize = true;
+            this.cRandomStartingItems.BackColor = System.Drawing.Color.Transparent;
+            this.cRandomStartingItems.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cRandomStartingItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cRandomStartingItems.ForeColor = System.Drawing.Color.Black;
+            this.cRandomStartingItems.Location = new System.Drawing.Point(161, 224);
+            this.cRandomStartingItems.Name = "cRandomStartingItems";
+            this.cRandomStartingItems.Size = new System.Drawing.Size(133, 17);
+            this.cRandomStartingItems.TabIndex = 19;
+            this.cRandomStartingItems.Text = "Random Starting Items";
+            this.cRandomStartingItems.UseVisualStyleBackColor = false;
+            this.cRandomStartingItems.CheckedChanged += new System.EventHandler(this.cNoStartingItems_CheckedChanged);
             // 
             // label7
             // 
@@ -806,7 +806,7 @@ namespace MMRando
             this.tabComfort.Location = new System.Drawing.Point(4, 25);
             this.tabComfort.Name = "tabComfort";
             this.tabComfort.Padding = new System.Windows.Forms.Padding(3);
-            this.tabComfort.Size = new System.Drawing.Size(347, 279);
+            this.tabComfort.Size = new System.Drawing.Size(347, 264);
             this.tabComfort.TabIndex = 1;
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
@@ -868,21 +868,6 @@ namespace MMRando
             this.lGossip.TabIndex = 20;
             this.lGossip.Text = "Gossip Stone hints:";
             // 
-            // cGossipHints
-            // 
-            this.cGossipHints.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cGossipHints.FormattingEnabled = true;
-            this.cGossipHints.Items.AddRange(new object[] {
-            "Default",
-            "Random",
-            "Relevant",
-            "Competitive"});
-            this.cGossipHints.Location = new System.Drawing.Point(128, 232);
-            this.cGossipHints.Name = "cGossipHints";
-            this.cGossipHints.Size = new System.Drawing.Size(167, 21);
-            this.cGossipHints.TabIndex = 19;
-            this.cGossipHints.SelectedIndexChanged += new System.EventHandler(this.cGossipHints_SelectedIndexChanged);
-            // 
             // cNoDowngrades
             // 
             this.cNoDowngrades.AutoSize = true;
@@ -912,6 +897,21 @@ namespace MMRando
             this.cNoMusic.Text = "No music";
             this.cNoMusic.UseVisualStyleBackColor = false;
             this.cNoMusic.CheckedChanged += new System.EventHandler(this.cNoMusic_CheckedChanged);
+            // 
+            // cGossipHints
+            // 
+            this.cGossipHints.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cGossipHints.FormattingEnabled = true;
+            this.cGossipHints.Items.AddRange(new object[] {
+            "Default",
+            "Random",
+            "Relevant",
+            "Competitive"});
+            this.cGossipHints.Location = new System.Drawing.Point(128, 232);
+            this.cGossipHints.Name = "cGossipHints";
+            this.cGossipHints.Size = new System.Drawing.Size(167, 21);
+            this.cGossipHints.TabIndex = 19;
+            this.cGossipHints.SelectedIndexChanged += new System.EventHandler(this.cGossipHints_SelectedIndexChanged);
             // 
             // cClearHints
             // 
@@ -943,6 +943,63 @@ namespace MMRando
             this.cFreeHints.UseVisualStyleBackColor = false;
             this.cFreeHints.CheckedChanged += new System.EventHandler(this.cFreeHints_CheckedChanged);
             // 
+            // cCutsc
+            // 
+            this.cCutsc.AutoSize = true;
+            this.cCutsc.BackColor = System.Drawing.Color.Transparent;
+            this.cCutsc.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cCutsc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cCutsc.ForeColor = System.Drawing.Color.Black;
+            this.cCutsc.Location = new System.Drawing.Point(30, 23);
+            this.cCutsc.Name = "cCutsc";
+            this.cCutsc.Size = new System.Drawing.Size(115, 17);
+            this.cCutsc.TabIndex = 5;
+            this.cCutsc.Text = "Shorten cutscenes";
+            this.cCutsc.UseVisualStyleBackColor = false;
+            this.cCutsc.CheckedChanged += new System.EventHandler(this.cCutsc_CheckedChanged);
+            // 
+            // cQText
+            // 
+            this.cQText.AutoSize = true;
+            this.cQText.BackColor = System.Drawing.Color.Transparent;
+            this.cQText.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cQText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cQText.ForeColor = System.Drawing.Color.Black;
+            this.cQText.Location = new System.Drawing.Point(71, 46);
+            this.cQText.Name = "cQText";
+            this.cQText.Size = new System.Drawing.Size(74, 17);
+            this.cQText.TabIndex = 6;
+            this.cQText.Text = "Quick text";
+            this.cQText.UseVisualStyleBackColor = false;
+            this.cQText.CheckedChanged += new System.EventHandler(this.cQText_CheckedChanged);
+            // 
+            // cBGM
+            // 
+            this.cBGM.AutoSize = true;
+            this.cBGM.BackColor = System.Drawing.Color.Transparent;
+            this.cBGM.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cBGM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cBGM.ForeColor = System.Drawing.Color.Black;
+            this.cBGM.Location = new System.Drawing.Point(36, 69);
+            this.cBGM.Name = "cBGM";
+            this.cBGM.Size = new System.Drawing.Size(109, 17);
+            this.cBGM.TabIndex = 8;
+            this.cBGM.Text = "Randomize music";
+            this.cBGM.UseVisualStyleBackColor = false;
+            this.cBGM.CheckedChanged += new System.EventHandler(this.cBGM_CheckedChanged);
+            // 
+            // lTunic
+            // 
+            this.lTunic.AutoSize = true;
+            this.lTunic.BackColor = System.Drawing.Color.Transparent;
+            this.lTunic.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lTunic.ForeColor = System.Drawing.Color.Black;
+            this.lTunic.Location = new System.Drawing.Point(59, 154);
+            this.lTunic.Name = "lTunic";
+            this.lTunic.Size = new System.Drawing.Size(63, 13);
+            this.lTunic.TabIndex = 7;
+            this.lTunic.Text = "Tunic color:";
+            // 
             // cTatl
             // 
             this.cTatl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -960,48 +1017,6 @@ namespace MMRando
             this.cTatl.TabIndex = 12;
             this.cTatl.SelectedIndexChanged += new System.EventHandler(this.cTatl_SelectedIndexChanged);
             // 
-            // cCutsc
-            // 
-            this.cCutsc.AutoSize = true;
-            this.cCutsc.BackColor = System.Drawing.Color.Transparent;
-            this.cCutsc.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cCutsc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cCutsc.ForeColor = System.Drawing.Color.Black;
-            this.cCutsc.Location = new System.Drawing.Point(30, 23);
-            this.cCutsc.Name = "cCutsc";
-            this.cCutsc.Size = new System.Drawing.Size(115, 17);
-            this.cCutsc.TabIndex = 5;
-            this.cCutsc.Text = "Shorten cutscenes";
-            this.cCutsc.UseVisualStyleBackColor = false;
-            this.cCutsc.CheckedChanged += new System.EventHandler(this.cCutsc_CheckedChanged);
-            // 
-            // lTatl
-            // 
-            this.lTatl.AutoSize = true;
-            this.lTatl.BackColor = System.Drawing.Color.Transparent;
-            this.lTatl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lTatl.ForeColor = System.Drawing.Color.Black;
-            this.lTatl.Location = new System.Drawing.Point(28, 208);
-            this.lTatl.Name = "lTatl";
-            this.lTatl.Size = new System.Drawing.Size(94, 13);
-            this.lTatl.TabIndex = 11;
-            this.lTatl.Text = "Tatl color scheme:";
-            // 
-            // cQText
-            // 
-            this.cQText.AutoSize = true;
-            this.cQText.BackColor = System.Drawing.Color.Transparent;
-            this.cQText.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cQText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cQText.ForeColor = System.Drawing.Color.Black;
-            this.cQText.Location = new System.Drawing.Point(71, 46);
-            this.cQText.Name = "cQText";
-            this.cQText.Size = new System.Drawing.Size(74, 17);
-            this.cQText.TabIndex = 6;
-            this.cQText.Text = "Quick text";
-            this.cQText.UseVisualStyleBackColor = false;
-            this.cQText.CheckedChanged += new System.EventHandler(this.cQText_CheckedChanged);
-            // 
             // cLink
             // 
             this.cLink.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1017,32 +1032,28 @@ namespace MMRando
             this.cLink.TabIndex = 10;
             this.cLink.SelectedIndexChanged += new System.EventHandler(this.cLink_SelectedIndexChanged);
             // 
-            // lTunic
+            // bTunic
             // 
-            this.lTunic.AutoSize = true;
-            this.lTunic.BackColor = System.Drawing.Color.Transparent;
-            this.lTunic.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lTunic.ForeColor = System.Drawing.Color.Black;
-            this.lTunic.Location = new System.Drawing.Point(59, 154);
-            this.lTunic.Name = "lTunic";
-            this.lTunic.Size = new System.Drawing.Size(63, 13);
-            this.lTunic.TabIndex = 7;
-            this.lTunic.Text = "Tunic color:";
+            this.bTunic.BackColor = System.Drawing.Color.White;
+            this.bTunic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bTunic.Location = new System.Drawing.Point(128, 149);
+            this.bTunic.Name = "bTunic";
+            this.bTunic.Size = new System.Drawing.Size(167, 23);
+            this.bTunic.TabIndex = 8;
+            this.bTunic.UseVisualStyleBackColor = false;
+            this.bTunic.Click += new System.EventHandler(this.bTunic_Click);
             // 
-            // cBGM
+            // lTatl
             // 
-            this.cBGM.AutoSize = true;
-            this.cBGM.BackColor = System.Drawing.Color.Transparent;
-            this.cBGM.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cBGM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cBGM.ForeColor = System.Drawing.Color.Black;
-            this.cBGM.Location = new System.Drawing.Point(36, 69);
-            this.cBGM.Name = "cBGM";
-            this.cBGM.Size = new System.Drawing.Size(109, 17);
-            this.cBGM.TabIndex = 8;
-            this.cBGM.Text = "Randomize music";
-            this.cBGM.UseVisualStyleBackColor = false;
-            this.cBGM.CheckedChanged += new System.EventHandler(this.cBGM_CheckedChanged);
+            this.lTatl.AutoSize = true;
+            this.lTatl.BackColor = System.Drawing.Color.Transparent;
+            this.lTatl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lTatl.ForeColor = System.Drawing.Color.Black;
+            this.lTatl.Location = new System.Drawing.Point(28, 208);
+            this.lTatl.Name = "lTatl";
+            this.lTatl.Size = new System.Drawing.Size(94, 13);
+            this.lTatl.TabIndex = 11;
+            this.lTatl.Text = "Tatl color scheme:";
             // 
             // lLink
             // 
@@ -1055,17 +1066,6 @@ namespace MMRando
             this.lLink.Size = new System.Drawing.Size(70, 13);
             this.lLink.TabIndex = 9;
             this.lLink.Text = "Player model:";
-            // 
-            // bTunic
-            // 
-            this.bTunic.BackColor = System.Drawing.Color.White;
-            this.bTunic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bTunic.Location = new System.Drawing.Point(128, 149);
-            this.bTunic.Name = "bTunic";
-            this.bTunic.Size = new System.Drawing.Size(167, 23);
-            this.bTunic.TabIndex = 8;
-            this.bTunic.UseVisualStyleBackColor = false;
-            this.bTunic.Click += new System.EventHandler(this.bTunic_Click);
             // 
             // bApplyPatch
             // 
@@ -1494,8 +1494,8 @@ namespace MMRando
         private System.Windows.Forms.ComboBox cGossipHints;
         private System.Windows.Forms.CheckBox cShopAppearance;
         private System.Windows.Forms.CheckBox cNutChest;
-        private System.Windows.Forms.CheckBox cStartingItems;
-        private System.Windows.Forms.CheckBox cNoStartingItems;
+        private System.Windows.Forms.CheckBox cCrazyStartingItems;
+        private System.Windows.Forms.CheckBox cRandomStartingItems;
         private System.Windows.Forms.CheckBox cEponaSword;
         private System.Windows.Forms.CheckBox cUpdateChests;
         private System.Windows.Forms.GroupBox groupBox1;

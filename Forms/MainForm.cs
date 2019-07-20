@@ -78,7 +78,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cEnemy, "Enable randomization of enemies. May cause softlocks in some circumstances, use at your own risk.");
             TooltipBuilder.SetTooltip(cMoonItems, "Enable moon items being placed in the randomization pool.\n\nIncludes the four Moon Trial Heart Pieces, Fierce Deity's Mask and the two Link Trial chests.");
             TooltipBuilder.SetTooltip(cNutChest, "Enable randomization of the pre-clocktown deku nut chest. Not available when using Casual logic.");
-            TooltipBuilder.SetTooltip(cStartingItems, "Enable randomization of starting Sword, Shield, and two Heart Containers.");
+            TooltipBuilder.SetTooltip(cCrazyStartingItems, "Enable randomization of starting Sword, Shield, and two Heart Containers.");
 
             // Gimmicks
             TooltipBuilder.SetTooltip(cDMult, "Select a damage mode, affecting how much damage Link takes:\n\n - Default: Link takes normal damage.\n - 2x: Link takes double damage.\n - 4x: Link takes quadruple damage.\n - 1-hit KO: Any damage kills Link.\n - Doom: Hardcore mode. Link's hearts are slowly being drained continuously.");
@@ -87,7 +87,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cFloors, "Select a floortype for every floor ingame:\n\n - Default: Vanilla floortypes.\n - Sand: Link sinks slowly into every floor, affecting movement speed.\n - Ice: Every floor is slippery.\n - Snow: Similar to sand. \n - Random: Any random floortypes of the above.");
             TooltipBuilder.SetTooltip(cClockSpeed, "Modify the speed of time.");
             TooltipBuilder.SetTooltip(cHideClock, "Clock UI will be hidden.");
-            TooltipBuilder.SetTooltip(cNoStartingItems, "You will not start with any randomized starting items.");
+            TooltipBuilder.SetTooltip(cRandomStartingItems, "You will start with any randomized items obtained during first cycle.\nSuch as Sword, Shield, Heart Containers, Song of Healing and Deku Mask.");
 
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
@@ -285,8 +285,8 @@ namespace MMRando
             cNoDowngrades.Checked = _settings.PreventDowngrades;
             cShopAppearance.Checked = _settings.UpdateShopAppearance;
             cNutChest.Checked = _settings.AddNutChest;
-            cStartingItems.Checked = _settings.CrazyStartingItems;
-            cNoStartingItems.Checked = _settings.RandomStartingItems;
+            cCrazyStartingItems.Checked = _settings.CrazyStartingItems;
+            cRandomStartingItems.Checked = _settings.RandomStartingItems;
             cEponaSword.Checked = _settings.FixEponaSword;
             cUpdateChests.Checked = _settings.UpdateChests;
 
@@ -326,7 +326,7 @@ namespace MMRando
 
             cNutChest.Checked = false;
 
-            cStartingItems.Checked = false;
+            cCrazyStartingItems.Checked = false;
 
             UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
 
@@ -381,7 +381,7 @@ namespace MMRando
 
         private void cStartingItems_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.CrazyStartingItems = cStartingItems.Checked);
+            UpdateSingleSetting(() => _settings.CrazyStartingItems = cCrazyStartingItems.Checked);
         }
 
         private void cBGM_CheckedChanged(object sender, EventArgs e)
@@ -486,7 +486,7 @@ namespace MMRando
 
         private void cNoStartingItems_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.RandomStartingItems = cNoStartingItems.Checked);
+            UpdateSingleSetting(() => _settings.RandomStartingItems = cRandomStartingItems.Checked);
         }
 
         private void cQText_CheckedChanged(object sender, EventArgs e)
@@ -600,8 +600,8 @@ namespace MMRando
                 cUserItems.Enabled = false;
                 cMoonItems.Enabled = false;
                 cNutChest.Enabled = false;
-                cStartingItems.Enabled = false;
-                cNoStartingItems.Enabled = false;
+                cCrazyStartingItems.Enabled = false;
+                cRandomStartingItems.Enabled = false;
             }
             else
             {
@@ -617,8 +617,8 @@ namespace MMRando
                 cUserItems.Enabled = onMainTab;
                 cMoonItems.Enabled = onMainTab;
                 cNutChest.Enabled = onMainTab && _settings.LogicMode != LogicMode.Casual;
-                cStartingItems.Enabled = onMainTab;
-                cNoStartingItems.Enabled = onMainTab;
+                cCrazyStartingItems.Enabled = onMainTab;
+                cRandomStartingItems.Enabled = onMainTab;
             }
 
             cHTMLLog.Enabled = onMainTab && _settings.GenerateSpoilerLog;
@@ -632,7 +632,7 @@ namespace MMRando
                 cAdditional.Enabled = false;
                 cMoonItems.Enabled = false;
                 cNutChest.Enabled = false;
-                cStartingItems.Enabled = false;
+                cCrazyStartingItems.Enabled = false;
             }
             else
             {
@@ -645,8 +645,8 @@ namespace MMRando
                     cAdditional.Enabled = onMainTab;
                     cMoonItems.Enabled = onMainTab;
                     cNutChest.Enabled = onMainTab && _settings.LogicMode != LogicMode.Casual;
-                    cStartingItems.Enabled = onMainTab;
-                    cNoStartingItems.Enabled = onMainTab;
+                    cCrazyStartingItems.Enabled = onMainTab;
+                    cRandomStartingItems.Enabled = onMainTab;
                 }
             }
 
@@ -724,8 +724,8 @@ namespace MMRando
             cN64.Enabled = v;
             cMoonItems.Enabled = v;
             cNutChest.Enabled = v;
-            cStartingItems.Enabled = v;
-            cNoStartingItems.Enabled = v;
+            cCrazyStartingItems.Enabled = v;
+            cRandomStartingItems.Enabled = v;
             cPatch.Enabled = v;
             bApplyPatch.Enabled = v;
             cUpdateChests.Enabled = v;
@@ -774,7 +774,7 @@ namespace MMRando
             _settings.FixEponaSword = true;
             _settings.ShortenCutscenes = true;
             _settings.QuickTextEnabled = true;
-            _settings.UpdateChests = true;
+            _settings.UpdateChests = false;
             _settings.TunicColor = bTunic.BackColor;
             _settings.Seed = Math.Abs(Environment.TickCount);
 
@@ -912,7 +912,7 @@ namespace MMRando
             cFloors.Enabled = v;
             cClockSpeed.Enabled = v;
             cHideClock.Enabled = v;
-            cNoStartingItems.Enabled = v;
+            cRandomStartingItems.Enabled = v;
 
 
             // Comfort/Cosmetics
