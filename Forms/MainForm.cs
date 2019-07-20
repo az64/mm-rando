@@ -484,7 +484,7 @@ namespace MMRando
             UpdateSingleSetting(() => _settings.HideClock = cHideClock.Checked);
         }
 
-        private void cNoStartingItems_CheckedChanged(object sender, EventArgs e)
+        private void cRandomStartingItems_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.RandomStartingItems = cRandomStartingItems.Checked);
         }

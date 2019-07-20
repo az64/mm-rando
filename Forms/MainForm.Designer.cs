@@ -615,7 +615,7 @@ namespace MMRando
             this.cRandomStartingItems.TabIndex = 19;
             this.cRandomStartingItems.Text = "Random Starting Items";
             this.cRandomStartingItems.UseVisualStyleBackColor = false;
-            this.cRandomStartingItems.CheckedChanged += new System.EventHandler(this.cNoStartingItems_CheckedChanged);
+            this.cRandomStartingItems.CheckedChanged += new System.EventHandler(this.cRandomStartingItems_CheckedChanged);
             // 
             // label7
             // 
