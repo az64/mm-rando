@@ -286,7 +286,7 @@ namespace MMRando
             cShopAppearance.Checked = _settings.UpdateShopAppearance;
             cNutChest.Checked = _settings.AddNutChest;
             cStartingItems.Checked = _settings.CrazyStartingItems;
-            cNoStartingItems.Checked = _settings.NoStartingItems;
+            cNoStartingItems.Checked = _settings.RandomStartingItems;
             cEponaSword.Checked = _settings.FixEponaSword;
             cUpdateChests.Checked = _settings.UpdateChests;
 
@@ -486,7 +486,7 @@ namespace MMRando
 
         private void cNoStartingItems_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.NoStartingItems = cNoStartingItems.Checked);
+            UpdateSingleSetting(() => _settings.RandomStartingItems = cNoStartingItems.Checked);
         }
 
         private void cQText_CheckedChanged(object sender, EventArgs e)
