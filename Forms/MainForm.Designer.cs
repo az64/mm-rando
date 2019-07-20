@@ -354,7 +354,7 @@ namespace MMRando
             this.cCrazyStartingItems.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cCrazyStartingItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cCrazyStartingItems.ForeColor = System.Drawing.Color.Black;
-            this.cCrazyStartingItems.Location = new System.Drawing.Point(27, 69);
+            this.cCrazyStartingItems.Location = new System.Drawing.Point(28, 69);
             this.cCrazyStartingItems.Name = "cCrazyStartingItems";
             this.cCrazyStartingItems.Size = new System.Drawing.Size(119, 17);
             this.cCrazyStartingItems.TabIndex = 17;
@@ -399,7 +399,7 @@ namespace MMRando
             this.cEnemy.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cEnemy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cEnemy.ForeColor = System.Drawing.Color.Black;
-            this.cEnemy.Location = new System.Drawing.Point(40, 92);
+            this.cEnemy.Location = new System.Drawing.Point(41, 92);
             this.cEnemy.Name = "cEnemy";
             this.cEnemy.Size = new System.Drawing.Size(106, 17);
             this.cEnemy.TabIndex = 9;
