@@ -87,7 +87,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cFloors, "Select a floortype for every floor ingame:\n\n - Default: Vanilla floortypes.\n - Sand: Link sinks slowly into every floor, affecting movement speed.\n - Ice: Every floor is slippery.\n - Snow: Similar to sand. \n - Random: Any random floortypes of the above.");
             TooltipBuilder.SetTooltip(cClockSpeed, "Modify the speed of time.");
             TooltipBuilder.SetTooltip(cHideClock, "Clock UI will be hidden.");
-            TooltipBuilder.SetTooltip(cRandomStartingItems, "You will start with any randomized items obtained during first cycle.\nSuch as Sword, Shield, Heart Containers, Song of Healing and Deku Mask.");
+            TooltipBuilder.SetTooltip(cRandomStartingItems, "You will start with any randomized items obtained before or during first cycle.\nSuch as; Sword, Shield, Heart Containers, Song of Healing and Deku Mask.");
 
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
@@ -774,7 +774,7 @@ namespace MMRando
             _settings.FixEponaSword = true;
             _settings.ShortenCutscenes = true;
             _settings.QuickTextEnabled = true;
-            _settings.UpdateChests = false;
+            _settings.UpdateChests = true;
             _settings.TunicColor = bTunic.BackColor;
             _settings.Seed = Math.Abs(Environment.TickCount);
 

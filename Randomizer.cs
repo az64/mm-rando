@@ -1196,8 +1196,8 @@ namespace MMRando
                 Item.StartingHeartContainer2,
             };
             var availableStartingItems = (_settings.RandomStartingItems
-                ? ItemUtils.AllRupees()
-                : ItemUtils.StartingItems())
+                ? ItemUtils.StartingItems()
+                : ItemUtils.AllRupees())
                 .Where(item => !ItemList[(int)item].NewLocation.HasValue && !ForbiddenStartingItems.Contains(item))
                 .Cast<Item?>()
                 .ToList();
