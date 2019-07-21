@@ -1159,7 +1159,7 @@ namespace MMRando.GameObjects
         [ShopRoom(ShopRoomAttribute.Room.BombShop, 0x42)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.BombShop, 2)]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xC6)]
         ShopItemBombsBombchu10 = 155,
 
@@ -1617,7 +1617,7 @@ namespace MMRando.GameObjects
         [ItemName("10 Bombchu"), LocationName("Inverted Stone Tower Middle Chest"), RegionName("Stone Tower")]
         [GossipLocationHint("a sky below"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02BC9000 + 0x246, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02BC9000 + 0x246, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0x10A)]
         ChestInvertedStoneTowerBombchu10 = 214,
 
@@ -2021,7 +2021,7 @@ namespace MMRando.GameObjects
         [ItemName("10 Bombchu"), LocationName("Link Trial Iron Knuckle Chest"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02D4E000 + 0xC6, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02D4E000 + 0xC6, ChestAttribute.AppearanceType.AppearsClear)]
         [GetItemIndex(0x127)]
         ChestLinkTrialBombchu10 = 268,
 

@@ -96,7 +96,7 @@ namespace MMRando.Utils
             }
         }
 
-        public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShops, bool preventDowngrades, bool updateChests)
+        public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShops, bool preventDowngrades, bool updateChests, ChestTypeAttribute.ChestType? overrideChestType)
         {
             System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
             
@@ -169,7 +169,7 @@ namespace MMRando.Utils
 
                 if (updateChests)
                 {
-                    UpdateChest(location, item);
+                    UpdateChest(location, item, overrideChestType);
                 }
 
                 if (location == Item.StartingSword)
@@ -250,9 +250,13 @@ namespace MMRando.Utils
             }
         }
 
-        private static void UpdateChest(Item location, Item item)
+        private static void UpdateChest(Item location, Item item, ChestTypeAttribute.ChestType? overrideChestType)
         {
             var chestType = item.GetAttribute<ChestTypeAttribute>().Type;
+            if (overrideChestType.HasValue)
+            {
+                chestType = overrideChestType.Value;
+            }
             var chestAttribute = location.GetAttribute<ChestAttribute>();
             if (chestAttribute != null)
             {

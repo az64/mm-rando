@@ -438,7 +438,12 @@ namespace MMRando
                 }
                 else
                 {
-                    ItemSwapUtils.WriteNewItem(item.NewLocation.Value, item.Item, newMessages, _settings.UpdateShopAppearance, _settings.PreventDowngrades, _settings.UpdateChests);
+                    ChestTypeAttribute.ChestType? overrideChestType = null;
+                    if (item.Item.Name().Contains("Bombchu") && _randomized.Logic.Any(il => il.RequiredItemIds.Contains(item.ID) || il.ConditionalItemIds.Any(c => c.Contains(item.ID))))
+                    {
+                        overrideChestType = ChestTypeAttribute.ChestType.LargeGold;
+                    }
+                    ItemSwapUtils.WriteNewItem(item.NewLocation.Value, item.Item, newMessages, _settings.UpdateShopAppearance, _settings.PreventDowngrades, _settings.UpdateChests, overrideChestType);
                 }
             }
 
