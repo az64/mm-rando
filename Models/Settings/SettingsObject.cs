@@ -238,7 +238,7 @@ namespace MMRando.Models.Settings
         /// <summary>
         /// Prevents player starting with any items that are randomized.
         /// </summary>
-        public bool NoStartingItems { get; set; }
+        public bool RandomStartingItems { get; set; }
 
         #endregion
 
@@ -307,7 +307,7 @@ namespace MMRando.Models.Settings
 
             UpdateChests = (part1 & 33554432) > 0;
             FixEponaSword = (part1 & 16777216) > 0;
-            NoStartingItems = (part1 & 8388608) > 0;
+            RandomStartingItems = (part1 & 8388608) > 0;
             CrazyStartingItems = (part1 & 4194304) > 0;
             AddNutChest = (part1 & 2097152) > 0;
             UpdateShopAppearance = (part1 & 1048576) > 0;
@@ -368,7 +368,7 @@ namespace MMRando.Models.Settings
 
             if (UpdateChests) { parts[0] += 33554432; }
             if (FixEponaSword) { parts[0] += 16777216; }
-            if (NoStartingItems) { parts[0] += 8388608; }
+            if (RandomStartingItems) { parts[0] += 8388608; }
             if (CrazyStartingItems) { parts[0] += 4194304; }
             if (AddNutChest) { parts[0] += 2097152; }
             if (UpdateShopAppearance) { parts[0] += 1048576; }
