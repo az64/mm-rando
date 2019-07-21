@@ -818,11 +818,11 @@ namespace MMRando
             this.cUpdateChests.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cUpdateChests.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cUpdateChests.ForeColor = System.Drawing.Color.Black;
-            this.cUpdateChests.Location = new System.Drawing.Point(159, 92);
+            this.cUpdateChests.Location = new System.Drawing.Point(200, 92);
             this.cUpdateChests.Name = "cUpdateChests";
-            this.cUpdateChests.Size = new System.Drawing.Size(136, 17);
+            this.cUpdateChests.Size = new System.Drawing.Size(95, 17);
             this.cUpdateChests.TabIndex = 23;
-            this.cUpdateChests.Text = "Chests Match Contents";
+            this.cUpdateChests.Text = "Update chests";
             this.cUpdateChests.UseVisualStyleBackColor = false;
             this.cUpdateChests.CheckedChanged += new System.EventHandler(this.cUpdateChests_CheckedChanged);
             // 
@@ -835,9 +835,9 @@ namespace MMRando
             this.cEponaSword.ForeColor = System.Drawing.Color.Black;
             this.cEponaSword.Location = new System.Drawing.Point(39, 115);
             this.cEponaSword.Name = "cEponaSword";
-            this.cEponaSword.Size = new System.Drawing.Size(106, 17);
+            this.cEponaSword.Size = new System.Drawing.Size(104, 17);
             this.cEponaSword.TabIndex = 22;
-            this.cEponaSword.Text = "Fix Epona Sword";
+            this.cEponaSword.Text = "Fix Epona sword";
             this.cEponaSword.UseVisualStyleBackColor = false;
             this.cEponaSword.CheckedChanged += new System.EventHandler(this.cEponaSword_CheckedChanged);
             // 
@@ -1127,7 +1127,7 @@ namespace MMRando
             // 
             this.mExit.Name = "mExit";
             this.mExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.mExit.Size = new System.Drawing.Size(135, 22);
+            this.mExit.Size = new System.Drawing.Size(134, 22);
             this.mExit.Text = "Exit";
             this.mExit.Click += new System.EventHandler(this.mExit_Click);
             // 
