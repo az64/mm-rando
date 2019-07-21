@@ -360,7 +360,7 @@ namespace MMRando
             this.cCrazyStartingItems.TabIndex = 17;
             this.cCrazyStartingItems.Text = "Crazy Starting Items";
             this.cCrazyStartingItems.UseVisualStyleBackColor = false;
-            this.cCrazyStartingItems.CheckedChanged += new System.EventHandler(this.cStartingItems_CheckedChanged);
+            this.cCrazyStartingItems.CheckedChanged += new System.EventHandler(this.cCrazyStartingItems_CheckedChanged);
             // 
             // cBottled
             // 

@@ -379,7 +379,7 @@ namespace MMRando
             UpdateSingleSetting(() => _settings.AddNutChest = cNutChest.Checked);
         }
 
-        private void cStartingItems_CheckedChanged(object sender, EventArgs e)
+        private void cCrazyStartingItems_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.CrazyStartingItems = cCrazyStartingItems.Checked);
         }
