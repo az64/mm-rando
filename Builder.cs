@@ -439,7 +439,7 @@ namespace MMRando
                 else
                 {
                     ChestTypeAttribute.ChestType? overrideChestType = null;
-                    if (item.Item.Name().Contains("Bombchu") && _randomized.Logic.Any(il => il.RequiredItemIds.Contains(item.ID) || il.ConditionalItemIds.Any(c => c.Contains(item.ID))))
+                    if (item.Item.Name().Contains("Bombchu") && _randomized.Logic.Any(il => il.RequiredItemIds?.Contains(item.ID) == true || il.ConditionalItemIds?.Any(c => c.Contains(item.ID)) == true))
                     {
                         overrideChestType = ChestTypeAttribute.ChestType.LargeGold;
                     }
