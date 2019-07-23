@@ -47,6 +47,8 @@ namespace MMRando
             _randomizer = new Randomizer(_settings);
 
             ItemEditor = new ItemEditForm(_settings);
+            ItemEditor.FormClosing += ItemEditor_FormClosing;
+            UpdateCustomItemAmountLabel();
             LogicEditor = new LogicEditorForm();
             Manual = new ManualForm();
             About = new AboutForm();
@@ -330,6 +332,8 @@ namespace MMRando
             cCrazyStartingItems.Visible = !cUserItems.Checked;
 
             bItemListEditor.Visible = cUserItems.Checked;
+            tCustomItemList.Visible = cUserItems.Checked;
+            lCustomItemAmount.Visible = cUserItems.Checked;
 
             UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
 
@@ -578,6 +582,30 @@ namespace MMRando
         private void bItemListEditor_Click(object sender, EventArgs e)
         {
             ItemEditor.Show();
+        }
+
+        private void tCustomItemList_TextChanged(object sender, EventArgs e)
+        {
+            ItemEditor.UpdateChecks(tCustomItemList.Text);
+            UpdateCustomItemAmountLabel();
+        }
+
+        private void ItemEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            tCustomItemList.Text = _settings.CustomItemListString;
+            UpdateCustomItemAmountLabel();
+        }
+
+        private void UpdateCustomItemAmountLabel()
+        {
+            if (_settings.CustomItemList.Contains(-1))
+            {
+                lCustomItemAmount.Text = "Invalid custom item string";
+            }
+            else
+            {
+                lCustomItemAmount.Text = $"{_settings.CustomItemList.Count}/{Items.TotalNumberOfItems - Items.NumberOfAreasAndOther} items randomized";
+            }
         }
 
 

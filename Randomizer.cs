@@ -1474,6 +1474,10 @@ namespace MMRando
         /// </summary>
         private void ApplyCustomItemList()
         {
+            if (_settings.CustomItemList.Contains(-1))
+            {
+                throw new InvalidDataException("Invalid custom item string.");
+            }
             for (int i = 0; i < _settings.CustomItemList.Count; i++)
             {
                 int selectedItem = _settings.CustomItemList[i];

@@ -131,6 +131,8 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
+            this.tCustomItemList = new System.Windows.Forms.TextBox();
+            this.lCustomItemAmount = new System.Windows.Forms.Label();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -408,6 +410,8 @@ namespace MMRando
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lCustomItemAmount);
+            this.groupBox2.Controls.Add(this.tCustomItemList);
             this.groupBox2.Controls.Add(this.bItemListEditor);
             this.groupBox2.Controls.Add(this.cSoS);
             this.groupBox2.Controls.Add(this.cCrazyStartingItems);
@@ -1357,6 +1361,26 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
+            // tCustomItemList
+            // 
+            this.tCustomItemList.Location = new System.Drawing.Point(6, 82);
+            this.tCustomItemList.Name = "tCustomItemList";
+            this.tCustomItemList.Size = new System.Drawing.Size(313, 20);
+            this.tCustomItemList.TabIndex = 19;
+            this.tCustomItemList.Text = "-------";
+            this.tCustomItemList.Visible = false;
+            this.tCustomItemList.TextChanged += new System.EventHandler(this.tCustomItemList_TextChanged);
+            // 
+            // lCustomItemAmount
+            // 
+            this.lCustomItemAmount.AutoSize = true;
+            this.lCustomItemAmount.Location = new System.Drawing.Point(6, 109);
+            this.lCustomItemAmount.Name = "lCustomItemAmount";
+            this.lCustomItemAmount.Size = new System.Drawing.Size(108, 13);
+            this.lCustomItemAmount.TabIndex = 20;
+            this.lCustomItemAmount.Text = "0/0 items randomized";
+            this.lCustomItemAmount.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1508,6 +1532,8 @@ namespace MMRando
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox cNoStartingItems;
         private System.Windows.Forms.Button bItemListEditor;
+        private System.Windows.Forms.TextBox tCustomItemList;
+        private System.Windows.Forms.Label lCustomItemAmount;
     }
 }
 

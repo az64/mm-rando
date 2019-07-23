@@ -67,7 +67,7 @@ namespace MMRando.Forms
             }
             else
             {
-                tSetting.Text = "0-0-0-0";
+                tSetting.Text = "-------";
             }
         }
 
@@ -77,7 +77,7 @@ namespace MMRando.Forms
             {
                 e.Cancel = true;
                 Hide();
-            };
+            }
         }
 
         private void UpdateString(List<int> selections)
@@ -90,55 +90,72 @@ namespace MMRando.Forms
                 int k = selections[i] % 32;
                 n[j] |= (int)(1 << k);
                 ns[j] = Convert.ToString(n[j], 16);
-            };
+            }
             tSetting.Text = ns[7] + "-" + ns[6] + "-" + ns[5] + "-" + ns[4] + "-"
                 + ns[3] + "-" + ns[2] + "-" + ns[1] + "-" + ns[0];
             _settings.CustomItemListString = tSetting.Text;
         }
 
-        private void UpdateChecks(string c)
+        public void UpdateChecks(string c)
         {
-            _settings.CustomItemListString = c;
-            _settings.CustomItemList.Clear();
-            string[] v = c.Split('-');
-            int[] vi = new int[8];
-            for (int i = 0; i < 8; i++)
+            updating = true;
+            try
             {
-                if (v[7 - i] != "")
+                tSetting.Text = c;
+                _settings.CustomItemListString = c;
+                _settings.CustomItemList.Clear();
+                string[] v = c.Split('-');
+                int[] vi = new int[8];
+                if (v.Length != vi.Length)
                 {
-                    vi[i] = Convert.ToInt32(v[7 - i], 16);
-                };
-            };
-            for (int i = 0; i < 255; i++)
-            {
-                int j = i / 32;
-                int k = i % 32;
-                if (((vi[j] >> k) & 1) > 0)
-                {
-                    _settings.CustomItemList.Add(i);
-                };
-            };
-            foreach (ListViewItem l in lItems.Items)
-            {
-                if (_settings.CustomItemList.Contains(l.Index))
-                {
-                    l.Checked = true;
+                    _settings.CustomItemList.Add(-1);
+                    return;
                 }
-                else
+                for (int i = 0; i < 8; i++)
                 {
-                    l.Checked = false;
-                };
-            };
+                    if (v[7 - i] != "")
+                    {
+                        vi[i] = Convert.ToInt32(v[7 - i], 16);
+                    }
+                }
+                for (int i = 0; i < 255; i++)
+                {
+                    int j = i / 32;
+                    int k = i % 32;
+                    if (((vi[j] >> k) & 1) > 0)
+                    {
+                        _settings.CustomItemList.Add(i);
+                    }
+                }
+                foreach (ListViewItem l in lItems.Items)
+                {
+                    if (_settings.CustomItemList.Contains(l.Index))
+                    {
+                        l.Checked = true;
+                    }
+                    else
+                    {
+                        l.Checked = false;
+                    }
+                }
+            }
+            catch
+            {
+                _settings.CustomItemList.Clear();
+                _settings.CustomItemList.Add(-1);
+            }
+            finally
+            {
+                updating = false;
+            }
         }
 
         private void tSetting_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
             {
-                updating = true;
                 UpdateChecks(tSetting.Text);
-                updating = false;
-            };
+            }
         }
 
         private void lItems_ItemChecked(object sender, ItemCheckedEventArgs e)
@@ -146,7 +163,7 @@ namespace MMRando.Forms
             if (updating)
             {
                 return;
-            };
+            }
             updating = true;
             if (e.Item.Checked)
             {
