@@ -369,7 +369,7 @@ namespace MMRando
             foreach (var item in itemList)
             {
                 var startingItemValues = item.GetAttributes<StartingItemAttribute>();
-                if (!startingItemValues.Any() && _settings.RandomStartingItems)
+                if (!startingItemValues.Any() && !_settings.NoStartingItems)
                 {
                     throw new Exception($@"Invalid starting item ""{item}""");
                 }
