@@ -927,6 +927,17 @@ namespace MMRando
 
         private bool CheckMatch(Item currentItem, Item target)
         {
+            if (ItemUtils.IsStartingLocation(target) && ForbiddenStartingItems.Contains(currentItem))
+            {
+                Debug.WriteLine($"{currentItem} cannot be a starting item.");
+                return false;
+            }
+
+            if (_settings.LogicMode == LogicMode.NoLogic)
+            {
+                return true;
+            }
+
             if (ForbiddenPlacedAt.ContainsKey(currentItem)
                 && ForbiddenPlacedAt[currentItem].Contains(target))
             {
@@ -943,12 +954,6 @@ namespace MMRando
             if (currentItem.IsTemporary() && ItemUtils.IsMoonLocation(target))
             {
                 Debug.WriteLine($"{currentItem} cannot be placed on the moon.");
-                return false;
-            }
-
-            if (ItemUtils.IsStartingLocation(target) && ForbiddenStartingItems.Contains(currentItem))
-            {
-                Debug.WriteLine($"{currentItem} cannot be a starting item.");
                 return false;
             }
 
