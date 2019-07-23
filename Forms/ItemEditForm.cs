@@ -118,12 +118,16 @@ namespace MMRando.Forms
                         vi[i] = Convert.ToInt32(v[7 - i], 16);
                     }
                 }
-                for (int i = 0; i < 255; i++)
+                for (int i = 0; i < 256; i++)
                 {
                     int j = i / 32;
                     int k = i % 32;
                     if (((vi[j] >> k) & 1) > 0)
                     {
+                        if (i >= (Items.TotalNumberOfItems - Items.NumberOfAreasAndOther))
+                        {
+                            throw new IndexOutOfRangeException();
+                        }
                         _settings.CustomItemList.Add(i);
                     }
                 }
