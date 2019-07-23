@@ -392,6 +392,10 @@ namespace MMRando
             {
                 freeItems.Add(Item.MaskDeku);
                 freeItems.Add(Item.SongHealing);
+                freeItems.Add(Item.StartingSword);
+                freeItems.Add(Item.StartingShield);
+                freeItems.Add(Item.StartingHeartContainer1);
+                freeItems.Add(Item.StartingHeartContainer2);
 
                 if (_settings.ShortenCutscenes)
                 {
