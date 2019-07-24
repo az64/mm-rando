@@ -322,6 +322,8 @@ namespace MMRando
             ItemList = new List<ItemObject>();
 
             if (_settings.LogicMode == LogicMode.Casual
+                || _settings.LogicMode == LogicMode.GlitchedNoSetups
+                || _settings.LogicMode == LogicMode.GlitchedCommonTricks
                 || _settings.LogicMode == LogicMode.Glitched
                 || _settings.LogicMode == LogicMode.UserLogic)
             {
@@ -464,6 +466,14 @@ namespace MMRando
             if (mode == LogicMode.Casual)
             {
                 lines = Properties.Resources.REQ_CASUAL.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            }
+            else if (mode == LogicMode.GlitchedNoSetups)
+            {
+                lines = Properties.Resources.REQ_GLITCH_NOSETUPS.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            }
+            else if (mode == LogicMode.GlitchedCommonTricks)
+            {
+                lines = Properties.Resources.REQ_GLITCH_COMMONTRICKS.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
             }
             else if (mode == LogicMode.Glitched)
             {

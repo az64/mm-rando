@@ -830,6 +830,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="200px_majoramask_rtw_icon.ico" />
+    <Content Include="Resources\REQ_GLITCH_COMMONTRICKS.txt" />
+    <Content Include="Resources\REQ_GLITCH_NOSETUPS.txt" />
     <Content Include="Templates\HtmlSpoiler.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>HtmlSpoiler.cs</LastGenOutput>

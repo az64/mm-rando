@@ -524,23 +524,16 @@ namespace MMRando
                 return;
             }
 
-            switch (cMode.SelectedIndex)
-            {
-                case 0: _settings.LogicMode = LogicMode.Casual; break;
-                case 1: _settings.LogicMode = LogicMode.Glitched; break;
-                case 2: _settings.LogicMode = LogicMode.NoLogic; break;
-                case 3: _settings.LogicMode = LogicMode.UserLogic; break;
-                case 4: _settings.LogicMode = LogicMode.Vanilla; break;
-                default: return;
-            }
+            var logicMode = (LogicMode)cMode.SelectedIndex;
 
-            if (_settings.LogicMode == LogicMode.UserLogic
+            if (logicMode == LogicMode.UserLogic
                 && openLogic.ShowDialog() != DialogResult.OK)
             {
                 cMode.SelectedIndex = 0;
+                logicMode = LogicMode.Casual;
             }
 
-            UpdateSingleSetting(() => _settings.LogicMode = (LogicMode)cMode.SelectedIndex);
+            UpdateSingleSetting(() => _settings.LogicMode = logicMode);
             _settings.UserLogicFileName = openLogic.FileName;
         }
 
