@@ -851,7 +851,7 @@ namespace MMRando
             this.cEponaSword.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cEponaSword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cEponaSword.ForeColor = System.Drawing.Color.Black;
-            this.cEponaSword.Location = new System.Drawing.Point(39, 115);
+            this.cEponaSword.Location = new System.Drawing.Point(41, 115);
             this.cEponaSword.Name = "cEponaSword";
             this.cEponaSword.Size = new System.Drawing.Size(104, 17);
             this.cEponaSword.TabIndex = 22;
