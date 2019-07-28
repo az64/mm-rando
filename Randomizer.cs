@@ -1563,13 +1563,13 @@ namespace MMRando
                             break;
                         }
 
-                        found = true;
                         conditionalRequirements.Add((Item)conditionalItemId);
                         conditionalRequirements.AddRange(requiredChildren);
                     }
 
                     if (conditionalRequirements != null)
                     {
+                        found = true;
                         result.AddRange(conditionalRequirements);
                     }
                 }
