@@ -341,12 +341,11 @@ namespace MMRando
         /// </summary>
         private void PopulateItemListWithoutLogic()
         {
-            for (var i = 0; i < Items.TotalNumberOfItems; i++)
+            foreach (var item in Enum.GetValues(typeof(Item)).Cast<Item>())
             {
-                var item = (Item)i;
                 var currentItem = new ItemObject
                 {
-                    ID = i,
+                    ID = (int)item,
                     Name = item.Name() ?? item.ToString(),
                     TimeAvailable = 63
                 };

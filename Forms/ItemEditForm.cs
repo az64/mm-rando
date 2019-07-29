@@ -1,7 +1,9 @@
 ﻿using MMRando.Models;
 using MMRando.Models.Settings;
+using MMRando.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MMRando.Forms
@@ -124,7 +126,7 @@ namespace MMRando.Forms
                     int k = i % 32;
                     if (((vi[j] >> k) & 1) > 0)
                     {
-                        if (i >= (Items.TotalNumberOfItems - Items.NumberOfAreasAndOther))
+                        if (i >= ItemUtils.AllLocations().Count())
                         {
                             throw new IndexOutOfRangeException();
                         }

@@ -112,13 +112,11 @@ namespace MMRando.Utils
                 .Cast<Item>()
                 .Where(item => item.Name()?.Contains("Rupee") == true);
         }
-
-        // todo cache
+        
+        private static List<Item> _allLocations;
         public static IEnumerable<Item> AllLocations()
         {
-            return Enum.GetValues(typeof(Item))
-                .Cast<Item>()
-                .Where(item => item.Location() != null);
+            return _allLocations ?? (_allLocations = Enum.GetValues(typeof(Item)).Cast<Item>().Where(item => item.Location() != null).ToList());
         }
 
         // todo cache
