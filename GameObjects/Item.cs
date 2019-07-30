@@ -100,6 +100,38 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x41)]
         ItemHookshot = 10,
 
+        // todo starting item
+        [ItemName("Magic Meter"), LocationName("Town Great Fairy Non-Human"), RegionName("North Clock Town")]
+        [GossipLocationHint("a magical being"), GossipItemHint("magic power")]
+        [ShopText("Grants the ability to use magic.")]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [GetItemIndex(0x12C)]
+        FairyMagic,
+
+        // todo starting item
+        [ItemName("Spin Attack"), LocationName("Woodfall Great Fairy"), RegionName("Woodfall")]
+        [GossipLocationHint("a magical being"), GossipItemHint("a magic attack")]
+        [ShopText("Increases the power of your spin attack.")]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [GetItemIndex(0x12D)]
+        FairySpinAttack,
+
+        // todo starting item
+        [ItemName("Double Magic Meter"), LocationName("Snowhead Great Fairy"), RegionName("Snowhead")]
+        [GossipLocationHint("a magical being"), GossipItemHint("magic power")]
+        [ShopText("Grants the ability to use lots of magic.")]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [GetItemIndex(0x12E)]
+        FairyDoubleMagic,
+
+        // todo starting item
+        [ItemName("Double Defense"), LocationName("Ocean Great Fairy"), RegionName("Great Bay Cape")]
+        [GossipLocationHint("a magical being"), GossipItemHint("magical defense")]
+        [ShopText("Grants extra health.")]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [GetItemIndex(0x12F)]
+        FairyDoubleDefense,
+
         [StartingItem(0xC5CE34, 0x10)]
         [ItemName("Great Fairy's Sword"), LocationName("Ikana Great Fairy"), RegionName("Ikana Canyon")]
         [GossipLocationHint("a magical being"), GossipItemHint("a black rose", "a powerful blade")]
