@@ -64,39 +64,6 @@ namespace MMRando
             .Concat(Enumerable.Range((int)Item.TradeItemMoonTear, Item.TradeItemMamaLetter - Item.TradeItemMoonTear + 1).Cast<Item>())
             .Concat(Enumerable.Range((int)Item.ItemBottleWitch, Item.ItemBottleMadameAroma - Item.ItemBottleWitch + 1).Cast<Item>())
             .ToList();
-        private readonly ReadOnlyCollection<ReadOnlyCollection<Item>> ForbiddenStartTogether = new List<List<Item>>()
-        {
-            new List<Item>
-            {
-                Item.ItemBow,
-                Item.UpgradeBigQuiver,
-                Item.UpgradeBiggestQuiver,
-            },
-            new List<Item>
-            {
-                Item.ItemBombBag,
-                Item.UpgradeBigBombBag,
-                Item.UpgradeBiggestBombBag,
-            },
-            new List<Item>
-            {
-                Item.UpgradeAdultWallet,
-                Item.UpgradeGiantWallet,
-            },
-            new List<Item>
-            {
-                Item.StartingSword,
-                Item.UpgradeRazorSword,
-                Item.UpgradeGildedSword,
-            },
-            new List<Item>
-            {
-                Item.UpgradeMirrorShield,
-                Item.StartingShield,
-                Item.ShopItemTradingPostShield,
-                Item.ShopItemZoraShield,
-            },
-        }.Select(list => list.AsReadOnly()).ToList().AsReadOnly();
 
         private readonly Dictionary<Item, List<Item>> ForbiddenReplacedBy = new Dictionary<Item, List<Item>>
         {
@@ -1231,7 +1198,7 @@ namespace MMRando
                 }
 
 
-                var forbiddenStartTogether = ForbiddenStartTogether.FirstOrDefault(list => list.Contains(placedItem.Value));
+                var forbiddenStartTogether = ItemUtils.ForbiddenStartTogether.FirstOrDefault(list => list.Contains(placedItem.Value));
                 if (forbiddenStartTogether != null)
                 {
                     availableStartingItems.RemoveAll(item => forbiddenStartTogether.Contains(item.Value));

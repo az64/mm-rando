@@ -366,6 +366,11 @@ namespace MMRando
                 }
             }
 
+            itemList = itemList
+                .GroupBy(item => ItemUtils.ForbiddenStartTogether.FirstOrDefault(fst => fst.Contains(item)))
+                .SelectMany(g => g.Key == null ? g.ToList() : g.OrderByDescending(item => g.Key.IndexOf(item)).Take(1))
+                .ToList();
+
             foreach (var item in itemList)
             {
                 var startingItemValues = item.GetAttributes<StartingItemAttribute>();
