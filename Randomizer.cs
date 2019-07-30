@@ -979,6 +979,7 @@ namespace MMRando
                 if (CheckMatch(currentItem, targetLocation))
                 {
                     currentItemObject.NewLocation = targetLocation;
+                    currentItemObject.IsRandomized = true;
 
                     Debug.WriteLine($"----Placed {currentItem.Name()} at {targetLocation.Location()}----");
 
@@ -1193,6 +1194,7 @@ namespace MMRando
                         throw new Exception("Failed to replace a starting item.");
                     }
                     ItemList[(int)placedItem].NewLocation = location;
+                    ItemList[(int)placedItem].IsRandomized = true;
                     itemPool.Remove(location);
                     availableStartingItems.Remove(placedItem.Value);
                 }
