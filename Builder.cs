@@ -395,6 +395,7 @@ namespace MMRando
             var freeItems = new List<Item>();
             if (_settings.LogicMode == LogicMode.Vanilla)
             {
+                freeItems.Add(Item.FairyMagic);
                 freeItems.Add(Item.MaskDeku);
                 freeItems.Add(Item.SongHealing);
                 freeItems.Add(Item.StartingSword);
@@ -538,6 +539,15 @@ namespace MMRando
                 Header = new byte[11] { 0x06, 0x00, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
                 Message = $"You got the \x01Kokiri Sword\x00!\u0011This is a hidden treasure of\u0011the Kokiri, but you can borrow it\u0011for a while.\u00BF",
             });
+
+            // replace Magic Power message
+            newMessages.Add(new MessageEntry
+            {
+                Id = 0xC8,
+                Header = null,
+                Message = $"\u0017You've been granted \u0002Magic Power\u0000!\u0018\u0011Replenish it with \u0001Magic Jars\u0000\u0011and \u0001Potions\u0000.\u00BF",
+            });
+
             _messageTable.UpdateMessages(newMessages);
 
             if (_settings.AddShopItems)
