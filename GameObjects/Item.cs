@@ -100,7 +100,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x41)]
         ItemHookshot,
 
-        [StartingItem(0xC5CDEC, 0x30)]
+        [StartingItem(0xC5CDED, 0x30)]
         [StartingItem(0xC5CDF4, 0x01)]
         [ItemName("Magic Meter"), LocationName("Town Great Fairy Non-Human"), RegionName("North Clock Town")]
         [GossipLocationHint("a magical being"), GossipItemHint("magic power")]
@@ -117,7 +117,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x12D)]
         FairySpinAttack,
 
-        [StartingItem(0xC5CDEC, 0x60)]
+        [StartingItem(0xC5CDED, 0x60)]
         [StartingItem(0xC5CDF4, 0x01)]
         [StartingItem(0xC5CDF5, 0x01)]
         [ItemName("Double Magic Meter"), LocationName("Snowhead Great Fairy"), RegionName("Snowhead")]
