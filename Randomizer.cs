@@ -1280,6 +1280,11 @@ namespace MMRando
                 PreserveMoonItems();
             }
 
+            if (!_settings.AddFairyRewards)
+            {
+                PreserveFairyRewards();
+            }
+
             if (!_settings.AddNutChest || _settings.LogicMode == LogicMode.Casual)
             {
                 PreserveNutChest();
@@ -1369,6 +1374,18 @@ namespace MMRando
             {
                 ItemList[(int)i].NewLocation = i;
             }
+        }
+
+        /// <summary>
+        /// Keeps great fairy rewards vanilla
+        /// </summary>
+        private void PreserveFairyRewards()
+        {
+            for (var i = Item.FairyMagic; i <= Item.ItemFairySword; i++)
+            {
+                ItemList[(int)i].NewLocation = i;
+            }
+            ItemList[(int)Item.MaskGreatFairy].NewLocation = Item.MaskGreatFairy;
         }
 
         /// <summary>
