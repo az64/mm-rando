@@ -456,7 +456,7 @@ namespace MMRando
                     {
                         overrideChestType = ChestTypeAttribute.ChestType.LargeGold;
                     }
-                    ItemSwapUtils.WriteNewItem(item.NewLocation.Value, item.Item, newMessages, _settings.UpdateShopAppearance, _settings.PreventDowngrades, _settings.UpdateChests, overrideChestType);
+                    ItemSwapUtils.WriteNewItem(item.NewLocation.Value, item.Item, newMessages, _settings.UpdateShopAppearance, _settings.PreventDowngrades, _settings.UpdateChests && item.IsRandomized, overrideChestType);
                 }
             }
 
