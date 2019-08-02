@@ -108,8 +108,8 @@ namespace MMRando.GameObjects
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12C)]
         FairyMagic,
-
-        [StartingItem(0xC5DCC3, 0x02)] // todo check if this works??
+        
+        // todo allow as starting item
         [ItemName("Spin Attack"), LocationName("Woodfall Great Fairy"), RegionName("Woodfall")]
         [GossipLocationHint("a magical being"), GossipItemHint("a magic attack")]
         [ShopText("Increases the power of your spin attack.")]
