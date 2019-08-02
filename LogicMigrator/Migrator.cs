@@ -551,7 +551,7 @@ namespace MMRando.LogicMigrator
                 lines.Insert(item.ID * 5 + 5, "0");
             }
             
-            var requireMagic = new int[] { 2, 3, 4, 9, 91 }; // fire arrow, ice arrow, light arrow, lens of truth, giant's mask
+            var requireMagic = new int[] { 2, 3, 4, 9 }; // fire arrow, ice arrow, light arrow, lens of truth
             for (var i = 0; i < lines.Count; i++)
             {
                 if (i%5 != 2 && i%5 != 3)
