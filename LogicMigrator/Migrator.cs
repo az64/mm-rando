@@ -487,6 +487,20 @@ namespace MMRando.LogicMigrator
                 lines.Insert(item.ID * 5 + 4, "0");
                 lines.Insert(item.ID * 5 + 5, "0");
             }
+
+            var updateItems = new MigrationItem[]
+            {
+                new MigrationItem
+                {
+                    ID = 76, // Great Fairy's Mask
+                    // remove requirements
+                }
+            };
+            foreach (var item in updateItems)
+            {
+                lines[item.ID * 5 + 2] = string.Join(",", item.DependsOnItems);
+                lines[item.ID * 5 + 3] = string.Join(";", item.Conditionals.Select(c => string.Join(",", c)));
+            }
         }
 
         private static void AddMagicRequirements(List<string> lines)
