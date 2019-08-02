@@ -102,7 +102,7 @@ namespace MMRando.GameObjects
 
         [StartingItem(0xC5CDED, 0x30)]
         [StartingItem(0xC5CDF4, 0x01)]
-        [ItemName("Magic Meter"), LocationName("Town Great Fairy Non-Human"), RegionName("North Clock Town")]
+        [ItemName("Magic Power"), LocationName("Town Great Fairy Non-Human"), RegionName("North Clock Town")]
         [GossipLocationHint("a magical being"), GossipItemHint("magic power")]
         [ShopText("Grants the ability to use magic.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -120,7 +120,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CDED, 0x60)]
         [StartingItem(0xC5CDF4, 0x01)]
         [StartingItem(0xC5CDF5, 0x01)]
-        [ItemName("Double Magic Meter"), LocationName("Snowhead Great Fairy"), RegionName("Snowhead")]
+        [ItemName("Extended Magic Power"), LocationName("Snowhead Great Fairy"), RegionName("Snowhead")]
         [GossipLocationHint("a magical being"), GossipItemHint("magic power")]
         [ShopText("Grants the ability to use lots of magic.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -131,7 +131,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE87, 0x14)]
         [ItemName("Double Defense"), LocationName("Ocean Great Fairy"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a magical being"), GossipItemHint("magical defense")]
-        [ShopText("Grants extra health.")]
+        [ShopText("Take half as much damage from enemies.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12F)]
         FairyDoubleDefense,
