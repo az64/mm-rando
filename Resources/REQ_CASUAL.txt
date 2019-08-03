@@ -60,17 +60,17 @@
 0
 0
 - Great Fairy Spin Attack
-104
+104,0,76,120
 
 0
 0
 - Great Fairy Extended Magic
-107
-
+107,92,76,120,2,9,278,119
+279;93,280;10,280
 0
 0
 - Great Fairy Double Defense
-112
+112,93,76,120,2,3,278,10,119
 
 0
 0
