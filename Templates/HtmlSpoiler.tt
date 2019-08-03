@@ -166,7 +166,7 @@
 		}
 	}
 
-    var startingLocations = [0, 90, 270, 271, 272, 273];
+    var startingLocations = [0, 94, 274, 275, 276, 277];
     for (var id of startingLocations) {
 	    logic[id].Checked = true;
 	    logic[document.querySelector("tr[data-newlocationid='" + id + "']").dataset.id].Acquired = true;
