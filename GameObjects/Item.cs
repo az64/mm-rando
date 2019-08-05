@@ -1910,9 +1910,11 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x119)]
         HeartPieceCastle,
 
-        [StartingItem(0xC5CDE9, 0x10, true)]
-        [StartingItem(0xC5CDEB, 0x10, true)]
-        [StartingItem(0xC40E1B, 0x10, true)]
+        [StartingItem(0xC5CDE9, 0x10, true)] // add max health
+        [StartingItem(0xC5CDEB, 0x10, true)] // add current health
+        [StartingItem(0xC40E1B, 0x10, true)] // add respawn health
+        [StartingItem(0xBDA683, 0x10, true)] // add minimum Song of Time health
+        [StartingItem(0xBDA68F, 0x10, true)] // add minimum Song of Time health
         [ItemName("Heart Container"), LocationName("Odolwa Heart Container"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
@@ -1920,9 +1922,11 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x11A)]
         HeartContainerWoodfall,
 
-        [StartingItem(0xC5CDE9, 0x10, true)]
-        [StartingItem(0xC5CDEB, 0x10, true)]
-        [StartingItem(0xC40E1B, 0x10, true)]
+        [StartingItem(0xC5CDE9, 0x10, true)] // add max health
+        [StartingItem(0xC5CDEB, 0x10, true)] // add current health
+        [StartingItem(0xC40E1B, 0x10, true)] // add respawn health
+        [StartingItem(0xBDA683, 0x10, true)] // add minimum Song of Time health
+        [StartingItem(0xBDA68F, 0x10, true)] // add minimum Song of Time health
         [ItemName("Heart Container"), LocationName("Goht Heart Container"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
@@ -1930,9 +1934,11 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x11B)]
         HeartContainerSnowhead,
 
-        [StartingItem(0xC5CDE9, 0x10, true)]
-        [StartingItem(0xC5CDEB, 0x10, true)]
-        [StartingItem(0xC40E1B, 0x10, true)]
+        [StartingItem(0xC5CDE9, 0x10, true)] // add max health
+        [StartingItem(0xC5CDEB, 0x10, true)] // add current health
+        [StartingItem(0xC40E1B, 0x10, true)] // add respawn health
+        [StartingItem(0xBDA683, 0x10, true)] // add minimum Song of Time health
+        [StartingItem(0xBDA68F, 0x10, true)] // add minimum Song of Time health
         [ItemName("Heart Container"), LocationName("Gyorg Heart Container"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
@@ -1940,9 +1946,11 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x11C)]
         HeartContainerGreatBay,
 
-        [StartingItem(0xC5CDE9, 0x10, true)]
-        [StartingItem(0xC5CDEB, 0x10, true)]
-        [StartingItem(0xC40E1B, 0x10, true)]
+        [StartingItem(0xC5CDE9, 0x10, true)] // add max health
+        [StartingItem(0xC5CDEB, 0x10, true)] // add current health
+        [StartingItem(0xC40E1B, 0x10, true)] // add respawn health
+        [StartingItem(0xBDA683, 0x10, true)] // add minimum Song of Time health
+        [StartingItem(0xBDA68F, 0x10, true)] // add minimum Song of Time health
         [ItemName("Heart Container"), LocationName("Twinmold Heart Container"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
@@ -2098,9 +2106,11 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x129)]
         StartingShield,
 
-        [StartingItem(0xC5CDE9, 0x10, true)]
-        [StartingItem(0xC5CDEB, 0x10, true)]
-        [StartingItem(0xC40E1B, 0x10, true)]
+        [StartingItem(0xC5CDE9, 0x10, true)] // add max health
+        [StartingItem(0xC5CDEB, 0x10, true)] // add current health
+        [StartingItem(0xC40E1B, 0x10, true)] // add respawn health
+        [StartingItem(0xBDA683, 0x10, true)] // add minimum Song of Time health
+        [StartingItem(0xBDA68F, 0x10, true)] // add minimum Song of Time health
         [ItemName("Heart Container"), LocationName("Starting Heart Container #1"), RegionName("Misc")]
         [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
@@ -2108,9 +2118,11 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x12A)]
         StartingHeartContainer1,
 
-        [StartingItem(0xC5CDE9, 0x10, true)]
-        [StartingItem(0xC5CDEB, 0x10, true)]
-        [StartingItem(0xC40E1B, 0x10, true)]
+        [StartingItem(0xC5CDE9, 0x10, true)] // add max health
+        [StartingItem(0xC5CDEB, 0x10, true)] // add current health
+        [StartingItem(0xC40E1B, 0x10, true)] // add respawn health
+        [StartingItem(0xBDA683, 0x10, true)] // add minimum Song of Time health
+        [StartingItem(0xBDA68F, 0x10, true)] // add minimum Song of Time health
         [ItemName("Heart Container"), LocationName("Starting Heart Container #2"), RegionName("Misc")]
         [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]

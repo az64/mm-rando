@@ -349,13 +349,9 @@ namespace MMRando
         {
             Dictionary<int, byte> startingItems = new Dictionary<int, byte>();
             PutOrCombine(startingItems, 0xC5CE72, 0x10); // add Song of Time
-
-            // can't start with more than 15 hearts with this method. heart container value is two bytes
-            PutOrCombine(startingItems, 0xC5CDE9, 0x10, true); // add Heart Container
-            PutOrCombine(startingItems, 0xC5CDEB, 0x10, true); // add current health
-            PutOrCombine(startingItems, 0xC40E1B, 0x10, true); // add respawn health
-
+            
             var itemList = items.ToList();
+            itemList.Add(Item.StartingHeartContainer1);
             while (itemList.Count(item => item.Name() == "Piece of Heart") >= 4)
             {
                 itemList.Add(Item.StartingHeartContainer1);
