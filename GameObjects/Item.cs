@@ -650,7 +650,7 @@ namespace MMRando.GameObjects
         MaskStone,
 
         [StartingItem(0xC5CE40, 0x40)]
-        [ItemName("Great Fairy's Mask"), LocationName("Clock Town Great Fairy"), RegionName("North Clock Town")]
+        [ItemName("Great Fairy's Mask"), LocationName("Town Great Fairy"), RegionName("North Clock Town")]
         [GossipLocationHint("a magical being"), GossipItemHint("a friend of fairies")]
         [ShopText("The mask's hair will shimmer when you're close to a Stray Fairy.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -868,20 +868,32 @@ namespace MMRando.GameObjects
 
         //areas/other
         AreaSouthAccess,
+
+        [EntranceName("Woodfall")]
         AreaWoodFallTempleAccess,
+
         AreaWoodFallTempleClear,
         AreaNorthAccess,
+
+        [EntranceName("Snowhead")]
         AreaSnowheadTempleAccess,
+
         AreaSnowheadTempleClear,
         OtherEpona,
         AreaWestAccess,
         AreaPiratesFortressAccess,
+
+        [EntranceName("Great Bay")]
         AreaGreatBayTempleAccess,
+
         AreaGreatBayTempleClear,
         AreaEastAccess,
         AreaIkanaCanyonAccess,
         AreaStoneTowerTempleAccess,
+
+        [EntranceName("Inverted Stone Tower")]
         AreaInvertedStoneTowerTempleAccess,
+
         AreaStoneTowerClear,
         OtherExplosive,
         OtherArrow,

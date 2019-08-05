@@ -152,6 +152,7 @@ namespace MMRando
             for (int i = 0; i < 4; i++)
             {
                 //Debug.WriteLine($"Entrance {Item.ITEM_NAMES[areaAccessObjectIndexes[newEntranceIndices[i]]]} placed at {Item.ITEM_NAMES[areaAccessObjects[i].ID]}.");
+                areaAccessObjects[i].IsRandomized = true;
                 ItemList[areaAccessObjectIndexes[newEntranceIndices[i]]] = areaAccessObjects[i];
             }
 
