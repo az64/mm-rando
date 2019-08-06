@@ -384,6 +384,11 @@ namespace MMRando
             {
                 ReadWriteUtils.WriteToROM(kvp.Key, kvp.Value);
             }
+
+            if (itemList.Count(item => item.Name() == "Heart Container") == 1)
+            {
+                ReadWriteUtils.WriteToROM(0x00B97E8F, 0x0C); // reduce low health beep threshold
+            }
         }
 
         private void WriteItems()
