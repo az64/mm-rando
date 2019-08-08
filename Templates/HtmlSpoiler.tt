@@ -37,7 +37,7 @@
 <#		 for (int i = 0; i < 4; i++) {
             var entrance = spoiler.Entrances[i];
             var destination = spoiler.Entrances[spoiler.NewDestinationIndices[i]];#>
-	<tr data-id="<#= (int)entrance #>" data-newlocationid="<#= (int)entrance #>" class="unavailable">
+	<tr data-id="<#= (int)destination #>" data-newlocationid="<#= (int)destination #>" class="unavailable">
 		<td class="newlocation"><#= entrance.Entrance() #></td>
 	    <td><input type="checkbox"/></td>
 		<td class="spoiler itemname"><span data-content="<#= destination.Entrance() #>"></span></td>
@@ -137,7 +137,7 @@
 				recalculate = true;
 			}
         
-			var locationRow = document.querySelector(".item-replacements tr[data-newlocationid='" + item.ItemId + "']");
+			var locationRow = document.querySelector(".item-replacements tr[data-newlocationid='" + i + "']");
 			if (locationRow) {
 				locationRow.className = "";
 				locationRow.classList.add(item.IsAvailable ? "available" : "unavailable");
@@ -151,7 +151,7 @@
 				}
 			}
         
-			var itemRow = document.querySelector("#item-locations tr[data-id='" + item.ItemId + "']");
+			var itemRow = document.querySelector("#item-locations tr[data-id='" + i + "']");
 			if (itemRow) {
 				var itemName = itemRow.querySelector(".newlocation");
                 var checkbox = itemRow.querySelector("input");
@@ -186,8 +186,8 @@
 				var row = e.target.closest("tr");
                 var rowId = parseInt(row.dataset.id);
 				var newLocationId = parseInt(row.dataset.newlocationid);
-				logic[logic[newLocationId].ItemId].Checked = e.target.checked;
-                logic[logic[rowId].ItemId].Acquired = e.target.checked;
+				logic[newLocationId].Checked = e.target.checked;
+                logic[rowId].Acquired = e.target.checked;
 				recalculateItems();
 			});
 		}
