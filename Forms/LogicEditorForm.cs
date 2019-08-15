@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MMRando.LogicMigrator;
+using MMRando.Properties;
 
 namespace MMRando
 {
@@ -222,7 +223,12 @@ namespace MMRando
 
         private void nItem_ValueChanged(object sender, EventArgs e)
         {
-            n = (int)nItem.Value;
+            SetIndex((int)nItem.Value);
+        }
+
+        private void SetIndex(int index)
+        {
+            n = index;
             lIName.Text = ITEM_NAMES[n];
             updating = true;
             FillDependence(n);
@@ -288,68 +294,13 @@ namespace MMRando
         {
             if (openLogic.ShowDialog() == DialogResult.OK)
             {
-                StreamReader LogicFile = new StreamReader(File.Open(openLogic.FileName, FileMode.Open));
-                ItemList = new List<ItemLogic>();
-                var logicString = LogicFile.ReadToEnd();
-                logicString = Migrator.ApplyMigrations(logicString);
-                string[] lines = logicString.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-                ItemSelectorForm.ResetItems();
-                ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();
-                int i = 0;
-                while (true)
+                using (var logicFile = new StreamReader(File.Open(openLogic.FileName, FileMode.Open)))
                 {
-                    if (i == lines.Length)
-                    {
-                        break;
-                    };
-                    if (lines[i].Contains("-"))
-                    {
-                        var itemName = lines[i].Substring(2);
-                        if (ItemList.Count >= ITEM_NAMES.Length)
-                        {
-                            var newList = ITEM_NAMES.ToList();
-                            newList.Add(itemName);
-                            ItemSelectorForm.AddItem(itemName);
-                            ITEM_NAMES = newList.ToArray();
-                        }
-                        i++;
-                        continue;
-                    }
-                    else
-                    {
-                        ItemLogic l = new ItemLogic();
-                        l.Dependence = new List<int>();
-                        if (lines[i] != "")
-                        {
-                            foreach (string j in lines[i].Split(','))
-                            {
-                                l.Dependence.Add(Convert.ToInt32(j));
-                            };
-                        };
-                        l.Conditional = new List<List<int>>();
-                        if (lines[i + 1] != "")
-                        {
-                            foreach (string j in lines[i + 1].Split(';'))
-                            {
-                                List<int> c = new List<int>();
-                                foreach (string k in j.Split(','))
-                                {
-                                    c.Add(Convert.ToInt32(k));
-                                };
-                                l.Conditional.Add(c);
-                            };
-                        };
-                        l.Time_Needed = Convert.ToInt32(lines[i + 2]);
-                        l.Time_Available = Convert.ToInt32(lines[i + 3]);
-                        ItemList.Add(l);
-                        i += 4;
-                    };
-                };
-                LogicFile.Close();
-                nItem.Value = 1;
-                nItem.Value = 0;
-                nItem.Maximum = ITEM_NAMES.Length - 1;
-            };
+                    var logicString = logicFile.ReadToEnd();
+                    logicString = Migrator.ApplyMigrations(logicString);
+                    LoadLogic(logicString);
+                }
+            }
         }
 
         private void mSave_Click(object sender, EventArgs e)
@@ -469,6 +420,87 @@ namespace MMRando
             {
                 UpdateConditional(n, index);
             }
+        }
+
+        private void casualToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            LoadLogic(Resources.REQ_CASUAL);
+        }
+
+        private void glitchednoSetupsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            LoadLogic(Resources.REQ_GLITCH_NOSETUPS);
+        }
+
+        private void glitchedcommonTricksToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            LoadLogic(Resources.REQ_GLITCH_COMMONTRICKS);
+        }
+
+        private void glitchedToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            LoadLogic(Resources.REQ_GLITCH);
+        }
+
+        private void LoadLogic(string logicString)
+        {
+            ItemList = new List<ItemLogic>();
+            string[] lines = logicString.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            ItemSelectorForm.ResetItems();
+            ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();
+            int i = 0;
+            while (true)
+            {
+                if (i == lines.Length)
+                {
+                    break;
+                };
+                if (lines[i].Contains("-"))
+                {
+                    var itemName = lines[i].Substring(2);
+                    if (ItemList.Count >= ITEM_NAMES.Length)
+                    {
+                        var newList = ITEM_NAMES.ToList();
+                        newList.Add(itemName);
+                        ItemSelectorForm.AddItem(itemName);
+                        ITEM_NAMES = newList.ToArray();
+                    }
+                    i++;
+                    continue;
+                }
+                else
+                {
+                    ItemLogic l = new ItemLogic();
+                    l.Dependence = new List<int>();
+                    if (lines[i] != "")
+                    {
+                        foreach (string j in lines[i].Split(','))
+                        {
+                            l.Dependence.Add(Convert.ToInt32(j));
+                        };
+                    };
+                    l.Conditional = new List<List<int>>();
+                    if (lines[i + 1] != "")
+                    {
+                        foreach (string j in lines[i + 1].Split(';'))
+                        {
+                            List<int> c = new List<int>();
+                            foreach (string k in j.Split(','))
+                            {
+                                c.Add(Convert.ToInt32(k));
+                            };
+                            l.Conditional.Add(c);
+                        };
+                    };
+                    l.Time_Needed = Convert.ToInt32(lines[i + 2]);
+                    l.Time_Available = Convert.ToInt32(lines[i + 3]);
+                    ItemList.Add(l);
+                    i += 4;
+                };
+            };
+            
+            nItem.Maximum = ITEM_NAMES.Length - 1;
+            SetIndex((int)nItem.Value);
         }
     }
 }
