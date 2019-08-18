@@ -462,7 +462,7 @@ namespace MMRando.LogicMigrator
             for (var i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
-                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line) || (i % 5 != 2 && i % 5 != 3))
                 {
                     continue;
                 }
