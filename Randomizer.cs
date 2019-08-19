@@ -363,10 +363,27 @@ namespace MMRando
                         break;
                     case 3:
                         //time available
-                        currentItem.TimeAvailable = Convert.ToInt32(line);
-                        if (currentItem.TimeAvailable == 0)
+                        var timeAvailable = Convert.ToInt32(line);
+                        if (timeAvailable == 0)
                         {
                             currentItem.TimeAvailable = 63;
+                        }
+                        else
+                        {
+                            var newTimeAvailable = 0;
+                            var matched = false;
+                            for (var i = 1; i <= 0b100000; i <<= 1)
+                            {
+                                if ((timeAvailable & i) > 0)
+                                {
+                                    matched = true;
+                                }
+                                if (matched)
+                                {
+                                    newTimeAvailable += i;
+                                }
+                            }
+                            currentItem.TimeAvailable = newTimeAvailable;
                         }
                         break;
                 }
