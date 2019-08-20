@@ -92,7 +92,7 @@
 - Gold Dust
 108
 
-15
+12
 0
 - Beaver Race Bottle
 111,10
@@ -202,7 +202,7 @@
 - Letter to Mama
 38
 
-32
+16
 16
 - Mayor Dotour HP
 85
