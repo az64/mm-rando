@@ -2129,5 +2129,41 @@ namespace MMRando.GameObjects
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12B)]
         StartingHeartContainer2,
+
+        [ItemName("Milk"), LocationName("Ranch Cow #1"), RegionName("Romani Ranch")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x132)]
+        ItemRanchBarnMainCowMilk,
+
+        [ItemName("Milk"), LocationName("Ranch Cow #2"), RegionName("Romani Ranch")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x133)]
+        ItemRanchBarnOtherCowMilk1,
+
+        [ItemName("Milk"), LocationName("Ranch Cow #3"), RegionName("Romani Ranch")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x134)]
+        ItemRanchBarnOtherCowMilk2,
+
+        [ItemName("Milk"), LocationName("Cow Beneath the Well"), RegionName("Beneath the Well")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x135)]
+        ItemWellCowMilk,
+
+        ItemTerminaGrottoCowMilk1,
+
+        ItemTerminaGrottoCowMilk2,
+
+        ItemCoastGrottoCowMilk1,
+
+        ItemCostGrottoCowMilk2,
     }
 }
