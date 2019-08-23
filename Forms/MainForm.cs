@@ -672,7 +672,9 @@ namespace MMRando
                 cAdditional.Enabled = onMainTab;
                 cMoonItems.Enabled = onMainTab;
                 cFairyRewards.Enabled = onMainTab;
-                cNutChest.Enabled = onMainTab && _settings.LogicMode != LogicMode.Casual;
+                cNutChest.Enabled = onMainTab && _settings.LogicMode != LogicMode.Casual
+                                              && _settings.LogicMode != LogicMode.GlitchedCommonTricks
+                                              && _settings.LogicMode != LogicMode.GlitchedNoSetups;
                 cCrazyStartingItems.Enabled = onMainTab;
 
                 cNoStartingItems.Enabled = onMainTab && (_settings.AddOther || _settings.UseCustomItemList);
