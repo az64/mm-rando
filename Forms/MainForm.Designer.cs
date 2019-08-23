@@ -53,6 +53,7 @@ namespace MMRando
             this.cEnemy = new System.Windows.Forms.CheckBox();
             this.cMixSongs = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cFairyRewards = new System.Windows.Forms.CheckBox();
             this.lCustomItemAmount = new System.Windows.Forms.Label();
             this.tCustomItemList = new System.Windows.Forms.TextBox();
             this.bItemListEditor = new System.Windows.Forms.Button();
@@ -133,7 +134,7 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cFairyRewards = new System.Windows.Forms.CheckBox();
+            this.cDarkTheme = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -213,6 +214,7 @@ namespace MMRando
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cDarkTheme);
             this.groupBox1.Controls.Add(this.cHTMLLog);
             this.groupBox1.Controls.Add(this.cSpoiler);
             this.groupBox1.Location = new System.Drawing.Point(177, 75);
@@ -229,7 +231,7 @@ namespace MMRando
             this.cHTMLLog.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cHTMLLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cHTMLLog.ForeColor = System.Drawing.Color.Black;
-            this.cHTMLLog.Location = new System.Drawing.Point(20, 51);
+            this.cHTMLLog.Location = new System.Drawing.Point(27, 45);
             this.cHTMLLog.Name = "cHTMLLog";
             this.cHTMLLog.Size = new System.Drawing.Size(98, 17);
             this.cHTMLLog.TabIndex = 14;
@@ -244,7 +246,7 @@ namespace MMRando
             this.cSpoiler.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cSpoiler.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cSpoiler.ForeColor = System.Drawing.Color.Black;
-            this.cSpoiler.Location = new System.Drawing.Point(54, 28);
+            this.cSpoiler.Location = new System.Drawing.Point(61, 22);
             this.cSpoiler.Name = "cSpoiler";
             this.cSpoiler.Size = new System.Drawing.Size(64, 17);
             this.cSpoiler.TabIndex = 8;
@@ -430,6 +432,21 @@ namespace MMRando
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Item Pool Options";
+            // 
+            // cFairyRewards
+            // 
+            this.cFairyRewards.AutoSize = true;
+            this.cFairyRewards.BackColor = System.Drawing.Color.Transparent;
+            this.cFairyRewards.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cFairyRewards.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cFairyRewards.ForeColor = System.Drawing.Color.Black;
+            this.cFairyRewards.Location = new System.Drawing.Point(188, 53);
+            this.cFairyRewards.Name = "cFairyRewards";
+            this.cFairyRewards.Size = new System.Drawing.Size(122, 17);
+            this.cFairyRewards.TabIndex = 21;
+            this.cFairyRewards.Text = "Great Fairy Rewards";
+            this.cFairyRewards.UseVisualStyleBackColor = false;
+            this.cFairyRewards.CheckedChanged += new System.EventHandler(this.cFairyRewards_CheckedChanged);
             // 
             // lCustomItemAmount
             // 
@@ -1169,7 +1186,7 @@ namespace MMRando
             // 
             this.mExit.Name = "mExit";
             this.mExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.mExit.Size = new System.Drawing.Size(134, 22);
+            this.mExit.Size = new System.Drawing.Size(135, 22);
             this.mExit.Text = "Exit";
             this.mExit.Click += new System.EventHandler(this.mExit_Click);
             // 
@@ -1385,20 +1402,20 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // cFairyRewards
+            // cDarkTheme
             // 
-            this.cFairyRewards.AutoSize = true;
-            this.cFairyRewards.BackColor = System.Drawing.Color.Transparent;
-            this.cFairyRewards.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cFairyRewards.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cFairyRewards.ForeColor = System.Drawing.Color.Black;
-            this.cFairyRewards.Location = new System.Drawing.Point(188, 53);
-            this.cFairyRewards.Name = "cFairyRewards";
-            this.cFairyRewards.Size = new System.Drawing.Size(122, 17);
-            this.cFairyRewards.TabIndex = 21;
-            this.cFairyRewards.Text = "Great Fairy Rewards";
-            this.cFairyRewards.UseVisualStyleBackColor = false;
-            this.cFairyRewards.CheckedChanged += new System.EventHandler(this.cFairyRewards_CheckedChanged);
+            this.cDarkTheme.AutoSize = true;
+            this.cDarkTheme.BackColor = System.Drawing.Color.Transparent;
+            this.cDarkTheme.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cDarkTheme.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cDarkTheme.ForeColor = System.Drawing.Color.Black;
+            this.cDarkTheme.Location = new System.Drawing.Point(26, 68);
+            this.cDarkTheme.Name = "cDarkTheme";
+            this.cDarkTheme.Size = new System.Drawing.Size(99, 17);
+            this.cDarkTheme.TabIndex = 15;
+            this.cDarkTheme.Text = "Dark Webpage";
+            this.cDarkTheme.UseVisualStyleBackColor = false;
+            this.cDarkTheme.CheckedChanged += new System.EventHandler(this.cDarkTheme_CheckedChanged);
             // 
             // MainForm
             // 
@@ -1554,6 +1571,7 @@ namespace MMRando
         private System.Windows.Forms.TextBox tCustomItemList;
         private System.Windows.Forms.Label lCustomItemAmount;
         private System.Windows.Forms.CheckBox cFairyRewards;
+        private System.Windows.Forms.CheckBox cDarkTheme;
     }
 }
 

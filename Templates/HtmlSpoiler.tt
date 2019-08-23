@@ -7,6 +7,32 @@
 <html>
 <head>
 <style>
+<# 
+    if (spoiler.UsingDarkTheme) 
+    { 
+#>
+
+body{
+  background-color: #111;
+  color: #ccc;
+}
+
+a { color: #111; }
+
+	th{ text-align:left }
+	.spoiler{ background-color:#ccc }
+	.spoiler:hover { background-color: #111;  }
+	.dark-theme .spoiler{ background-color:#000 }
+	.spoiler:hover { background-color: #111;  }
+	[data-content]:before { content: attr(data-content); }
+
+	.show-highlight .unavailable .newlocation { background-color: #500705; }
+	.show-highlight .acquired .newlocation { background-color: #69591f; }
+	.show-highlight .available .newlocation { background-color: #313776; }
+    .region { text-align: center; font-weight: bold; }
+
+<# } else { #>
+
 	th{ text-align:left }
 	.spoiler{ background-color:black }
 	.spoiler:hover { background-color: white;  }
@@ -16,6 +42,8 @@
 	.show-highlight .acquired .newlocation { background-color: #DDFFDD; }
 	.show-highlight .available .newlocation { background-color: #DDDDFF; }
     .region { text-align: center; font-weight: bold; }
+
+<# } #>
 </style>
 </head>
 <label><b>Version: </b></label><span><#= spoiler.Version #></span><br/>

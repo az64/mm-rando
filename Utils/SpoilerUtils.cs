@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace MMRando.Utils
 {
+    
     public static class SpoilerUtils
     {
         public static void CreateSpoilerLog(RandomizedResult randomized, SettingsObject settings)
@@ -32,6 +33,7 @@ namespace MMRando.Utils
                 ItemList = itemList.Where(u => !u.Item.IsFake()).ToList(),
                 NewDestinationIndices = randomized.NewDestinationIndices,
                 Logic = randomized.Logic,
+                UsingDarkTheme = settings.DarkTheme,
                 CustomItemListString = settings.UseCustomItemList ? settings.CustomItemListString : null,
                 GossipHints = randomized.GossipQuotes?.ToDictionary(me => (GossipQuote) me.Id, (me) =>
                 {
