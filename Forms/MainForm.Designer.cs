@@ -342,17 +342,17 @@ namespace MMRando
             // 
             // tbUserLogic
             // 
-            this.tbUserLogic.Location = new System.Drawing.Point(107, 43);
+            this.tbUserLogic.Location = new System.Drawing.Point(99, 43);
             this.tbUserLogic.Name = "tbUserLogic";
             this.tbUserLogic.ReadOnly = true;
-            this.tbUserLogic.Size = new System.Drawing.Size(222, 20);
+            this.tbUserLogic.Size = new System.Drawing.Size(219, 20);
             this.tbUserLogic.TabIndex = 18;
             // 
             // bLoadLogic
             // 
-            this.bLoadLogic.Location = new System.Drawing.Point(16, 41);
+            this.bLoadLogic.Location = new System.Drawing.Point(23, 41);
             this.bLoadLogic.Name = "bLoadLogic";
-            this.bLoadLogic.Size = new System.Drawing.Size(85, 24);
+            this.bLoadLogic.Size = new System.Drawing.Size(73, 24);
             this.bLoadLogic.TabIndex = 17;
             this.bLoadLogic.Text = "Open Logic";
             this.bLoadLogic.UseVisualStyleBackColor = true;
