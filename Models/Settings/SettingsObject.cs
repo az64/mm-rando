@@ -147,6 +147,11 @@ namespace MMRando.Models.Settings
         public bool CrazyStartingItems { get; set; }
 
         /// <summary>
+        /// Changes the theme used in the HTML log to a darker theme
+        /// </summary>
+        public bool DarkTheme { get; set; }
+
+        /// <summary>
         /// Randomize the content of a bottle when catching (e.g. catching a fairy puts poe in bottle)
         /// </summary>
         public bool RandomizeBottleCatchContents { get; set; }

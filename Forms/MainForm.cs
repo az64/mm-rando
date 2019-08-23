@@ -412,6 +412,11 @@ namespace MMRando
             UpdateSingleSetting(() => _settings.CrazyStartingItems = cCrazyStartingItems.Checked);
         }
 
+        private void cDarkTheme_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.DarkTheme = cDarkTheme.Checked);
+        }
+
         private void cBGM_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.RandomizeBGM = cBGM.Checked);

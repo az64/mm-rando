@@ -25,6 +25,8 @@ namespace MMRando.Models
 
         public string CustomItemListString { get; set; }
 
+        public bool UsingDarkTheme { get; set; }
+
         public string LogicJson
         {
             get

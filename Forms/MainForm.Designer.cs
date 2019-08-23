@@ -134,6 +134,7 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
+            this.cDarkTheme = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -217,6 +218,7 @@ namespace MMRando
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cDarkTheme);
             this.groupBox1.Controls.Add(this.cHTMLLog);
             this.groupBox1.Controls.Add(this.cSpoiler);
             this.groupBox1.Location = new System.Drawing.Point(177, 75);
@@ -233,7 +235,7 @@ namespace MMRando
             this.cHTMLLog.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cHTMLLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cHTMLLog.ForeColor = System.Drawing.Color.Black;
-            this.cHTMLLog.Location = new System.Drawing.Point(20, 51);
+            this.cHTMLLog.Location = new System.Drawing.Point(27, 45);
             this.cHTMLLog.Name = "cHTMLLog";
             this.cHTMLLog.Size = new System.Drawing.Size(98, 17);
             this.cHTMLLog.TabIndex = 14;
@@ -248,7 +250,7 @@ namespace MMRando
             this.cSpoiler.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cSpoiler.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cSpoiler.ForeColor = System.Drawing.Color.Black;
-            this.cSpoiler.Location = new System.Drawing.Point(54, 28);
+            this.cSpoiler.Location = new System.Drawing.Point(61, 22);
             this.cSpoiler.Name = "cSpoiler";
             this.cSpoiler.Size = new System.Drawing.Size(64, 17);
             this.cSpoiler.TabIndex = 8;
@@ -1400,6 +1402,21 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
+            // cDarkTheme
+            // 
+            this.cDarkTheme.AutoSize = true;
+            this.cDarkTheme.BackColor = System.Drawing.Color.Transparent;
+            this.cDarkTheme.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cDarkTheme.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cDarkTheme.ForeColor = System.Drawing.Color.Black;
+            this.cDarkTheme.Location = new System.Drawing.Point(26, 68);
+            this.cDarkTheme.Name = "cDarkTheme";
+            this.cDarkTheme.Size = new System.Drawing.Size(99, 17);
+            this.cDarkTheme.TabIndex = 15;
+            this.cDarkTheme.Text = "Dark Webpage";
+            this.cDarkTheme.UseVisualStyleBackColor = false;
+            this.cDarkTheme.CheckedChanged += new System.EventHandler(this.cDarkTheme_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1552,6 +1569,7 @@ namespace MMRando
         private System.Windows.Forms.TextBox tCustomItemList;
         private System.Windows.Forms.Label lCustomItemAmount;
         private System.Windows.Forms.CheckBox cFairyRewards;
+        private System.Windows.Forms.CheckBox cDarkTheme;
         private System.Windows.Forms.TextBox tbUserLogic;
         private System.Windows.Forms.Button bLoadLogic;
     }
