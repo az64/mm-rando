@@ -534,7 +534,7 @@ namespace MMRando
             this.cBottled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cBottled.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBottled.ForeColor = System.Drawing.Color.Black;
-            this.cBottled.Location = new System.Drawing.Point(16, 97);
+            this.cBottled.Location = new System.Drawing.Point(16, 99);
             this.cBottled.Name = "cBottled";
             this.cBottled.Size = new System.Drawing.Size(133, 17);
             this.cBottled.TabIndex = 5;
