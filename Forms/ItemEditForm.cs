@@ -71,7 +71,7 @@ namespace MMRando.Forms
             }
             else
             {
-                tSetting.Text = "-------";
+                tSetting.Text = "--------";
             }
         }
 
@@ -86,8 +86,8 @@ namespace MMRando.Forms
 
         private void UpdateString(List<int> selections)
         {
-            int[] n = new int[8];
-            string[] ns = new string[8];
+            int[] n = new int[9];
+            string[] ns = new string[9];
             for (int i = 0; i < selections.Count; i++)
             {
                 int j = selections[i] / 32;
@@ -95,7 +95,7 @@ namespace MMRando.Forms
                 n[j] |= (int)(1 << k);
                 ns[j] = Convert.ToString(n[j], 16);
             }
-            tSetting.Text = ns[7] + "-" + ns[6] + "-" + ns[5] + "-" + ns[4] + "-"
+            tSetting.Text = ns[8] + "-" + ns[7] + "-" + ns[6] + "-" + ns[5] + "-" + ns[4] + "-"
                 + ns[3] + "-" + ns[2] + "-" + ns[1] + "-" + ns[0];
             _settings.CustomItemListString = tSetting.Text;
         }
@@ -109,20 +109,20 @@ namespace MMRando.Forms
                 _settings.CustomItemListString = c;
                 _settings.CustomItemList.Clear();
                 string[] v = c.Split('-');
-                int[] vi = new int[8];
+                int[] vi = new int[9];
                 if (v.Length != vi.Length)
                 {
                     _settings.CustomItemList.Add(-1);
                     return;
                 }
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 9; i++)
                 {
-                    if (v[7 - i] != "")
+                    if (v[8 - i] != "")
                     {
-                        vi[i] = Convert.ToInt32(v[7 - i], 16);
+                        vi[i] = Convert.ToInt32(v[8 - i], 16);
                     }
                 }
-                for (int i = 0; i < 256; i++)
+                for (int i = 0; i < 32*9; i++)
                 {
                     int j = i / 32;
                     int k = i % 32;

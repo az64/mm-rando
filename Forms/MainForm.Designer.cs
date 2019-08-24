@@ -53,6 +53,7 @@ namespace MMRando
             this.cEnemy = new System.Windows.Forms.CheckBox();
             this.cMixSongs = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cCowMilk = new System.Windows.Forms.CheckBox();
             this.cFairyRewards = new System.Windows.Forms.CheckBox();
             this.lCustomItemAmount = new System.Windows.Forms.Label();
             this.tCustomItemList = new System.Windows.Forms.TextBox();
@@ -134,7 +135,6 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cCowMilk = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -433,6 +433,21 @@ namespace MMRando
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Item Pool Options";
             // 
+            // cCowMilk
+            // 
+            this.cCowMilk.AutoSize = true;
+            this.cCowMilk.BackColor = System.Drawing.Color.Transparent;
+            this.cCowMilk.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cCowMilk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cCowMilk.ForeColor = System.Drawing.Color.Black;
+            this.cCowMilk.Location = new System.Drawing.Point(80, 122);
+            this.cCowMilk.Name = "cCowMilk";
+            this.cCowMilk.Size = new System.Drawing.Size(69, 17);
+            this.cCowMilk.TabIndex = 22;
+            this.cCowMilk.Text = "Cow Milk";
+            this.cCowMilk.UseVisualStyleBackColor = false;
+            this.cCowMilk.CheckedChanged += new System.EventHandler(this.cCowMilk_CheckedChanged);
+            // 
             // cFairyRewards
             // 
             this.cFairyRewards.AutoSize = true;
@@ -464,7 +479,7 @@ namespace MMRando
             this.tCustomItemList.Name = "tCustomItemList";
             this.tCustomItemList.Size = new System.Drawing.Size(313, 20);
             this.tCustomItemList.TabIndex = 19;
-            this.tCustomItemList.Text = "-------";
+            this.tCustomItemList.Text = "--------";
             this.tCustomItemList.Visible = false;
             this.tCustomItemList.TextChanged += new System.EventHandler(this.tCustomItemList_TextChanged);
             // 
@@ -1401,21 +1416,6 @@ namespace MMRando
             this.bLoadPatch.Text = "Load Patch...";
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
-            // 
-            // cCowMilk
-            // 
-            this.cCowMilk.AutoSize = true;
-            this.cCowMilk.BackColor = System.Drawing.Color.Transparent;
-            this.cCowMilk.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cCowMilk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cCowMilk.ForeColor = System.Drawing.Color.Black;
-            this.cCowMilk.Location = new System.Drawing.Point(80, 122);
-            this.cCowMilk.Name = "cCowMilk";
-            this.cCowMilk.Size = new System.Drawing.Size(69, 17);
-            this.cCowMilk.TabIndex = 22;
-            this.cCowMilk.Text = "Cow Milk";
-            this.cCowMilk.UseVisualStyleBackColor = false;
-            this.cCowMilk.CheckedChanged += new System.EventHandler(this.cCowMilk_CheckedChanged);
             // 
             // MainForm
             // 

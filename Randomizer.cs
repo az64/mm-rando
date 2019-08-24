@@ -1020,6 +1020,7 @@ namespace MMRando
             PlaceMasks(itemPool);
             PlaceRegularItems(itemPool);
             PlaceShopItems(itemPool);
+            PlaceCowMilk(itemPool);
             PlaceMoonItems(itemPool);
             PlaceHeartpieces(itemPool);
             PlaceOther(itemPool);
@@ -1102,6 +1103,17 @@ namespace MMRando
         /// Places shop items in the randomization pool
         /// </summary>
         private void PlaceShopItems(List<Item> itemPool)
+        {
+            for (var i = Item.ItemRanchBarnMainCowMilk; i <= Item.ItemCoastGrottoCowMilk2; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places cow milk in the randomization pool
+        /// </summary>
+        private void PlaceCowMilk(List<Item> itemPool)
         {
             for (var i = Item.ShopItemTradingPostRedPotion; i <= Item.ShopItemZoraRedPotion; i++)
             {
