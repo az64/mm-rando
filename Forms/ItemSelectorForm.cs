@@ -288,6 +288,14 @@ namespace MMRando
             "Starting Shield",
             "Starting Heart 1",
             "Starting Heart 2",
+            "Ranch Cow #1 Milk",
+            "Ranch Cow #2 Milk",
+            "Ranch Cow #3 Milk",
+            "Well Cow Milk",
+            "Termina Grotto Cow #1 Milk",
+            "Termina Grotto Cow #2 Milk",
+            "Great Bay Coast Grotto Cow #1 Milk",
+            "Great Bay Coast Grotto Cow #2 Milk",
         };
 
         private static string[] ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();

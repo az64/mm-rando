@@ -56,7 +56,9 @@ namespace MMRando
         "Odolwa Heart Container", "Goht Heart Container", "Gyorg Heart Container", "Twinmold Heart Container", "Map: Clock Town", "Map: Woodfall",
         "Map: Snowhead", "Map: Romani Ranch", "Map: Great Bay", "Map: Stone Tower", "Goron Racetrack Grotto", "Ikana Scrub 200r", "One Mask", "Two Masks",
         "Three Masks", "Four Masks", "Moon Access", "Deku Trial HP", "Goron Trial HP", "Zora Trial HP", "Link Trial HP", "Fierce Deity's Mask",
-        "Link Trial 30 Arrows", "Link Trial 10 Bombchu", "Pre-Clocktown 10 Deku Nuts", "Starting Sword", "Starting Shield", "Starting Heart 1", "Starting Heart 2" };
+        "Link Trial 30 Arrows", "Link Trial 10 Bombchu", "Pre-Clocktown 10 Deku Nuts", "Starting Sword", "Starting Shield", "Starting Heart 1", "Starting Heart 2",
+        "Ranch Cow #1 Milk", "Ranch Cow #2 Milk", "Ranch Cow #3 Milk", "Well Cow Milk", "Termina Grotto Cow #1 Milk", "Termina Grotto Cow #2 Milk",
+        "Great Bay Coast Grotto Cow #1 Milk", "Great Bay Coast Grotto Cow #2 Milk", };
 
         string[] ITEM_NAMES = DEFAULT_ITEM_NAMES.ToArray();
 

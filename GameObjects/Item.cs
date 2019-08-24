@@ -2158,12 +2158,32 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x135)]
         ItemWellCowMilk,
 
+        [ItemName("Milk"), LocationName("Termina Grotto Cow #1"), RegionName("Termina Field")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x136)]
         ItemTerminaGrottoCowMilk1,
 
+        [ItemName("Milk"), LocationName("Termina Grotto Cow #2"), RegionName("Termina Field")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x137)]
         ItemTerminaGrottoCowMilk2,
 
+        [ItemName("Milk"), LocationName("Great Bay Coast Grotto Cow #1"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x138)]
         ItemCoastGrottoCowMilk1,
 
-        ItemCostGrottoCowMilk2,
+        [ItemName("Milk"), LocationName("Great Bay Coast Grotto Cow #2"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x139)]
+        ItemCoastGrottoCowMilk2,
     }
 }

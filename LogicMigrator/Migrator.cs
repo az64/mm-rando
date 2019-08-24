@@ -7,7 +7,7 @@ namespace MMRando.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 8;
+        public const int CurrentVersion = 9;
 
         public static string ApplyMigrations(string logic)
         {
@@ -56,6 +56,11 @@ namespace MMRando.LogicMigrator
             if (GetVersion(lines) < 8)
             {
                 AddMagicRequirements(lines);
+            }
+
+            if (GetVersion(lines) < 9)
+            {
+                AddCows(lines);
             }
 
             return string.Join("\r\n", lines);
@@ -574,6 +579,98 @@ namespace MMRando.LogicMigrator
                         return section;
                     }).ToList();
                 lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+        }
+
+        private static void AddCows(List<string> lines)
+        {
+            lines[0] = "-version 9";
+            var newItems = new MigrationItem[]
+            {
+                new MigrationItem
+                {
+                    ID = 278,
+                    DependsOnItems = new List<int> { 96, 109 } // epona's song, epona access
+                },
+                new MigrationItem
+                {
+                    ID = 279,
+                    DependsOnItems = new List<int> { 265 } // moon access / unaccessible
+                },
+                new MigrationItem
+                {
+                    ID = 280,
+                    DependsOnItems = new List<int> { 265 } // moon access / unaccessible
+                },
+                new MigrationItem
+                {
+                    ID = 281,
+                    DependsOnItems = new List<int> { 96, 115, 88, 173 }, // epona's song, ikana canyon access, gibdo mask, hot spring water, 
+                    Conditionals = new List<List<int>>
+                    {
+                        new List<int> { 4 }, // light arrow
+                        new List<int> { 0, 103 }, // deku mask, poison swamp access
+                    },
+                },
+                new MigrationItem
+                {
+                    ID = 282,
+                    DependsOnItems = new List<int> { 96, 119 } // epona's song, explosives
+                },
+                new MigrationItem
+                {
+                    ID = 283,
+                    DependsOnItems = new List<int> { 96, 119 } // epona's song, explosives
+                },
+                new MigrationItem
+                {
+                    ID = 284,
+                    DependsOnItems = new List<int> { 96, 110, 10 } // epona's song, west access, hookshot
+                },
+                new MigrationItem
+                {
+                    ID = 285,
+                    DependsOnItems = new List<int> { 96, 110, 10 } // epona's song, west access, hookshot
+                },
+            };
+            var itemNames = new string[]
+            {
+                "Ranch Cow #1 Milk",
+                "Ranch Cow #2 Milk",
+                "Ranch Cow #3 Milk",
+                "Well Cow Milk",
+                "Termina Grotto Cow #1 Milk",
+                "Termina Grotto Cow #2 Milk",
+                "Great Bay Coast Grotto Cow #1 Milk",
+                "Great Bay Coast Grotto Cow #2 Milk",
+            };
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section => section.Split(',').Select(id =>
+                    {
+                        var itemId = int.Parse(id);
+                        if (itemId >= 278)
+                        {
+                            itemId += newItems.Length;
+                        }
+                        return itemId;
+                    }).ToList()).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+            foreach (var item in newItems)
+            {
+                lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 278]}");
+                lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
+                lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
+                lines.Insert(item.ID * 5 + 4, "0");
+                lines.Insert(item.ID * 5 + 5, "0");
             }
         }
 

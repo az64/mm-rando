@@ -147,6 +147,11 @@ namespace MMRando.Models.Settings
         public bool CrazyStartingItems { get; set; }
 
         /// <summary>
+        /// Add cow milk to the randomization pool
+        /// </summary>
+        public bool AddCowMilk { get; set; }
+
+        /// <summary>
         /// Randomize the content of a bottle when catching (e.g. catching a fairy puts poe in bottle)
         /// </summary>
         public bool RandomizeBottleCatchContents { get; set; }
@@ -323,9 +328,11 @@ namespace MMRando.Models.Settings
                 RandomizeBottleCatchContents = false;
                 AddDungeonItems = false;
                 AddShopItems = false;
+                AddCowMilk = false;
             }
             else
             {
+                AddCowMilk = (part1 & 134217728) > 0;
                 AddFairyRewards = (part1 & 67108864) > 0;
                 CrazyStartingItems = (part1 & 4194304) > 0;
                 AddNutChest = (part1 & 2097152) > 0;
@@ -396,6 +403,7 @@ namespace MMRando.Models.Settings
             }
             else
             {
+                if (AddCowMilk) { parts[0] += 134217728; }
                 if (AddFairyRewards) { parts[0] += 67108864; }
                 if (CrazyStartingItems) { parts[0] += 4194304; }
                 if (AddNutChest) { parts[0] += 2097152; }

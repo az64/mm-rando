@@ -53,6 +53,7 @@ namespace MMRando
             this.cEnemy = new System.Windows.Forms.CheckBox();
             this.cMixSongs = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cFairyRewards = new System.Windows.Forms.CheckBox();
             this.lCustomItemAmount = new System.Windows.Forms.Label();
             this.tCustomItemList = new System.Windows.Forms.TextBox();
             this.bItemListEditor = new System.Windows.Forms.Button();
@@ -133,7 +134,7 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cFairyRewards = new System.Windows.Forms.CheckBox();
+            this.cCowMilk = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -411,6 +412,7 @@ namespace MMRando
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cCowMilk);
             this.groupBox2.Controls.Add(this.cFairyRewards);
             this.groupBox2.Controls.Add(this.lCustomItemAmount);
             this.groupBox2.Controls.Add(this.tCustomItemList);
@@ -430,6 +432,21 @@ namespace MMRando
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Item Pool Options";
+            // 
+            // cFairyRewards
+            // 
+            this.cFairyRewards.AutoSize = true;
+            this.cFairyRewards.BackColor = System.Drawing.Color.Transparent;
+            this.cFairyRewards.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cFairyRewards.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cFairyRewards.ForeColor = System.Drawing.Color.Black;
+            this.cFairyRewards.Location = new System.Drawing.Point(188, 53);
+            this.cFairyRewards.Name = "cFairyRewards";
+            this.cFairyRewards.Size = new System.Drawing.Size(122, 17);
+            this.cFairyRewards.TabIndex = 21;
+            this.cFairyRewards.Text = "Great Fairy Rewards";
+            this.cFairyRewards.UseVisualStyleBackColor = false;
+            this.cFairyRewards.CheckedChanged += new System.EventHandler(this.cFairyRewards_CheckedChanged);
             // 
             // lCustomItemAmount
             // 
@@ -1385,20 +1402,20 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // cFairyRewards
+            // cCowMilk
             // 
-            this.cFairyRewards.AutoSize = true;
-            this.cFairyRewards.BackColor = System.Drawing.Color.Transparent;
-            this.cFairyRewards.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cFairyRewards.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cFairyRewards.ForeColor = System.Drawing.Color.Black;
-            this.cFairyRewards.Location = new System.Drawing.Point(188, 53);
-            this.cFairyRewards.Name = "cFairyRewards";
-            this.cFairyRewards.Size = new System.Drawing.Size(122, 17);
-            this.cFairyRewards.TabIndex = 21;
-            this.cFairyRewards.Text = "Great Fairy Rewards";
-            this.cFairyRewards.UseVisualStyleBackColor = false;
-            this.cFairyRewards.CheckedChanged += new System.EventHandler(this.cFairyRewards_CheckedChanged);
+            this.cCowMilk.AutoSize = true;
+            this.cCowMilk.BackColor = System.Drawing.Color.Transparent;
+            this.cCowMilk.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cCowMilk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cCowMilk.ForeColor = System.Drawing.Color.Black;
+            this.cCowMilk.Location = new System.Drawing.Point(80, 122);
+            this.cCowMilk.Name = "cCowMilk";
+            this.cCowMilk.Size = new System.Drawing.Size(69, 17);
+            this.cCowMilk.TabIndex = 22;
+            this.cCowMilk.Text = "Cow Milk";
+            this.cCowMilk.UseVisualStyleBackColor = false;
+            this.cCowMilk.CheckedChanged += new System.EventHandler(this.cCowMilk_CheckedChanged);
             // 
             // MainForm
             // 
@@ -1554,6 +1571,7 @@ namespace MMRando
         private System.Windows.Forms.TextBox tCustomItemList;
         private System.Windows.Forms.Label lCustomItemAmount;
         private System.Windows.Forms.CheckBox cFairyRewards;
+        private System.Windows.Forms.CheckBox cCowMilk;
     }
 }
 

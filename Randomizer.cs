@@ -1297,6 +1297,16 @@ namespace MMRando
             {
                 PreserveStartingItems();
             }
+
+            if (!_settings.AddCowMilk)
+            {
+                PreserveCowMilk();
+            }
+
+            if (_settings.LogicMode == LogicMode.Casual)
+            {
+                PreserveGlitchedCowMilk();
+            }
         }
 
         /// <summary>
@@ -1405,6 +1415,28 @@ namespace MMRando
         private void PreserveStartingItems()
         {
             for (var i = Item.StartingSword; i <= Item.StartingHeartContainer2; i++)
+            {
+                ItemList[(int)i].NewLocation = i;
+            }
+        }
+
+        /// <summary>
+        /// Keeps cow milk vanilla
+        /// </summary>
+        private void PreserveCowMilk()
+        {
+            for (var i = Item.ItemRanchBarnMainCowMilk; i <= Item.ItemCoastGrottoCowMilk2; i++)
+            {
+                ItemList[(int)i].NewLocation = i;
+            }
+        }
+
+        /// <summary>
+        /// Keeps glitched cow milk vanilla
+        /// </summary>
+        private void PreserveGlitchedCowMilk()
+        {
+            for (var i = Item.ItemRanchBarnOtherCowMilk1; i <= Item.ItemRanchBarnOtherCowMilk2; i++)
             {
                 ItemList[(int)i].NewLocation = i;
             }
