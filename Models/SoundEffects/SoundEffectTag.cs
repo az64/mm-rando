@@ -8,6 +8,8 @@
     {
         Short,
         Long,
-        LowHpBeep
+        LowHpBeep,
+        SystemSound,
+        Looping
     }
 }

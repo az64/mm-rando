@@ -431,6 +431,8 @@ namespace MMRando
                 freeItems.Add(Item.StartingHeartContainer2);
                 // TODO Remove this
                 freeItems.Add(Item.SongEpona);
+                freeItems.Add(Item.MaskGoron);
+                freeItems.Add(Item.UpgradeBiggestQuiver);
 
                 if (_settings.ShortenCutscenes)
                 {
@@ -452,6 +454,8 @@ namespace MMRando
             freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingHeartContainer2).Item);
             // TODO Remove this
             freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.SongEpona).Item);
+            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.MaskGoron).Item);
+            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.UpgradeBiggestQuiver).Item);
             WriteFreeItems(freeItems.ToArray());
 
             //write everything else

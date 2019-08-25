@@ -7,7 +7,7 @@ namespace MMRando.Models.SoundEffects
 {
     public static class SoundEffectExtensions
     {
-        public const ushort BaseSoundOffset = 0x0800;
+        public const ushort DefaultSoundEffectFlags = 0x0800;
 
         private static TAttribute GetAttribute<TAttribute>(this SoundEffect value) where TAttribute : Attribute
         {
@@ -70,7 +70,18 @@ namespace MMRando.Models.SoundEffects
 
             var replacableAttribute = source.GetAttribute<ReplacableAttribute>();
             var addresses = replacableAttribute.Addresses;
-            var newValue = (ushort)(BaseSoundOffset + newSound);
+
+            var newValue = (ushort)newSound;
+
+            var effect = source.GetAttribute<EffectAttribute>();
+            if (effect != null)
+            {
+                newValue = (ushort)((effect.Flags & 0x0E00) | (newValue & 0xF1FF));
+            }
+            else
+            {
+                newValue = (ushort)(newSound + DefaultSoundEffectFlags);
+            }
 
             foreach (var address in addresses)
             {
@@ -97,7 +108,7 @@ namespace MMRando.Models.SoundEffects
                 var message = messageTable.GetMessage(messageId);
 
                 var oldSoundId = replacableAttribute.SoundId;
-                var oldSoundEffect = (ushort)(oldSoundId & 0x0F00);
+                var oldSoundEffect = (ushort)(oldSoundId & 0x0E00);
                 var oldSoundBytes = new string(new char[] { Convert.ToChar((oldSoundId & 0xFF00) >> 8), Convert.ToChar(oldSoundId & 0xFF) });
                 var oldSoundLocation = message.Message.IndexOf(oldSoundBytes);
 
