@@ -1483,6 +1483,9 @@ namespace MMRando
             // Keep shop items vanilla, unless custom item list contains a shop item
             _settings.AddShopItems = false;
 
+            // Keep cows vanilla, unless custom item list contains a cow
+            _settings.AddCowMilk = false;
+
             // Make all items vanilla, and override using custom item list
             MakeAllItemsVanilla();
 
@@ -1534,6 +1537,11 @@ namespace MMRando
                 if (ItemUtils.IsShopItem((Item)selectedItem))
                 {
                     _settings.AddShopItems = true;
+                }
+
+                if (ItemUtils.IsCowItem((Item)selectedItem))
+                {
+                    _settings.AddCowMilk = true;
                 }
             }
         }

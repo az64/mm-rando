@@ -436,6 +436,10 @@ namespace MMRando
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-downgrades");
             }
+            if (_settings.AddCowMilk)
+            {
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-cow-bottle-check");
+            }
 
             var newMessages = new List<MessageEntry>();
             foreach (var item in _randomized.ItemList)

@@ -320,6 +320,9 @@
     <None Include="Resources\mods\fierce-deity-anywhere">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\mods\fix-cow-bottle-check">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\mods\fix-sword-song-of-time">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

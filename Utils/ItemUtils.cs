@@ -20,6 +20,11 @@ namespace MMRando.Utils
                     || item == Item.MaskAllNight;
         }
 
+        public static bool IsCowItem(Item item)
+        {
+            return (item >= Item.ItemRanchBarnMainCowMilk && item <= Item.ItemCoastGrottoCowMilk2);
+        }
+
         public static int AddItemOffset(int itemId)
         {
             if (itemId >= (int)Item.AreaSouthAccess)
