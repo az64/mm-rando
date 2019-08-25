@@ -12,6 +12,10 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using MMRando.GameObjects;
+using MMRando.Extensions;
+using MMRando.Attributes;
+using System.Text.RegularExpressions;
 
 namespace MMRando
 {
@@ -44,6 +48,16 @@ namespace MMRando
             ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-music");
             ResourceUtils.ApplyHack(Values.ModsDirectory + "inst24-swap-guitar");
             SequenceUtils.RebuildAudioSeq(RomData.SequenceList);
+        }
+
+        private void WriteMuteMusic()
+        {
+            if (_settings.NoBGM)
+            {
+                var codeFileAddress = 0xB3C000;
+                var offset = 0x102350; // address for branch when scene music is loaded
+                ReadWriteUtils.WriteToROM(codeFileAddress + offset, 0x1000); // change to always branch (do not load)
+            }
         }
 
         private void WritePlayerModel()
@@ -237,6 +251,18 @@ namespace MMRando
             {
                 WriteClockSpeed(_settings.ClockSpeed);
             }
+
+            if (_settings.HideClock)
+            {
+                WriteHideClock();
+            }
+        }
+
+        private void WriteHideClock()
+        {
+            var codeFileAddress = 0xB3C000;
+            var offset = 0x73B7C; // branch for UI is time hasn't changed
+            ReadWriteUtils.WriteToROM(codeFileAddress + offset, 0x10); // change to always branch
         }
 
         /// <summary>
@@ -246,29 +272,52 @@ namespace MMRando
         private void WriteClockSpeed(ClockSpeed clockSpeed)
         {
             byte speed;
+            short invertedModifier;
             switch (clockSpeed)
             {
                 default:
                 case ClockSpeed.Default:
                     speed = 3;
+                    invertedModifier = -2;
+                    break;
+                case ClockSpeed.VerySlow:
+                    speed = 1;
+                    invertedModifier = 0;
                     break;
                 case ClockSpeed.Slow:
                     speed = 2;
+                    invertedModifier = -1;
                     break;
                 case ClockSpeed.Fast:
                     speed = 6;
+                    invertedModifier = -4;
                     break;
                 case ClockSpeed.VeryFast:
                     speed = 9;
+                    invertedModifier = -6;
                     break;
                 case ClockSpeed.SuperFast:
                     speed = 18;
+                    invertedModifier = -12;
                     break;
             }
 
-            var addr = 0x00BC66D4;
-            uint val = 0x240B0000 + (uint)speed;
-            ReadWriteUtils.WriteToROM(addr, val);
+            ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-clock-speed");
+
+            var codeFileAddress = 0xB3C000;
+            var hackAddressOffset = 0x8A674;
+            var modificationOffset = 0x1B;
+            ReadWriteUtils.WriteToROM(codeFileAddress + hackAddressOffset + modificationOffset, speed);
+            
+            var invertedModifierOffsets = new List<int>
+            {
+                0xB1B8E,
+                0x7405E
+            };
+            foreach (var offset in invertedModifierOffsets)
+            {
+                ReadWriteUtils.WriteToROM(codeFileAddress + offset, (ushort)invertedModifier);
+            }
         }
 
         /// <summary>
@@ -322,53 +371,38 @@ namespace MMRando
             dictionary[key] = add ? (byte)(dictionary[key] + value) : (byte)(dictionary[key] | value);
         }
 
-        private void WriteFreeItems(params int[] itemIds)
+        private void WriteFreeItems(params Item[] items)
         {
             Dictionary<int, byte> startingItems = new Dictionary<int, byte>();
-            if (!itemIds.Contains(Items.UpgradeRazorSword) && !itemIds.Contains(Items.UpgradeGildedSword))
-            {
-                PutOrCombine(startingItems, 0xC5CE21, 0x01); // add Kokiri Sword
-            }
-            if (!itemIds.Contains(Items.UpgradeMirrorShield))
-            {
-                PutOrCombine(startingItems, 0xC5CE21, 0x10); // add Hero's Shield
-            }
             PutOrCombine(startingItems, 0xC5CE72, 0x10); // add Song of Time
-
-            foreach (var id in itemIds)
+            
+            var itemList = items.ToList();
+            itemList.Add(Item.StartingHeartContainer1);
+            while (itemList.Count(item => item.Name() == "Piece of Heart") >= 4)
             {
-                var itemAddress = Items.ITEM_ADDRS[id];
-                var itemValue = Items.ITEM_VALUES[id];
-                PutOrCombine(startingItems, itemAddress, itemValue, ItemUtils.IsHeartPiece(id));
-
-                switch (id)
+                itemList.Add(Item.StartingHeartContainer1);
+                for (var i = 0; i < 4; i++)
                 {
-                    case Items.ItemBow:
-                        PutOrCombine(startingItems, 0xC5CE6F, 0x01);
-                        break;
-                    case Items.ItemBombBag:
-                        PutOrCombine(startingItems, 0xC5CE6F, 0x08);
-                        break;
-                    case Items.UpgradeRazorSword: //sword upgrade
-                        startingItems[0xC5CE00] = 0x4E;
-                        break;
-                    case Items.UpgradeGildedSword:
-                        startingItems[0xC5CE00] = 0x4F;
-                        break;
-                    case Items.UpgradeBigQuiver: //quiver upgrade
-                        PutOrCombine(startingItems, 0xC5CE6F, 0x02);
-                        break;
-                    case Items.UpgradeBiggestQuiver:
-                        PutOrCombine(startingItems, 0xC5CE6F, 0x03);
-                        break;
-                    case Items.UpgradeBigBombBag://bomb bag upgrade
-                        PutOrCombine(startingItems, 0xC5CE6F, 0x10);
-                        break;
-                    case Items.UpgradeBiggestBombBag:
-                        PutOrCombine(startingItems, 0xC5CE6F, 0x18);
-                        break;
-                    default:
-                        break;
+                    var heartPiece = itemList.First(item => item.Name() == "Piece of Heart");
+                    itemList.Remove(heartPiece);
+                }
+            }
+
+            itemList = itemList
+                .GroupBy(item => ItemUtils.ForbiddenStartTogether.FirstOrDefault(fst => fst.Contains(item)))
+                .SelectMany(g => g.Key == null ? g.ToList() : g.OrderByDescending(item => g.Key.IndexOf(item)).Take(1))
+                .ToList();
+
+            foreach (var item in itemList)
+            {
+                var startingItemValues = item.GetAttributes<StartingItemAttribute>();
+                if (!startingItemValues.Any() && !_settings.NoStartingItems)
+                {
+                    throw new Exception($@"Invalid starting item ""{item}""");
+                }
+                foreach (var startingItem in startingItemValues)
+                {
+                    PutOrCombine(startingItems, startingItem.Address, startingItem.Value, startingItem.IsAdditional);
                 }
             }
 
@@ -376,20 +410,30 @@ namespace MMRando
             {
                 ReadWriteUtils.WriteToROM(kvp.Key, kvp.Value);
             }
+
+            if (itemList.Count(item => item.Name() == "Heart Container") == 1)
+            {
+                ReadWriteUtils.WriteToROM(0x00B97E8F, 0x0C); // reduce low health beep threshold
+            }
         }
 
         private void WriteItems()
         {
-            var freeItems = new List<int>();
+            var freeItems = new List<Item>();
             if (_settings.LogicMode == LogicMode.Vanilla)
             {
-                freeItems.Add(Items.MaskDeku);
-                freeItems.Add(Items.SongHealing);
+                freeItems.Add(Item.FairyMagic);
+                freeItems.Add(Item.MaskDeku);
+                freeItems.Add(Item.SongHealing);
+                freeItems.Add(Item.StartingSword);
+                freeItems.Add(Item.StartingShield);
+                freeItems.Add(Item.StartingHeartContainer1);
+                freeItems.Add(Item.StartingHeartContainer2);
 
                 if (_settings.ShortenCutscenes)
                 {
                     //giants cs were removed
-                    freeItems.Add(Items.SongOath);
+                    freeItems.Add(Item.SongOath);
                 }
 
                 WriteFreeItems(freeItems.ToArray());
@@ -398,31 +442,140 @@ namespace MMRando
             }
 
             //write free item (start item default = Deku Mask)
-            freeItems.Add(_randomized.ItemList.Find(u => u.ReplacesItemId == Items.MaskDeku).ID);
-            freeItems.Add(_randomized.ItemList.Find(u => u.ReplacesItemId == Items.SongHealing).ID);
+            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.MaskDeku).Item);
+            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.SongHealing).Item);
+            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingSword).Item);
+            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingShield).Item);
+            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingHeartContainer1).Item);
+            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingHeartContainer2).Item);
             WriteFreeItems(freeItems.ToArray());
 
             //write everything else
             ItemSwapUtils.ReplaceGetItemTable(Values.ModsDirectory);
             ItemSwapUtils.InitItems();
 
+            if (_settings.FixEponaSword)
+            {
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-epona");
+            }
+            if (_settings.PreventDowngrades)
+            {
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-downgrades");
+            }
+
+            var newMessages = new List<MessageEntry>();
             foreach (var item in _randomized.ItemList)
             {
                 // Unused item
-                if (!item.ReplacesAnotherItem)
+                if (item.NewLocation == null)
                 {
                     continue;
                 }
 
-                if (ItemUtils.IsBottleCatchContent(item.ID))
+                if (ItemUtils.IsBottleCatchContent(item.Item))
                 {
-                    ItemSwapUtils.WriteNewBottle(item.ReplacesItemId, item.ID);
+                    ItemSwapUtils.WriteNewBottle(item.NewLocation.Value, item.Item);
                 }
                 else
                 {
-                    ItemSwapUtils.WriteNewItem(item.ReplacesItemId, item.ID);
+                    ChestTypeAttribute.ChestType? overrideChestType = null;
+                    if ((item.Item.Name().Contains("Bombchu") || item.Item.Name().Contains("Shield")) && _randomized.Logic.Any(il => il.RequiredItemIds?.Contains(item.ID) == true || il.ConditionalItemIds?.Any(c => c.Contains(item.ID)) == true))
+                    {
+                        overrideChestType = ChestTypeAttribute.ChestType.LargeGold;
+                    }
+                    ItemSwapUtils.WriteNewItem(item.NewLocation.Value, item.Item, newMessages, _settings.UpdateShopAppearance, _settings.PreventDowngrades, _settings.UpdateChests && item.IsRandomized, overrideChestType);
                 }
             }
+
+            var copyRupeesRegex = new Regex(": [0-9]+ Rupees");
+            foreach (var newMessage in newMessages)
+            {
+                var oldMessage = _messageTable.GetMessage(newMessage.Id);
+                if (oldMessage != null)
+                {
+                    var cost = copyRupeesRegex.Match(oldMessage.Message).Value;
+                    newMessage.Message = copyRupeesRegex.Replace(newMessage.Message, cost);
+                }
+            }
+
+            if (_settings.UpdateShopAppearance)
+            {
+                // update tingle shops
+                foreach (var tingleText in Enum.GetValues(typeof(TingleText)).Cast<TingleText>())
+                {
+                    var tingleShop = tingleText.GetAttribute<TingleShopAttribute>();
+                    var item1 = _randomized.ItemList.First(io => io.NewLocation == tingleShop.Items[0]).Item;
+                    var item2 = _randomized.ItemList.First(io => io.NewLocation == tingleShop.Items[1]).Item;
+                    newMessages.Add(new MessageEntry
+                    {
+                        Id = (ushort)tingleText,
+                        Header = null,
+                        Message = $"\u0002\u00C3{item1.Name() + " ", -22}\u0001{tingleShop.Prices[0], 2} Rupees\u0011\u0002{item2.Name() + " ", -22}\u0001{tingleShop.Prices[1], 2} Rupees\u0011\u0002No Thanks\u00BF"
+                    });
+                }
+
+                // update business scrub
+                var businessScrubItem = _randomized.ItemList.First(io => io.NewLocation == Item.HeartPieceTerminaBusinessScrub).Item;
+                var itemIsMultiple = businessScrubItem.ShopTexts().IsMultiple;
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x1631,
+                    Header = null,
+                    Message = $"\x1E\x3A\xD2Please! I'll sell you {(itemIsMultiple ? "" : "a ")}\u0001{businessScrubItem.Name()}\u0000 if you just keep this place a secret...\x19\xBF".Wrap(35, "\u0011")
+                });
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x1632,
+                    Header = null,
+                    Message = $"\u0006150 Rupees\u0000 for {(itemIsMultiple ? "the lot" : "one")}!\u0011 \u0011\u0002\u00C2I'll buy {(itemIsMultiple ? "them" : "it")}\u0011No thanks\u00BF"
+                });
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x1634,
+                    Header = null,
+                    Message = $"What about {(itemIsMultiple ? "" : "one ")}for \u0006100 Rupees\u0000?\u0011 \u0011\u0002\u00C2I'll buy {(itemIsMultiple ? "them" : "it")}\u0011No thanks\u00BF"
+                });
+
+                // update biggest bomb bag purchase
+                var biggestBombBagItem = _randomized.ItemList.First(io => io.NewLocation == Item.UpgradeBiggestBombBag).Item;
+                itemIsMultiple = biggestBombBagItem.ShopTexts().IsMultiple;
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x15FF,
+                    Header = null,
+                    Message = $"\x1E\x39\x8CRight now, I've got a \u0001special\u0011\u0000offer just for you.\u0019\u00BF"
+                });
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x1600,
+                    Header = null,
+                    Message = $"\x1E\x38\x81I'll give you {(itemIsMultiple ? "" : "my ")}\u0001{biggestBombBagItem.Name()}\u0000, regularly priced at \u00061000 Rupees\u0000...".Wrap(35, "\u0011") + "\u0011\u0013\u0012In return, you'll give me just\u0011\u0006200 Rupees\u0000!\u0019\u00BF"
+                });
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x1606,
+                    Header = null,
+                    Message = $"\x1E\x38\x81I'll give you {(itemIsMultiple ? "" : "my ")}\u0001{biggestBombBagItem.Name()}\u0000, regularly priced at \u00061000 Rupees\u0000, for just \u0006200 Rupees\u0000!\u0019\u00BF".Wrap(35, "\u0011")
+                });
+            }
+
+            // replace "Razor Sword is now blunt" message with get-item message for Kokiri Sword.
+            newMessages.Add(new MessageEntry
+            {
+                Id = 0xF9,
+                Header = new byte[11] { 0x06, 0x00, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
+                Message = $"You got the \x01Kokiri Sword\x00!\u0011This is a hidden treasure of\u0011the Kokiri, but you can borrow it\u0011for a while.\u00BF",
+            });
+
+            // replace Magic Power message
+            newMessages.Add(new MessageEntry
+            {
+                Id = 0xC8,
+                Header = null,
+                Message = $"\u0017You've been granted \u0002Magic Power\u0000!\u0018\u0011Replenish it with \u0001Magic Jars\u0000\u0011and \u0001Potions\u0000.\u00BF",
+            });
+
+            _messageTable.UpdateMessages(newMessages);
 
             if (_settings.AddShopItems)
             {
@@ -442,7 +595,7 @@ namespace MMRando
                 WriteFreeHints();
             }
 
-            if (_settings.EnableGossipHints)
+            if (_settings.GossipHintStyle != GossipHintStyle.Default)
             {
                 _messageTable.UpdateMessages(_randomized.GossipQuotes);
             }
@@ -511,6 +664,29 @@ namespace MMRando
             RomUtils.SetStrings(Values.ModsDirectory + "logo-text", $"v{v}", _settings.ToString());
         }
 
+        private void WriteShopObjects()
+        {
+            RomUtils.CheckCompressed(1325); // trading post
+            var data = RomData.MMFileList[1325].Data.ToList();
+            data.RemoveRange(0x15C, 4); // reduce end padding from actors list
+            data.InsertRange(0x62, new byte[] { 0x00, 0xC1, 0x00, 0xAF }); // add extra objects
+            data[0x29] += 2; // increase object count by 2
+            data[0x37] += 4; // add 4 to actor list address
+            RomData.MMFileList[1325].Data = data.ToArray();
+
+            RomUtils.CheckCompressed(1503); // bomb shop
+            RomData.MMFileList[1503].Data[0x53] = 0x98; // add extra objects
+            RomData.MMFileList[1503].Data[0x29] += 1; // increase object count by 1
+
+            RomUtils.CheckCompressed(1142); // witch shop
+            data = RomData.MMFileList[1142].Data.ToList();
+            data.RemoveRange(0x78, 4); // reduce end padding from actors list
+            data.InsertRange(0x48, new byte[] { 0x00, 0xC1, 0x00, 0xC1 }); // add extra objects
+            data[0x29] += 2; // increase object count by 2
+            data[0x37] += 4; // add 4 to actor list address
+            RomData.MMFileList[1142].Data = data.ToArray();
+        }
+
         public void MakeROM(string InFile, string FileName, BackgroundWorker worker)
         {
             using (BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open, FileAccess.Read)))
@@ -566,6 +742,11 @@ namespace MMRando
                 worker.ReportProgress(65, "Writing enemies...");
                 WriteEnemies();
 
+                // if shop should match given items
+                {
+                    WriteShopObjects();
+                }
+
                 worker.ReportProgress(66, "Writing items...");
                 WriteItems();
 
@@ -587,11 +768,10 @@ namespace MMRando
                 }
             }
 
-            worker.ReportProgress(72, "Writing Tatl color...");
+            worker.ReportProgress(72, "Writing cosmetics...");
             WriteTatlColour();
-
-            worker.ReportProgress(73, "Writing tunic color...");
             WriteTunicColor();
+            WriteMuteMusic();
 
             if (_settings.GenerateROM)
             {

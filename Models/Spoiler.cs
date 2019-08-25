@@ -1,11 +1,9 @@
-﻿using MMRando.Models;
+﻿using MMRando.GameObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Json;
-using System.Text;
 
 namespace MMRando.Models
 {
@@ -22,6 +20,8 @@ namespace MMRando.Models
         public List<SpoilerItem> ItemList { get; set; }
 
         public List<ItemLogic> Logic { get; set; }
+
+        public Dictionary<GossipQuote, string> GossipHints { get; set; }
 
         public string CustomItemListString { get; set; }
 
@@ -44,12 +44,13 @@ namespace MMRando.Models
 
         public int[] NewDestinationIndices { get; set; }
 
-        public string[] Destinations { get; set; } = new string[]
+        public Item[] Entrances { get; set; } = new Item[]
         {
-            "Woodfall", "Snowhead", "Inverted Stone Tower", "Great Bay"
+            Item.AreaWoodFallTempleAccess,
+            Item.AreaSnowheadTempleAccess,
+            Item.AreaInvertedStoneTowerTempleAccess,
+            Item.AreaGreatBayTempleAccess,
         };
-
-        
     }
 }
 

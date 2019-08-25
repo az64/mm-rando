@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using MMRando.Extensions;
-using MMRando.Models;
 
 namespace MMRando.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 5;
+        public const int CurrentVersion = 8;
 
         public static string ApplyMigrations(string logic)
         {
@@ -42,6 +41,21 @@ namespace MMRando.LogicMigrator
             if (GetVersion(lines) < 5)
             {
                 AddIkanaScrubGoldRupee(lines);
+            }
+
+            if (GetVersion(lines) < 6)
+            {
+                AddPreClocktownChestLinkTrialChestsAndStartingItems(lines);
+            }
+
+            if (GetVersion(lines) < 7)
+            {
+                AddGreatFairies(lines);
+            }
+
+            if (GetVersion(lines) < 8)
+            {
+                AddMagicRequirements(lines);
             }
 
             return string.Join("\r\n", lines);
@@ -119,29 +133,29 @@ namespace MMRando.LogicMigrator
         private static void AddMoonItems(List<string> lines)
         {
             lines[0] = "-version 2";
-            var newItems = new ItemObject[]
+            var newItems = new MigrationItem[]
             {
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 255,
                     Conditionals = Enumerable.Range(68, 20).Select(i => new List<int> { i }).ToList()
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 256,
                     Conditionals = Enumerable.Range(68, 20).Combinations(2).Select(a => a.ToList()).ToList()
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 257,
                     Conditionals = Enumerable.Range(68, 20).Combinations(3).Select(a => a.ToList()).ToList()
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 258,
                     Conditionals = Enumerable.Range(68, 20).Combinations(4).Select(a => a.ToList()).ToList()
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 259,
                     DependsOnItems = new List<int>
@@ -149,7 +163,7 @@ namespace MMRando.LogicMigrator
                         97, 100, 103, 108, 113
                     }
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 260,
                     DependsOnItems = new List<int>
@@ -157,7 +171,7 @@ namespace MMRando.LogicMigrator
                         259, 0, 255
                     }
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 261,
                     DependsOnItems = new List<int>
@@ -165,7 +179,7 @@ namespace MMRando.LogicMigrator
                         259, 88, 256
                     }
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 262,
                     DependsOnItems = new List<int>
@@ -173,7 +187,7 @@ namespace MMRando.LogicMigrator
                         259, 89, 257
                     }
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 263,
                     DependsOnItems = new List<int>
@@ -181,7 +195,7 @@ namespace MMRando.LogicMigrator
                         259, 258, 114, 115, 2, 10
                     }
                 },
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 264,
                     DependsOnItems = new List<int>
@@ -239,9 +253,9 @@ namespace MMRando.LogicMigrator
         private static void AddSongOfHealing(List<string> lines)
         {
             lines[0] = "-version 4";
-            var newItems = new ItemObject[]
+            var newItems = new MigrationItem[]
             {
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 90
                 }
@@ -288,9 +302,9 @@ namespace MMRando.LogicMigrator
         private static void AddIkanaScrubGoldRupee(List<string> lines)
         {
             lines[0] = "-version 5";
-            var newItems = new ItemObject[]
+            var newItems = new MigrationItem[]
             {
-                new ItemObject
+                new MigrationItem
                 {
                     ID = 256,
                     DependsOnItems = new List<int> { 110, 89, 32 } // east access, zora mask, ocean deed
@@ -328,6 +342,246 @@ namespace MMRando.LogicMigrator
                 lines.Insert(item.ID * 5 + 4, "0");
                 lines.Insert(item.ID * 5 + 5, "0");
             }
+        }
+
+        private static void AddPreClocktownChestLinkTrialChestsAndStartingItems(List<string> lines)
+        {
+            lines[0] = "-version 6";
+            var newItems = new MigrationItem[]
+            {
+                new MigrationItem
+                {
+                    ID = 267,
+                    DependsOnItems = new List<int> { 261, 260, 10 }
+                },
+                new MigrationItem
+                {
+                    ID = 268,
+                    DependsOnItems = new List<int> { 261, 260, 10 }
+                },
+                new MigrationItem
+                {
+                    ID = 269,
+                    DependsOnItems = new List<int> { 261 }
+                },
+                new MigrationItem
+                {
+                    ID = 270,
+                },
+                new MigrationItem
+                {
+                    ID = 271,
+                },
+                new MigrationItem
+                {
+                    ID = 272,
+                },
+                new MigrationItem
+                {
+                    ID = 273,
+                },
+            };
+            var itemNames = new string[]
+            {
+                "Link Trial 30 Arrows",
+                "Link Trial 10 Bombchu",
+                "Pre-Clocktown 10 Deku Nuts",
+                "Starting Sword",
+                "Starting Shield",
+                "Starting Heart 1",
+                "Starting Heart 2",
+            };
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section => section.Split(',').Select(id =>
+                    {
+                        var itemId = int.Parse(id);
+                        if (itemId >= 267)
+                        {
+                            itemId += newItems.Length;
+                        }
+                        return itemId;
+                    }).ToList()).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+            foreach (var item in newItems)
+            {
+                lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 267]}");
+                lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
+                lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
+                lines.Insert(item.ID * 5 + 4, "0");
+                lines.Insert(item.ID * 5 + 5, "0");
+            }
+        }
+
+        private static void AddGreatFairies(List<string> lines)
+        {
+            lines[0] = "-version 7";
+            var newItems = new MigrationItem[]
+            {
+                new MigrationItem
+                {
+                    ID = 11,
+                    Conditionals = new List<List<int>>
+                    {
+                        new List<int> { 0 },
+                        new List<int> { 92 },
+                        new List<int> { 93 },
+                    }
+                },
+                new MigrationItem
+                {
+                    ID = 12,
+                    DependsOnItems = new List<int> { 104 },
+                },
+                new MigrationItem
+                {
+                    ID = 13,
+                    DependsOnItems = new List<int> { 107 },
+                },
+                new MigrationItem
+                {
+                    ID = 14,
+                    DependsOnItems = new List<int> { 112 },
+                },
+            };
+            var itemNames = new string[]
+            {
+                "Great Fairy Magic Meter",
+                "Great Fairy Spin Attack",
+                "Great Fairy Extended Magic",
+                "Great Fairy Double Defense"
+            };
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line) || (i % 5 != 2 && i % 5 != 3))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section => section.Split(',').Select(id =>
+                    {
+                        var itemId = int.Parse(id);
+                        if (itemId >= 11)
+                        {
+                            itemId += newItems.Length;
+                        }
+                        return itemId;
+                    }).ToList()).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+            foreach (var item in newItems)
+            {
+                lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 11]}");
+                lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
+                lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
+                lines.Insert(item.ID * 5 + 4, "0");
+                lines.Insert(item.ID * 5 + 5, "0");
+            }
+
+            var updateItems = new MigrationItem[]
+            {
+                new MigrationItem
+                {
+                    ID = 76, // Great Fairy's Mask
+                    // remove requirements
+                }
+            };
+            foreach (var item in updateItems)
+            {
+                lines[item.ID * 5 + 2] = string.Join(",", item.DependsOnItems);
+                lines[item.ID * 5 + 3] = string.Join(";", item.Conditionals.Select(c => string.Join(",", c)));
+            }
+        }
+
+        private static void AddMagicRequirements(List<string> lines)
+        {
+            lines[0] = "-version 8";
+            var newItems = new MigrationItem[]
+            {
+                new MigrationItem
+                {
+                    ID = 278,
+                    Conditionals = new List<List<int>>
+                    {
+                        new List<int> { 11 },
+                        new List<int> { 13 },
+                    }
+                },
+            };
+            var itemNames = new string[]
+            {
+                "Magic Meter"
+            };
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section => section.Split(',').Select(id =>
+                    {
+                        var itemId = int.Parse(id);
+                        if (itemId >= 278)
+                        {
+                            itemId += newItems.Length;
+                        }
+                        return itemId;
+                    }).ToList()).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+            foreach (var item in newItems)
+            {
+                lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 278]}");
+                lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
+                lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
+                lines.Insert(item.ID * 5 + 4, "0");
+                lines.Insert(item.ID * 5 + 5, "0");
+            }
+            
+            var requireMagic = new int[] { 2, 3, 4, 9 }; // fire arrow, ice arrow, light arrow, lens of truth
+            for (var i = 0; i < lines.Count; i++)
+            {
+                if (i%5 != 2 && i%5 != 3)
+                {
+                    continue;
+                }
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section =>
+                    {
+                        if (section.Split(',').Select(int.Parse).Intersect(requireMagic).Any())
+                        {
+                            section += ",278";
+                        }
+                        return section;
+                    }).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+        }
+
+        private class MigrationItem
+        {
+            public int ID;
+            public List<List<int>> Conditionals = new List<List<int>>();
+            public List<int> DependsOnItems = new List<int>();
         }
     }
 }

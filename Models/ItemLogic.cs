@@ -1,9 +1,11 @@
-﻿using MMRando.Utils;
+﻿using MMRando.Extensions;
+using MMRando.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using MMRando.GameObjects;
 
 namespace MMRando.Models
 {
@@ -28,25 +30,26 @@ namespace MMRando.Models
         public ItemLogic(ItemObject itemObject)
         {
             ItemId = itemObject.ID;
-            RequiredItemIds = itemObject.DependsOnItems?.ToList();
-            ConditionalItemIds = itemObject.Conditionals?.Select(c => c.ToList()).ToList();
-            IsFakeItem = ItemUtils.IsFakeItem(ItemId);
+            RequiredItemIds = itemObject.DependsOnItems?.Cast<int>().ToList();
+            ConditionalItemIds = itemObject.Conditionals?.Select(c => c.Cast<int>().ToList()).ToList();
+            IsFakeItem = itemObject.Item.IsFake() && (itemObject.Item.Entrance() == null || !itemObject.IsRandomized);
 
             // Remove fake requirements
-            switch (ItemId)
+            switch (itemObject.Item)
             {
-                case Items.UpgradeBigBombBag:
-                case Items.MaskBlast:
-                    RequiredItemIds = null;
+                case Item.UpgradeBigBombBag:
+                case Item.MaskBlast:
+                    RequiredItemIds?.Remove((int)Item.TradeItemKafeiLetter);
+                    RequiredItemIds?.Remove((int)Item.TradeItemPendant);
                     break;
-                case Items.BottleCatchPrincess:
-                case Items.BottleCatchBigPoe:
-                    RequiredItemIds?.Remove(Items.BottleCatchEgg);
-                    RequiredItemIds?.Remove(Items.BottleCatchBug);
-                    RequiredItemIds?.Remove(Items.BottleCatchFish);
+                case Item.BottleCatchPrincess:
+                case Item.BottleCatchBigPoe:
+                    RequiredItemIds?.Remove((int)Item.BottleCatchEgg);
+                    RequiredItemIds?.Remove((int)Item.BottleCatchBug);
+                    RequiredItemIds?.Remove((int)Item.BottleCatchFish);
                     break;
-                case Items.BottleCatchEgg:
-                    RequiredItemIds?.Remove(Items.BottleCatchFish);
+                case Item.BottleCatchEgg:
+                    RequiredItemIds?.Remove((int)Item.BottleCatchFish);
                     break;
             }
         }

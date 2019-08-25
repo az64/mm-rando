@@ -1,7 +1,9 @@
 ﻿using MMRando.Models;
 using MMRando.Models.Settings;
+using MMRando.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MMRando.Forms
@@ -9,7 +11,8 @@ namespace MMRando.Forms
     public partial class ItemEditForm : Form
     {
         string[] ITEM_NAMES = new string[] { "Deku Mask", "Hero's Bow", "Fire Arrow", "Ice Arrow", "Light Arrow", "Bomb Bag", "Magic Bean", 
-        "Powder Keg", "Pictobox", "Lens of Truth", "Hookshot", "Great Fairy's Sword", "Witch Bottle", "Aliens Bottle", "Gold Dust", 
+        "Powder Keg", "Pictobox", "Lens of Truth", "Hookshot", "Great Fairy Magic Meter", "Great Fairy Spin Attack", "Great Fairy Extended Magic",
+        "Great Fairy Double Defense", "Great Fairy's Sword", "Witch Bottle", "Aliens Bottle", "Gold Dust", 
         "Beaver Race Bottle", "Dampe Bottle", "Chateau Bottle", "Bombers' Notebook", "Razor Sword", "Gilded Sword", "Mirror Shield",
         "Town Archery Quiver", "Swamp Archery Quiver", "Town Bomb Bag", "Mountain Bomb Bag", "Town Wallet", "Ocean Wallet", "Moon's Tear", 
         "Land Title Deed", "Swamp Title Deed", "Mountain Title Deed", "Ocean Title Deed", "Room Key", "Letter to Kafei", "Pendant of Memories",
@@ -45,7 +48,8 @@ namespace MMRando.Forms
         "Pirates' Fortress HP", "Zora Hall Scrub HP", "Path to Snowhead HP", "Great Bay Coast HP", "Ikana Scrub HP", "Ikana Castle HP", 
         "Odolwa Heart Container", "Goht Heart Container", "Gyorg Heart Container", "Twinmold Heart Container", "Map: Clock Town", "Map: Woodfall",
         "Map: Snowhead", "Map: Romani Ranch", "Map: Great Bay", "Map: Stone Tower", "Goron Racetrack Grotto", "Ikana Scrub 200r", "Deku Trial HP",
-        "Goron Trial HP", "Zora Trial HP", "Link Trial HP", "Fierce Deity's Mask" };
+        "Goron Trial HP", "Zora Trial HP", "Link Trial HP", "Fierce Deity's Mask", "Link Trial 30 Arrows", "Link Trial 10 Bombchu", "Pre-Clocktown 10 Deku Nuts",
+        "Starting Sword", "Starting Shield", "Starting Heart 1", "Starting Heart 2" };
 
         bool updating = false;
         private readonly SettingsObject _settings;
@@ -66,7 +70,7 @@ namespace MMRando.Forms
             }
             else
             {
-                tSetting.Text = "0-0-0-0";
+                tSetting.Text = "-------";
             }
         }
 
@@ -76,7 +80,7 @@ namespace MMRando.Forms
             {
                 e.Cancel = true;
                 Hide();
-            };
+            }
         }
 
         private void UpdateString(List<int> selections)
@@ -89,55 +93,76 @@ namespace MMRando.Forms
                 int k = selections[i] % 32;
                 n[j] |= (int)(1 << k);
                 ns[j] = Convert.ToString(n[j], 16);
-            };
+            }
             tSetting.Text = ns[7] + "-" + ns[6] + "-" + ns[5] + "-" + ns[4] + "-"
                 + ns[3] + "-" + ns[2] + "-" + ns[1] + "-" + ns[0];
             _settings.CustomItemListString = tSetting.Text;
         }
 
-        private void UpdateChecks(string c)
+        public void UpdateChecks(string c)
         {
-            _settings.CustomItemListString = c;
-            _settings.CustomItemList.Clear();
-            string[] v = c.Split('-');
-            int[] vi = new int[8];
-            for (int i = 0; i < 8; i++)
+            updating = true;
+            try
             {
-                if (v[7 - i] != "")
+                tSetting.Text = c;
+                _settings.CustomItemListString = c;
+                _settings.CustomItemList.Clear();
+                string[] v = c.Split('-');
+                int[] vi = new int[8];
+                if (v.Length != vi.Length)
                 {
-                    vi[i] = Convert.ToInt32(v[7 - i], 16);
-                };
-            };
-            for (int i = 0; i < 255; i++)
-            {
-                int j = i / 32;
-                int k = i % 32;
-                if (((vi[j] >> k) & 1) > 0)
-                {
-                    _settings.CustomItemList.Add(i);
-                };
-            };
-            foreach (ListViewItem l in lItems.Items)
-            {
-                if (_settings.CustomItemList.Contains(l.Index))
-                {
-                    l.Checked = true;
+                    _settings.CustomItemList.Add(-1);
+                    return;
                 }
-                else
+                for (int i = 0; i < 8; i++)
                 {
-                    l.Checked = false;
-                };
-            };
+                    if (v[7 - i] != "")
+                    {
+                        vi[i] = Convert.ToInt32(v[7 - i], 16);
+                    }
+                }
+                for (int i = 0; i < 256; i++)
+                {
+                    int j = i / 32;
+                    int k = i % 32;
+                    if (((vi[j] >> k) & 1) > 0)
+                    {
+                        if (i >= ItemUtils.AllLocations().Count())
+                        {
+                            throw new IndexOutOfRangeException();
+                        }
+                        _settings.CustomItemList.Add(i);
+                    }
+                }
+                foreach (ListViewItem l in lItems.Items)
+                {
+                    if (_settings.CustomItemList.Contains(l.Index))
+                    {
+                        l.Checked = true;
+                    }
+                    else
+                    {
+                        l.Checked = false;
+                    }
+                }
+            }
+            catch
+            {
+                _settings.CustomItemList.Clear();
+                _settings.CustomItemList.Add(-1);
+            }
+            finally
+            {
+                updating = false;
+            }
         }
 
         private void tSetting_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
             {
-                updating = true;
                 UpdateChecks(tSetting.Text);
-                updating = false;
-            };
+            }
         }
 
         private void lItems_ItemChecked(object sender, ItemCheckedEventArgs e)
@@ -145,7 +170,7 @@ namespace MMRando.Forms
             if (updating)
             {
                 return;
-            };
+            }
             updating = true;
             if (e.Item.Checked)
             {

@@ -68,8 +68,14 @@
             this.mNew = new System.Windows.Forms.ToolStripMenuItem();
             this.mImport = new System.Windows.Forms.ToolStripMenuItem();
             this.mSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.importTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.casualToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.glitchednoSetupsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.glitchedcommonTricksToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.glitchedToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_new_item = new System.Windows.Forms.Button();
             this.button_goto = new System.Windows.Forms.Button();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.nItem)).BeginInit();
             this.tMain.SuspendLayout();
             this.tTimes.SuspendLayout();
@@ -537,7 +543,9 @@
             this.mFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mNew,
             this.mImport,
-            this.mSave});
+            this.mSave,
+            this.toolStripSeparator1,
+            this.importTemplateToolStripMenuItem});
             this.mFile.Name = "mFile";
             this.mFile.Size = new System.Drawing.Size(37, 20);
             this.mFile.Text = "File";
@@ -565,6 +573,45 @@
             this.mSave.Text = "Save logic";
             this.mSave.Click += new System.EventHandler(this.mSave_Click);
             // 
+            // importTemplateToolStripMenuItem
+            // 
+            this.importTemplateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.casualToolStripMenuItem1,
+            this.glitchednoSetupsToolStripMenuItem1,
+            this.glitchedcommonTricksToolStripMenuItem1,
+            this.glitchedToolStripMenuItem1});
+            this.importTemplateToolStripMenuItem.Name = "importTemplateToolStripMenuItem";
+            this.importTemplateToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.importTemplateToolStripMenuItem.Text = "Import template";
+            // 
+            // casualToolStripMenuItem1
+            // 
+            this.casualToolStripMenuItem1.Name = "casualToolStripMenuItem1";
+            this.casualToolStripMenuItem1.Size = new System.Drawing.Size(209, 22);
+            this.casualToolStripMenuItem1.Text = "Casual";
+            this.casualToolStripMenuItem1.Click += new System.EventHandler(this.casualToolStripMenuItem1_Click);
+            // 
+            // glitchednoSetupsToolStripMenuItem1
+            // 
+            this.glitchednoSetupsToolStripMenuItem1.Name = "glitchednoSetupsToolStripMenuItem1";
+            this.glitchednoSetupsToolStripMenuItem1.Size = new System.Drawing.Size(209, 22);
+            this.glitchednoSetupsToolStripMenuItem1.Text = "Glitched (no setups)";
+            this.glitchednoSetupsToolStripMenuItem1.Click += new System.EventHandler(this.glitchednoSetupsToolStripMenuItem1_Click);
+            // 
+            // glitchedcommonTricksToolStripMenuItem1
+            // 
+            this.glitchedcommonTricksToolStripMenuItem1.Name = "glitchedcommonTricksToolStripMenuItem1";
+            this.glitchedcommonTricksToolStripMenuItem1.Size = new System.Drawing.Size(209, 22);
+            this.glitchedcommonTricksToolStripMenuItem1.Text = "Glitched (common tricks)";
+            this.glitchedcommonTricksToolStripMenuItem1.Click += new System.EventHandler(this.glitchedcommonTricksToolStripMenuItem1_Click);
+            // 
+            // glitchedToolStripMenuItem1
+            // 
+            this.glitchedToolStripMenuItem1.Name = "glitchedToolStripMenuItem1";
+            this.glitchedToolStripMenuItem1.Size = new System.Drawing.Size(209, 22);
+            this.glitchedToolStripMenuItem1.Text = "Glitched";
+            this.glitchedToolStripMenuItem1.Click += new System.EventHandler(this.glitchedToolStripMenuItem1_Click);
+            // 
             // btn_new_item
             // 
             this.btn_new_item.Location = new System.Drawing.Point(113, 81);
@@ -584,6 +631,11 @@
             this.button_goto.Text = "Go To";
             this.button_goto.UseVisualStyleBackColor = true;
             this.button_goto.Click += new System.EventHandler(this.button_goto_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(179, 6);
             // 
             // LogicEditorForm
             // 
@@ -660,5 +712,11 @@
         private System.Windows.Forms.Button bConAdd;
         private System.Windows.Forms.Button bConClear;
         private System.Windows.Forms.Button bConEdit;
+        private System.Windows.Forms.ToolStripMenuItem importTemplateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem casualToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem glitchednoSetupsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem glitchedcommonTricksToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem glitchedToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }

@@ -150,6 +150,21 @@ namespace MMRando.Utils
             ROM.Write(Byteswap16(val));
         }
 
+        public static ushort ReadU16(int address)
+        {
+            int f = RomUtils.GetFileIndexForWriting(address);
+            int src = address - RomData.MMFileList[f].Addr;
+            return (ushort)((RomData.MMFileList[f].Data[src] << 8)
+                + RomData.MMFileList[f].Data[src + 1]);
+        }
+
+        public static byte Read(int address)
+        {
+            int f = RomUtils.GetFileIndexForWriting(address);
+            int src = address - RomData.MMFileList[f].Addr;
+            return RomData.MMFileList[f].Data[src];
+        }
+
     }
 
 }
