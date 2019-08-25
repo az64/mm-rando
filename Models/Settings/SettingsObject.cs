@@ -1,6 +1,4 @@
-﻿
-using MMRando.Constants;
-using MMRando.Utils;
+﻿using MMRando.Utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -219,7 +217,7 @@ namespace MMRando.Models.Settings
         /// <summary>
         /// Randomize sound effects
         /// </summary>
-        public bool RandomizeSounds { get; set; }
+        public bool RandomizeSounds { get; set; } = true;
 
         #endregion
 
@@ -441,7 +439,7 @@ namespace MMRando.Models.Settings
                 | ((byte)FloorType << 24)
                 | ((byte)MovementMode << 28);
 
-            parts[3] = (byte) ClockSpeed
+            parts[3] = (byte)ClockSpeed
                 | ((byte)GossipHintStyle << 8);
 
             return parts;

@@ -1,10 +1,11 @@
 using MMRando.Constants;
 using MMRando.Extensions;
+using MMRando.GameObjects;
 using MMRando.LogicMigrator;
 using MMRando.Models;
 using MMRando.Models.Rom;
-using MMRando.Models.SoundEffects;
 using MMRando.Models.Settings;
+using MMRando.Models.SoundEffects;
 using MMRando.Utils;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using MMRando.GameObjects;
 
 namespace MMRando
 {

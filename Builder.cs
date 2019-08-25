@@ -1,8 +1,11 @@
-﻿using MMRando.Constants;
+﻿using MMRando.Attributes;
+using MMRando.Constants;
+using MMRando.Extensions;
+using MMRando.GameObjects;
 using MMRando.Models;
 using MMRando.Models.Rom;
-using MMRando.Models.SoundEffects;
 using MMRando.Models.Settings;
+using MMRando.Models.SoundEffects;
 using MMRando.Utils;
 using System;
 using System.Collections.Generic;
@@ -12,9 +15,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using MMRando.GameObjects;
-using MMRando.Extensions;
-using MMRando.Attributes;
 using System.Text.RegularExpressions;
 
 namespace MMRando
@@ -247,7 +247,7 @@ namespace MMRando
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "floor-" + floorType.ToString());
             }
 
-            if(_settings.ClockSpeed != ClockSpeed.Default)
+            if (_settings.ClockSpeed != ClockSpeed.Default)
             {
                 WriteClockSpeed(_settings.ClockSpeed);
             }
@@ -308,7 +308,7 @@ namespace MMRando
             var hackAddressOffset = 0x8A674;
             var modificationOffset = 0x1B;
             ReadWriteUtils.WriteToROM(codeFileAddress + hackAddressOffset + modificationOffset, speed);
-            
+
             var invertedModifierOffsets = new List<int>
             {
                 0xB1B8E,
@@ -337,7 +337,7 @@ namespace MMRando
                 return;
             }
 
-            foreach(var sounds in _randomized.SoundEffects)
+            foreach (var sounds in _randomized.SoundEffects)
             {
                 var oldSound = sounds.Key;
                 var newSound = sounds.Value;
@@ -375,7 +375,7 @@ namespace MMRando
         {
             Dictionary<int, byte> startingItems = new Dictionary<int, byte>();
             PutOrCombine(startingItems, 0xC5CE72, 0x10); // add Song of Time
-            
+
             var itemList = items.ToList();
             itemList.Add(Item.StartingHeartContainer1);
             while (itemList.Count(item => item.Name() == "Piece of Heart") >= 4)
@@ -429,6 +429,8 @@ namespace MMRando
                 freeItems.Add(Item.StartingShield);
                 freeItems.Add(Item.StartingHeartContainer1);
                 freeItems.Add(Item.StartingHeartContainer2);
+                // TODO Remove this
+                freeItems.Add(Item.SongEpona);
 
                 if (_settings.ShortenCutscenes)
                 {
@@ -448,6 +450,8 @@ namespace MMRando
             freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingShield).Item);
             freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingHeartContainer1).Item);
             freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingHeartContainer2).Item);
+            // TODO Remove this
+            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.SongEpona).Item);
             WriteFreeItems(freeItems.ToArray());
 
             //write everything else
@@ -510,7 +514,7 @@ namespace MMRando
                     {
                         Id = (ushort)tingleText,
                         Header = null,
-                        Message = $"\u0002\u00C3{item1.Name() + " ", -22}\u0001{tingleShop.Prices[0], 2} Rupees\u0011\u0002{item2.Name() + " ", -22}\u0001{tingleShop.Prices[1], 2} Rupees\u0011\u0002No Thanks\u00BF"
+                        Message = $"\u0002\u00C3{item1.Name() + " ",-22}\u0001{tingleShop.Prices[0],2} Rupees\u0011\u0002{item2.Name() + " ",-22}\u0001{tingleShop.Prices[1],2} Rupees\u0011\u0002No Thanks\u00BF"
                     });
                 }
 

@@ -14,11 +14,11 @@ namespace MMRando.Models.SoundEffects
     {
         // Environment
 
-        [Replacable(0x00EABA46,0x00EABC3A, 0x00EACACA), Tags(Long)]
+        [Replacable(0x00EABA46, 0x00EABC3A, 0x00EACACA), Tags(Long)]
         CuccoMorning = 0x2013,
 
         [Replacable(0x00EABC4A, 0x00EACABE), Tags(Long)]
-        WolfHowlEvening = 0x20AE, 
+        WolfHowlEvening = 0x20AE,
 
         [Replacable(0x00DFC776), Tags(Short, LowHpBeep), ReplacableByTags(Short)]
         DogBark = 0x20D8,
@@ -28,6 +28,9 @@ namespace MMRando.Models.SoundEffects
 
         [Replacable(0x00DFC7B6), Tags(Short, LowHpBeep), ReplacableByTags(Short)]
         DogBarkAngry = 0x2110,
+
+        [Replacable(0x00D01186, 0x00CFE0A4, 0x00CF969A, 0x00CFA602, 0x00CFA816, 0x00CFA482, 0x00CF91E2, 0x00CFC43A), Tags(Short, LowHpBeep), ReplacableByTags(Short)]
+        EponaNeigh = 0x2044,
 
         // System
 
@@ -53,6 +56,9 @@ namespace MMRando.Models.SoundEffects
 
         [Tags(Short)]
         ChildLinkMountLedge = 0x6024,
+
+        [Replacable(0x00BABCF6), Tags(Short)]
+        TatlEnemyAlert = 0x6043,
 
         [Tags(Short, LowHpBeep)]
         GoronPunch = 0x60C0,
