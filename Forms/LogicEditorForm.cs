@@ -322,7 +322,6 @@ namespace MMRando
                 using (var logicFile = new StreamReader(File.Open(openLogic.FileName, FileMode.Open)))
                 {
                     var logicString = logicFile.ReadToEnd();
-                    logicString = Migrator.ApplyMigrations(logicString);
                     LoadLogic(logicString);
                 }
             }
@@ -469,6 +468,7 @@ namespace MMRando
 
         private void LoadLogic(string logicString)
         {
+            logicString = Migrator.ApplyMigrations(logicString);
             ItemList = new List<ItemLogic>();
             string[] lines = logicString.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
             ItemSelectorForm.ResetItems();
