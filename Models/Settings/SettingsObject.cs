@@ -154,7 +154,7 @@ namespace MMRando.Models.Settings
         /// <summary>
         /// Add skulltula tokens to the randomization pool
         /// </summary>
-        public bool AddSkulltulaTokens { get; set; } = true;
+        public bool AddSkulltulaTokens { get; set; }
 
         /// <summary>
         /// Randomize the content of a bottle when catching (e.g. catching a fairy puts poe in bottle)
