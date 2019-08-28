@@ -135,6 +135,7 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
+            this.cSpiders = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -412,6 +413,7 @@ namespace MMRando
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cSpiders);
             this.groupBox2.Controls.Add(this.cCowMilk);
             this.groupBox2.Controls.Add(this.cFairyRewards);
             this.groupBox2.Controls.Add(this.lCustomItemAmount);
@@ -479,7 +481,7 @@ namespace MMRando
             this.tCustomItemList.Name = "tCustomItemList";
             this.tCustomItemList.Size = new System.Drawing.Size(313, 20);
             this.tCustomItemList.TabIndex = 19;
-            this.tCustomItemList.Text = "--------";
+            this.tCustomItemList.Text = "---------";
             this.tCustomItemList.Visible = false;
             this.tCustomItemList.TextChanged += new System.EventHandler(this.tCustomItemList_TextChanged);
             // 
@@ -1417,6 +1419,21 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
+            // cSpiders
+            // 
+            this.cSpiders.AutoSize = true;
+            this.cSpiders.BackColor = System.Drawing.Color.Transparent;
+            this.cSpiders.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cSpiders.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cSpiders.ForeColor = System.Drawing.Color.Black;
+            this.cSpiders.Location = new System.Drawing.Point(44, 145);
+            this.cSpiders.Name = "cSpiders";
+            this.cSpiders.Size = new System.Drawing.Size(105, 17);
+            this.cSpiders.TabIndex = 23;
+            this.cSpiders.Text = "Skulltula Tokens";
+            this.cSpiders.UseVisualStyleBackColor = false;
+            this.cSpiders.CheckedChanged += new System.EventHandler(this.cSpiders_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1572,6 +1589,7 @@ namespace MMRando
         private System.Windows.Forms.Label lCustomItemAmount;
         private System.Windows.Forms.CheckBox cFairyRewards;
         private System.Windows.Forms.CheckBox cCowMilk;
+        private System.Windows.Forms.CheckBox cSpiders;
     }
 }
 

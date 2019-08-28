@@ -50,7 +50,19 @@ namespace MMRando.Forms
         "Map: Snowhead", "Map: Romani Ranch", "Map: Great Bay", "Map: Stone Tower", "Goron Racetrack Grotto", "Ikana Scrub 200r", "Deku Trial HP",
         "Goron Trial HP", "Zora Trial HP", "Link Trial HP", "Fierce Deity's Mask", "Link Trial 30 Arrows", "Link Trial 10 Bombchu", "Pre-Clocktown 10 Deku Nuts",
         "Starting Sword", "Starting Shield", "Starting Heart 1", "Starting Heart 2", "Ranch Cow #1 Milk", "Ranch Cow #2 Milk", "Ranch Cow #3 Milk",
-        "Well Cow Milk", "Termina Grotto Cow #1 Milk", "Termina Grotto Cow #2 Milk", "Great Bay Coast Grotto Cow #1 Milk", "Great Bay Coast Grotto Cow #2 Milk" };
+        "Well Cow Milk", "Termina Grotto Cow #1 Milk", "Termina Grotto Cow #2 Milk", "Great Bay Coast Grotto Cow #1 Milk", "Great Bay Coast Grotto Cow #2 Milk",
+        "Swamp Skulltula Main Room Near Ceiling", "Swamp Skulltula Gold Room Near Ceiling", "Swamp Skulltula Monument Room Torch", "Swamp Skulltula Gold Room Pillar", "Swamp Skulltula Pot Room Jar",
+        "Swamp Skulltula Tree Room Grass 1", "Swamp Skulltula Tree Room Grass 2", "Swamp Skulltula Main Room Water", "Swamp Skulltula Main Room Lower Left Soft Soil", "Swamp Skulltula Monument Room Crate 1",
+        "Swamp Skulltula Main Room Upper Soft Soil", "Swamp Skulltula Main Room Lower Right Soft Soil", "Swamp Skulltula Monument Room Lower Wall", "Swamp Skulltula Monument Room On Monument", "Swamp Skulltula Main Room Pillar",
+        "Swamp Skulltula Pot Room Pot 1", "Swamp Skulltula Pot Room Pot 2", "Swamp Skulltula Gold Room Hive", "Swamp Skulltula Main Room Upper Pillar", "Swamp Skulltula Pot Room Behind Vines",
+        "Swamp Skulltula Tree Room Tree 1", "Swamp Skulltula Pot Room Wall", "Swamp Skulltula Pot Room Hive 1", "Swamp Skulltula Tree Room Tree 2", "Swamp Skulltula Gold Room Wall",
+        "Swamp Skulltula Tree Room Hive", "Swamp Skulltula Monument Room Crate 2", "Swamp Skulltula Pot Room Hive 2", "Swamp Skulltula Tree Room Tree 3", "Swamp Skulltula Main Room Jar",
+        "Ocean Skulltula Storage Room Behind Boat", "Ocean Skulltula Library Hole Behind Picture", "Ocean Skulltula Library Hole Behind Cabinet", "Ocean Skulltula Library On Corner Bookshelf", "Ocean Skulltula 2nd Room Ceiling Edge",
+        "Ocean Skulltula 2nd Room Ceiling Plank", "Ocean Skulltula Colored Skulls Ceiling Edge", "Ocean Skulltula Library Ceiling Edge", "Ocean Skulltula Storage Room Ceiling Web", "Ocean Skulltula Storage Room Behind Crate",
+        "Ocean Skulltula 2nd Room Jar", "Ocean Skulltula Entrance Right Wall", "Ocean Skulltula Entrance Left Wall", "Ocean Skulltula 2nd Room Webbed Hole", "Ocean Skulltula Entrance Web",
+        "Ocean Skulltula Colored Skulls Chandelier 1", "Ocean Skulltula Colored Skulls Chandelier 2", "Ocean Skulltula Colored Skulls Chandelier 3", "Ocean Skulltula Colored Skulls Behind Picture", "Ocean Skulltula Library Behind Picture",
+        "Ocean Skulltula Library Behind Bookcase 1", "Ocean Skulltula Storage Room Crate", "Ocean Skulltula 2nd Room Webbed Pot", "Ocean Skulltula 2nd Room Upper Pot", "Ocean Skulltula Colored Skulls Pot",
+        "Ocean Skulltula Storage Room Jar", "Ocean Skulltula 2nd Room Lower Pot", "Ocean Skulltula Library Behind Bookcase 2", "Ocean Skulltula 2nd Room Behind Skull 1", "Ocean Skulltula 2nd Room Behind Skull 2",};
 
         bool updating = false;
         private readonly SettingsObject _settings;
@@ -71,7 +83,7 @@ namespace MMRando.Forms
             }
             else
             {
-                tSetting.Text = "--------";
+                tSetting.Text = "---------";
             }
         }
 
@@ -86,8 +98,8 @@ namespace MMRando.Forms
 
         private void UpdateString(List<int> selections)
         {
-            int[] n = new int[9];
-            string[] ns = new string[9];
+            int[] n = new int[10];
+            string[] ns = new string[10];
             for (int i = 0; i < selections.Count; i++)
             {
                 int j = selections[i] / 32;
@@ -95,7 +107,7 @@ namespace MMRando.Forms
                 n[j] |= (int)(1 << k);
                 ns[j] = Convert.ToString(n[j], 16);
             }
-            tSetting.Text = ns[8] + "-" + ns[7] + "-" + ns[6] + "-" + ns[5] + "-" + ns[4] + "-"
+            tSetting.Text = ns[9] + "-" + ns[8] + "-" + ns[7] + "-" + ns[6] + "-" + ns[5] + "-" + ns[4] + "-"
                 + ns[3] + "-" + ns[2] + "-" + ns[1] + "-" + ns[0];
             _settings.CustomItemListString = tSetting.Text;
         }
@@ -109,20 +121,20 @@ namespace MMRando.Forms
                 _settings.CustomItemListString = c;
                 _settings.CustomItemList.Clear();
                 string[] v = c.Split('-');
-                int[] vi = new int[9];
+                int[] vi = new int[10];
                 if (v.Length != vi.Length)
                 {
                     _settings.CustomItemList.Add(-1);
                     return;
                 }
-                for (int i = 0; i < 9; i++)
+                for (int i = 0; i < 10; i++)
                 {
-                    if (v[8 - i] != "")
+                    if (v[9 - i] != "")
                     {
-                        vi[i] = Convert.ToInt32(v[8 - i], 16);
+                        vi[i] = Convert.ToInt32(v[9 - i], 16);
                     }
                 }
-                for (int i = 0; i < 32*9; i++)
+                for (int i = 0; i < 32*10; i++)
                 {
                     int j = i / 32;
                     int k = i % 32;

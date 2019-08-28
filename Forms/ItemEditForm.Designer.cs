@@ -45,7 +45,7 @@
             this.lItems.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lItems.Location = new System.Drawing.Point(3, 3);
             this.lItems.Name = "lItems";
-            this.lItems.Size = new System.Drawing.Size(332, 447);
+            this.lItems.Size = new System.Drawing.Size(1076, 469);
             this.lItems.TabIndex = 1;
             this.lItems.UseCompatibleStateImageBehavior = false;
             this.lItems.View = System.Windows.Forms.View.List;
@@ -58,9 +58,9 @@
             // tSetting
             // 
             this.tSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tSetting.Location = new System.Drawing.Point(3, 456);
+            this.tSetting.Location = new System.Drawing.Point(3, 478);
             this.tSetting.Name = "tSetting";
-            this.tSetting.Size = new System.Drawing.Size(332, 20);
+            this.tSetting.Size = new System.Drawing.Size(1076, 20);
             this.tSetting.TabIndex = 2;
             this.tSetting.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tSetting_KeyDown);
             // 
@@ -76,14 +76,14 @@
             this.tLayout.RowCount = 2;
             this.tLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tLayout.Size = new System.Drawing.Size(338, 481);
+            this.tLayout.Size = new System.Drawing.Size(1082, 503);
             this.tLayout.TabIndex = 3;
             // 
             // ItemEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(338, 481);
+            this.ClientSize = new System.Drawing.Size(1082, 503);
             this.Controls.Add(this.tLayout);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ItemEditForm";
