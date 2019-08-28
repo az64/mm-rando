@@ -7,7 +7,7 @@ namespace MMRando.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 9;
+        public const int CurrentVersion = 10;
 
         public static string ApplyMigrations(string logic)
         {
@@ -61,6 +61,11 @@ namespace MMRando.LogicMigrator
             if (GetVersion(lines) < 9)
             {
                 AddCows(lines);
+            }
+
+            if (GetVersion(lines) < 10)
+            {
+                AddSkulltulaTokens(lines);
             }
 
             return string.Join("\r\n", lines);
@@ -674,11 +679,404 @@ namespace MMRando.LogicMigrator
             }
         }
 
+        private static void AddSkulltulaTokens(List<string> lines)
+        {
+            lines[0] = "-version 10";
+            var newItems = new MigrationItem[]
+            {
+                new MigrationItem
+                {
+                    ID = 286,
+                    DependsOnItems = new List<int> { 103 }, // Poison swamp access
+                },
+                new MigrationItem
+                {
+                    ID = 287,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 288,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 289,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 290,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 291,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 292,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 293,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 294,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 295,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 296,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 297,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 298,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 299,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 300,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 301,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 302,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 303,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 304,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 305,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 306,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 307,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 308,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 309,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 310,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 311,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 312,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 313,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 314,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 315,
+                    DependsOnItems = new List<int> { 103 },
+                },
+                new MigrationItem
+                {
+                    ID = 316,
+                    DependsOnItems = new List<int> { 110, 119 }, // West access, Explosives
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 317,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 318,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 319,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 320,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 321,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 322,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 323,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 324,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 325,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 326,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 327,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 328,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 329,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 330,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 331,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 332,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 333,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 334,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 335,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 336,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 337,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 338,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 339,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 340,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 341,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 342,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 343,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 344,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+                new MigrationItem
+                {
+                    ID = 345,
+                    DependsOnItems = new List<int> { 110, 119 },
+                    TimeNeeded = 3,
+                },
+            };
+            var itemNames = new string[]
+            {
+                "Swamp Skulltula Main Room Near Ceiling", "Swamp Skulltula Gold Room Near Ceiling", "Swamp Skulltula Monument Room Torch", "Swamp Skulltula Gold Room Pillar", "Swamp Skulltula Pot Room Jar",
+
+                "Swamp Skulltula Tree Room Grass 1", "Swamp Skulltula Tree Room Grass 2", "Swamp Skulltula Main Room Water", "Swamp Skulltula Main Room Lower Left Soft Soil", "Swamp Skulltula Monument Room Crate 1",
+
+                "Swamp Skulltula Main Room Upper Soft Soil", "Swamp Skulltula Main Room Lower Right Soft Soil", "Swamp Skulltula Monument Room Lower Wall", "Swamp Skulltula Monument Room On Monument", "Swamp Skulltula Main Room Pillar",
+
+                "Swamp Skulltula Pot Room Pot 1", "Swamp Skulltula Pot Room Pot 2", "Swamp Skulltula Gold Room Hive", "Swamp Skulltula Main Room Upper Pillar", "Swamp Skulltula Pot Room Behind Vines",
+
+                "Swamp Skulltula Tree Room Tree 1", "Swamp Skulltula Pot Room Wall", "Swamp Skulltula Pot Room Hive 1", "Swamp Skulltula Tree Room Tree 2", "Swamp Skulltula Gold Room Wall",
+
+                "Swamp Skulltula Tree Room Hive", "Swamp Skulltula Monument Room Crate 2", "Swamp Skulltula Pot Room Hive 2", "Swamp Skulltula Tree Room Tree 3", "Swamp Skulltula Main Room Jar",
+
+                "Ocean Skulltula Storage Room Behind Boat", "Ocean Skulltula Library Hole Behind Picture", "Ocean Skulltula Library Hole Behind Cabinet", "Ocean Skulltula Library On Corner Bookshelf", "Ocean Skulltula 2nd Room Ceiling Edge",
+
+                "Ocean Skulltula 2nd Room Ceiling Plank", "Ocean Skulltula Colored Skulls Ceiling Edge", "Ocean Skulltula Library Ceiling Edge", "Ocean Skulltula Storage Room Ceiling Web", "Ocean Skulltula Storage Room Behind Crate",
+
+                "Ocean Skulltula 2nd Room Jar", "Ocean Skulltula Entrance Right Wall", "Ocean Skulltula Entrance Left Wall", "Ocean Skulltula 2nd Room Webbed Hole", "Ocean Skulltula Entrance Web",
+
+                "Ocean Skulltula Colored Skulls Chandelier 1", "Ocean Skulltula Colored Skulls Chandelier 2", "Ocean Skulltula Colored Skulls Chandelier 3", "Ocean Skulltula Colored Skulls Behind Picture", "Ocean Skulltula Library Behind Picture",
+
+                "Ocean Skulltula Library Behind Bookcase 1", "Ocean Skulltula Storage Room Crate", "Ocean Skulltula 2nd Room Webbed Pot", "Ocean Skulltula 2nd Room Upper Pot", "Ocean Skulltula Colored Skulls Pot",
+
+                "Ocean Skulltula Storage Room Jar", "Ocean Skulltula 2nd Room Lower Pot", "Ocean Skulltula Library Behind Bookcase 2", "Ocean Skulltula 2nd Room Behind Skull 1", "Ocean Skulltula 2nd Room Behind Skull 2"
+            };
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section => section.Split(',').Select(id =>
+                    {
+                        var itemId = int.Parse(id);
+                        if (itemId >= 286)
+                        {
+                            itemId += newItems.Length;
+                        }
+                        return itemId;
+                    }).ToList()).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+            foreach (var item in newItems)
+            {
+                lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 286]}");
+                lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
+                lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
+                lines.Insert(item.ID * 5 + 4, $"{item.TimeNeeded}");
+                lines.Insert(item.ID * 5 + 5, "0");
+            }
+        }
+
         private class MigrationItem
         {
             public int ID;
             public List<List<int>> Conditionals = new List<List<int>>();
             public List<int> DependsOnItems = new List<int>();
+            public int TimeNeeded = 0;
         }
     }
 }
