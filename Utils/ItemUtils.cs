@@ -25,6 +25,11 @@ namespace MMRando.Utils
             return (item >= Item.ItemRanchBarnMainCowMilk && item <= Item.ItemCoastGrottoCowMilk2);
         }
 
+        public static bool IsSkulltulaToken(Item item)
+        {
+            return item >= Item.CollectibleSwampSpiderToken1 && item <= Item.CollectibleOceanSpiderToken30;
+        }
+
         public static int AddItemOffset(int itemId)
         {
             if (itemId >= (int)Item.AreaSouthAccess)

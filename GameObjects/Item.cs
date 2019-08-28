@@ -2185,5 +2185,426 @@ namespace MMRando.GameObjects
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x139)]
         ItemCoastGrottoCowMilk2,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x13A)]
+        CollectibleSwampSpiderToken1,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x13B)]
+        CollectibleSwampSpiderToken2,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x13C)]
+        CollectibleSwampSpiderToken3,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x13E)]
+        CollectibleSwampSpiderToken4,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x13F)]
+        CollectibleSwampSpiderToken5,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x140)]
+        CollectibleSwampSpiderToken6,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x141)]
+        CollectibleSwampSpiderToken7,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x142)]
+        CollectibleSwampSpiderToken8,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x143)]
+        CollectibleSwampSpiderToken9,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x144)]
+        CollectibleSwampSpiderToken10,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x145)]
+        CollectibleSwampSpiderToken11,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x146)]
+        CollectibleSwampSpiderToken12,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x147)]
+        CollectibleSwampSpiderToken13,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x148)]
+        CollectibleSwampSpiderToken14,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x149)]
+        CollectibleSwampSpiderToken15,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x14A)]
+        CollectibleSwampSpiderToken16,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x14B)]
+        CollectibleSwampSpiderToken17,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x14C)]
+        CollectibleSwampSpiderToken18,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x14D)]
+        CollectibleSwampSpiderToken19,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x14E)]
+        CollectibleSwampSpiderToken20,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x14F)]
+        CollectibleSwampSpiderToken21,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x150)]
+        CollectibleSwampSpiderToken22,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x151)]
+        CollectibleSwampSpiderToken23,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x152)]
+        CollectibleSwampSpiderToken24,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x153)]
+        CollectibleSwampSpiderToken25,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x154)]
+        CollectibleSwampSpiderToken26,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x155)]
+        CollectibleSwampSpiderToken27,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x156)]
+        CollectibleSwampSpiderToken28,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x157)]
+        CollectibleSwampSpiderToken29,
+
+        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Spider House <todo>"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x158)]
+        CollectibleSwampSpiderToken30,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x159)]
+        CollectibleOceanSpiderToken1,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x15A)]
+        CollectibleOceanSpiderToken2,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x15B)]
+        CollectibleOceanSpiderToken3,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x15C)]
+        CollectibleOceanSpiderToken4,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x15D)]
+        CollectibleOceanSpiderToken5,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x15E)]
+        CollectibleOceanSpiderToken6,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x15F)]
+        CollectibleOceanSpiderToken7,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x160)]
+        CollectibleOceanSpiderToken8,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x161)]
+        CollectibleOceanSpiderToken9,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x162)]
+        CollectibleOceanSpiderToken10,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x163)]
+        CollectibleOceanSpiderToken11,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x164)]
+        CollectibleOceanSpiderToken12,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x165)]
+        CollectibleOceanSpiderToken13,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x166)]
+        CollectibleOceanSpiderToken14,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x167)]
+        CollectibleOceanSpiderToken15,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x168)]
+        CollectibleOceanSpiderToken16,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x169)]
+        CollectibleOceanSpiderToken17,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x16A)]
+        CollectibleOceanSpiderToken18,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x16B)]
+        CollectibleOceanSpiderToken19,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x16C)]
+        CollectibleOceanSpiderToken20,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x16D)]
+        CollectibleOceanSpiderToken21,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x16E)]
+        CollectibleOceanSpiderToken22,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x16F)]
+        CollectibleOceanSpiderToken23,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x170)]
+        CollectibleOceanSpiderToken24,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x171)]
+        CollectibleOceanSpiderToken25,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x172)]
+        CollectibleOceanSpiderToken26,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x173)]
+        CollectibleOceanSpiderToken27,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x174)]
+        CollectibleOceanSpiderToken28,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x175)]
+        CollectibleOceanSpiderToken29,
+
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Spider House <todo>"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x176)]
+        CollectibleOceanSpiderToken30,
+
     }
 }

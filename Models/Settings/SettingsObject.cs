@@ -152,6 +152,11 @@ namespace MMRando.Models.Settings
         public bool AddCowMilk { get; set; }
 
         /// <summary>
+        /// Add skulltula tokens to the randomization pool
+        /// </summary>
+        public bool AddSkulltulaTokens { get; set; } = true;
+
+        /// <summary>
         /// Randomize the content of a bottle when catching (e.g. catching a fairy puts poe in bottle)
         /// </summary>
         public bool RandomizeBottleCatchContents { get; set; }

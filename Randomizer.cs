@@ -1019,6 +1019,7 @@ namespace MMRando
             PlaceSongs(itemPool);
             PlaceMasks(itemPool);
             PlaceRegularItems(itemPool);
+            PlaceSkulltulaTokens(itemPool);
             PlaceShopItems(itemPool);
             PlaceCowMilk(itemPool);
             PlaceMoonItems(itemPool);
@@ -1057,6 +1058,17 @@ namespace MMRando
         private void PlaceTingleMaps(List<Item> itemPool)
         {
             for (var i = Item.ItemTingleMapTown; i <= Item.ItemTingleMapStoneTower; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places skulltula tokens in the randomization pool.
+        /// </summary>
+        private void PlaceSkulltulaTokens(List<Item> itemPool)
+        {
+            for (var i = Item.CollectibleSwampSpiderToken1; i <= Item.CollectibleOceanSpiderToken30; i++)
             {
                 PlaceItem(i, itemPool);
             }
@@ -1315,6 +1327,11 @@ namespace MMRando
                 PreserveCowMilk();
             }
 
+            if (!_settings.AddSkulltulaTokens)
+            {
+                PreserveSkulltulaTokens();
+            }
+
             if (_settings.LogicMode == LogicMode.Casual)
             {
                 PreserveGlitchedCowMilk();
@@ -1444,6 +1461,17 @@ namespace MMRando
         }
 
         /// <summary>
+        /// Keeps skulltula tokens vanilla
+        /// </summary>
+        private void PreserveSkulltulaTokens()
+        {
+            for (var i = Item.CollectibleSwampSpiderToken1; i <= Item.CollectibleOceanSpiderToken30; i++)
+            {
+                ItemList[(int)i].NewLocation = i;
+            }
+        }
+
+        /// <summary>
         /// Keeps glitched cow milk vanilla
         /// </summary>
         private void PreserveGlitchedCowMilk()
@@ -1485,6 +1513,9 @@ namespace MMRando
 
             // Keep cows vanilla, unless custom item list contains a cow
             _settings.AddCowMilk = false;
+
+            // Keep skulltula tokens vanilla, unless custom item list contains a token
+            _settings.AddSkulltulaTokens = false;
 
             // Make all items vanilla, and override using custom item list
             MakeAllItemsVanilla();
@@ -1542,6 +1573,11 @@ namespace MMRando
                 if (ItemUtils.IsCowItem((Item)selectedItem))
                 {
                     _settings.AddCowMilk = true;
+                }
+
+                if (ItemUtils.IsSkulltulaToken((Item)selectedItem))
+                {
+                    _settings.AddSkulltulaTokens = true;
                 }
             }
         }

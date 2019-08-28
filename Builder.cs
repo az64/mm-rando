@@ -553,6 +553,24 @@ namespace MMRando
                 Message = $"\u0017You've been granted \u0002Magic Power\u0000!\u0018\u0011Replenish it with \u0001Magic Jars\u0000\u0011and \u0001Potions\u0000.\u00BF",
             });
 
+            if (_settings.AddSkulltulaTokens)
+            {
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-skulltula-tokens");
+
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x51,
+                    Header = new byte[11] { 0x02, 0x00, 0x52, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
+                    Message = $"\u0017You got an \u0003Ocean Gold Skulltula\u0011Spirit\0!\u0018\u00BF", // todo display count "\u0011\u001f\0\u0010This is your \u000D one!\u001c\0\u0028"
+                });
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x52,
+                    Header = new byte[11] { 0x02, 0x00, 0x52, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
+                    Message = $"\u0017You got a \u0002Swamp Gold Skulltula\u0011Spirit\0!\u0018\u00BF", // todo display count "\u0011\u001f\0\u0010This is your \u000D one!\u001c\0\u0028"
+                });
+            }
+
             _messageTable.UpdateMessages(newMessages);
 
             if (_settings.AddShopItems)
