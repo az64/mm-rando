@@ -600,7 +600,7 @@ namespace MMRando.LogicMigrator
                 new MigrationItem
                 {
                     ID = 279,
-                    DependsOnItems = new List<int> { 265 } // moon access / unaccessible
+                    DependsOnItems = new List<int> { 96, 109 } // epona's song, epona access
                 },
                 new MigrationItem
                 {

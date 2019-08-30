@@ -1476,10 +1476,7 @@ namespace MMRando
         /// </summary>
         private void PreserveGlitchedCowMilk()
         {
-            for (var i = Item.ItemRanchBarnOtherCowMilk1; i <= Item.ItemRanchBarnOtherCowMilk2; i++)
-            {
-                ItemList[(int)i].NewLocation = i;
-            }
+            ItemList[(int)Item.ItemRanchBarnOtherCowMilk2].NewLocation = Item.ItemRanchBarnOtherCowMilk2;
         }
 
         /// <summary>

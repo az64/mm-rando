@@ -83,7 +83,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cFairyRewards, "Enable great fairy rewards being placed in the randomization pool.\n\nIncludes Magic Power, Great Spin Attack, Extended Magic Power, Double Defense, Great Fairy's Sword and Great Fairy's Mask.");
             TooltipBuilder.SetTooltip(cNutChest, "Enable randomization of the pre-clocktown deku nut chest. Not available when using Casual logic.");
             TooltipBuilder.SetTooltip(cCrazyStartingItems, "Enable randomization of starting Sword, Shield, and two Heart Containers.");
-            TooltipBuilder.SetTooltip(cCowMilk, "Enable randomization of cow milk.\n\nTwo inaccessible ranch cows are not included for Casual logic.");
+            TooltipBuilder.SetTooltip(cCowMilk, "Enable randomization of cow milk.\n\nOne inaccessible ranch cow is not included for Casual logic.");
             TooltipBuilder.SetTooltip(cSpiders, "Enable randomization of golden skulltula tokens.");
 
             // Gimmicks
