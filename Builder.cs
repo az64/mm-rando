@@ -488,7 +488,7 @@ namespace MMRando
                     {
                         Id = (ushort)tingleText,
                         Header = null,
-                        Message = $"\u0002\u00C3{item1.Name() + " ", -22}\u0001{tingleShop.Prices[0], 2} Rupees\u0011\u0002{item2.Name() + " ", -22}\u0001{tingleShop.Prices[1], 2} Rupees\u0011\u0002No Thanks\u00BF"
+                        Message = $"\u0002\u00C3{item1.Name() + " ",-22}\u0001{tingleShop.Prices[0],2} Rupees\u0011\u0002{item2.Name() + " ",-22}\u0001{tingleShop.Prices[1],2} Rupees\u0011\u0002No Thanks\u00BF"
                     });
                 }
 
@@ -561,13 +561,56 @@ namespace MMRando
                 {
                     Id = 0x51,
                     Header = new byte[11] { 0x02, 0x00, 0x52, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
-                    Message = $"\u0017You got an \u0003Ocean Gold Skulltula\u0011Spirit\0!\u0018\u00BF", // todo display count "\u0011\u001f\0\u0010This is your \u000D one!\u001c\0\u0028"
+                    Message = $"\u0017You got an \u0005Ocean Gold Skulltula\u0011Spirit\0!\u0018\u00BF", // todo display count "\u0011\u001f\0\u0010This is your \u000D one!\u001c\0\u0028"
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x52,
                     Header = new byte[11] { 0x02, 0x00, 0x52, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
-                    Message = $"\u0017You got a \u0002Swamp Gold Skulltula\u0011Spirit\0!\u0018\u00BF", // todo display count "\u0011\u001f\0\u0010This is your \u000D one!\u001c\0\u0028"
+                    Message = $"\u0017You got a \u0006Swamp Gold Skulltula\u0011Spirit\0!\u0018\u00BF", // todo display count "\u0011\u001f\0\u0010This is your \u000D one!\u001c\0\u0028"
+                });
+            }
+
+            var dungeonItemMessageIds = new byte[] {
+                0x3C, 0x3D, 0x3E, 0x3F,
+                0x40, 0x4D, 0x4E, 0x53,
+                0x54, 0x61, 0x64, 0x6E,
+                0x70, 0x71, 0x72, 0x73
+            };
+
+            var dungeonNames = new string[]
+            {
+                "\u0006Woodfall Temple\u0000",
+                "\u0002Snowhead Temple\u0000",
+                "\u0005Great Bay Temple\u0000",
+                "\u0004Stone Tower Temple\u0000"
+            };
+
+            var dungeonItemMessages = new string[]
+            {
+                "\u0017You found a \u0001Small Key\u0000 for\u0011{0}!\u0018\u00BF",
+                "\u0017You found the \u0001Boss Key\u0000 for\u0011{0}!\u0018\u00BF",
+                "\u0017You found the \u0001Dungeon Map\u0000 for\u0011{0}!\u0018\u00BF",
+                "\u0017You found the \u0001Compass\u0000 for\u0011{0}!\u0018\u00BF",
+            };
+
+            var dungeonItemIcons = new byte[]
+            {
+                0x3C, 0x3D, 0x3E, 0x3F
+            };
+
+            for (var i = 0; i < dungeonItemMessageIds.Length; i++)
+            {
+                var messageId = dungeonItemMessageIds[i];
+                var icon = dungeonItemIcons[i % 4];
+                var dungeonName = dungeonNames[i >> 2];
+                var message = string.Format(dungeonItemMessages[i % 4], dungeonName);
+
+                newMessages.Add(new MessageEntry
+                {
+                    Id = messageId,
+                    Header = new byte[11] { 0x02, 0x00, icon, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
+                    Message = message
                 });
             }
 
