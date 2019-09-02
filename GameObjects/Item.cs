@@ -2674,5 +2674,13 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x176)]
         CollectibleOceanSpiderToken30,
 
+        [Repeatable, Temporary]
+        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Behind Skull 2"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x177)]
+        CollectibleStrayFairyClockTown,
+
     }
 }
