@@ -2675,12 +2675,136 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken30,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Behind Skull 2"), RegionName("Great Bay Coast")]
-        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
-        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ItemName("Clock Town Stray Fairy"), LocationName("Clock Town Stray Fairy"), RegionName("Laundry Pool")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        //[GetItemIndex(0x177)] // todo
+        CollectibleStrayFairyClockTown,
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Fairy 1"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x177)]
-        CollectibleStrayFairyClockTown,
+        CollectibleStrayFairyWoodfall1,
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Entrance Room Fairy"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x178)]
+        CollectibleStrayFairyWoodfall2,
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Fairy 2"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x179)]
+        CollectibleStrayFairyWoodfall3,
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Fairy 3"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x17A)]
+        CollectibleStrayFairyWoodfall4,
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Deku Baba Fairy"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x17B)]
+        CollectibleStrayFairyWoodfall5,
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Wooden Bridge Room Bubble Fairy"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x17C)]
+        CollectibleStrayFairyWoodfall6,
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Main Room Bubble Fairy"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x17D)]
+        CollectibleStrayFairyWoodfall7,
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Skulltula Fairy"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x17E)]
+        CollectibleStrayFairyWoodfall8,
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Fairy 4"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x17F)]
+        CollectibleStrayFairyWoodfall9,
+
+        // 80 - 83 empty
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Switch Fairy"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x184)]
+        CollectibleStrayFairyWoodfall10,
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Entrance Chest"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x185)]
+        CollectibleStrayFairyWoodfall11,
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Dark Room"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x186)]
+        CollectibleStrayFairyWoodfall12,
+
+        // 87 - 88 empty
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Jar Fairy"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x189)]
+        CollectibleStrayFairyWoodfall13,
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Bridge Room Hive Fairy"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x18A)]
+        CollectibleStrayFairyWoodfall14,
+
+        [Repeatable, Temporary]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Platform Room Hive Fairy"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x18B)]
+        CollectibleStrayFairyWoodfall15,
 
     }
 }
