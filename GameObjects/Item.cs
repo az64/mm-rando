@@ -2679,13 +2679,13 @@ namespace MMRando.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        //[GetItemIndex(0x177)] // todo
+        [GetItemIndex(0x3B)]
         CollectibleStrayFairyClockTown,
 
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Fairy 1"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x177)]
         CollectibleStrayFairyWoodfall1,
@@ -2693,7 +2693,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Entrance Room Fairy"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x178)]
         CollectibleStrayFairyWoodfall2,
@@ -2701,7 +2701,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Fairy 2"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x179)]
         CollectibleStrayFairyWoodfall3,
@@ -2709,7 +2709,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Fairy 3"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x17A)]
         CollectibleStrayFairyWoodfall4,
@@ -2717,7 +2717,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Deku Baba Fairy"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x17B)]
         CollectibleStrayFairyWoodfall5,
@@ -2725,7 +2725,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Wooden Bridge Room Bubble Fairy"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x17C)]
         CollectibleStrayFairyWoodfall6,
@@ -2733,7 +2733,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Main Room Bubble Fairy"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x17D)]
         CollectibleStrayFairyWoodfall7,
@@ -2741,7 +2741,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Skulltula Fairy"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x17E)]
         CollectibleStrayFairyWoodfall8,
@@ -2749,7 +2749,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Fairy 4"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x17F)]
         CollectibleStrayFairyWoodfall9,
@@ -2759,7 +2759,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Switch Fairy"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x184)]
         CollectibleStrayFairyWoodfall10,
@@ -2767,7 +2767,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Entrance Chest"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x185)]
         CollectibleStrayFairyWoodfall11,
@@ -2775,7 +2775,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Dark Room"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x186)]
         CollectibleStrayFairyWoodfall12,
@@ -2785,7 +2785,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Jar Fairy"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x189)]
         CollectibleStrayFairyWoodfall13,
@@ -2793,7 +2793,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Bridge Room Hive Fairy"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x18A)]
         CollectibleStrayFairyWoodfall14,
@@ -2801,10 +2801,378 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Platform Room Hive Fairy"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
-        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x18B)]
         CollectibleStrayFairyWoodfall15,
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Snow Room Fairy"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x18C)]
+        CollectibleStrayFairySnowhead1,
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Ceiling Fairy"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x18D)]
+        CollectibleStrayFairySnowhead2,
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Dinolfos 1"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x18E)]
+        CollectibleStrayFairySnowhead3,
+
+        // 8F empty
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Bridge Room Fairy 1"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x190)]
+        CollectibleStrayFairySnowhead4,
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Bridge Room Fairy 2"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x191)]
+        CollectibleStrayFairySnowhead5,
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Dinolfos 2"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x192)]
+        CollectibleStrayFairySnowhead6,
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Map Room Fairy"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x193)]
+        CollectibleStrayFairySnowhead7,
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Map Room Chest Fairy"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x194)]
+        CollectibleStrayFairySnowhead8,
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Basement Fairy"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x195)]
+        CollectibleStrayFairySnowhead9,
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Twin Block Fairy"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x196)]
+        CollectibleStrayFairySnowhead10,
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Icicle Room Fairy"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x197)]
+        CollectibleStrayFairySnowhead11,
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Main Room Fairy"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x198)]
+        CollectibleStrayFairySnowhead12,
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Torches Fairy"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x199)]
+        CollectibleStrayFairySnowhead13,
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Compass Room Fairy Chest"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x19A)]
+        CollectibleStrayFairySnowhead14,
+
+        // 9B - 9E empty
+
+        [Repeatable, Temporary]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Compass Room Crate"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x19F)]
+        CollectibleStrayFairySnowhead15,
+
+        // A0 - A3 empty
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Water Control Room Fairy 1"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1A4)]
+        CollectibleStrayFairyGreatBay1,
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Pre-Boss Room Fairy 1"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1A5)]
+        CollectibleStrayFairyGreatBay2,
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Water Control Room Fairy 2"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1A6)]
+        CollectibleStrayFairyGreatBay3,
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Pre-Boss Room Fairy 2"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1A7)]
+        CollectibleStrayFairyGreatBay4,
+
+        // A8 empty
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Waterwheel Fairy Chest 1"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1A9)]
+        CollectibleStrayFairyGreatBay5,
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Green Valve Fairy"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1AA)]
+        CollectibleStrayFairyGreatBay6,
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Seesaw Room Fairy"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1AB)]
+        CollectibleStrayFairyGreatBay7,
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Waterwheel Fairy Chest 2"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1AC)]
+        CollectibleStrayFairyGreatBay8,
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Entrance Fairy"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1AD)]
+        CollectibleStrayFairyGreatBay9,
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Bio Babas"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1AE)]
+        CollectibleStrayFairyGreatBay10,
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Seesaw Barrel"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1AF)]
+        CollectibleStrayFairyGreatBay11,
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Main Room Jar"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1B0)]
+        CollectibleStrayFairyGreatBay12,
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Main Room Barrel"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1B1)]
+        CollectibleStrayFairyGreatBay13,
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Dexihands Jar"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1B2)]
+        CollectibleStrayFairyGreatBay14,
+
+        [Repeatable, Temporary]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Map Room Jar"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1B3)]
+        CollectibleStrayFairyGreatBay15,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1B4)]
+        CollectibleStrayFairyStoneTower1,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1B5)]
+        CollectibleStrayFairyStoneTower2,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1B6)]
+        CollectibleStrayFairyStoneTower3,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1B7)]
+        CollectibleStrayFairyStoneTower4,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1B8)]
+        CollectibleStrayFairyStoneTower5,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1B9)]
+        CollectibleStrayFairyStoneTower6,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1BA)]
+        CollectibleStrayFairyStoneTower7,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1BB)]
+        CollectibleStrayFairyStoneTower8,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1BC)]
+        CollectibleStrayFairyStoneTower9,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1BD)]
+        CollectibleStrayFairyStoneTower10,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1BE)]
+        CollectibleStrayFairyStoneTower11,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1BF)]
+        CollectibleStrayFairyStoneTower12,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1C0)]
+        CollectibleStrayFairyStoneTower13,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1C1)]
+        CollectibleStrayFairyStoneTower14,
+
+        [Repeatable, Temporary]
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1C2)]
+        CollectibleStrayFairyStoneTower15,
 
     }
 }
