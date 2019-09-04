@@ -1020,6 +1020,7 @@ namespace MMRando
             PlaceMasks(itemPool);
             PlaceRegularItems(itemPool);
             PlaceSkulltulaTokens(itemPool);
+            PlaceStrayFairies(itemPool);
             PlaceShopItems(itemPool);
             PlaceCowMilk(itemPool);
             PlaceMoonItems(itemPool);
@@ -1069,6 +1070,17 @@ namespace MMRando
         private void PlaceSkulltulaTokens(List<Item> itemPool)
         {
             for (var i = Item.CollectibleSwampSpiderToken1; i <= Item.CollectibleOceanSpiderToken30; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places stray fairies in the randomization pool.
+        /// </summary>
+        private void PlaceStrayFairies(List<Item> itemPool)
+        {
+            for (var i = Item.CollectibleStrayFairyClockTown; i <= Item.CollectibleStrayFairyStoneTower15; i++)
             {
                 PlaceItem(i, itemPool);
             }
@@ -1332,6 +1344,11 @@ namespace MMRando
                 PreserveSkulltulaTokens();
             }
 
+            // if (!_settings.AddStrayFairies)
+            {
+                //PreserveStrayFairies();
+            }
+
             if (_settings.LogicMode == LogicMode.Casual)
             {
                 PreserveGlitchedCowMilk();
@@ -1472,6 +1489,17 @@ namespace MMRando
         }
 
         /// <summary>
+        /// Keeps stray fairies vanilla
+        /// </summary>
+        private void PreserveStrayFairies()
+        {
+            for (var i = Item.CollectibleStrayFairyClockTown; i <= Item.CollectibleStrayFairyStoneTower15; i++)
+            {
+                ItemList[(int)i].NewLocation = i;
+            }
+        }
+
+        /// <summary>
         /// Keeps glitched cow milk vanilla
         /// </summary>
         private void PreserveGlitchedCowMilk()
@@ -1513,6 +1541,9 @@ namespace MMRando
 
             // Keep skulltula tokens vanilla, unless custom item list contains a token
             _settings.AddSkulltulaTokens = false;
+
+            // Keep stray fairies vanilla, unless custom item list contains a fairy
+            //_settings.AddStrayFairies = false;
 
             // Make all items vanilla, and override using custom item list
             MakeAllItemsVanilla();
@@ -1575,6 +1606,11 @@ namespace MMRando
                 if (ItemUtils.IsSkulltulaToken((Item)selectedItem))
                 {
                     _settings.AddSkulltulaTokens = true;
+                }
+
+                // if (ItemUtils.IsStrayFairy((Item)selectedItem))
+                {
+                    //_settings.AddStrayFairies = true;
                 }
             }
         }

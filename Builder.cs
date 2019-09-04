@@ -571,6 +571,11 @@ namespace MMRando
                 });
             }
 
+            // if (_settings.AddStrayFairies)
+            {
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-fairies");
+            }
+
             var dungeonItemMessageIds = new byte[] {
                 0x3C, 0x3D, 0x3E, 0x3F, 0x74,
                 0x40, 0x4D, 0x4E, 0x53, 0x75,
