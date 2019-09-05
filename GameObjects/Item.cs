@@ -2195,7 +2195,7 @@ namespace MMRando.GameObjects
         ItemCoastGrottoCowMilk2,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Near Ceiling"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Near Ceiling"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2203,7 +2203,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken1,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Near Ceiling"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Near Ceiling"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2211,7 +2211,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken2,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Torch"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Torch"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2219,7 +2219,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken3,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Pillar"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Pillar"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2227,7 +2227,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken4,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Jar"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Jar"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2235,7 +2235,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken5,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Grass 1"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Grass 1"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2243,7 +2243,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken6,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Grass 2"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Grass 2"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2251,7 +2251,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken7,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Water"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Water"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2259,7 +2259,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken8,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Lower Left Soft Soil"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Lower Left Soft Soil"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2267,7 +2267,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken9,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Crate 1"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Crate 1"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2275,7 +2275,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken10,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Upper Soft Soil"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Upper Soft Soil"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2283,7 +2283,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken11,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Lower Right Soft Soil"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Lower Right Soft Soil"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2291,7 +2291,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken12,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Lower Wall"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Lower Wall"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2299,7 +2299,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken13,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room On Monument"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room On Monument"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2307,7 +2307,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken14,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Pillar"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Pillar"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2315,7 +2315,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken15,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Pot 1"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Pot 1"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2323,7 +2323,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken16,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Pot 2"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Pot 2"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2331,7 +2331,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken17,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Hive"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Hive"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2339,7 +2339,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken18,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Upper Pillar"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Upper Pillar"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2347,7 +2347,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken19,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Behind Vines"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Behind Vines"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2355,7 +2355,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken20,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 1"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 1"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2363,7 +2363,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken21,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Wall"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Wall"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2371,7 +2371,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken22,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Hive 1"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Hive 1"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2379,7 +2379,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken23,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 2"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 2"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2387,7 +2387,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken24,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Wall"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Wall"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2395,7 +2395,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken25,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Hive"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Hive"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2403,7 +2403,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken26,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Crate 2"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Crate 2"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2411,7 +2411,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken27,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Hive 2"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Hive 2"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2419,7 +2419,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken28,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 3"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 3"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2427,7 +2427,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken29,
 
         [Repeatable, Temporary]
-        [ItemName("Swamp Gold Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Jar"), RegionName("Southern Swamp")]
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Jar"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2435,7 +2435,7 @@ namespace MMRando.GameObjects
         CollectibleSwampSpiderToken30,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Behind Boat"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Behind Boat"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2443,7 +2443,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken1,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Library Hole Behind Picture"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Hole Behind Picture"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2451,7 +2451,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken2,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Library Hole Behind Cabinet"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Hole Behind Cabinet"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2459,7 +2459,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken3,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Library On Corner Bookshelf"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library On Corner Bookshelf"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2467,7 +2467,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken4,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Ceiling Edge"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Ceiling Edge"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2475,7 +2475,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken5,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Ceiling Plank"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Ceiling Plank"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2483,7 +2483,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken6,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Ceiling Edge"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Ceiling Edge"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2491,7 +2491,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken7,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Library Ceiling Edge"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Ceiling Edge"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2499,7 +2499,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken8,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Ceiling Web"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Ceiling Web"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2507,7 +2507,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken9,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Behind Crate"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Behind Crate"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2515,7 +2515,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken10,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Jar"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Jar"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2523,7 +2523,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken11,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Right Wall"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Right Wall"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2531,7 +2531,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken12,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Left Wall"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Left Wall"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2539,7 +2539,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken13,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Webbed Hole"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Webbed Hole"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2547,7 +2547,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken14,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Web"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Web"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2555,7 +2555,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken15,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 1"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 1"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2563,7 +2563,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken16,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 2"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 2"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2571,7 +2571,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken17,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 3"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 3"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2579,7 +2579,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken18,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Behind Picture"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Behind Picture"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2587,7 +2587,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken19,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Picture"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Picture"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2595,7 +2595,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken20,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Bookcase 1"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Bookcase 1"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2603,7 +2603,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken21,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Crate"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Crate"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2611,7 +2611,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken22,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Webbed Pot"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Webbed Pot"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2619,7 +2619,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken23,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Upper Pot"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Upper Pot"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2627,7 +2627,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken24,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Pot"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Pot"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2635,7 +2635,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken25,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Jar"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Jar"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2643,7 +2643,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken26,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Lower Pot"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Lower Pot"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2651,7 +2651,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken27,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Bookcase 2"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Bookcase 2"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2659,7 +2659,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken28,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Behind Skull 1"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Behind Skull 1"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2667,7 +2667,7 @@ namespace MMRando.GameObjects
         CollectibleOceanSpiderToken29,
 
         [Repeatable, Temporary]
-        [ItemName("Ocean Gold Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Behind Skull 2"), RegionName("Great Bay Coast")]
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Behind Skull 2"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
