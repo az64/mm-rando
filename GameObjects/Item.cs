@@ -2765,7 +2765,7 @@ namespace MMRando.GameObjects
         CollectibleStrayFairyWoodfall10,
 
         [Repeatable, Temporary]
-        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Entrance PLatform"), RegionName("Woodfall Temple")]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Entrance Platform"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]

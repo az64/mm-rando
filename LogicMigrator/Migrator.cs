@@ -7,7 +7,7 @@ namespace MMRando.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 10;
+        public const int CurrentVersion = 11;
 
         public static string ApplyMigrations(string logic)
         {
@@ -66,6 +66,11 @@ namespace MMRando.LogicMigrator
             if (GetVersion(lines) < 10)
             {
                 AddSkulltulaTokens(lines);
+            }
+
+            if (GetVersion(lines) < 11)
+            {
+                AddStrayFairies(lines);
             }
 
             return string.Join("\r\n", lines);
@@ -1064,6 +1069,350 @@ namespace MMRando.LogicMigrator
             foreach (var item in newItems)
             {
                 lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 286]}");
+                lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
+                lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
+                lines.Insert(item.ID * 5 + 4, $"{item.TimeNeeded}");
+                lines.Insert(item.ID * 5 + 5, "0");
+            }
+        }
+
+        private static void AddStrayFairies(List<string> lines)
+        {
+            lines[0] = "-version 11";
+            var newItems = new MigrationItem[]
+            {
+                new MigrationItem
+                {
+                    ID = 346,
+                },
+                new MigrationItem
+                {
+                    ID = 347,
+                },
+                new MigrationItem
+                {
+                    ID = 348,
+                },
+                new MigrationItem
+                {
+                    ID = 349,
+                },
+                new MigrationItem
+                {
+                    ID = 350,
+                },
+                new MigrationItem
+                {
+                    ID = 351,
+                },
+                new MigrationItem
+                {
+                    ID = 352,
+                },
+                new MigrationItem
+                {
+                    ID = 353,
+                },
+                new MigrationItem
+                {
+                    ID = 354,
+                },
+                new MigrationItem
+                {
+                    ID = 355,
+                },
+                new MigrationItem
+                {
+                    ID = 356,
+                },
+                new MigrationItem
+                {
+                    ID = 357,
+                },
+                new MigrationItem
+                {
+                    ID = 358,
+                },
+                new MigrationItem
+                {
+                    ID = 359,
+                },
+                new MigrationItem
+                {
+                    ID = 360,
+                },
+                new MigrationItem
+                {
+                    ID = 361,
+                },
+                new MigrationItem
+                {
+                    ID = 362,
+                },
+                new MigrationItem
+                {
+                    ID = 363,
+                },
+                new MigrationItem
+                {
+                    ID = 364,
+                },
+                new MigrationItem
+                {
+                    ID = 365,
+                },
+                new MigrationItem
+                {
+                    ID = 366,
+                },
+                new MigrationItem
+                {
+                    ID = 367,
+                },
+                new MigrationItem
+                {
+                    ID = 368,
+                },
+                new MigrationItem
+                {
+                    ID = 369,
+                },
+                new MigrationItem
+                {
+                    ID = 370,
+                },
+                new MigrationItem
+                {
+                    ID = 371,
+                },
+                new MigrationItem
+                {
+                    ID = 372,
+                },
+                new MigrationItem
+                {
+                    ID = 373,
+                },
+                new MigrationItem
+                {
+                    ID = 374,
+                },
+                new MigrationItem
+                {
+                    ID = 375,
+                },
+                new MigrationItem
+                {
+                    ID = 376,
+                },
+                new MigrationItem
+                {
+                    ID = 377,
+                },
+                new MigrationItem
+                {
+                    ID = 378,
+                },
+                new MigrationItem
+                {
+                    ID = 379,
+                },
+                new MigrationItem
+                {
+                    ID = 380,
+                },
+                new MigrationItem
+                {
+                    ID = 381,
+                },
+                new MigrationItem
+                {
+                    ID = 382,
+                },
+                new MigrationItem
+                {
+                    ID = 383,
+                },
+                new MigrationItem
+                {
+                    ID = 384,
+                },
+                new MigrationItem
+                {
+                    ID = 385,
+                },
+                new MigrationItem
+                {
+                    ID = 386,
+                },
+                new MigrationItem
+                {
+                    ID = 387,
+                },
+                new MigrationItem
+                {
+                    ID = 388,
+                },
+                new MigrationItem
+                {
+                    ID = 389,
+                },
+                new MigrationItem
+                {
+                    ID = 390,
+                },
+                new MigrationItem
+                {
+                    ID = 391,
+                },
+                new MigrationItem
+                {
+                    ID = 392,
+                },
+                new MigrationItem
+                {
+                    ID = 393,
+                },
+                new MigrationItem
+                {
+                    ID = 394,
+                },
+                new MigrationItem
+                {
+                    ID = 395,
+                },
+                new MigrationItem
+                {
+                    ID = 396,
+                },
+                new MigrationItem
+                {
+                    ID = 397,
+                },
+                new MigrationItem
+                {
+                    ID = 398,
+                },
+                new MigrationItem
+                {
+                    ID = 399,
+                },
+                new MigrationItem
+                {
+                    ID = 400,
+                },
+                new MigrationItem
+                {
+                    ID = 401,
+                },
+                new MigrationItem
+                {
+                    ID = 402,
+                },
+                new MigrationItem
+                {
+                    ID = 403,
+                },
+                new MigrationItem
+                {
+                    ID = 404,
+                },
+                new MigrationItem
+                {
+                    ID = 405,
+                },
+                new MigrationItem
+                {
+                    ID = 406,
+                },
+            };
+            var itemNames = new string[]
+            {
+                "Clock Town Stray Fairy",
+                "Woodfall Pre-Boss Room Bubble 1",
+                "Woodfall Entrance Fairy",
+                "Woodfall Pre-Boss Room Bubble 2",
+                "Woodfall Pre-Boss Room Bubble 3",
+                "Woodfall Deku Baba",
+                "Woodfall Poison Water Bubble",
+                "Woodfall Main Room Bubble",
+                "Woodfall Skulltula",
+                "Woodfall Pre-Boss Room Bubble 4",
+                "Woodfall Main Room Switch",
+                "Woodfall Entrance Platform",
+                "Woodfall Dark Room",
+                "Woodfall Jar Fairy",
+                "Woodfall Bridge Room Hive",
+                "Woodfall Platform Room Hive",
+                "Snowhead Snow Room Bubble",
+                "Snowhead Ceiling Bubble",
+                "Snowhead Dinolfos 1",
+                "Snowhead Bridge Room Bubble 1",
+                "Snowhead Bridge Room Bubble 2",
+                "Snowhead Dinolfos 2",
+                "Snowhead Map Room Fairy",
+                "Snowhead Map Room Ledge",
+                "Snowhead Basement",
+                "Snowhead Twin Block",
+                "Snowhead Icicle Room Wall",
+                "Snowhead Main Room Wall",
+                "Snowhead Torches",
+                "Snowhead Ice Puzzle",
+                "Snowhead Crate",
+                "Great Bay Skulltula",
+                "Great Bay Pre-Boss Room Underwater Bubble",
+                "Great Bay Water Control Room Underwater Bubble",
+                "Great Bay Pre-Boss Room Bubble",
+                "Great Bay Waterwheel Room",
+                "Great Bay Green Valve",
+                "Great Bay Seesaw Room",
+                "Great Bay Waterwheel Room",
+                "Great Bay Entrance Torches",
+                "Great Bay Bio Babas",
+                "Great Bay Underwater Barrel",
+                "Great Bay Whirlpool Jar",
+                "Great Bay Whirlpool Barrel",
+                "Great Bay Dexihands Jar",
+                "Great Bay Ledge Jar",
+                "Stone Tower Mirror Sun Block",
+                "Stone Tower Eyegore",
+                "Stone Tower Lava Room Fire Ring", // todo check location name
+                "Stone Tower Updraft Fire Ring",
+                "Stone Tower Mirror Sun Switch",
+                "Stone Tower Boss Warp",
+                "Stone Tower Wizzrobe",
+                "Stone Tower Death Armos",
+                "Stone Tower Updraft Frozen Eye",
+                "Stone Tower Thin Bridge",
+                "Stone Tower Basement Ledge",
+                "Stone Tower Statue Eye",
+                "Stone Tower Underwater",
+                "Stone Tower Bridge Crystal",
+                "Stone Tower Lava Room Ledge", // todo check location name
+            };
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section => section.Split(',').Select(id =>
+                    {
+                        var itemId = int.Parse(id);
+                        if (itemId >= 346)
+                        {
+                            itemId += newItems.Length;
+                        }
+                        return itemId;
+                    }).ToList()).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+            foreach (var item in newItems)
+            {
+                lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 346]}");
                 lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
                 lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
                 lines.Insert(item.ID * 5 + 4, $"{item.TimeNeeded}");

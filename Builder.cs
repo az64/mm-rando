@@ -571,7 +571,7 @@ namespace MMRando
                 });
             }
 
-            // if (_settings.AddStrayFairies)
+            if (_settings.AddStrayFairies)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-fairies");
             }

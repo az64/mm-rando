@@ -53,6 +53,7 @@ namespace MMRando
             this.cEnemy = new System.Windows.Forms.CheckBox();
             this.cMixSongs = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cSpiders = new System.Windows.Forms.CheckBox();
             this.cCowMilk = new System.Windows.Forms.CheckBox();
             this.cFairyRewards = new System.Windows.Forms.CheckBox();
             this.lCustomItemAmount = new System.Windows.Forms.Label();
@@ -135,7 +136,7 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cSpiders = new System.Windows.Forms.CheckBox();
+            this.cStrayFairies = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -413,6 +414,7 @@ namespace MMRando
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cStrayFairies);
             this.groupBox2.Controls.Add(this.cSpiders);
             this.groupBox2.Controls.Add(this.cCowMilk);
             this.groupBox2.Controls.Add(this.cFairyRewards);
@@ -434,6 +436,21 @@ namespace MMRando
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Item Pool Options";
+            // 
+            // cSpiders
+            // 
+            this.cSpiders.AutoSize = true;
+            this.cSpiders.BackColor = System.Drawing.Color.Transparent;
+            this.cSpiders.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cSpiders.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cSpiders.ForeColor = System.Drawing.Color.Black;
+            this.cSpiders.Location = new System.Drawing.Point(44, 145);
+            this.cSpiders.Name = "cSpiders";
+            this.cSpiders.Size = new System.Drawing.Size(105, 17);
+            this.cSpiders.TabIndex = 23;
+            this.cSpiders.Text = "Skulltula Tokens";
+            this.cSpiders.UseVisualStyleBackColor = false;
+            this.cSpiders.CheckedChanged += new System.EventHandler(this.cSpiders_CheckedChanged);
             // 
             // cCowMilk
             // 
@@ -481,7 +498,7 @@ namespace MMRando
             this.tCustomItemList.Name = "tCustomItemList";
             this.tCustomItemList.Size = new System.Drawing.Size(313, 20);
             this.tCustomItemList.TabIndex = 19;
-            this.tCustomItemList.Text = "---------";
+            this.tCustomItemList.Text = "-----------";
             this.tCustomItemList.Visible = false;
             this.tCustomItemList.TextChanged += new System.EventHandler(this.tCustomItemList_TextChanged);
             // 
@@ -1419,20 +1436,20 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // cSpiders
+            // cStrayFairies
             // 
-            this.cSpiders.AutoSize = true;
-            this.cSpiders.BackColor = System.Drawing.Color.Transparent;
-            this.cSpiders.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cSpiders.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cSpiders.ForeColor = System.Drawing.Color.Black;
-            this.cSpiders.Location = new System.Drawing.Point(44, 145);
-            this.cSpiders.Name = "cSpiders";
-            this.cSpiders.Size = new System.Drawing.Size(105, 17);
-            this.cSpiders.TabIndex = 23;
-            this.cSpiders.Text = "Skulltula Tokens";
-            this.cSpiders.UseVisualStyleBackColor = false;
-            this.cSpiders.CheckedChanged += new System.EventHandler(this.cSpiders_CheckedChanged);
+            this.cStrayFairies.AutoSize = true;
+            this.cStrayFairies.BackColor = System.Drawing.Color.Transparent;
+            this.cStrayFairies.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cStrayFairies.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cStrayFairies.ForeColor = System.Drawing.Color.Black;
+            this.cStrayFairies.Location = new System.Drawing.Point(227, 145);
+            this.cStrayFairies.Name = "cStrayFairies";
+            this.cStrayFairies.Size = new System.Drawing.Size(83, 17);
+            this.cStrayFairies.TabIndex = 24;
+            this.cStrayFairies.Text = "Stray Fairies";
+            this.cStrayFairies.UseVisualStyleBackColor = false;
+            this.cStrayFairies.CheckedChanged += new System.EventHandler(this.cStrayFairies_CheckedChanged);
             // 
             // MainForm
             // 
@@ -1590,6 +1607,7 @@ namespace MMRando
         private System.Windows.Forms.CheckBox cFairyRewards;
         private System.Windows.Forms.CheckBox cCowMilk;
         private System.Windows.Forms.CheckBox cSpiders;
+        private System.Windows.Forms.CheckBox cStrayFairies;
     }
 }
 

@@ -30,6 +30,11 @@ namespace MMRando.Utils
             return item >= Item.CollectibleSwampSpiderToken1 && item <= Item.CollectibleOceanSpiderToken30;
         }
 
+        public static bool IsStrayFairy(Item item)
+        {
+            return item >= Item.CollectibleStrayFairyClockTown && item <= Item.CollectibleStrayFairyStoneTower15;
+        }
+
         public static int AddItemOffset(int itemId)
         {
             if (itemId >= (int)Item.AreaSouthAccess)

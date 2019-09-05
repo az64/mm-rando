@@ -1344,9 +1344,9 @@ namespace MMRando
                 PreserveSkulltulaTokens();
             }
 
-            // if (!_settings.AddStrayFairies)
+            if (!_settings.AddStrayFairies)
             {
-                //PreserveStrayFairies();
+                PreserveStrayFairies();
             }
 
             if (_settings.LogicMode == LogicMode.Casual)
@@ -1543,7 +1543,7 @@ namespace MMRando
             _settings.AddSkulltulaTokens = false;
 
             // Keep stray fairies vanilla, unless custom item list contains a fairy
-            //_settings.AddStrayFairies = false;
+            _settings.AddStrayFairies = false;
 
             // Make all items vanilla, and override using custom item list
             MakeAllItemsVanilla();
@@ -1608,9 +1608,9 @@ namespace MMRando
                     _settings.AddSkulltulaTokens = true;
                 }
 
-                // if (ItemUtils.IsStrayFairy((Item)selectedItem))
+                if (ItemUtils.IsStrayFairy((Item)selectedItem))
                 {
-                    //_settings.AddStrayFairies = true;
+                    _settings.AddStrayFairies = true;
                 }
             }
         }

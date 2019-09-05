@@ -85,6 +85,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cCrazyStartingItems, "Enable randomization of starting Sword, Shield, and two Heart Containers.");
             TooltipBuilder.SetTooltip(cCowMilk, "Enable randomization of cow milk.\n\nOne inaccessible ranch cow is not included for Casual logic.");
             TooltipBuilder.SetTooltip(cSpiders, "Enable randomization of golden skulltula tokens.");
+            TooltipBuilder.SetTooltip(cStrayFairies, "Enable randomization of stray fairies.");
 
             // Gimmicks
             TooltipBuilder.SetTooltip(cDMult, "Select a damage mode, affecting how much damage Link takes:\n\n - Default: Link takes normal damage.\n - 2x: Link takes double damage.\n - 4x: Link takes quadruple damage.\n - 1-hit KO: Any damage kills Link.\n - Doom: Hardcore mode. Link's hearts are slowly being drained continuously.");
@@ -296,6 +297,7 @@ namespace MMRando
             cCrazyStartingItems.Checked = _settings.CrazyStartingItems;
             cCowMilk.Checked = _settings.AddCowMilk;
             cSpiders.Checked = _settings.AddSkulltulaTokens;
+            cStrayFairies.Checked = _settings.AddStrayFairies;
             cNoStartingItems.Checked = _settings.NoStartingItems;
             cEponaSword.Checked = _settings.FixEponaSword;
             cUpdateChests.Checked = _settings.UpdateChests;
@@ -343,6 +345,8 @@ namespace MMRando
             cCowMilk.Visible = !cUserItems.Checked;
 
             cSpiders.Visible = !cUserItems.Checked;
+
+            cStrayFairies.Visible = !cUserItems.Checked;
 
             bItemListEditor.Visible = cUserItems.Checked;
             tCustomItemList.Visible = cUserItems.Checked;
@@ -417,6 +421,11 @@ namespace MMRando
         private void cSpiders_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.AddSkulltulaTokens = cSpiders.Checked);
+        }
+
+        private void cStrayFairies_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.AddStrayFairies = cStrayFairies.Checked);
         }
 
         private void cBGM_CheckedChanged(object sender, EventArgs e)
@@ -657,6 +666,7 @@ namespace MMRando
                 cNoStartingItems.Enabled = false;
                 cCowMilk.Enabled = false;
                 cSpiders.Enabled = false;
+                cStrayFairies.Enabled = false;
             }
             else
             {
@@ -677,6 +687,7 @@ namespace MMRando
                 cCrazyStartingItems.Enabled = onMainTab;
                 cCowMilk.Enabled = onMainTab;
                 cSpiders.Enabled = onMainTab;
+                cStrayFairies.Enabled = onMainTab;
 
                 cNoStartingItems.Enabled = onMainTab && (_settings.AddOther || _settings.UseCustomItemList);
                 if (!cNoStartingItems.Enabled)
@@ -767,6 +778,7 @@ namespace MMRando
             cNoStartingItems.Enabled = v;
             cCowMilk.Enabled = v;
             cSpiders.Enabled = v;
+            cStrayFairies.Enabled = v;
             cPatch.Enabled = v;
             bApplyPatch.Enabled = v;
             cUpdateChests.Enabled = v;
