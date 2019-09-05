@@ -859,7 +859,7 @@ namespace MMRando.GameObjects
         SongElegy,
 
         [StartingItem(0xC5CE72, 0x04)]
-        [ItemName("Oath to Order"), LocationName("Four Giants"), RegionName("Misc")]
+        [ItemName("Oath to Order"), LocationName("Boss Blue Warp"), RegionName("Misc")]
         [GossipLocationHint("cleansed evil", "a fallen evil"), GossipItemHint("a song of summoning", "a song of giants")]
         [ShopText("This melody will call the giants at the right moment.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
