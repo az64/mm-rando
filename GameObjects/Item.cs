@@ -2194,7 +2194,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x139)]
         ItemCoastGrottoCowMilk2,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Near Ceiling"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2202,7 +2201,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x13A)]
         CollectibleSwampSpiderToken1,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Near Ceiling"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2210,7 +2208,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x13B)]
         CollectibleSwampSpiderToken2,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Torch"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2218,7 +2215,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x13C)]
         CollectibleSwampSpiderToken3,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Pillar"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2226,7 +2222,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x13E)]
         CollectibleSwampSpiderToken4,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Jar"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2234,7 +2229,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x13F)]
         CollectibleSwampSpiderToken5,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Grass 1"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2242,7 +2236,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x140)]
         CollectibleSwampSpiderToken6,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Grass 2"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2250,7 +2243,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x141)]
         CollectibleSwampSpiderToken7,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Water"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2258,7 +2250,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x142)]
         CollectibleSwampSpiderToken8,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Lower Left Soft Soil"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2266,7 +2257,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x143)]
         CollectibleSwampSpiderToken9,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Crate 1"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2274,7 +2264,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x144)]
         CollectibleSwampSpiderToken10,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Upper Soft Soil"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2282,7 +2271,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x145)]
         CollectibleSwampSpiderToken11,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Lower Right Soft Soil"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2290,7 +2278,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x146)]
         CollectibleSwampSpiderToken12,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Lower Wall"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2298,7 +2285,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x147)]
         CollectibleSwampSpiderToken13,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room On Monument"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2306,7 +2292,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x148)]
         CollectibleSwampSpiderToken14,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Pillar"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2314,7 +2299,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x149)]
         CollectibleSwampSpiderToken15,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Pot 1"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2322,7 +2306,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x14A)]
         CollectibleSwampSpiderToken16,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Pot 2"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2330,7 +2313,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x14B)]
         CollectibleSwampSpiderToken17,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Hive"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2338,7 +2320,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x14C)]
         CollectibleSwampSpiderToken18,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Upper Pillar"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2346,7 +2327,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x14D)]
         CollectibleSwampSpiderToken19,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Behind Vines"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2354,7 +2334,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x14E)]
         CollectibleSwampSpiderToken20,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 1"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2362,7 +2341,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x14F)]
         CollectibleSwampSpiderToken21,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Wall"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2370,7 +2348,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x150)]
         CollectibleSwampSpiderToken22,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Hive 1"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2378,7 +2355,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x151)]
         CollectibleSwampSpiderToken23,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 2"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2386,7 +2362,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x152)]
         CollectibleSwampSpiderToken24,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Wall"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2394,7 +2369,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x153)]
         CollectibleSwampSpiderToken25,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Hive"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2402,7 +2376,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x154)]
         CollectibleSwampSpiderToken26,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Crate 2"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2410,7 +2383,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x155)]
         CollectibleSwampSpiderToken27,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Hive 2"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2418,7 +2390,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x156)]
         CollectibleSwampSpiderToken28,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 3"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2426,7 +2397,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x157)]
         CollectibleSwampSpiderToken29,
 
-        [Repeatable, Temporary]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Jar"), RegionName("Southern Swamp")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
@@ -2434,7 +2404,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x158)]
         CollectibleSwampSpiderToken30,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Behind Boat"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2442,7 +2411,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x159)]
         CollectibleOceanSpiderToken1,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Hole Behind Picture"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2450,7 +2418,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x15A)]
         CollectibleOceanSpiderToken2,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Hole Behind Cabinet"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2458,7 +2425,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x15B)]
         CollectibleOceanSpiderToken3,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library On Corner Bookshelf"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2466,7 +2432,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x15C)]
         CollectibleOceanSpiderToken4,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Ceiling Edge"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2474,7 +2439,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x15D)]
         CollectibleOceanSpiderToken5,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Ceiling Plank"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2482,7 +2446,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x15E)]
         CollectibleOceanSpiderToken6,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Ceiling Edge"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2490,7 +2453,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x15F)]
         CollectibleOceanSpiderToken7,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Ceiling Edge"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2498,7 +2460,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x160)]
         CollectibleOceanSpiderToken8,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Ceiling Web"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2506,7 +2467,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x161)]
         CollectibleOceanSpiderToken9,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Behind Crate"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2514,7 +2474,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x162)]
         CollectibleOceanSpiderToken10,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Jar"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2522,7 +2481,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x163)]
         CollectibleOceanSpiderToken11,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Right Wall"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2530,7 +2488,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x164)]
         CollectibleOceanSpiderToken12,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Left Wall"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2538,7 +2495,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x165)]
         CollectibleOceanSpiderToken13,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Webbed Hole"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2546,7 +2502,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x166)]
         CollectibleOceanSpiderToken14,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Web"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2554,7 +2509,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x167)]
         CollectibleOceanSpiderToken15,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 1"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2562,7 +2516,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x168)]
         CollectibleOceanSpiderToken16,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 2"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2570,7 +2523,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x169)]
         CollectibleOceanSpiderToken17,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 3"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2578,7 +2530,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x16A)]
         CollectibleOceanSpiderToken18,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Behind Picture"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2586,7 +2537,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x16B)]
         CollectibleOceanSpiderToken19,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Picture"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2594,7 +2544,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x16C)]
         CollectibleOceanSpiderToken20,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Bookcase 1"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2602,7 +2551,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x16D)]
         CollectibleOceanSpiderToken21,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Crate"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2610,7 +2558,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x16E)]
         CollectibleOceanSpiderToken22,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Webbed Pot"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2618,7 +2565,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x16F)]
         CollectibleOceanSpiderToken23,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Upper Pot"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2626,7 +2572,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x170)]
         CollectibleOceanSpiderToken24,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Pot"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2634,7 +2579,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x171)]
         CollectibleOceanSpiderToken25,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Jar"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2642,7 +2586,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x172)]
         CollectibleOceanSpiderToken26,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Lower Pot"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2650,7 +2593,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x173)]
         CollectibleOceanSpiderToken27,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Bookcase 2"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2658,7 +2600,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x174)]
         CollectibleOceanSpiderToken28,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Behind Skull 1"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2666,7 +2607,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x175)]
         CollectibleOceanSpiderToken29,
 
-        [Repeatable, Temporary]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Behind Skull 2"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
         [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
@@ -2674,7 +2614,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x176)]
         CollectibleOceanSpiderToken30,
 
-        [Repeatable, Temporary]
         [ItemName("Clock Town Stray Fairy"), LocationName("Clock Town Stray Fairy"), RegionName("Laundry Pool")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
@@ -2682,7 +2621,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x3B)]
         CollectibleStrayFairyClockTown,
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Bubble 1"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2690,7 +2628,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x177)]
         CollectibleStrayFairyWoodfall1,
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Entrance Fairy"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2698,7 +2635,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x178)]
         CollectibleStrayFairyWoodfall2,
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Bubble 2"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2706,7 +2642,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x179)]
         CollectibleStrayFairyWoodfall3,
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Bubble 3"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2714,7 +2649,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x17A)]
         CollectibleStrayFairyWoodfall4,
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Deku Baba"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2722,7 +2656,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x17B)]
         CollectibleStrayFairyWoodfall5,
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Poison Water Bubble"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2730,7 +2663,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x17C)]
         CollectibleStrayFairyWoodfall6,
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Main Room Bubble"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2738,7 +2670,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x17D)]
         CollectibleStrayFairyWoodfall7,
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Skulltula"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2746,7 +2677,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x17E)]
         CollectibleStrayFairyWoodfall8,
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Bubble 4"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2756,7 +2686,6 @@ namespace MMRando.GameObjects
 
         // 80 - 83 empty
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Main Room Switch"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2764,7 +2693,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x184)]
         CollectibleStrayFairyWoodfall10,
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Entrance Platform"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2772,7 +2700,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x185)]
         CollectibleStrayFairyWoodfall11,
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Dark Room"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2782,7 +2709,6 @@ namespace MMRando.GameObjects
 
         // 87 - 88 empty
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Jar Fairy"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2790,7 +2716,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x189)]
         CollectibleStrayFairyWoodfall13,
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Bridge Room Hive"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2798,7 +2723,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x18A)]
         CollectibleStrayFairyWoodfall14,
 
-        [Repeatable, Temporary]
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Platform Room Hive"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2806,7 +2730,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x18B)]
         CollectibleStrayFairyWoodfall15,
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Snow Room Bubble"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2814,7 +2737,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x18C)]
         CollectibleStrayFairySnowhead1,
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Ceiling Bubble"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2822,7 +2744,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x18D)]
         CollectibleStrayFairySnowhead2,
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Dinolfos 1"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2832,7 +2753,6 @@ namespace MMRando.GameObjects
 
         // 8F empty
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Bridge Room Bubble 1"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2840,7 +2760,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x190)]
         CollectibleStrayFairySnowhead4,
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Bridge Room Bubble 2"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2848,7 +2767,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x191)]
         CollectibleStrayFairySnowhead5,
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Dinolfos 2"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2856,7 +2774,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x192)]
         CollectibleStrayFairySnowhead6,
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Map Room Fairy"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2864,7 +2781,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x193)]
         CollectibleStrayFairySnowhead7,
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Map Room Ledge"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2872,7 +2788,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x194)]
         CollectibleStrayFairySnowhead8,
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Basement"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2880,7 +2795,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x195)]
         CollectibleStrayFairySnowhead9,
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Twin Block"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2888,7 +2802,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x196)]
         CollectibleStrayFairySnowhead10,
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Icicle Room Wall"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2896,7 +2809,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x197)]
         CollectibleStrayFairySnowhead11,
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Main Room Wall"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2904,7 +2816,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x198)]
         CollectibleStrayFairySnowhead12,
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Torches"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2912,7 +2823,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x199)]
         CollectibleStrayFairySnowhead13,
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Ice Puzzle"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2922,7 +2832,6 @@ namespace MMRando.GameObjects
 
         // 9B - 9E empty
 
-        [Repeatable, Temporary]
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Crate"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2932,7 +2841,6 @@ namespace MMRando.GameObjects
 
         // A0 - A3 empty
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Skulltula"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -2940,7 +2848,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1A4)]
         CollectibleStrayFairyGreatBay1,
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Pre-Boss Room Underwater Bubble"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -2948,7 +2855,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1A5)]
         CollectibleStrayFairyGreatBay2,
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Water Control Room Underwater Bubble"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -2956,7 +2862,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1A6)]
         CollectibleStrayFairyGreatBay3,
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Pre-Boss Room Bubble"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -2966,7 +2871,6 @@ namespace MMRando.GameObjects
 
         // A8 empty
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Waterwheel Room"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -2974,7 +2878,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1A9)]
         CollectibleStrayFairyGreatBay5,
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Green Valve"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -2982,7 +2885,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1AA)]
         CollectibleStrayFairyGreatBay6,
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Seesaw Room"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -2990,7 +2892,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1AB)]
         CollectibleStrayFairyGreatBay7,
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Waterwheel Room"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -2998,7 +2899,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1AC)]
         CollectibleStrayFairyGreatBay8,
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Entrance Torches"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -3006,7 +2906,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1AD)]
         CollectibleStrayFairyGreatBay9,
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Bio Babas"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -3014,7 +2913,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1AE)]
         CollectibleStrayFairyGreatBay10,
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Underwater Barrel"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -3022,7 +2920,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1AF)]
         CollectibleStrayFairyGreatBay11,
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Whirlpool Jar"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -3030,7 +2927,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1B0)]
         CollectibleStrayFairyGreatBay12,
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Whirlpool Barrel"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -3038,7 +2934,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1B1)]
         CollectibleStrayFairyGreatBay13,
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Dexihands Jar"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -3046,7 +2941,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1B2)]
         CollectibleStrayFairyGreatBay14,
 
-        [Repeatable, Temporary]
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Ledge Jar"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
@@ -3054,7 +2948,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1B3)]
         CollectibleStrayFairyGreatBay15,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Mirror Sun Block"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
@@ -3062,7 +2955,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1B4)]
         CollectibleStrayFairyStoneTower1,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Eyegore"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
@@ -3070,7 +2962,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1B5)]
         CollectibleStrayFairyStoneTower2,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Lava Room Fire Ring"), RegionName("Stone Tower Temple")] // todo check location name
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
@@ -3078,7 +2969,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1B6)]
         CollectibleStrayFairyStoneTower3,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Updraft Fire Ring"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
@@ -3086,7 +2976,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1B7)]
         CollectibleStrayFairyStoneTower4,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Mirror Sun Switch"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
@@ -3094,7 +2983,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1B8)]
         CollectibleStrayFairyStoneTower5,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Boss Warp"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
@@ -3102,7 +2990,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1B9)]
         CollectibleStrayFairyStoneTower6,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Wizzrobe"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
@@ -3110,7 +2997,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1BA)]
         CollectibleStrayFairyStoneTower7,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Death Armos"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
@@ -3118,7 +3004,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1BB)]
         CollectibleStrayFairyStoneTower8,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Updraft Frozen Eye"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
@@ -3126,7 +3011,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1BC)]
         CollectibleStrayFairyStoneTower9,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Thin Bridge"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
@@ -3134,7 +3018,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1BD)]
         CollectibleStrayFairyStoneTower10,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Basement Ledge"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
@@ -3142,7 +3025,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1BE)]
         CollectibleStrayFairyStoneTower11,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Statue Eye"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
@@ -3150,7 +3032,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1BF)]
         CollectibleStrayFairyStoneTower12,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Underwater"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
@@ -3158,7 +3039,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1C0)]
         CollectibleStrayFairyStoneTower13,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Bridge Crystal"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
@@ -3166,7 +3046,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1C1)]
         CollectibleStrayFairyStoneTower14,
 
-        [Repeatable, Temporary]
         [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Lava Room Ledge"), RegionName("Stone Tower Temple")] // todo check location name
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
