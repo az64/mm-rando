@@ -2621,7 +2621,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x3B)]
         CollectibleStrayFairyClockTown,
 
-        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Bubble 1"), RegionName("Woodfall Temple")]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Lower Right Bubble"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2635,14 +2635,14 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x178)]
         CollectibleStrayFairyWoodfall2,
 
-        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Bubble 2"), RegionName("Woodfall Temple")]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Upper Left Bubble"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x179)]
         CollectibleStrayFairyWoodfall3,
 
-        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Bubble 3"), RegionName("Woodfall Temple")]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Pillar Bubble"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2677,7 +2677,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x17E)]
         CollectibleStrayFairyWoodfall8,
 
-        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Room Bubble 4"), RegionName("Woodfall Temple")]
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Upper Right Bubble"), RegionName("Woodfall Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2753,14 +2753,14 @@ namespace MMRando.GameObjects
 
         // 8F empty
 
-        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Bridge Room Bubble 1"), RegionName("Snowhead Temple")]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Bridge Room Ledge Bubble"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x190)]
         CollectibleStrayFairySnowhead4,
 
-        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Bridge Room Bubble 2"), RegionName("Snowhead Temple")]
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Bridge Room Pillar Bubble"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2871,7 +2871,7 @@ namespace MMRando.GameObjects
 
         // A8 empty
 
-        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Waterwheel Room"), RegionName("Great Bay Temple")]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Waterwheel Room Upper"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2892,7 +2892,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1AB)]
         CollectibleStrayFairyGreatBay7,
 
-        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Waterwheel Room"), RegionName("Great Bay Temple")]
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Waterwheel Room Lower"), RegionName("Great Bay Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -3052,6 +3052,42 @@ namespace MMRando.GameObjects
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x1C2)]
         CollectibleStrayFairyStoneTower15,
+
+        //[GetItemIndex(0x84)]
+
+        //[GetItemIndex(0x13D)]
+
+        //[GetItemIndex(0x180)]
+
+        //[GetItemIndex(0x181)]
+
+        //[GetItemIndex(0x182)]
+
+        //[GetItemIndex(0x183)]
+
+        //[GetItemIndex(0x187)]
+
+        //[GetItemIndex(0x188)]
+
+        //[GetItemIndex(0x18F)]
+
+        //[GetItemIndex(0x19B)]
+
+        //[GetItemIndex(0x19C)]
+
+        //[GetItemIndex(0x19D)]
+
+        //[GetItemIndex(0x19E)]
+
+        //[GetItemIndex(0x1A0)]
+
+        //[GetItemIndex(0x1A1)]
+
+        //[GetItemIndex(0x1A2)]
+
+        //[GetItemIndex(0x1A3)]
+
+        //[GetItemIndex(0x1A8)]
 
     }
 }
