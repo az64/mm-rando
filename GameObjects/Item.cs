@@ -284,7 +284,7 @@ namespace MMRando.GameObjects
 
         [Downgradable]
         [StartingItem(0xC5CE6E, 0x20)]
-        [ItemName("Giant Wallet"), LocationName("Ocean Spider House Reward"), RegionName("Great Bay Coast")]
+        [ItemName("Giant Wallet"), LocationName("Ocean Spider House Day 1 Reward"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a gold spider"), GossipItemHint("a coin case", "great wealth")]
         [ShopText("This can hold up to a maximum of 500 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -423,7 +423,7 @@ namespace MMRando.GameObjects
         HeartPieceKeatonQuiz,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Deku Playground"), RegionName("North Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Deku Playground Three Days"), RegionName("North Clock Town")]
         [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -439,7 +439,7 @@ namespace MMRando.GameObjects
         HeartPieceTownArchery,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Honey and Darling"), RegionName("East Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Honey and Darling Three Days"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -487,7 +487,7 @@ namespace MMRando.GameObjects
         HeartPieceSwampArchery,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Pictograph Contest"), RegionName("Southern Swamp")]
+        [ItemName("Piece of Heart"), LocationName("Pictograph Contest Winner"), RegionName("Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -754,7 +754,7 @@ namespace MMRando.GameObjects
         MaskGibdo,
 
         [StartingItem(0xC5CE50, 0x3B)]
-        [ItemName("Garo's Mask"), LocationName("Gorman Bros Race"), RegionName("Milk Road")]
+        [ItemName("Garo's Mask"), LocationName("Gorman Bros Race Day 1 or 2"), RegionName("Milk Road")]
         [GossipLocationHint("a sporting event"), GossipItemHint("the mask of spies")]
         [ShopText("This mask can summon the hidden Garo ninjas.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1782,7 +1782,7 @@ namespace MMRando.GameObjects
         ChestSouthClockTownPurpleRupee,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Bank Reward #2"), RegionName("West Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Bank Reward #3"), RegionName("West Clock Town")]
         [GossipLocationHint("being rich"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -3053,41 +3053,138 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1C2)]
         CollectibleStrayFairyStoneTower15,
 
-        //[GetItemIndex(0x84)]
+        [ItemName("Purple Rupee"), LocationName("Lottery"), RegionName("West Clock Town")]
+        [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 50 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x86)]
+        MundaneItemLotteryPurpleRupee,
 
-        //[GetItemIndex(0x13D)]
+        [ItemName("Blue Rupee"), LocationName("Bank Reward #2"), RegionName("West Clock Town")]
+        [GossipLocationHint(""), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x13D)]
+        MundaneItemBankBlueRupee,
 
-        //[GetItemIndex(0x180)]
+        [ItemName("Chateau Romani"), LocationName("Milk Bar Chateau"), RegionName("East Clock Town")]
+        [GossipLocationHint("a town shop"), GossipItemHint("a dairy product", "an adult beverage")]
+        [ShopText("Drink it to get lasting stamina for your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x180)]
+        ShopItemMilkBarChateau,
 
-        //[GetItemIndex(0x181)]
+        [ItemName("Milk"), LocationName("Milk Bar Milk"), RegionName("East Clock Town")]
+        [GossipLocationHint("a town shop"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x181)]
+        ShopItemMilkBarMilk,
 
-        //[GetItemIndex(0x182)]
+        [ItemName("Purple Rupee"), LocationName("Deku Playground Any Day"), RegionName("North Clock Town")]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 50 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x182)]
+        MundaneItemDekuPlaygroundPurpleRupee,
 
-        //[GetItemIndex(0x183)]
+        [ItemName("Purple Rupee"), LocationName("Honey and Darling Any Day"), RegionName("East Clock Town")]
+        [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 50 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x183)]
+        MundaneItemHoneyAndDarlingPurpleRupee,
 
-        //[GetItemIndex(0x187)]
+        [ItemName("Red Rupee"), LocationName("Kotake Mushroom Sale"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a sleeping witch", "a southern merchant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x187)]
+        MundaneItemKotakeMushroomSaleRedRupee,
 
-        //[GetItemIndex(0x188)]
+        [ItemName("Blue Rupee"), LocationName("Pictograph Contest Standard Photo"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a swamp game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x188)]
+        MundaneItemPictographContestBlueRupee,
 
-        //[GetItemIndex(0x18F)]
+        [ItemName("Red Rupee"), LocationName("Pictograph Contest Good Photo"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a swamp game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x18F)]
+        MundaneItemPictographContestRedRupee,
 
-        //[GetItemIndex(0x19B)]
+        [ItemName("Magic Bean"), LocationName("Swamp Scrub Purchase"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a southern merchant"), GossipItemHint("a plant seed")]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ShopText("Plant it in soft soil.")]
+        [GetItemIndex(0x19B)]
+        ShopItemBusinessScrubMagicBean,
 
-        //[GetItemIndex(0x19C)]
+        [ItemName("Green Potion"), LocationName("Ocean Scrub Purchase"), RegionName("Zora Hall")]
+        [GossipLocationHint("a western merchant"), GossipItemHint("a magic potion", "a green drink")]
+        [ShopText("Replenishes your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x19C)]
+        ShopItemBusinessScrubGreenPotion,
 
-        //[GetItemIndex(0x19D)]
+        [ItemName("Blue Potion"), LocationName("Canyon Scrub Purchase"), RegionName("Ikana Canyon")]
+        [GossipLocationHint("an eastern merchant"), GossipItemHint("consumable strength", "a magic potion", "a blue drink")]
+        [ShopText("Replenishes both life energy and magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x19D)]
+        ShopItemBusinessScrubBluePotion,
 
-        //[GetItemIndex(0x19E)]
+        [ItemName("Blue Rupee"), LocationName("Zora Hall Stage Lights"), RegionName("Zora Hall")]
+        [GossipLocationHint("a good deed"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x19E)]
+        MundaneItemZoraStageLightsBlueRupee,
 
-        //[GetItemIndex(0x1A0)]
+        [ItemName("Milk"), LocationName("Gorman Bros Milk Purchase"), RegionName("Milk Road")]
+        [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1A0)]
+        ShopItemGormanBrosMilk,
 
-        //[GetItemIndex(0x1A1)]
+        [ItemName("Milk"), LocationName("Gorman Bros Race Day 3"), RegionName("Milk Road")]
+        [GossipLocationHint("a sporting event"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1A1)]
+        MundaneItemGormanBrosRaceMilk,
 
-        //[GetItemIndex(0x1A2)]
+        [ItemName("Purple Rupee"), LocationName("Ocean Spider House Day 2 Reward"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a gold spider"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 50 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1A2)]
+        MundaneItemOceanSpiderHouseDay2PurpleRupee,
 
-        //[GetItemIndex(0x1A3)]
+        [ItemName("Red Rupee"), LocationName("Ocean Spider House Day 3 Reward"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a gold spider"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1A3)]
+        MundaneItemOceanSpiderHouseDay3RedRupee,
 
-        //[GetItemIndex(0x1A8)]
+        [ItemName("Blue Rupee"), LocationName("Bad Pictograph of Lulu"), RegionName("Zora Hall")]
+        [GossipLocationHint("a fan"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1A8)]
+        MundaneItemLuluBadPictographBlueRupee,
+
+        [ItemName("Red Rupee"), LocationName("Good Pictograph of Lulu"), RegionName("Zora Hall")]
+        [GossipLocationHint("a fan"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1C3)]
+        MundaneItemLuluGoodPictographRedRupee,
 
     }
 }
