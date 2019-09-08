@@ -558,10 +558,10 @@ namespace MMRando.GameObjects
         HeartPiecePoeHut,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Treasure Chest Game"), RegionName("East Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Treasure Chest Game Goron"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0x46A, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0xFAA, ChestAttribute.AppearanceType.AppearsSwitch)]
         [GetItemIndex(0x17)]
         HeartPieceTreasureChestGame,
 
@@ -2963,7 +2963,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1B5)]
         CollectibleStrayFairyStoneTower2,
 
-        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Lava Room Fire Ring"), RegionName("Stone Tower Temple")] // todo check location name
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Lava Room Fire Ring"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -3047,7 +3047,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1C1)]
         CollectibleStrayFairyStoneTower14,
 
-        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Lava Room Ledge"), RegionName("Stone Tower Temple")] // todo check location name
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Lava Room Ledge"), RegionName("Stone Tower Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -3205,6 +3205,27 @@ namespace MMRando.GameObjects
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x1C3)]
         MundaneItemLuluGoodPictographRedRupee,
+
+        [ItemName("Purple Rupee"), LocationName("Treasure Chest Game Human"), RegionName("East Clock Town")]
+        [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 50 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0xFA8, ChestAttribute.AppearanceType.AppearsSwitch, 0x00F43F10 + 0xFB0)]
+        [GetItemIndex(0x1C4)]
+        MundaneItemTreasureChestGamePurpleRupee,
+
+        [ItemName("Red Rupee"), LocationName("Treasure Chest Game Zora"), RegionName("East Clock Town")]
+        [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0xFAC, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [GetItemIndex(0x1C5)]
+        MundaneItemTreasureChestGameRedRupee,
+
+        [ItemName("10 Deku Nuts"), LocationName("Treasure Chest Game Deku"), RegionName("East Clock Town")]
+        [GossipLocationHint("a town game"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0xFAE, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [GetItemIndex(0x1C6)]
+        MundaneItemTreasureChestGameDekuNuts,
 
     }
 }
