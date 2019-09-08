@@ -58,7 +58,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1B)]
         ItemBombBag,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [StartingItem(0xC5CE2E, 0x0A)]
         [ItemName("Magic Bean"), LocationName("Bean Man"), RegionName("Deku Palace")]
         [GossipLocationHint("a hidden merchant", "a gorging merchant"), GossipItemHint("a plant seed")]
@@ -67,7 +67,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x11E)]
         ItemMagicBean,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [StartingItem(0xC5CE30, 0x0C)]
         [ItemName("Powder Keg"), LocationName("Powder Keg Challenge"), RegionName("Goron Village")]
         [GossipLocationHint("a large goron"), GossipItemHint("gunpowder", "a dangerous item", "an explosive barrel")]
@@ -291,7 +291,7 @@ namespace MMRando.GameObjects
         UpgradeGiantWallet,
 
         //trades
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Moon's Tear"), LocationName("Astronomy Telescope"), RegionName("Termina Field")]
         [GossipLocationHint("a falling star"), GossipItemHint("a lunar teardrop", "celestial sadness")]
         [ShopText("A shining stone from the moon.")]
@@ -299,7 +299,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x96)]
         TradeItemMoonTear,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Land Title Deed"), LocationName("Clock Town Scrub Trade"), RegionName("South Clock Town")]
         [GossipLocationHint("a town merchant"), GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower in Clock Town.")]
@@ -307,7 +307,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x97)]
         TradeItemLandDeed,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Swamp Title Deed"), LocationName("Swamp Scrub Trade"), RegionName("Southern Swamp")]
         [GossipLocationHint("a southern merchant"), GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower in Southern Swamp.")]
@@ -315,7 +315,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x98)]
         TradeItemSwampDeed,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Mountain Title Deed"), LocationName("Mountain Scrub Trade"), RegionName("Goron Village")]
         [GossipLocationHint("a northern merchant"), GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower near Goron Village.")]
@@ -323,7 +323,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x99)]
         TradeItemMountainDeed,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Ocean Title Deed"), LocationName("Ocean Scrub Trade"), RegionName("Zora Hall")]
         [GossipLocationHint("a western merchant"), GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower in Zora Hall.")]
@@ -331,7 +331,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x9A)]
         TradeItemOceanDeed,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Room Key"), LocationName("Inn Reservation"), RegionName("East Clock Town")]
         [GossipLocationHint("checking in", "check-in"), GossipItemHint("a door opener", "a lock opener")]
         [ShopText("With this, you can go in and out of the Stock Pot Inn at night.")]
@@ -339,7 +339,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xA0)]
         TradeItemRoomKey,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Letter to Kafei"), LocationName("Midnight Meeting"), RegionName("East Clock Town")]
         [GossipLocationHint("a late meeting"), GossipItemHint("a lover's plight", "a lover's letter")]
         [ShopText("A love letter from Anju to Kafei.")]
@@ -347,7 +347,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xAA)]
         TradeItemKafeiLetter,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Pendant of Memories"), LocationName("Kafei"), RegionName("Laundry Pool")]
         [GossipLocationHint("a posted letter"), GossipItemHint("a cherished necklace", "a symbol of trust")]
         [ShopText("Kafei's symbol of trust for Anju.")]
@@ -355,7 +355,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xAB)]
         TradeItemPendant,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Letter to Mama"), LocationName("Curiosity Shop Man #2"), RegionName("Laundry Pool")]
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("an important note", "a special delivery")]
         [ShopText("It's a parcel for Kafei's mother.")]
@@ -1365,7 +1365,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xF5)]
         ChestBadBatsGrottoPurpleRupee,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("5 Bombchu"), LocationName("Secret Shrine Grotto"), RegionName("Ikana Canyon")]
         [GossipLocationHint("a waterfall cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.")]
@@ -1453,7 +1453,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xFC)]
         ChestBomberHideoutSilverRupee,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("Bombchu"), LocationName("Termina Field Pillar Grotto"), RegionName("Termina Field")]
         [GossipLocationHint("a hollow pillar"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
@@ -1517,7 +1517,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xEB)]
         ChestGreatBayCapeLedge2, //contents? 
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("Bombchu"), LocationName("Great Bay Cape Grotto"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a beach cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
@@ -1573,7 +1573,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xF7)]
         ChestDogRacePurpleRupee,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("5 Bombchu"), LocationName("Ikana Graveyard Grotto"), RegionName("Ikana Graveyard")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.")]
         [GossipLocationHint("a circled cave"), GossipItemHint("explosive mice")]
@@ -1629,6 +1629,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xF0)]
         ChestMountainVillage, //contents? 
 
+        [Repeatable]
         [ItemName("Red Rupee"), LocationName("Mountain Spring Grotto"), RegionName("Mountain Village")]
         [GossipLocationHint("the springtime"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("Carry various items in this.")]
@@ -1644,7 +1645,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xF1)]
         ChestToIkanaRedRupee,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("Bombchu"), LocationName("Path to Ikana Grotto"), RegionName("Road to Ikana")]
         [GossipLocationHint("a blocked cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
@@ -1660,7 +1661,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xFD)]
         ChestInvertedStoneTowerSilverRupee,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("10 Bombchu"), LocationName("Inverted Stone Tower Middle Chest"), RegionName("Stone Tower")]
         [GossipLocationHint("a sky below"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
@@ -1668,7 +1669,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x10A)]
         ChestInvertedStoneTowerBombchu10,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("Magic Bean"), LocationName("Inverted Stone Tower Left Chest"), RegionName("Stone Tower")]
         [GossipLocationHint("a sky below"), GossipItemHint("a plant seed")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02BC9000 + 0x256, ChestAttribute.AppearanceType.Normal)]
@@ -2001,7 +2002,7 @@ namespace MMRando.GameObjects
         ItemTingleMapStoneTower,
 
         //oops I forgot one
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("Bombchu"), LocationName("Goron Racetrack Grotto"), RegionName("Twin Islands")]
         [GossipLocationHint("a hidden cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
@@ -2064,7 +2065,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x7B)]
         MaskFierceDeity,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("30 Arrows"), LocationName("Link Trial Garo Master Chest"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
         [ShopText("Ammo for your bow.", isMultiple: true)]
@@ -2072,7 +2073,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x126)]
         ChestLinkTrialArrow30,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("10 Bombchu"), LocationName("Link Trial Iron Knuckle Chest"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
@@ -2080,7 +2081,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x127)]
         ChestLinkTrialBombchu10,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("10 Deku Nuts"), LocationName("Pre-Clocktown Chest"), RegionName("Beneath Clocktown")]
         [GossipLocationHint("the first chest"), GossipItemHint("a flashing impact")]
         [ShopText("Its flash blinds enemies.", isMultiple: true)]
@@ -2097,6 +2098,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x37)]
         StartingSword,
 
+        [Repeatable, CycleRepeatable]
         [StartingItem(0xC5CE21, 0x10)]
         [ItemName("Hero's Shield"), LocationName("Starting Shield"), RegionName("Misc")]
         [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("a basic guard", "protection")]
@@ -2129,7 +2131,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x12B)]
         StartingHeartContainer2,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Ranch Cow #1"), RegionName("Romani Ranch")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.")]
@@ -2137,7 +2139,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x132)]
         ItemRanchBarnMainCowMilk,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Ranch Cow #2"), RegionName("Romani Ranch")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.")]
@@ -2145,7 +2147,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x133)]
         ItemRanchBarnOtherCowMilk1,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Ranch Cow #3"), RegionName("Romani Ranch")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.")]
@@ -2153,7 +2155,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x134)]
         ItemRanchBarnOtherCowMilk2,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Cow Beneath the Well"), RegionName("Beneath the Well")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.")]
@@ -2161,7 +2163,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x135)]
         ItemWellCowMilk,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Termina Grotto Cow #1"), RegionName("Termina Field")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.")]
@@ -2169,7 +2171,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x136)]
         ItemTerminaGrottoCowMilk1,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Termina Grotto Cow #2"), RegionName("Termina Field")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.")]
@@ -2177,7 +2179,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x137)]
         ItemTerminaGrottoCowMilk2,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Great Bay Coast Grotto Cow #1"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.")]
@@ -2185,7 +2187,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x138)]
         ItemCoastGrottoCowMilk1,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Great Bay Coast Grotto Cow #2"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.")]
@@ -3052,6 +3054,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1C2)]
         CollectibleStrayFairyStoneTower15,
 
+        [Repeatable]
         [ItemName("Purple Rupee"), LocationName("Lottery"), RegionName("West Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 50 rupees.")]
@@ -3059,6 +3062,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x86)]
         MundaneItemLotteryPurpleRupee,
 
+        [Repeatable]
         [ItemName("Blue Rupee"), LocationName("Bank Reward #2"), RegionName("West Clock Town")]
         [GossipLocationHint(""), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 5 rupees.")]
@@ -3066,6 +3070,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x13D)]
         MundaneItemBankBlueRupee,
 
+        [Repeatable, CycleRepeatable]
         [ItemName("Chateau Romani"), LocationName("Milk Bar Chateau"), RegionName("East Clock Town")]
         [GossipLocationHint("a town shop"), GossipItemHint("a dairy product", "an adult beverage")]
         [ShopText("Drink it to get lasting stamina for your magic power.")]
@@ -3073,6 +3078,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x180)]
         ShopItemMilkBarChateau,
 
+        [Repeatable, CycleRepeatable]
         [ItemName("Milk"), LocationName("Milk Bar Milk"), RegionName("East Clock Town")]
         [GossipLocationHint("a town shop"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.")]
@@ -3080,6 +3086,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x181)]
         ShopItemMilkBarMilk,
 
+        [Repeatable]
         [ItemName("Purple Rupee"), LocationName("Deku Playground Any Day"), RegionName("North Clock Town")]
         [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 50 rupees.")]
@@ -3087,6 +3094,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x182)]
         MundaneItemDekuPlaygroundPurpleRupee,
 
+        [Repeatable]
         [ItemName("Purple Rupee"), LocationName("Honey and Darling Any Day"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 50 rupees.")]
@@ -3094,6 +3102,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x183)]
         MundaneItemHoneyAndDarlingPurpleRupee,
 
+        [Repeatable]
         [ItemName("Red Rupee"), LocationName("Kotake Mushroom Sale"), RegionName("Southern Swamp")]
         [GossipLocationHint("a sleeping witch", "a southern merchant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
@@ -3101,6 +3110,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x187)]
         MundaneItemKotakeMushroomSaleRedRupee,
 
+        [Repeatable]
         [ItemName("Blue Rupee"), LocationName("Pictograph Contest Standard Photo"), RegionName("Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 5 rupees.")]
@@ -3108,6 +3118,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x188)]
         MundaneItemPictographContestBlueRupee,
 
+        [Repeatable]
         [ItemName("Red Rupee"), LocationName("Pictograph Contest Good Photo"), RegionName("Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
@@ -3115,6 +3126,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x18F)]
         MundaneItemPictographContestRedRupee,
 
+        [Repeatable, CycleRepeatable]
         [ItemName("Magic Bean"), LocationName("Swamp Scrub Purchase"), RegionName("Southern Swamp")]
         [GossipLocationHint("a southern merchant"), GossipItemHint("a plant seed")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -3122,6 +3134,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x19B)]
         ShopItemBusinessScrubMagicBean,
 
+        [Repeatable, CycleRepeatable]
         [ItemName("Green Potion"), LocationName("Ocean Scrub Purchase"), RegionName("Zora Hall")]
         [GossipLocationHint("a western merchant"), GossipItemHint("a magic potion", "a green drink")]
         [ShopText("Replenishes your magic power.")]
@@ -3129,6 +3142,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x19C)]
         ShopItemBusinessScrubGreenPotion,
 
+        [Repeatable, CycleRepeatable]
         [ItemName("Blue Potion"), LocationName("Canyon Scrub Purchase"), RegionName("Ikana Canyon")]
         [GossipLocationHint("an eastern merchant"), GossipItemHint("consumable strength", "a magic potion", "a blue drink")]
         [ShopText("Replenishes both life energy and magic power.")]
@@ -3136,6 +3150,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x19D)]
         ShopItemBusinessScrubBluePotion,
 
+        [Repeatable]
         [ItemName("Blue Rupee"), LocationName("Zora Hall Stage Lights"), RegionName("Zora Hall")]
         [GossipLocationHint("a good deed"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 5 rupees.")]
@@ -3143,6 +3158,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x19E)]
         MundaneItemZoraStageLightsBlueRupee,
 
+        [Repeatable, CycleRepeatable]
         [ItemName("Milk"), LocationName("Gorman Bros Milk Purchase"), RegionName("Milk Road")]
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.")]
@@ -3150,6 +3166,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1A0)]
         ShopItemGormanBrosMilk,
 
+        [Repeatable, CycleRepeatable]
         [ItemName("Milk"), LocationName("Gorman Bros Race Day 3"), RegionName("Milk Road")]
         [GossipLocationHint("a sporting event"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.")]
@@ -3157,6 +3174,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1A1)]
         MundaneItemGormanBrosRaceMilk,
 
+        [Repeatable]
         [ItemName("Purple Rupee"), LocationName("Ocean Spider House Day 2 Reward"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a gold spider"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 50 rupees.")]
@@ -3164,6 +3182,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1A2)]
         MundaneItemOceanSpiderHouseDay2PurpleRupee,
 
+        [Repeatable]
         [ItemName("Red Rupee"), LocationName("Ocean Spider House Day 3 Reward"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a gold spider"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
@@ -3171,6 +3190,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1A3)]
         MundaneItemOceanSpiderHouseDay3RedRupee,
 
+        [Repeatable]
         [ItemName("Blue Rupee"), LocationName("Bad Pictograph of Lulu"), RegionName("Zora Hall")]
         [GossipLocationHint("a fan"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 5 rupees.")]
@@ -3178,6 +3198,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1A8)]
         MundaneItemLuluBadPictographBlueRupee,
 
+        [Repeatable]
         [ItemName("Red Rupee"), LocationName("Good Pictograph of Lulu"), RegionName("Zora Hall")]
         [GossipLocationHint("a fan"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]

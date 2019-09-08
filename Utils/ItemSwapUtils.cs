@@ -12,6 +12,8 @@ namespace MMRando.Utils
     {
         const int BOTTLE_CATCH_TABLE = 0xCD7C08;
         static int cycle_repeat = 0;
+        static int cycle_repeat_count_address = 0xC72CEA;
+        static ushort cycle_repeat_count = 0x76;
         static int GET_ITEM_TABLE = 0;
 
         public static void ReplaceGetItemTable(string ModsDir)
@@ -124,6 +126,9 @@ namespace MMRando.Utils
             {
                 ReadWriteUtils.WriteToROM(cycle_repeat, (ushort)getItemIndex);
                 cycle_repeat += 2;
+                cycle_repeat_count += 2;
+
+                ReadWriteUtils.WriteToROM(cycle_repeat_count_address, cycle_repeat_count);
             }
 
             var isRepeatable = item.IsRepeatable() || (!preventDowngrades && item.IsDowngradable());
