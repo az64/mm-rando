@@ -69,7 +69,7 @@ namespace MMRando.Models
                 Item.MaskAllNight,
                 //Item.MaskScents,
                 Item.HeartPieceBoatArchery,
-                Item.ItemGoldDust
+                Item.ItemBottleGoronRace
             });
     }
 }

@@ -160,14 +160,13 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x60)]
         ItemBottleAliens,
 
-        [Repeatable, Temporary]
         [StartingItem(0xC5CE38, 0x12)]
-        [ItemName("Gold Dust"), LocationName("Goron Race"), RegionName("Twin Islands")]
+        [ItemName("Bottle with Gold Dust"), LocationName("Goron Race"), RegionName("Twin Islands")]
         [GossipLocationHint("a sporting event"), GossipItemHint("a gleaming powder")]
-        [ShopText("It's very high quality.")]
+        [ShopText("It's very high quality. Comes with an Empty Bottle.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x93)] // originally 0x6A for Bottle with Gold Dust
-        ItemGoldDust, // originally ItemBottleGoronRace
+        [GetItemIndex(0x6A)]
+        ItemBottleGoronRace,
 
         [StartingItem(0xC5CE39, 0x12)]
         [ItemName("Empty Bottle"), LocationName("Beaver Race #1"), RegionName("Great Bay Cape")]
@@ -1630,12 +1629,12 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xF0)]
         ChestMountainVillage, //contents? 
 
-        [ItemName("Empty Bottle"), LocationName("Mountain Spring Grotto"), RegionName("Mountain Village")] // originally Red Rupee
-        [GossipLocationHint("the springtime"), GossipItemHint("an empty vessel", "a glass container")] // originally "currency", "money", "cash", "wealth", "riches and stuff")]
+        [ItemName("Red Rupee"), LocationName("Mountain Spring Grotto"), RegionName("Mountain Village")]
+        [GossipLocationHint("the springtime"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("Carry various items in this.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), GrottoChest(0x02BFC000 + 0x1F3, 0x02BFC000 + 0x2B3)] // todo change chest type?
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02BFC000 + 0x1F3, 0x02BFC000 + 0x2B3)]
         [GetItemIndex(0xD8)]
-        ChestMountainVillageGrottoBottle, // originally RedRupee
+        ChestMountainVillageGrottoRedRupee,
 
         [Repeatable]
         [ItemName("Red Rupee"), LocationName("Path to Ikana Pillar Chest"), RegionName("Road to Ikana")]

@@ -103,10 +103,6 @@ namespace MMRando.Utils
             int f = RomUtils.GetFileIndexForWriting(GET_ITEM_TABLE);
             int baseaddr = GET_ITEM_TABLE - RomData.MMFileList[f].Addr;
             var getItemIndex = location.GetItemIndex().Value;
-            if (location == Item.ItemGoldDust)
-            {
-                getItemIndex = 0x6A; // Place items intended for Gold Dust at the Goron Race Bottle location.
-            }
             int offset = (getItemIndex - 1) * 8 + baseaddr;
             var newItem = RomData.GetItemList[item.GetItemIndex().Value];
             var fileData = RomData.MMFileList[f].Data;
@@ -153,12 +149,12 @@ namespace MMRando.Utils
                 ReadWriteUtils.WriteToROM(0xB499A6, (ushort)getItemIndex);
                 ReadWriteUtils.WriteToROM(0xC72B5A, (ushort)getItemIndex);
             }
-            // Goron Race Bottle now rewards a plain Gold Dust, so this is unnecessary until a proper fix for Goron Dust is found.
-            //if (item == Item.ItemBottleGoronRace)
-            //{
-            //    WriteToROM(0xB499B2, (ushort)getItemIndex);
-            //    WriteToROM(0xC72B66, (ushort)getItemIndex);
-            //}
+            
+            if (item == Item.ItemBottleGoronRace)
+            {
+                ReadWriteUtils.WriteToROM(0xB499B2, (ushort)getItemIndex);
+                ReadWriteUtils.WriteToROM(0xC72B66, (ushort)getItemIndex);
+            }
 
             if (updateChest)
             {

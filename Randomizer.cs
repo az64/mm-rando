@@ -54,8 +54,6 @@ namespace MMRando
         // Starting items should not be replaced by trade items, or items that can be downgraded.
         private readonly List<Item> ForbiddenStartingItems = new List<Item>
             {
-                Item.ChestMountainVillageGrottoBottle,
-
                 // Starting with Magic Bean or Powder Keg doesn't actually give you one,
                 // nor do you get one when you play Song of Time.
                 Item.ItemMagicBean,
