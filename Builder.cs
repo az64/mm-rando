@@ -602,7 +602,7 @@ namespace MMRando
 
             var dungeonItemIcons = new byte[]
             {
-                0x3C, 0x3D, 0x3E, 0x3F, 0x11
+                0x3C, 0x3D, 0x3E, 0x3F, 0xFE
             };
 
             for (var i = 0; i < dungeonItemMessageIds.Length; i++)
