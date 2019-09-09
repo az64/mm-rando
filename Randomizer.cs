@@ -1090,7 +1090,7 @@ namespace MMRando
         /// </summary>
         private void PlaceMundaneRewards(List<Item> itemPool)
         {
-            for (var i = Item.MundaneItemLotteryPurpleRupee; i <= Item.MundaneItemTreasureChestGameDekuNuts; i++)
+            for (var i = Item.MundaneItemLotteryPurpleRupee; i <= Item.MundaneItemSeahorse; i++)
             {
                 PlaceItem(i, itemPool);
             }
@@ -1516,7 +1516,7 @@ namespace MMRando
 
         private void PreserveMundaneRewards()
         {
-            for (var i = Item.MundaneItemLotteryPurpleRupee; i <= Item.MundaneItemTreasureChestGameDekuNuts; i++)
+            for (var i = Item.MundaneItemLotteryPurpleRupee; i <= Item.MundaneItemSeahorse; i++)
             {
                 ItemList[(int)i].NewLocation = i;
             }

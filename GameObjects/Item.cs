@@ -3227,5 +3227,45 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1C6)]
         MundaneItemTreasureChestGameDekuNuts,
 
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Curiosity Shop Blue Rupee"), RegionName("West Clock Town")]
+        [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1C7)]
+        MundaneItemCuriosityShopBlueRupee,
+
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Curiosity Shop Red Rupee"), RegionName("West Clock Town")]
+        [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1C8)]
+        MundaneItemCuriosityShopRedRupee,
+
+        [Repeatable]
+        [ItemName("Purple Rupee"), LocationName("Curiosity Shop Purple Rupee"), RegionName("West Clock Town")]
+        [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 50 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1C9)]
+        MundaneItemCuriosityShopPurpleRupee,
+
+        [Repeatable]
+        [ItemName("Gold Rupee"), LocationName("Curiosity Shop Gold Rupee"), RegionName("West Clock Town")]
+        [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 200 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1CA)]
+        MundaneItemCuriosityShopGoldRupee,
+
+        [Repeatable]
+        [ItemName("Seahorse"), LocationName("Fisherman Seahorse"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a fisherman"), GossipItemHint("a sea creature")]
+        [ShopText("It wants to go back home to Pinnacle Rock.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x95)]
+        MundaneItemSeahorse,
+
     }
 }
