@@ -23,13 +23,13 @@ namespace MMRando.GameObjects
         Canyon = 0x1D16,
 
         [MessageShop(MessageShopStyle.MilkBar, Item.ShopItemMilkBarMilk, 20, Item.ShopItemMilkBarChateau, 200)]
-        MilkBar, // todo
+        MilkBar = 0x2B0B,
     }
 
     public static class MessageShopStyle
     {
         public const string Tingle = "\u0002\u00C3{0,-22}\u0001{1,2} Rupees\u0011\u0002{2,-22}\u0001{3,2} Rupees\u0011\u0002No Thanks\u00BF";
-        public const string MilkBar = "\u0002\u00C3{0}: \u0006{1} Rupees\u0011\u0002{2}\u0006{3} Rupees\u0011\u0002Nothing\u00BF";
+        public const string MilkBar = "What'll it be?\u0011\u0013\u0013\u0012\u0002\u00C3{0}: \u0006{1} Rupees\u0011\u0002{2}: \u0006{3} Rupees\u0011\u0002Nothing\u00BF";
     }
 
     public class MessageShopAttribute : Attribute

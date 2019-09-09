@@ -17,7 +17,13 @@ namespace MMRando.Utils
                     && item <= Item.ShopItemZoraRedPotion)
                     || item == Item.ItemBombBag
                     || item == Item.UpgradeBigBombBag
-                    || item == Item.MaskAllNight;
+                    || item == Item.MaskAllNight
+                    || item == Item.ShopItemMilkBarChateau
+                    || item == Item.ShopItemMilkBarMilk
+                    || item == Item.ShopItemBusinessScrubMagicBean
+                    || item == Item.ShopItemBusinessScrubGreenPotion
+                    || item == Item.ShopItemBusinessScrubBluePotion
+                    || item == Item.ShopItemGormanBrosMilk;
         }
 
         public static bool IsCowItem(Item item)

@@ -517,6 +517,14 @@ namespace MMRando
                 // update biggest bomb bag purchase
                 var biggestBombBagItem = _randomized.ItemList.First(io => io.NewLocation == Item.UpgradeBiggestBombBag).Item;
                 itemIsMultiple = biggestBombBagItem.ShopTexts().IsMultiple;
+                var itemIsDefinite = biggestBombBagItem.ShopTexts().IsDefinite;
+                var alternateItemName = Regex.Replace(biggestBombBagItem.Name(), "[0-9]+ ", "");
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x15F5,
+                    Header = null,
+                    Message = $"I sell {(itemIsDefinite ? "the " : itemIsMultiple ? "" : "a ")}\u0001{alternateItemName}\u0000, but I'm focusing my marketing efforts on \u0001Gorons.\u0011\u0000\u0013\u0012What I'd really like to do is go back home and do business where I'm surrounded by trees and grass.\u0019\u00BF".Wrap(35, "\u0011")
+                });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x15FF,
@@ -536,11 +544,73 @@ namespace MMRando
                     Message = $"\x1E\x38\x81I'll give you {(itemIsMultiple ? "" : "my ")}\u0001{biggestBombBagItem.Name()}\u0000, regularly priced at \u00061000 Rupees\u0000, for just \u0006200 Rupees\u0000!\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
-                // todo update swamp scrub purchase
+                // update swamp scrub purchase
+                var magicBeanItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubMagicBean).Item;
+                itemIsMultiple = magicBeanItem.ShopTexts().IsMultiple;
+                itemIsDefinite = magicBeanItem.ShopTexts().IsDefinite;
+                alternateItemName = Regex.Replace(magicBeanItem.Name(), "[0-9]+ ", "");
+                var itemAmount = Regex.Replace(magicBeanItem.Name(), "[^0-9]", "");
 
-                // todo update ocean scrub purchase
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x15E1,
+                    Header = null,
+                    Message = $"\x1E\x39\xA7I'm selling {(itemIsDefinite ? "the " : itemIsMultiple ? "" : "a ")}\u0001{alternateItemName}\u0000 to Deku Scrubs, but I'd really like to leave my hometown.\u0011\u0012I'm hoping to find some success in a livelier place!\u0019\u00BF".Wrap(35, "\u0011")
+                });
 
-                // todo update canyon scrub purchase
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x15E9,
+                    Header = null,
+                    Message = $"\x1E\x3A\u00D2Do you know what {(itemIsDefinite ? "the " : itemIsMultiple ? "" : "a ")}{alternateItemName} {(itemIsMultiple ? "are": "is")}, sir?\u0011I'll sell you {(itemIsDefinite ? "it" : itemIsMultiple ? itemAmount : "one")} for \u000610 Rupees\u0000.\u0019\u00BF".Wrap(35, "\u0011")
+                });
+
+                // update ocean scrub purchase
+                var greenPotionItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubGreenPotion).Item;
+                itemIsMultiple = greenPotionItem.ShopTexts().IsMultiple;
+                itemIsDefinite = greenPotionItem.ShopTexts().IsDefinite;
+                alternateItemName = Regex.Replace(greenPotionItem.Name(), "[0-9]+ ", "");
+                itemAmount = Regex.Replace(greenPotionItem.Name(), "[^0-9]", "");
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x1608,
+                    Header = null,
+                    Message = $"\x1E\x39\xA7I'm selling {(itemIsDefinite ? "the " : itemIsMultiple ? "" : "a ")}\u0001{alternateItemName}\u0000, but I'm focusing my marketing efforts on Zoras.\u0011\u0012Actually, I'd like to do business someplace where it's cooler and the air is clean.\u0019\u00BF".Wrap(35, "\u0011")
+                });
+
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x1612,
+                    Header = null,
+                    Message = $"\x1E\x39\x8CI'll sell you {(itemIsDefinite ? "the " : itemIsMultiple ? "" : "a ")}\u0001{greenPotionItem.Name()}\u0000 for \u000640 Rupees\u0000!\u00E0\u00BF".Wrap(35, "\u0011")
+                });
+
+                // update canyon scrub purchase
+                var bluePotionItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubBluePotion).Item;
+                itemIsMultiple = bluePotionItem.ShopTexts().IsMultiple;
+                itemIsDefinite = bluePotionItem.ShopTexts().IsDefinite;
+                alternateItemName = Regex.Replace(bluePotionItem.Name(), "[0-9]+ ", "");
+                itemAmount = Regex.Replace(bluePotionItem.Name(), "[^0-9]", "");
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x161C,
+                    Header = null,
+                    Message = $"\x1E\x39\x8CI'm here to sell {(itemIsDefinite ? "the " : itemIsMultiple ? "" : "a ")}\u0001{alternateItemName}\u0000.\u0011\u0013\u0013\u0012Actually, I want to do business in the sea breeze while listening to the sound of the waves.\u0019\u00BF".Wrap(35, "\u0011")
+                });
+
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x1626,
+                    Header = null,
+                    Message = $"\x1E\x38\u00D2Don't you need {(itemIsDefinite ? "the " : itemIsMultiple ? "any " : "a ")}\u0001{alternateItemName}\u0000? {(itemIsDefinite ? "It" : itemIsMultiple ? itemAmount : "One")} is \u0006100 Rupees\u0000.\u0019\u00BF".Wrap(35, "\u0011")
+                });
+
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x15EA,
+                    Header = null,
+                    Message = $"Do we have a deal?\u0011 \u0011\u0002\u00C2Yes\u0011No\u00BF"
+                });
 
             }
 

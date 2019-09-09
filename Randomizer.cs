@@ -1138,7 +1138,7 @@ namespace MMRando
         /// </summary>
         private void PlaceShopItems(List<Item> itemPool)
         {
-            for (var i = Item.ItemRanchBarnMainCowMilk; i <= Item.ItemCoastGrottoCowMilk2; i++)
+            for (var i = Item.ShopItemTradingPostRedPotion; i <= Item.ShopItemZoraRedPotion; i++)
             {
                 PlaceItem(i, itemPool);
             }
@@ -1149,7 +1149,7 @@ namespace MMRando
         /// </summary>
         private void PlaceCowMilk(List<Item> itemPool)
         {
-            for (var i = Item.ShopItemTradingPostRedPotion; i <= Item.ShopItemZoraRedPotion; i++)
+            for (var i = Item.ItemRanchBarnMainCowMilk; i <= Item.ItemCoastGrottoCowMilk2; i++)
             {
                 PlaceItem(i, itemPool);
             }
@@ -1426,6 +1426,13 @@ namespace MMRando
             ItemList[(int)Item.ItemBombBag].NewLocation = Item.ItemBombBag;
             ItemList[(int)Item.UpgradeBigBombBag].NewLocation = Item.UpgradeBigBombBag;
             ItemList[(int)Item.MaskAllNight].NewLocation = Item.MaskAllNight;
+
+            ItemList[(int)Item.ShopItemMilkBarChateau].NewLocation = Item.ShopItemMilkBarChateau;
+            ItemList[(int)Item.ShopItemMilkBarMilk].NewLocation = Item.ShopItemMilkBarMilk;
+            ItemList[(int)Item.ShopItemBusinessScrubMagicBean].NewLocation = Item.ShopItemBusinessScrubMagicBean;
+            ItemList[(int)Item.ShopItemBusinessScrubGreenPotion].NewLocation = Item.ShopItemBusinessScrubGreenPotion;
+            ItemList[(int)Item.ShopItemBusinessScrubBluePotion].NewLocation = Item.ShopItemBusinessScrubBluePotion;
+            ItemList[(int)Item.ShopItemGormanBrosMilk].NewLocation = Item.ShopItemGormanBrosMilk;
         }
 
         /// <summary>
@@ -1518,7 +1525,10 @@ namespace MMRando
         {
             for (var i = Item.MundaneItemLotteryPurpleRupee; i <= Item.MundaneItemSeahorse; i++)
             {
-                ItemList[(int)i].NewLocation = i;
+                if (!ItemUtils.IsShopItem(i))
+                {
+                    ItemList[(int)i].NewLocation = i;
+                }
             }
         }
 
