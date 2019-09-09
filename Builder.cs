@@ -479,16 +479,16 @@ namespace MMRando
             if (_settings.UpdateShopAppearance)
             {
                 // update tingle shops
-                foreach (var tingleText in Enum.GetValues(typeof(TingleText)).Cast<TingleText>())
+                foreach (var messageShopText in Enum.GetValues(typeof(MessageShopText)).Cast<MessageShopText>())
                 {
-                    var tingleShop = tingleText.GetAttribute<TingleShopAttribute>();
-                    var item1 = _randomized.ItemList.First(io => io.NewLocation == tingleShop.Items[0]).Item;
-                    var item2 = _randomized.ItemList.First(io => io.NewLocation == tingleShop.Items[1]).Item;
+                    var messageShop = messageShopText.GetAttribute<MessageShopAttribute>();
+                    var item1 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[0]).Item;
+                    var item2 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[1]).Item;
                     newMessages.Add(new MessageEntry
                     {
-                        Id = (ushort)tingleText,
+                        Id = (ushort)messageShopText,
                         Header = null,
-                        Message = $"\u0002\u00C3{item1.Name() + " ",-22}\u0001{tingleShop.Prices[0],2} Rupees\u0011\u0002{item2.Name() + " ",-22}\u0001{tingleShop.Prices[1],2} Rupees\u0011\u0002No Thanks\u00BF"
+                        Message = string.Format(messageShop.MessageFormat, item1.Name() + " ", messageShop.Prices[0], item2.Name() + " ", messageShop.Prices[1])
                     });
                 }
 
@@ -535,6 +535,13 @@ namespace MMRando
                     Header = null,
                     Message = $"\x1E\x38\x81I'll give you {(itemIsMultiple ? "" : "my ")}\u0001{biggestBombBagItem.Name()}\u0000, regularly priced at \u00061000 Rupees\u0000, for just \u0006200 Rupees\u0000!\u0019\u00BF".Wrap(35, "\u0011")
                 });
+
+                // todo update swamp scrub purchase
+
+                // todo update ocean scrub purchase
+
+                // todo update canyon scrub purchase
+
             }
 
             // replace "Razor Sword is now blunt" message with get-item message for Kokiri Sword.
