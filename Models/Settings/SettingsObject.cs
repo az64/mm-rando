@@ -162,6 +162,11 @@ namespace MMRando.Models.Settings
         public bool AddStrayFairies { get; set; }
 
         /// <summary>
+        /// Add mundane rewards to the randomization pool
+        /// </summary>
+        public bool AddMundaneRewards { get; set; }
+
+        /// <summary>
         /// Randomize the content of a bottle when catching (e.g. catching a fairy puts poe in bottle)
         /// </summary>
         public bool RandomizeBottleCatchContents { get; set; }
@@ -341,9 +346,11 @@ namespace MMRando.Models.Settings
                 AddCowMilk = false;
                 AddSkulltulaTokens = false;
                 AddStrayFairies = false;
+                AddMundaneRewards = false;
             }
             else
             {
+                AddMundaneRewards = (part1 & 1073741824) > 0;
                 AddStrayFairies = (part1 & 536870912) > 0;
                 AddSkulltulaTokens = (part1 & 268435456) > 0;
                 AddCowMilk = (part1 & 134217728) > 0;
@@ -417,6 +424,7 @@ namespace MMRando.Models.Settings
             }
             else
             {
+                if (AddMundaneRewards) { parts[0] += 1073741824; }
                 if (AddStrayFairies) { parts[0] += 536870912; }
                 if (AddSkulltulaTokens) { parts[0] += 268435456; }
                 if (AddCowMilk) { parts[0] += 134217728; }

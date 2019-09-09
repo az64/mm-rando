@@ -7,7 +7,7 @@ namespace MMRando.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 11;
+        public const int CurrentVersion = 12;
 
         public static string ApplyMigrations(string logic)
         {
@@ -71,6 +71,11 @@ namespace MMRando.LogicMigrator
             if (GetVersion(lines) < 11)
             {
                 AddStrayFairies(lines);
+            }
+
+            if (GetVersion(lines) < 12)
+            {
+                AddMundaneRewards(lines);
             }
 
             return string.Join("\r\n", lines);
@@ -1413,6 +1418,50 @@ namespace MMRando.LogicMigrator
             foreach (var item in newItems)
             {
                 lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 346]}");
+                lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
+                lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
+                lines.Insert(item.ID * 5 + 4, $"{item.TimeNeeded}");
+                lines.Insert(item.ID * 5 + 5, "0");
+            }
+        }
+
+        private static void AddMundaneRewards(List<string> lines)
+        {
+            lines[0] = "-version 12";
+            var itemNames = new string[]
+            {
+                "Lottery 50r", "Bank 5r", "Milk Bar Chateau", "Milk Bar Milk", "Deku Playground 50r", "Honey and Darling 50r", "Kotake Mushroom Sale 20r", "Pictograph Contest 5r",
+                "Pictograph Contest 20r", "Swamp Scrub Magic Bean", "Ocean Scrub Green Potion", "Canyon Scrub Blue Potion", "Zora Hall Stage Lights 5r", "Gorman Bros Purchase Milk",
+                "Gorman Bros Race Milk", "Ocean Spider House 50r", "Ocean Spider House 20", "Lulu Pictograph 5r", "Lulu Pictograph 20r", "Treasure Chest Game 50r", "Treasure Chest Game 20r",
+                "Treasure Chest Game Deku Nuts",
+            };
+            var newItems = itemNames.Select((itemName, index) => new MigrationItem
+            {
+                ID = 407 + index
+            }).ToArray();
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section => section.Split(',').Select(id =>
+                    {
+                        var itemId = int.Parse(id);
+                        if (itemId >= 407)
+                        {
+                            itemId += newItems.Length;
+                        }
+                        return itemId;
+                    }).ToList()).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+            foreach (var item in newItems)
+            {
+                lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 407]}");
                 lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
                 lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
                 lines.Insert(item.ID * 5 + 4, $"{item.TimeNeeded}");

@@ -64,15 +64,15 @@ namespace MMRando.Forms
         "Ocean Skulltula Library Behind Bookcase 1", "Ocean Skulltula Storage Room Crate", "Ocean Skulltula 2nd Room Webbed Pot", "Ocean Skulltula 2nd Room Upper Pot", "Ocean Skulltula Colored Skulls Pot",
         "Ocean Skulltula Storage Room Jar", "Ocean Skulltula 2nd Room Lower Pot", "Ocean Skulltula Library Behind Bookcase 2", "Ocean Skulltula 2nd Room Behind Skull 1", "Ocean Skulltula 2nd Room Behind Skull 2",
         "Clock Town Stray Fairy",
-        "Woodfall Pre-Boss Room Bubble 1",
+        "Woodfall Pre-Boss Lower Right Bubble",
         "Woodfall Entrance Fairy",
-        "Woodfall Pre-Boss Room Bubble 2",
-        "Woodfall Pre-Boss Room Bubble 3",
+        "Woodfall Pre-Boss Upper Left Bubble",
+        "Woodfall Pre-Boss Pillar Bubble",
         "Woodfall Deku Baba",
         "Woodfall Poison Water Bubble",
         "Woodfall Main Room Bubble",
         "Woodfall Skulltula",
-        "Woodfall Pre-Boss Room Bubble 4",
+        "Woodfall Pre-Boss Upper Right Bubble",
         "Woodfall Main Room Switch",
         "Woodfall Entrance Platform",
         "Woodfall Dark Room",
@@ -82,8 +82,8 @@ namespace MMRando.Forms
         "Snowhead Snow Room Bubble",
         "Snowhead Ceiling Bubble",
         "Snowhead Dinolfos 1",
-        "Snowhead Bridge Room Bubble 1",
-        "Snowhead Bridge Room Bubble 2",
+        "Snowhead Bridge Room Ledge Bubble",
+        "Snowhead Bridge Room Pillar Bubble",
         "Snowhead Dinolfos 2",
         "Snowhead Map Room Fairy",
         "Snowhead Map Room Ledge",
@@ -91,17 +91,17 @@ namespace MMRando.Forms
         "Snowhead Twin Block",
         "Snowhead Icicle Room Wall",
         "Snowhead Main Room Wall",
-        "Snowhead Torches",
+        "Snowhead Pillar Freezards",
         "Snowhead Ice Puzzle",
         "Snowhead Crate",
         "Great Bay Skulltula",
         "Great Bay Pre-Boss Room Underwater Bubble",
         "Great Bay Water Control Room Underwater Bubble",
         "Great Bay Pre-Boss Room Bubble",
-        "Great Bay Waterwheel Room",
+        "Great Bay Waterwheel Room Upper",
         "Great Bay Green Valve",
         "Great Bay Seesaw Room",
-        "Great Bay Waterwheel Room",
+        "Great Bay Waterwheel Room Lower",
         "Great Bay Entrance Torches",
         "Great Bay Bio Babas",
         "Great Bay Underwater Barrel",
@@ -111,7 +111,7 @@ namespace MMRando.Forms
         "Great Bay Ledge Jar",
         "Stone Tower Mirror Sun Block",
         "Stone Tower Eyegore",
-        "Stone Tower Lava Room Fire Ring", // todo check location name
+        "Stone Tower Lava Room Fire Ring",
         "Stone Tower Updraft Fire Ring",
         "Stone Tower Mirror Sun Switch",
         "Stone Tower Boss Warp",
@@ -123,7 +123,11 @@ namespace MMRando.Forms
         "Stone Tower Statue Eye",
         "Stone Tower Underwater",
         "Stone Tower Bridge Crystal",
-        "Stone Tower Lava Room Ledge", // todo check location name
+        "Stone Tower Lava Room Ledge",
+        "Lottery 50r", "Bank 5r", "Milk Bar Chateau", "Milk Bar Milk", "Deku Playground 50r", "Honey and Darling 50r", "Kotake Mushroom Sale 20r", "Pictograph Contest 5r",
+        "Pictograph Contest 20r", "Swamp Scrub Magic Bean", "Ocean Scrub Green Potion", "Canyon Scrub Blue Potion", "Zora Hall Stage Lights 5r", "Gorman Bros Purchase Milk",
+        "Gorman Bros Race Milk", "Ocean Spider House 50r", "Ocean Spider House 20", "Lulu Pictograph 5r", "Lulu Pictograph 20r", "Treasure Chest Game 50r", "Treasure Chest Game 20r",
+        "Treasure Chest Game Deku Nuts",
         };
 
         bool updating = false;
@@ -160,8 +164,8 @@ namespace MMRando.Forms
 
         private void UpdateString(List<int> selections)
         {
-            int[] n = new int[12];
-            string[] ns = new string[12];
+            int[] n = new int[13];
+            string[] ns = new string[13];
             for (int i = 0; i < selections.Count; i++)
             {
                 int j = selections[i] / 32;
@@ -169,7 +173,7 @@ namespace MMRando.Forms
                 n[j] |= (int)(1 << k);
                 ns[j] = Convert.ToString(n[j], 16);
             }
-            tSetting.Text = ns[11] + "-" + ns[10] + "-" + ns[9] + "-" + ns[8] + "-" + ns[7] + "-" + ns[6] + "-" + ns[5] + "-" + ns[4] + "-"
+            tSetting.Text = ns[12] + "-" + ns[11] + "-" + ns[10] + "-" + ns[9] + "-" + ns[8] + "-" + ns[7] + "-" + ns[6] + "-" + ns[5] + "-" + ns[4] + "-"
                 + ns[3] + "-" + ns[2] + "-" + ns[1] + "-" + ns[0];
             _settings.CustomItemListString = tSetting.Text;
         }
@@ -183,20 +187,20 @@ namespace MMRando.Forms
                 _settings.CustomItemListString = c;
                 _settings.CustomItemList.Clear();
                 string[] v = c.Split('-');
-                int[] vi = new int[12];
+                int[] vi = new int[13];
                 if (v.Length != vi.Length)
                 {
                     _settings.CustomItemList.Add(-1);
                     return;
                 }
-                for (int i = 0; i < 12; i++)
+                for (int i = 0; i < 13; i++)
                 {
-                    if (v[11 - i] != "")
+                    if (v[12 - i] != "")
                     {
-                        vi[i] = Convert.ToInt32(v[11 - i], 16);
+                        vi[i] = Convert.ToInt32(v[12 - i], 16);
                     }
                 }
-                for (int i = 0; i < 32*12; i++)
+                for (int i = 0; i < 32*13; i++)
                 {
                     int j = i / 32;
                     int k = i % 32;

@@ -1019,6 +1019,7 @@ namespace MMRando
             PlaceRegularItems(itemPool);
             PlaceSkulltulaTokens(itemPool);
             PlaceStrayFairies(itemPool);
+            PlaceMundaneRewards(itemPool);
             PlaceShopItems(itemPool);
             PlaceCowMilk(itemPool);
             PlaceMoonItems(itemPool);
@@ -1079,6 +1080,17 @@ namespace MMRando
         private void PlaceStrayFairies(List<Item> itemPool)
         {
             for (var i = Item.CollectibleStrayFairyClockTown; i <= Item.CollectibleStrayFairyStoneTower15; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places mundane rewards in the randomization pool.
+        /// </summary>
+        private void PlaceMundaneRewards(List<Item> itemPool)
+        {
+            for (var i = Item.MundaneItemLotteryPurpleRupee; i <= Item.MundaneItemTreasureChestGameDekuNuts; i++)
             {
                 PlaceItem(i, itemPool);
             }
@@ -1347,6 +1359,11 @@ namespace MMRando
                 PreserveStrayFairies();
             }
 
+            if (!_settings.AddMundaneRewards)
+            {
+                PreserveMundaneRewards();
+            }
+
             if (_settings.LogicMode == LogicMode.Casual)
             {
                 PreserveGlitchedCowMilk();
@@ -1492,6 +1509,14 @@ namespace MMRando
         private void PreserveStrayFairies()
         {
             for (var i = Item.CollectibleStrayFairyClockTown; i <= Item.CollectibleStrayFairyStoneTower15; i++)
+            {
+                ItemList[(int)i].NewLocation = i;
+            }
+        }
+
+        private void PreserveMundaneRewards()
+        {
+            for (var i = Item.MundaneItemLotteryPurpleRupee; i <= Item.MundaneItemTreasureChestGameDekuNuts; i++)
             {
                 ItemList[(int)i].NewLocation = i;
             }

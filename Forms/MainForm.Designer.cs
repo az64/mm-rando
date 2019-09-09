@@ -53,6 +53,8 @@ namespace MMRando
             this.cEnemy = new System.Windows.Forms.CheckBox();
             this.cMixSongs = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cMundaneRewards = new System.Windows.Forms.CheckBox();
+            this.cStrayFairies = new System.Windows.Forms.CheckBox();
             this.cSpiders = new System.Windows.Forms.CheckBox();
             this.cCowMilk = new System.Windows.Forms.CheckBox();
             this.cFairyRewards = new System.Windows.Forms.CheckBox();
@@ -67,8 +69,6 @@ namespace MMRando
             this.cShop = new System.Windows.Forms.CheckBox();
             this.cAdditional = new System.Windows.Forms.CheckBox();
             this.cMoonItems = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.lMode = new System.Windows.Forms.Label();
             this.cMode = new System.Windows.Forms.ComboBox();
             this.tabGimmick = new System.Windows.Forms.TabPage();
@@ -136,7 +136,6 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cStrayFairies = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -196,7 +195,7 @@ namespace MMRando
             this.tSettings.Location = new System.Drawing.Point(0, 23);
             this.tSettings.Name = "tSettings";
             this.tSettings.SelectedIndex = 0;
-            this.tSettings.Size = new System.Drawing.Size(355, 326);
+            this.tSettings.Size = new System.Drawing.Size(355, 365);
             this.tSettings.TabIndex = 10;
             // 
             // tabROMSettings
@@ -209,7 +208,7 @@ namespace MMRando
             this.tabROMSettings.Location = new System.Drawing.Point(4, 25);
             this.tabROMSettings.Name = "tabROMSettings";
             this.tabROMSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabROMSettings.Size = new System.Drawing.Size(347, 297);
+            this.tabROMSettings.Size = new System.Drawing.Size(347, 336);
             this.tabROMSettings.TabIndex = 3;
             this.tabROMSettings.Text = "ROM Settings";
             this.tabROMSettings.UseVisualStyleBackColor = true;
@@ -327,14 +326,12 @@ namespace MMRando
             // 
             this.tabMain.Controls.Add(this.groupBox3);
             this.tabMain.Controls.Add(this.groupBox2);
-            this.tabMain.Controls.Add(this.label3);
-            this.tabMain.Controls.Add(this.label2);
             this.tabMain.Controls.Add(this.lMode);
             this.tabMain.Controls.Add(this.cMode);
             this.tabMain.Location = new System.Drawing.Point(4, 25);
             this.tabMain.Name = "tabMain";
             this.tabMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMain.Size = new System.Drawing.Size(347, 297);
+            this.tabMain.Size = new System.Drawing.Size(347, 336);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main Settings";
             this.tabMain.UseVisualStyleBackColor = true;
@@ -345,7 +342,7 @@ namespace MMRando
             this.groupBox3.Controls.Add(this.cDEnt);
             this.groupBox3.Controls.Add(this.cEnemy);
             this.groupBox3.Controls.Add(this.cMixSongs);
-            this.groupBox3.Location = new System.Drawing.Point(10, 220);
+            this.groupBox3.Location = new System.Drawing.Point(10, 255);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(324, 71);
             this.groupBox3.TabIndex = 16;
@@ -414,6 +411,7 @@ namespace MMRando
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cMundaneRewards);
             this.groupBox2.Controls.Add(this.cStrayFairies);
             this.groupBox2.Controls.Add(this.cSpiders);
             this.groupBox2.Controls.Add(this.cCowMilk);
@@ -432,10 +430,40 @@ namespace MMRando
             this.groupBox2.Controls.Add(this.cMoonItems);
             this.groupBox2.Location = new System.Drawing.Point(10, 49);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(325, 165);
+            this.groupBox2.Size = new System.Drawing.Size(325, 200);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Item Pool Options";
+            // 
+            // cMundaneRewards
+            // 
+            this.cMundaneRewards.AutoSize = true;
+            this.cMundaneRewards.BackColor = System.Drawing.Color.Transparent;
+            this.cMundaneRewards.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cMundaneRewards.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cMundaneRewards.ForeColor = System.Drawing.Color.Black;
+            this.cMundaneRewards.Location = new System.Drawing.Point(33, 168);
+            this.cMundaneRewards.Name = "cMundaneRewards";
+            this.cMundaneRewards.Size = new System.Drawing.Size(116, 17);
+            this.cMundaneRewards.TabIndex = 25;
+            this.cMundaneRewards.Text = "Mundane Rewards";
+            this.cMundaneRewards.UseVisualStyleBackColor = false;
+            this.cMundaneRewards.CheckedChanged += new System.EventHandler(this.cMundaneRewards_CheckedChanged);
+            // 
+            // cStrayFairies
+            // 
+            this.cStrayFairies.AutoSize = true;
+            this.cStrayFairies.BackColor = System.Drawing.Color.Transparent;
+            this.cStrayFairies.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cStrayFairies.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cStrayFairies.ForeColor = System.Drawing.Color.Black;
+            this.cStrayFairies.Location = new System.Drawing.Point(227, 145);
+            this.cStrayFairies.Name = "cStrayFairies";
+            this.cStrayFairies.Size = new System.Drawing.Size(83, 17);
+            this.cStrayFairies.TabIndex = 24;
+            this.cStrayFairies.Text = "Stray Fairies";
+            this.cStrayFairies.UseVisualStyleBackColor = false;
+            this.cStrayFairies.CheckedChanged += new System.EventHandler(this.cStrayFairies_CheckedChanged);
             // 
             // cSpiders
             // 
@@ -509,7 +537,7 @@ namespace MMRando
             | System.Windows.Forms.AnchorStyles.Right)));
             this.bItemListEditor.Location = new System.Drawing.Point(120, 87);
             this.bItemListEditor.Name = "bItemListEditor";
-            this.bItemListEditor.Size = new System.Drawing.Size(86, 22);
+            this.bItemListEditor.Size = new System.Drawing.Size(86, 24);
             this.bItemListEditor.TabIndex = 18;
             this.bItemListEditor.Text = "Item List Editor";
             this.bItemListEditor.UseVisualStyleBackColor = true;
@@ -636,28 +664,6 @@ namespace MMRando
             this.cMoonItems.UseVisualStyleBackColor = false;
             this.cMoonItems.CheckedChanged += new System.EventHandler(this.cMoonItems_CheckedChanged);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(102, 306);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(143, 13);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "BETA - Use at your own risk!";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label2.Location = new System.Drawing.Point(10, 302);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(325, 13);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "_____________________________________________________";
-            // 
             // lMode
             // 
             this.lMode.AutoSize = true;
@@ -705,7 +711,7 @@ namespace MMRando
             this.tabGimmick.Controls.Add(this.cGravity);
             this.tabGimmick.Location = new System.Drawing.Point(4, 25);
             this.tabGimmick.Name = "tabGimmick";
-            this.tabGimmick.Size = new System.Drawing.Size(347, 297);
+            this.tabGimmick.Size = new System.Drawing.Size(347, 336);
             this.tabGimmick.TabIndex = 2;
             this.tabGimmick.Text = "Gimmicks";
             this.tabGimmick.UseVisualStyleBackColor = true;
@@ -899,7 +905,7 @@ namespace MMRando
             this.tabComfort.Location = new System.Drawing.Point(4, 25);
             this.tabComfort.Name = "tabComfort";
             this.tabComfort.Padding = new System.Windows.Forms.Padding(3);
-            this.tabComfort.Size = new System.Drawing.Size(347, 297);
+            this.tabComfort.Size = new System.Drawing.Size(347, 336);
             this.tabComfort.TabIndex = 1;
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
@@ -1275,7 +1281,7 @@ namespace MMRando
             // 
             // pProgress
             // 
-            this.pProgress.Location = new System.Drawing.Point(11, 473);
+            this.pProgress.Location = new System.Drawing.Point(11, 512);
             this.pProgress.Margin = new System.Windows.Forms.Padding(2);
             this.pProgress.Name = "pProgress";
             this.pProgress.Size = new System.Drawing.Size(339, 19);
@@ -1290,7 +1296,7 @@ namespace MMRando
             // 
             this.lStatus.AutoSize = true;
             this.lStatus.BackColor = System.Drawing.Color.Transparent;
-            this.lStatus.Location = new System.Drawing.Point(15, 454);
+            this.lStatus.Location = new System.Drawing.Point(15, 493);
             this.lStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lStatus.Name = "lStatus";
             this.lStatus.Size = new System.Drawing.Size(47, 13);
@@ -1347,7 +1353,7 @@ namespace MMRando
             this.cDummy.AutoSize = true;
             this.cDummy.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cDummy.Enabled = false;
-            this.cDummy.Location = new System.Drawing.Point(265, 450);
+            this.cDummy.Location = new System.Drawing.Point(265, 489);
             this.cDummy.Name = "cDummy";
             this.cDummy.Size = new System.Drawing.Size(80, 17);
             this.cDummy.TabIndex = 9;
@@ -1359,7 +1365,7 @@ namespace MMRando
             // 
             this.lHrule.AutoSize = true;
             this.lHrule.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lHrule.Location = new System.Drawing.Point(20, 338);
+            this.lHrule.Location = new System.Drawing.Point(20, 377);
             this.lHrule.Name = "lHrule";
             this.lHrule.Size = new System.Drawing.Size(325, 13);
             this.lHrule.TabIndex = 12;
@@ -1369,7 +1375,7 @@ namespace MMRando
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label5.Location = new System.Drawing.Point(20, 435);
+            this.label5.Location = new System.Drawing.Point(20, 474);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(325, 13);
             this.label5.TabIndex = 14;
@@ -1383,7 +1389,7 @@ namespace MMRando
             // 
             this.ttOutput.Controls.Add(this.tpOutputSettings);
             this.ttOutput.Controls.Add(this.tpPatchSettings);
-            this.ttOutput.Location = new System.Drawing.Point(4, 355);
+            this.ttOutput.Location = new System.Drawing.Point(4, 394);
             this.ttOutput.Name = "ttOutput";
             this.ttOutput.SelectedIndex = 0;
             this.ttOutput.Size = new System.Drawing.Size(354, 89);
@@ -1436,27 +1442,12 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // cStrayFairies
-            // 
-            this.cStrayFairies.AutoSize = true;
-            this.cStrayFairies.BackColor = System.Drawing.Color.Transparent;
-            this.cStrayFairies.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cStrayFairies.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cStrayFairies.ForeColor = System.Drawing.Color.Black;
-            this.cStrayFairies.Location = new System.Drawing.Point(227, 145);
-            this.cStrayFairies.Name = "cStrayFairies";
-            this.cStrayFairies.Size = new System.Drawing.Size(83, 17);
-            this.cStrayFairies.TabIndex = 24;
-            this.cStrayFairies.Text = "Stray Fairies";
-            this.cStrayFairies.UseVisualStyleBackColor = false;
-            this.cStrayFairies.CheckedChanged += new System.EventHandler(this.cStrayFairies_CheckedChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(355, 503);
+            this.ClientSize = new System.Drawing.Size(355, 542);
             this.Controls.Add(this.ttOutput);
             this.Controls.Add(this.lStatus);
             this.Controls.Add(this.cDummy);
@@ -1568,8 +1559,6 @@ namespace MMRando
         private System.Windows.Forms.CheckBox cDummy;
         private System.Windows.Forms.Label lHrule;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox cFreeHints;
@@ -1608,6 +1597,7 @@ namespace MMRando
         private System.Windows.Forms.CheckBox cCowMilk;
         private System.Windows.Forms.CheckBox cSpiders;
         private System.Windows.Forms.CheckBox cStrayFairies;
+        private System.Windows.Forms.CheckBox cMundaneRewards;
     }
 }
 
