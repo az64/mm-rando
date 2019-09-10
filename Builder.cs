@@ -613,6 +613,20 @@ namespace MMRando
                 Message = $"\u0017You've been granted \u0002Magic Power\u0000!\u0018\u0011Replenish it with \u0001Magic Jars\u0000\u0011and \u0001Potions\u0000.\u00BF",
             });
 
+            // update Bank Reward messages
+            newMessages.Add(new MessageEntry
+            {
+                Id = 0x45C,
+                Header = null,
+                Message = "\u0017What's this? You've already saved\u0011up \u0001500 Rupees\u0000!?!\u0018\u0011\u0013\u0012Well, little guy, here's your special\u0011gift. Take it!\u00E0\u00BF",
+            });
+            newMessages.Add(new MessageEntry
+            {
+                Id = 0x45D,
+                Header = null,
+                Message = "\u0017What's this? You've already saved\u0011up \u00011000 Rupees\u0000?!\u0018\u0011\u0013\u0012Well, little guy, I can't take any\u0011more deposits. Sorry, but this is\u0011all I can give you.\u00E0\u00BF",
+            });
+
             if (_settings.AddSkulltulaTokens)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-skulltula-tokens");
