@@ -519,7 +519,7 @@ namespace MMRando
                 {
                     Id = 0x15F5,
                     Header = null,
-                    Message = $"I sell {MessageUtils.GetArticle(biggestBombBagItem)}\u0001{MessageUtils.GetAlternateName(biggestBombBagItem)}\u0000, but I'm focusing my marketing efforts on \u0001Gorons.\u0011\u0000\u0013\u0012What I'd really like to do is go back home and do business where I'm surrounded by trees and grass.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"I sell {MessageUtils.GetArticle(biggestBombBagItem)}\u0001{MessageUtils.GetAlternateName(biggestBombBagItem)}\u0000, but I'm focusing my marketing efforts on \u0001Gorons\u0000.".Wrap(35, "\u0011") + "\u0011\u0013\u0012What I'd really like to do is go back home and do business where I'm surrounded by trees and grass.\u0019\u00BF".Wrap(35, "\u0011")
                 });
                 newMessages.Add(new MessageEntry
                 {
@@ -546,7 +546,7 @@ namespace MMRando
                 {
                     Id = 0x15E1,
                     Header = null,
-                    Message = $"\x1E\x39\xA7I'm selling {MessageUtils.GetArticle(magicBeanItem)}\u0001{MessageUtils.GetAlternateName(magicBeanItem)}\u0000 to Deku Scrubs, but I'd really like to leave my hometown.\u0011\u0012I'm hoping to find some success in a livelier place!\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x39\xA7I'm selling {MessageUtils.GetArticle(magicBeanItem)}\u0001{MessageUtils.GetAlternateName(magicBeanItem)}\u0000 to Deku Scrubs, but I'd really like to leave my hometown.".Wrap(35, "\u0011") + "\u0011\u0012I'm hoping to find some success in a livelier place!\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
                 newMessages.Add(new MessageEntry
@@ -562,7 +562,7 @@ namespace MMRando
                 {
                     Id = 0x1608,
                     Header = null,
-                    Message = $"\x1E\x39\xA7I'm selling {MessageUtils.GetArticle(greenPotionItem)}\u0001{MessageUtils.GetAlternateName(greenPotionItem)}\u0000, but I'm focusing my marketing efforts on Zoras.\u0011\u0012Actually, I'd like to do business someplace where it's cooler and the air is clean.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x39\xA7I'm selling {MessageUtils.GetArticle(greenPotionItem)}\u0001{MessageUtils.GetAlternateName(greenPotionItem)}\u0000, but I'm focusing my marketing efforts on Zoras.".Wrap(35, "\u0011") + "\u0011\u0012Actually, I'd like to do business someplace where it's cooler and the air is clean.\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
                 newMessages.Add(new MessageEntry
@@ -578,7 +578,7 @@ namespace MMRando
                 {
                     Id = 0x161C,
                     Header = null,
-                    Message = $"\x1E\x39\x8CI'm here to sell {MessageUtils.GetArticle(bluePotionItem)}\u0001{MessageUtils.GetAlternateName(bluePotionItem)}\u0000.\u0011\u0013\u0013\u0012Actually, I want to do business in the sea breeze while listening to the sound of the waves.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x39\x8CI'm here to sell {MessageUtils.GetArticle(bluePotionItem)}\u0001{MessageUtils.GetAlternateName(bluePotionItem)}\u0000.".Wrap(35, "\u0011") + "\u0011\u0013\u0013\u0012Actually, I want to do business in the sea breeze while listening to the sound of the waves.\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
                 newMessages.Add(new MessageEntry
@@ -607,7 +607,7 @@ namespace MMRando
                 {
                     Id = 0x3466,
                     Header = null,
-                    Message = $"\u000650 Rupees\u0000 will do ya for {MessageUtils.GetPronounOrAmount(gormanBrosMilkItem).ToLower()}\u0011\u0002\u00C2I'll buy {MessageUtils.GetPronoun(gormanBrosMilkItem)}\u0011No thanks\u00BF".Wrap(35, "\u0011")
+                    Message = $"\u000650 Rupees\u0000 will do ya for{MessageUtils.GetPronounOrAmount(gormanBrosMilkItem).ToLower()}\u0011 \u0011\u0002\u00C2I'll buy {MessageUtils.GetPronoun(gormanBrosMilkItem)}\u0011No thanks\u00BF"
                 });
 
             }
