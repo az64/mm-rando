@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace MMRando.Utils
 {
@@ -256,9 +257,57 @@ namespace MMRando.Utils
             return $"\x01{title}: {cost} Rupees\x11\x00{description.Wrap(35, "\x11")}\x1A\xBF";
         }
 
-        public static string BuildShopPurchaseMessage(string title, int cost, bool isMultiple)
+        public static string BuildShopPurchaseMessage(string title, int cost, Item item)
         {
-            return $"{title}: {cost} Rupees\x11 \x11\x02\xC2I'll buy {(isMultiple ? "them" : "it")}\x11No thanks\xBF";
+            return $"{title}: {cost} Rupees\x11 \x11\x02\xC2I'll buy {GetPronoun(item)}\x11No thanks\xBF";
+        }
+
+        public static string GetArticle(Item item, string indefiniteArticle = null)
+        {
+            var shopTexts = item.ShopTexts();
+            return shopTexts.IsMultiple
+                ? ""
+                : shopTexts.IsDefinite
+                    ? "the "
+                    : indefiniteArticle ?? (Regex.IsMatch(item.Name(), "^[aeiou]", RegexOptions.IgnoreCase)
+                        ? "an "
+                        : "a ");
+        }
+
+        public static string GetPronoun(Item item)
+        {
+            var shopTexts = item.ShopTexts();
+            var itemAmount = Regex.Replace(item.Name(), "[^0-9]", "");
+            return shopTexts.IsMultiple && !string.IsNullOrWhiteSpace(itemAmount)
+                ? "them"
+                : "it";
+        }
+
+        public static string GetPronounOrAmount(Item item, string it = " It")
+        {
+            var shopTexts = item.ShopTexts();
+            var itemAmount = Regex.Replace(item.Name(), "[^0-9]", "");
+            return shopTexts.IsMultiple
+                ? string.IsNullOrWhiteSpace(itemAmount)
+                    ? it
+                    : " " + itemAmount
+                : shopTexts.IsDefinite
+                    ? it
+                    : " One";
+        }
+
+        public static string GetVerb(Item item)
+        {
+            var shopTexts = item.ShopTexts();
+            var itemAmount = Regex.Replace(item.Name(), "[^0-9]", "");
+            return shopTexts.IsMultiple && !string.IsNullOrWhiteSpace(itemAmount)
+                ? "are"
+                : "is";
+        }
+
+        public static string GetAlternateName(Item item)
+        {
+            return Regex.Replace(item.Name(), "[0-9]+ ", "");
         }
     }
 }

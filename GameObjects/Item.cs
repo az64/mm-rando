@@ -104,7 +104,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CDF4, 0x01)]
         [ItemName("Magic Power"), LocationName("Town Great Fairy Non-Human"), RegionName("North Clock Town")]
         [GossipLocationHint("a magical being"), GossipItemHint("magic power")]
-        [ShopText("Grants the ability to use magic.")]
+        [ShopText("Grants the ability to use magic.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12C)]
         FairyMagic,
@@ -112,7 +112,7 @@ namespace MMRando.GameObjects
         // todo allow as starting item
         [ItemName("Spin Attack"), LocationName("Woodfall Great Fairy"), RegionName("Woodfall")]
         [GossipLocationHint("a magical being"), GossipItemHint("a magic attack")]
-        [ShopText("Increases the power of your spin attack.")]
+        [ShopText("Increases the power of your spin attack.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12D)]
         FairySpinAttack,
@@ -122,7 +122,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CDF5, 0x01)]
         [ItemName("Extended Magic Power"), LocationName("Snowhead Great Fairy"), RegionName("Snowhead")]
         [GossipLocationHint("a magical being"), GossipItemHint("magic power")]
-        [ShopText("Grants the ability to use lots of magic.")]
+        [ShopText("Grants the ability to use lots of magic.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12E)]
         FairyDoubleMagic,
@@ -131,7 +131,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE87, 0x14)]
         [ItemName("Double Defense"), LocationName("Ocean Great Fairy"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a magical being"), GossipItemHint("magical defense")]
-        [ShopText("Take half as much damage from enemies.")]
+        [ShopText("Take half as much damage from enemies.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12F)]
         FairyDoubleDefense,
@@ -139,7 +139,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE34, 0x10)]
         [ItemName("Great Fairy's Sword"), LocationName("Ikana Great Fairy"), RegionName("Ikana Canyon")]
         [GossipLocationHint("a magical being"), GossipItemHint("a black rose", "a powerful blade")]
-        [ShopText("The most powerful sword has black roses etched in its blade.")]
+        [ShopText("The most powerful sword has black roses etched in its blade.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x130)]
         ItemFairySword,
@@ -244,7 +244,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE6F, 0x03)]
         [ItemName("Largest Quiver"), LocationName("Swamp Archery #1"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a projectile", "a ranged weapon")]
-        [ShopText("This can hold up to a maximum of 50 arrows.")]
+        [ShopText("This can hold up to a maximum of 50 arrows.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x24)]
         UpgradeBiggestQuiver,
@@ -268,7 +268,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE6F, 0x18)]
         [ItemName("Biggest Bomb Bag"), LocationName("Biggest Bomb Bag Purchase"), RegionName("Goron Village")]
         [GossipLocationHint("a northern merchant"), GossipItemHint("an item carrier", "a vessel of explosives")]
-        [ShopText("This can hold up to a maximum of 40 bombs.")]
+        [ShopText("This can hold up to a maximum of 40 bombs.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x1D)]
         UpgradeBiggestBombBag,
@@ -651,7 +651,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE40, 0x40)]
         [ItemName("Great Fairy's Mask"), LocationName("Town Great Fairy"), RegionName("North Clock Town")]
         [GossipLocationHint("a magical being"), GossipItemHint("a friend of fairies")]
-        [ShopText("The mask's hair will shimmer when you're close to a Stray Fairy.")]
+        [ShopText("The mask's hair will shimmer when you're close to a Stray Fairy.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x131)]
         MaskGreatFairy,
@@ -683,7 +683,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE45, 0x42)]
         [ItemName("Don Gero's Mask"), LocationName("Hungry Goron"), RegionName("Mountain Village")]
         [GossipLocationHint("a hungry goron", "a person in need"), GossipItemHint("a conductor's mask", "an amphibious mask")]
-        [ShopText("When you wear it, you can call the Frog Choir members together.")]
+        [ShopText("When you wear it, you can call the Frog Choir members together.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x88)]
         MaskDonGero,
@@ -691,7 +691,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE46, 0x48)]
         [ItemName("Mask of Scents"), LocationName("Butler"), RegionName("Deku Palace")]
         [GossipLocationHint("a servant of royalty", "the royal servant"), GossipItemHint("heightened senses", "a pig's mask")]
-        [ShopText("Wear it to heighten your sense of smell.")]
+        [ShopText("Wear it to heighten your sense of smell.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x8E)]
         MaskScents,
@@ -699,7 +699,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE48, 0x3C)]
         [ItemName("Romani's Mask"), LocationName("Cremia"), RegionName("Romani Ranch")]
         [GossipLocationHint("the ranch lady", "an older sister"), GossipItemHint("proof of membership", "a cow's mask")]
-        [ShopText("Wear it to show you're a member of the Milk Bar, Latte.")]
+        [ShopText("Wear it to show you're a member of the Milk Bar, Latte.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x82)]
         MaskRomani,
@@ -707,7 +707,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE49, 0x3D)]
         [ItemName("Circus Leader's Mask"), LocationName("Gorman"), RegionName("East Clock Town")]
         [GossipLocationHint("an entertainer", "a miserable leader"), GossipItemHint("a mask of sadness")]
-        [ShopText("People related to Gorman will react to this.")]
+        [ShopText("People related to Gorman will react to this.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x83)]
         MaskCircusLeader,
@@ -715,7 +715,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE4A, 0x37)]
         [ItemName("Kafei's Mask"), LocationName("Madame Aroma in Office"), RegionName("East Clock Town")]
         [GossipLocationHint("an important lady", "an esteemed woman"), GossipItemHint("the mask of a missing one", "a son's mask")]
-        [ShopText("Wear it to inquire about Kafei's whereabouts.")]
+        [ShopText("Wear it to inquire about Kafei's whereabouts.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x8F)]
         MaskKafei,
@@ -731,7 +731,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE4C, 0x36)]
         [ItemName("Mask of Truth"), LocationName("Swamp Spider House Reward"), RegionName("Southern Swamp")]
         [GossipLocationHint("a gold spider"), GossipItemHint("a piercing gaze")]
-        [ShopText("Wear it to read the thoughts of Gossip Stones and animals.")]
+        [ShopText("Wear it to read the thoughts of Gossip Stones and animals.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x8A)]
         MaskTruth,
@@ -739,7 +739,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE4E, 0x43)]
         [ItemName("Kamaro's Mask"), LocationName("Kamaro"), RegionName("Termina Field")]
         [GossipLocationHint("a ghostly dancer", "a dancer"), GossipItemHint("dance moves")]
-        [ShopText("Wear this to perform a mysterious dance.")]
+        [ShopText("Wear this to perform a mysterious dance.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x89)]
         MaskKamaro,
@@ -763,7 +763,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE51, 0x44)]
         [ItemName("Captain's Hat"), LocationName("Captain Keeta's Chest"), RegionName("Ikana Graveyard")]
         [GossipLocationHint("a ghostly battle", "a skeletal leader"), GossipItemHint("a commanding presence")]
-        [ShopText("Wear it to pose as Captain Keeta.")]
+        [ShopText("Wear it to pose as Captain Keeta.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x0280D000 + 0x392, ChestAttribute.AppearanceType.Normal, 0x0280D000 + 0x6FA)]
         [GetItemIndex(0x7C)]
         MaskCaptainHat,
@@ -796,7 +796,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE72, 0x20)]
         [ItemName("Song of Healing"), LocationName("Starting Song"), RegionName("Misc")]
         [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("a soothing melody")]
-        [ShopText("This melody will soothe restless spirits.")]
+        [ShopText("This melody will soothe restless spirits.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x124)]
         SongHealing,
@@ -804,7 +804,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE72, 0x80)]
         [ItemName("Song of Soaring"), LocationName("Swamp Music Statue"), RegionName("Southern Swamp")]
         [GossipLocationHint("a stone tablet"), GossipItemHint("white wings")]
-        [ShopText("This melody sends you to a stone bird statue in an instant.")]
+        [ShopText("This melody sends you to a stone bird statue in an instant.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x70)]
         SongSoaring,
@@ -812,7 +812,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE72, 0x40)]
         [ItemName("Epona's Song"), LocationName("Romani's Game"), RegionName("Romani Ranch")]
         [GossipLocationHint("a reunion"), GossipItemHint("a horse's song", "a song of the field")]
-        [ShopText("This melody calls your horse, Epona.")]
+        [ShopText("This melody calls your horse, Epona.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x71)]
         SongEpona,
@@ -820,7 +820,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE71, 0x01)]
         [ItemName("Song of Storms"), LocationName("Day 1 Grave Tablet"), RegionName("Ikana Graveyard")]
         [GossipLocationHint("a hollow ground", "a stone tablet"), GossipItemHint("rain and thunder", "stormy weather")]
-        [ShopText("This melody is the turbulent tune that blows curses away.")]
+        [ShopText("This melody is the turbulent tune that blows curses away.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x72)]
         SongStorms,
@@ -828,7 +828,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE73, 0x40)]
         [ItemName("Sonata of Awakening"), LocationName("Imprisoned Monkey"), RegionName("Deku Palace")]
         [GossipLocationHint("a prisoner", "a false imprisonment"), GossipItemHint("a royal song", "an awakening melody")]
-        [ShopText("This melody awakens those who have fallen into a deep sleep.")]
+        [ShopText("This melody awakens those who have fallen into a deep sleep.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x73)]
         SongSonata,
@@ -836,7 +836,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE73, 0x80)]
         [ItemName("Goron Lullaby"), LocationName("Baby Goron"), RegionName("Goron Village")]
         [GossipLocationHint("a lonely child", "an elder's son"), GossipItemHint("a sleepy melody", "a father's lullaby")]
-        [ShopText("This melody blankets listeners in calm while making eyelids grow heavy.")]
+        [ShopText("This melody blankets listeners in calm while making eyelids grow heavy.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x74)]
         SongLullaby,
@@ -844,7 +844,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE72, 0x01)]
         [ItemName("New Wave Bossa Nova"), LocationName("Baby Zoras"), RegionName("Great Bay Coast")]
         [GossipLocationHint("the lost children", "the pirates' loot"), GossipItemHint("an ocean roar", "a song of newborns")]
-        [ShopText("It's the melody taught by the Zora children that invigorates singing voices.")]
+        [ShopText("It's the melody taught by the Zora children that invigorates singing voices.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x75)]
         SongNewWaveBossaNova,
@@ -852,7 +852,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE72, 0x02)]
         [ItemName("Elegy of Emptiness"), LocationName("Ikana King"), RegionName("Ikana Castle")]
         [GossipLocationHint("a fallen king", "a battle in darkness"), GossipItemHint("empty shells", "skin shedding")]
-        [ShopText("It's a mystical song that allows you to shed a shell shaped in your current image.")]
+        [ShopText("It's a mystical song that allows you to shed a shell shaped in your current image.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x76)]
         SongElegy,
@@ -860,7 +860,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE72, 0x04)]
         [ItemName("Oath to Order"), LocationName("Boss Blue Warp"), RegionName("Misc")]
         [GossipLocationHint("cleansed evil", "a fallen evil"), GossipItemHint("a song of summoning", "a song of giants")]
-        [ShopText("This melody will call the giants at the right moment.")]
+        [ShopText("This melody will call the giants at the right moment.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x77)]
         SongOath,
@@ -1368,7 +1368,7 @@ namespace MMRando.GameObjects
         [Repeatable, CycleRepeatable]
         [ItemName("5 Bombchu"), LocationName("Secret Shrine Grotto"), RegionName("Ikana Canyon")]
         [GossipLocationHint("a waterfall cave"), GossipItemHint("explosive mice")]
-        [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.")]
+        [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02080000 + 0x93, 0x02080000 + 0x1E3, 0x02080000 + 0x2EB)]
         [GetItemIndex(0xD1)]
         ChestIkanaSecretShrineGrotto,
@@ -1575,7 +1575,7 @@ namespace MMRando.GameObjects
 
         [Repeatable, CycleRepeatable]
         [ItemName("5 Bombchu"), LocationName("Ikana Graveyard Grotto"), RegionName("Ikana Graveyard")]
-        [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.")]
+        [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
         [GossipLocationHint("a circled cave"), GossipItemHint("explosive mice")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x0280D000 + 0x353, 0x0280D000 + 0x54B)]
         [GetItemIndex(0xD5)]
@@ -1959,42 +1959,42 @@ namespace MMRando.GameObjects
         HeartContainerStoneTower,
 
         //maps
-        [ItemName("Map: Clock Town"), LocationName("Clock Town Map Purchase"), RegionName("North Clock Town")]
+        [ItemName("Map of Clock Town"), LocationName("Clock Town Map Purchase"), RegionName("North Clock Town")]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of Clock Town.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)] // todo size??
         [GetItemIndex(0xB4)]
         ItemTingleMapTown,
 
-        [ItemName("Map: Woodfall"), LocationName("Woodfall Map Purchase"), RegionName("Road to Southern Swamp")]
+        [ItemName("Map of Woodfall"), LocationName("Woodfall Map Purchase"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the south.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xB5)]
         ItemTingleMapWoodfall,
 
-        [ItemName("Map: Snowhead"), LocationName("Snowhead Map Purchase"), RegionName("Road to Southern Swamp")]
+        [ItemName("Map of Snowhead"), LocationName("Snowhead Map Purchase"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the north.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xB6)]
         ItemTingleMapSnowhead,
 
-        [ItemName("Map: Romani Ranch"), LocationName("Romani Ranch Map Purchase"), RegionName("Milk Road")]
+        [ItemName("Map of Romani Ranch"), LocationName("Romani Ranch Map Purchase"), RegionName("Milk Road")]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the ranch.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xB7)]
         ItemTingleMapRanch,
 
-        [ItemName("Map: Great Bay"), LocationName("Great Bay Map Purchase"), RegionName("Milk Road")]
+        [ItemName("Map of Great Bay"), LocationName("Great Bay Map Purchase"), RegionName("Milk Road")]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the west.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xB8)]
         ItemTingleMapGreatBay,
 
-        [ItemName("Map: Stone Tower"), LocationName("Stone Tower Map Purchase"), RegionName("Great Bay Coast")]
+        [ItemName("Map of Stone Tower"), LocationName("Stone Tower Map Purchase"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the east.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -2060,7 +2060,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE53, 0x35)]
         [ItemName("Fierce Deity's Mask"), LocationName("Majora Child"), RegionName("The Moon")]
         [GossipLocationHint("the lonely child"), GossipItemHint("the wrath of a god")]
-        [ShopText("A mask that contains the merits of all masks.")]
+        [ShopText("A mask that contains the merits of all masks.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x7B)]
         MaskFierceDeity,
@@ -2134,7 +2134,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Ranch Cow #1"), RegionName("Romani Ranch")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
-        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x132)]
         ItemRanchBarnMainCowMilk,
@@ -2142,7 +2142,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Ranch Cow #2"), RegionName("Romani Ranch")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
-        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x133)]
         ItemRanchBarnOtherCowMilk1,
@@ -2150,7 +2150,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Ranch Cow #3"), RegionName("Romani Ranch")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
-        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x134)]
         ItemRanchBarnOtherCowMilk2,
@@ -2158,7 +2158,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Cow Beneath the Well"), RegionName("Beneath the Well")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
-        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x135)]
         ItemWellCowMilk,
@@ -2166,7 +2166,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Termina Grotto Cow #1"), RegionName("Termina Field")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
-        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x136)]
         ItemTerminaGrottoCowMilk1,
@@ -2174,7 +2174,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Termina Grotto Cow #2"), RegionName("Termina Field")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
-        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x137)]
         ItemTerminaGrottoCowMilk2,
@@ -2182,7 +2182,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Great Bay Coast Grotto Cow #1"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
-        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x138)]
         ItemCoastGrottoCowMilk1,
@@ -2190,7 +2190,7 @@ namespace MMRando.GameObjects
         [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Milk"), LocationName("Great Bay Coast Grotto Cow #2"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
-        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x139)]
         ItemCoastGrottoCowMilk2,
@@ -3073,7 +3073,7 @@ namespace MMRando.GameObjects
         [Repeatable, CycleRepeatable]
         [ItemName("Chateau Romani"), LocationName("Milk Bar Chateau"), RegionName("East Clock Town")]
         [GossipLocationHint("a town shop"), GossipItemHint("a dairy product", "an adult beverage")]
-        [ShopText("Drink it to get lasting stamina for your magic power.")]
+        [ShopText("Drink it to get lasting stamina for your magic power.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x180)]
         ShopItemMilkBarChateau,
@@ -3081,7 +3081,7 @@ namespace MMRando.GameObjects
         [Repeatable, CycleRepeatable]
         [ItemName("Milk"), LocationName("Milk Bar Milk"), RegionName("East Clock Town")]
         [GossipLocationHint("a town shop"), GossipItemHint("a dairy product", "the produce of cows")]
-        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x181)]
         ShopItemMilkBarMilk,
@@ -3161,7 +3161,7 @@ namespace MMRando.GameObjects
         [Repeatable, CycleRepeatable]
         [ItemName("Milk"), LocationName("Gorman Bros Milk Purchase"), RegionName("Milk Road")]
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("a dairy product", "the produce of cows")]
-        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x1A0)]
         ShopItemGormanBrosMilk,
@@ -3169,7 +3169,7 @@ namespace MMRando.GameObjects
         [Repeatable, CycleRepeatable]
         [ItemName("Milk"), LocationName("Gorman Bros Race Day 3"), RegionName("Milk Road")]
         [GossipLocationHint("a sporting event"), GossipItemHint("a dairy product", "the produce of cows")]
-        [ShopText("Recover five hearts with one drink. Contains two helpings.")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x1A1)]
         MundaneItemGormanBrosRaceMilk,
