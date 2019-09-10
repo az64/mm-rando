@@ -251,7 +251,7 @@ namespace MMRando.Utils
                 {
                     Id = (ushort)(messageId + 1),
                     Header = null,
-                    Message = MessageUtils.BuildShopPurchaseMessage(item.Name(), 20, item.ShopTexts()?.IsMultiple ?? false)
+                    Message = MessageUtils.BuildShopPurchaseMessage(item.Name(), 20, item)
                 });
             }
         }
