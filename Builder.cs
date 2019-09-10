@@ -595,6 +595,21 @@ namespace MMRando
                     Message = $"Do we have a deal?\u0011 \u0011\u0002\u00C2Yes\u0011No\u00BF"
                 });
 
+                // update gorman bros milk purchase
+                var gormanBrosMilkItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemGormanBrosMilk).Item;
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x3463,
+                    Header = null,
+                    Message = $"Won'tcha buy {MessageUtils.GetArticle(gormanBrosMilkItem)}\u0001{MessageUtils.GetAlternateName(gormanBrosMilkItem)}\u0019\u00BF".Wrap(35, "\u0011")
+                });
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x3466,
+                    Header = null,
+                    Message = $"\u000650 Rupees\u0000 will do ya for {MessageUtils.GetPronounOrAmount(gormanBrosMilkItem).ToLower()}\u0011\u0002\u00C2I'll buy {MessageUtils.GetPronoun(gormanBrosMilkItem)}\u0011No thanks\u00BF".Wrap(35, "\u0011")
+                });
+
             }
 
             // replace "Razor Sword is now blunt" message with get-item message for Kokiri Sword.
