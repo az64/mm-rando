@@ -578,14 +578,14 @@ namespace MMRando
                 {
                     Id = 0x161C,
                     Header = null,
-                    Message = $"\x1E\x39\x8CI'm here to sell {MessageUtils.GetArticle(bluePotionItem)}\u0001{MessageUtils.GetAlternateName(bluePotionItem)}\u0000.".Wrap(35, "\u0011") + "\u0011\u0013\u0013\u0012Actually, I want to do business in the sea breeze while listening to the sound of the waves.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x39\xA7I'm here to sell {MessageUtils.GetArticle(bluePotionItem)}\u0001{MessageUtils.GetAlternateName(bluePotionItem)}\u0000.".Wrap(35, "\u0011") + "\u0011\u0013\u0013\u0012Actually, I want to do business in the sea breeze while listening to the sound of the waves.\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1626,
                     Header = null,
-                    Message = $"\x1E\x38\u00D2Don't you need {MessageUtils.GetArticle(bluePotionItem)}\u0001{MessageUtils.GetAlternateName(bluePotionItem)}\u0000?{MessageUtils.GetPronounOrAmount(bluePotionItem)} {MessageUtils.GetVerb(bluePotionItem)} \u0006100 Rupees\u0000.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x3A\u00D2Don't you need {MessageUtils.GetArticle(bluePotionItem)}\u0001{MessageUtils.GetAlternateName(bluePotionItem)}\u0000?{MessageUtils.GetPronounOrAmount(bluePotionItem)} {MessageUtils.GetVerb(bluePotionItem)} \u0006100 Rupees\u0000.\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
                 newMessages.Add(new MessageEntry
