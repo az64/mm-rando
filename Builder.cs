@@ -553,7 +553,7 @@ namespace MMRando
                 {
                     Id = 0x15E9,
                     Header = null,
-                    Message = $"\x1E\x3A\u00D2Do you know what {MessageUtils.GetArticle(magicBeanItem)}{MessageUtils.GetAlternateName(magicBeanItem)} {MessageUtils.GetVerb(magicBeanItem)}, sir?\u0011I'll sell you{MessageUtils.GetPronounOrAmount(magicBeanItem).ToLower()} for \u000610 Rupees\u0000.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x3A\u00D2Do you know what {MessageUtils.GetArticle(magicBeanItem)}\u0001{MessageUtils.GetAlternateName(magicBeanItem)}\u0000 {MessageUtils.GetVerb(magicBeanItem)}, sir?\u0011I'll sell you{MessageUtils.GetPronounOrAmount(magicBeanItem).ToLower()} for \u000610 Rupees\u0000.\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
                 // update ocean scrub purchase
