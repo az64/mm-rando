@@ -848,181 +848,151 @@ namespace MMRando.LogicMigrator
                 {
                     ID = 316,
                     DependsOnItems = new List<int> { 110, 119 }, // West access, Explosives
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 317,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 318,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 319,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 320,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 321,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 322,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 323,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 324,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 325,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 326,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 327,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 328,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 329,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 330,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 331,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 332,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 333,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 334,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 335,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 336,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 337,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 338,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 339,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 340,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 341,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 342,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 343,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 344,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
                 new MigrationItem
                 {
                     ID = 345,
                     DependsOnItems = new List<int> { 110, 119 },
-                    TimeNeeded = 3,
                 },
             };
             var itemNames = new string[]
