@@ -160,6 +160,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x60)]
         ItemBottleAliens,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE38, 0x12)]
         [ItemName("Bottle with Gold Dust"), LocationName("Goron Race"), RegionName("Twin Islands")]
         [GossipLocationHint("a sporting event"), GossipItemHint("a gleaming powder")]
@@ -230,6 +231,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x33)]
         UpgradeMirrorShield,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE25, 0x01)]
         [StartingItem(0xC5CE6F, 0x02)]
         [ItemName("Large Quiver"), LocationName("Town Archery #1"), RegionName("East Clock Town")]
@@ -239,6 +241,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x23)]
         UpgradeBigQuiver,
 
+        [RupeeRepeatable]
         [Downgradable]
         [StartingItem(0xC5CE25, 0x01)]
         [StartingItem(0xC5CE6F, 0x03)]
@@ -372,6 +375,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x03)]
         HeartPieceNotebookMayor,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Postman's Game"), RegionName("West Clock Town")]
         [GossipLocationHint("a hard worker", "a delivery person"), GossipItemHint("a segment of health")]
@@ -413,6 +417,7 @@ namespace MMRando.GameObjects
         HeartPieceNotebookGran2,
 
         //other hp
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Keaton Quiz"), RegionName("North Clock Town")]
         [GossipLocationHint("the ghost of a fox", "a mysterious fox"), GossipItemHint("a segment of health")]
@@ -429,6 +434,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x31)]
         HeartPieceDekuPlayground,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Town Archery #2"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
@@ -445,6 +451,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x94)]
         HeartPieceHoneyAndDarling,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Swordsman's School"), RegionName("West Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
@@ -477,6 +484,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xA5)]
         HeartPieceTerminaBusinessScrub,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Swamp Archery #2"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
@@ -493,6 +501,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xA7)]
         HeartPiecePictobox,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Boat Archery"), RegionName("Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
@@ -509,6 +518,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xAC)]
         HeartPieceChoir,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Beaver Race #2"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a river dweller", "a race in the water"), GossipItemHint("a segment of health")]
@@ -525,6 +535,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xAE)]
         HeartPieceSeaHorse,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Fisherman Game"), RegionName("Great Bay Coast")]
         [GossipLocationHint("an ocean game"), GossipItemHint("a segment of health")]
@@ -541,6 +552,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xB0)]
         HeartPieceEvan,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Dog Race"), RegionName("Romani Ranch")]
         [GossipLocationHint("a sporting event"), GossipItemHint("a segment of health")]
@@ -549,6 +561,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xB1)]
         HeartPieceDogRace,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Poe Hut"), RegionName("Ikana Canyon")]
         [GossipLocationHint("a game of ghosts"), GossipItemHint("a segment of health")]
@@ -557,6 +570,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xB2)]
         HeartPiecePoeHut,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Treasure Chest Game Goron"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
@@ -688,6 +702,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x88)]
         MaskDonGero,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE46, 0x48)]
         [ItemName("Mask of Scents"), LocationName("Butler"), RegionName("Deku Palace")]
         [GossipLocationHint("a servant of royalty", "the royal servant"), GossipItemHint("heightened senses", "a pig's mask")]
@@ -752,6 +767,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x87)]
         MaskGibdo,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE50, 0x3B)]
         [ItemName("Garo's Mask"), LocationName("Gorman Bros Race Day 1 or 2"), RegionName("Milk Road")]
         [GossipLocationHint("a sporting event"), GossipItemHint("the mask of spies")]
@@ -809,6 +825,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x70)]
         SongSoaring,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE72, 0x40)]
         [ItemName("Epona's Song"), LocationName("Romani's Game"), RegionName("Romani Ranch")]
         [GossipLocationHint("a reunion"), GossipItemHint("a horse's song", "a song of the field")]
@@ -1401,7 +1418,7 @@ namespace MMRando.GameObjects
         [ItemName("Silver Rupee"), LocationName("Pirates' Fortress Interior Guard Room Chest"), RegionName("Pirates' Fortress Interior")]
         [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 100 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x023BB000 + 0x56, ChestAttribute.AppearanceType.Normal)] // todo LargeGold????
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x023BB000 + 0x56, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0xFB)]
         ChestInsidePiratesFortressGuardSilverRupee,
 
@@ -1962,7 +1979,7 @@ namespace MMRando.GameObjects
         [ItemName("Map of Clock Town"), LocationName("Clock Town Map Purchase"), RegionName("North Clock Town")]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of Clock Town.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)] // todo size??
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xB4)]
         ItemTingleMapTown,
 
@@ -2014,7 +2031,7 @@ namespace MMRando.GameObjects
         [ItemName("Gold Rupee"), LocationName("Canyon Scrub Trade"), RegionName("Ikana Canyon")]
         [GossipLocationHint("an eastern merchant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 200 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)] // todo make gold chest?
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x125)]
         IkanaScrubGoldRupee,
 
@@ -3054,6 +3071,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1C2)]
         CollectibleStrayFairyStoneTower15,
 
+        [RupeeRepeatable]
         [Repeatable]
         [ItemName("Purple Rupee"), LocationName("Lottery"), RegionName("West Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
@@ -3086,6 +3104,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x181)]
         ShopItemMilkBarMilk,
 
+        [RupeeRepeatable]
         [Repeatable]
         [ItemName("Purple Rupee"), LocationName("Deku Playground Any Day"), RegionName("North Clock Town")]
         [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
@@ -3094,6 +3113,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x182)]
         MundaneItemDekuPlaygroundPurpleRupee,
 
+        [RupeeRepeatable]
         [Repeatable]
         [ItemName("Purple Rupee"), LocationName("Honey and Darling Any Day"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
@@ -3102,6 +3122,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x183)]
         MundaneItemHoneyAndDarlingPurpleRupee,
 
+        [RupeeRepeatable]
         [Repeatable]
         [ItemName("Red Rupee"), LocationName("Kotake Mushroom Sale"), RegionName("Southern Swamp")]
         [GossipLocationHint("a sleeping witch", "a southern merchant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
@@ -3110,6 +3131,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x187)]
         MundaneItemKotakeMushroomSaleRedRupee,
 
+        [RupeeRepeatable]
         [Repeatable]
         [ItemName("Blue Rupee"), LocationName("Pictograph Contest Standard Photo"), RegionName("Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
@@ -3118,6 +3140,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x188)]
         MundaneItemPictographContestBlueRupee,
 
+        [RupeeRepeatable]
         [Repeatable]
         [ItemName("Red Rupee"), LocationName("Pictograph Contest Good Photo"), RegionName("Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
@@ -3166,6 +3189,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1A0)]
         ShopItemGormanBrosMilk,
 
+        [RupeeRepeatable]
         [Repeatable, CycleRepeatable]
         [ItemName("Milk"), LocationName("Gorman Bros Race Day 3"), RegionName("Milk Road")]
         [GossipLocationHint("a sporting event"), GossipItemHint("a dairy product", "the produce of cows")]
@@ -3190,6 +3214,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1A3)]
         MundaneItemOceanSpiderHouseDay3RedRupee,
 
+        [RupeeRepeatable]
         [Repeatable]
         [ItemName("Blue Rupee"), LocationName("Bad Pictograph of Lulu"), RegionName("Zora Hall")]
         [GossipLocationHint("a fan"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
@@ -3198,6 +3223,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1A8)]
         MundaneItemLuluBadPictographBlueRupee,
 
+        [RupeeRepeatable]
         [Repeatable]
         [ItemName("Red Rupee"), LocationName("Good Pictograph of Lulu"), RegionName("Zora Hall")]
         [GossipLocationHint("a fan"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
@@ -3206,6 +3232,8 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1C3)]
         MundaneItemLuluGoodPictographRedRupee,
 
+        [RupeeRepeatable]
+        [Repeatable]
         [ItemName("Purple Rupee"), LocationName("Treasure Chest Game Human"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 50 rupees.")]
@@ -3213,6 +3241,8 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1C4)]
         MundaneItemTreasureChestGamePurpleRupee,
 
+        [RupeeRepeatable]
+        [Repeatable]
         [ItemName("Red Rupee"), LocationName("Treasure Chest Game Zora"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
@@ -3220,6 +3250,8 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1C5)]
         MundaneItemTreasureChestGameRedRupee,
 
+        [RupeeRepeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("10 Deku Nuts"), LocationName("Treasure Chest Game Deku"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a flashing impact")]
         [ShopText("Its flash blinds enemies.", isMultiple: true)]
@@ -3227,6 +3259,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1C6)]
         MundaneItemTreasureChestGameDekuNuts,
 
+        [RupeeRepeatable]
         [Repeatable]
         [ItemName("Blue Rupee"), LocationName("Curiosity Shop Blue Rupee"), RegionName("West Clock Town")]
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
@@ -3235,6 +3268,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1C7)]
         MundaneItemCuriosityShopBlueRupee,
 
+        [RupeeRepeatable]
         [Repeatable]
         [ItemName("Red Rupee"), LocationName("Curiosity Shop Red Rupee"), RegionName("West Clock Town")]
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
@@ -3243,6 +3277,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1C8)]
         MundaneItemCuriosityShopRedRupee,
 
+        [RupeeRepeatable]
         [Repeatable]
         [ItemName("Purple Rupee"), LocationName("Curiosity Shop Purple Rupee"), RegionName("West Clock Town")]
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
@@ -3251,6 +3286,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1C9)]
         MundaneItemCuriosityShopPurpleRupee,
 
+        [RupeeRepeatable]
         [Repeatable]
         [ItemName("Gold Rupee"), LocationName("Curiosity Shop Gold Rupee"), RegionName("West Clock Town")]
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]

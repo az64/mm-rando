@@ -121,13 +121,8 @@ namespace MMRando.Utils
                 (byte)(newItem.Object & 0xFF),
             };
             ReadWriteUtils.Arr_Insert(data, 0, data.Length, fileData, offset);
-
-            var isCycleRepeatable = item.IsCycleRepeatable();
-            if (location >= Item.MundaneItemCuriosityShopBlueRupee && location <= Item.MundaneItemCuriosityShopGoldRupee && item.Name().Contains("Rupee"))
-            {
-                isCycleRepeatable = true;
-            }
-            if (isCycleRepeatable)
+            
+            if (item.IsCycleRepeatable() || (item.Name().Contains("Rupee") && location.IsRupeeRepeatable()))
             {
                 ReadWriteUtils.WriteToROM(cycle_repeat, (ushort)getItemIndex);
                 cycle_repeat += 2;
