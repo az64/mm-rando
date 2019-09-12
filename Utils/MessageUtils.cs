@@ -305,6 +305,14 @@ namespace MMRando.Utils
                 : "is";
         }
 
+        public static string GetFor(Item item)
+        {
+            var shopTexts = item.ShopTexts();
+            return shopTexts.IsDefinite
+                ? "is"
+                : "for";
+        }
+
         public static string GetAlternateName(Item item)
         {
             return Regex.Replace(item.Name(), "[0-9]+ ", "");
