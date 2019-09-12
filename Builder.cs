@@ -601,13 +601,28 @@ namespace MMRando
                 {
                     Id = 0x3463,
                     Header = null,
-                    Message = $"Won'tcha buy {MessageUtils.GetArticle(gormanBrosMilkItem)}\u0001{MessageUtils.GetAlternateName(gormanBrosMilkItem)}\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"Won'tcha buy {MessageUtils.GetArticle(gormanBrosMilkItem)}\u0001{MessageUtils.GetAlternateName(gormanBrosMilkItem)}\u0000?\u0019\u00BF".Wrap(35, "\u0011")
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x3466,
                     Header = null,
-                    Message = $"\u000650 Rupees\u0000 will do ya for{MessageUtils.GetPronounOrAmount(gormanBrosMilkItem).ToLower()}\u0011 \u0011\u0002\u00C2I'll buy {MessageUtils.GetPronoun(gormanBrosMilkItem)}\u0011No thanks\u00BF"
+                    Message = $"\u000650 Rupees\u0000 will do ya for{MessageUtils.GetPronounOrAmount(gormanBrosMilkItem).ToLower()}.\u0011 \u0011\u0002\u00C2I'll buy {MessageUtils.GetPronoun(gormanBrosMilkItem)}\u0011No thanks\u00BF"
+                });
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x346B,
+                    Header = null,
+                    Message = $"Buyin' {MessageUtils.GetArticle(gormanBrosMilkItem)}\u0001{MessageUtils.GetAlternateName(gormanBrosMilkItem)}\u0000?\u0019\u00BF".Wrap(35, "\u0011")
+                });
+
+                // update lottery message
+                var lotteryItem = _randomized.ItemList.First(io => io.NewLocation == Item.MundaneItemLotteryPurpleRupee).Item;
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x2B5C,
+                    Header = null,
+                    Message = $"Would you like the chance to buy your dreams for \u000610 Rupees\u0000?".Wrap(35, "\u0011").EndTextbox() + $"Pick any three numbers, and if those are picked, you'll win {MessageUtils.GetArticle(lotteryItem)}\u0001{lotteryItem.Name()}\u0000. It's only for the \u0001first\u0000 person!\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
             }

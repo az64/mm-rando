@@ -45,9 +45,11 @@ namespace MMRando.Extensions
         {
             var countLines = str.Count(c => c == '\u0011') + 1;
             var minLines = 4;
+            var newline = "\u0011";
             for (var i = countLines; i < minLines; i++)
             {
-                str += "\u0013";
+                str += newline;
+                newline = "\u0013";
             }
             str += "\u0012";
             return str;

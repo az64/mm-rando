@@ -769,7 +769,7 @@ namespace MMRando.GameObjects
 
         [RupeeRepeatable]
         [StartingItem(0xC5CE50, 0x3B)]
-        [ItemName("Garo's Mask"), LocationName("Gorman Bros Race Day 1 or 2"), RegionName("Milk Road")]
+        [ItemName("Garo's Mask"), LocationName("Gorman Bros Race"), RegionName("Milk Road")]
         [GossipLocationHint("a sporting event"), GossipItemHint("the mask of spies")]
         [ShopText("This mask can summon the hidden Garo ninjas.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -3189,15 +3189,6 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1A0)]
         ShopItemGormanBrosMilk,
 
-        [RupeeRepeatable]
-        [Repeatable, CycleRepeatable]
-        [ItemName("Milk"), LocationName("Gorman Bros Race Day 3"), RegionName("Milk Road")]
-        [GossipLocationHint("a sporting event"), GossipItemHint("a dairy product", "the produce of cows")]
-        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x1A1)]
-        MundaneItemGormanBrosRaceMilk,
-
         [Repeatable]
         [ItemName("Purple Rupee"), LocationName("Ocean Spider House Day 2 Reward"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a gold spider"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
@@ -3302,6 +3293,8 @@ namespace MMRando.GameObjects
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x95)]
         MundaneItemSeahorse,
+
+        //[GetItemIndex(0x1A1)]
 
     }
 }

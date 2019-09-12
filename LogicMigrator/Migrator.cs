@@ -7,7 +7,7 @@ namespace MMRando.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 12;
+        public const int CurrentVersion = 13;
 
         public static string ApplyMigrations(string logic)
         {
@@ -76,6 +76,11 @@ namespace MMRando.LogicMigrator
             if (GetVersion(lines) < 12)
             {
                 AddMundaneRewards(lines);
+            }
+
+            if (GetVersion(lines) < 13)
+            {
+                RemoveGormanBrosRaceDayThree(lines);
             }
 
             return string.Join("\r\n", lines);
@@ -1436,6 +1441,41 @@ namespace MMRando.LogicMigrator
                 lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
                 lines.Insert(item.ID * 5 + 4, $"{item.TimeNeeded}");
                 lines.Insert(item.ID * 5 + 5, "0");
+            }
+        }
+
+        private static void RemoveGormanBrosRaceDayThree(List<string> lines)
+        {
+            lines[0] = "-version 13";
+
+            var itemsToRemove = new List<int>
+            {
+                421
+            };
+
+            foreach (var removeId in itemsToRemove.OrderByDescending(id => id))
+            {
+                for (var i = 0; i < lines.Count; i++)
+                {
+                    var line = lines[i];
+                    if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                    {
+                        continue;
+                    }
+                    var updatedItemSections = line
+                        .Split(';')
+                        .Select(section => section.Split(',').Select(int.Parse).Where(id => id != removeId).Select(id =>
+                        {
+                            if (id > removeId)
+                            {
+                                id--;
+                            }
+                            return id;
+                        }).ToList()).Where(section => section.Any()).ToList();
+                    lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+                }
+
+                lines.RemoveRange(removeId * 5 + 1, 5);
             }
         }
 

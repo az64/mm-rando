@@ -126,7 +126,7 @@ namespace MMRando.Forms
         "Stone Tower Lava Room Ledge",
         "Lottery 50r", "Bank 5r", "Milk Bar Chateau", "Milk Bar Milk", "Deku Playground 50r", "Honey and Darling 50r", "Kotake Mushroom Sale 20r", "Pictograph Contest 5r",
         "Pictograph Contest 20r", "Swamp Scrub Magic Bean", "Ocean Scrub Green Potion", "Canyon Scrub Blue Potion", "Zora Hall Stage Lights 5r", "Gorman Bros Purchase Milk",
-        "Gorman Bros Race Milk", "Ocean Spider House 50r", "Ocean Spider House 20r", "Lulu Pictograph 5r", "Lulu Pictograph 20r", "Treasure Chest Game 50r", "Treasure Chest Game 20r",
+        "Ocean Spider House 50r", "Ocean Spider House 20r", "Lulu Pictograph 5r", "Lulu Pictograph 20r", "Treasure Chest Game 50r", "Treasure Chest Game 20r",
         "Treasure Chest Game Deku Nuts", "Curiosity Shop Blue Rupee", "Curiosity Shop Red Rupee", "Curiosity Shop Purple Rupee", "Curiosity Shop Gold Rupee", "Seahorse",
         };
 
