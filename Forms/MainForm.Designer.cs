@@ -72,6 +72,8 @@ namespace MMRando
             this.lMode = new System.Windows.Forms.Label();
             this.cMode = new System.Windows.Forms.ComboBox();
             this.tabGimmick = new System.Windows.Forms.TabPage();
+            this.cBlastCooldown = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.cHideClock = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -136,8 +138,7 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cBlastCooldown = new System.Windows.Forms.ComboBox();
+            this.cSFX = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -720,6 +721,32 @@ namespace MMRando
             this.tabGimmick.Text = "Gimmicks";
             this.tabGimmick.UseVisualStyleBackColor = true;
             // 
+            // cBlastCooldown
+            // 
+            this.cBlastCooldown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cBlastCooldown.FormattingEnabled = true;
+            this.cBlastCooldown.Items.AddRange(new object[] {
+            "Default",
+            "Instant",
+            "Very short",
+            "Short",
+            "Long",
+            "Very Long"});
+            this.cBlastCooldown.Location = new System.Drawing.Point(127, 203);
+            this.cBlastCooldown.Name = "cBlastCooldown";
+            this.cBlastCooldown.Size = new System.Drawing.Size(158, 21);
+            this.cBlastCooldown.TabIndex = 20;
+            this.cBlastCooldown.SelectedIndexChanged += new System.EventHandler(this.cBlastCooldown_SelectedIndexChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(9, 205);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(112, 13);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Blast Mask Cooldown:";
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -888,6 +915,7 @@ namespace MMRando
             // 
             // tabComfort
             // 
+            this.tabComfort.Controls.Add(this.cSFX);
             this.tabComfort.Controls.Add(this.cUpdateChests);
             this.tabComfort.Controls.Add(this.cEponaSword);
             this.tabComfort.Controls.Add(this.cShopAppearance);
@@ -965,7 +993,7 @@ namespace MMRando
             this.lGossip.BackColor = System.Drawing.Color.Transparent;
             this.lGossip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lGossip.ForeColor = System.Drawing.Color.Black;
-            this.lGossip.Location = new System.Drawing.Point(24, 235);
+            this.lGossip.Location = new System.Drawing.Point(24, 247);
             this.lGossip.Name = "lGossip";
             this.lGossip.Size = new System.Drawing.Size(98, 13);
             this.lGossip.TabIndex = 20;
@@ -1010,7 +1038,7 @@ namespace MMRando
             "Random",
             "Relevant",
             "Competitive"});
-            this.cGossipHints.Location = new System.Drawing.Point(128, 232);
+            this.cGossipHints.Location = new System.Drawing.Point(128, 244);
             this.cGossipHints.Name = "cGossipHints";
             this.cGossipHints.Size = new System.Drawing.Size(167, 21);
             this.cGossipHints.TabIndex = 19;
@@ -1097,7 +1125,7 @@ namespace MMRando
             this.lTunic.BackColor = System.Drawing.Color.Transparent;
             this.lTunic.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lTunic.ForeColor = System.Drawing.Color.Black;
-            this.lTunic.Location = new System.Drawing.Point(59, 154);
+            this.lTunic.Location = new System.Drawing.Point(59, 166);
             this.lTunic.Name = "lTunic";
             this.lTunic.Size = new System.Drawing.Size(63, 13);
             this.lTunic.TabIndex = 7;
@@ -1114,7 +1142,7 @@ namespace MMRando
             "Cool",
             "Random",
             "Rainbow (cycle)"});
-            this.cTatl.Location = new System.Drawing.Point(128, 205);
+            this.cTatl.Location = new System.Drawing.Point(128, 217);
             this.cTatl.Name = "cTatl";
             this.cTatl.Size = new System.Drawing.Size(167, 21);
             this.cTatl.TabIndex = 12;
@@ -1129,7 +1157,7 @@ namespace MMRando
             "Link (OoT)",
             "Adult Link (Risky!)",
             "Kafei"});
-            this.cLink.Location = new System.Drawing.Point(128, 178);
+            this.cLink.Location = new System.Drawing.Point(128, 190);
             this.cLink.Name = "cLink";
             this.cLink.Size = new System.Drawing.Size(167, 21);
             this.cLink.TabIndex = 10;
@@ -1139,7 +1167,7 @@ namespace MMRando
             // 
             this.bTunic.BackColor = System.Drawing.Color.White;
             this.bTunic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bTunic.Location = new System.Drawing.Point(128, 149);
+            this.bTunic.Location = new System.Drawing.Point(128, 161);
             this.bTunic.Name = "bTunic";
             this.bTunic.Size = new System.Drawing.Size(167, 23);
             this.bTunic.TabIndex = 8;
@@ -1152,7 +1180,7 @@ namespace MMRando
             this.lTatl.BackColor = System.Drawing.Color.Transparent;
             this.lTatl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lTatl.ForeColor = System.Drawing.Color.Black;
-            this.lTatl.Location = new System.Drawing.Point(28, 208);
+            this.lTatl.Location = new System.Drawing.Point(28, 220);
             this.lTatl.Name = "lTatl";
             this.lTatl.Size = new System.Drawing.Size(94, 13);
             this.lTatl.TabIndex = 11;
@@ -1164,7 +1192,7 @@ namespace MMRando
             this.lLink.BackColor = System.Drawing.Color.Transparent;
             this.lLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lLink.ForeColor = System.Drawing.Color.Black;
-            this.lLink.Location = new System.Drawing.Point(52, 181);
+            this.lLink.Location = new System.Drawing.Point(52, 193);
             this.lLink.Name = "lLink";
             this.lLink.Size = new System.Drawing.Size(70, 13);
             this.lLink.TabIndex = 9;
@@ -1446,31 +1474,20 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // label8
+            // cSFX
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 205);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(112, 13);
-            this.label8.TabIndex = 19;
-            this.label8.Text = "Blast Mask Cooldown:";
-            // 
-            // cBlastCooldown
-            // 
-            this.cBlastCooldown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cBlastCooldown.FormattingEnabled = true;
-            this.cBlastCooldown.Items.AddRange(new object[] {
-            "Default",
-            "Instant",
-            "Very short",
-            "Short",
-            "Long",
-            "Very Long"});
-            this.cBlastCooldown.Location = new System.Drawing.Point(127, 203);
-            this.cBlastCooldown.Name = "cBlastCooldown";
-            this.cBlastCooldown.Size = new System.Drawing.Size(158, 21);
-            this.cBlastCooldown.TabIndex = 20;
-            this.cBlastCooldown.SelectedIndexChanged += new System.EventHandler(this.cBlastCooldown_SelectedIndexChanged);
+            this.cSFX.AutoSize = true;
+            this.cSFX.BackColor = System.Drawing.Color.Transparent;
+            this.cSFX.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cSFX.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cSFX.ForeColor = System.Drawing.Color.Black;
+            this.cSFX.Location = new System.Drawing.Point(43, 138);
+            this.cSFX.Name = "cSFX";
+            this.cSFX.Size = new System.Drawing.Size(102, 17);
+            this.cSFX.TabIndex = 24;
+            this.cSFX.Text = "Randomize SFX";
+            this.cSFX.UseVisualStyleBackColor = false;
+            this.cSFX.CheckedChanged += new System.EventHandler(this.cSFX_CheckedChanged);
             // 
             // MainForm
             // 
@@ -1630,6 +1647,7 @@ namespace MMRando
         private System.Windows.Forms.CheckBox cMundaneRewards;
         private System.Windows.Forms.ComboBox cBlastCooldown;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox cSFX;
     }
 }
 
