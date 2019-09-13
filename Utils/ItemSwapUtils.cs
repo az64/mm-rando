@@ -1,10 +1,9 @@
-﻿using MMRando.Models.Rom;
-using System;
-using System.Collections.Generic;
-using MMRando.GameObjects;
-using MMRando.Extensions;
-using MMRando.Attributes;
+﻿using MMRando.Attributes;
 using MMRando.Constants;
+using MMRando.Extensions;
+using MMRando.GameObjects;
+using MMRando.Models.Rom;
+using System.Collections.Generic;
 
 namespace MMRando.Utils
 {
@@ -101,14 +100,14 @@ namespace MMRando.Utils
         public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShop, bool preventDowngrades, bool updateChest, ChestTypeAttribute.ChestType? overrideChestType)
         {
             System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
-            
+
             int f = RomUtils.GetFileIndexForWriting(GET_ITEM_TABLE);
             int baseaddr = GET_ITEM_TABLE - RomData.MMFileList[f].Addr;
             var getItemIndex = location.GetItemIndex().Value;
             int offset = (getItemIndex - 1) * 8 + baseaddr;
             var newItem = RomData.GetItemList[item.GetItemIndex().Value];
             var fileData = RomData.MMFileList[f].Data;
-            
+
             var data = new byte[]
             {
                 newItem.ItemGained,

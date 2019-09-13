@@ -239,6 +239,11 @@ namespace MMRando.Models.Settings
         /// </summary>
         public BlastMaskCooldown BlastMaskCooldown { get; set; }
 
+        /// <summary>
+        /// Randomize sound effects
+        /// </summary>
+        public bool RandomizeSounds { get; set; } = true;
+
         #endregion
 
         #region Comfort / Cosmetics
@@ -315,7 +320,7 @@ namespace MMRando.Models.Settings
 
         #endregion
 
-        // Functions
+        #region Functions
 
         public void Update(string settings)
         {
@@ -464,13 +469,13 @@ namespace MMRando.Models.Settings
                 | ((byte)Character << 8)
                 | ((byte)TatlColorSchema)
                 | ((byte)DamageEffect << 24)
-                    | ((byte)DamageMode << 28);
+                | ((byte)DamageMode << 28);
 
             parts[2] = (TunicColor.R << 16)
                 | (TunicColor.G << 8)
                 | (TunicColor.B)
                 | ((byte)FloorType << 24)
-                    | ((byte)MovementMode << 28);
+                | ((byte)MovementMode << 28);
 
             parts[3] = (byte)ClockSpeed
                 | ((byte)GossipHintStyle << 8)
@@ -492,5 +497,7 @@ namespace MMRando.Models.Settings
         {
             return EncodeSettings();
         }
+
+        #endregion
     }
 }

@@ -5,10 +5,12 @@ using MMRando.GameObjects;
 using MMRando.Models;
 using MMRando.Models.Rom;
 using MMRando.Models.Settings;
+using MMRando.Models.SoundEffects;
 using MMRando.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -362,6 +364,30 @@ namespace MMRando
             int address = 0x00E0A810 + 0x378;
             byte val = 0x00;
             ReadWriteUtils.WriteToROM(address, val);
+        }
+
+        private void WriteSoundEffects()
+        {
+            if (!_randomized.Settings.RandomizeSounds)
+            {
+                return;
+            }
+
+            foreach (var sounds in _randomized.SoundEffects)
+            {
+                var oldSound = sounds.Key;
+                var newSound = sounds.Value;
+
+                if (oldSound.IsReplacableInMessage())
+                {
+                    oldSound.ReplaceInMessageWith(newSound, _messageTable);
+                }
+                else
+                {
+                    oldSound.ReplaceWith(newSound);
+                }
+                Debug.WriteLine($"Writing SFX {newSound} --> {oldSound}");
+            }
         }
 
         private void WriteEnemies()
@@ -935,11 +961,15 @@ namespace MMRando
                 worker.ReportProgress(66, "Writing items...");
                 WriteItems();
 
-                worker.ReportProgress(67, "Writing messages...");
+                worker.ReportProgress(67, "Writing sound effects...");
+                WriteSoundEffects();
+
+                worker.ReportProgress(68, "Writing messages...");
                 WriteGossipQuotes();
+
                 MessageTable.WriteMessageTable(_messageTable);
 
-                worker.ReportProgress(68, "Writing startup...");
+                worker.ReportProgress(69, "Writing startup...");
                 WriteStartupStrings();
 
                 if (_settings.GeneratePatch)
