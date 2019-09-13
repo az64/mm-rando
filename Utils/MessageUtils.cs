@@ -87,11 +87,11 @@ namespace MMRando.Utils
                 foreach (var kvp in itemsInRegions)
                 {
                     bool regionHasRequiredItem;
-                    if (kvp.Value.Any(io => randomizedResult.ItemsRequiredForMoonAccess.Contains(io.Item)))
+                    if (kvp.Value.Any(io => !io.Item.Name().Contains("Heart") && randomizedResult.ItemsRequiredForMoonAccess.Contains(io.Item)))
                     {
                         regionHasRequiredItem = true;
                     }
-                    else if (!kvp.Value.Any(io => randomizedResult.AllItemsOnPathToMoon.Contains(io.Item)))
+                    else if (!kvp.Value.Any(io => !io.Item.Name().Contains("Heart") && randomizedResult.AllItemsOnPathToMoon.Contains(io.Item)))
                     {
                         regionHasRequiredItem = false;
                     }
