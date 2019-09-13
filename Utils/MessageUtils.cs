@@ -68,7 +68,13 @@ namespace MMRando.Utils
                         itemsInRegions[itemRegion].Add(item);
                     }
 
-                    if (!Gossip.GuaranteedLocationHints.Contains(item.NewLocation.Value))
+                    var competitiveHintInfo = item.NewLocation.Value.GetAttribute<GossipCompetitiveHintAttribute>();
+                    if (competitiveHintInfo == null)
+                    {
+                        continue;
+                    }
+
+                    if (competitiveHintInfo.IsOnlyForUsefulItems && !randomizedResult.ItemsRequiredForMoonAccess.Contains(item.Item))
                     {
                         continue;
                     }
@@ -87,7 +93,7 @@ namespace MMRando.Utils
                 foreach (var kvp in itemsInRegions)
                 {
                     bool regionHasRequiredItem;
-                    if (kvp.Value.Any(io => !io.Item.Name().Contains("Heart") && randomizedResult.ItemsRequiredForMoonAccess.Contains(io.Item)))
+                    if (kvp.Value.Any(io => !io.Item.Name().Contains("Heart") && !ItemUtils.IsStrayFairy(io.Item) && !ItemUtils.IsSkulltulaToken(io.Item) && randomizedResult.ItemsRequiredForMoonAccess.Contains(io.Item)))
                     {
                         regionHasRequiredItem = true;
                     }
@@ -114,6 +120,39 @@ namespace MMRando.Utils
                         : nonRequiredHints;
 
                     list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{itemMessage}\x00...\xBF".Wrap(35, "\x11"));
+                }
+
+                var collectionMessageFormat = "\x1E\x69\x0C{0} \u0001collecting {1}\u0000 is \u0006on the Way of the Hero\u0000...\xBF";
+                if (randomizedResult.Settings.AddSkulltulaTokens)
+                {
+                    if (randomizedResult.ItemsRequiredForMoonAccess.Any(item => item.Name() == "Swamp Skulltula Spirit"))
+                    {
+                        competitiveHints.Add(string.Format(collectionMessageFormat, Gossip.MessageStartSentences.Random(randomizedResult.Random), "Swamp Skulltula Spirits"));
+                    }
+                    if (randomizedResult.ItemsRequiredForMoonAccess.Any(item => item.Name() == "Ocean Skulltula Spirit"))
+                    {
+                        competitiveHints.Add(string.Format(collectionMessageFormat, Gossip.MessageStartSentences.Random(randomizedResult.Random), "Ocean Skulltula Spirits"));
+                    }
+                }
+                
+                if (randomizedResult.Settings.AddStrayFairies)
+                {
+                    if (randomizedResult.ItemsRequiredForMoonAccess.Any(item => item.Name() == "Woodfall Stray Fairy"))
+                    {
+                        competitiveHints.Add(string.Format(collectionMessageFormat, Gossip.MessageStartSentences.Random(randomizedResult.Random), "Woodfall Stray Fairies"));
+                    }
+                    if (randomizedResult.ItemsRequiredForMoonAccess.Any(item => item.Name() == "Snowhead Stray Fairy"))
+                    {
+                        competitiveHints.Add(string.Format(collectionMessageFormat, Gossip.MessageStartSentences.Random(randomizedResult.Random), "Snowhead Stray Fairies"));
+                    }
+                    if (randomizedResult.ItemsRequiredForMoonAccess.Any(item => item.Name() == "Great Bay Stray Fairy"))
+                    {
+                        competitiveHints.Add(string.Format(collectionMessageFormat, Gossip.MessageStartSentences.Random(randomizedResult.Random), "Great Bay Stray Fairies"));
+                    }
+                    if (randomizedResult.ItemsRequiredForMoonAccess.Any(item => item.Name() == "Stone Tower Stray Fairy"))
+                    {
+                        competitiveHints.Add(string.Format(collectionMessageFormat, Gossip.MessageStartSentences.Random(randomizedResult.Random), "Stone Tower Stray Fairies"));
+                    }
                 }
 
                 var numberOfRequiredHints = 3;
@@ -146,87 +185,100 @@ namespace MMRando.Utils
 
             foreach (var gossipQuote in Enum.GetValues(typeof(GossipQuote)).Cast<GossipQuote>().OrderBy(gq => randomizedResult.Random.Next()))
             {
-                var isMoonGossipStone = gossipQuote.ToString().StartsWith("Moon");
-                var restrictionAttributes = gossipQuote.GetAttributes<GossipRestrictAttribute>().ToList();
-                ItemObject item = null;
-                var forceClear = false;
-                while (item == null)
-                {
-                    if (restrictionAttributes.Any() && (isMoonGossipStone || randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Relevant))
-                    {
-                        var chosen = restrictionAttributes.Random(randomizedResult.Random);
-                        var candidateItem = chosen.Type == GossipRestrictAttribute.RestrictionType.Item
-                            ? randomizedResult.ItemList.Single(io => io.Item == chosen.Item)
-                            : randomizedResult.ItemList.Single(io => io.NewLocation == chosen.Item);
-                        if (isMoonGossipStone || unusedItems.Contains(candidateItem))
-                        {
-                            item = candidateItem;
-                            forceClear = chosen.ForceClear;
-                        }
-                        else
-                        {
-                            restrictionAttributes.Remove(chosen);
-                        }
-                    }
-                    else if (unusedItems.Any())
-                    {
-                        item = unusedItems.Random(randomizedResult.Random);
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                if (!isMoonGossipStone)
-                {
-                    unusedItems.Remove(item);
-                }
-
                 string messageText = null;
-                if (item != null)
+                var isMoonGossipStone = gossipQuote.ToString().StartsWith("Moon");
+                if (!isMoonGossipStone && competitiveHints.Any())
                 {
-                    ushort soundEffectId = 0x690C; // grandma curious
-                    string itemName = null;
-                    string locationName = null;
-                    if (forceClear || randomizedResult.Settings.ClearHints)
-                    {
-                        itemName = item.Item.Name();
-                        locationName = item.NewLocation.Value.Location();
-                    }
-                    else
-                    {
-                        if (isMoonGossipStone || randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Competitive || randomizedResult.Random.Next(100) >= 5) // 5% chance of fake/junk hint if it's not a moon gossip stone or competitive style
-                        {
-                            itemName = item.Item.ItemHints().Random(randomizedResult.Random);
-                            locationName = item.NewLocation.Value.LocationHints().Random(randomizedResult.Random);
-                        }
-                        else
-                        {
-                            if (randomizedResult.Random.Next(2) == 0) // 50% chance for fake hint. otherwise default to junk hint.
-                            {
-                                soundEffectId = 0x690A; // grandma laugh
-                                itemName = item.Item.ItemHints().Random(randomizedResult.Random);
-                                locationName = randomizedItems.Random(randomizedResult.Random).Item.LocationHints().Random(randomizedResult.Random);
-                            }
-                        }
-                    }
-                    if (itemName != null && locationName != null)
-                    {
-                        messageText = BuildGossipQuote(soundEffectId, locationName, itemName, randomizedResult.Random);
-                    }
+                    messageText = competitiveHints.Random(randomizedResult.Random);
+                    competitiveHints.Remove(messageText);
                 }
+
                 if (messageText == null)
                 {
-                    if (competitiveHints.Any())
+                    var restrictionAttributes = gossipQuote.GetAttributes<GossipRestrictAttribute>().ToList();
+                    ItemObject item = null;
+                    var forceClear = false;
+                    while (item == null)
                     {
-                        messageText = competitiveHints.Random(randomizedResult.Random);
-                        competitiveHints.Remove(messageText);
+                        if (restrictionAttributes.Any() && (isMoonGossipStone || randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Relevant))
+                        {
+                            var chosen = restrictionAttributes.Random(randomizedResult.Random);
+                            var candidateItem = chosen.Type == GossipRestrictAttribute.RestrictionType.Item
+                                ? randomizedResult.ItemList.Single(io => io.Item == chosen.Item)
+                                : randomizedResult.ItemList.Single(io => io.NewLocation == chosen.Item);
+                            if (isMoonGossipStone || unusedItems.Contains(candidateItem))
+                            {
+                                item = candidateItem;
+                                forceClear = chosen.ForceClear;
+                            }
+                            else
+                            {
+                                restrictionAttributes.Remove(chosen);
+                            }
+                        }
+                        else if (unusedItems.Any())
+                        {
+                            if (randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Competitive)
+                            {
+                                item = unusedItems.GroupBy(io => io.NewLocation.Value.GetAttribute<GossipCompetitiveHintAttribute>().Priority)
+                                    .OrderByDescending(g => g.Key)
+                                    .First()
+                                    .ToList()
+                                    .Random(randomizedResult.Random);
+                            }
+                            else
+                            {
+                                item = unusedItems.Random(randomizedResult.Random);
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
-                    else
+
+                    if (!isMoonGossipStone)
                     {
-                        messageText = Gossip.JunkMessages.Random(randomizedResult.Random);
+                        unusedItems.Remove(item);
                     }
+
+                    if (item != null)
+                    {
+                        ushort soundEffectId = 0x690C; // grandma curious
+                        string itemName = null;
+                        string locationName = null;
+                        if (forceClear || randomizedResult.Settings.ClearHints)
+                        {
+                            itemName = item.Item.Name();
+                            locationName = item.NewLocation.Value.Location();
+                        }
+                        else
+                        {
+                            if (isMoonGossipStone || randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Competitive || randomizedResult.Random.Next(100) >= 5) // 5% chance of fake/junk hint if it's not a moon gossip stone or competitive style
+                            {
+                                itemName = item.Item.ItemHints().Random(randomizedResult.Random);
+                                locationName = item.NewLocation.Value.LocationHints().Random(randomizedResult.Random);
+                            }
+                            else
+                            {
+                                if (randomizedResult.Random.Next(2) == 0) // 50% chance for fake hint. otherwise default to junk hint.
+                                {
+                                    soundEffectId = 0x690A; // grandma laugh
+                                    itemName = item.Item.ItemHints().Random(randomizedResult.Random);
+                                    locationName = randomizedItems.Random(randomizedResult.Random).Item.LocationHints().Random(randomizedResult.Random);
+                                }
+                            }
+                        }
+                        if (itemName != null && locationName != null)
+                        {
+                            messageText = BuildGossipQuote(soundEffectId, locationName, itemName, randomizedResult.Random);
+                        }
+                    }
+                }
+
+                if (messageText == null)
+                {
+                    messageText = Gossip.JunkMessages.Random(randomizedResult.Random);
                 }
 
                 finalHints.Add(new MessageEntry()

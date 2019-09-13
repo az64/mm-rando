@@ -56,20 +56,5 @@ namespace MMRando.Models
             {
                 // todo
             });
-
-        public static readonly ReadOnlyCollection<Item> GuaranteedLocationHints
-            = new ReadOnlyCollection<Item>(new Item[]
-            {
-                Item.HeartPieceLabFish,
-                Item.ItemBottleDampe,
-                Item.HeartPieceDekuPlayground,
-                Item.MaskTruth,
-                Item.UpgradeGiantWallet,
-                Item.MaskRomani,
-                Item.MaskAllNight,
-                //Item.MaskScents,
-                Item.HeartPieceBoatArchery,
-                Item.ItemBottleGoronRace
-            });
     }
 }

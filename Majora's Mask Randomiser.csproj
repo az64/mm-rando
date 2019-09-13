@@ -71,6 +71,7 @@
     <Compile Include="Attributes\EntranceNameAttribute.cs" />
     <Compile Include="Attributes\GetBottleItemIndicesAttribute.cs" />
     <Compile Include="Attributes\GetItemIndexAttribute.cs" />
+    <Compile Include="Attributes\GossipCompetitiveHintAttribute.cs" />
     <Compile Include="Attributes\GossipItemHintAttribute.cs" />
     <Compile Include="Attributes\GossipLocationHintAttribute.cs" />
     <Compile Include="Attributes\RupeeRepeatableAttribute.cs" />
