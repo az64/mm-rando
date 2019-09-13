@@ -1,6 +1,4 @@
-﻿
-using MMRando.Constants;
-using MMRando.Utils;
+﻿using MMRando.Utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -236,6 +234,11 @@ namespace MMRando.Models.Settings
         /// </summary>
         public bool HideClock { get; set; }
 
+        /// <summary>
+        /// Increases or decreases the cooldown of using the blast mask
+        /// </summary>
+        public BlastMaskCooldown BlastMaskCooldown { get; set; }
+
         #endregion
 
         #region Comfort / Cosmetics
@@ -399,6 +402,7 @@ namespace MMRando.Models.Settings
 
             var clockSpeedIndex = (byte)(part4 & 0xFF);
             var gossipHintsIndex = (byte)((part4 & 0xFF00) >> 8);
+            var blastmaskCooldown = (byte)((part4 & 0xF0000) >> 16);
 
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
@@ -410,7 +414,7 @@ namespace MMRando.Models.Settings
             TunicColor = tunicColor;
             ClockSpeed = (ClockSpeed)clockSpeedIndex;
             GossipHintStyle = (GossipHintStyle)gossipHintsIndex;
-
+            BlastMaskCooldown = (BlastMaskCooldown)blastmaskCooldown;
         }
 
 
@@ -468,8 +472,9 @@ namespace MMRando.Models.Settings
                 | ((byte)FloorType << 24)
                     | ((byte)MovementMode << 28);
 
-            parts[3] = (byte) ClockSpeed
-                | ((byte)GossipHintStyle << 8);
+            parts[3] = (byte)ClockSpeed
+                | ((byte)GossipHintStyle << 8)
+                | ((byte)BlastMaskCooldown << 16);
 
             return parts;
         }

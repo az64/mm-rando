@@ -96,6 +96,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cClockSpeed, "Modify the speed of time.");
             TooltipBuilder.SetTooltip(cHideClock, "Clock UI will be hidden.");
             TooltipBuilder.SetTooltip(cNoStartingItems, "You will not start with any randomized starting items.");
+            TooltipBuilder.SetTooltip(cBlastCooldown, "Adjust the cooldown timer after using the Blast Mask.");
 
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
@@ -291,7 +292,7 @@ namespace MMRando
             cFairyRewards.Checked = _settings.AddFairyRewards;
             cClearHints.Checked = _settings.ClearHints;
             cHideClock.Checked = _settings.HideClock;
-            cClockSpeed.SelectedIndex = (int) _settings.ClockSpeed;
+            cClockSpeed.SelectedIndex = (int)_settings.ClockSpeed;
             cNoDowngrades.Checked = _settings.PreventDowngrades;
             cShopAppearance.Checked = _settings.UpdateShopAppearance;
             cNutChest.Checked = _settings.AddNutChest;
@@ -312,6 +313,7 @@ namespace MMRando
             cGravity.SelectedIndex = (int)_settings.MovementMode;
             cFloors.SelectedIndex = (int)_settings.FloorType;
             cGossipHints.SelectedIndex = (int)_settings.GossipHintStyle;
+            cBlastCooldown.SelectedIndex = (int)_settings.BlastMaskCooldown;
             bTunic.BackColor = _settings.TunicColor;
         }
 
@@ -386,7 +388,7 @@ namespace MMRando
             UpdateSingleSetting(() => _settings.GeneratePatch = cPatch.Checked);
         }
 
-        private void cHTMLLog_CheckedChanged(object sender,EventArgs e)
+        private void cHTMLLog_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.GenerateHTMLLog = cHTMLLog.Checked);
         }
@@ -593,6 +595,12 @@ namespace MMRando
             UpdateSingleSetting(() => _settings.GossipHintStyle = (GossipHintStyle)cGossipHints.SelectedIndex);
         }
 
+
+        private void cBlastCooldown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.BlastMaskCooldown = (BlastMaskCooldown)cBlastCooldown.SelectedIndex);
+        }
+
         private void cVC_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.OutputVC = cVC.Checked);
@@ -764,6 +772,7 @@ namespace MMRando
             cFloors.Enabled = v;
             cClockSpeed.Enabled = v;
             cGossipHints.Enabled = v;
+            cBlastCooldown.Enabled = v;
             cHideClock.Enabled = v;
             cGravity.Enabled = v;
             cLink.Enabled = v;
@@ -820,6 +829,7 @@ namespace MMRando
             cTatl.SelectedIndex = 0;
             cGossipHints.SelectedIndex = 0;
             cClockSpeed.SelectedIndex = 0;
+            cBlastCooldown.SelectedIndex = 0;
             cSpoiler.Checked = true;
             cSoS.Checked = true;
             cNoDowngrades.Checked = true;
@@ -890,7 +900,7 @@ namespace MMRando
                     MessageBox.Show($"Error randomizing logic: {ex.Message}{nl}{nl}Please try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                
+
                 if (_settings.GenerateSpoilerLog
                     && _settings.LogicMode != LogicMode.Vanilla)
                 {
@@ -981,6 +991,7 @@ namespace MMRando
             cFloors.Enabled = v;
             cClockSpeed.Enabled = v;
             cHideClock.Enabled = v;
+            cBlastCooldown.Enabled = v;
 
 
             // Comfort/Cosmetics
@@ -1006,5 +1017,6 @@ namespace MMRando
                 tPatch.Text = null;
             }
         }
+
     }
 }
