@@ -709,7 +709,7 @@ namespace MMRando
                 cMundaneRewards.Enabled = onMainTab;
 
                 cNoStartingItems.Enabled = onMainTab && (_settings.AddOther || _settings.UseCustomItemList);
-                if (!cNoStartingItems.Enabled)
+                if (!cNoStartingItems.Enabled && onMainTab)
                 {
                     cNoStartingItems.Checked = false;
                     _settings.NoStartingItems = false;
@@ -998,7 +998,6 @@ namespace MMRando
             // Comfort/Cosmetics
             cCutsc.Enabled = v;
             cQText.Enabled = v;
-            cSFX.Enabled = v;
             cFreeHints.Enabled = v;
             cNoDowngrades.Enabled = v;
             cShopAppearance.Enabled = v;
