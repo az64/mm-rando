@@ -192,97 +192,6 @@ namespace MMRando
             _randomized.NewDCMasks = newDCMasks;
         }
 
-        #region Sequences, sounds and BGM
-
-        private void BGMShuffle()
-        {
-            while (RomData.TargetSequences.Count > 0)
-            {
-                List<SequenceInfo> Unassigned = RomData.SequenceList.FindAll(u => u.Replaces == -1);
-
-                int targetIndex = Random.Next(RomData.TargetSequences.Count);
-                var targetSequence = RomData.TargetSequences[targetIndex];
-
-                while (true)
-                {
-                    int unassignedIndex = Random.Next(Unassigned.Count);
-
-                    if (Unassigned[unassignedIndex].Name.StartsWith("mm")
-                        & (Random.Next(100) < 50))
-                    {
-                        continue;
-                    }
-
-                    for (int i = 0; i < Unassigned[unassignedIndex].Type.Count; i++)
-                    {
-                        if (targetSequence.Type.Contains(Unassigned[unassignedIndex].Type[i]))
-                        {
-                            Unassigned[unassignedIndex].Replaces = targetSequence.Replaces;
-                            Debug.WriteLine(Unassigned[unassignedIndex].Name + " -> " + targetSequence.Name);
-                            RomData.TargetSequences.RemoveAt(targetIndex);
-                            break;
-                        }
-                        else if (i + 1 == Unassigned[unassignedIndex].Type.Count)
-                        {
-                            if ((Random.Next(30) == 0)
-                                && ((Unassigned[unassignedIndex].Type[0] & 8) == (targetSequence.Type[0] & 8))
-                                && (Unassigned[unassignedIndex].Type.Contains(10) == targetSequence.Type.Contains(10))
-                                && (!Unassigned[unassignedIndex].Type.Contains(16)))
-                            {
-                                Unassigned[unassignedIndex].Replaces = targetSequence.Replaces;
-                                Debug.WriteLine(Unassigned[unassignedIndex].Name + " -> " + targetSequence.Name);
-                                RomData.TargetSequences.RemoveAt(targetIndex);
-                                break;
-                            }
-                        }
-                    }
-
-                    if (Unassigned[unassignedIndex].Replaces != -1)
-                    {
-                        break;
-                    }
-                }
-            }
-
-            RomData.SequenceList.RemoveAll(u => u.Replaces == -1);
-        }
-
-        private void SortBGM()
-        {
-            if (!_settings.RandomizeBGM)
-            {
-                return;
-            }
-
-            SequenceUtils.ReadSequenceInfo();
-            BGMShuffle();
-        }
-
-        private void SoundEffectShuffle()
-        {
-            if (!_settings.RandomizeSounds)
-            {
-                return;
-            }
-
-            var shuffledSoundEffects = new Dictionary<SoundEffect, SoundEffect>();
-
-            var replacableSounds = SoundEffects.Replacable();
-            foreach (var sound in replacableSounds)
-            {
-                var soundPool = SoundEffects.FilterByTags(sound.ReplacableByTags());
-
-                if (soundPool.Count > 0)
-                {
-                    shuffledSoundEffects[sound] = soundPool[_random.Next(soundPool.Count)];
-                }
-            }
-
-            _randomized.SoundEffects = shuffledSoundEffects;
-        }
-
-        #endregion
-
         private void SetTatlColour()
         {
             if (_settings.TatlColorSchema == TatlColorSchema.Rainbow)
@@ -1802,16 +1711,6 @@ namespace MMRando
             //Randomize tatl colour
             SeedRNG();
             SetTatlColour();
-
-            worker.ReportProgress(45, "Randomizing Music...");
-
-            //Sort BGM
-            SeedRNG();
-            SortBGM();
-
-            // Shuffle sound effects
-            worker.ReportProgress(48, "Randomizing Sound effects...");
-            SoundEffectShuffle();
 
             return _randomized;
         }

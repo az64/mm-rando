@@ -281,12 +281,7 @@ namespace MMRando.Models.Settings
         /// <summary>
         /// Randomize background music (includes bgm from other video games)
         /// </summary>
-        public bool RandomizeBGM { get; set; }
-
-        /// <summary>
-        /// Mute background music
-        /// </summary>
-        public bool NoBGM { get; set; }
+        public Music Music { get; set; }
 
         /// <summary>
         /// FrEe HiNtS FoR WeNiEs
@@ -378,7 +373,7 @@ namespace MMRando.Models.Settings
             NoStartingItems = (UseCustomItemList || AddOther) && (part1 & 8388608) > 0;
             UpdateShopAppearance = (part1 & 1048576) > 0;
             PreventDowngrades = (part1 & 524288) > 0;
-            NoBGM = (part1 & 262144) > 0;
+            // = (part1 & 262144) > 0;
             HideClock = (part1 & 131072) > 0;
             ClearHints = (part1 & 65536) > 0;
             FreeHints = (part1 & 16384) > 0;
@@ -387,7 +382,7 @@ namespace MMRando.Models.Settings
             GenerateSpoilerLog = (part1 & 512) > 0;
             AddSongs = (part1 & 256) > 0;
             RandomizeDungeonEntrances = (part1 & 16) > 0;
-            RandomizeBGM = (part1 & 8) > 0;
+            // = (part1 & 8) > 0;
             RandomizeEnemies = (part1 & 4) > 0;
             ShortenCutscenes = (part1 & 2) > 0;
             QuickTextEnabled = (part1 & 1) > 0;
@@ -407,7 +402,8 @@ namespace MMRando.Models.Settings
 
             var clockSpeedIndex = (byte)(part4 & 0xFF);
             var gossipHintsIndex = (byte)((part4 & 0xFF00) >> 8);
-            var blastmaskCooldown = (byte)((part4 & 0xF0000) >> 16);
+            var blastmaskCooldown = (byte)((part4 & 0xFF0000) >> 16);
+            var music = (byte)((part4 & 0xFF000000) >> 24);
 
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
@@ -420,6 +416,7 @@ namespace MMRando.Models.Settings
             ClockSpeed = (ClockSpeed)clockSpeedIndex;
             GossipHintStyle = (GossipHintStyle)gossipHintsIndex;
             BlastMaskCooldown = (BlastMaskCooldown)blastmaskCooldown;
+            Music = (Music)music;
         }
 
 
@@ -452,7 +449,7 @@ namespace MMRando.Models.Settings
             if (NoStartingItems && (UseCustomItemList || AddOther)) { parts[0] += 8388608; }
             if (UpdateShopAppearance) { parts[0] += 1048576; }
             if (PreventDowngrades) { parts[0] += 524288; }
-            if (NoBGM) { parts[0] += 262144; }
+            // { parts[0] += 262144; }
             if (HideClock) { parts[0] += 131072; };
             if (ClearHints) { parts[0] += 65536; };
             if (FreeHints) { parts[0] += 16384; };
@@ -460,7 +457,7 @@ namespace MMRando.Models.Settings
             if (GenerateSpoilerLog) { parts[0] += 512; };
             if (AddSongs) { parts[0] += 256; };
             if (RandomizeDungeonEntrances) { parts[0] += 16; };
-            if (RandomizeBGM) { parts[0] += 8; };
+            // { parts[0] += 8; };
             if (RandomizeEnemies) { parts[0] += 4; };
             if (ShortenCutscenes) { parts[0] += 2; };
             if (QuickTextEnabled) { parts[0] += 1; };
@@ -479,7 +476,8 @@ namespace MMRando.Models.Settings
 
             parts[3] = (byte)ClockSpeed
                 | ((byte)GossipHintStyle << 8)
-                | ((byte)BlastMaskCooldown << 16);
+                | ((byte)BlastMaskCooldown << 16)
+                | ((byte)Music << 24);
 
             return parts;
         }

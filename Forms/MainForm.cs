@@ -101,9 +101,8 @@ namespace MMRando
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
             TooltipBuilder.SetTooltip(cQText, "Enable quick text. Dialogs are fast-forwarded to choices/end of dialog.");
-            TooltipBuilder.SetTooltip(cBGM, "Randomize background music sequences that are played throughout the game.");
             TooltipBuilder.SetTooltip(cSFX, "Randomize sound effects that are played throughout the game.");
-            TooltipBuilder.SetTooltip(cNoMusic, "Mute background music.");
+            TooltipBuilder.SetTooltip(cMusic, "Select a music option\n\n - Default: Vanilla background music.\n - Random: Randomized background music.\n - None: No background music.");
             TooltipBuilder.SetTooltip(cFreeHints, "Enable reading gossip stone hints without requiring the Mask of Truth.");
             TooltipBuilder.SetTooltip(cClearHints, "Gossip stone hints will give clear item and location names.");
             TooltipBuilder.SetTooltip(cNoDowngrades, "Downgrading items will be prevented.");
@@ -283,9 +282,7 @@ namespace MMRando
             cDChests.Checked = _settings.AddDungeonItems;
             cShop.Checked = _settings.AddShopItems;
             cDEnt.Checked = _settings.RandomizeDungeonEntrances;
-            cBGM.Checked = _settings.RandomizeBGM;
             cSFX.Checked = _settings.RandomizeSounds;
-            cNoMusic.Checked = _settings.NoBGM;
             cEnemy.Checked = _settings.RandomizeEnemies;
             cCutsc.Checked = _settings.ShortenCutscenes;
             cQText.Checked = _settings.QuickTextEnabled;
@@ -316,6 +313,7 @@ namespace MMRando
             cFloors.SelectedIndex = (int)_settings.FloorType;
             cGossipHints.SelectedIndex = (int)_settings.GossipHintStyle;
             cBlastCooldown.SelectedIndex = (int)_settings.BlastMaskCooldown;
+            cMusic.SelectedIndex = (int)_settings.Music;
             bTunic.BackColor = _settings.TunicColor;
         }
 
@@ -441,19 +439,14 @@ namespace MMRando
             UpdateSingleSetting(() => _settings.AddStrayFairies = cStrayFairies.Checked);
         }
 
-        private void cBGM_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateSingleSetting(() => _settings.RandomizeBGM = cBGM.Checked);
-        }
-
         private void cSFX_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.RandomizeSounds = cSFX.Checked);
         }
 
-        private void cNoMusic_CheckedChanged(object sender, EventArgs e)
+        private void cMusic_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.NoBGM = cNoMusic.Checked);
+            UpdateSingleSetting(() => _settings.Music = (Music)cMusic.SelectedIndex);
         }
 
         private void cBottled_CheckedChanged(object sender, EventArgs e)
@@ -765,9 +758,8 @@ namespace MMRando
         private void EnableAllControls(bool v)
         {
             cAdditional.Enabled = v;
-            cBGM.Enabled = v;
             cSFX.Enabled = v;
-            cNoMusic.Enabled = v;
+            cMusic.Enabled = v;
             cBottled.Enabled = v;
             cCutsc.Enabled = v;
             cDChests.Enabled = v;
@@ -838,6 +830,7 @@ namespace MMRando
             cGossipHints.SelectedIndex = 0;
             cClockSpeed.SelectedIndex = 0;
             cBlastCooldown.SelectedIndex = 0;
+            cMusic.SelectedIndex = 0;
             cSpoiler.Checked = true;
             cSoS.Checked = true;
             cNoDowngrades.Checked = true;
@@ -1005,7 +998,6 @@ namespace MMRando
             // Comfort/Cosmetics
             cCutsc.Enabled = v;
             cQText.Enabled = v;
-            cBGM.Enabled = v;
             cSFX.Enabled = v;
             cFreeHints.Enabled = v;
             cNoDowngrades.Enabled = v;

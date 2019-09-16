@@ -33,12 +33,72 @@ namespace MMRando
             _messageTable = new MessageTable();
         }
 
-        private void WriteAudioSeq()
+        #region Sequences, sounds and BGM
+
+        private void BGMShuffle(Random random)
         {
-            if (!_settings.RandomizeBGM)
+            while (RomData.TargetSequences.Count > 0)
+            {
+                List<SequenceInfo> Unassigned = RomData.SequenceList.FindAll(u => u.Replaces == -1);
+
+                int targetIndex = random.Next(RomData.TargetSequences.Count);
+                var targetSequence = RomData.TargetSequences[targetIndex];
+
+                while (true)
+                {
+                    int unassignedIndex = random.Next(Unassigned.Count);
+
+                    if (Unassigned[unassignedIndex].Name.StartsWith("mm")
+                        & (random.Next(100) < 50))
+                    {
+                        continue;
+                    }
+
+                    for (int i = 0; i < Unassigned[unassignedIndex].Type.Count; i++)
+                    {
+                        if (targetSequence.Type.Contains(Unassigned[unassignedIndex].Type[i]))
+                        {
+                            Unassigned[unassignedIndex].Replaces = targetSequence.Replaces;
+                            Debug.WriteLine(Unassigned[unassignedIndex].Name + " -> " + targetSequence.Name);
+                            RomData.TargetSequences.RemoveAt(targetIndex);
+                            break;
+                        }
+                        else if (i + 1 == Unassigned[unassignedIndex].Type.Count)
+                        {
+                            if ((random.Next(30) == 0)
+                                && ((Unassigned[unassignedIndex].Type[0] & 8) == (targetSequence.Type[0] & 8))
+                                && (Unassigned[unassignedIndex].Type.Contains(10) == targetSequence.Type.Contains(10))
+                                && (!Unassigned[unassignedIndex].Type.Contains(16)))
+                            {
+                                Unassigned[unassignedIndex].Replaces = targetSequence.Replaces;
+                                Debug.WriteLine(Unassigned[unassignedIndex].Name + " -> " + targetSequence.Name);
+                                RomData.TargetSequences.RemoveAt(targetIndex);
+                                break;
+                            }
+                        }
+                    }
+
+                    if (Unassigned[unassignedIndex].Replaces != -1)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            RomData.SequenceList.RemoveAll(u => u.Replaces == -1);
+        }
+
+        #endregion
+
+        private void WriteAudioSeq(Random random)
+        {
+            if (_settings.Music != Music.Random)
             {
                 return;
             }
+
+            SequenceUtils.ReadSequenceInfo();
+            BGMShuffle(random);
 
             foreach (SequenceInfo s in RomData.SequenceList)
             {
@@ -52,7 +112,7 @@ namespace MMRando
 
         private void WriteMuteMusic()
         {
-            if (_settings.NoBGM)
+            if (_settings.Music == Music.None)
             {
                 var codeFileAddress = 0xB3C000;
                 var offset = 0x102350; // address for branch when scene music is loaded
@@ -366,14 +426,27 @@ namespace MMRando
             ReadWriteUtils.WriteToROM(address, val);
         }
 
-        private void WriteSoundEffects()
+        private void WriteSoundEffects(Random random)
         {
             if (!_randomized.Settings.RandomizeSounds)
             {
                 return;
             }
 
-            foreach (var sounds in _randomized.SoundEffects)
+            var shuffledSoundEffects = new Dictionary<SoundEffect, SoundEffect>();
+
+            var replacableSounds = SoundEffects.Replacable();
+            foreach (var sound in replacableSounds)
+            {
+                var soundPool = SoundEffects.FilterByTags(sound.ReplacableByTags());
+
+                if (soundPool.Count > 0)
+                {
+                    shuffledSoundEffects[sound] = soundPool.Random(random);
+                }
+            }
+
+            foreach (var sounds in shuffledSoundEffects)
             {
                 var oldSound = sounds.Key;
                 var newSound = sounds.Value;
@@ -388,6 +461,10 @@ namespace MMRando
                 }
                 Debug.WriteLine($"Writing SFX {newSound} --> {oldSound}");
             }
+        }
+
+        private void SoundEffectShuffle()
+        {
         }
 
         private void WriteEnemies()
@@ -912,17 +989,14 @@ namespace MMRando
                 originalMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
             }
 
+            byte[] hash;
             if (!string.IsNullOrWhiteSpace(_settings.InputPatchFilename))
             {
                 worker.ReportProgress(50, "Applying patch...");
-                RomUtils.ApplyPatch(_settings.InputPatchFilename);
+                hash = RomUtils.ApplyPatch(_settings.InputPatchFilename);
             }
             else
             {
-                // todo music randomizer doesn't work if this is called after WriteItems(); because the reloc-audio hack is hardcoded
-                worker.ReportProgress(50, "Writing audio...");
-                WriteAudioSeq();
-
                 worker.ReportProgress(55, "Writing player model...");
                 WritePlayerModel();
 
@@ -961,9 +1035,6 @@ namespace MMRando
                 worker.ReportProgress(66, "Writing items...");
                 WriteItems();
 
-                worker.ReportProgress(67, "Writing sound effects...");
-                WriteSoundEffects();
-
                 worker.ReportProgress(68, "Writing messages...");
                 WriteGossipQuotes();
 
@@ -971,18 +1042,21 @@ namespace MMRando
 
                 worker.ReportProgress(69, "Writing startup...");
                 WriteStartupStrings();
-
-                if (_settings.GeneratePatch)
-                {
-                    worker.ReportProgress(70, "Generating patch...");
-                    RomUtils.CreatePatch(FileName, originalMMFileList);
-                }
+                
+                worker.ReportProgress(70, _settings.GeneratePatch ? "Generating patch..." : "Computing hash...");
+                hash = RomUtils.CreatePatch(_settings.GeneratePatch ? FileName : null, originalMMFileList);
             }
 
             worker.ReportProgress(72, "Writing cosmetics...");
             WriteTatlColour();
             WriteTunicColor();
+
+            worker.ReportProgress(50, "Writing music...");
+            WriteAudioSeq(new Random(BitConverter.ToInt32(hash, 0)));
             WriteMuteMusic();
+
+            worker.ReportProgress(67, "Writing sound effects...");
+            WriteSoundEffects(new Random(BitConverter.ToInt32(hash, 0)));
 
             if (_settings.GenerateROM)
             {
