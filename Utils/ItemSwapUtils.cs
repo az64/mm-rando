@@ -176,6 +176,11 @@ namespace MMRando.Utils
                 {
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-sword-song-of-time");
                 }
+
+                if (location == Item.MundaneItemSeahorse)
+                {
+                    ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-fisherman");
+                }
             }
         }
 
