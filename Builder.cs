@@ -983,11 +983,7 @@ namespace MMRando
                 _messageTable.InitializeTable();
             }
 
-            List<MMFile> originalMMFileList = null;
-            if (_settings.GeneratePatch)
-            {
-                originalMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
-            }
+            var originalMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
 
             byte[] hash;
             if (!string.IsNullOrWhiteSpace(_settings.InputPatchFilename))
