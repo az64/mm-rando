@@ -1649,7 +1649,7 @@ namespace MMRando.GameObjects
         [Repeatable]
         [ItemName("Red Rupee"), LocationName("Mountain Spring Grotto"), RegionName("Mountain Village")]
         [GossipLocationHint("the springtime"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
-        [ShopText("Carry various items in this.")]
+        [ShopText("This is worth 20 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02BFC000 + 0x1F3, 0x02BFC000 + 0x2B3)]
         [GetItemIndex(0xD8)]
         ChestMountainVillageGrottoRedRupee,
