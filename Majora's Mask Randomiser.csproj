@@ -333,6 +333,9 @@
     <None Include="Resources\mods\fierce-deity-anywhere">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\mods\fix-deku-princess">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\mods\fix-fisherman">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

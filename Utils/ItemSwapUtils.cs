@@ -95,6 +95,14 @@ namespace MMRando.Utils
                 };
                 ReadWriteUtils.Arr_Insert(data, 0, data.Length, fileData, offset + 3);
             }
+
+            if (location != item)
+            {
+                if (location == Item.BottleCatchPrincess)
+                {
+                    ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-deku-princess");
+                }
+            }
         }
 
         public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShop, bool preventDowngrades, bool updateChest, ChestTypeAttribute.ChestType? overrideChestType)
