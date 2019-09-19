@@ -528,7 +528,7 @@ namespace MMRando.GameObjects
         HeartPieceBeaverRace,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Seahorse"), RegionName("Pinnacle Rock")]
+        [ItemName("Piece of Heart"), LocationName("Seahorses"), RegionName("Pinnacle Rock")]
         [GossipLocationHint("a reunion"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -3287,7 +3287,7 @@ namespace MMRando.GameObjects
         MundaneItemCuriosityShopGoldRupee,
 
         [Repeatable]
-        [ItemName("Seahorse"), LocationName("Fisherman Seahorse"), RegionName("Great Bay Coast")]
+        [ItemName("Seahorse"), LocationName("Fisherman Pictograph"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a fisherman"), GossipItemHint("a sea creature")]
         [ShopText("It wants to go back home to Pinnacle Rock.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
