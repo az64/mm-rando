@@ -758,13 +758,13 @@ namespace MMRando
                 {
                     Id = 0x348F,
                     Header = null,
-                    Message = $"Seems like we're the only ones who have {MessageUtils.GetArticle(gormanBrosMilkItem)}\u0001{MessageUtils.GetAlternateName(gormanBrosMilkItem)}\u0000. Hyuh, hyuh. If you like, I'll sell you{MessageUtils.GetPronounOrAmount(bluePotionItem).ToLower()}.".Wrap(35, "\u0011")
+                    Message = $"Seems like we're the only ones who have {MessageUtils.GetArticle(gormanBrosMilkItem)}\u0001{MessageUtils.GetAlternateName(gormanBrosMilkItem)}\u0000. Hyuh, hyuh. If you like, I'll sell you{MessageUtils.GetPronounOrAmount(gormanBrosMilkItem).ToLower()}.\u0019\u00BF".Wrap(35, "\u0011")
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x3490,
                     Header = null,
-                    Message = $"50 Rupees will do you for{MessageUtils.GetPronounOrAmount(gormanBrosMilkItem).ToLower()}! I'll buy {MessageUtils.GetPronoun(gormanBrosMilkItem)}\nNo thanks"
+                    Message = $"\u000650 Rupees\u0000 will do you for{MessageUtils.GetPronounOrAmount(gormanBrosMilkItem).ToLower()}!\u0011 \u0011\u0002\u00C2I'll buy {MessageUtils.GetPronoun(gormanBrosMilkItem)}\u0011No thanks\u00BF"
                 });
 
                 // update lottery message
