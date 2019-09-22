@@ -336,6 +336,9 @@
     <None Include="Resources\mods\fix-deku-princess">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\mods\fix-fd-mask-reset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\mods\fix-fisherman">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

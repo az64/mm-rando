@@ -189,6 +189,11 @@ namespace MMRando.Utils
                 {
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-fisherman");
                 }
+
+                if (location == Item.MaskFierceDeity)
+                {
+                    ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-fd-mask-reset");
+                }
             }
         }
 
