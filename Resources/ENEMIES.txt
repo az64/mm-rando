@@ -52,7 +52,7 @@ fffd,fffe,ffff
 0000
 0
 1
-1b,21,60
+1b,21,60,66
 -shabom
 001d
 000e
