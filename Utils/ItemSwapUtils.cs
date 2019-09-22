@@ -11,7 +11,7 @@ namespace MMRando.Utils
     {
         const int BOTTLE_CATCH_TABLE = 0xCD7C08;
         static int cycle_repeat = 0;
-        static int cycle_repeat_count_address = 0xC72CEA;
+        static int cycle_repeat_count_address = 0xC72CFA;
         static ushort cycle_repeat_count = 0x74;
         static int GET_ITEM_TABLE = 0;
 
