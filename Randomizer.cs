@@ -215,6 +215,15 @@ namespace MMRando
             }
         }
 
+        private void UpdateLogicForSettings()
+        {
+            if (_settings.AddShopItems)
+            {
+                ItemList[(int)Item.ShopItemWitchBluePotion]?.DependsOnItems.Remove(Item.BottleCatchMushroom);
+            }
+            // todo handle progressive upgrades here.
+        }
+
         private void PrepareRulesetItemData()
         {
             ItemList = new List<ItemObject>();
@@ -227,6 +236,8 @@ namespace MMRando
             {
                 string[] data = ReadRulesetFromResources();
                 PopulateItemListFromLogicData(data);
+
+                UpdateLogicForSettings();
             }
             else
             {
