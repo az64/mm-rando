@@ -47,6 +47,9 @@ namespace MMRando
             this.cVC = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabMain = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.bStartingItemEditor = new System.Windows.Forms.Button();
+            this.tStartingItemList = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cNoStartingItems = new System.Windows.Forms.CheckBox();
             this.cDEnt = new System.Windows.Forms.CheckBox();
@@ -88,6 +91,8 @@ namespace MMRando
             this.cDMult = new System.Windows.Forms.ComboBox();
             this.cGravity = new System.Windows.Forms.ComboBox();
             this.tabComfort = new System.Windows.Forms.TabPage();
+            this.lMusic = new System.Windows.Forms.Label();
+            this.cMusic = new System.Windows.Forms.ComboBox();
             this.cSFX = new System.Windows.Forms.CheckBox();
             this.cUpdateChests = new System.Windows.Forms.CheckBox();
             this.cEponaSword = new System.Windows.Forms.CheckBox();
@@ -137,13 +142,13 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.lMusic = new System.Windows.Forms.Label();
-            this.cMusic = new System.Windows.Forms.ComboBox();
+            this.lCustomStartingItemAmount = new System.Windows.Forms.Label();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gGameOutput.SuspendLayout();
             this.tabMain.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabGimmick.SuspendLayout();
@@ -198,7 +203,7 @@ namespace MMRando
             this.tSettings.Location = new System.Drawing.Point(0, 23);
             this.tSettings.Name = "tSettings";
             this.tSettings.SelectedIndex = 0;
-            this.tSettings.Size = new System.Drawing.Size(355, 365);
+            this.tSettings.Size = new System.Drawing.Size(355, 437);
             this.tSettings.TabIndex = 10;
             // 
             // tabROMSettings
@@ -211,7 +216,7 @@ namespace MMRando
             this.tabROMSettings.Location = new System.Drawing.Point(4, 25);
             this.tabROMSettings.Name = "tabROMSettings";
             this.tabROMSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabROMSettings.Size = new System.Drawing.Size(347, 336);
+            this.tabROMSettings.Size = new System.Drawing.Size(347, 408);
             this.tabROMSettings.TabIndex = 3;
             this.tabROMSettings.Text = "ROM Settings";
             this.tabROMSettings.UseVisualStyleBackColor = true;
@@ -327,6 +332,7 @@ namespace MMRando
             // 
             // tabMain
             // 
+            this.tabMain.Controls.Add(this.groupBox4);
             this.tabMain.Controls.Add(this.groupBox3);
             this.tabMain.Controls.Add(this.groupBox2);
             this.tabMain.Controls.Add(this.lMode);
@@ -334,10 +340,44 @@ namespace MMRando
             this.tabMain.Location = new System.Drawing.Point(4, 25);
             this.tabMain.Name = "tabMain";
             this.tabMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMain.Size = new System.Drawing.Size(347, 336);
+            this.tabMain.Size = new System.Drawing.Size(347, 408);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main Settings";
             this.tabMain.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.lCustomStartingItemAmount);
+            this.groupBox4.Controls.Add(this.bStartingItemEditor);
+            this.groupBox4.Controls.Add(this.tStartingItemList);
+            this.groupBox4.Location = new System.Drawing.Point(10, 333);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(325, 72);
+            this.groupBox4.TabIndex = 17;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Extra Starting Items";
+            // 
+            // bStartingItemEditor
+            // 
+            this.bStartingItemEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bStartingItemEditor.Location = new System.Drawing.Point(233, 12);
+            this.bStartingItemEditor.Name = "bStartingItemEditor";
+            this.bStartingItemEditor.Size = new System.Drawing.Size(86, 27);
+            this.bStartingItemEditor.TabIndex = 26;
+            this.bStartingItemEditor.Text = "Edit";
+            this.bStartingItemEditor.UseVisualStyleBackColor = true;
+            this.bStartingItemEditor.Click += new System.EventHandler(this.bStartingItemEditor_Click);
+            // 
+            // tStartingItemList
+            // 
+            this.tStartingItemList.Location = new System.Drawing.Point(6, 46);
+            this.tStartingItemList.Name = "tStartingItemList";
+            this.tStartingItemList.Size = new System.Drawing.Size(313, 20);
+            this.tStartingItemList.TabIndex = 26;
+            this.tStartingItemList.Text = "--";
+            this.tStartingItemList.TextChanged += new System.EventHandler(this.tStartingItemList_TextChanged);
             // 
             // groupBox3
             // 
@@ -716,7 +756,7 @@ namespace MMRando
             this.tabGimmick.Controls.Add(this.cGravity);
             this.tabGimmick.Location = new System.Drawing.Point(4, 25);
             this.tabGimmick.Name = "tabGimmick";
-            this.tabGimmick.Size = new System.Drawing.Size(347, 336);
+            this.tabGimmick.Size = new System.Drawing.Size(347, 408);
             this.tabGimmick.TabIndex = 2;
             this.tabGimmick.Text = "Gimmicks";
             this.tabGimmick.UseVisualStyleBackColor = true;
@@ -937,10 +977,36 @@ namespace MMRando
             this.tabComfort.Location = new System.Drawing.Point(4, 25);
             this.tabComfort.Name = "tabComfort";
             this.tabComfort.Padding = new System.Windows.Forms.Padding(3);
-            this.tabComfort.Size = new System.Drawing.Size(347, 336);
+            this.tabComfort.Size = new System.Drawing.Size(347, 408);
             this.tabComfort.TabIndex = 1;
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
+            // 
+            // lMusic
+            // 
+            this.lMusic.AutoSize = true;
+            this.lMusic.BackColor = System.Drawing.Color.Transparent;
+            this.lMusic.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lMusic.ForeColor = System.Drawing.Color.Black;
+            this.lMusic.Location = new System.Drawing.Point(84, 251);
+            this.lMusic.Name = "lMusic";
+            this.lMusic.Size = new System.Drawing.Size(38, 13);
+            this.lMusic.TabIndex = 26;
+            this.lMusic.Text = "Music:";
+            // 
+            // cMusic
+            // 
+            this.cMusic.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cMusic.FormattingEnabled = true;
+            this.cMusic.Items.AddRange(new object[] {
+            "Default",
+            "Random",
+            "None"});
+            this.cMusic.Location = new System.Drawing.Point(128, 248);
+            this.cMusic.Name = "cMusic";
+            this.cMusic.Size = new System.Drawing.Size(167, 21);
+            this.cMusic.TabIndex = 25;
+            this.cMusic.SelectedIndexChanged += new System.EventHandler(this.cMusic_SelectedIndexChanged);
             // 
             // cSFX
             // 
@@ -1298,7 +1364,7 @@ namespace MMRando
             // 
             // pProgress
             // 
-            this.pProgress.Location = new System.Drawing.Point(11, 512);
+            this.pProgress.Location = new System.Drawing.Point(11, 584);
             this.pProgress.Margin = new System.Windows.Forms.Padding(2);
             this.pProgress.Name = "pProgress";
             this.pProgress.Size = new System.Drawing.Size(339, 19);
@@ -1313,7 +1379,7 @@ namespace MMRando
             // 
             this.lStatus.AutoSize = true;
             this.lStatus.BackColor = System.Drawing.Color.Transparent;
-            this.lStatus.Location = new System.Drawing.Point(15, 493);
+            this.lStatus.Location = new System.Drawing.Point(15, 565);
             this.lStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lStatus.Name = "lStatus";
             this.lStatus.Size = new System.Drawing.Size(47, 13);
@@ -1370,7 +1436,7 @@ namespace MMRando
             this.cDummy.AutoSize = true;
             this.cDummy.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cDummy.Enabled = false;
-            this.cDummy.Location = new System.Drawing.Point(265, 489);
+            this.cDummy.Location = new System.Drawing.Point(265, 561);
             this.cDummy.Name = "cDummy";
             this.cDummy.Size = new System.Drawing.Size(80, 17);
             this.cDummy.TabIndex = 9;
@@ -1382,7 +1448,7 @@ namespace MMRando
             // 
             this.lHrule.AutoSize = true;
             this.lHrule.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lHrule.Location = new System.Drawing.Point(20, 377);
+            this.lHrule.Location = new System.Drawing.Point(20, 449);
             this.lHrule.Name = "lHrule";
             this.lHrule.Size = new System.Drawing.Size(325, 13);
             this.lHrule.TabIndex = 12;
@@ -1392,7 +1458,7 @@ namespace MMRando
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label5.Location = new System.Drawing.Point(20, 474);
+            this.label5.Location = new System.Drawing.Point(20, 546);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(325, 13);
             this.label5.TabIndex = 14;
@@ -1406,7 +1472,7 @@ namespace MMRando
             // 
             this.ttOutput.Controls.Add(this.tpOutputSettings);
             this.ttOutput.Controls.Add(this.tpPatchSettings);
-            this.ttOutput.Location = new System.Drawing.Point(4, 394);
+            this.ttOutput.Location = new System.Drawing.Point(4, 466);
             this.ttOutput.Name = "ttOutput";
             this.ttOutput.SelectedIndex = 0;
             this.ttOutput.Size = new System.Drawing.Size(354, 89);
@@ -1459,38 +1525,21 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // lMusic
+            // lCustomStartingItemAmount
             // 
-            this.lMusic.AutoSize = true;
-            this.lMusic.BackColor = System.Drawing.Color.Transparent;
-            this.lMusic.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lMusic.ForeColor = System.Drawing.Color.Black;
-            this.lMusic.Location = new System.Drawing.Point(84, 251);
-            this.lMusic.Name = "lMusic";
-            this.lMusic.Size = new System.Drawing.Size(38, 13);
-            this.lMusic.TabIndex = 26;
-            this.lMusic.Text = "Music:";
-            // 
-            // cMusic
-            // 
-            this.cMusic.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cMusic.FormattingEnabled = true;
-            this.cMusic.Items.AddRange(new object[] {
-            "Default",
-            "Random",
-            "None"});
-            this.cMusic.Location = new System.Drawing.Point(128, 248);
-            this.cMusic.Name = "cMusic";
-            this.cMusic.Size = new System.Drawing.Size(167, 21);
-            this.cMusic.TabIndex = 25;
-            this.cMusic.SelectedIndexChanged += new System.EventHandler(this.cMusic_SelectedIndexChanged);
+            this.lCustomStartingItemAmount.AutoSize = true;
+            this.lCustomStartingItemAmount.Location = new System.Drawing.Point(7, 27);
+            this.lCustomStartingItemAmount.Name = "lCustomStartingItemAmount";
+            this.lCustomStartingItemAmount.Size = new System.Drawing.Size(94, 13);
+            this.lCustomStartingItemAmount.TabIndex = 27;
+            this.lCustomStartingItemAmount.Text = "0/0 items selected";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(355, 542);
+            this.ClientSize = new System.Drawing.Size(355, 614);
             this.Controls.Add(this.ttOutput);
             this.Controls.Add(this.lStatus);
             this.Controls.Add(this.cDummy);
@@ -1515,6 +1564,8 @@ namespace MMRando
             this.gGameOutput.PerformLayout();
             this.tabMain.ResumeLayout(false);
             this.tabMain.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1644,6 +1695,10 @@ namespace MMRando
         private System.Windows.Forms.CheckBox cSFX;
         private System.Windows.Forms.Label lMusic;
         private System.Windows.Forms.ComboBox cMusic;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button bStartingItemEditor;
+        private System.Windows.Forms.TextBox tStartingItemList;
+        private System.Windows.Forms.Label lCustomStartingItemAmount;
     }
 }
 

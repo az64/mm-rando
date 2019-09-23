@@ -25,6 +25,7 @@ namespace MMRando
         public ManualForm Manual { get; private set; }
         public LogicEditorForm LogicEditor { get; private set; }
         public ItemEditForm ItemEditor { get; private set; }
+        public StartingItemEditForm StartingItemEditor { get; private set; }
 
         private Randomizer _randomizer;
         private Builder _builder;
@@ -50,6 +51,11 @@ namespace MMRando
             ItemEditor = new ItemEditForm(_settings);
             ItemEditor.FormClosing += ItemEditor_FormClosing;
             UpdateCustomItemAmountLabel();
+
+            StartingItemEditor = new StartingItemEditForm(_settings);
+            StartingItemEditor.FormClosing += StartingItemEditor_FormClosing;
+            UpdateCustomStartingItemAmountLabel();
+
             LogicEditor = new LogicEditorForm();
             Manual = new ManualForm();
             About = new AboutForm();
@@ -653,6 +659,28 @@ namespace MMRando
             {
                 lCustomItemAmount.Text = $"{_settings.CustomItemList.Count}/{ItemUtils.AllLocations().Count()} items randomized";
             }
+        }
+
+        private void bStartingItemEditor_Click(object sender, EventArgs e)
+        {
+            StartingItemEditor.Show();
+        }
+
+        private void tStartingItemList_TextChanged(object sender, EventArgs e)
+        {
+            StartingItemEditor.UpdateChecks(tStartingItemList.Text);
+            UpdateCustomStartingItemAmountLabel();
+        }
+
+        private void StartingItemEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            tStartingItemList.Text = _settings.CustomStartingItemListString;
+            UpdateCustomStartingItemAmountLabel();
+        }
+
+        private void UpdateCustomStartingItemAmountLabel()
+        {
+            lCustomStartingItemAmount.Text = StartingItemEditor.ExternalLabel;
         }
 
 

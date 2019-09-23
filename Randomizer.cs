@@ -217,6 +217,17 @@ namespace MMRando
 
         private void UpdateLogicForSettings()
         {
+            //if (_settings.CustomStartingItemList != null)
+            //{
+            //    foreach (var item in _settings.CustomStartingItemList)
+            //    {
+            //        var itemObject = ItemList[(int)item];
+            //        itemObject.DependsOnItems.Clear();
+            //        itemObject.Conditionals.Clear();
+            //        itemObject.TimeNeeded = 0;
+            //        itemObject.TimeAvailable = 63;
+            //    }
+            //}
             if (_settings.AddShopItems)
             {
                 ItemList[(int)Item.ShopItemWitchBluePotion]?.DependsOnItems.Remove(Item.BottleCatchMushroom);
@@ -401,6 +412,12 @@ namespace MMRando
         private Dependence CheckDependence(Item currentItem, Item target, List<Item> dependencyPath)
         {
             Debug.WriteLine($"CheckDependence({currentItem}, {target})");
+
+            if (_settings.CustomStartingItemList.Contains(currentItem))
+            {
+                return Dependence.NotDependent;
+            }
+
             if (ItemList[(int)currentItem].TimeNeeded == 0
                 && !ItemList.Any(io => (io.Conditionals?.Any(c => c.Contains(currentItem)) ?? false) || (io.DependsOnItems?.Contains(currentItem) ?? false)))
             {

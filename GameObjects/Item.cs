@@ -59,7 +59,7 @@ namespace MMRando.GameObjects
         ItemBombBag,
 
         [Repeatable, CycleRepeatable]
-        [StartingItem(0xC5CE2E, 0x0A)]
+        //[StartingItem(0xC5CE2E, 0x0A)]
         [ItemName("Magic Bean"), LocationName("Bean Man"), RegionName("Deku Palace")]
         [GossipLocationHint("a hidden merchant", "a gorging merchant"), GossipItemHint("a plant seed")]
         [ShopText("Plant it in soft soil.")]
@@ -68,7 +68,7 @@ namespace MMRando.GameObjects
         ItemMagicBean,
 
         [Repeatable, CycleRepeatable]
-        [StartingItem(0xC5CE30, 0x0C)]
+        //[StartingItem(0xC5CE30, 0x0C)]
         [ItemName("Powder Keg"), LocationName("Powder Keg Challenge"), RegionName("Goron Village")]
         [GossipLocationHint("a large goron"), GossipItemHint("gunpowder", "a dangerous item", "an explosive barrel")]
         [ShopText("Both its power and its size are immense!")]
@@ -144,7 +144,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x130)]
         ItemFairySword,
 
-        [StartingItem(0xC5CE36, 0x12)]
+        //[StartingItem(0xC5CE36, 0x12)]
         [ItemName("Bottle with Red Potion"), LocationName("Kotake"), RegionName("Southern Swamp")]
         [GossipLocationHint("the sleeping witch"), GossipItemHint("a vessel of health", "bottled fortitude")]
         [ShopText("Replenishes your life energy. Comes with an Empty Bottle.")]
@@ -152,7 +152,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x59)]
         ItemBottleWitch,
 
-        [StartingItem(0xC5CE37, 0x12)]
+        //[StartingItem(0xC5CE37, 0x12)]
         [ItemName("Bottle with Milk"), LocationName("Aliens Defense"), RegionName("Romani Ranch")]
         [GossipLocationHint("the ranch girl", "a good deed"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings. Comes with an Empty Bottle.")]
@@ -161,7 +161,7 @@ namespace MMRando.GameObjects
         ItemBottleAliens,
 
         [RupeeRepeatable]
-        [StartingItem(0xC5CE38, 0x12)]
+        //[StartingItem(0xC5CE38, 0x12)]
         [ItemName("Bottle with Gold Dust"), LocationName("Goron Race"), RegionName("Twin Islands")]
         [GossipLocationHint("a sporting event"), GossipItemHint("a gleaming powder"), GossipCompetitiveHint]
         [ShopText("It's very high quality. Comes with an Empty Bottle.")]
@@ -169,7 +169,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x6A)]
         ItemBottleGoronRace,
 
-        [StartingItem(0xC5CE39, 0x12)]
+        //[StartingItem(0xC5CE39, 0x12)]
         [ItemName("Empty Bottle"), LocationName("Beaver Race #1"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a river dweller"), GossipItemHint("an empty vessel", "a glass container"), GossipCompetitiveHint(-1)]
         [ShopText("Carry various items in this.")]
@@ -177,7 +177,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x5A)]
         ItemBottleBeavers,
 
-        [StartingItem(0xC5CE3A, 0x12)]
+        //[StartingItem(0xC5CE3A, 0x12)]
         [ItemName("Empty Bottle"), LocationName("Dampe Digging"), RegionName("Ikana Graveyard")]
         [GossipLocationHint("a fearful basement"), GossipItemHint("an empty vessel", "a glass container"), GossipCompetitiveHint]
         [ShopText("Carry various items in this.")]
@@ -185,7 +185,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x64)]
         ItemBottleDampe,
 
-        [StartingItem(0xC5CE3B, 0x12)]
+        //[StartingItem(0xC5CE3B, 0x12)]
         [ItemName("Bottle with Chateau Romani"), LocationName("Madame Aroma in Bar"), RegionName("East Clock Town")]
         [GossipLocationHint("an important lady"), GossipItemHint("a dairy product", "an adult beverage")]
         [ShopText("Drink it to get lasting stamina for your magic power. Comes with an Empty Bottle.")]

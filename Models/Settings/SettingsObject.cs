@@ -200,6 +200,16 @@ namespace MMRando.Models.Settings
         /// </summary>
         public string CustomItemListString { get; set; }
 
+        /// <summary>
+        ///  Custom starting item list selections
+        /// </summary>
+        public List<GameObjects.Item> CustomStartingItemList { get; set; } = new List<GameObjects.Item>();
+
+        /// <summary>
+        ///  Custom starting item list string
+        /// </summary>
+        public string CustomStartingItemListString { get; set; }
+
         #endregion
 
         #region Gimmicks
