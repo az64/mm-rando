@@ -736,6 +736,9 @@ namespace MMRando
                 cStrayFairies.Enabled = onMainTab;
                 cMundaneRewards.Enabled = onMainTab;
 
+                tStartingItemList.Enabled = onMainTab;
+                bStartingItemEditor.Enabled = onMainTab;
+
                 cNoStartingItems.Enabled = onMainTab && (_settings.AddOther || _settings.UseCustomItemList);
                 if (!cNoStartingItems.Enabled && onMainTab)
                 {
@@ -831,6 +834,8 @@ namespace MMRando
             cPatch.Enabled = v;
             bApplyPatch.Enabled = v;
             cUpdateChests.Enabled = v;
+            tStartingItemList.Enabled = v;
+            bStartingItemEditor.Enabled = v;
 
             bopen.Enabled = v;
             bRandomise.Enabled = v;
