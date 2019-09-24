@@ -217,17 +217,14 @@ namespace MMRando
 
         private void UpdateLogicForSettings()
         {
-            //if (_settings.CustomStartingItemList != null)
-            //{
-            //    foreach (var item in _settings.CustomStartingItemList)
-            //    {
-            //        var itemObject = ItemList[(int)item];
-            //        itemObject.DependsOnItems.Clear();
-            //        itemObject.Conditionals.Clear();
-            //        itemObject.TimeNeeded = 0;
-            //        itemObject.TimeAvailable = 63;
-            //    }
-            //}
+            if (_settings.CustomStartingItemList != null)
+            {
+                foreach (var itemObject in ItemList)
+                {
+                    itemObject.DependsOnItems?.RemoveAll(item => _settings.CustomStartingItemList.Contains(item));
+                    itemObject.Conditionals?.ForEach(c => c.RemoveAll(item => _settings.CustomStartingItemList.Contains(item)));
+                }
+            }
             if (_settings.AddShopItems)
             {
                 ItemList[(int)Item.ShopItemWitchBluePotion]?.DependsOnItems.Remove(Item.BottleCatchMushroom);
@@ -412,11 +409,6 @@ namespace MMRando
         private Dependence CheckDependence(Item currentItem, Item target, List<Item> dependencyPath)
         {
             Debug.WriteLine($"CheckDependence({currentItem}, {target})");
-
-            if (_settings.CustomStartingItemList.Contains(currentItem))
-            {
-                return Dependence.NotDependent;
-            }
 
             if (ItemList[(int)currentItem].TimeNeeded == 0
                 && !ItemList.Any(io => (io.Conditionals?.Any(c => c.Contains(currentItem)) ?? false) || (io.DependsOnItems?.Contains(currentItem) ?? false)))
@@ -862,6 +854,11 @@ namespace MMRando
 
         private bool CheckMatch(Item currentItem, Item target)
         {
+            if (_settings.CustomStartingItemList.Contains(currentItem))
+            {
+                return true;
+            }
+
             if (ItemUtils.IsStartingLocation(target) && ForbiddenStartingItems.Contains(currentItem))
             {
                 Debug.WriteLine($"{currentItem} cannot be a starting item.");
@@ -1610,6 +1607,10 @@ namespace MMRando
 
         private ReadOnlyCollection<Item> GetRequiredItems(Item item, List<ItemLogic> itemLogic, List<Item> logicPath = null, Dictionary<Item, ReadOnlyCollection<Item>> checkedItems = null, Item? exclude = null)
         {
+            if (_settings.CustomStartingItemList.Contains(item))
+            {
+                return new List<Item>().AsReadOnly();
+            }
             if (item == exclude)
             {
                 return null;
@@ -1707,6 +1708,14 @@ namespace MMRando
 
                 worker.ReportProgress(30, "Shuffling items...");
                 RandomizeItems();
+
+                foreach (var itemLogic in _randomized.Logic)
+                {
+                    if (_settings.CustomStartingItemList.Contains((Item)itemLogic.ItemId) && !ItemList[itemLogic.ItemId].IsRandomized)
+                    {
+                        itemLogic.Acquired = true;
+                    }
+                }
 
                 _randomized.AllItemsOnPathToMoon = GetRequiredItems(Item.AreaMoonAccess, _randomized.Logic)?.Where(item => !item.IsFake()).ToList().AsReadOnly();
                 if (_randomized.AllItemsOnPathToMoon == null)

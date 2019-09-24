@@ -490,6 +490,12 @@ namespace MMRando
             PutOrCombine(startingItems, 0xC5CE72, 0x10); // add Song of Time
 
             var itemList = items.ToList();
+
+            if (_settings.CustomStartingItemList != null)
+            {
+                itemList.AddRange(_settings.CustomStartingItemList);
+            }
+
             itemList.Add(Item.StartingHeartContainer1);
             while (itemList.Count(item => item.Name() == "Piece of Heart") >= 4)
             {

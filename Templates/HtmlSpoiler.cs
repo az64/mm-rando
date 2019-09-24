@@ -52,6 +52,11 @@ namespace MMRando.Templates
             this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.CustomItemListString));
             this.Write("</span><br/>\r\n");
  } 
+ if (spoiler.CustomStartingItemListString != null) { 
+            this.Write("<label><b>Custom Starting Item List: </b></label><span>");
+            this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.CustomStartingItemListString));
+            this.Write("</span><br/>\r\n");
+ } 
             this.Write("<br/>\r\n");
  if (spoiler.RandomizeDungeonEntrances) { 
 
@@ -157,19 +162,22 @@ namespace MMRando.Templates
                     "rtingLocations) {\r\n\t    logic[id].Checked = true;\r\n\t    logic[document.querySele" +
                     "ctor(\"tr[data-newlocationid=\'\" + id + \"\']\").dataset.id].Acquired = true;\r\n\t    d" +
                     "ocument.querySelector(\"tr[data-newlocationid=\'\" + id + \"\'] input\").checked = tru" +
-                    "e;\r\n    }\r\n\r\n\trecalculateItems();\r\n\r\n\tvar rows = document.querySelectorAll(\"tr\")" +
-                    ";\r\n\tfor (var i = 1; i < rows.length; i++) {\r\n\t\tvar row = rows[i];\r\n\t\tvar checkbo" +
-                    "x = row.querySelector(\"input\");\r\n\t\tif (checkbox) {\r\n\t\t\tcheckbox.addEventListener" +
-                    "(\"click\", function(e) {\r\n\t\t\t\tvar row = e.target.closest(\"tr\");\r\n                " +
-                    "var rowId = parseInt(row.dataset.id);\r\n\t\t\t\tvar newLocationId = parseInt(row.data" +
-                    "set.newlocationid);\r\n\t\t\t\tlogic[newLocationId].Checked = e.target.checked;\r\n     " +
-                    "           logic[rowId].Acquired = e.target.checked;\r\n\t\t\t\trecalculateItems();\r\n\t" +
-                    "\t\t});\r\n\t\t}\r\n\t}\r\n\r\n\tdocument.querySelector(\"#highlight-checks\").addEventListener(" +
-                    "\"click\", function(e) {\n        var tables = document.querySelectorAll(\"table.ite" +
-                    "m-replacements\");\n        for (var i = 0; i < tables.length; i++) {\n            " +
-                    "if (e.target.checked) {\n                tables[i].classList.add(\"show-highlight\"" +
-                    ");\n            } else {\n                tables[i].classList.remove(\"show-highlig" +
-                    "ht\");\n            }\n        }\r\n\t});\r\n</script>\r\n</html>");
+                    "e;\r\n    }\n\n    for (var i = 0; i < logic.length; i++) {\n        var item = logic" +
+                    "[i];\n        if (item.Acquired) {\n            item.Checked = true;\r\n\t        doc" +
+                    "ument.querySelector(\"tr[data-newlocationid=\'\" + id + \"\'] input\").checked = true;" +
+                    "\n        }\n    }\r\n\r\n\trecalculateItems();\r\n\r\n\tvar rows = document.querySelectorAl" +
+                    "l(\"tr\");\r\n\tfor (var i = 1; i < rows.length; i++) {\r\n\t\tvar row = rows[i];\r\n\t\tvar " +
+                    "checkbox = row.querySelector(\"input\");\r\n\t\tif (checkbox) {\r\n\t\t\tcheckbox.addEventL" +
+                    "istener(\"click\", function(e) {\r\n\t\t\t\tvar row = e.target.closest(\"tr\");\r\n         " +
+                    "       var rowId = parseInt(row.dataset.id);\r\n\t\t\t\tvar newLocationId = parseInt(r" +
+                    "ow.dataset.newlocationid);\r\n\t\t\t\tlogic[newLocationId].Checked = e.target.checked;" +
+                    "\r\n                logic[rowId].Acquired = e.target.checked;\r\n\t\t\t\trecalculateItem" +
+                    "s();\r\n\t\t\t});\r\n\t\t}\r\n\t}\r\n\r\n\tdocument.querySelector(\"#highlight-checks\").addEventLi" +
+                    "stener(\"click\", function(e) {\r\n        var tables = document.querySelectorAll(\"t" +
+                    "able.item-replacements\");\r\n        for (var i = 0; i < tables.length; i++) {\r\n  " +
+                    "          if (e.target.checked) {\r\n                tables[i].classList.add(\"show" +
+                    "-highlight\");\r\n            } else {\r\n                tables[i].classList.remove(" +
+                    "\"show-highlight\");\r\n            }\r\n        }\r\n\t});\r\n</script>\r\n</html>");
             return this.GenerationEnvironment.ToString();
         }
     }

@@ -24,6 +24,9 @@
 <# if (spoiler.CustomItemListString != null) { #>
 <label><b>Custom Item List: </b></label><span><#= spoiler.CustomItemListString #></span><br/>
 <# } #>
+<# if (spoiler.CustomStartingItemListString != null) { #>
+<label><b>Custom Starting Item List: </b></label><span><#= spoiler.CustomStartingItemListString #></span><br/>
+<# } #>
 <br/>
 <# if (spoiler.RandomizeDungeonEntrances) { 
 #>
@@ -173,6 +176,14 @@
 	    logic[id].Checked = true;
 	    logic[document.querySelector("tr[data-newlocationid='" + id + "']").dataset.id].Acquired = true;
 	    document.querySelector("tr[data-newlocationid='" + id + "'] input").checked = true;
+    }
+
+    for (var i = 0; i < logic.length; i++) {
+        var item = logic[i];
+        if (item.Acquired) {
+            item.Checked = true;
+	        document.querySelector("tr[data-newlocationid='" + id + "'] input").checked = true;
+        }
     }
 
 	recalculateItems();
