@@ -102,7 +102,11 @@
 </table>
 <# } #>
 <script>
-	var logic = <#= spoiler.LogicJson #>
+    var spoilerLogId = '<#= spoiler.Id #>';
+    var logic = JSON.parse(localStorage.getItem('MMR-Logic-' + spoilerLogId));
+    if (!logic) {
+	    logic = <#= spoiler.LogicJson #>
+    }
 
 	function all(list, predicate) {
 		for (var i = 0; i < list.length; i++) {
@@ -121,6 +125,10 @@
 		}
 		return false;
 	}
+
+    function saveItems() {
+        localStorage.setItem('MMR-Logic-' + spoilerLogId, JSON.stringify(logic));
+    }
 
 	function recalculateItems() {
 		var recalculate = false;
@@ -168,7 +176,9 @@
 		}
 		if (recalculate) {
 			recalculateItems();
-		}
+		} else {
+            saveItems();
+        }
 	}
 
     var startingLocations = [0, 94, 274, 275, 276, 277];

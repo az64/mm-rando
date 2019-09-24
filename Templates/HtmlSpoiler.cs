@@ -130,54 +130,59 @@ namespace MMRando.Templates
  } 
             this.Write("</table>\r\n");
  } 
-            this.Write("<script>\r\n\tvar logic = ");
+            this.Write("<script>\n    var spoilerLogId = \'");
+            this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.Id));
+            this.Write("\';\n    var logic = JSON.parse(localStorage.getItem(\'MMR-Logic-\' + spoilerLogId));" +
+                    "\n    if (!logic) {\r\n\t    logic = ");
             this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.LogicJson));
-            this.Write("\r\n\r\n\tfunction all(list, predicate) {\r\n\t\tfor (var i = 0; i < list.length; i++) {\r\n" +
-                    "\t\t\tif (!predicate(list[i])) {\r\n\t\t\t\treturn false;\r\n\t\t\t}\r\n\t\t}\r\n\t\treturn true;\r\n\t}\r" +
-                    "\n\r\n\tfunction any(list, predicate) {\r\n\t\tfor (var i = 0; i < list.length; i++) {\r\n" +
-                    "\t\t\tif (predicate(list[i])) {\r\n\t\t\t\treturn true;\r\n\t\t\t}\r\n\t\t}\r\n\t\treturn false;\r\n\t}\r\n" +
-                    "\r\n\tfunction recalculateItems() {\r\n\t\tvar recalculate = false;\r\n\t\tfor (var i = 0; " +
-                    "i < logic.length; i++) {\r\n\t\t\tvar item = logic[i];\r\n\t\t\titem.IsAvailable = \r\n\t\t\t\t(" +
-                    "item.RequiredItemIds === null || all(item.RequiredItemIds, function(id) { return" +
-                    " logic[id].Acquired; }))\r\n\t\t\t\t&& \r\n\t\t\t\t(item.ConditionalItemIds === null || any(" +
-                    "item.ConditionalItemIds, function(conditionals) { return all(conditionals, funct" +
-                    "ion(id) { return logic[id].Acquired; }); }));\r\n            \r\n\t\t\tif (!item.Acquir" +
-                    "ed && item.IsFakeItem && item.IsAvailable) {\r\n\t\t\t\titem.Acquired = true;\r\n\t\t\t\trec" +
-                    "alculate = true;\r\n\t\t\t}\r\n\t\t\tif (item.Acquired && item.IsFakeItem && !item.IsAvail" +
-                    "able) {\r\n\t\t\t\titem.Acquired = false;\r\n\t\t\t\trecalculate = true;\r\n\t\t\t}\r\n        \r\n\t\t" +
-                    "\tvar locationRow = document.querySelector(\".item-replacements tr[data-newlocatio" +
-                    "nid=\'\" + i + \"\']\");\r\n\t\t\tif (locationRow) {\r\n\t\t\t\tlocationRow.className = \"\";\r\n\t\t\t" +
-                    "\tlocationRow.classList.add(item.IsAvailable ? \"available\" : \"unavailable\");\r\n\t\t\t" +
-                    "\tvar itemName = locationRow.querySelector(\".itemname\");\r\n                var che" +
-                    "ckbox = locationRow.querySelector(\"input\");\r\n                checkbox.checked = " +
-                    "item.Checked;\r\n\t\t\t\tif (item.Checked) {\r\n\t\t\t\t\titemName.classList.remove(\"spoiler\"" +
-                    ");\r\n\t\t\t\t} else {\r\n\t\t\t\t\titemName.classList.add(\"spoiler\");\r\n\t\t\t\t}\r\n\t\t\t}\r\n        " +
-                    "\r\n\t\t\tvar itemRow = document.querySelector(\"#item-locations tr[data-id=\'\" + i + \"" +
-                    "\']\");\r\n\t\t\tif (itemRow) {\r\n\t\t\t\tvar itemName = itemRow.querySelector(\".newlocation" +
-                    "\");\r\n                var checkbox = itemRow.querySelector(\"input\");\r\n           " +
-                    "     checkbox.checked = item.Acquired;\r\n\t\t\t\tif (item.Acquired) {\r\n\t\t\t\t\titemName." +
-                    "classList.remove(\"spoiler\");\r\n\t\t\t\t} else {\r\n\t\t\t\t\titemName.classList.add(\"spoiler" +
-                    "\");\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t\tif (recalculate) {\r\n\t\t\trecalculateItems();\r\n\t\t}\r\n\t}\r\n\r\n" +
-                    "    var startingLocations = [0, 94, 274, 275, 276, 277];\r\n    for (var id of sta" +
-                    "rtingLocations) {\r\n\t    logic[id].Checked = true;\r\n\t    logic[document.querySele" +
-                    "ctor(\"tr[data-newlocationid=\'\" + id + \"\']\").dataset.id].Acquired = true;\r\n\t    d" +
-                    "ocument.querySelector(\"tr[data-newlocationid=\'\" + id + \"\'] input\").checked = tru" +
-                    "e;\r\n    }\n\n    for (var i = 0; i < logic.length; i++) {\n        var item = logic" +
-                    "[i];\n        if (item.Acquired) {\n            item.Checked = true;\r\n\t        doc" +
-                    "ument.querySelector(\"tr[data-newlocationid=\'\" + id + \"\'] input\").checked = true;" +
-                    "\n        }\n    }\r\n\r\n\trecalculateItems();\r\n\r\n\tvar rows = document.querySelectorAl" +
-                    "l(\"tr\");\r\n\tfor (var i = 1; i < rows.length; i++) {\r\n\t\tvar row = rows[i];\r\n\t\tvar " +
-                    "checkbox = row.querySelector(\"input\");\r\n\t\tif (checkbox) {\r\n\t\t\tcheckbox.addEventL" +
-                    "istener(\"click\", function(e) {\r\n\t\t\t\tvar row = e.target.closest(\"tr\");\r\n         " +
-                    "       var rowId = parseInt(row.dataset.id);\r\n\t\t\t\tvar newLocationId = parseInt(r" +
-                    "ow.dataset.newlocationid);\r\n\t\t\t\tlogic[newLocationId].Checked = e.target.checked;" +
-                    "\r\n                logic[rowId].Acquired = e.target.checked;\r\n\t\t\t\trecalculateItem" +
-                    "s();\r\n\t\t\t});\r\n\t\t}\r\n\t}\r\n\r\n\tdocument.querySelector(\"#highlight-checks\").addEventLi" +
-                    "stener(\"click\", function(e) {\r\n        var tables = document.querySelectorAll(\"t" +
-                    "able.item-replacements\");\r\n        for (var i = 0; i < tables.length; i++) {\r\n  " +
-                    "          if (e.target.checked) {\r\n                tables[i].classList.add(\"show" +
-                    "-highlight\");\r\n            } else {\r\n                tables[i].classList.remove(" +
-                    "\"show-highlight\");\r\n            }\r\n        }\r\n\t});\r\n</script>\r\n</html>");
+            this.Write("\n    }\r\n\r\n\tfunction all(list, predicate) {\r\n\t\tfor (var i = 0; i < list.length; i+" +
+                    "+) {\r\n\t\t\tif (!predicate(list[i])) {\r\n\t\t\t\treturn false;\r\n\t\t\t}\r\n\t\t}\r\n\t\treturn true" +
+                    ";\r\n\t}\r\n\r\n\tfunction any(list, predicate) {\r\n\t\tfor (var i = 0; i < list.length; i+" +
+                    "+) {\r\n\t\t\tif (predicate(list[i])) {\r\n\t\t\t\treturn true;\r\n\t\t\t}\r\n\t\t}\r\n\t\treturn false;" +
+                    "\r\n\t}\n\n    function saveItems() {\n        localStorage.setItem(\'MMR-Logic-\' + spo" +
+                    "ilerLogId, JSON.stringify(logic));\n    }\r\n\r\n\tfunction recalculateItems() {\r\n\t\tva" +
+                    "r recalculate = false;\r\n\t\tfor (var i = 0; i < logic.length; i++) {\r\n\t\t\tvar item " +
+                    "= logic[i];\r\n\t\t\titem.IsAvailable = \r\n\t\t\t\t(item.RequiredItemIds === null || all(i" +
+                    "tem.RequiredItemIds, function(id) { return logic[id].Acquired; }))\r\n\t\t\t\t&& \r\n\t\t\t" +
+                    "\t(item.ConditionalItemIds === null || any(item.ConditionalItemIds, function(cond" +
+                    "itionals) { return all(conditionals, function(id) { return logic[id].Acquired; }" +
+                    "); }));\r\n            \r\n\t\t\tif (!item.Acquired && item.IsFakeItem && item.IsAvaila" +
+                    "ble) {\r\n\t\t\t\titem.Acquired = true;\r\n\t\t\t\trecalculate = true;\r\n\t\t\t}\r\n\t\t\tif (item.Ac" +
+                    "quired && item.IsFakeItem && !item.IsAvailable) {\r\n\t\t\t\titem.Acquired = false;\r\n\t" +
+                    "\t\t\trecalculate = true;\r\n\t\t\t}\r\n        \r\n\t\t\tvar locationRow = document.querySelec" +
+                    "tor(\".item-replacements tr[data-newlocationid=\'\" + i + \"\']\");\r\n\t\t\tif (locationRo" +
+                    "w) {\r\n\t\t\t\tlocationRow.className = \"\";\r\n\t\t\t\tlocationRow.classList.add(item.IsAvai" +
+                    "lable ? \"available\" : \"unavailable\");\r\n\t\t\t\tvar itemName = locationRow.querySelec" +
+                    "tor(\".itemname\");\r\n                var checkbox = locationRow.querySelector(\"inp" +
+                    "ut\");\r\n                checkbox.checked = item.Checked;\r\n\t\t\t\tif (item.Checked) {" +
+                    "\r\n\t\t\t\t\titemName.classList.remove(\"spoiler\");\r\n\t\t\t\t} else {\r\n\t\t\t\t\titemName.classL" +
+                    "ist.add(\"spoiler\");\r\n\t\t\t\t}\r\n\t\t\t}\r\n        \r\n\t\t\tvar itemRow = document.querySelec" +
+                    "tor(\"#item-locations tr[data-id=\'\" + i + \"\']\");\r\n\t\t\tif (itemRow) {\r\n\t\t\t\tvar item" +
+                    "Name = itemRow.querySelector(\".newlocation\");\r\n                var checkbox = it" +
+                    "emRow.querySelector(\"input\");\r\n                checkbox.checked = item.Acquired;" +
+                    "\r\n\t\t\t\tif (item.Acquired) {\r\n\t\t\t\t\titemName.classList.remove(\"spoiler\");\r\n\t\t\t\t} el" +
+                    "se {\r\n\t\t\t\t\titemName.classList.add(\"spoiler\");\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t\tif (recalcula" +
+                    "te) {\r\n\t\t\trecalculateItems();\r\n\t\t} else {\n            saveItems();\n        }\r\n\t}" +
+                    "\r\n\r\n    var startingLocations = [0, 94, 274, 275, 276, 277];\r\n    for (var id of" +
+                    " startingLocations) {\r\n\t    logic[id].Checked = true;\r\n\t    logic[document.query" +
+                    "Selector(\"tr[data-newlocationid=\'\" + id + \"\']\").dataset.id].Acquired = true;\r\n\t " +
+                    "   document.querySelector(\"tr[data-newlocationid=\'\" + id + \"\'] input\").checked =" +
+                    " true;\r\n    }\n\n    for (var i = 0; i < logic.length; i++) {\n        var item = l" +
+                    "ogic[i];\n        if (item.Acquired) {\n            item.Checked = true;\r\n\t       " +
+                    " document.querySelector(\"tr[data-newlocationid=\'\" + id + \"\'] input\").checked = t" +
+                    "rue;\n        }\n    }\r\n\r\n\trecalculateItems();\r\n\r\n\tvar rows = document.querySelect" +
+                    "orAll(\"tr\");\r\n\tfor (var i = 1; i < rows.length; i++) {\r\n\t\tvar row = rows[i];\r\n\t\t" +
+                    "var checkbox = row.querySelector(\"input\");\r\n\t\tif (checkbox) {\r\n\t\t\tcheckbox.addEv" +
+                    "entListener(\"click\", function(e) {\r\n\t\t\t\tvar row = e.target.closest(\"tr\");\r\n     " +
+                    "           var rowId = parseInt(row.dataset.id);\r\n\t\t\t\tvar newLocationId = parseI" +
+                    "nt(row.dataset.newlocationid);\r\n\t\t\t\tlogic[newLocationId].Checked = e.target.chec" +
+                    "ked;\r\n                logic[rowId].Acquired = e.target.checked;\r\n\t\t\t\trecalculate" +
+                    "Items();\r\n\t\t\t});\r\n\t\t}\r\n\t}\r\n\r\n\tdocument.querySelector(\"#highlight-checks\").addEve" +
+                    "ntListener(\"click\", function(e) {\r\n        var tables = document.querySelectorAl" +
+                    "l(\"table.item-replacements\");\r\n        for (var i = 0; i < tables.length; i++) {" +
+                    "\r\n            if (e.target.checked) {\r\n                tables[i].classList.add(\"" +
+                    "show-highlight\");\r\n            } else {\r\n                tables[i].classList.rem" +
+                    "ove(\"show-highlight\");\r\n            }\r\n        }\r\n\t});\r\n</script>\r\n</html>");
             return this.GenerationEnvironment.ToString();
         }
     }

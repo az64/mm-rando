@@ -9,6 +9,8 @@ namespace MMRando.Models
 {
     public class Spoiler
     {
+        public Guid Id { get; set; } = Guid.NewGuid();
+
         public string Version { get; set; }
 
         public string SettingsString { get; set; }
