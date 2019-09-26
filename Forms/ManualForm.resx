@@ -117,6 +117,51 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lCosmetic.Text" xml:space="preserve">
+    <value>This section should be quite self-explanatory.
+
+1. Short cutscenes
+Reduces length of or skips cutscenes during gameplay.
+
+2. Quick text
+Instantly print every text box.
+
+3. Fix Epona Sword
+Ordinarily, riding Epona without having a Bow will change your sword button to a blank B button. This option prevents that, but may affect weird B glitches.
+
+4. Randomize SFX
+Various sound effects in the game will be replaced with other sound effects. This option can be used when applying a patch file.
+
+5. Free hints
+Gossip stones will not require you to be wearing the Mask of Truth to read their hints.
+
+6. Clear hints
+When using non-Vanilla Gossip Stone hints, the text will give exact location and item names, instead of cryptic hints.
+
+7. Update shops
+In-game shops will display the model of the item for sale, as well as update the text of the items for sale. Other NPCs that sell items will also have their text updated to reflect what you're buying from them, including Tingle, Termina Field Business Scrub, other Business Scrubs, Gorman Bros Milk purchase, the Lottery, and the Milk Bar.
+
+8. Update chests
+Chest appearance will be updated to match the type of item they contain. Major items (including Bombchu and Hero's Shield if they are references in the logic) will be in Large Gold chests; Moderate items (such as small keys, skulltula tokens, stray fairies, quest items, and trade items) will be in Small Gold chests; Boss Keys will be in Boss Key chests; minor items (such as rupees, pieces of heart, and others) will be in Small Wooden chests.
+
+9. No downgrades
+Finding a worse version of an item (such as finding the Adult Wallet while already having the Giant Wallet) will instead give you nothing, or a refill (e.g. having the Largest Quiver, but 0 arrows, then finding the Large Quiver will fill you back up to 40 arrows, but your max will remain at 50).
+
+10. Tunic colour
+Sets the colour of Link's tunic. This option can be used when applying a patch file.
+
+11. Player model
+Choose a character model. Selecting Adult Link alters Link's movement speeds and hitbox size to be the same as zora and changes the voice set. Note that this change can affect some gameplay elements - you cannot fit through some deku palace doorways in human form. Adult Link's model is currently incomplete and will be updated.
+
+12. Tatl colour scheme
+Select a colour scheme for Tatl. This option can be used when applying a patch file.
+
+13. Gossip Stone hints
+Select a style of gossip stone hints. Default will not change gossip stone text at all. Random will give random item location hints, sometimes fake hints, and sometimes junk hints. Relevant will attempt to provide a vanilla-like gossip stone hint experience. Competitive is a carefully crafted hint system intended to be used when multiple players are playing the same seed; it provides hints for some specific locations, and provides various hints as to the usefulness of regions.
+
+14. Music
+Default will leave music as it is normally. Random will shuffle music around, insert music from other games, while attempting to keep music categorized. None will remove music from the game, however some players have reported that the Frog Choir HP reward locks the game.</value>
+  </data>
   <data name="lUsage.Text" xml:space="preserve">
     <value>The process should be simple:
 1. Choose your desired settings
@@ -133,10 +178,10 @@ The program's directory should contain folders for the resources it accesses. Th
   <data name="lRules.Text" xml:space="preserve">
     <value>There are currently 5 options for ruleset.
 
-1. Casual/Glitchless
+1. Casual
 This ruleset assumes no use of any glitches or major tricks/skips. It is suitable for any player.
 
-2. Using Glitches
+2. Glitched
 This ruleset requires use of glitches to progress and unlock items. The most commonly required glitch will be bomb hovering, as this opens up the game the most in terms of area accessibility. Some clips will also be required, such as music box house early. It should not be required to use more complex glitches like 0th day to access items. This is essentially the same as the old randomiser rules but with improved item placement logic.
 
 3. Vanilla Layout
@@ -164,11 +209,10 @@ Items are shuffled using only RNG - no rules or restrictions on item placement.<
 Initial file conditions:
 
 - Start in South Clock Town
-- 3 hearts, magic meter
+- 3 hearts
 - Ocarina of Time
 - Song of Time
-- Song of Healing
-- Free item (Deku Mask for Vanilla mode)</value>
+- 2 Free items (Deku Mask and Song of Healing for Vanilla mode)</value>
   </data>
   <data name="lLogic.Text" xml:space="preserve">
     <value>There is a logic editor provided with the program that will allow you to change the conditions for being able to access each item slot. By using this you can make adjustments from the standard logic to make the game easier or harder.
@@ -206,32 +250,63 @@ There is also a setting provided for the user to specify their own list of items
 
 Additional settings are explained below.
 
-1. Songs
-Songs will be shuffled amongst themselves by default. Song of Soaring can be excluded to improve playing experience; it is often the most convenient method of getting around Termina. Songs may also be shuffled with the items, allowing songs to be found in item locations and vice versa.
+Item Pool Options:
+
+1. Exclude Song of Soaring
+Song of Soaring will be excluded from being shuffled to improve playing experience; it is often the most convenient method of getting around Termina.
 
 2. Dungeon items
 Includes small keys, dungeon maps, compasses, and boss keys. These items will then be found at any location and will indicate to which dungeon they belong.
 
-3. Shops
-This allows any item to be found and bought at a shop while shuffling the regular shop items into the item mix. Note that this may make items such as potions difficult to find. Shop items are always buyable as long as you have enough rupees.
+3. Shop items
+This allows any item to be found and bought at a shop while shuffling the regular shop items into the item mix. This includes almost anywhere where you spend money to immediately get an item. Notable exclusions: Bomb Shop Powder Keg, Bean Grotto Magic Beans. Note that this may make items such as potions and Chateau difficult to find. Shop items are always buyable as long as you have enough rupees.
 
-4. Bottles
+4. Caught bottle contents
 This option only affects caught bottle contents, and these will only shuffle amongst themselves.
 
-5. Everything else
-Includes all other chests and heart pieces that are not randomised by default, as well as heart containers and maps sold by Tingle. Items found on the moon are not included.
+5. Cow Milk
+Each cow in the game that ordinarily gives milk when you play Epona's Song for them will give a random item. Two cows in the Termina Field cow grotto. Two cows in the Great Bay Coast cow grotto. One cow beneath the well. Three cows in the Romani Ranch barn (the cow in the corner is not accessible casually). When this option is enabled, cows don't check if you have an empty bottle.
 
-6. Gossip stones
-Gossip stones will give hints as to where some items may be found. Note that there is currently no logic for which hints will be provided or to make Mask of Truth easier to find when this option is selected.
+6. Skulltula Tokens
+30 tokens in the Swamp Spider House. 30 tokens in the Oceanside Spider House. When this option is enabled, the player doesn't lose the skulltula tokens they've collected after playing Song of Time. Players must enter the spider houses to view how many tokens they have.
 
-7. Dungeon entrances
+7. Mundane Rewards
+Lottery purple rupee; Bank blue rupee (reward for 500 rupees); Deku Playground Any Day; Honey and Darling Any Day; Kotake payment for a mushroom; Pictograph contest blue rupee and red rupee; Oceanside Spider House day 2 (purple rupee) and day 3 (red rupee); Pictographs of Lulu (blue rupee for a bad photo, red rupee for a good photo); Treasure Chest Game as Human/Deku/Zora; Curiosity Shop various payments (blue rupee, red rupee, purple rupee and gold rupee); the Seahorse.
+
+8. Moon items
+The Fierce Deity's Mask, the four Moon Trial pieces of heart, the 2 chests in the Link trial. Logic will ensure that items on the moon are not required to get to the moon.
+
+9. Great Fairy Rewards
+This option includes each of the Great Fairy rewards: Magic Power (town fairy as non-human), Great Fairy Mask (town fairy as human), Spin Attack, Extended Magic Power, Double Defense, Great Fairy's Sword.
+
+10. Everything else
+Includes all other chests and heart pieces that are not randomised by default, as well as heart containers and maps sold by Tingle.
+
+11. Pre-Clocktown Deku Nut
+This option is only enabled when using Glitched or User logic, as the chest is only accessible using glitches. If the chest is enabled via the Custom Item List, Casual logic will ensure the item there is not needed to beat the game, but it may be needed to clear the game 100%.
+
+12. Crazy starting items
+Adds the starting Sword and Shield to the item pool. Also reduces your starting health to 1 heart and adds two Heart Containers to the item pool. Instead of these items, you'll receive random starting items (assuming you didn't enable the No Starting Items option).
+
+13. Stray Fairies
+All the Stray Fairies will instead reward a random item, including the Clock Town stray fairy, and each of the dungeon stray fairies. Chests with fairies in them will still spawn a stray fairy, which will reward a random item when collected. When this option is enabled, the player doesn't lose the stray fairies they've collected after playing Song of Time. Players must enter a temple to see how many fairies they've collected for it.
+
+Other Customizations:
+
+1. Dungeon entrances
 This option will change which dungeon can be found in each of the four areas. It includes Woodfall Temple, Snowhead Temple, Great Bay Temple, and Inverted Stone Tower Temple. Stone Tower Temple is not included as it has no boss or blue warp.
 
-8. Enemies
+2. Mix songs with items
+Songs will be shuffled with the items, allowing songs to be found in item locations and vice versa.
+
+3. No Starting Items
+Instead of receiving random items to replace randomized starting items (Deku Mask and Song of Healing; and the four Crazy Starting Items if that option is enabled), those items will take the place of random rupee rewards in the game.
+
+4. Enemies
 Switches out enemies with others of a similar type. Working but not perfect - some scenes are currently excluded due to extra logic needed for proper functionality (Woodfall Temple, Ikana Graveyard, Sakon's Hideout, Inverted Stone Tower Temple).
 
-9. BGM
-This shuffles the majority of the music and fanfares in the game and also swaps in some music from other games.</value>
+Extra Starting Items
+Choose from a list of items to start the game with. Logic will take into consideration that you have these items.</value>
   </data>
   <data name="lGimmick.Text" xml:space="preserve">
     <value>This section allows some gameplay alterations. It does not affect the item placement logic.
@@ -246,25 +321,16 @@ Sets the type of damage dealt to Link. In random mode, the damage type will chan
 Changes some basic movement mechanics. Item placement does not currently take this into account so note that low/high gravity could make some items significantly easier/harder to access.
 
 4. Floor types
-Sets the physics for the ground Link is standing on. In random mode, this will pick random types every ~25 seconds and will also include lava (voids deku/zora) and deep sand (voids goron).</value>
-  </data>
-  <data name="lCosmetic.Text" xml:space="preserve">
-    <value>This section should be quite self-explanatory.
+Sets the physics for the ground Link is standing on. In random mode, this will pick random types every ~25 seconds and will also include lava (voids deku/zora) and deep sand (voids goron).
 
-1. Short cutscenes
-Reduces length of or skips cutscenes during gameplay.
+5. Clock speed
+Increases or decreases how fast in-game time progresses. When set to faster than normal, clock speed when the Inverted Song of Time is enabled will be increased as well. At the slowest setting, the Inverted Song of Time will do nothing.
 
-2. Quick text
-Instantly print every text box.
+6. Blast Mask Cooldown
+Changes the delay between Blast Mask explosions.
 
-3. Tunic colour
-Sets the colour of Link's tunic.
-
-4. Play as
-Choose a character model. Selecting Adult Link alters Link's movement speeds and hitbox size to be the same as zora and changes the voice set. Note that this change can affect some gameplay elements - you cannot fit through some deku palace doorways in human form. Adult Link's model is currently incomplete and will be updated.
-
-5. Tatl colour
-Select a colour scheme for Tatl.</value>
+7. Hide Clock UI
+Removes the clock from the in-game UI. Players will have to rely on other means of telling the time, such as in-game clocks on walls, the Bombers' Notebook, or looking at the sun.</value>
   </data>
   <data name="lHow.Text" xml:space="preserve">
     <value>The get item table is expanded to allow all randomised items to have a unique entry and during randomisation this table will be shuffled according to logic for the selected ruleset. The table format is slightly modified to allow for updates to certain items to work easily (mainly for dungeons and Tingle maps).
