@@ -2161,7 +2161,7 @@ namespace MMRando.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x133)]
+        [GetItemIndex(0x134)]
         ItemRanchBarnOtherCowMilk1,
 
         [Repeatable, Temporary, CycleRepeatable]
@@ -2169,7 +2169,7 @@ namespace MMRando.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x134)]
+        [GetItemIndex(0x133)]
         ItemRanchBarnOtherCowMilk2,
 
         [Repeatable, Temporary, CycleRepeatable]
