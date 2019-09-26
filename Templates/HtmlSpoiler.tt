@@ -102,12 +102,6 @@
 </table>
 <# } #>
 <script>
-    var spoilerLogId = '<#= spoiler.Id #>';
-    var logic = JSON.parse(localStorage.getItem('MMR-Logic-' + spoilerLogId));
-    if (!logic) {
-	    logic = <#= spoiler.LogicJson #>
-    }
-
 	function all(list, predicate) {
 		for (var i = 0; i < list.length; i++) {
 			if (!predicate(list[i])) {
@@ -181,19 +175,25 @@
         }
 	}
 
-    for (var i = 0; i < logic.length; i++) {
-        var item = logic[i];
-        if (item.Acquired) {
-            item.Checked = true;
+    var spoilerLogId = '<#= spoiler.Id #>';
+    var logic = JSON.parse(localStorage.getItem('MMR-Logic-' + spoilerLogId));
+    if (!logic) {
+	    logic = <#= spoiler.LogicJson #>;
+
+        for (var i = 0; i < logic.length; i++) {
+            var item = logic[i];
+            if (item.Acquired) {
+                item.Checked = true;
+	            document.querySelector("tr[data-newlocationid='" + i + "'] input").checked = true;
+            }
+        }
+
+        var startingLocations = [0, 94, 274, 275, 276, 277];
+        for (var id of startingLocations) {
+	        logic[id].Checked = true;
+	        logic[document.querySelector("tr[data-newlocationid='" + id + "']").dataset.id].Acquired = true;
 	        document.querySelector("tr[data-newlocationid='" + id + "'] input").checked = true;
         }
-    }
-
-    var startingLocations = [0, 94, 274, 275, 276, 277];
-    for (var id of startingLocations) {
-	    logic[id].Checked = true;
-	    logic[document.querySelector("tr[data-newlocationid='" + id + "']").dataset.id].Acquired = true;
-	    document.querySelector("tr[data-newlocationid='" + id + "'] input").checked = true;
     }
 
 	recalculateItems();

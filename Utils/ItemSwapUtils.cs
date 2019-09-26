@@ -97,7 +97,7 @@ namespace MMRando.Utils
             }
         }
 
-        public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShop, bool preventDowngrades, bool updateChest, ChestTypeAttribute.ChestType? overrideChestType)
+        public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShop, bool preventDowngrades, bool updateChest, ChestTypeAttribute.ChestType? overrideChestType, bool isExtraStartingItem)
         {
             System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
 
@@ -105,7 +105,9 @@ namespace MMRando.Utils
             int baseaddr = GET_ITEM_TABLE - RomData.MMFileList[f].Addr;
             var getItemIndex = location.GetItemIndex().Value;
             int offset = (getItemIndex - 1) * 8 + baseaddr;
-            var newItem = RomData.GetItemList[item.GetItemIndex().Value];
+            var newItem = isExtraStartingItem 
+                ? Items.RecoveryHeart // Warning: this will not work well for starting with Bottle contents (currently impossible), because you'll first have to acquire the Recovery Heart before getting the bottle-less version. Also may interfere with future implementation of progressive upgrades.
+                : RomData.GetItemList[item.GetItemIndex().Value];
             var fileData = RomData.MMFileList[f].Data;
 
             var data = new byte[]
