@@ -281,6 +281,37 @@ namespace MMRando
             }
         }
 
+        private void WriteSpeedUps()
+        {
+            // if (speedupbeavers)
+            {
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "speedup-beavers");
+                _messageTable.UpdateMessages(new MessageEntry
+                {
+                    Id = 0x10D6,
+                    Header = null,
+                    Message = "\u001E\u0029\u001AThere's a total of \u000125 rings\u0000. You must swim through them in the right order for it to count. Swim through the ring that's \u0001flashing\u0000.".Wrap(35, "\u0011") + "\u0010My big brother will show you the way, so follow him and don't get separated!\u00BF".Wrap(35, "\u0011")
+                });
+                _messageTable.UpdateMessages(new MessageEntry
+                {
+                    Id = 0x10FA,
+                    Header = null,
+                    Message = "\u001E\u0029\u0019This time, the limit is \u00011:50\u0000.".EndTextbox() + "Don't fall behind!\u00BF"
+                });
+                _messageTable.UpdateMessages(new MessageEntry
+                {
+                    Id = 0x1107,
+                    Header = null,
+                    Message = "\u001E\u0029\u0019This time around, you have to beat \u00011:40\u0000.".Wrap(35, "\u0011").EndTextbox() + "Don't fall behind!\u00BF"
+                });
+            }
+
+            // if (speedupDampe)
+            {
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "speedup-dampe");
+            }
+        }
+
         private void WriteGimmicks()
         {
             int damageMultiplier = (int)_settings.DamageMode;
@@ -1038,7 +1069,10 @@ namespace MMRando
                 worker.ReportProgress(64, "Writing gimmicks...");
                 WriteGimmicks();
 
-                worker.ReportProgress(65, "Writing enemies...");
+                worker.ReportProgress(65, "Writing speedups...");
+                WriteSpeedUps();
+
+                worker.ReportProgress(66, "Writing enemies...");
                 WriteEnemies();
 
                 // if shop should match given items
@@ -1046,7 +1080,7 @@ namespace MMRando
                     WriteShopObjects();
                 }
 
-                worker.ReportProgress(66, "Writing items...");
+                worker.ReportProgress(67, "Writing items...");
                 WriteItems();
 
                 worker.ReportProgress(68, "Writing messages...");

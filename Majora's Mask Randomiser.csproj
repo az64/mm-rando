@@ -459,6 +459,12 @@
     <None Include="Resources\mods\short-cutscenes">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\mods\speedup-beavers">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mods\speedup-dampe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\mods\standing-hearts">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -48,6 +48,7 @@ namespace MMRando
             this.label1 = new System.Windows.Forms.Label();
             this.tabMain = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lCustomStartingItemAmount = new System.Windows.Forms.Label();
             this.bStartingItemEditor = new System.Windows.Forms.Button();
             this.tStartingItemList = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -142,7 +143,11 @@ namespace MMRando
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.lCustomStartingItemAmount = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cSkipBeaver = new System.Windows.Forms.CheckBox();
+            this.cGoodDampeRNG = new System.Windows.Forms.CheckBox();
+            this.cGoodFishRNG = new System.Windows.Forms.CheckBox();
+            this.cGoodDogRaceRNG = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -157,6 +162,7 @@ namespace MMRando
             this.ttOutput.SuspendLayout();
             this.tpOutputSettings.SuspendLayout();
             this.tpPatchSettings.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // bopen
@@ -356,6 +362,15 @@ namespace MMRando
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Extra Starting Items";
+            // 
+            // lCustomStartingItemAmount
+            // 
+            this.lCustomStartingItemAmount.AutoSize = true;
+            this.lCustomStartingItemAmount.Location = new System.Drawing.Point(7, 27);
+            this.lCustomStartingItemAmount.Name = "lCustomStartingItemAmount";
+            this.lCustomStartingItemAmount.Size = new System.Drawing.Size(94, 13);
+            this.lCustomStartingItemAmount.TabIndex = 27;
+            this.lCustomStartingItemAmount.Text = "0/0 items selected";
             // 
             // bStartingItemEditor
             // 
@@ -955,6 +970,7 @@ namespace MMRando
             // 
             // tabComfort
             // 
+            this.tabComfort.Controls.Add(this.groupBox5);
             this.tabComfort.Controls.Add(this.lMusic);
             this.tabComfort.Controls.Add(this.cMusic);
             this.tabComfort.Controls.Add(this.cSFX);
@@ -1525,14 +1541,62 @@ namespace MMRando
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // lCustomStartingItemAmount
+            // groupBox5
             // 
-            this.lCustomStartingItemAmount.AutoSize = true;
-            this.lCustomStartingItemAmount.Location = new System.Drawing.Point(7, 27);
-            this.lCustomStartingItemAmount.Name = "lCustomStartingItemAmount";
-            this.lCustomStartingItemAmount.Size = new System.Drawing.Size(94, 13);
-            this.lCustomStartingItemAmount.TabIndex = 27;
-            this.lCustomStartingItemAmount.Text = "0/0 items selected";
+            this.groupBox5.Controls.Add(this.cGoodDogRaceRNG);
+            this.groupBox5.Controls.Add(this.cGoodFishRNG);
+            this.groupBox5.Controls.Add(this.cGoodDampeRNG);
+            this.groupBox5.Controls.Add(this.cSkipBeaver);
+            this.groupBox5.Location = new System.Drawing.Point(7, 275);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(334, 127);
+            this.groupBox5.TabIndex = 27;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Speed Ups";
+            // 
+            // cSkipBeaver
+            // 
+            this.cSkipBeaver.AutoSize = true;
+            this.cSkipBeaver.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cSkipBeaver.Location = new System.Drawing.Point(7, 20);
+            this.cSkipBeaver.Name = "cSkipBeaver";
+            this.cSkipBeaver.Size = new System.Drawing.Size(127, 17);
+            this.cSkipBeaver.TabIndex = 0;
+            this.cSkipBeaver.Text = "Skip Younger Beaver";
+            this.cSkipBeaver.UseVisualStyleBackColor = true;
+            // 
+            // cGoodDampeRNG
+            // 
+            this.cGoodDampeRNG.AutoSize = true;
+            this.cGoodDampeRNG.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cGoodDampeRNG.Location = new System.Drawing.Point(18, 43);
+            this.cGoodDampeRNG.Name = "cGoodDampeRNG";
+            this.cGoodDampeRNG.Size = new System.Drawing.Size(116, 17);
+            this.cGoodDampeRNG.TabIndex = 1;
+            this.cGoodDampeRNG.Text = "Good Dampe RNG";
+            this.cGoodDampeRNG.UseVisualStyleBackColor = true;
+            // 
+            // cGoodFishRNG
+            // 
+            this.cGoodFishRNG.AutoSize = true;
+            this.cGoodFishRNG.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cGoodFishRNG.Location = new System.Drawing.Point(33, 66);
+            this.cGoodFishRNG.Name = "cGoodFishRNG";
+            this.cGoodFishRNG.Size = new System.Drawing.Size(101, 17);
+            this.cGoodFishRNG.TabIndex = 2;
+            this.cGoodFishRNG.Text = "Good Fish RNG";
+            this.cGoodFishRNG.UseVisualStyleBackColor = true;
+            // 
+            // cGoodDogRaceRNG
+            // 
+            this.cGoodDogRaceRNG.AutoSize = true;
+            this.cGoodDogRaceRNG.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cGoodDogRaceRNG.Location = new System.Drawing.Point(3, 89);
+            this.cGoodDogRaceRNG.Name = "cGoodDogRaceRNG";
+            this.cGoodDogRaceRNG.Size = new System.Drawing.Size(131, 17);
+            this.cGoodDogRaceRNG.TabIndex = 3;
+            this.cGoodDogRaceRNG.Text = "Good Dog Race RNG";
+            this.cGoodDogRaceRNG.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1581,6 +1645,8 @@ namespace MMRando
             this.tpOutputSettings.PerformLayout();
             this.tpPatchSettings.ResumeLayout(false);
             this.tpPatchSettings.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1699,6 +1765,11 @@ namespace MMRando
         private System.Windows.Forms.Button bStartingItemEditor;
         private System.Windows.Forms.TextBox tStartingItemList;
         private System.Windows.Forms.Label lCustomStartingItemAmount;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.CheckBox cGoodDogRaceRNG;
+        private System.Windows.Forms.CheckBox cGoodFishRNG;
+        private System.Windows.Forms.CheckBox cGoodDampeRNG;
+        private System.Windows.Forms.CheckBox cSkipBeaver;
     }
 }
 
