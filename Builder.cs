@@ -315,6 +315,11 @@ namespace MMRando
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "speedup-labfish");
             }
+
+            // if (speedupDograce)
+            {
+                ResourceUtils.ApplyHack(Values.ModsDirectory + "speedup-dograce");
+            }
         }
 
         private void WriteGimmicks()

@@ -465,6 +465,9 @@
     <None Include="Resources\mods\speedup-dampe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\mods\speedup-dograce">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\mods\speedup-labfish">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
