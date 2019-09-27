@@ -325,6 +325,30 @@ namespace MMRando.Models.Settings
 
         #endregion
 
+        #region Speedups
+
+        /// <summary>
+        /// Change beavers so the player doesn't have to race the younger beaver.
+        /// </summary>
+        public bool SpeedupBeavers { get; set; }
+
+        /// <summary>
+        /// Change the dampe flames to always have 2 on ground floor and one up the ladder.
+        /// </summary>
+        public bool SpeedupDampe { get; set; }
+
+        /// <summary>
+        /// Change dog race to make gold dog always win if the player has the Mask of Truth
+        /// </summary>
+        public bool SpeedupDogRace { get; set; }
+
+        /// <summary>
+        /// Change the Lab Fish to only need to be fed one fish.
+        /// </summary>
+        public bool SpeedupLabFish { get; set; }
+
+        #endregion
+
         #region Functions
 
         public void Update(string settings)
@@ -342,6 +366,7 @@ namespace MMRando.Models.Settings
             int part2 = (int)parts[1];
             int part3 = (int)parts[2];
             int part4 = (int)parts[3];
+            int part5 = (int)parts[4];
 
             UseCustomItemList = (part1 & 8192) > 0;
 
@@ -415,6 +440,11 @@ namespace MMRando.Models.Settings
             var blastmaskCooldown = (byte)((part4 & 0xFF0000) >> 16);
             var music = (byte)((part4 & 0xFF000000) >> 24);
 
+            SpeedupBeavers = (part5 & (1 << 0)) > 0;
+            SpeedupDampe = (part5 & (1 << 1)) > 0;
+            SpeedupDogRace = (part5 & (1 << 2)) > 0;
+            SpeedupLabFish = (part5 & (1 << 3)) > 0;
+
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
             LogicMode = (LogicMode)modeIndex;
@@ -432,7 +462,7 @@ namespace MMRando.Models.Settings
 
         private int[] BuildSettingsBytes()
         {
-            int[] parts = new int[4];
+            int[] parts = new int[5];
 
             if (UseCustomItemList)
             {
@@ -488,6 +518,11 @@ namespace MMRando.Models.Settings
                 | ((byte)GossipHintStyle << 8)
                 | ((byte)BlastMaskCooldown << 16)
                 | ((byte)Music << 24);
+
+            if (SpeedupBeavers) { parts[4] += (1 << 0); }
+            if (SpeedupDampe) { parts[4] += (1 << 1); }
+            if (SpeedupDogRace) { parts[4] += (1 << 2); }
+            if (SpeedupLabFish) { parts[4] += (1 << 3); }
 
             return parts;
         }

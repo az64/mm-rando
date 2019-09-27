@@ -283,7 +283,7 @@ namespace MMRando
 
         private void WriteSpeedUps()
         {
-            // if (speedupbeavers)
+            if (_settings.SpeedupBeavers)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "speedup-beavers");
                 _messageTable.UpdateMessages(new MessageEntry
@@ -306,17 +306,17 @@ namespace MMRando
                 });
             }
 
-            // if (speedupDampe)
+            if (_settings.SpeedupDampe)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "speedup-dampe");
             }
 
-            // if (speedupLabfish)
+            if (_settings.SpeedupLabFish)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "speedup-labfish");
             }
 
-            // if (speedupDograce)
+            if (_settings.SpeedupDogRace)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "speedup-dograce");
             }

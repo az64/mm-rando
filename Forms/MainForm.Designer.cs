@@ -1015,23 +1015,25 @@ namespace MMRando
             // 
             this.cGoodDogRaceRNG.AutoSize = true;
             this.cGoodDogRaceRNG.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cGoodDogRaceRNG.Location = new System.Drawing.Point(14, 89);
+            this.cGoodDogRaceRNG.Location = new System.Drawing.Point(14, 66);
             this.cGoodDogRaceRNG.Name = "cGoodDogRaceRNG";
             this.cGoodDogRaceRNG.Size = new System.Drawing.Size(131, 17);
             this.cGoodDogRaceRNG.TabIndex = 3;
             this.cGoodDogRaceRNG.Text = "Good Dog Race RNG";
             this.cGoodDogRaceRNG.UseVisualStyleBackColor = true;
+            this.cGoodDogRaceRNG.CheckedChanged += new System.EventHandler(this.cGoodDogRaceRNG_CheckedChanged);
             // 
             // cFasterLabFish
             // 
             this.cFasterLabFish.AutoSize = true;
             this.cFasterLabFish.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cFasterLabFish.Location = new System.Drawing.Point(47, 66);
+            this.cFasterLabFish.Location = new System.Drawing.Point(47, 89);
             this.cFasterLabFish.Name = "cFasterLabFish";
             this.cFasterLabFish.Size = new System.Drawing.Size(98, 17);
             this.cFasterLabFish.TabIndex = 2;
             this.cFasterLabFish.Text = "Faster Lab Fish";
             this.cFasterLabFish.UseVisualStyleBackColor = true;
+            this.cFasterLabFish.CheckedChanged += new System.EventHandler(this.cFasterLabFish_CheckedChanged);
             // 
             // cGoodDampeRNG
             // 
@@ -1043,6 +1045,7 @@ namespace MMRando
             this.cGoodDampeRNG.TabIndex = 1;
             this.cGoodDampeRNG.Text = "Good Dampe RNG";
             this.cGoodDampeRNG.UseVisualStyleBackColor = true;
+            this.cGoodDampeRNG.CheckedChanged += new System.EventHandler(this.cGoodDampeRNG_CheckedChanged);
             // 
             // cSkipBeaver
             // 
@@ -1054,6 +1057,7 @@ namespace MMRando
             this.cSkipBeaver.TabIndex = 0;
             this.cSkipBeaver.Text = "Skip Younger Beaver";
             this.cSkipBeaver.UseVisualStyleBackColor = true;
+            this.cSkipBeaver.CheckedChanged += new System.EventHandler(this.cSkipBeaver_CheckedChanged);
             // 
             // lMusic
             // 

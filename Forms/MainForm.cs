@@ -119,6 +119,10 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cLink, "Select a character model to replace Link's default model.");
             TooltipBuilder.SetTooltip(cTatl, "Select a color scheme to replace Tatl's default color scheme.");
             TooltipBuilder.SetTooltip(cGossipHints, "Select a Gossip Stone hint style\n\n - Default: Vanilla Gossip Stone hints.\n - Random: Hints will contain locations of random items.\n - Relevant: Hints will contain locations of items loosely related to the vanilla hint or the area.\n - Competitive: Guaranteed hints about time-consuming checks, 3 hints about locations with logically-required items, 2 hints about locations with no logically-required items.");
+            TooltipBuilder.SetTooltip(cSkipBeaver, "Modify Beavers to not have to race the younger beaver.");
+            TooltipBuilder.SetTooltip(cGoodDampeRNG, "Change Dampe ghost flames to always have two on the ground floor and one up the ladder.");
+            TooltipBuilder.SetTooltip(cGoodDogRaceRNG, "Make Gold Dog always win if you have the Mask of Truth.");
+            TooltipBuilder.SetTooltip(cFasterLabFish, "Change Lab Fish to only need to be fed one fish.");
         }
 
         #region Forms Code
@@ -309,6 +313,10 @@ namespace MMRando
             cNoStartingItems.Checked = _settings.NoStartingItems;
             cEponaSword.Checked = _settings.FixEponaSword;
             cUpdateChests.Checked = _settings.UpdateChests;
+            cSkipBeaver.Checked = _settings.SpeedupBeavers;
+            cGoodDampeRNG.Checked = _settings.SpeedupDampe;
+            cGoodDogRaceRNG.Checked = _settings.SpeedupDogRace;
+            cFasterLabFish.Checked = _settings.SpeedupLabFish;
 
             cDMult.SelectedIndex = (int)_settings.DamageMode;
             cDType.SelectedIndex = (int)_settings.DamageEffect;
@@ -568,6 +576,26 @@ namespace MMRando
         private void cTatl_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.TatlColorSchema = (TatlColorSchema)cTatl.SelectedIndex);
+        }
+
+        private void cSkipBeaver_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.SpeedupBeavers = cSkipBeaver.Checked);
+        }
+
+        private void cGoodDampeRNG_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.SpeedupDampe = cGoodDampeRNG.Checked);
+        }
+
+        private void cGoodDogRaceRNG_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.SpeedupDogRace = cGoodDogRaceRNG.Checked);
+        }
+
+        private void cFasterLabFish_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.SpeedupLabFish = cFasterLabFish.Checked);
         }
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -836,6 +864,10 @@ namespace MMRando
             cUpdateChests.Enabled = v;
             tStartingItemList.Enabled = v;
             bStartingItemEditor.Enabled = v;
+            cSkipBeaver.Enabled = v;
+            cGoodDampeRNG.Enabled = v;
+            cGoodDogRaceRNG.Enabled = v;
+            cFasterLabFish.Enabled = v;
 
             bopen.Enabled = v;
             bRandomise.Enabled = v;
@@ -1038,6 +1070,11 @@ namespace MMRando
             cEponaSword.Enabled = v;
             cClearHints.Enabled = _settings.LogicMode != LogicMode.Vanilla && _settings.GossipHintStyle != GossipHintStyle.Default && v;
             cGossipHints.Enabled = _settings.LogicMode != LogicMode.Vanilla && v;
+
+            cSkipBeaver.Enabled = v;
+            cGoodDampeRNG.Enabled = v;
+            cGoodDogRaceRNG.Enabled = v;
+            cFasterLabFish.Enabled = v;
 
             cLink.Enabled = v;
 

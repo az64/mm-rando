@@ -117,51 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lCosmetic.Text" xml:space="preserve">
-    <value>This section should be quite self-explanatory.
-
-1. Short cutscenes
-Reduces length of or skips cutscenes during gameplay.
-
-2. Quick text
-Instantly print every text box.
-
-3. Fix Epona Sword
-Ordinarily, riding Epona without having a Bow will change your sword button to a blank B button. This option prevents that, but may affect weird B glitches.
-
-4. Randomize SFX
-Various sound effects in the game will be replaced with other sound effects. This option can be used when applying a patch file.
-
-5. Free hints
-Gossip stones will not require you to be wearing the Mask of Truth to read their hints.
-
-6. Clear hints
-When using non-Vanilla Gossip Stone hints, the text will give exact location and item names, instead of cryptic hints.
-
-7. Update shops
-In-game shops will display the model of the item for sale, as well as update the text of the items for sale. Other NPCs that sell items will also have their text updated to reflect what you're buying from them, including Tingle, Termina Field Business Scrub, other Business Scrubs, Gorman Bros Milk purchase, the Lottery, and the Milk Bar.
-
-8. Update chests
-Chest appearance will be updated to match the type of item they contain. Major items (including Bombchu and Hero's Shield if they are references in the logic) will be in Large Gold chests; Moderate items (such as small keys, skulltula tokens, stray fairies, quest items, and trade items) will be in Small Gold chests; Boss Keys will be in Boss Key chests; minor items (such as rupees, pieces of heart, and others) will be in Small Wooden chests.
-
-9. No downgrades
-Finding a worse version of an item (such as finding the Adult Wallet while already having the Giant Wallet) will instead give you nothing, or a refill (e.g. having the Largest Quiver, but 0 arrows, then finding the Large Quiver will fill you back up to 40 arrows, but your max will remain at 50).
-
-10. Tunic colour
-Sets the colour of Link's tunic. This option can be used when applying a patch file.
-
-11. Player model
-Choose a character model. Selecting Adult Link alters Link's movement speeds and hitbox size to be the same as zora and changes the voice set. Note that this change can affect some gameplay elements - you cannot fit through some deku palace doorways in human form. Adult Link's model is currently incomplete and will be updated.
-
-12. Tatl colour scheme
-Select a colour scheme for Tatl. This option can be used when applying a patch file.
-
-13. Gossip Stone hints
-Select a style of gossip stone hints. Default will not change gossip stone text at all. Random will give random item location hints, sometimes fake hints, and sometimes junk hints. Relevant will attempt to provide a vanilla-like gossip stone hint experience. Competitive is a carefully crafted hint system intended to be used when multiple players are playing the same seed; it provides hints for some specific locations, and provides various hints as to the usefulness of regions.
-
-14. Music
-Default will leave music as it is normally. Random will shuffle music around, insert music from other games, while attempting to keep music categorized. None will remove music from the game, however some players have reported that the Frog Choir HP reward locks the game.</value>
-  </data>
   <data name="lUsage.Text" xml:space="preserve">
     <value>The process should be simple:
 1. Choose your desired settings
@@ -331,6 +286,63 @@ Changes the delay between Blast Mask explosions.
 
 7. Hide Clock UI
 Removes the clock from the in-game UI. Players will have to rely on other means of telling the time, such as in-game clocks on walls, the Bombers' Notebook, or looking at the sun.</value>
+  </data>
+  <data name="lCosmetic.Text" xml:space="preserve">
+    <value>This section should be quite self-explanatory.
+
+1. Short cutscenes
+Reduces length of or skips cutscenes during gameplay.
+
+2. Quick text
+Instantly print every text box.
+
+3. Fix Epona Sword
+Ordinarily, riding Epona without having a Bow will change your sword button to a blank B button. This option prevents that, but may affect weird B glitches.
+
+4. Randomize SFX
+Various sound effects in the game will be replaced with other sound effects. This option can be used when applying a patch file.
+
+5. Free hints
+Gossip stones will not require you to be wearing the Mask of Truth to read their hints.
+
+6. Clear hints
+When using non-Vanilla Gossip Stone hints, the text will give exact location and item names, instead of cryptic hints.
+
+7. Update shops
+In-game shops will display the model of the item for sale, as well as update the text of the items for sale. Other NPCs that sell items will also have their text updated to reflect what you're buying from them, including Tingle, Termina Field Business Scrub, other Business Scrubs, Gorman Bros Milk purchase, the Lottery, and the Milk Bar.
+
+8. Update chests
+Chest appearance will be updated to match the type of item they contain. Major items (including Bombchu and Hero's Shield if they are references in the logic) will be in Large Gold chests; Moderate items (such as small keys, skulltula tokens, stray fairies, quest items, and trade items) will be in Small Gold chests; Boss Keys will be in Boss Key chests; minor items (such as rupees, pieces of heart, and others) will be in Small Wooden chests.
+
+9. No downgrades
+Finding a worse version of an item (such as finding the Adult Wallet while already having the Giant Wallet) will instead give you nothing, or a refill (e.g. having the Largest Quiver, but 0 arrows, then finding the Large Quiver will fill you back up to 40 arrows, but your max will remain at 50).
+
+10. Tunic colour
+Sets the colour of Link's tunic. This option can be used when applying a patch file.
+
+11. Player model
+Choose a character model. Selecting Adult Link alters Link's movement speeds and hitbox size to be the same as zora and changes the voice set. Note that this change can affect some gameplay elements - you cannot fit through some deku palace doorways in human form. Adult Link's model is currently incomplete and will be updated.
+
+12. Tatl colour scheme
+Select a colour scheme for Tatl. This option can be used when applying a patch file.
+
+13. Gossip Stone hints
+Select a style of gossip stone hints. Default will not change gossip stone text at all. Random will give random item location hints, sometimes fake hints, and sometimes junk hints. Relevant will attempt to provide a vanilla-like gossip stone hint experience. Competitive is a carefully crafted hint system intended to be used when multiple players are playing the same seed; it provides hints for some specific locations, and provides various hints as to the usefulness of regions.
+
+14. Music
+Default will leave music as it is normally. Random will shuffle music around, insert music from other games, while attempting to keep music categorized. None will remove music from the game, however some players have reported that the Frog Choir HP reward locks the game.
+
+15. Skip Younger Beaver
+Modify Beavers to not have to race the younger beaver.
+
+16. Good Dampe RNG
+Change Dampe ghost flames to always have two on the ground floor and one up the ladder.
+
+17. Good Dog Race RNG
+Make Gold Dog always win if you have the Mask of Truth.
+
+18. Faster Lab Fish
+Change Lab Fish to only need to be fed one fish.</value>
   </data>
   <data name="lHow.Text" xml:space="preserve">
     <value>The get item table is expanded to allow all randomised items to have a unique entry and during randomisation this table will be shuffled according to logic for the selected ruleset. The table format is slightly modified to allow for updates to certain items to work easily (mainly for dungeons and Tingle maps).
