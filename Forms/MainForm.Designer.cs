@@ -740,8 +740,6 @@ namespace MMRando
             this.cMode.FormattingEnabled = true;
             this.cMode.Items.AddRange(new object[] {
             "Casual",
-            "Glitched (no setups)",
-            "Glitched (common tricks)",
             "Glitched",
             "Vanilla Layout",
             "User Logic",

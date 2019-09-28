@@ -518,16 +518,6 @@ namespace MMRando
             LoadLogic(Resources.REQ_CASUAL);
         }
 
-        private void glitchednoSetupsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            LoadLogic(Resources.REQ_GLITCH_NOSETUPS);
-        }
-
-        private void glitchedcommonTricksToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            LoadLogic(Resources.REQ_GLITCH_COMMONTRICKS);
-        }
-
         private void glitchedToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             LoadLogic(Resources.REQ_GLITCH);
