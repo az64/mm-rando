@@ -159,30 +159,31 @@ namespace MMRando.Templates
                     "               } else {\r\n\t                    logic[itemIndex].Acquired = mark;\n" +
                     "                    }\n                }\n            }\n        }\r\n\t\trecalculateIt" +
                     "ems();\n    }\n\n    document.querySelector(\"#spoilerLogState\").addEventListener(\"k" +
-                    "eypress\", loadItems);\r\n\r\n\tfunction recalculateItems() {\r\n\t\tvar recalculate = fal" +
-                    "se;\r\n\t\tfor (var i = 0; i < logic.length; i++) {\r\n\t\t\tvar item = logic[i];\r\n\t\t\tite" +
-                    "m.IsAvailable = \r\n\t\t\t\t(item.RequiredItemIds === null || all(item.RequiredItemIds" +
-                    ", function(id) { return logic[id].Acquired; }))\r\n\t\t\t\t&& \r\n\t\t\t\t(item.ConditionalI" +
-                    "temIds === null || any(item.ConditionalItemIds, function(conditionals) { return " +
-                    "all(conditionals, function(id) { return logic[id].Acquired; }); }));\r\n          " +
-                    "  \r\n\t\t\tif (!item.Acquired && item.IsFakeItem && item.IsAvailable) {\r\n\t\t\t\titem.Ac" +
-                    "quired = true;\r\n\t\t\t\trecalculate = true;\r\n\t\t\t}\r\n\t\t\tif (item.Acquired && item.IsFa" +
-                    "keItem && !item.IsAvailable) {\r\n\t\t\t\titem.Acquired = false;\r\n\t\t\t\trecalculate = tr" +
-                    "ue;\r\n\t\t\t}\r\n        \r\n\t\t\tvar locationRow = document.querySelector(\".item-replacem" +
-                    "ents tr[data-newlocationid=\'\" + i + \"\']\");\r\n\t\t\tif (locationRow) {\r\n\t\t\t\tlocationR" +
-                    "ow.className = \"\";\r\n\t\t\t\tlocationRow.classList.add(item.IsAvailable ? \"available\"" +
-                    " : \"unavailable\");\r\n\t\t\t\tvar itemName = locationRow.querySelector(\".itemname\");\r\n" +
-                    "                var checkbox = locationRow.querySelector(\"input\");\r\n            " +
-                    "    checkbox.checked = item.Checked;\r\n\t\t\t\tif (item.Checked) {\r\n\t\t\t\t\titemName.cla" +
-                    "ssList.remove(\"spoiler\");\r\n\t\t\t\t} else {\r\n\t\t\t\t\titemName.classList.add(\"spoiler\");" +
-                    "\r\n\t\t\t\t}\r\n\t\t\t}\r\n        \r\n\t\t\tvar itemRow = document.querySelector(\"#item-location" +
-                    "s tr[data-id=\'\" + i + \"\']\");\r\n\t\t\tif (itemRow) {\r\n\t\t\t\tvar itemName = itemRow.quer" +
-                    "ySelector(\".newlocation\");\r\n                var checkbox = itemRow.querySelector" +
-                    "(\"input\");\r\n                checkbox.checked = item.Acquired;\r\n\t\t\t\tif (item.Acqu" +
-                    "ired) {\r\n\t\t\t\t\titemName.classList.remove(\"spoiler\");\r\n\t\t\t\t} else {\r\n\t\t\t\t\titemName" +
-                    ".classList.add(\"spoiler\");\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t\tif (recalculate) {\r\n\t\t\trecalcula" +
-                    "teItems();\r\n\t\t} else {\r\n            saveItems();\r\n        }\r\n\t}\r\n\r\n    var logic" +
-                    " = ");
+                    "eypress\", function(event) {\n        if (event.keyCode === 13) {\n            load" +
+                    "Items();\n        }\n    });\r\n\r\n\tfunction recalculateItems() {\r\n\t\tvar recalculate " +
+                    "= false;\r\n\t\tfor (var i = 0; i < logic.length; i++) {\r\n\t\t\tvar item = logic[i];\r\n\t" +
+                    "\t\titem.IsAvailable = \r\n\t\t\t\t(item.RequiredItemIds === null || all(item.RequiredIt" +
+                    "emIds, function(id) { return logic[id].Acquired; }))\r\n\t\t\t\t&& \r\n\t\t\t\t(item.Conditi" +
+                    "onalItemIds === null || any(item.ConditionalItemIds, function(conditionals) { re" +
+                    "turn all(conditionals, function(id) { return logic[id].Acquired; }); }));\r\n     " +
+                    "       \r\n\t\t\tif (!item.Acquired && item.IsFakeItem && item.IsAvailable) {\r\n\t\t\t\tit" +
+                    "em.Acquired = true;\r\n\t\t\t\trecalculate = true;\r\n\t\t\t}\r\n\t\t\tif (item.Acquired && item" +
+                    ".IsFakeItem && !item.IsAvailable) {\r\n\t\t\t\titem.Acquired = false;\r\n\t\t\t\trecalculate" +
+                    " = true;\r\n\t\t\t}\r\n        \r\n\t\t\tvar locationRow = document.querySelector(\".item-rep" +
+                    "lacements tr[data-newlocationid=\'\" + i + \"\']\");\r\n\t\t\tif (locationRow) {\r\n\t\t\t\tloca" +
+                    "tionRow.className = \"\";\r\n\t\t\t\tlocationRow.classList.add(item.IsAvailable ? \"avail" +
+                    "able\" : \"unavailable\");\r\n\t\t\t\tvar itemName = locationRow.querySelector(\".itemname" +
+                    "\");\r\n                var checkbox = locationRow.querySelector(\"input\");\r\n       " +
+                    "         checkbox.checked = item.Checked;\r\n\t\t\t\tif (item.Checked) {\r\n\t\t\t\t\titemNam" +
+                    "e.classList.remove(\"spoiler\");\r\n\t\t\t\t} else {\r\n\t\t\t\t\titemName.classList.add(\"spoil" +
+                    "er\");\r\n\t\t\t\t}\r\n\t\t\t}\r\n        \r\n\t\t\tvar itemRow = document.querySelector(\"#item-loc" +
+                    "ations tr[data-id=\'\" + i + \"\']\");\r\n\t\t\tif (itemRow) {\r\n\t\t\t\tvar itemName = itemRow" +
+                    ".querySelector(\".newlocation\");\r\n                var checkbox = itemRow.querySel" +
+                    "ector(\"input\");\r\n                checkbox.checked = item.Acquired;\r\n\t\t\t\tif (item" +
+                    ".Acquired) {\r\n\t\t\t\t\titemName.classList.remove(\"spoiler\");\r\n\t\t\t\t} else {\r\n\t\t\t\t\tite" +
+                    "mName.classList.add(\"spoiler\");\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t\tif (recalculate) {\r\n\t\t\treca" +
+                    "lculateItems();\r\n\t\t} else {\r\n            saveItems();\r\n        }\r\n\t}\r\n\r\n    var " +
+                    "logic = ");
             this.Write(this.ToStringHelper.ToStringWithCulture(spoiler.LogicJson));
             this.Write(";\r\n\r\n    for (var i = 0; i < logic.length; i++) {\r\n        var item = logic[i];\r\n" +
                     "        if (item.Acquired) {\r\n            item.Checked = true;\r\n\t        documen" +

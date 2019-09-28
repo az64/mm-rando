@@ -168,7 +168,11 @@
 		recalculateItems();
     }
 
-    document.querySelector("#spoilerLogState").addEventListener("keypress", loadItems);
+    document.querySelector("#spoilerLogState").addEventListener("keypress", function(event) {
+        if (event.keyCode === 13) {
+            loadItems();
+        }
+    });
 
 	function recalculateItems() {
 		var recalculate = false;
