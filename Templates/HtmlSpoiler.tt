@@ -16,6 +16,7 @@
 	.show-highlight .acquired .newlocation { background-color: #DDFFDD; }
 	.show-highlight .available .newlocation { background-color: #DDDDFF; }
     .region { text-align: center; font-weight: bold; }
+    #spoilerLogState { width: 560px; }
 </style>
 </head>
 <label><b>Version: </b></label><span><#= spoiler.Version #></span><br/>
@@ -28,6 +29,7 @@
 <label><b>Custom Starting Item List: </b></label><span><#= spoiler.CustomStartingItemListString #></span><br/>
 <# } #>
 <br/>
+<label><b>Spoiler Log State: </b></label><input id="spoilerLogState" type="text"/><br/>
 <# if (spoiler.RandomizeDungeonEntrances) { 
 #>
 <h2>Dungeon Entrance Replacements</h2>
@@ -119,10 +121,54 @@
 		}
 		return false;
 	}
-
+    
+    var segmentSize = 16;
     function saveItems() {
-        localStorage.setItem('MMR-Logic-' + spoilerLogId, JSON.stringify(logic));
+        var segments = [];
+        for (var i = 0; i < logic.length; i++) {
+            var segmentIndex = parseInt(i / segmentSize);
+            segments[segmentIndex] = segments[segmentIndex] || 0;
+            if (logic[i].Checked) {
+                segments[parseInt(i / segmentSize)] += (1 << (i%segmentSize));
+            }
+        }
+        var saveString = segments.map(function(s) {
+            return s.toString(16);
+        }).join("-");
+        var saveInput = document.querySelector("#spoilerLogState");
+        saveInput.value = saveString;
     }
+
+    function loadItems() {
+        var saveInput = document.querySelector("#spoilerLogState");
+        var segments = saveInput.value.split("-");
+        if (Math.ceil((logic.length - 1) / segmentSize) !== segments.length) {
+            alert("Invalid Spoiler Log state");
+            return;
+        }
+        segments = segments.map(function(segment) {
+            return parseInt(segment, 16);
+        });
+        for (var i = 0; i < segments.length; i++) {
+            var segment = segments[i];
+            for (var j = 0; j < segmentSize; j++) {
+                var itemIndex = segmentSize * i + j;
+                if (itemIndex < logic.length) {
+                    var mark = ((segment >> j) % 2 == 1);
+                    logic[itemIndex].Checked = mark;
+                    var itemRow = document.querySelector("tr[data-newlocationid='" + itemIndex + "']");
+                    if (itemRow) {
+	                    logic[itemRow.dataset.id].Acquired = mark;
+                    } else {
+	                    logic[itemIndex].Acquired = mark;
+                    }
+                }
+            }
+        }
+		recalculateItems();
+    }
+
+    document.querySelector("#spoilerLogState").addEventListener("keypress", loadItems);
 
 	function recalculateItems() {
 		var recalculate = false;
@@ -175,25 +221,21 @@
         }
 	}
 
-    var spoilerLogId = '<#= spoiler.Id #>';
-    var logic = JSON.parse(localStorage.getItem('MMR-Logic-' + spoilerLogId));
-    if (!logic) {
-	    logic = <#= spoiler.LogicJson #>;
+    var logic = <#= spoiler.LogicJson #>;
 
-        for (var i = 0; i < logic.length; i++) {
-            var item = logic[i];
-            if (item.Acquired) {
-                item.Checked = true;
-	            document.querySelector("tr[data-newlocationid='" + i + "'] input").checked = true;
-            }
+    for (var i = 0; i < logic.length; i++) {
+        var item = logic[i];
+        if (item.Acquired) {
+            item.Checked = true;
+	        document.querySelector("tr[data-newlocationid='" + i + "'] input").checked = true;
         }
+    }
 
-        var startingLocations = [0, 94, 274, 275, 276, 277];
-        for (var id of startingLocations) {
-	        logic[id].Checked = true;
-	        logic[document.querySelector("tr[data-newlocationid='" + id + "']").dataset.id].Acquired = true;
-	        document.querySelector("tr[data-newlocationid='" + id + "'] input").checked = true;
-        }
+    var startingLocations = [0, 94, 274, 275, 276, 277];
+    for (var id of startingLocations) {
+	    logic[id].Checked = true;
+	    logic[document.querySelector("tr[data-newlocationid='" + id + "']").dataset.id].Acquired = true;
+	    document.querySelector("tr[data-newlocationid='" + id + "'] input").checked = true;
     }
 
 	recalculateItems();
