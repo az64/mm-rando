@@ -37,7 +37,7 @@ namespace MMRando.Models.SoundEffects
         [ReplacableByTags(Short)]
         DogBarkAngry = 0x2110,
 
-        [Replacable(0x00D01186, 0x00CFE0A4, 0x00CF969A, 0x00CFA602, 0x00CFA816, 0x00CFA482, 0x00CF91E2, 0x00CFC43A)]
+        [Replacable(0x00D01186, 0x00CFE0A6, 0x00CF969A, 0x00CFA602, 0x00CFA816, 0x00CFA482, 0x00CF91E2, 0x00CFC43A)]
         [Tags(Short, LowHpBeep)]
         [ReplacableByTags(Short)]
         EponaNeigh = 0x2044,
