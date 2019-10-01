@@ -899,7 +899,7 @@ namespace MMRando
                 "\u0017You found the \u0001Boss Key\u0000 for\u0011{0}!\u0018\u00BF",
                 "\u0017You found the \u0001Dungeon Map\u0000 for\u0011{0}!\u0018\u00BF",
                 "\u0017You found the \u0001Compass\u0000 for\u0011{0}!\u0018\u00BF",
-                "\u0017You found a \u0001Stray Fairy\u0000 from\u0011{0}!\u0018\u00BF",
+                "\u0017You found a \u0001Stray Fairy\u0000 from\u0011{0}! \u0001{1}\u0000 remaining!\u0018\u00BF",
             };
 
             var dungeonItemIcons = new byte[]
@@ -907,12 +907,18 @@ namespace MMRando
                 0x3C, 0x3D, 0x3E, 0x3F, 0xFE
             };
 
+            var fairyTextCommands = new string[]
+            {
+                "\u00D7", "\u00D8", "\u00D9", "\u00DA"
+            };
+
             for (var i = 0; i < dungeonItemMessageIds.Length; i++)
             {
                 var messageId = dungeonItemMessageIds[i];
                 var icon = dungeonItemIcons[i % 5];
                 var dungeonName = dungeonNames[i / 5];
-                var message = string.Format(dungeonItemMessages[i % 5], dungeonName);
+                var fairyTextCommand = fairyTextCommands[i / 5];
+                var message = string.Format(dungeonItemMessages[i % 5], dungeonName, fairyTextCommand);
 
                 newMessages.Add(new MessageEntry
                 {
