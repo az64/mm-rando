@@ -863,13 +863,13 @@ namespace MMRando
                 {
                     Id = 0x51,
                     Header = new byte[11] { 0x02, 0x00, 0x52, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
-                    Message = $"\u0017You got an \u0005Ocean Gold Skulltula\u0011Spirit\0!\u0018\u00BF", // todo display count "\u0011\u001f\0\u0010This is your \u000D one!\u001c\0\u0028"
+                    Message = $"\u0017You got an \u0005Ocean Gold Skulltula\u0011Spirit\0!\u0018\u001F\u0000\u0010 This is your \u000D one!\u00BF",
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x52,
                     Header = new byte[11] { 0x02, 0x00, 0x52, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
-                    Message = $"\u0017You got a \u0006Swamp Gold Skulltula\u0011Spirit\0!\u0018\u00BF", // todo display count "\u0011\u001f\0\u0010This is your \u000D one!\u001c\0\u0028"
+                    Message = $"\u0017You got a \u0006Swamp Gold Skulltula\u0011Spirit\0!\u0018\u001F\u0000\u0010 This is your \u000D one!\u00BF",
                 });
             }
 
