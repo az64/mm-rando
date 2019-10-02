@@ -7,21 +7,56 @@
 <html>
 <head>
 <style>
-	th{ text-align:left }
-	.spoiler{ background-color:black }
-	.spoiler:hover { background-color: white;  }
-	[data-content]:before { content: attr(data-content); }
+body.dark-mode {
+  background-color: #111;
+  color: #ccc;
+}
+body.dark-mode a {
+  color: #111;
+}
+body.dark-mode button {
+  background-color: #ddd;
+  color: #111;
+}
 
-	.show-highlight .unavailable .newlocation { background-color: #FFDDDD; }
-	.show-highlight .acquired .newlocation { background-color: #DDFFDD; }
-	.show-highlight .available .newlocation { background-color: #DDDDFF; }
-    .region { text-align: center; font-weight: bold; }
-    #spoilerLogState { width: 560px; }
+body.light-mode {
+  background-color: #eee;
+  color: #111;
+}
+body.light-mode a {
+  color: #111;
+}
+body.light-mode button {
+  background-color: #111;
+  color: #ccc;
+}
+
+th{ text-align:left }
+	.dark-mode .spoiler{ background-color:#ccc }
+	.dark-mode .spoiler:hover { background-color: #111;  }
+	[data-content]:before { content: attr(data-content); }
+	.dark-mode .show-highlight .unavailable .newlocation { background-color: #500705; }
+	.dark-mode .show-highlight .acquired .newlocation { background-color: #69591f; }
+	.dark-mode .show-highlight .available .newlocation { background-color: #313776; }
+    .dark-mode .region { text-align: center; font-weight: bold; }
+	
+th{ text-align:left }
+	.light-mode .spoiler{ background-color:#111 }
+	.light-mode .spoiler:hover { background-color: #ccc;  }
+	[data-content]:before { content: attr(data-content); }
+	.light-mode .show-highlight .unavailable .newlocation { background-color: #FF9999; }
+	.light-mode .show-highlight .acquired .newlocation { background-color: #99FF99; }
+	.light-mode .show-highlight .available .newlocation { background-color: #9999FF; }
+    .light-mode .region { text-align: center; font-weight: bold; }
 </style>
 </head>
+<body id="body" class="light-mode">
 <label><b>Version: </b></label><span><#= spoiler.Version #></span><br/>
 <label><b>Settings String: </b></label><span><#= spoiler.SettingsString #></span><br/>
 <label><b>Seed: </b></label><span><#= spoiler.Seed #></span><br/>
+<br/>
+<button type="button" name="dark_light" onclick="toggleDarkLight()" title="Toggle dark/light mode">Toggle Dark Theme</button>
+<br/>
 <# if (spoiler.CustomItemListString != null) { #>
 <label><b>Custom Item List: </b></label><span><#= spoiler.CustomItemListString #></span><br/>
 <# } #>
@@ -35,9 +70,9 @@
 <h2>Dungeon Entrance Replacements</h2>
 <table border="1" class="item-replacements">
 	<tr>
-		<th>Entrance</th>
-	    <th></th>
-		<th>New Destination</th>
+		<th id="help" class="light-mode">Entrance</th>
+	    <th id="help" class="light-mode"></th>
+		<th id="help" class="light-mode">New Destination</th>
 	</tr>
 <#		 for (int i = 0; i < 4; i++) {
             var entrance = spoiler.Entrances[i];
@@ -54,9 +89,9 @@
 <input type="checkbox" id="highlight-checks"/> Highlight available checks
 <table border="1" class="item-replacements">
  <tr>
-     <th>Location</th>
-	 <th></th>
-     <th>Item</th>
+     <th id="help" class="light-mode">Location</th>
+	 <th id="help" class="light-mode"></th>
+     <th id="help" class="light-mode"></th>
  </tr>
 <# foreach (var region in spoiler.ItemList.GroupBy(item => item.Region).OrderBy(g => g.Key)) {
 #>
@@ -73,9 +108,9 @@
 <h2>Item Locations</h2>
 <table border="1" id="item-locations">
  <tr>
-     <th>Item</th>
-	 <th></th>
-     <th>Location</th>
+     <th id="help" class="light-mode">Item</th>
+	 <th id="help" class="light-mode"></th>
+     <th id="help" class="light-mode">Location</th>
  </tr>
 <# foreach (var item in spoiler.ItemList.Where(item => !item.IsJunk)) {
 #>
@@ -91,8 +126,8 @@
 <h2>Gossip Stone Hints</h2>
 <table border="1">
 	<tr>
-		<th>Gossip Stone</th>
-		<th>Message</th>
+		<th id="help" class="light-mode">Gossip Stone</th>
+		<th id="help" class="light-mode">Message</th>
 	</tr>
 <#	foreach (var hint in spoiler.GossipHints.OrderBy(h => h.Key.ToString())) { 
 #>
@@ -270,5 +305,15 @@
             }
         }
 	});
+
+    function toggleDarkLight() {
+	var body = document.getElementById("body");
+	var currentClassBody = body.className;
+	body.className = currentClassBody == "dark-mode" ? "light-mode" : "dark-mode";
+	var help = document.getElementById("help");
+	var currentClassHelp = help.className;
+	help.className = currentClassHelp == "dark-mode" ? "light-mode" : "dark-mode";
+    }
 </script>
+</body>
 </html>
