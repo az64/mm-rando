@@ -64,6 +64,11 @@ namespace MMRando.Extensions
             return item.HasAttribute<CycleRepeatableAttribute>();
         }
 
+        public static bool IsRupeeRepeatable(this Item item)
+        {
+            return item.HasAttribute<RupeeRepeatableAttribute>();
+        }
+
         public static bool IsDowngradable(this Item item)
         {
             return item.HasAttribute<DowngradableAttribute>();

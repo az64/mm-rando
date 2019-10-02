@@ -29,8 +29,8 @@ namespace MMRando.GameObjects
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Item.UpgradeAdultWallet)]
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.UpgradeRazorSword)]
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.UpgradeGildedSword)]
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.ItemGoldDust)]
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Item.ItemGoldDust)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.ItemBottleGoronRace)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Item.ItemBottleGoronRace)]
         MountainSpringPath = 0x20B2,
 
         //The gold dust won as the prize in the Goron Races in spring can be used by the smithy to forge a sword.
@@ -38,8 +38,8 @@ namespace MMRando.GameObjects
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Item.UpgradeAdultWallet)]
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.UpgradeRazorSword)]
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.UpgradeGildedSword)]
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.ItemGoldDust)]
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Item.ItemGoldDust)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.ItemBottleGoronRace)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Item.ItemBottleGoronRace)]
         MountainPath = 0x20B3,
 
         //To get Evan to listen to Mikau and Japas's song from their music session, you should not try demonstrating it as Mikau.
@@ -138,7 +138,7 @@ namespace MMRando.GameObjects
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Item.ItemBottleDampe)]
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Item.ItemBottleMadameAroma)]
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Item.ItemBottleWitch)]
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Item.ChestMountainVillageGrottoBottle)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Item, Item.ItemBottleGoronRace)]
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.HeartPieceLabFish)]
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.SongNewWaveBossaNova)]
         OceanFortress = 0x20BF,
@@ -198,7 +198,7 @@ namespace MMRando.GameObjects
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.HeartPieceChoir)]
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.UpgradeRazorSword)]
         [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.UpgradeGildedSword)]
-        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.ItemGoldDust)]
+        [GossipRestrict(GossipRestrictAttribute.RestrictionType.Location, Item.ItemBottleGoronRace)]
         MountainSpringFrog = 0x20C6,
 
         //The mask that can see into people's hearts and minds also seems to work on animals as well...

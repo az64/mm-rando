@@ -1,10 +1,9 @@
-﻿using MMRando.Models.Rom;
-using System;
-using System.Collections.Generic;
-using MMRando.GameObjects;
-using MMRando.Extensions;
-using MMRando.Attributes;
+﻿using MMRando.Attributes;
 using MMRando.Constants;
+using MMRando.Extensions;
+using MMRando.GameObjects;
+using MMRando.Models.Rom;
+using System.Collections.Generic;
 
 namespace MMRando.Utils
 {
@@ -12,6 +11,8 @@ namespace MMRando.Utils
     {
         const int BOTTLE_CATCH_TABLE = 0xCD7C08;
         static int cycle_repeat = 0;
+        static int cycle_repeat_count_address = 0xC72CFA;
+        static ushort cycle_repeat_count = 0x74;
         static int GET_ITEM_TABLE = 0;
 
         public static void ReplaceGetItemTable(string ModsDir)
@@ -25,7 +26,7 @@ namespace MMRando.Utils
             ReadWriteUtils.WriteToROM(0xBDAEA8, (uint)last_file + 2);
             ResourceUtils.ApplyHack(ModsDir + "standing-hearts");
             ResourceUtils.ApplyHack(ModsDir + "fix-item-checks");
-            cycle_repeat = 0xC72DF6;
+            cycle_repeat = 0xC72DF4;
             SceneUtils.ResetSceneFlagMask();
         }
 
@@ -96,21 +97,19 @@ namespace MMRando.Utils
             }
         }
 
-        public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShop, bool preventDowngrades, bool updateChest, ChestTypeAttribute.ChestType? overrideChestType)
+        public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShop, bool preventDowngrades, bool updateChest, ChestTypeAttribute.ChestType? overrideChestType, bool isExtraStartingItem)
         {
             System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
-            
+
             int f = RomUtils.GetFileIndexForWriting(GET_ITEM_TABLE);
             int baseaddr = GET_ITEM_TABLE - RomData.MMFileList[f].Addr;
             var getItemIndex = location.GetItemIndex().Value;
-            if (location == Item.ItemGoldDust)
-            {
-                getItemIndex = 0x6A; // Place items intended for Gold Dust at the Goron Race Bottle location.
-            }
             int offset = (getItemIndex - 1) * 8 + baseaddr;
-            var newItem = RomData.GetItemList[item.GetItemIndex().Value];
+            var newItem = isExtraStartingItem 
+                ? Items.RecoveryHeart // Warning: this will not work well for starting with Bottle contents (currently impossible), because you'll first have to acquire the Recovery Heart before getting the bottle-less version. Also may interfere with future implementation of progressive upgrades.
+                : RomData.GetItemList[item.GetItemIndex().Value];
             var fileData = RomData.MMFileList[f].Data;
-            
+
             var data = new byte[]
             {
                 newItem.ItemGained,
@@ -124,10 +123,13 @@ namespace MMRando.Utils
             };
             ReadWriteUtils.Arr_Insert(data, 0, data.Length, fileData, offset);
             
-            if (item.IsCycleRepeatable())
+            if (item.IsCycleRepeatable() || (item.Name().Contains("Rupee") && location.IsRupeeRepeatable()))
             {
                 ReadWriteUtils.WriteToROM(cycle_repeat, (ushort)getItemIndex);
                 cycle_repeat += 2;
+                cycle_repeat_count += 2;
+
+                ReadWriteUtils.WriteToROM(cycle_repeat_count_address, cycle_repeat_count);
             }
 
             var isRepeatable = item.IsRepeatable() || (!preventDowngrades && item.IsDowngradable());
@@ -153,12 +155,12 @@ namespace MMRando.Utils
                 ReadWriteUtils.WriteToROM(0xB499A6, (ushort)getItemIndex);
                 ReadWriteUtils.WriteToROM(0xC72B5A, (ushort)getItemIndex);
             }
-            // Goron Race Bottle now rewards a plain Gold Dust, so this is unnecessary until a proper fix for Goron Dust is found.
-            //if (item == Item.ItemBottleGoronRace)
-            //{
-            //    WriteToROM(0xB499B2, (ushort)getItemIndex);
-            //    WriteToROM(0xC72B66, (ushort)getItemIndex);
-            //}
+            
+            if (item == Item.ItemBottleGoronRace)
+            {
+                ReadWriteUtils.WriteToROM(0xB499B2, (ushort)getItemIndex);
+                ReadWriteUtils.WriteToROM(0xC72B66, (ushort)getItemIndex);
+            }
 
             if (updateChest)
             {
@@ -175,6 +177,16 @@ namespace MMRando.Utils
                 if (location == Item.StartingSword)
                 {
                     ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-sword-song-of-time");
+                }
+
+                if (location == Item.MundaneItemSeahorse)
+                {
+                    ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-fisherman");
+                }
+
+                if (location == Item.MaskFierceDeity)
+                {
+                    ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-fd-mask-reset");
                 }
             }
         }
@@ -245,7 +257,7 @@ namespace MMRando.Utils
                 {
                     Id = (ushort)(messageId + 1),
                     Header = null,
-                    Message = MessageUtils.BuildShopPurchaseMessage(item.Name(), 20, item.ShopTexts()?.IsMultiple ?? false)
+                    Message = MessageUtils.BuildShopPurchaseMessage(item.Name(), 20, item)
                 });
             }
         }

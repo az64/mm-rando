@@ -191,7 +191,7 @@
             // 
             this.lShuffle.Location = new System.Drawing.Point(6, 3);
             this.lShuffle.Name = "lShuffle";
-            this.lShuffle.Size = new System.Drawing.Size(372, 841);
+            this.lShuffle.Size = new System.Drawing.Size(372, 1635);
             this.lShuffle.TabIndex = 2;
             this.lShuffle.Text = resources.GetString("lShuffle.Text");
             // 
@@ -210,7 +210,7 @@
             // 
             this.lGimmick.Location = new System.Drawing.Point(6, 3);
             this.lGimmick.Name = "lGimmick";
-            this.lGimmick.Size = new System.Drawing.Size(372, 294);
+            this.lGimmick.Size = new System.Drawing.Size(372, 481);
             this.lGimmick.TabIndex = 2;
             this.lGimmick.Text = resources.GetString("lGimmick.Text");
             // 
@@ -229,7 +229,7 @@
             // 
             this.lCosmetic.Location = new System.Drawing.Point(6, 3);
             this.lCosmetic.Name = "lCosmetic";
-            this.lCosmetic.Size = new System.Drawing.Size(372, 268);
+            this.lCosmetic.Size = new System.Drawing.Size(372, 1164);
             this.lCosmetic.TabIndex = 2;
             this.lCosmetic.Text = resources.GetString("lCosmetic.Text");
             // 

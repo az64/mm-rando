@@ -15,6 +15,7 @@ namespace MMRando.Attributes
         public string GoronShopSpring { get; private set; }
 
         public bool IsMultiple { get; private set; }
+        public bool IsDefinite { get; private set; }
 
         public ShopTextAttribute(string defaultText,
             string witchShop = null,
@@ -25,7 +26,8 @@ namespace MMRando.Attributes
             string zoraShop = null,
             string goronShop = null,
             string goronSpringShop = null,
-            bool isMultiple = false)
+            bool isMultiple = false,
+            bool isDefinite = false)
         {
             Default = defaultText;
             WitchShop = witchShop;
@@ -37,6 +39,7 @@ namespace MMRando.Attributes
             GoronShop = goronShop;
             GoronShopSpring = goronSpringShop;
             IsMultiple = isMultiple;
+            IsDefinite = isDefinite;
         }
     }
 }

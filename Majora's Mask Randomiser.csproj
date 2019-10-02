@@ -71,8 +71,10 @@
     <Compile Include="Attributes\EntranceNameAttribute.cs" />
     <Compile Include="Attributes\GetBottleItemIndicesAttribute.cs" />
     <Compile Include="Attributes\GetItemIndexAttribute.cs" />
+    <Compile Include="Attributes\GossipCompetitiveHintAttribute.cs" />
     <Compile Include="Attributes\GossipItemHintAttribute.cs" />
     <Compile Include="Attributes\GossipLocationHintAttribute.cs" />
+    <Compile Include="Attributes\RupeeRepeatableAttribute.cs" />
     <Compile Include="Attributes\ShopRoomAttribute.cs" />
     <Compile Include="Attributes\ShopTextAttribute.cs" />
     <Compile Include="Attributes\ShopInventoryAttribute.cs" />
@@ -88,16 +90,33 @@
     <Compile Include="Extensions\ItemExtensions.cs" />
     <Compile Include="Extensions\KeyEqualityComparer.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Forms\StartingItemEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StartingItemEditForm.Designer.cs">
+      <DependentUpon>StartingItemEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tooltips\TooltipBuilder.cs" />
     <Compile Include="GameObjects\GossipQuote.cs" />
     <Compile Include="GameObjects\Item.cs" />
-    <Compile Include="GameObjects\TingleText.cs" />
+    <Compile Include="GameObjects\MessageShopText.cs" />
     <Compile Include="Models\RandomizedResult.cs" />
     <Compile Include="Models\Rom\MessageTable.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
+    <Compile Include="Models\Settings\BlastMaskCooldown.cs" />
+    <Compile Include="Models\Settings\Music.cs" />
+    <Compile Include="Models\SoundEffects\EffectAttribute.cs" />
+    <Compile Include="Models\SoundEffects\ReplacableAttribute.cs" />
+    <Compile Include="Models\SoundEffects\ReplacableByTagsAttribute.cs" />
+    <Compile Include="Models\SoundEffects\ReplacableInMessageAttribute.cs" />
+    <Compile Include="Models\SoundEffects\SoundEffects.cs" />
+    <Compile Include="Models\SoundEffects\SoundEffectTag.cs" />
+    <Compile Include="Models\SoundEffects\SoundEffectExtensions.cs" />
+    <Compile Include="Models\SoundEffects\SoundEffect.cs" />
     <Compile Include="Models\Settings\GossipHintStyle.cs" />
     <Compile Include="Models\Settings\ClockSpeedMode.cs" />
     <Compile Include="Models\Settings\SettingsObject.cs" />
+    <Compile Include="Models\SoundEffects\TagsAttribute.cs" />
     <Compile Include="Models\SpoilerItem.cs" />
     <Compile Include="Models\ItemLogic.cs" />
     <Compile Include="Constants\Addresses.cs" />
@@ -228,6 +247,9 @@
     <EmbeddedResource Include="Forms\NewItemForm.resx">
       <DependentUpon>NewItemForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StartingItemEditForm.resx">
+      <DependentUpon>StartingItemEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -318,6 +340,24 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\mods\fierce-deity-anywhere">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mods\fix-deku-princess">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mods\fix-fd-mask-reset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mods\fix-fisherman">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mods\fix-cow-bottle-check">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mods\fix-fairies">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mods\fix-skulltula-tokens">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\mods\fix-sword-song-of-time">
@@ -417,6 +457,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\mods\short-cutscenes">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mods\speedup-beavers">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mods\speedup-dampe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mods\speedup-dograce">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\mods\speedup-labfish">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\mods\standing-hearts">
@@ -831,8 +883,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="200px_majoramask_rtw_icon.ico" />
-    <None Include="Resources\REQ_GLITCH_COMMONTRICKS.txt" />
-    <None Include="Resources\REQ_GLITCH_NOSETUPS.txt" />
     <Content Include="Templates\HtmlSpoiler.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>HtmlSpoiler.cs</LastGenOutput>

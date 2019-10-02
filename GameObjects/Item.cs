@@ -58,8 +58,8 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x1B)]
         ItemBombBag,
 
-        [Repeatable]
-        [StartingItem(0xC5CE2E, 0x0A)]
+        [Repeatable, CycleRepeatable]
+        //[StartingItem(0xC5CE2E, 0x0A)]
         [ItemName("Magic Bean"), LocationName("Bean Man"), RegionName("Deku Palace")]
         [GossipLocationHint("a hidden merchant", "a gorging merchant"), GossipItemHint("a plant seed")]
         [ShopText("Plant it in soft soil.")]
@@ -67,8 +67,8 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x11E)]
         ItemMagicBean,
 
-        [Repeatable]
-        [StartingItem(0xC5CE30, 0x0C)]
+        [Repeatable, CycleRepeatable]
+        //[StartingItem(0xC5CE30, 0x0C)]
         [ItemName("Powder Keg"), LocationName("Powder Keg Challenge"), RegionName("Goron Village")]
         [GossipLocationHint("a large goron"), GossipItemHint("gunpowder", "a dangerous item", "an explosive barrel")]
         [ShopText("Both its power and its size are immense!")]
@@ -104,15 +104,15 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CDF4, 0x01)]
         [ItemName("Magic Power"), LocationName("Town Great Fairy Non-Human"), RegionName("North Clock Town")]
         [GossipLocationHint("a magical being"), GossipItemHint("magic power")]
-        [ShopText("Grants the ability to use magic.")]
+        [ShopText("Grants the ability to use magic.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12C)]
         FairyMagic,
         
         // todo allow as starting item
         [ItemName("Spin Attack"), LocationName("Woodfall Great Fairy"), RegionName("Woodfall")]
-        [GossipLocationHint("a magical being"), GossipItemHint("a magic attack")]
-        [ShopText("Increases the power of your spin attack.")]
+        [GossipLocationHint("a magical being"), GossipItemHint("a magic attack"), GossipCompetitiveHint(2, true)]
+        [ShopText("Increases the power of your spin attack.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12D)]
         FairySpinAttack,
@@ -121,8 +121,8 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CDF4, 0x01)]
         [StartingItem(0xC5CDF5, 0x01)]
         [ItemName("Extended Magic Power"), LocationName("Snowhead Great Fairy"), RegionName("Snowhead")]
-        [GossipLocationHint("a magical being"), GossipItemHint("magic power")]
-        [ShopText("Grants the ability to use lots of magic.")]
+        [GossipLocationHint("a magical being"), GossipItemHint("magic power"), GossipCompetitiveHint(2, true)]
+        [ShopText("Grants the ability to use lots of magic.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12E)]
         FairyDoubleMagic,
@@ -130,21 +130,21 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CDF6, 0x01)]
         [StartingItem(0xC5CE87, 0x14)]
         [ItemName("Double Defense"), LocationName("Ocean Great Fairy"), RegionName("Great Bay Cape")]
-        [GossipLocationHint("a magical being"), GossipItemHint("magical defense")]
-        [ShopText("Take half as much damage from enemies.")]
+        [GossipLocationHint("a magical being"), GossipItemHint("magical defense"), GossipCompetitiveHint(2, true)]
+        [ShopText("Take half as much damage from enemies.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12F)]
         FairyDoubleDefense,
 
         [StartingItem(0xC5CE34, 0x10)]
         [ItemName("Great Fairy's Sword"), LocationName("Ikana Great Fairy"), RegionName("Ikana Canyon")]
-        [GossipLocationHint("a magical being"), GossipItemHint("a black rose", "a powerful blade")]
-        [ShopText("The most powerful sword has black roses etched in its blade.")]
+        [GossipLocationHint("a magical being"), GossipItemHint("a black rose", "a powerful blade"), GossipCompetitiveHint(2, true)]
+        [ShopText("The most powerful sword has black roses etched in its blade.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x130)]
         ItemFairySword,
 
-        [StartingItem(0xC5CE36, 0x12)]
+        //[StartingItem(0xC5CE36, 0x12)]
         [ItemName("Bottle with Red Potion"), LocationName("Kotake"), RegionName("Southern Swamp")]
         [GossipLocationHint("the sleeping witch"), GossipItemHint("a vessel of health", "bottled fortitude")]
         [ShopText("Replenishes your life energy. Comes with an Empty Bottle.")]
@@ -152,7 +152,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x59)]
         ItemBottleWitch,
 
-        [StartingItem(0xC5CE37, 0x12)]
+        //[StartingItem(0xC5CE37, 0x12)]
         [ItemName("Bottle with Milk"), LocationName("Aliens Defense"), RegionName("Romani Ranch")]
         [GossipLocationHint("the ranch girl", "a good deed"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings. Comes with an Empty Bottle.")]
@@ -160,32 +160,32 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x60)]
         ItemBottleAliens,
 
-        [Repeatable, Temporary]
-        [StartingItem(0xC5CE38, 0x12)]
-        [ItemName("Gold Dust"), LocationName("Goron Race"), RegionName("Twin Islands")]
-        [GossipLocationHint("a sporting event"), GossipItemHint("a gleaming powder")]
-        [ShopText("It's very high quality.")]
+        [RupeeRepeatable]
+        //[StartingItem(0xC5CE38, 0x12)]
+        [ItemName("Bottle with Gold Dust"), LocationName("Goron Race"), RegionName("Twin Islands")]
+        [GossipLocationHint("a sporting event"), GossipItemHint("a gleaming powder"), GossipCompetitiveHint]
+        [ShopText("It's very high quality. Comes with an Empty Bottle.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x93)] // originally 0x6A for Bottle with Gold Dust
-        ItemGoldDust, // originally ItemBottleGoronRace
+        [GetItemIndex(0x6A)]
+        ItemBottleGoronRace,
 
-        [StartingItem(0xC5CE39, 0x12)]
+        //[StartingItem(0xC5CE39, 0x12)]
         [ItemName("Empty Bottle"), LocationName("Beaver Race #1"), RegionName("Great Bay Cape")]
-        [GossipLocationHint("a river dweller"), GossipItemHint("an empty vessel", "a glass container")]
+        [GossipLocationHint("a river dweller"), GossipItemHint("an empty vessel", "a glass container"), GossipCompetitiveHint(-1)]
         [ShopText("Carry various items in this.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x5A)]
         ItemBottleBeavers,
 
-        [StartingItem(0xC5CE3A, 0x12)]
+        //[StartingItem(0xC5CE3A, 0x12)]
         [ItemName("Empty Bottle"), LocationName("Dampe Digging"), RegionName("Ikana Graveyard")]
-        [GossipLocationHint("a fearful basement"), GossipItemHint("an empty vessel", "a glass container")]
+        [GossipLocationHint("a fearful basement"), GossipItemHint("an empty vessel", "a glass container"), GossipCompetitiveHint]
         [ShopText("Carry various items in this.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x0261E000 + 0x1FE, ChestAttribute.AppearanceType.AppearsSwitch)]
         [GetItemIndex(0x64)]
         ItemBottleDampe,
 
-        [StartingItem(0xC5CE3B, 0x12)]
+        //[StartingItem(0xC5CE3B, 0x12)]
         [ItemName("Bottle with Chateau Romani"), LocationName("Madame Aroma in Bar"), RegionName("East Clock Town")]
         [GossipLocationHint("an important lady"), GossipItemHint("a dairy product", "an adult beverage")]
         [ShopText("Drink it to get lasting stamina for your magic power. Comes with an Empty Bottle.")]
@@ -231,6 +231,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x33)]
         UpgradeMirrorShield,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE25, 0x01)]
         [StartingItem(0xC5CE6F, 0x02)]
         [ItemName("Large Quiver"), LocationName("Town Archery #1"), RegionName("East Clock Town")]
@@ -240,12 +241,13 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x23)]
         UpgradeBigQuiver,
 
+        [RupeeRepeatable]
         [Downgradable]
         [StartingItem(0xC5CE25, 0x01)]
         [StartingItem(0xC5CE6F, 0x03)]
         [ItemName("Largest Quiver"), LocationName("Swamp Archery #1"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a projectile", "a ranged weapon")]
-        [ShopText("This can hold up to a maximum of 50 arrows.")]
+        [ShopText("This can hold up to a maximum of 50 arrows.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x24)]
         UpgradeBiggestQuiver,
@@ -269,7 +271,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE6F, 0x18)]
         [ItemName("Biggest Bomb Bag"), LocationName("Biggest Bomb Bag Purchase"), RegionName("Goron Village")]
         [GossipLocationHint("a northern merchant"), GossipItemHint("an item carrier", "a vessel of explosives")]
-        [ShopText("This can hold up to a maximum of 40 bombs.")]
+        [ShopText("This can hold up to a maximum of 40 bombs.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x1D)]
         UpgradeBiggestBombBag,
@@ -284,15 +286,15 @@ namespace MMRando.GameObjects
 
         [Downgradable]
         [StartingItem(0xC5CE6E, 0x20)]
-        [ItemName("Giant Wallet"), LocationName("Ocean Spider House Reward"), RegionName("Great Bay Coast")]
-        [GossipLocationHint("a gold spider"), GossipItemHint("a coin case", "great wealth")]
+        [ItemName("Giant Wallet"), LocationName("Ocean Spider House Day 1 Reward"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a gold spider"), GossipItemHint("a coin case", "great wealth"), GossipCompetitiveHint]
         [ShopText("This can hold up to a maximum of 500 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x09)]
         UpgradeGiantWallet,
 
         //trades
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Moon's Tear"), LocationName("Astronomy Telescope"), RegionName("Termina Field")]
         [GossipLocationHint("a falling star"), GossipItemHint("a lunar teardrop", "celestial sadness")]
         [ShopText("A shining stone from the moon.")]
@@ -300,7 +302,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x96)]
         TradeItemMoonTear,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Land Title Deed"), LocationName("Clock Town Scrub Trade"), RegionName("South Clock Town")]
         [GossipLocationHint("a town merchant"), GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower in Clock Town.")]
@@ -308,7 +310,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x97)]
         TradeItemLandDeed,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Swamp Title Deed"), LocationName("Swamp Scrub Trade"), RegionName("Southern Swamp")]
         [GossipLocationHint("a southern merchant"), GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower in Southern Swamp.")]
@@ -316,7 +318,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x98)]
         TradeItemSwampDeed,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Mountain Title Deed"), LocationName("Mountain Scrub Trade"), RegionName("Goron Village")]
         [GossipLocationHint("a northern merchant"), GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower near Goron Village.")]
@@ -324,7 +326,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x99)]
         TradeItemMountainDeed,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Ocean Title Deed"), LocationName("Ocean Scrub Trade"), RegionName("Zora Hall")]
         [GossipLocationHint("a western merchant"), GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower in Zora Hall.")]
@@ -332,7 +334,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x9A)]
         TradeItemOceanDeed,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Room Key"), LocationName("Inn Reservation"), RegionName("East Clock Town")]
         [GossipLocationHint("checking in", "check-in"), GossipItemHint("a door opener", "a lock opener")]
         [ShopText("With this, you can go in and out of the Stock Pot Inn at night.")]
@@ -340,7 +342,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xA0)]
         TradeItemRoomKey,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Letter to Kafei"), LocationName("Midnight Meeting"), RegionName("East Clock Town")]
         [GossipLocationHint("a late meeting"), GossipItemHint("a lover's plight", "a lover's letter")]
         [ShopText("A love letter from Anju to Kafei.")]
@@ -348,7 +350,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xAA)]
         TradeItemKafeiLetter,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Pendant of Memories"), LocationName("Kafei"), RegionName("Laundry Pool")]
         [GossipLocationHint("a posted letter"), GossipItemHint("a cherished necklace", "a symbol of trust")]
         [ShopText("Kafei's symbol of trust for Anju.")]
@@ -356,7 +358,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xAB)]
         TradeItemPendant,
 
-        [Repeatable, Temporary]
+        [Repeatable, Temporary, CycleRepeatable]
         [ItemName("Letter to Mama"), LocationName("Curiosity Shop Man #2"), RegionName("Laundry Pool")]
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("an important note", "a special delivery")]
         [ShopText("It's a parcel for Kafei's mother.")]
@@ -373,6 +375,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x03)]
         HeartPieceNotebookMayor,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Postman's Game"), RegionName("West Clock Town")]
         [GossipLocationHint("a hard worker", "a delivery person"), GossipItemHint("a segment of health")]
@@ -414,6 +417,7 @@ namespace MMRando.GameObjects
         HeartPieceNotebookGran2,
 
         //other hp
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Keaton Quiz"), RegionName("North Clock Town")]
         [GossipLocationHint("the ghost of a fox", "a mysterious fox"), GossipItemHint("a segment of health")]
@@ -423,29 +427,31 @@ namespace MMRando.GameObjects
         HeartPieceKeatonQuiz,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Deku Playground"), RegionName("North Clock Town")]
-        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("a segment of health")]
+        [ItemName("Piece of Heart"), LocationName("Deku Playground Three Days"), RegionName("North Clock Town")]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("a segment of health"), GossipCompetitiveHint]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x31)]
         HeartPieceDekuPlayground,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Town Archery #2"), RegionName("East Clock Town")]
-        [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
+        [GossipLocationHint("a town game"), GossipItemHint("a segment of health"), GossipCompetitiveHint(1, true)]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x90)]
         HeartPieceTownArchery,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Honey and Darling"), RegionName("East Clock Town")]
-        [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
+        [ItemName("Piece of Heart"), LocationName("Honey and Darling Three Days"), RegionName("East Clock Town")]
+        [GossipLocationHint("a town game"), GossipItemHint("a segment of health"), GossipCompetitiveHint(-1)]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x94)]
         HeartPieceHoneyAndDarling,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Swordsman's School"), RegionName("West Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
@@ -464,7 +470,7 @@ namespace MMRando.GameObjects
 
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Gossip Stones"), RegionName("Termina Field")]
-        [GossipLocationHint("mysterious stones"), GossipItemHint("a segment of health")]
+        [GossipLocationHint("mysterious stones"), GossipItemHint("a segment of health"), GossipCompetitiveHint(-1)]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xA3)]
@@ -478,25 +484,27 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xA5)]
         HeartPieceTerminaBusinessScrub,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Swamp Archery #2"), RegionName("Road to Southern Swamp")]
-        [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
+        [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health"), GossipCompetitiveHint(1, true)]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xA6)]
         HeartPieceSwampArchery,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Pictograph Contest"), RegionName("Southern Swamp")]
+        [ItemName("Piece of Heart"), LocationName("Pictograph Contest Winner"), RegionName("Southern Swamp")]
         [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xA7)]
         HeartPiecePictobox,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Boat Archery"), RegionName("Southern Swamp")]
-        [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
+        [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health"), GossipCompetitiveHint]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xA8)]
@@ -504,28 +512,30 @@ namespace MMRando.GameObjects
 
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Frog Choir"), RegionName("Mountain Village")]
-        [GossipLocationHint("a reunion", "a chorus", "an amphibian choir"), GossipItemHint("a segment of health")]
+        [GossipLocationHint("a reunion", "a chorus", "an amphibian choir"), GossipItemHint("a segment of health"), GossipCompetitiveHint(1, true)]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xAC)]
         HeartPieceChoir,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Beaver Race #2"), RegionName("Great Bay Cape")]
-        [GossipLocationHint("a river dweller", "a race in the water"), GossipItemHint("a segment of health")]
+        [GossipLocationHint("a river dweller", "a race in the water"), GossipItemHint("a segment of health"), GossipCompetitiveHint(1, true)]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xAD)]
         HeartPieceBeaverRace,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Seahorse"), RegionName("Pinnacle Rock")]
+        [ItemName("Piece of Heart"), LocationName("Seahorses"), RegionName("Pinnacle Rock")]
         [GossipLocationHint("a reunion"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xAE)]
         HeartPieceSeaHorse,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Fisherman Game"), RegionName("Great Bay Coast")]
         [GossipLocationHint("an ocean game"), GossipItemHint("a segment of health")]
@@ -542,6 +552,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xB0)]
         HeartPieceEvan,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Dog Race"), RegionName("Romani Ranch")]
         [GossipLocationHint("a sporting event"), GossipItemHint("a segment of health")]
@@ -550,6 +561,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xB1)]
         HeartPieceDogRace,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Poe Hut"), RegionName("Ikana Canyon")]
         [GossipLocationHint("a game of ghosts"), GossipItemHint("a segment of health")]
@@ -558,11 +570,12 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xB2)]
         HeartPiecePoeHut,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Treasure Chest Game"), RegionName("East Clock Town")]
+        [ItemName("Piece of Heart"), LocationName("Treasure Chest Game Goron"), RegionName("East Clock Town")]
         [GossipLocationHint("a town game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0x46A, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0xFAA, ChestAttribute.AppearanceType.AppearsSwitch)]
         [GetItemIndex(0x17)]
         HeartPieceTreasureChestGame,
 
@@ -625,7 +638,7 @@ namespace MMRando.GameObjects
 
         [StartingItem(0xC5CE3D, 0x38)]
         [ItemName("All Night Mask"), LocationName("All Night Mask Purchase"), RegionName("West Clock Town")]
-        [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("insomnia")]
+        [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("insomnia"), GossipCompetitiveHint]
         [ShopRoom(ShopRoomAttribute.Room.CuriosityShop, 0x54)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.CuriosityShop, 0)]
         [ShopText("When you wear it you don't get sleepy.")]
@@ -652,7 +665,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE40, 0x40)]
         [ItemName("Great Fairy's Mask"), LocationName("Town Great Fairy"), RegionName("North Clock Town")]
         [GossipLocationHint("a magical being"), GossipItemHint("a friend of fairies")]
-        [ShopText("The mask's hair will shimmer when you're close to a Stray Fairy.")]
+        [ShopText("The mask's hair will shimmer when you're close to a Stray Fairy.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x131)]
         MaskGreatFairy,
@@ -684,23 +697,24 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE45, 0x42)]
         [ItemName("Don Gero's Mask"), LocationName("Hungry Goron"), RegionName("Mountain Village")]
         [GossipLocationHint("a hungry goron", "a person in need"), GossipItemHint("a conductor's mask", "an amphibious mask")]
-        [ShopText("When you wear it, you can call the Frog Choir members together.")]
+        [ShopText("When you wear it, you can call the Frog Choir members together.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x88)]
         MaskDonGero,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE46, 0x48)]
         [ItemName("Mask of Scents"), LocationName("Butler"), RegionName("Deku Palace")]
-        [GossipLocationHint("a servant of royalty", "the royal servant"), GossipItemHint("heightened senses", "a pig's mask")]
-        [ShopText("Wear it to heighten your sense of smell.")]
+        [GossipLocationHint("a servant of royalty", "the royal servant"), GossipItemHint("heightened senses", "a pig's mask"), GossipCompetitiveHint(-1)]
+        [ShopText("Wear it to heighten your sense of smell.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x8E)]
         MaskScents,
 
         [StartingItem(0xC5CE48, 0x3C)]
         [ItemName("Romani's Mask"), LocationName("Cremia"), RegionName("Romani Ranch")]
-        [GossipLocationHint("the ranch lady", "an older sister"), GossipItemHint("proof of membership", "a cow's mask")]
-        [ShopText("Wear it to show you're a member of the Milk Bar, Latte.")]
+        [GossipLocationHint("the ranch lady", "an older sister"), GossipItemHint("proof of membership", "a cow's mask"), GossipCompetitiveHint]
+        [ShopText("Wear it to show you're a member of the Milk Bar, Latte.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x82)]
         MaskRomani,
@@ -708,7 +722,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE49, 0x3D)]
         [ItemName("Circus Leader's Mask"), LocationName("Gorman"), RegionName("East Clock Town")]
         [GossipLocationHint("an entertainer", "a miserable leader"), GossipItemHint("a mask of sadness")]
-        [ShopText("People related to Gorman will react to this.")]
+        [ShopText("People related to Gorman will react to this.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x83)]
         MaskCircusLeader,
@@ -716,14 +730,14 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE4A, 0x37)]
         [ItemName("Kafei's Mask"), LocationName("Madame Aroma in Office"), RegionName("East Clock Town")]
         [GossipLocationHint("an important lady", "an esteemed woman"), GossipItemHint("the mask of a missing one", "a son's mask")]
-        [ShopText("Wear it to inquire about Kafei's whereabouts.")]
+        [ShopText("Wear it to inquire about Kafei's whereabouts.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x8F)]
         MaskKafei,
 
         [StartingItem(0xC5CE4B, 0x3F)]
         [ItemName("Couple's Mask"), LocationName("Anju and Kafei"), RegionName("East Clock Town")]
-        [GossipLocationHint("a reunion", "a lovers' reunion"), GossipItemHint("a sign of love", "the mark of a couple")]
+        [GossipLocationHint("a reunion", "a lovers' reunion"), GossipItemHint("a sign of love", "the mark of a couple"), GossipCompetitiveHint(1, true)]
         [ShopText("When you wear it, you can soften people's hearts.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x85)]
@@ -731,8 +745,8 @@ namespace MMRando.GameObjects
 
         [StartingItem(0xC5CE4C, 0x36)]
         [ItemName("Mask of Truth"), LocationName("Swamp Spider House Reward"), RegionName("Southern Swamp")]
-        [GossipLocationHint("a gold spider"), GossipItemHint("a piercing gaze")]
-        [ShopText("Wear it to read the thoughts of Gossip Stones and animals.")]
+        [GossipLocationHint("a gold spider"), GossipItemHint("a piercing gaze"), GossipCompetitiveHint]
+        [ShopText("Wear it to read the thoughts of Gossip Stones and animals.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x8A)]
         MaskTruth,
@@ -740,7 +754,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE4E, 0x43)]
         [ItemName("Kamaro's Mask"), LocationName("Kamaro"), RegionName("Termina Field")]
         [GossipLocationHint("a ghostly dancer", "a dancer"), GossipItemHint("dance moves")]
-        [ShopText("Wear this to perform a mysterious dance.")]
+        [ShopText("Wear this to perform a mysterious dance.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x89)]
         MaskKamaro,
@@ -753,6 +767,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x87)]
         MaskGibdo,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE50, 0x3B)]
         [ItemName("Garo's Mask"), LocationName("Gorman Bros Race"), RegionName("Milk Road")]
         [GossipLocationHint("a sporting event"), GossipItemHint("the mask of spies")]
@@ -764,7 +779,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE51, 0x44)]
         [ItemName("Captain's Hat"), LocationName("Captain Keeta's Chest"), RegionName("Ikana Graveyard")]
         [GossipLocationHint("a ghostly battle", "a skeletal leader"), GossipItemHint("a commanding presence")]
-        [ShopText("Wear it to pose as Captain Keeta.")]
+        [ShopText("Wear it to pose as Captain Keeta.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x0280D000 + 0x392, ChestAttribute.AppearanceType.Normal, 0x0280D000 + 0x6FA)]
         [GetItemIndex(0x7C)]
         MaskCaptainHat,
@@ -797,7 +812,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE72, 0x20)]
         [ItemName("Song of Healing"), LocationName("Starting Song"), RegionName("Misc")]
         [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("a soothing melody")]
-        [ShopText("This melody will soothe restless spirits.")]
+        [ShopText("This melody will soothe restless spirits.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x124)]
         SongHealing,
@@ -805,15 +820,16 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE72, 0x80)]
         [ItemName("Song of Soaring"), LocationName("Swamp Music Statue"), RegionName("Southern Swamp")]
         [GossipLocationHint("a stone tablet"), GossipItemHint("white wings")]
-        [ShopText("This melody sends you to a stone bird statue in an instant.")]
+        [ShopText("This melody sends you to a stone bird statue in an instant.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x70)]
         SongSoaring,
 
+        [RupeeRepeatable]
         [StartingItem(0xC5CE72, 0x40)]
         [ItemName("Epona's Song"), LocationName("Romani's Game"), RegionName("Romani Ranch")]
         [GossipLocationHint("a reunion"), GossipItemHint("a horse's song", "a song of the field")]
-        [ShopText("This melody calls your horse, Epona.")]
+        [ShopText("This melody calls your horse, Epona.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x71)]
         SongEpona,
@@ -821,7 +837,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE71, 0x01)]
         [ItemName("Song of Storms"), LocationName("Day 1 Grave Tablet"), RegionName("Ikana Graveyard")]
         [GossipLocationHint("a hollow ground", "a stone tablet"), GossipItemHint("rain and thunder", "stormy weather")]
-        [ShopText("This melody is the turbulent tune that blows curses away.")]
+        [ShopText("This melody is the turbulent tune that blows curses away.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x72)]
         SongStorms,
@@ -829,7 +845,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE73, 0x40)]
         [ItemName("Sonata of Awakening"), LocationName("Imprisoned Monkey"), RegionName("Deku Palace")]
         [GossipLocationHint("a prisoner", "a false imprisonment"), GossipItemHint("a royal song", "an awakening melody")]
-        [ShopText("This melody awakens those who have fallen into a deep sleep.")]
+        [ShopText("This melody awakens those who have fallen into a deep sleep.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x73)]
         SongSonata,
@@ -837,7 +853,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE73, 0x80)]
         [ItemName("Goron Lullaby"), LocationName("Baby Goron"), RegionName("Goron Village")]
         [GossipLocationHint("a lonely child", "an elder's son"), GossipItemHint("a sleepy melody", "a father's lullaby")]
-        [ShopText("This melody blankets listeners in calm while making eyelids grow heavy.")]
+        [ShopText("This melody blankets listeners in calm while making eyelids grow heavy.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x74)]
         SongLullaby,
@@ -845,7 +861,7 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE72, 0x01)]
         [ItemName("New Wave Bossa Nova"), LocationName("Baby Zoras"), RegionName("Great Bay Coast")]
         [GossipLocationHint("the lost children", "the pirates' loot"), GossipItemHint("an ocean roar", "a song of newborns")]
-        [ShopText("It's the melody taught by the Zora children that invigorates singing voices.")]
+        [ShopText("It's the melody taught by the Zora children that invigorates singing voices.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x75)]
         SongNewWaveBossaNova,
@@ -853,15 +869,15 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE72, 0x02)]
         [ItemName("Elegy of Emptiness"), LocationName("Ikana King"), RegionName("Ikana Castle")]
         [GossipLocationHint("a fallen king", "a battle in darkness"), GossipItemHint("empty shells", "skin shedding")]
-        [ShopText("It's a mystical song that allows you to shed a shell shaped in your current image.")]
+        [ShopText("It's a mystical song that allows you to shed a shell shaped in your current image.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x76)]
         SongElegy,
 
         [StartingItem(0xC5CE72, 0x04)]
-        [ItemName("Oath to Order"), LocationName("Four Giants"), RegionName("Misc")]
+        [ItemName("Oath to Order"), LocationName("Boss Blue Warp"), RegionName("Misc")]
         [GossipLocationHint("cleansed evil", "a fallen evil"), GossipItemHint("a song of summoning", "a song of giants")]
-        [ShopText("This melody will call the giants at the right moment.")]
+        [ShopText("This melody will call the giants at the right moment.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x77)]
         SongOath,
@@ -1080,7 +1096,7 @@ namespace MMRando.GameObjects
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.TradingPostMain, 7)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.TradingPostPartTimer, 7)]
         [ShopText("Replenishes your life energy.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0xCD)]
         ShopItemTradingPostRedPotion,
 
@@ -1091,7 +1107,7 @@ namespace MMRando.GameObjects
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.TradingPostMain, 2)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.TradingPostPartTimer, 3)]
         [ShopText("Replenishes your magic power.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0xBB)]
         ShopItemTradingPostGreenPotion,
 
@@ -1102,7 +1118,7 @@ namespace MMRando.GameObjects
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.TradingPostMain, 3)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.TradingPostPartTimer, 6)]
         [ShopText("Use it to defend yourself.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0xBC)]
         ShopItemTradingPostShield,
 
@@ -1113,7 +1129,7 @@ namespace MMRando.GameObjects
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.TradingPostMain, 0)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.TradingPostPartTimer, 0)]
         [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0xBD)]
         ShopItemTradingPostFairy,
 
@@ -1167,7 +1183,7 @@ namespace MMRando.GameObjects
         [ShopRoom(ShopRoomAttribute.Room.WitchShop, 0x42)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.WitchShop, 2)]
         [ShopText("Replenishes both life energy and magic power.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0xC2)]
         ShopItemWitchBluePotion,
 
@@ -1177,7 +1193,7 @@ namespace MMRando.GameObjects
         [ShopRoom(ShopRoomAttribute.Room.WitchShop, 0x48)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.WitchShop, 0)]
         [ShopText("Replenishes your life energy.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0xC3)]
         ShopItemWitchRedPotion,
 
@@ -1187,7 +1203,7 @@ namespace MMRando.GameObjects
         [ShopRoom(ShopRoomAttribute.Room.WitchShop, 0x4A)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.WitchShop, 1)]
         [ShopText("Replenishes your magic power.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0xC4)]
         ShopItemWitchGreenPotion,
 
@@ -1240,7 +1256,7 @@ namespace MMRando.GameObjects
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.GoronShop, 2)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.GoronShopSpring, 2)]
         [ShopText("Replenishes your life energy.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0xC9)]
         ShopItemGoronRedPotion,
 
@@ -1250,7 +1266,7 @@ namespace MMRando.GameObjects
         [ShopRoom(ShopRoomAttribute.Room.ZoraShop, 0x4A)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.ZoraShop, 0)]
         [ShopText("Use it to defend yourself.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0xCA)]
         ShopItemZoraShield,
 
@@ -1270,7 +1286,7 @@ namespace MMRando.GameObjects
         [ShopRoom(ShopRoomAttribute.Room.ZoraShop, 0x46)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.ZoraShop, 2)]
         [ShopText("Replenishes your life energy.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0xCC)]
         ShopItemZoraRedPotion,
 
@@ -1366,10 +1382,10 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xF5)]
         ChestBadBatsGrottoPurpleRupee,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("5 Bombchu"), LocationName("Secret Shrine Grotto"), RegionName("Ikana Canyon")]
         [GossipLocationHint("a waterfall cave"), GossipItemHint("explosive mice")]
-        [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.")]
+        [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02080000 + 0x93, 0x02080000 + 0x1E3, 0x02080000 + 0x2EB)]
         [GetItemIndex(0xD1)]
         ChestIkanaSecretShrineGrotto,
@@ -1402,7 +1418,7 @@ namespace MMRando.GameObjects
         [ItemName("Silver Rupee"), LocationName("Pirates' Fortress Interior Guard Room Chest"), RegionName("Pirates' Fortress Interior")]
         [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 100 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x023BB000 + 0x56, ChestAttribute.AppearanceType.Normal)] // todo LargeGold????
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x023BB000 + 0x56, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0xFB)]
         ChestInsidePiratesFortressGuardSilverRupee,
 
@@ -1454,7 +1470,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xFC)]
         ChestBomberHideoutSilverRupee,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("Bombchu"), LocationName("Termina Field Pillar Grotto"), RegionName("Termina Field")]
         [GossipLocationHint("a hollow pillar"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
@@ -1518,7 +1534,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xEB)]
         ChestGreatBayCapeLedge2, //contents? 
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("Bombchu"), LocationName("Great Bay Cape Grotto"), RegionName("Great Bay Cape")]
         [GossipLocationHint("a beach cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
@@ -1574,9 +1590,9 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xF7)]
         ChestDogRacePurpleRupee,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("5 Bombchu"), LocationName("Ikana Graveyard Grotto"), RegionName("Ikana Graveyard")]
-        [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.")]
+        [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
         [GossipLocationHint("a circled cave"), GossipItemHint("explosive mice")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x0280D000 + 0x353, 0x0280D000 + 0x54B)]
         [GetItemIndex(0xD5)]
@@ -1630,12 +1646,13 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xF0)]
         ChestMountainVillage, //contents? 
 
-        [ItemName("Empty Bottle"), LocationName("Mountain Spring Grotto"), RegionName("Mountain Village")] // originally Red Rupee
-        [GossipLocationHint("the springtime"), GossipItemHint("an empty vessel", "a glass container")] // originally "currency", "money", "cash", "wealth", "riches and stuff")]
-        [ShopText("Carry various items in this.")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), GrottoChest(0x02BFC000 + 0x1F3, 0x02BFC000 + 0x2B3)] // todo change chest type?
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Mountain Spring Grotto"), RegionName("Mountain Village")]
+        [GossipLocationHint("the springtime"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02BFC000 + 0x1F3, 0x02BFC000 + 0x2B3)]
         [GetItemIndex(0xD8)]
-        ChestMountainVillageGrottoBottle, // originally RedRupee
+        ChestMountainVillageGrottoRedRupee,
 
         [Repeatable]
         [ItemName("Red Rupee"), LocationName("Path to Ikana Pillar Chest"), RegionName("Road to Ikana")]
@@ -1645,7 +1662,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xF1)]
         ChestToIkanaRedRupee,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("Bombchu"), LocationName("Path to Ikana Grotto"), RegionName("Road to Ikana")]
         [GossipLocationHint("a blocked cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
@@ -1661,7 +1678,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0xFD)]
         ChestInvertedStoneTowerSilverRupee,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("10 Bombchu"), LocationName("Inverted Stone Tower Middle Chest"), RegionName("Stone Tower")]
         [GossipLocationHint("a sky below"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
@@ -1669,7 +1686,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x10A)]
         ChestInvertedStoneTowerBombchu10,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("Magic Bean"), LocationName("Inverted Stone Tower Left Chest"), RegionName("Stone Tower")]
         [GossipLocationHint("a sky below"), GossipItemHint("a plant seed")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02BC9000 + 0x256, ChestAttribute.AppearanceType.Normal)]
@@ -1782,8 +1799,8 @@ namespace MMRando.GameObjects
         ChestSouthClockTownPurpleRupee,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Bank Reward #2"), RegionName("West Clock Town")]
-        [GossipLocationHint("being rich"), GossipItemHint("a segment of health")]
+        [ItemName("Piece of Heart"), LocationName("Bank Reward #3"), RegionName("West Clock Town")]
+        [GossipLocationHint("being rich"), GossipItemHint("a segment of health"), GossipCompetitiveHint(-1)]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x108)]
@@ -1848,7 +1865,7 @@ namespace MMRando.GameObjects
 
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Lab Fish"), RegionName("Great Bay Coast")]
-        [GossipLocationHint("feeding the fish"), GossipItemHint("a segment of health")]
+        [GossipLocationHint("feeding the fish"), GossipItemHint("a segment of health"), GossipCompetitiveHint]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x112)]
@@ -1959,42 +1976,42 @@ namespace MMRando.GameObjects
         HeartContainerStoneTower,
 
         //maps
-        [ItemName("Map: Clock Town"), LocationName("Clock Town Map Purchase"), RegionName("North Clock Town")]
+        [ItemName("Map of Clock Town"), LocationName("Clock Town Map Purchase"), RegionName("North Clock Town")]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of Clock Town.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)] // todo size??
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xB4)]
         ItemTingleMapTown,
 
-        [ItemName("Map: Woodfall"), LocationName("Woodfall Map Purchase"), RegionName("Road to Southern Swamp")]
+        [ItemName("Map of Woodfall"), LocationName("Woodfall Map Purchase"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the south.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xB5)]
         ItemTingleMapWoodfall,
 
-        [ItemName("Map: Snowhead"), LocationName("Snowhead Map Purchase"), RegionName("Road to Southern Swamp")]
+        [ItemName("Map of Snowhead"), LocationName("Snowhead Map Purchase"), RegionName("Road to Southern Swamp")]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the north.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xB6)]
         ItemTingleMapSnowhead,
 
-        [ItemName("Map: Romani Ranch"), LocationName("Romani Ranch Map Purchase"), RegionName("Milk Road")]
+        [ItemName("Map of Romani Ranch"), LocationName("Romani Ranch Map Purchase"), RegionName("Milk Road")]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the ranch.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xB7)]
         ItemTingleMapRanch,
 
-        [ItemName("Map: Great Bay"), LocationName("Great Bay Map Purchase"), RegionName("Milk Road")]
+        [ItemName("Map of Great Bay"), LocationName("Great Bay Map Purchase"), RegionName("Milk Road")]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the west.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0xB8)]
         ItemTingleMapGreatBay,
 
-        [ItemName("Map: Stone Tower"), LocationName("Stone Tower Map Purchase"), RegionName("Great Bay Coast")]
+        [ItemName("Map of Stone Tower"), LocationName("Stone Tower Map Purchase"), RegionName("Great Bay Coast")]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the east.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -2002,7 +2019,7 @@ namespace MMRando.GameObjects
         ItemTingleMapStoneTower,
 
         //oops I forgot one
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("Bombchu"), LocationName("Goron Racetrack Grotto"), RegionName("Twin Islands")]
         [GossipLocationHint("a hidden cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
@@ -2014,7 +2031,7 @@ namespace MMRando.GameObjects
         [ItemName("Gold Rupee"), LocationName("Canyon Scrub Trade"), RegionName("Ikana Canyon")]
         [GossipLocationHint("an eastern merchant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 200 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)] // todo make gold chest?
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x125)]
         IkanaScrubGoldRupee,
 
@@ -2060,12 +2077,12 @@ namespace MMRando.GameObjects
         [StartingItem(0xC5CE53, 0x35)]
         [ItemName("Fierce Deity's Mask"), LocationName("Majora Child"), RegionName("The Moon")]
         [GossipLocationHint("the lonely child"), GossipItemHint("the wrath of a god")]
-        [ShopText("A mask that contains the merits of all masks.")]
+        [ShopText("A mask that contains the merits of all masks.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x7B)]
         MaskFierceDeity,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("30 Arrows"), LocationName("Link Trial Garo Master Chest"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
         [ShopText("Ammo for your bow.", isMultiple: true)]
@@ -2073,7 +2090,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x126)]
         ChestLinkTrialArrow30,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("10 Bombchu"), LocationName("Link Trial Iron Knuckle Chest"), RegionName("The Moon")]
         [GossipLocationHint("a masked child's game"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
@@ -2081,7 +2098,7 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x127)]
         ChestLinkTrialBombchu10,
 
-        [Repeatable]
+        [Repeatable, CycleRepeatable]
         [ItemName("10 Deku Nuts"), LocationName("Pre-Clocktown Chest"), RegionName("Beneath Clocktown")]
         [GossipLocationHint("the first chest"), GossipItemHint("a flashing impact")]
         [ShopText("Its flash blinds enemies.", isMultiple: true)]
@@ -2098,11 +2115,12 @@ namespace MMRando.GameObjects
         [GetItemIndex(0x37)]
         StartingSword,
 
+        [Repeatable, CycleRepeatable]
         [StartingItem(0xC5CE21, 0x10)]
         [ItemName("Hero's Shield"), LocationName("Starting Shield"), RegionName("Misc")]
         [GossipLocationHint("a new file", "a quest's inception"), GossipItemHint("a basic guard", "protection")]
         [ShopText("Use it to defend yourself.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x129)]
         StartingShield,
 
@@ -2129,5 +2147,1154 @@ namespace MMRando.GameObjects
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12B)]
         StartingHeartContainer2,
+
+        [Repeatable, Temporary, CycleRepeatable]
+        [ItemName("Milk"), LocationName("Ranch Cow #1"), RegionName("Romani Ranch")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x132)]
+        ItemRanchBarnMainCowMilk,
+
+        [Repeatable, Temporary, CycleRepeatable]
+        [ItemName("Milk"), LocationName("Ranch Cow #2"), RegionName("Romani Ranch")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x134)]
+        ItemRanchBarnOtherCowMilk1,
+
+        [Repeatable, Temporary, CycleRepeatable]
+        [ItemName("Milk"), LocationName("Ranch Cow #3"), RegionName("Romani Ranch")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x133)]
+        ItemRanchBarnOtherCowMilk2,
+
+        [Repeatable, Temporary, CycleRepeatable]
+        [ItemName("Milk"), LocationName("Cow Beneath the Well"), RegionName("Beneath the Well")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x135)]
+        ItemWellCowMilk,
+
+        [Repeatable, Temporary, CycleRepeatable]
+        [ItemName("Milk"), LocationName("Termina Grotto Cow #1"), RegionName("Termina Field")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x136)]
+        ItemTerminaGrottoCowMilk1,
+
+        [Repeatable, Temporary, CycleRepeatable]
+        [ItemName("Milk"), LocationName("Termina Grotto Cow #2"), RegionName("Termina Field")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x137)]
+        ItemTerminaGrottoCowMilk2,
+
+        [Repeatable, Temporary, CycleRepeatable]
+        [ItemName("Milk"), LocationName("Great Bay Coast Grotto Cow #1"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x138)]
+        ItemCoastGrottoCowMilk1,
+
+        [Repeatable, Temporary, CycleRepeatable]
+        [ItemName("Milk"), LocationName("Great Bay Coast Grotto Cow #2"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x139)]
+        ItemCoastGrottoCowMilk2,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Near Ceiling"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x13A)]
+        CollectibleSwampSpiderToken1,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Near Ceiling"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x13B)]
+        CollectibleSwampSpiderToken2,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Torch"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x13C)]
+        CollectibleSwampSpiderToken3,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Pillar"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x13E)]
+        CollectibleSwampSpiderToken4,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Jar"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x13F)]
+        CollectibleSwampSpiderToken5,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Grass 1"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x140)]
+        CollectibleSwampSpiderToken6,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Grass 2"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x141)]
+        CollectibleSwampSpiderToken7,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Water"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x142)]
+        CollectibleSwampSpiderToken8,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Lower Left Soft Soil"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x143)]
+        CollectibleSwampSpiderToken9,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Crate 1"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x144)]
+        CollectibleSwampSpiderToken10,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Upper Soft Soil"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x145)]
+        CollectibleSwampSpiderToken11,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Lower Right Soft Soil"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x146)]
+        CollectibleSwampSpiderToken12,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Lower Wall"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x147)]
+        CollectibleSwampSpiderToken13,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room On Monument"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x148)]
+        CollectibleSwampSpiderToken14,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Pillar"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x149)]
+        CollectibleSwampSpiderToken15,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Pot 1"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x14A)]
+        CollectibleSwampSpiderToken16,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Pot 2"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x14B)]
+        CollectibleSwampSpiderToken17,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Hive"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x14C)]
+        CollectibleSwampSpiderToken18,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Upper Pillar"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x14D)]
+        CollectibleSwampSpiderToken19,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Behind Vines"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x14E)]
+        CollectibleSwampSpiderToken20,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 1"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x14F)]
+        CollectibleSwampSpiderToken21,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Wall"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x150)]
+        CollectibleSwampSpiderToken22,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Hive 1"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x151)]
+        CollectibleSwampSpiderToken23,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 2"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x152)]
+        CollectibleSwampSpiderToken24,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Wall"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x153)]
+        CollectibleSwampSpiderToken25,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Hive"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x154)]
+        CollectibleSwampSpiderToken26,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Crate 2"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x155)]
+        CollectibleSwampSpiderToken27,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Hive 2"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x156)]
+        CollectibleSwampSpiderToken28,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 3"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x157)]
+        CollectibleSwampSpiderToken29,
+
+        [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Jar"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the swamp spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x158)]
+        CollectibleSwampSpiderToken30,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Behind Boat"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x159)]
+        CollectibleOceanSpiderToken1,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Hole Behind Picture"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x15A)]
+        CollectibleOceanSpiderToken2,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Hole Behind Cabinet"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x15B)]
+        CollectibleOceanSpiderToken3,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library On Corner Bookshelf"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x15C)]
+        CollectibleOceanSpiderToken4,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Ceiling Edge"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x15D)]
+        CollectibleOceanSpiderToken5,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Ceiling Plank"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x15E)]
+        CollectibleOceanSpiderToken6,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Ceiling Edge"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x15F)]
+        CollectibleOceanSpiderToken7,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Ceiling Edge"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x160)]
+        CollectibleOceanSpiderToken8,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Ceiling Web"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x161)]
+        CollectibleOceanSpiderToken9,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Behind Crate"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x162)]
+        CollectibleOceanSpiderToken10,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Jar"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x163)]
+        CollectibleOceanSpiderToken11,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Right Wall"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x164)]
+        CollectibleOceanSpiderToken12,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Left Wall"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x165)]
+        CollectibleOceanSpiderToken13,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Webbed Hole"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x166)]
+        CollectibleOceanSpiderToken14,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Web"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x167)]
+        CollectibleOceanSpiderToken15,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 1"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x168)]
+        CollectibleOceanSpiderToken16,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 2"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x169)]
+        CollectibleOceanSpiderToken17,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 3"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x16A)]
+        CollectibleOceanSpiderToken18,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Behind Picture"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x16B)]
+        CollectibleOceanSpiderToken19,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Picture"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x16C)]
+        CollectibleOceanSpiderToken20,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Bookcase 1"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x16D)]
+        CollectibleOceanSpiderToken21,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Crate"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x16E)]
+        CollectibleOceanSpiderToken22,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Webbed Pot"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x16F)]
+        CollectibleOceanSpiderToken23,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Upper Pot"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x170)]
+        CollectibleOceanSpiderToken24,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Pot"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x171)]
+        CollectibleOceanSpiderToken25,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Jar"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x172)]
+        CollectibleOceanSpiderToken26,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Lower Pot"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x173)]
+        CollectibleOceanSpiderToken27,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Bookcase 2"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x174)]
+        CollectibleOceanSpiderToken28,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Behind Skull 1"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x175)]
+        CollectibleOceanSpiderToken29,
+
+        [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Behind Skull 2"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
+        [ShopText("Collect 30 to lift the curse in the ocean spider house.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x176)]
+        CollectibleOceanSpiderToken30,
+
+        [ItemName("Clock Town Stray Fairy"), LocationName("Clock Town Stray Fairy"), RegionName("Laundry Pool")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x3B)]
+        CollectibleStrayFairyClockTown,
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Lower Right Bubble"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x177)]
+        CollectibleStrayFairyWoodfall1,
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Entrance Fairy"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x178)]
+        CollectibleStrayFairyWoodfall2,
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Upper Left Bubble"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x179)]
+        CollectibleStrayFairyWoodfall3,
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Pillar Bubble"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x17A)]
+        CollectibleStrayFairyWoodfall4,
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Deku Baba"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x17B)]
+        CollectibleStrayFairyWoodfall5,
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Poison Water Bubble"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x17C)]
+        CollectibleStrayFairyWoodfall6,
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Main Room Bubble"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x17D)]
+        CollectibleStrayFairyWoodfall7,
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Skulltula"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x17E)]
+        CollectibleStrayFairyWoodfall8,
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Upper Right Bubble"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x17F)]
+        CollectibleStrayFairyWoodfall9,
+
+        // 80 - 83 empty
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Main Room Switch"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x021FB000 + 0x28A, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [GetItemIndex(0x184)]
+        CollectibleStrayFairyWoodfall10,
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Entrance Platform"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02204000 + 0x23A, ChestAttribute.AppearanceType.Normal)]
+        [GetItemIndex(0x185)]
+        CollectibleStrayFairyWoodfall11,
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Dark Room"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0222E000 + 0x1AA, ChestAttribute.AppearanceType.AppearsClear)]
+        [GetItemIndex(0x186)]
+        CollectibleStrayFairyWoodfall12,
+
+        // 87 - 88 empty
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Jar Fairy"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x189)]
+        CollectibleStrayFairyWoodfall13,
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Bridge Room Hive"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x18A)]
+        CollectibleStrayFairyWoodfall14,
+
+        [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Platform Room Hive"), RegionName("Woodfall Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x18B)]
+        CollectibleStrayFairyWoodfall15,
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Snow Room Bubble"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x18C)]
+        CollectibleStrayFairySnowhead1,
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Ceiling Bubble"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x18D)]
+        CollectibleStrayFairySnowhead2,
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Dinolfos 1"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x18E)]
+        CollectibleStrayFairySnowhead3,
+
+        // 8F empty
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Bridge Room Ledge Bubble"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x190)]
+        CollectibleStrayFairySnowhead4,
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Bridge Room Pillar Bubble"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x191)]
+        CollectibleStrayFairySnowhead5,
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Dinolfos 2"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x192)]
+        CollectibleStrayFairySnowhead6,
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Map Room Fairy"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x193)]
+        CollectibleStrayFairySnowhead7,
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Map Room Ledge"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02346000 + 0x12A, ChestAttribute.AppearanceType.Normal)]
+        [GetItemIndex(0x194)]
+        CollectibleStrayFairySnowhead8,
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Basement"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0230C000 + 0x56A, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [GetItemIndex(0x195)]
+        CollectibleStrayFairySnowhead9,
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Twin Block"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02306000 + 0x11A, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [GetItemIndex(0x196)]
+        CollectibleStrayFairySnowhead10,
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Icicle Room Wall"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x197)]
+        CollectibleStrayFairySnowhead11,
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Main Room Wall"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0230C000 + 0x58A, ChestAttribute.AppearanceType.Normal)]
+        [GetItemIndex(0x198)]
+        CollectibleStrayFairySnowhead12,
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Pillar Freezards"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0232E000 + 0x20A, ChestAttribute.AppearanceType.AppearsClear)]
+        [GetItemIndex(0x199)]
+        CollectibleStrayFairySnowhead13,
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Ice Puzzle"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x022F2000 + 0x1AA, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [GetItemIndex(0x19A)]
+        CollectibleStrayFairySnowhead14,
+
+        // 9B - 9E empty
+
+        [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Crate"), RegionName("Snowhead Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x19F)]
+        CollectibleStrayFairySnowhead15,
+
+        // A0 - A3 empty
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Skulltula"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1A4)]
+        CollectibleStrayFairyGreatBay1,
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Pre-Boss Room Underwater Bubble"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1A5)]
+        CollectibleStrayFairyGreatBay2,
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Water Control Room Underwater Bubble"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1A6)]
+        CollectibleStrayFairyGreatBay3,
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Pre-Boss Room Bubble"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1A7)]
+        CollectibleStrayFairyGreatBay4,
+
+        // A8 empty
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Waterwheel Room Upper"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02940000 + 0x23A, ChestAttribute.AppearanceType.Normal)]
+        [GetItemIndex(0x1A9)]
+        CollectibleStrayFairyGreatBay5,
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Green Valve"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02959000 + 0x18E, ChestAttribute.AppearanceType.Normal)]
+        [GetItemIndex(0x1AA)]
+        CollectibleStrayFairyGreatBay6,
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Seesaw Room"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02945000 + 0x24A, ChestAttribute.AppearanceType.Normal)]
+        [GetItemIndex(0x1AB)]
+        CollectibleStrayFairyGreatBay7,
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Waterwheel Room Lower"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02940000 + 0x24A, ChestAttribute.AppearanceType.Normal)]
+        [GetItemIndex(0x1AC)]
+        CollectibleStrayFairyGreatBay8,
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Entrance Torches"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02962000 + 0x1F2, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [GetItemIndex(0x1AD)]
+        CollectibleStrayFairyGreatBay9,
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Bio Babas"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02911000 + 0xDA, ChestAttribute.AppearanceType.AppearsClear)]
+        [GetItemIndex(0x1AE)]
+        CollectibleStrayFairyGreatBay10,
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Underwater Barrel"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1AF)]
+        CollectibleStrayFairyGreatBay11,
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Whirlpool Jar"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1B0)]
+        CollectibleStrayFairyGreatBay12,
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Whirlpool Barrel"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1B1)]
+        CollectibleStrayFairyGreatBay13,
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Dexihands Jar"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1B2)]
+        CollectibleStrayFairyGreatBay14,
+
+        [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Ledge Jar"), RegionName("Great Bay Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1B3)]
+        CollectibleStrayFairyGreatBay15,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Mirror Sun Block"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02119000 + 0x282, ChestAttribute.AppearanceType.Normal, 0x0218B000 + 0x8A)]
+        [GetItemIndex(0x1B4)]
+        CollectibleStrayFairyStoneTower1,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Eyegore"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x020F1000 + 0x1A2, ChestAttribute.AppearanceType.AppearsSwitch, 0x02164000 + 0x17E)]
+        [GetItemIndex(0x1B5)]
+        CollectibleStrayFairyStoneTower2,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Lava Room Fire Ring"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02122000 + 0x1F6, ChestAttribute.AppearanceType.Normal, 0x02191000 + 0x7A)]
+        [GetItemIndex(0x1B6)]
+        CollectibleStrayFairyStoneTower3,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Updraft Fire Ring"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02104000 + 0x252, ChestAttribute.AppearanceType.AppearsSwitch, 0x02177000 + 0x29E)]
+        [GetItemIndex(0x1B7)]
+        CollectibleStrayFairyStoneTower4,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Mirror Sun Switch"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02119000 + 0x272, ChestAttribute.AppearanceType.AppearsSwitch, 0x0218B000 + 0x7A)]
+        [GetItemIndex(0x1B8)]
+        CollectibleStrayFairyStoneTower5,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Boss Warp"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x020E2000 + 0x162, ChestAttribute.AppearanceType.AppearsSwitch, 0x02156000 + 0xFA)]
+        [GetItemIndex(0x1B9)]
+        CollectibleStrayFairyStoneTower6,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Wizzrobe"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0210F000 + 0x1F2, ChestAttribute.AppearanceType.AppearsSwitch, 0x02182000 + 0x1EE)]
+        [GetItemIndex(0x1BA)]
+        CollectibleStrayFairyStoneTower7,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Death Armos"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x020E2000 + 0x172, ChestAttribute.AppearanceType.AppearsSwitch, 0x02156000 + 0x10A)]
+        [GetItemIndex(0x1BB)]
+        CollectibleStrayFairyStoneTower8,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Updraft Frozen Eye"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02104000 + 0x262, ChestAttribute.AppearanceType.AppearsSwitch, 0x02177000 + 0x2AE)]
+        [GetItemIndex(0x1BC)]
+        CollectibleStrayFairyStoneTower9,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Thin Bridge"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0211D000 + 0x1E2, ChestAttribute.AppearanceType.AppearsSwitch, 0x0218C000 + 0x25E)]
+        [GetItemIndex(0x1BD)]
+        CollectibleStrayFairyStoneTower10,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Basement Ledge"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0210F000 + 0x212, ChestAttribute.AppearanceType.Normal, 0x02182000 + 0x20E)]
+        [GetItemIndex(0x1BE)]
+        CollectibleStrayFairyStoneTower11,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Statue Eye"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x020E2000 + 0x182, ChestAttribute.AppearanceType.AppearsSwitch, 0x02156000 + 0x11A)]
+        [GetItemIndex(0x1BF)]
+        CollectibleStrayFairyStoneTower12,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Underwater"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02104000 + 0x272, ChestAttribute.AppearanceType.AppearsSwitch, 0x02177000 + 0x2BE)]
+        [GetItemIndex(0x1C0)]
+        CollectibleStrayFairyStoneTower13,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Bridge Crystal"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x020F1000 + 0x1B2, ChestAttribute.AppearanceType.AppearsSwitch, 0x02164000 + 0x18E)]
+        [GetItemIndex(0x1C1)]
+        CollectibleStrayFairyStoneTower14,
+
+        [ItemName("Stone Tower Stray Fairy"), LocationName("Stone Tower Lava Room Ledge"), RegionName("Stone Tower Temple")]
+        [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
+        [ShopText("Collect 15 and return them to the Fairy Fountain in Stone Tower.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02122000 + 0x206, ChestAttribute.AppearanceType.Normal, 0x02191000 + 0x8A)]
+        [GetItemIndex(0x1C2)]
+        CollectibleStrayFairyStoneTower15,
+
+        [RupeeRepeatable]
+        [Repeatable]
+        [ItemName("Purple Rupee"), LocationName("Lottery"), RegionName("West Clock Town")]
+        [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 50 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x86)]
+        MundaneItemLotteryPurpleRupee,
+
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Bank Reward #2"), RegionName("West Clock Town")]
+        [GossipLocationHint(""), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x13D)]
+        MundaneItemBankBlueRupee,
+
+        [Repeatable, CycleRepeatable]
+        [ItemName("Chateau Romani"), LocationName("Milk Bar Chateau"), RegionName("East Clock Town")]
+        [GossipLocationHint("a town shop"), GossipItemHint("a dairy product", "an adult beverage")]
+        [ShopText("Drink it to get lasting stamina for your magic power.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x180)]
+        ShopItemMilkBarChateau,
+
+        [Repeatable, CycleRepeatable]
+        [ItemName("Milk"), LocationName("Milk Bar Milk"), RegionName("East Clock Town")]
+        [GossipLocationHint("a town shop"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x181)]
+        ShopItemMilkBarMilk,
+
+        [RupeeRepeatable]
+        [Repeatable]
+        [ItemName("Purple Rupee"), LocationName("Deku Playground Any Day"), RegionName("North Clock Town")]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 50 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x182)]
+        MundaneItemDekuPlaygroundPurpleRupee,
+
+        [RupeeRepeatable]
+        [Repeatable]
+        [ItemName("Purple Rupee"), LocationName("Honey and Darling Any Day"), RegionName("East Clock Town")]
+        [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 50 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x183)]
+        MundaneItemHoneyAndDarlingPurpleRupee,
+
+        [RupeeRepeatable]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Kotake Mushroom Sale"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a sleeping witch", "a southern merchant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x187)]
+        MundaneItemKotakeMushroomSaleRedRupee,
+
+        [RupeeRepeatable]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Pictograph Contest Standard Photo"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a swamp game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x188)]
+        MundaneItemPictographContestBlueRupee,
+
+        [RupeeRepeatable]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Pictograph Contest Good Photo"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a swamp game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x18F)]
+        MundaneItemPictographContestRedRupee,
+
+        [Repeatable, CycleRepeatable]
+        [ItemName("Magic Bean"), LocationName("Swamp Scrub Purchase"), RegionName("Southern Swamp")]
+        [GossipLocationHint("a southern merchant"), GossipItemHint("a plant seed")]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [ShopText("Plant it in soft soil.")]
+        [GetItemIndex(0x19B)]
+        ShopItemBusinessScrubMagicBean,
+
+        [Repeatable, CycleRepeatable]
+        [ItemName("Green Potion"), LocationName("Ocean Scrub Purchase"), RegionName("Zora Hall")]
+        [GossipLocationHint("a western merchant"), GossipItemHint("a magic potion", "a green drink")]
+        [ShopText("Replenishes your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x19C)]
+        ShopItemBusinessScrubGreenPotion,
+
+        [Repeatable, CycleRepeatable]
+        [ItemName("Blue Potion"), LocationName("Canyon Scrub Purchase"), RegionName("Ikana Canyon")]
+        [GossipLocationHint("an eastern merchant"), GossipItemHint("consumable strength", "a magic potion", "a blue drink")]
+        [ShopText("Replenishes both life energy and magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x19D)]
+        ShopItemBusinessScrubBluePotion,
+
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Zora Hall Stage Lights"), RegionName("Zora Hall")]
+        [GossipLocationHint("a good deed"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x19E)]
+        MundaneItemZoraStageLightsBlueRupee,
+
+        [Repeatable, CycleRepeatable]
+        [ItemName("Milk"), LocationName("Gorman Bros Milk Purchase"), RegionName("Milk Road")]
+        [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("a dairy product", "the produce of cows")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x1A0)]
+        ShopItemGormanBrosMilk,
+
+        [Repeatable]
+        [ItemName("Purple Rupee"), LocationName("Ocean Spider House Day 2 Reward"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a gold spider"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 50 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1A2)]
+        MundaneItemOceanSpiderHouseDay2PurpleRupee,
+
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Ocean Spider House Day 3 Reward"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a gold spider"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1A3)]
+        MundaneItemOceanSpiderHouseDay3RedRupee,
+
+        [RupeeRepeatable]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Bad Pictograph of Lulu"), RegionName("Zora Hall")]
+        [GossipLocationHint("a fan"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1A8)]
+        MundaneItemLuluBadPictographBlueRupee,
+
+        [RupeeRepeatable]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Good Pictograph of Lulu"), RegionName("Zora Hall")]
+        [GossipLocationHint("a fan"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1C3)]
+        MundaneItemLuluGoodPictographRedRupee,
+
+        [RupeeRepeatable]
+        [Repeatable]
+        [ItemName("Purple Rupee"), LocationName("Treasure Chest Game Human"), RegionName("East Clock Town")]
+        [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 50 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0xFA8, ChestAttribute.AppearanceType.AppearsSwitch, 0x00F43F10 + 0xFB0)]
+        [GetItemIndex(0x1C4)]
+        MundaneItemTreasureChestGamePurpleRupee,
+
+        [RupeeRepeatable]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Treasure Chest Game Zora"), RegionName("East Clock Town")]
+        [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0xFAC, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [GetItemIndex(0x1C5)]
+        MundaneItemTreasureChestGameRedRupee,
+
+        [RupeeRepeatable]
+        [Repeatable, CycleRepeatable]
+        [ItemName("10 Deku Nuts"), LocationName("Treasure Chest Game Deku"), RegionName("East Clock Town")]
+        [GossipLocationHint("a town game"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0xFAE, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [GetItemIndex(0x1C6)]
+        MundaneItemTreasureChestGameDekuNuts,
+
+        [RupeeRepeatable]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Curiosity Shop Blue Rupee"), RegionName("West Clock Town")]
+        [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1C7)]
+        MundaneItemCuriosityShopBlueRupee,
+
+        [RupeeRepeatable]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Curiosity Shop Red Rupee"), RegionName("West Clock Town")]
+        [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1C8)]
+        MundaneItemCuriosityShopRedRupee,
+
+        [RupeeRepeatable]
+        [Repeatable]
+        [ItemName("Purple Rupee"), LocationName("Curiosity Shop Purple Rupee"), RegionName("West Clock Town")]
+        [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 50 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1C9)]
+        MundaneItemCuriosityShopPurpleRupee,
+
+        [RupeeRepeatable]
+        [Repeatable]
+        [ItemName("Gold Rupee"), LocationName("Curiosity Shop Gold Rupee"), RegionName("West Clock Town")]
+        [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 200 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1CA)]
+        MundaneItemCuriosityShopGoldRupee,
+
+        [Repeatable]
+        [ItemName("Seahorse"), LocationName("Fisherman Pictograph"), RegionName("Great Bay Coast")]
+        [GossipLocationHint("a fisherman"), GossipItemHint("a sea creature")]
+        [ShopText("It wants to go back home to Pinnacle Rock.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [GetItemIndex(0x95)]
+        MundaneItemSeahorse,
+
+        //[GetItemIndex(0x1A1)]
+
     }
 }

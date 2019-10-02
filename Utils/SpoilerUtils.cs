@@ -33,6 +33,7 @@ namespace MMRando.Utils
                 NewDestinationIndices = randomized.NewDestinationIndices,
                 Logic = randomized.Logic,
                 CustomItemListString = settings.UseCustomItemList ? settings.CustomItemListString : null,
+                CustomStartingItemListString = settings.CustomStartingItemList.Any() ? settings.CustomStartingItemListString : null,
                 GossipHints = randomized.GossipQuotes?.ToDictionary(me => (GossipQuote) me.Id, (me) =>
                 {
                     var message = me.Message.Substring(1);
@@ -81,6 +82,10 @@ namespace MMRando.Utils
             if (spoiler.CustomItemListString != null)
             {
                 log.AppendLine($"{"Custom Item List:",-17} {spoiler.CustomItemListString}");
+            }
+            if (spoiler.CustomStartingItemListString != null)
+            {
+                log.AppendLine($"{"Custom Starting Item List:",-17} {spoiler.CustomStartingItemListString}");
             }
             log.AppendLine();
 

@@ -1,4 +1,5 @@
 ﻿using MMRando.Models.Rom;
+using MMRando.Models.SoundEffects;
 using MMRando.Models.Settings;
 using MMRando.GameObjects;
 using System;
@@ -11,6 +12,7 @@ namespace MMRando.Models
     {
         public SettingsObject Settings { get; private set; }
         public Random Random { get; private set; }
+
         public List<ItemObject> ItemList { get; set; }
         public List<MessageEntry> GossipQuotes { get; set; }
         public List<ItemLogic> Logic { get; set; }

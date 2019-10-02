@@ -17,7 +17,28 @@ namespace MMRando.Utils
                     && item <= Item.ShopItemZoraRedPotion)
                     || item == Item.ItemBombBag
                     || item == Item.UpgradeBigBombBag
-                    || item == Item.MaskAllNight;
+                    || item == Item.MaskAllNight
+                    || item == Item.ShopItemMilkBarChateau
+                    || item == Item.ShopItemMilkBarMilk
+                    || item == Item.ShopItemBusinessScrubMagicBean
+                    || item == Item.ShopItemBusinessScrubGreenPotion
+                    || item == Item.ShopItemBusinessScrubBluePotion
+                    || item == Item.ShopItemGormanBrosMilk;
+        }
+
+        public static bool IsCowItem(Item item)
+        {
+            return (item >= Item.ItemRanchBarnMainCowMilk && item <= Item.ItemCoastGrottoCowMilk2);
+        }
+
+        public static bool IsSkulltulaToken(Item item)
+        {
+            return item >= Item.CollectibleSwampSpiderToken1 && item <= Item.CollectibleOceanSpiderToken30;
+        }
+
+        public static bool IsStrayFairy(Item item)
+        {
+            return item >= Item.CollectibleStrayFairyClockTown && item <= Item.CollectibleStrayFairyStoneTower15;
         }
 
         public static int AddItemOffset(int itemId)

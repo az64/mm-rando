@@ -121,13 +121,12 @@
     <value>An item randomizer for The Legend of Zelda: Majora's Mask
 
 Original by DeathBasket
+Thanks to: Jimmie1717 and KiKe
 
 Maintained by the Majora's Mask Randomizer Community Discord.
 
-
-Thanks to: Jimmie1717 and KiKe
-currently developed by:
-ZoeyZolotova, Kjelli, ZMarotrix</value>
+Currently developed by: ZoeyZolotova
+Thanks to: mzxrules, Kjelli, ZMarotrix</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

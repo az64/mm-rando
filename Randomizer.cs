@@ -1,9 +1,11 @@
 using MMRando.Constants;
 using MMRando.Extensions;
+using MMRando.GameObjects;
 using MMRando.LogicMigrator;
 using MMRando.Models;
 using MMRando.Models.Rom;
 using MMRando.Models.Settings;
+using MMRando.Models.SoundEffects;
 using MMRando.Utils;
 using System;
 using System.Collections.Generic;
@@ -12,8 +14,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using MMRando.GameObjects;
 
 namespace MMRando
 {
@@ -54,8 +54,6 @@ namespace MMRando
         // Starting items should not be replaced by trade items, or items that can be downgraded.
         private readonly List<Item> ForbiddenStartingItems = new List<Item>
             {
-                Item.ChestMountainVillageGrottoBottle,
-
                 // Starting with Magic Bean or Powder Keg doesn't actually give you one,
                 // nor do you get one when you play Song of Time.
                 Item.ItemMagicBean,
@@ -194,74 +192,6 @@ namespace MMRando
             _randomized.NewDCMasks = newDCMasks;
         }
 
-        #region Sequences and BGM
-
-        private void BGMShuffle()
-        {
-            while (RomData.TargetSequences.Count > 0)
-            {
-                List<SequenceInfo> Unassigned = RomData.SequenceList.FindAll(u => u.Replaces == -1);
-
-                int targetIndex = Random.Next(RomData.TargetSequences.Count);
-                var targetSequence = RomData.TargetSequences[targetIndex];
-
-                while (true)
-                {
-                    int unassignedIndex = Random.Next(Unassigned.Count);
-
-                    if (Unassigned[unassignedIndex].Name.StartsWith("mm")
-                        & (Random.Next(100) < 50))
-                    {
-                        continue;
-                    }
-
-                    for (int i = 0; i < Unassigned[unassignedIndex].Type.Count; i++)
-                    {
-                        if (targetSequence.Type.Contains(Unassigned[unassignedIndex].Type[i]))
-                        {
-                            Unassigned[unassignedIndex].Replaces = targetSequence.Replaces;
-                            Debug.WriteLine(Unassigned[unassignedIndex].Name + " -> " + targetSequence.Name);
-                            RomData.TargetSequences.RemoveAt(targetIndex);
-                            break;
-                        }
-                        else if (i + 1 == Unassigned[unassignedIndex].Type.Count)
-                        {
-                            if ((Random.Next(30) == 0)
-                                && ((Unassigned[unassignedIndex].Type[0] & 8) == (targetSequence.Type[0] & 8))
-                                && (Unassigned[unassignedIndex].Type.Contains(10) == targetSequence.Type.Contains(10))
-                                && (!Unassigned[unassignedIndex].Type.Contains(16)))
-                            {
-                                Unassigned[unassignedIndex].Replaces = targetSequence.Replaces;
-                                Debug.WriteLine(Unassigned[unassignedIndex].Name + " -> " + targetSequence.Name);
-                                RomData.TargetSequences.RemoveAt(targetIndex);
-                                break;
-                            }
-                        }
-                    }
-
-                    if (Unassigned[unassignedIndex].Replaces != -1)
-                    {
-                        break;
-                    }
-                }
-            }
-
-            RomData.SequenceList.RemoveAll(u => u.Replaces == -1);
-        }
-
-        private void SortBGM()
-        {
-            if (!_settings.RandomizeBGM)
-            {
-                return;
-            }
-
-            SequenceUtils.ReadSequenceInfo();
-            BGMShuffle();
-        }
-
-        #endregion
-
         private void SetTatlColour()
         {
             if (_settings.TatlColorSchema == TatlColorSchema.Rainbow)
@@ -285,18 +215,35 @@ namespace MMRando
             }
         }
 
+        private void UpdateLogicForSettings()
+        {
+            if (_settings.CustomStartingItemList != null)
+            {
+                foreach (var itemObject in ItemList)
+                {
+                    itemObject.DependsOnItems?.RemoveAll(item => _settings.CustomStartingItemList.Contains(item));
+                    itemObject.Conditionals?.ForEach(c => c.RemoveAll(item => _settings.CustomStartingItemList.Contains(item)));
+                }
+            }
+            if (_settings.AddShopItems)
+            {
+                ItemList[(int)Item.ShopItemWitchBluePotion]?.DependsOnItems.Remove(Item.BottleCatchMushroom);
+            }
+            // todo handle progressive upgrades here.
+        }
+
         private void PrepareRulesetItemData()
         {
             ItemList = new List<ItemObject>();
 
             if (_settings.LogicMode == LogicMode.Casual
-                || _settings.LogicMode == LogicMode.GlitchedNoSetups
-                || _settings.LogicMode == LogicMode.GlitchedCommonTricks
                 || _settings.LogicMode == LogicMode.Glitched
                 || _settings.LogicMode == LogicMode.UserLogic)
             {
                 string[] data = ReadRulesetFromResources();
                 PopulateItemListFromLogicData(data);
+
+                UpdateLogicForSettings();
             }
             else
             {
@@ -434,14 +381,6 @@ namespace MMRando
             {
                 lines = Properties.Resources.REQ_CASUAL.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
             }
-            else if (mode == LogicMode.GlitchedNoSetups)
-            {
-                lines = Properties.Resources.REQ_GLITCH_NOSETUPS.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-            }
-            else if (mode == LogicMode.GlitchedCommonTricks)
-            {
-                lines = Properties.Resources.REQ_GLITCH_COMMONTRICKS.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-            }
             else if (mode == LogicMode.Glitched)
             {
                 lines = Properties.Resources.REQ_GLITCH.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
@@ -460,6 +399,7 @@ namespace MMRando
         private Dependence CheckDependence(Item currentItem, Item target, List<Item> dependencyPath)
         {
             Debug.WriteLine($"CheckDependence({currentItem}, {target})");
+
             if (ItemList[(int)currentItem].TimeNeeded == 0
                 && !ItemList.Any(io => (io.Conditionals?.Any(c => c.Contains(currentItem)) ?? false) || (io.DependsOnItems?.Contains(currentItem) ?? false)))
             {
@@ -904,6 +844,11 @@ namespace MMRando
 
         private bool CheckMatch(Item currentItem, Item target)
         {
+            if (_settings.CustomStartingItemList.Contains(currentItem))
+            {
+                return true;
+            }
+
             if (ItemUtils.IsStartingLocation(target) && ForbiddenStartingItems.Contains(currentItem))
             {
                 Debug.WriteLine($"{currentItem} cannot be a starting item.");
@@ -1019,7 +964,11 @@ namespace MMRando
             PlaceSongs(itemPool);
             PlaceMasks(itemPool);
             PlaceRegularItems(itemPool);
+            PlaceSkulltulaTokens(itemPool);
+            PlaceStrayFairies(itemPool);
+            PlaceMundaneRewards(itemPool);
             PlaceShopItems(itemPool);
+            PlaceCowMilk(itemPool);
             PlaceMoonItems(itemPool);
             PlaceHeartpieces(itemPool);
             PlaceOther(itemPool);
@@ -1056,6 +1005,39 @@ namespace MMRando
         private void PlaceTingleMaps(List<Item> itemPool)
         {
             for (var i = Item.ItemTingleMapTown; i <= Item.ItemTingleMapStoneTower; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places skulltula tokens in the randomization pool.
+        /// </summary>
+        private void PlaceSkulltulaTokens(List<Item> itemPool)
+        {
+            for (var i = Item.CollectibleSwampSpiderToken1; i <= Item.CollectibleOceanSpiderToken30; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places stray fairies in the randomization pool.
+        /// </summary>
+        private void PlaceStrayFairies(List<Item> itemPool)
+        {
+            for (var i = Item.CollectibleStrayFairyClockTown; i <= Item.CollectibleStrayFairyStoneTower15; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places mundane rewards in the randomization pool.
+        /// </summary>
+        private void PlaceMundaneRewards(List<Item> itemPool)
+        {
+            for (var i = Item.MundaneItemLotteryPurpleRupee; i <= Item.MundaneItemSeahorse; i++)
             {
                 PlaceItem(i, itemPool);
             }
@@ -1104,6 +1086,17 @@ namespace MMRando
         private void PlaceShopItems(List<Item> itemPool)
         {
             for (var i = Item.ShopItemTradingPostRedPotion; i <= Item.ShopItemZoraRedPotion; i++)
+            {
+                PlaceItem(i, itemPool);
+            }
+        }
+
+        /// <summary>
+        /// Places cow milk in the randomization pool
+        /// </summary>
+        private void PlaceCowMilk(List<Item> itemPool)
+        {
+            for (var i = Item.ItemRanchBarnMainCowMilk; i <= Item.ItemCoastGrottoCowMilk2; i++)
             {
                 PlaceItem(i, itemPool);
             }
@@ -1297,6 +1290,31 @@ namespace MMRando
             {
                 PreserveStartingItems();
             }
+
+            if (!_settings.AddCowMilk)
+            {
+                PreserveCowMilk();
+            }
+
+            if (!_settings.AddSkulltulaTokens)
+            {
+                PreserveSkulltulaTokens();
+            }
+
+            if (!_settings.AddStrayFairies)
+            {
+                PreserveStrayFairies();
+            }
+
+            if (!_settings.AddMundaneRewards)
+            {
+                PreserveMundaneRewards();
+            }
+
+            if (_settings.LogicMode == LogicMode.Casual)
+            {
+                PreserveGlitchedCowMilk();
+            }
         }
 
         /// <summary>
@@ -1355,6 +1373,13 @@ namespace MMRando
             ItemList[(int)Item.ItemBombBag].NewLocation = Item.ItemBombBag;
             ItemList[(int)Item.UpgradeBigBombBag].NewLocation = Item.UpgradeBigBombBag;
             ItemList[(int)Item.MaskAllNight].NewLocation = Item.MaskAllNight;
+
+            ItemList[(int)Item.ShopItemMilkBarChateau].NewLocation = Item.ShopItemMilkBarChateau;
+            ItemList[(int)Item.ShopItemMilkBarMilk].NewLocation = Item.ShopItemMilkBarMilk;
+            ItemList[(int)Item.ShopItemBusinessScrubMagicBean].NewLocation = Item.ShopItemBusinessScrubMagicBean;
+            ItemList[(int)Item.ShopItemBusinessScrubGreenPotion].NewLocation = Item.ShopItemBusinessScrubGreenPotion;
+            ItemList[(int)Item.ShopItemBusinessScrubBluePotion].NewLocation = Item.ShopItemBusinessScrubBluePotion;
+            ItemList[(int)Item.ShopItemGormanBrosMilk].NewLocation = Item.ShopItemGormanBrosMilk;
         }
 
         /// <summary>
@@ -1411,6 +1436,58 @@ namespace MMRando
         }
 
         /// <summary>
+        /// Keeps cow milk vanilla
+        /// </summary>
+        private void PreserveCowMilk()
+        {
+            for (var i = Item.ItemRanchBarnMainCowMilk; i <= Item.ItemCoastGrottoCowMilk2; i++)
+            {
+                ItemList[(int)i].NewLocation = i;
+            }
+        }
+
+        /// <summary>
+        /// Keeps skulltula tokens vanilla
+        /// </summary>
+        private void PreserveSkulltulaTokens()
+        {
+            for (var i = Item.CollectibleSwampSpiderToken1; i <= Item.CollectibleOceanSpiderToken30; i++)
+            {
+                ItemList[(int)i].NewLocation = i;
+            }
+        }
+
+        /// <summary>
+        /// Keeps stray fairies vanilla
+        /// </summary>
+        private void PreserveStrayFairies()
+        {
+            for (var i = Item.CollectibleStrayFairyClockTown; i <= Item.CollectibleStrayFairyStoneTower15; i++)
+            {
+                ItemList[(int)i].NewLocation = i;
+            }
+        }
+
+        private void PreserveMundaneRewards()
+        {
+            for (var i = Item.MundaneItemLotteryPurpleRupee; i <= Item.MundaneItemSeahorse; i++)
+            {
+                if (!ItemUtils.IsShopItem(i))
+                {
+                    ItemList[(int)i].NewLocation = i;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Keeps glitched cow milk vanilla
+        /// </summary>
+        private void PreserveGlitchedCowMilk()
+        {
+            ItemList[(int)Item.ItemRanchBarnOtherCowMilk2].NewLocation = Item.ItemRanchBarnOtherCowMilk2;
+        }
+
+        /// <summary>
         /// Randomizes songs with other songs
         /// </summary>
         private void ShuffleSongs()
@@ -1438,6 +1515,15 @@ namespace MMRando
         {
             // Keep shop items vanilla, unless custom item list contains a shop item
             _settings.AddShopItems = false;
+
+            // Keep cows vanilla, unless custom item list contains a cow
+            _settings.AddCowMilk = false;
+
+            // Keep skulltula tokens vanilla, unless custom item list contains a token
+            _settings.AddSkulltulaTokens = false;
+
+            // Keep stray fairies vanilla, unless custom item list contains a fairy
+            _settings.AddStrayFairies = false;
 
             // Make all items vanilla, and override using custom item list
             MakeAllItemsVanilla();
@@ -1491,11 +1577,30 @@ namespace MMRando
                 {
                     _settings.AddShopItems = true;
                 }
+
+                if (ItemUtils.IsCowItem((Item)selectedItem))
+                {
+                    _settings.AddCowMilk = true;
+                }
+
+                if (ItemUtils.IsSkulltulaToken((Item)selectedItem))
+                {
+                    _settings.AddSkulltulaTokens = true;
+                }
+
+                if (ItemUtils.IsStrayFairy((Item)selectedItem))
+                {
+                    _settings.AddStrayFairies = true;
+                }
             }
         }
 
         private ReadOnlyCollection<Item> GetRequiredItems(Item item, List<ItemLogic> itemLogic, List<Item> logicPath = null, Dictionary<Item, ReadOnlyCollection<Item>> checkedItems = null, Item? exclude = null)
         {
+            if (_settings.CustomStartingItemList.Contains(item))
+            {
+                return new List<Item>().AsReadOnly();
+            }
             if (item == exclude)
             {
                 return null;
@@ -1594,6 +1699,14 @@ namespace MMRando
                 worker.ReportProgress(30, "Shuffling items...");
                 RandomizeItems();
 
+                foreach (var itemLogic in _randomized.Logic)
+                {
+                    if (_settings.CustomStartingItemList.Contains((Item)itemLogic.ItemId) && !ItemList[itemLogic.ItemId].IsRandomized)
+                    {
+                        itemLogic.Acquired = true;
+                    }
+                }
+
                 _randomized.AllItemsOnPathToMoon = GetRequiredItems(Item.AreaMoonAccess, _randomized.Logic)?.Where(item => !item.IsFake()).ToList().AsReadOnly();
                 if (_randomized.AllItemsOnPathToMoon == null)
                 {
@@ -1625,12 +1738,6 @@ namespace MMRando
             //Randomize tatl colour
             SeedRNG();
             SetTatlColour();
-
-            worker.ReportProgress(45, "Randomizing Music...");
-
-            //Sort BGM
-            SeedRNG();
-            SortBGM();
 
             return _randomized;
         }

@@ -180,6 +180,7 @@ namespace MMRando.Utils
                 newa.Data = NewAudioSeq;
                 RomData.MMFileList.Add(newa);
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "reloc-audio");
+                RelocateSeq(RomData.MMFileList.Count - 1);
                 RomData.MMFileList[4].Data = new byte[0];
                 RomData.MMFileList[4].Cmp_Addr = -1;
                 RomData.MMFileList[4].Cmp_End = -1;
@@ -220,6 +221,13 @@ namespace MMRando.Utils
                 }
 
             }
+        }
+
+        private static void RelocateSeq(int f)
+        {
+            var fileTable = 0xF8B0;
+            var offset = (fileTable + (f * 0x10) + 8) & 0xFFFF;
+            ReadWriteUtils.WriteToROM(0x00C2739C, new byte[] { 0x3C, 0x08, 0x80, 0x0A, 0x8D, 0x05, (byte) (offset >> 8), (byte)(offset & 0xFF) });
         }
 
     }

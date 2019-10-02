@@ -25,6 +25,7 @@ namespace MMRando
         public ManualForm Manual { get; private set; }
         public LogicEditorForm LogicEditor { get; private set; }
         public ItemEditForm ItemEditor { get; private set; }
+        public StartingItemEditForm StartingItemEditor { get; private set; }
 
         private Randomizer _randomizer;
         private Builder _builder;
@@ -50,6 +51,11 @@ namespace MMRando
             ItemEditor = new ItemEditForm(_settings);
             ItemEditor.FormClosing += ItemEditor_FormClosing;
             UpdateCustomItemAmountLabel();
+
+            StartingItemEditor = new StartingItemEditForm(_settings);
+            StartingItemEditor.FormClosing += StartingItemEditor_FormClosing;
+            UpdateCustomStartingItemAmountLabel();
+
             LogicEditor = new LogicEditorForm();
             Manual = new ManualForm();
             About = new AboutForm();
@@ -83,6 +89,10 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cFairyRewards, "Enable great fairy rewards being placed in the randomization pool.\n\nIncludes Magic Power, Great Spin Attack, Extended Magic Power, Double Defense, Great Fairy's Sword and Great Fairy's Mask.");
             TooltipBuilder.SetTooltip(cNutChest, "Enable randomization of the pre-clocktown deku nut chest. Not available when using Casual logic.");
             TooltipBuilder.SetTooltip(cCrazyStartingItems, "Enable randomization of starting Sword, Shield, and two Heart Containers.");
+            TooltipBuilder.SetTooltip(cCowMilk, "Enable randomization of cow milk.\n\nOne inaccessible ranch cow is not included for Casual logic.");
+            TooltipBuilder.SetTooltip(cSpiders, "Enable randomization of golden skulltula tokens. Tokens will not reset to 0 after Song of Time.");
+            TooltipBuilder.SetTooltip(cStrayFairies, "Enable randomization of stray fairies. Stray fairies will not reset to 0 after Song of Time.");
+            TooltipBuilder.SetTooltip(cMundaneRewards, "Enable randomization of mundane rewards. See the Item List Editor for details.");
 
             // Gimmicks
             TooltipBuilder.SetTooltip(cDMult, "Select a damage mode, affecting how much damage Link takes:\n\n - Default: Link takes normal damage.\n - 2x: Link takes double damage.\n - 4x: Link takes quadruple damage.\n - 1-hit KO: Any damage kills Link.\n - Doom: Hardcore mode. Link's hearts are slowly being drained continuously.");
@@ -92,12 +102,13 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cClockSpeed, "Modify the speed of time.");
             TooltipBuilder.SetTooltip(cHideClock, "Clock UI will be hidden.");
             TooltipBuilder.SetTooltip(cNoStartingItems, "You will not start with any randomized starting items.");
+            TooltipBuilder.SetTooltip(cBlastCooldown, "Adjust the cooldown timer after using the Blast Mask.");
 
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
             TooltipBuilder.SetTooltip(cQText, "Enable quick text. Dialogs are fast-forwarded to choices/end of dialog.");
-            TooltipBuilder.SetTooltip(cBGM, "Randomize background music sequences that are played throughout the game.");
-            TooltipBuilder.SetTooltip(cNoMusic, "Mute background music.");
+            TooltipBuilder.SetTooltip(cSFX, "Randomize sound effects that are played throughout the game.");
+            TooltipBuilder.SetTooltip(cMusic, "Select a music option\n\n - Default: Vanilla background music.\n - Random: Randomized background music.\n - None: No background music.");
             TooltipBuilder.SetTooltip(cFreeHints, "Enable reading gossip stone hints without requiring the Mask of Truth.");
             TooltipBuilder.SetTooltip(cClearHints, "Gossip stone hints will give clear item and location names.");
             TooltipBuilder.SetTooltip(cNoDowngrades, "Downgrading items will be prevented.");
@@ -108,6 +119,10 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cLink, "Select a character model to replace Link's default model.");
             TooltipBuilder.SetTooltip(cTatl, "Select a color scheme to replace Tatl's default color scheme.");
             TooltipBuilder.SetTooltip(cGossipHints, "Select a Gossip Stone hint style\n\n - Default: Vanilla Gossip Stone hints.\n - Random: Hints will contain locations of random items.\n - Relevant: Hints will contain locations of items loosely related to the vanilla hint or the area.\n - Competitive: Guaranteed hints about time-consuming checks, 3 hints about locations with logically-required items, 2 hints about locations with no logically-required items.");
+            TooltipBuilder.SetTooltip(cSkipBeaver, "Modify Beavers to not have to race the younger beaver.");
+            TooltipBuilder.SetTooltip(cGoodDampeRNG, "Change Dampe ghost flames to always have two on the ground floor and one up the ladder.");
+            TooltipBuilder.SetTooltip(cGoodDogRaceRNG, "Make Gold Dog always win if you have the Mask of Truth.");
+            TooltipBuilder.SetTooltip(cFasterLabFish, "Change Lab Fish to only need to be fed one fish.");
         }
 
         #region Forms Code
@@ -288,8 +303,7 @@ namespace MMRando
             cDChests.Checked = _settings.AddDungeonItems;
             cShop.Checked = _settings.AddShopItems;
             cDEnt.Checked = _settings.RandomizeDungeonEntrances;
-            cBGM.Checked = _settings.RandomizeBGM;
-            cNoMusic.Checked = _settings.NoBGM;
+            cSFX.Checked = _settings.RandomizeSounds;
             cEnemy.Checked = _settings.RandomizeEnemies;
             cCutsc.Checked = _settings.ShortenCutscenes;
             cQText.Checked = _settings.QuickTextEnabled;
@@ -298,14 +312,22 @@ namespace MMRando
             cFairyRewards.Checked = _settings.AddFairyRewards;
             cClearHints.Checked = _settings.ClearHints;
             cHideClock.Checked = _settings.HideClock;
-            cClockSpeed.SelectedIndex = (int) _settings.ClockSpeed;
+            cClockSpeed.SelectedIndex = (int)_settings.ClockSpeed;
             cNoDowngrades.Checked = _settings.PreventDowngrades;
             cShopAppearance.Checked = _settings.UpdateShopAppearance;
             cNutChest.Checked = _settings.AddNutChest;
             cCrazyStartingItems.Checked = _settings.CrazyStartingItems;
+            cCowMilk.Checked = _settings.AddCowMilk;
+            cSpiders.Checked = _settings.AddSkulltulaTokens;
+            cMundaneRewards.Checked = _settings.AddMundaneRewards;
+            cStrayFairies.Checked = _settings.AddStrayFairies;
             cNoStartingItems.Checked = _settings.NoStartingItems;
             cEponaSword.Checked = _settings.FixEponaSword;
             cUpdateChests.Checked = _settings.UpdateChests;
+            cSkipBeaver.Checked = _settings.SpeedupBeavers;
+            cGoodDampeRNG.Checked = _settings.SpeedupDampe;
+            cGoodDogRaceRNG.Checked = _settings.SpeedupDogRace;
+            cFasterLabFish.Checked = _settings.SpeedupLabFish;
 
             cDMult.SelectedIndex = (int)_settings.DamageMode;
             cDType.SelectedIndex = (int)_settings.DamageEffect;
@@ -315,6 +337,8 @@ namespace MMRando
             cGravity.SelectedIndex = (int)_settings.MovementMode;
             cFloors.SelectedIndex = (int)_settings.FloorType;
             cGossipHints.SelectedIndex = (int)_settings.GossipHintStyle;
+            cBlastCooldown.SelectedIndex = (int)_settings.BlastMaskCooldown;
+            cMusic.SelectedIndex = (int)_settings.Music;
             bTunic.BackColor = _settings.TunicColor;
         }
 
@@ -346,6 +370,14 @@ namespace MMRando
             cNutChest.Visible = !cUserItems.Checked;
 
             cCrazyStartingItems.Visible = !cUserItems.Checked;
+
+            cCowMilk.Visible = !cUserItems.Checked;
+
+            cSpiders.Visible = !cUserItems.Checked;
+
+            cMundaneRewards.Visible = !cUserItems.Checked;
+
+            cStrayFairies.Visible = !cUserItems.Checked;
 
             bItemListEditor.Visible = cUserItems.Checked;
             tCustomItemList.Visible = cUserItems.Checked;
@@ -381,7 +413,7 @@ namespace MMRando
             UpdateSingleSetting(() => _settings.GeneratePatch = cPatch.Checked);
         }
 
-        private void cHTMLLog_CheckedChanged(object sender,EventArgs e)
+        private void cHTMLLog_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.GenerateHTMLLog = cHTMLLog.Checked);
         }
@@ -412,14 +444,34 @@ namespace MMRando
             UpdateSingleSetting(() => _settings.CrazyStartingItems = cCrazyStartingItems.Checked);
         }
 
-        private void cBGM_CheckedChanged(object sender, EventArgs e)
+        private void cCowMilk_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.RandomizeBGM = cBGM.Checked);
+            UpdateSingleSetting(() => _settings.AddCowMilk = cCowMilk.Checked);
         }
 
-        private void cNoMusic_CheckedChanged(object sender, EventArgs e)
+        private void cSpiders_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.NoBGM = cNoMusic.Checked);
+            UpdateSingleSetting(() => _settings.AddSkulltulaTokens = cSpiders.Checked);
+        }
+
+        private void cMundaneRewards_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.AddMundaneRewards = cMundaneRewards.Checked);
+        }
+
+        private void cStrayFairies_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.AddStrayFairies = cStrayFairies.Checked);
+        }
+
+        private void cSFX_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.RandomizeSounds = cSFX.Checked);
+        }
+
+        private void cMusic_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.Music = (Music)cMusic.SelectedIndex);
         }
 
         private void cBottled_CheckedChanged(object sender, EventArgs e)
@@ -537,6 +589,26 @@ namespace MMRando
             UpdateSingleSetting(() => _settings.TatlColorSchema = (TatlColorSchema)cTatl.SelectedIndex);
         }
 
+        private void cSkipBeaver_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.SpeedupBeavers = cSkipBeaver.Checked);
+        }
+
+        private void cGoodDampeRNG_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.SpeedupDampe = cGoodDampeRNG.Checked);
+        }
+
+        private void cGoodDogRaceRNG_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.SpeedupDogRace = cGoodDogRaceRNG.Checked);
+        }
+
+        private void cFasterLabFish_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.SpeedupLabFish = cFasterLabFish.Checked);
+        }
+
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -569,6 +641,12 @@ namespace MMRando
         private void cGossipHints_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.GossipHintStyle = (GossipHintStyle)cGossipHints.SelectedIndex);
+        }
+
+
+        private void cBlastCooldown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.BlastMaskCooldown = (BlastMaskCooldown)cBlastCooldown.SelectedIndex);
         }
 
         private void cVC_CheckedChanged(object sender, EventArgs e)
@@ -625,6 +703,28 @@ namespace MMRando
             }
         }
 
+        private void bStartingItemEditor_Click(object sender, EventArgs e)
+        {
+            StartingItemEditor.Show();
+        }
+
+        private void tStartingItemList_TextChanged(object sender, EventArgs e)
+        {
+            StartingItemEditor.UpdateChecks(tStartingItemList.Text);
+            UpdateCustomStartingItemAmountLabel();
+        }
+
+        private void StartingItemEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            tStartingItemList.Text = _settings.CustomStartingItemListString;
+            UpdateCustomStartingItemAmountLabel();
+        }
+
+        private void UpdateCustomStartingItemAmountLabel()
+        {
+            lCustomStartingItemAmount.Text = StartingItemEditor.ExternalLabel;
+        }
+
 
 
         /// <summary>
@@ -651,6 +751,10 @@ namespace MMRando
                 cNutChest.Enabled = false;
                 cCrazyStartingItems.Enabled = false;
                 cNoStartingItems.Enabled = false;
+                cCowMilk.Enabled = false;
+                cSpiders.Enabled = false;
+                cStrayFairies.Enabled = false;
+                cMundaneRewards.Enabled = false;
             }
             else
             {
@@ -669,9 +773,16 @@ namespace MMRando
                 cFairyRewards.Enabled = onMainTab;
                 cNutChest.Enabled = onMainTab && _settings.LogicMode != LogicMode.Casual;
                 cCrazyStartingItems.Enabled = onMainTab;
+                cCowMilk.Enabled = onMainTab;
+                cSpiders.Enabled = onMainTab;
+                cStrayFairies.Enabled = onMainTab;
+                cMundaneRewards.Enabled = onMainTab;
+
+                tStartingItemList.Enabled = onMainTab;
+                bStartingItemEditor.Enabled = onMainTab;
 
                 cNoStartingItems.Enabled = onMainTab && (_settings.AddOther || _settings.UseCustomItemList);
-                if (!cNoStartingItems.Enabled)
+                if (!cNoStartingItems.Enabled && onMainTab)
                 {
                     cNoStartingItems.Checked = false;
                     _settings.NoStartingItems = false;
@@ -720,8 +831,8 @@ namespace MMRando
         private void EnableAllControls(bool v)
         {
             cAdditional.Enabled = v;
-            cBGM.Enabled = v;
-            cNoMusic.Enabled = v;
+            cSFX.Enabled = v;
+            cMusic.Enabled = v;
             cBottled.Enabled = v;
             cCutsc.Enabled = v;
             cDChests.Enabled = v;
@@ -734,6 +845,7 @@ namespace MMRando
             cFloors.Enabled = v;
             cClockSpeed.Enabled = v;
             cGossipHints.Enabled = v;
+            cBlastCooldown.Enabled = v;
             cHideClock.Enabled = v;
             cGravity.Enabled = v;
             cLink.Enabled = v;
@@ -757,9 +869,19 @@ namespace MMRando
             cNutChest.Enabled = v;
             cCrazyStartingItems.Enabled = v;
             cNoStartingItems.Enabled = v;
+            cCowMilk.Enabled = v;
+            cSpiders.Enabled = v;
+            cStrayFairies.Enabled = v;
+            cMundaneRewards.Enabled = v;
             cPatch.Enabled = v;
             bApplyPatch.Enabled = v;
             cUpdateChests.Enabled = v;
+            tStartingItemList.Enabled = v;
+            bStartingItemEditor.Enabled = v;
+            cSkipBeaver.Enabled = v;
+            cGoodDampeRNG.Enabled = v;
+            cGoodDogRaceRNG.Enabled = v;
+            cFasterLabFish.Enabled = v;
 
             bopen.Enabled = v;
             bRandomise.Enabled = v;
@@ -786,6 +908,8 @@ namespace MMRando
             cTatl.SelectedIndex = 0;
             cGossipHints.SelectedIndex = 0;
             cClockSpeed.SelectedIndex = 0;
+            cBlastCooldown.SelectedIndex = 0;
+            cMusic.SelectedIndex = 0;
             cSpoiler.Checked = true;
             cSoS.Checked = true;
             cNoDowngrades.Checked = true;
@@ -859,7 +983,7 @@ namespace MMRando
                     MessageBox.Show($"Error randomizing logic: {ex.Message}{nl}{nl}Please try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                
+
                 if (_settings.GenerateSpoilerLog
                     && _settings.LogicMode != LogicMode.Vanilla)
                 {
@@ -963,12 +1087,12 @@ namespace MMRando
             cFloors.Enabled = v;
             cClockSpeed.Enabled = v;
             cHideClock.Enabled = v;
+            cBlastCooldown.Enabled = v;
 
 
             // Comfort/Cosmetics
             cCutsc.Enabled = v;
             cQText.Enabled = v;
-            cBGM.Enabled = v;
             cFreeHints.Enabled = v;
             cNoDowngrades.Enabled = v;
             cShopAppearance.Enabled = v;
@@ -976,6 +1100,11 @@ namespace MMRando
             cEponaSword.Enabled = v;
             cClearHints.Enabled = _settings.LogicMode != LogicMode.Vanilla && _settings.GossipHintStyle != GossipHintStyle.Default && v;
             cGossipHints.Enabled = _settings.LogicMode != LogicMode.Vanilla && v;
+
+            cSkipBeaver.Enabled = v;
+            cGoodDampeRNG.Enabled = v;
+            cGoodDogRaceRNG.Enabled = v;
+            cFasterLabFish.Enabled = v;
 
             cLink.Enabled = v;
 
