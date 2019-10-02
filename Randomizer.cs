@@ -242,8 +242,6 @@ namespace MMRando
             {
                 string[] data = ReadRulesetFromResources();
                 PopulateItemListFromLogicData(data);
-
-                UpdateLogicForSettings();
             }
             else
             {
@@ -950,6 +948,8 @@ namespace MMRando
             {
                 Setup();
             }
+
+            UpdateLogicForSettings();
 
             var itemPool = new List<Item>();
 
