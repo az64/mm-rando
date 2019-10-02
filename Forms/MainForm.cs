@@ -184,9 +184,20 @@ namespace MMRando
             tROMName.Text = _settings.InputROMFilename;
         }
 
+        private void bLoadLogic_Click(object sender, EventArgs e)
+        {
+            if(openLogic.ShowDialog() == DialogResult.OK)
+            {
+                _settings.UserLogicFileName = openLogic.FileName;
+                tbUserLogic.Text = Path.GetFileNameWithoutExtension(_settings.UserLogicFileName);
+            }
+        }
+
         private void Randomize()
         {
             if (_settings.GenerateROM && !ValidateInputFile()) return;
+
+            if (_settings.LogicMode == LogicMode.UserLogic && !ValidateLogicFile()) return;
 
             saveROM.FileName = !string.IsNullOrWhiteSpace(_settings.InputPatchFilename)
                 ? Path.ChangeExtension(Path.GetFileName(_settings.InputPatchFilename), "z64")
@@ -608,15 +619,18 @@ namespace MMRando
 
             var logicMode = (LogicMode)cMode.SelectedIndex;
 
-            if (logicMode == LogicMode.UserLogic
-                && openLogic.ShowDialog() != DialogResult.OK)
+            if (logicMode == LogicMode.UserLogic)
             {
-                cMode.SelectedIndex = 0;
-                logicMode = LogicMode.Casual;
+                tbUserLogic.Enabled = true;
+                bLoadLogic.Enabled = true;
+            }
+            else
+            {
+                tbUserLogic.Enabled = false;
+                bLoadLogic.Enabled = false;
             }
 
             UpdateSingleSetting(() => _settings.LogicMode = logicMode);
-            _settings.UserLogicFileName = openLogic.FileName;
         }
 
         private void cClockSpeed_SelectedIndexChanged(object sender, EventArgs e)
@@ -925,6 +939,9 @@ namespace MMRando
 
             tSeed.Text = _settings.Seed.ToString();
 
+            tbUserLogic.Enabled = false;
+            bLoadLogic.Enabled = false;
+
             var oldSettingsString = tSString.Text;
             UpdateSettingsString();
             _oldSettingsString = oldSettingsString;
@@ -982,6 +999,8 @@ namespace MMRando
             {
                 if (!ValidateInputFile()) return;
 
+                if (!ValidateLogicFile()) return;
+
                 if (!RomUtils.ValidateROM(_settings.InputROMFilename))
                 {
                     MessageBox.Show("Cannot verify input ROM is Majora's Mask (U).",
@@ -1018,6 +1037,17 @@ namespace MMRando
             if (!File.Exists(_settings.InputROMFilename))
             {
                 MessageBox.Show("Input ROM not found, cannot generate output.",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateLogicFile()
+        {
+            if (_settings.LogicMode == LogicMode.UserLogic && !File.Exists(_settings.UserLogicFileName))
+            {
+                MessageBox.Show("User Logic not found, please load User Logic or change logic mode.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
