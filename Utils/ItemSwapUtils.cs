@@ -123,7 +123,8 @@ namespace MMRando.Utils
             };
             ReadWriteUtils.Arr_Insert(data, 0, data.Length, fileData, offset);
             
-            if (item.IsCycleRepeatable() || (item.Name().Contains("Rupee") && location.IsRupeeRepeatable()))
+            // todo use Logic Editor to handle which locations should be repeatable and which shouldn't.
+            if ((item.IsCycleRepeatable() && location != Item.HeartPieceNotebookMayor) || (item.Name().Contains("Rupee") && location.IsRupeeRepeatable()))
             {
                 ReadWriteUtils.WriteToROM(cycle_repeat, (ushort)getItemIndex);
                 cycle_repeat += 2;
