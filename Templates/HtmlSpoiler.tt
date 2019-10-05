@@ -7,49 +7,51 @@
 <html>
 <head>
 <style>
-body.dark-mode {
-  background-color: #111;
-  color: #ccc;
-}
-body.dark-mode a {
-  color: #111;
-}
-body.dark-mode button {
-  background-color: #ddd;
-  color: #111;
-}
+    body.dark-mode {
+      background-color: #111;
+      color: #ccc;
+    }
+    body.dark-mode a {
+      color: #111;
+    }
+    body.dark-mode button {
+      background-color: #ddd;
+      color: #111;
+    }
 
-body.light-mode {
-  background-color: #eee;
-  color: #111;
-}
-body.light-mode a {
-  color: #111;
-}
-body.light-mode button {
-  background-color: #111;
-  color: #ccc;
-}
+    body.light-mode {
+      background-color: #eee;
+      color: #111;
+    }
+    body.light-mode a {
+      color: #111;
+    }
+    body.light-mode button {
+      background-color: #111;
+      color: #ccc;
+    }
 
-th{ text-align:left }
+    th{ text-align:left }
+    .region { text-align: center; font-weight: bold; }
     [data-content]:before { content: attr(data-content); }
+
 	.dark-mode .spoiler{ background-color:#ccc }
 	.dark-mode .spoiler:hover { background-color: #111;  }
 	.dark-mode .show-highlight .unavailable .newlocation { background-color: #500705; }
 	.dark-mode .show-highlight .acquired .newlocation { background-color: #69591f; }
 	.dark-mode .show-highlight .available .newlocation { background-color: #313776; }
-    .dark-mode .region { text-align: center; font-weight: bold; }
+
 	.light-mode .spoiler{ background-color:#111 }
 	.light-mode .spoiler:hover { background-color: #ccc;  }
 	.light-mode .show-highlight .unavailable .newlocation { background-color: #FF9999; }
 	.light-mode .show-highlight .acquired .newlocation { background-color: #99FF99; }
 	.light-mode .show-highlight .available .newlocation { background-color: #9999FF; }
-    .light-mode .region { text-align: center; font-weight: bold; }
 
 
+    #spoilerLogState { width: 560px; }
 </style>
 </head>
-<body id="body" class="light-mode">
+<body class="light-mode">
 <label><b>Version: </b></label><span><#= spoiler.Version #></span><br/>
 <label><b>Settings String: </b></label><span><#= spoiler.SettingsString #></span><br/>
 <label><b>Seed: </b></label><span><#= spoiler.Seed #></span><br/>
@@ -60,7 +62,7 @@ th{ text-align:left }
 <label><b>Custom Starting Item List: </b></label><span><#= spoiler.CustomStartingItemListString #></span><br/>
 <# } #>
 <br/>
-<button type="button" name="dark_light" onclick="toggleDarkLight()" title="Toggle dark/light mode">Toggle Dark Theme</button>
+<button type="button" onclick="toggleDarkLight()" title="Toggle dark/light mode">Toggle Dark Theme</button>
 <br/>
 <br/>
 <label><b>Spoiler Log State: </b></label><input id="spoilerLogState" type="text"/><br/>
@@ -69,9 +71,9 @@ th{ text-align:left }
 <h2>Dungeon Entrance Replacements</h2>
 <table border="1" class="item-replacements">
 	<tr>
-		<th class="light-mode">Entrance</th>
-	    <th class="light-mode"></th>
-		<th class="light-mode">New Destination</th>
+		<th>Entrance</th>
+	    <th></th>
+		<th>New Destination</th>
 	</tr>
 <#		 for (int i = 0; i < 4; i++) {
             var entrance = spoiler.Entrances[i];
@@ -88,9 +90,9 @@ th{ text-align:left }
 <input type="checkbox" id="highlight-checks"/> Highlight available checks
 <table border="1" class="item-replacements">
  <tr>
-     <th id="help" class="light-mode">Location</th>
-	 <th id="help" class="light-mode"></th>
-     <th id="help" class="light-mode"></th>
+     <th>Location</th>
+	 <th></th>
+     <th></th>
  </tr>
 <# foreach (var region in spoiler.ItemList.GroupBy(item => item.Region).OrderBy(g => g.Key)) {
 #>
@@ -107,9 +109,9 @@ th{ text-align:left }
 <h2>Item Locations</h2>
 <table border="1" id="item-locations">
  <tr>
-     <th id="help" class="light-mode">Item</th>
-	 <th id="help" class="light-mode"></th>
-     <th id="help" class="light-mode">Location</th>
+     <th>Item</th>
+	 <th></th>
+     <th>Location</th>
  </tr>
 <# foreach (var item in spoiler.ItemList.Where(item => !item.IsJunk)) {
 #>
@@ -125,8 +127,8 @@ th{ text-align:left }
 <h2>Gossip Stone Hints</h2>
 <table border="1">
 	<tr>
-		<th id="help" class="light-mode">Gossip Stone</th>
-		<th id="help" class="light-mode">Message</th>
+		<th>Gossip Stone</th>
+		<th>Message</th>
 	</tr>
 <#	foreach (var hint in spoiler.GossipHints.OrderBy(h => h.Key.ToString())) { 
 #>
@@ -306,9 +308,9 @@ th{ text-align:left }
 	});
 
     function toggleDarkLight() {
-	var body = document.getElementById("body");
-	var currentClassBody = body.className;
-	body.className = currentClassBody == "dark-mode" ? "light-mode" : "dark-mode";
+	    var body = document.getElementsByTagName('body')[0];
+	    var currentClassBody = body.className;
+	    body.className = currentClassBody === "dark-mode" ? "light-mode" : "dark-mode";
     }
 </script>
 </body>
