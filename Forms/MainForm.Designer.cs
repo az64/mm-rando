@@ -34,6 +34,7 @@ namespace MMRando
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.bopen = new System.Windows.Forms.Button();
             this.openROM = new System.Windows.Forms.OpenFileDialog();
+            this.openLogic = new System.Windows.Forms.OpenFileDialog();
             this.tROMName = new System.Windows.Forms.TextBox();
             this.cUserItems = new System.Windows.Forms.CheckBox();
             this.tSettings = new System.Windows.Forms.TabControl();
@@ -51,6 +52,8 @@ namespace MMRando
             this.lCustomStartingItemAmount = new System.Windows.Forms.Label();
             this.bStartingItemEditor = new System.Windows.Forms.Button();
             this.tStartingItemList = new System.Windows.Forms.TextBox();
+            this.tbUserLogic = new System.Windows.Forms.TextBox();
+            this.bLoadLogic = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cNoStartingItems = new System.Windows.Forms.CheckBox();
             this.cDEnt = new System.Windows.Forms.CheckBox();
@@ -131,7 +134,6 @@ namespace MMRando
             this.mSep1 = new System.Windows.Forms.ToolStripSeparator();
             this.mAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.openBROM = new System.Windows.Forms.OpenFileDialog();
-            this.openLogic = new System.Windows.Forms.OpenFileDialog();
             this.pProgress = new System.Windows.Forms.ProgressBar();
             this.bgWorker = new System.ComponentModel.BackgroundWorker();
             this.lStatus = new System.Windows.Forms.Label();
@@ -179,6 +181,10 @@ namespace MMRando
             // 
             this.openROM.Filter = "ROM files|*.z64";
             // 
+            // openLogic
+            // 
+            this.openLogic.Filter = "Logic File|*.txt";
+            // 
             // tROMName
             // 
             this.tROMName.Location = new System.Drawing.Point(109, 41);
@@ -209,7 +215,7 @@ namespace MMRando
             this.tSettings.Location = new System.Drawing.Point(0, 23);
             this.tSettings.Name = "tSettings";
             this.tSettings.SelectedIndex = 0;
-            this.tSettings.Size = new System.Drawing.Size(355, 437);
+            this.tSettings.Size = new System.Drawing.Size(355, 463);
             this.tSettings.TabIndex = 10;
             // 
             // tabROMSettings
@@ -339,6 +345,8 @@ namespace MMRando
             // tabMain
             // 
             this.tabMain.Controls.Add(this.groupBox4);
+            this.tabMain.Controls.Add(this.tbUserLogic);
+            this.tabMain.Controls.Add(this.bLoadLogic);
             this.tabMain.Controls.Add(this.groupBox3);
             this.tabMain.Controls.Add(this.groupBox2);
             this.tabMain.Controls.Add(this.lMode);
@@ -346,7 +354,7 @@ namespace MMRando
             this.tabMain.Location = new System.Drawing.Point(4, 25);
             this.tabMain.Name = "tabMain";
             this.tabMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMain.Size = new System.Drawing.Size(347, 408);
+            this.tabMain.Size = new System.Drawing.Size(347, 434);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main Settings";
             this.tabMain.UseVisualStyleBackColor = true;
@@ -356,7 +364,7 @@ namespace MMRando
             this.groupBox4.Controls.Add(this.lCustomStartingItemAmount);
             this.groupBox4.Controls.Add(this.bStartingItemEditor);
             this.groupBox4.Controls.Add(this.tStartingItemList);
-            this.groupBox4.Location = new System.Drawing.Point(10, 333);
+            this.groupBox4.Location = new System.Drawing.Point(10, 354);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(325, 72);
             this.groupBox4.TabIndex = 17;
@@ -394,13 +402,31 @@ namespace MMRando
             this.tStartingItemList.Text = "--";
             this.tStartingItemList.TextChanged += new System.EventHandler(this.tStartingItemList_TextChanged);
             // 
+            // tbUserLogic
+            // 
+            this.tbUserLogic.Location = new System.Drawing.Point(99, 43);
+            this.tbUserLogic.Name = "tbUserLogic";
+            this.tbUserLogic.ReadOnly = true;
+            this.tbUserLogic.Size = new System.Drawing.Size(219, 20);
+            this.tbUserLogic.TabIndex = 18;
+            // 
+            // bLoadLogic
+            // 
+            this.bLoadLogic.Location = new System.Drawing.Point(23, 41);
+            this.bLoadLogic.Name = "bLoadLogic";
+            this.bLoadLogic.Size = new System.Drawing.Size(73, 24);
+            this.bLoadLogic.TabIndex = 17;
+            this.bLoadLogic.Text = "Open Logic";
+            this.bLoadLogic.UseVisualStyleBackColor = true;
+            this.bLoadLogic.Click += new System.EventHandler(this.bLoadLogic_Click);
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.cNoStartingItems);
             this.groupBox3.Controls.Add(this.cDEnt);
             this.groupBox3.Controls.Add(this.cEnemy);
             this.groupBox3.Controls.Add(this.cMixSongs);
-            this.groupBox3.Location = new System.Drawing.Point(10, 255);
+            this.groupBox3.Location = new System.Drawing.Point(10, 281);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(324, 71);
             this.groupBox3.TabIndex = 16;
@@ -486,7 +512,7 @@ namespace MMRando
             this.groupBox2.Controls.Add(this.cShop);
             this.groupBox2.Controls.Add(this.cAdditional);
             this.groupBox2.Controls.Add(this.cMoonItems);
-            this.groupBox2.Location = new System.Drawing.Point(10, 49);
+            this.groupBox2.Location = new System.Drawing.Point(10, 80);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(325, 200);
             this.groupBox2.TabIndex = 15;
@@ -728,7 +754,7 @@ namespace MMRando
             this.lMode.BackColor = System.Drawing.Color.Transparent;
             this.lMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMode.ForeColor = System.Drawing.Color.Black;
-            this.lMode.Location = new System.Drawing.Point(19, 22);
+            this.lMode.Location = new System.Drawing.Point(25, 17);
             this.lMode.Name = "lMode";
             this.lMode.Size = new System.Drawing.Size(68, 13);
             this.lMode.TabIndex = 0;
@@ -744,7 +770,7 @@ namespace MMRando
             "Vanilla Layout",
             "User Logic",
             "No Logic"});
-            this.cMode.Location = new System.Drawing.Point(90, 18);
+            this.cMode.Location = new System.Drawing.Point(96, 13);
             this.cMode.Name = "cMode";
             this.cMode.Size = new System.Drawing.Size(222, 21);
             this.cMode.TabIndex = 1;
@@ -1384,7 +1410,7 @@ namespace MMRando
             // 
             this.mExit.Name = "mExit";
             this.mExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.mExit.Size = new System.Drawing.Size(134, 22);
+            this.mExit.Size = new System.Drawing.Size(135, 22);
             this.mExit.Text = "Exit";
             this.mExit.Click += new System.EventHandler(this.mExit_Click);
             // 
@@ -1439,7 +1465,7 @@ namespace MMRando
             // 
             // pProgress
             // 
-            this.pProgress.Location = new System.Drawing.Point(11, 584);
+            this.pProgress.Location = new System.Drawing.Point(11, 608);
             this.pProgress.Margin = new System.Windows.Forms.Padding(2);
             this.pProgress.Name = "pProgress";
             this.pProgress.Size = new System.Drawing.Size(339, 19);
@@ -1454,7 +1480,7 @@ namespace MMRando
             // 
             this.lStatus.AutoSize = true;
             this.lStatus.BackColor = System.Drawing.Color.Transparent;
-            this.lStatus.Location = new System.Drawing.Point(15, 565);
+            this.lStatus.Location = new System.Drawing.Point(15, 589);
             this.lStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lStatus.Name = "lStatus";
             this.lStatus.Size = new System.Drawing.Size(47, 13);
@@ -1511,7 +1537,7 @@ namespace MMRando
             this.cDummy.AutoSize = true;
             this.cDummy.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cDummy.Enabled = false;
-            this.cDummy.Location = new System.Drawing.Point(265, 561);
+            this.cDummy.Location = new System.Drawing.Point(265, 585);
             this.cDummy.Name = "cDummy";
             this.cDummy.Size = new System.Drawing.Size(80, 17);
             this.cDummy.TabIndex = 9;
@@ -1523,7 +1549,7 @@ namespace MMRando
             // 
             this.lHrule.AutoSize = true;
             this.lHrule.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lHrule.Location = new System.Drawing.Point(20, 449);
+            this.lHrule.Location = new System.Drawing.Point(20, 473);
             this.lHrule.Name = "lHrule";
             this.lHrule.Size = new System.Drawing.Size(325, 13);
             this.lHrule.TabIndex = 12;
@@ -1533,7 +1559,7 @@ namespace MMRando
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label5.Location = new System.Drawing.Point(20, 546);
+            this.label5.Location = new System.Drawing.Point(20, 570);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(325, 13);
             this.label5.TabIndex = 14;
@@ -1547,7 +1573,7 @@ namespace MMRando
             // 
             this.ttOutput.Controls.Add(this.tpOutputSettings);
             this.ttOutput.Controls.Add(this.tpPatchSettings);
-            this.ttOutput.Location = new System.Drawing.Point(4, 466);
+            this.ttOutput.Location = new System.Drawing.Point(4, 490);
             this.ttOutput.Name = "ttOutput";
             this.ttOutput.SelectedIndex = 0;
             this.ttOutput.Size = new System.Drawing.Size(354, 89);
@@ -1605,7 +1631,7 @@ namespace MMRando
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(355, 614);
+            this.ClientSize = new System.Drawing.Size(355, 636);
             this.Controls.Add(this.ttOutput);
             this.Controls.Add(this.lStatus);
             this.Controls.Add(this.cDummy);
@@ -1659,6 +1685,7 @@ namespace MMRando
         private System.Windows.Forms.Button bopen;
         private System.Windows.Forms.OpenFileDialog openROM;
         private System.Windows.Forms.OpenFileDialog openPatch;
+        private System.Windows.Forms.OpenFileDialog openLogic;
         private System.Windows.Forms.TextBox tROMName;
         private System.Windows.Forms.ComboBox cMode;
         private System.Windows.Forms.Label lMode;
@@ -1707,7 +1734,6 @@ namespace MMRando
         private System.Windows.Forms.ToolStripMenuItem mCustomise;
         private System.Windows.Forms.ToolStripMenuItem mLogicEdit;
         private System.Windows.Forms.CheckBox cUserItems;
-        private System.Windows.Forms.OpenFileDialog openLogic;
         private System.Windows.Forms.ProgressBar pProgress;
         private System.ComponentModel.BackgroundWorker bgWorker;
         private System.Windows.Forms.Label lStatus;
@@ -1754,6 +1780,8 @@ namespace MMRando
         private System.Windows.Forms.TextBox tCustomItemList;
         private System.Windows.Forms.Label lCustomItemAmount;
         private System.Windows.Forms.CheckBox cFairyRewards;
+        private System.Windows.Forms.TextBox tbUserLogic;
+        private System.Windows.Forms.Button bLoadLogic;
         private System.Windows.Forms.CheckBox cCowMilk;
         private System.Windows.Forms.CheckBox cSpiders;
         private System.Windows.Forms.CheckBox cStrayFairies;
