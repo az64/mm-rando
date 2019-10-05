@@ -227,7 +227,7 @@ namespace MMRando
             }
             if (_settings.AddShopItems)
             {
-                ItemList[(int)Item.ShopItemWitchBluePotion]?.DependsOnItems.Remove(Item.BottleCatchMushroom);
+                ItemList[(int)Item.ShopItemWitchBluePotion].DependsOnItems?.Remove(Item.BottleCatchMushroom);
             }
             // todo handle progressive upgrades here.
         }
