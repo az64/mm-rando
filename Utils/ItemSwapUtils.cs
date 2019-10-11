@@ -12,7 +12,7 @@ namespace MMRando.Utils
         const int BOTTLE_CATCH_TABLE = 0xCD7C08;
         static int cycle_repeat = 0;
         static int cycle_repeat_count_address = 0xC72CFA;
-        static ushort cycle_repeat_count = 0x72;
+        static ushort cycle_repeat_count = 0x74;
         static int GET_ITEM_TABLE = 0;
 
         public static void ReplaceGetItemTable(string ModsDir)
@@ -26,7 +26,7 @@ namespace MMRando.Utils
             ReadWriteUtils.WriteToROM(0xBDAEA8, (uint)last_file + 2);
             ResourceUtils.ApplyHack(ModsDir + "standing-hearts");
             ResourceUtils.ApplyHack(ModsDir + "fix-item-checks");
-            cycle_repeat = 0xC72DF2;
+            cycle_repeat = 0xC72DF4;
             SceneUtils.ResetSceneFlagMask();
         }
 
