@@ -145,6 +145,7 @@ namespace MMRando.GameObjects
         ItemFairySword,
 
         //[StartingItem(0xC5CE36, 0x12)]
+        [Repeatable] // specially handled to turn into Red Potion on subsequent times
         [ItemName("Bottle with Red Potion"), LocationName("Kotake"), RegionName("Southern Swamp")]
         [GossipLocationHint("the sleeping witch"), GossipItemHint("a vessel of health", "bottled fortitude")]
         [ShopText("Replenishes your life energy. Comes with an Empty Bottle.")]
@@ -153,6 +154,7 @@ namespace MMRando.GameObjects
         ItemBottleWitch,
 
         //[StartingItem(0xC5CE37, 0x12)]
+        [Repeatable] // specially handled to turn into Milk on subsequent times
         [ItemName("Bottle with Milk"), LocationName("Aliens Defense"), RegionName("Romani Ranch")]
         [GossipLocationHint("the ranch girl", "a good deed"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings. Comes with an Empty Bottle.")]
@@ -162,6 +164,7 @@ namespace MMRando.GameObjects
 
         [RupeeRepeatable]
         //[StartingItem(0xC5CE38, 0x12)]
+        [Repeatable] // specially handled to turn into Gold Dust on subsequent times
         [ItemName("Bottle with Gold Dust"), LocationName("Goron Race"), RegionName("Twin Islands")]
         [GossipLocationHint("a sporting event"), GossipItemHint("a gleaming powder"), GossipCompetitiveHint]
         [ShopText("It's very high quality. Comes with an Empty Bottle.")]
@@ -186,6 +189,7 @@ namespace MMRando.GameObjects
         ItemBottleDampe,
 
         //[StartingItem(0xC5CE3B, 0x12)]
+        [Repeatable] // specially handled to turn into Chateau Romani on subsequent times
         [ItemName("Bottle with Chateau Romani"), LocationName("Madame Aroma in Bar"), RegionName("East Clock Town")]
         [GossipLocationHint("an important lady"), GossipItemHint("a dairy product", "an adult beverage")]
         [ShopText("Drink it to get lasting stamina for your magic power. Comes with an Empty Bottle.")]
