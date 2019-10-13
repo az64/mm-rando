@@ -141,7 +141,7 @@
 0
 - Town Bomb Bag (30)
 38,39
-
+92;93;440
 0
 62
 - Mountain Bomb Bag (40)
@@ -255,8 +255,8 @@
 0
 16
 - Swordsman's School HP
-440
 
+23;24;274
 0
 31
 - Postbox HP
@@ -370,8 +370,8 @@
 0
 32
 - Blast Mask
-38,39,440
-
+38,39
+92;93;440
 0
 2
 - Stone Mask
@@ -2201,7 +2201,7 @@
 0
 - Any Sword
 
-23;24;274
+23;24;274;15
 0
 0
 - Any Bomb Bag
