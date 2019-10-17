@@ -366,7 +366,7 @@
 32
 - All Night Mask
 31
-
+120;10;440;92;93;119
 0
 32
 - Blast Mask
