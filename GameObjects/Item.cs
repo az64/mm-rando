@@ -2827,7 +2827,7 @@ namespace MMRando.GameObjects
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Icicle Room Wall"), RegionName("Snowhead Temple")]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0233A000 + 0x22A, ChestAttribute.AppearanceType.Normal)]
         [GetItemIndex(0x197)]
         CollectibleStrayFairySnowhead11,
 
