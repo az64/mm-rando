@@ -146,16 +146,88 @@ namespace MMRando.Models.SoundEffects
         TatlMessage = 0x6045,
 
         [Tags(Long)]
+        GoronSnoring = 0x604A,
+
+        [Tags(Long)]
         GormanBrosLongYell = 0x6054,
 
         [Tags(Short, LowHpBeep)]
         GormanBrosWhip1 = 0x6056,
 
         [Tags(Long)]
+        GreatFairyLaugh = 0x6058,
+
+        [Tags(Short)]
+        GreatFairySmile = 0x6059,
+
+        [Tags(Short, LowHpBeep)]
+        RutoCrash = 0x6060,
+
+        [Tags(Short, LowHpBeep)]
+        RutoDiscover = 0x6061,
+
+        [Tags(Short, LowHpBeep)]
+        RutoFall = 0x6062,
+
+        [Tags(Short, LowHpBeep)]
+        RutoLaugh = 0x6063,
+
+        [Tags(Short, LowHpBeep)]
+        RutoLift = 0x6064,
+
+        [Tags(Short, LowHpBeep)]
+        RutoThrow = 0x6065,
+
+        [Tags(Short, LowHpBeep)]
+        ZeldaHurry = 0x6069,
+
+        [Tags(Short, LowHpBeep)]
+        ZeldaMeet = 0x606A,
+
+        [Tags(Short, LowHpBeep)]
+        ZeldaQuestion = 0x606B,
+
+        [Tags(Short, LowHpBeep)]
+        ZeldaSigh = 0x606C,
+
+        [Tags(Short, LowHpBeep)]
+        ZeldaSmile = 0x606D,
+
+        [Tags(Short, LowHpBeep)]
+        ZeldaSuprise = 0x606E,
+
+        [Tags(Short, LowHpBeep)]
+        ZeldaThrow = 0x606F,
+
+        [Tags(Short, LowHpBeep)]
+        NaviListen = 0x6073,
+
+        [Tags(Short, LowHpBeep)]
+        ZeldaCry0 = 0x6075,
+
+        [Tags(Short, LowHpBeep)]
+        ZeldaCry1 = 0x6076,
+
+        [Tags(Short, LowHpBeep)]
+        ZeldaOpenDoor = 0x6077,
+
+        [Tags(Short, LowHpBeep)]
+        ReceptionistGiggle = 0x6078,
+
+        [Tags(Short, LowHpBeep)]
+        ReceptionistFlirt = 0x6079,
+
+        [Tags(Short, LowHpBeep)]
+        KingZoraMove = 0x607A,
+
+        [Tags(Long)]
         GormanBrosLaugh = 0x607C,
 
         [Tags(Short, LowHpBeep)]
         GoronPunch = 0x60C0,
+
+        [Tags(Long)]
+        DekuHorror = 0x6096,
 
         [Tags(Short, LowHpBeep)]
         JimHeh = 0x6100,
@@ -171,6 +243,24 @@ namespace MMRando.Models.SoundEffects
 
         [Tags(Short, LowHpBeep)]
         MamamuYanCelebratory = 0x6112,
+
+        [Tags(Short, LowHpBeep)]
+        RosaSigh0 = 0x611C,
+
+        [Tags(Short, LowHpBeep)]
+        RosaGiggle0 = 0x611C,
+
+        [Tags(Short, LowHpBeep)]
+        RosaSigh1 = 0x611C,
+
+        [Tags(Short, LowHpBeep)]
+        RosaGiggle1 = 0x611C,
+
+        [Tags(Short, LowHpBeep)]
+        RosaExasperated = 0x611C,
+
+        [Tags(Short, LowHpBeep)]
+        RosaLaugh = 0x611C,
 
         [Tags(Short, LowHpBeep)]
         CremiaInquisitive = 0x6126,
@@ -189,6 +279,21 @@ namespace MMRando.Models.SoundEffects
 
         [Tags(Long)]
         ReceptionistMmm = 0x612C,
+
+        [Tags(Long)]
+        RomaniScream = 0x612D,
+
+        [Tags(Short, LowHpBeep)]
+        RomaniGiggle = 0x612E,
+
+        [Tags(Short, LowHpBeep)]
+        PamelaScream = 0x6130,
+
+        [Tags(Long)]
+        PamelaFather = 0x6131,
+
+        [Tags(Long)]
+        PamelaSniffle = 0x6132,
 
         [Tags(Long)]
         StrayFairyHelpMe = 0x6138,
