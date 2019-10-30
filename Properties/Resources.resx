@@ -118,6 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ASM_PATCH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\asm\rom_patch.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="ASM_SYMBOLS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\asm\symbols.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
   <data name="ENEMIES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ENEMIES.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>

@@ -1,0 +1,11 @@
+{
+  "DPAD_CONFIG": "02F006D0",
+  "DPAD_DEFAULT": "02F006CC",
+  "DPAD_STATE": "02F006C8",
+  "DPAD_TEXTURE": "02F006D8",
+  "PAYLOAD_END": "02F00EE0",
+  "PAYLOAD_START": "02F00000",
+  "dpad_sprite": "02F006B8",
+  "heap_next": "02F006D4",
+  "setup_db": "02F00688"
+}

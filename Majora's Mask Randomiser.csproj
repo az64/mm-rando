@@ -896,6 +896,8 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>HtmlSpoiler.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\asm\rom_patch.txt" />
+    <None Include="Resources\asm\symbols.json" />
     <None Include="Resources\ENEMIES.txt" />
     <None Include="Resources\SEQS.txt" />
     <None Include="Resources\REQ_CASUAL.txt" />

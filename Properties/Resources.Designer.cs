@@ -59,7 +59,25 @@ namespace MMRando.Properties {
                 resourceCulture = value;
             }
         }
-        
+
+        /// <summary>
+        /// Assembly patch file as a <see cref="string"/>.
+        /// </summary>
+        internal static string ASM_PATCH {
+            get {
+                return ResourceManager.GetString("ASM_PATCH", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Assembly symbols JSON file as a <see cref="string"/>.
+        /// </summary>
+        internal static string ASM_SYMBOLS {
+            get {
+                return ResourceManager.GetString("ASM_SYMBOLS", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to -actor
         ///-obj
