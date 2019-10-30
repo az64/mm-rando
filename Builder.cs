@@ -1,4 +1,5 @@
-﻿using MMRando.Attributes;
+﻿using MMRando.Asm;
+using MMRando.Attributes;
 using MMRando.Constants;
 using MMRando.Extensions;
 using MMRando.GameObjects;
@@ -1034,6 +1035,16 @@ namespace MMRando
             RomData.MMFileList[1142].Data = data.ToArray();
         }
 
+        private void WriteAsmPatch()
+        {
+            // Load patcher from internal resource file
+            var patcher = Patcher.Load();
+            var options = _settings.PatcherOptions;
+
+            // Load the symbols and use them to apply the patch data
+            patcher.Apply(options);
+        }
+
         public void MakeROM(string InFile, string FileName, BackgroundWorker worker)
         {
             using (BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open, FileAccess.Read)))
@@ -1100,8 +1111,11 @@ namespace MMRando
 
                 worker.ReportProgress(69, "Writing startup...");
                 WriteStartupStrings();
+
+                worker.ReportProgress(70, "Writing ASM patch...");
+                WriteAsmPatch();
                 
-                worker.ReportProgress(70, _settings.GeneratePatch ? "Generating patch..." : "Computing hash...");
+                worker.ReportProgress(71, _settings.GeneratePatch ? "Generating patch..." : "Computing hash...");
                 hash = RomUtils.CreatePatch(_settings.GeneratePatch ? FileName : null, originalMMFileList);
             }
 

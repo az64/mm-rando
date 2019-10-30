@@ -65,6 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asm\DPad.cs" />
+    <Compile Include="Asm\Patcher.cs" />
+    <Compile Include="Asm\Symbols.cs" />
     <Compile Include="Attributes\ChestAttribute.cs" />
     <Compile Include="Attributes\ChestTypeAttribute.cs" />
     <Compile Include="Attributes\CycleRepeatableAttribute.cs" />
@@ -95,6 +98,12 @@
     </Compile>
     <Compile Include="Forms\JunkLocationEditForm.Designer.cs">
       <DependentUpon>JunkLocationEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DPadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DPadForm.Designer.cs">
+      <DependentUpon>DPadForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\StartingItemEditForm.cs">
       <SubType>Form</SubType>
@@ -234,6 +243,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DPadForm.resx">
+      <DependentUpon>DPadForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ItemEditForm.resx">
       <DependentUpon>ItemEditForm.cs</DependentUpon>

@@ -1,4 +1,5 @@
-﻿using MMRando.Forms;
+﻿using MMRando.Asm;
+using MMRando.Forms;
 using MMRando.Forms.Tooltips;
 using MMRando.Models;
 using MMRando.Models.Settings;
@@ -922,6 +923,20 @@ namespace MMRando
 
             tSeed.Enabled = v;
             tSString.Enabled = v;
+        }
+
+        private void mDPadConfig_Click(object sender, EventArgs e)
+        {
+            var items = DPadItem.All();
+            var presets = DPadPreset.All();
+            var config = _settings.PatcherOptions.DPadConfig;
+
+            DPadForm form = new DPadForm(presets, items, config);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                config.State = form.State;
+                config.Pad = form.Selected;
+            }
         }
 
         #endregion

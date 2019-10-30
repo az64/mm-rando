@@ -1,4 +1,5 @@
-﻿using MMRando.Utils;
+﻿using MMRando.Asm;
+using MMRando.Utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -80,6 +81,11 @@ namespace MMRando.Models.Settings
         /// Generate patch file
         /// </summary>
         public bool GeneratePatch { get; set; }
+
+        /// <summary>
+        /// Options for the Asm <see cref="Patcher"/>.
+        /// </summary>
+        public PatcherOptions PatcherOptions { get; set; } = new PatcherOptions();
 
         #endregion
 
