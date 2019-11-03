@@ -59,7 +59,10 @@ namespace MMRando.Utils
                 {
                     var preventRegions = new List<string> { "The Moon", "Bottle Catch", "Misc" };
                     var itemRegion = item.NewLocation.Value.Region();
-                    if (!string.IsNullOrWhiteSpace(itemRegion) && !preventRegions.Contains(itemRegion) && (randomizedResult.Settings.AddSongs || !ItemUtils.IsSong(item.Item)))
+                    if (!string.IsNullOrWhiteSpace(itemRegion)
+                        && !preventRegions.Contains(itemRegion)
+                        && (randomizedResult.Settings.AddSongs || !ItemUtils.IsSong(item.Item))
+                        && !randomizedResult.Settings.CustomJunkLocations.Contains(item.NewLocation.Value))
                     {
                         if (!itemsInRegions.ContainsKey(itemRegion))
                         {
@@ -74,7 +77,12 @@ namespace MMRando.Utils
                         continue;
                     }
 
-                    if (competitiveHintInfo.IsOnlyForUsefulItems && !randomizedResult.ItemsRequiredForMoonAccess.Contains(item.Item))
+                    if (randomizedResult.Settings.CustomJunkLocations.Contains(item.NewLocation.Value))
+                    {
+                        continue;
+                    }
+
+                    if (competitiveHintInfo.Condition != null && competitiveHintInfo.Condition(randomizedResult.Settings))
                     {
                         continue;
                     }

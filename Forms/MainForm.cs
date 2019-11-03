@@ -26,6 +26,7 @@ namespace MMRando
         public LogicEditorForm LogicEditor { get; private set; }
         public ItemEditForm ItemEditor { get; private set; }
         public StartingItemEditForm StartingItemEditor { get; private set; }
+        public JunkLocationEditForm JunkLocationEditor { get; private set; }
 
         private Randomizer _randomizer;
         private Builder _builder;
@@ -55,6 +56,10 @@ namespace MMRando
             StartingItemEditor = new StartingItemEditForm(_settings);
             StartingItemEditor.FormClosing += StartingItemEditor_FormClosing;
             UpdateCustomStartingItemAmountLabel();
+
+            JunkLocationEditor = new JunkLocationEditForm(_settings);
+            JunkLocationEditor.FormClosing += JunkLocationEditor_FormClosing;
+            UpdateJunkLocationAmountLabel();
 
             LogicEditor = new LogicEditorForm();
             Manual = new ManualForm();
@@ -725,6 +730,28 @@ namespace MMRando
             lCustomStartingItemAmount.Text = StartingItemEditor.ExternalLabel;
         }
 
+        private void bJunkLocationsEditor_Click(object sender, EventArgs e)
+        {
+            JunkLocationEditor.Show();
+        }
+
+        private void tJunkLocationsList_TextChanged(object sender, EventArgs e)
+        {
+            JunkLocationEditor.UpdateChecks(tJunkLocationsList.Text);
+            UpdateJunkLocationAmountLabel();
+        }
+
+        private void JunkLocationEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            tJunkLocationsList.Text = _settings.CustomJunkLocationsString;
+            UpdateJunkLocationAmountLabel();
+        }
+
+        private void UpdateJunkLocationAmountLabel()
+        {
+            lJunkLocationsAmount.Text = JunkLocationEditor.ExternalLabel;
+        }
+
 
 
         /// <summary>
@@ -755,6 +782,9 @@ namespace MMRando
                 cSpiders.Enabled = false;
                 cStrayFairies.Enabled = false;
                 cMundaneRewards.Enabled = false;
+
+                tJunkLocationsList.Enabled = false;
+                bJunkLocationsEditor.Enabled = false;
             }
             else
             {
@@ -780,6 +810,9 @@ namespace MMRando
 
                 tStartingItemList.Enabled = onMainTab;
                 bStartingItemEditor.Enabled = onMainTab;
+
+                tJunkLocationsList.Enabled = onMainTab && _settings.LogicMode != LogicMode.NoLogic;
+                bJunkLocationsEditor.Enabled = onMainTab && _settings.LogicMode != LogicMode.NoLogic;
 
                 cNoStartingItems.Enabled = onMainTab && (_settings.AddOther || _settings.UseCustomItemList);
                 if (!cNoStartingItems.Enabled && onMainTab)

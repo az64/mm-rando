@@ -90,6 +90,12 @@
     <Compile Include="Extensions\ItemExtensions.cs" />
     <Compile Include="Extensions\KeyEqualityComparer.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Forms\JunkLocationEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\JunkLocationEditForm.Designer.cs">
+      <DependentUpon>JunkLocationEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\StartingItemEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -246,6 +252,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewItemForm.resx">
       <DependentUpon>NewItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\JunkLocationEditForm.resx">
+      <DependentUpon>JunkLocationEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\StartingItemEditForm.resx">
       <DependentUpon>StartingItemEditForm.cs</DependentUpon>

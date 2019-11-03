@@ -210,6 +210,16 @@ namespace MMRando.Models.Settings
         /// </summary>
         public string CustomStartingItemListString { get; set; }
 
+        /// <summary>
+        /// List of locations that must be randomized to junk
+        /// </summary>
+        public List<GameObjects.Item> CustomJunkLocations { get; set; } = new List<GameObjects.Item>();
+
+        /// <summary>
+        ///  Custom junk location string
+        /// </summary>
+        public string CustomJunkLocationsString { get; set; }
+
         #endregion
 
         #region Gimmicks

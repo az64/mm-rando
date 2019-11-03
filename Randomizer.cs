@@ -247,6 +247,7 @@ namespace MMRando
             {
                 PopulateItemListWithoutLogic();
             }
+            ItemUtils.PrepareJunkItems(ItemList);
         }
 
         /// <summary>
@@ -398,8 +399,7 @@ namespace MMRando
         {
             Debug.WriteLine($"CheckDependence({currentItem}, {target})");
 
-            if (ItemList[(int)currentItem].TimeNeeded == 0
-                && !ItemList.Any(io => (io.Conditionals?.Any(c => c.Contains(currentItem)) ?? false) || (io.DependsOnItems?.Contains(currentItem) ?? false)))
+            if (ItemList[(int)currentItem].TimeNeeded == 0 && ItemUtils.IsJunk(currentItem))
             {
                 return Dependence.NotDependent;
             }
@@ -856,6 +856,11 @@ namespace MMRando
             if (_settings.LogicMode == LogicMode.NoLogic)
             {
                 return true;
+            }
+
+            if (_settings.CustomJunkLocations.Contains(target) && !ItemUtils.IsJunk(currentItem))
+            {
+                return false;
             }
 
             if (ForbiddenPlacedAt.ContainsKey(currentItem)

@@ -6,6 +6,7 @@ using System.Linq;
 using MMRando.Extensions;
 using MMRando.Attributes;
 using System.Collections.ObjectModel;
+using MMRando.Models;
 
 namespace MMRando.Utils
 {
@@ -136,6 +137,16 @@ namespace MMRando.Utils
                 .Cast<Item>()
                 .Where(item => item.HasAttribute<GetBottleItemIndicesAttribute>())
                 .SelectMany(item => item.GetAttribute<GetBottleItemIndicesAttribute>().Indices);
+        }
+
+        private static List<Item> _junkItems;
+        public static void PrepareJunkItems(List<ItemObject> itemList)
+        {
+            _junkItems = itemList.Where(io => io.Item.GetAttribute<ChestTypeAttribute>()?.Type == ChestTypeAttribute.ChestType.SmallWooden && !itemList.Any(other => (other.DependsOnItems?.Contains(io.Item) ?? false) || (other.Conditionals?.Any(c => c.Contains(io.Item)) ?? false))).Select(io => io.Item).ToList();
+        }
+        public static bool IsJunk(Item item)
+        {
+            return _junkItems.Contains(item);
         }
 
         public static readonly ReadOnlyCollection<ReadOnlyCollection<Item>> ForbiddenStartTogether = new List<List<Item>>()
