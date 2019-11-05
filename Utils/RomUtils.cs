@@ -162,8 +162,8 @@ namespace MMRando.Utils
                         }
                         if (fileIndex >= originalMMFiles.Count)
                         {
-                            writer.Write(ReadWriteUtils.Byteswap32((uint)file.Addr));
                             writer.Write(ReadWriteUtils.Byteswap32((uint)fileIndex));
+                            writer.Write(ReadWriteUtils.Byteswap32((uint)file.Addr));
                             writer.Write(ReadWriteUtils.Byteswap32((uint)0));
                             writer.Write(ReadWriteUtils.Byteswap32((uint)file.Data.Length));
                             writer.Write(file.Data);
@@ -173,8 +173,8 @@ namespace MMRando.Utils
                         var originalFile = originalMMFiles[fileIndex];
                         if (file.Data.Length != originalFile.Data.Length)
                         {
-                            writer.Write(ReadWriteUtils.Byteswap32((uint)file.Addr));
                             writer.Write(ReadWriteUtils.Byteswap32((uint)fileIndex));
+                            writer.Write(ReadWriteUtils.Byteswap32((uint)file.Addr));
                             writer.Write(-1);
                             writer.Write(ReadWriteUtils.Byteswap32((uint)file.Data.Length));
                             writer.Write(file.Data);
@@ -188,8 +188,8 @@ namespace MMRando.Utils
                             {
                                 if (modifiedBuffer.Any())
                                 {
-                                    writer.Write(ReadWriteUtils.Byteswap32((uint)file.Addr));
                                     writer.Write(ReadWriteUtils.Byteswap32((uint)fileIndex));
+                                    writer.Write(ReadWriteUtils.Byteswap32((uint)file.Addr));
                                     writer.Write(ReadWriteUtils.Byteswap32((uint)modifiedIndex.Value));
                                     writer.Write(ReadWriteUtils.Byteswap32((uint)modifiedBuffer.Count));
                                     writer.Write(modifiedBuffer.ToArray());
@@ -232,8 +232,8 @@ namespace MMRando.Utils
                 {
                     while (reader.BaseStream.Position != reader.BaseStream.Length)
                     {
-                        var fileAddr = ReadWriteUtils.ReadS32(reader);
                         var fileIndex = ReadWriteUtils.ReadS32(reader);
+                        var fileAddr = ReadWriteUtils.ReadS32(reader);
                         var index = ReadWriteUtils.ReadS32(reader);
                         var length = ReadWriteUtils.ReadS32(reader);
                         var data = reader.ReadBytes(length);
