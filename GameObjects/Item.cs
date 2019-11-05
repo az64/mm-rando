@@ -450,7 +450,7 @@ namespace MMRando.GameObjects
 
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Honey and Darling Three Days"), RegionName("East Clock Town")]
-        [GossipLocationHint("a town game"), GossipItemHint("a segment of health"), GossipCompetitiveHint(-1)]
+        [GossipLocationHint("a town game"), GossipItemHint("a segment of health"), GossipCompetitiveHint(-2)]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x94)]
@@ -710,7 +710,7 @@ namespace MMRando.GameObjects
         [RupeeRepeatable]
         [StartingItem(0xC5CE46, 0x48)]
         [ItemName("Mask of Scents"), LocationName("Butler"), RegionName("Deku Palace")]
-        [GossipLocationHint("a servant of royalty", "the royal servant"), GossipItemHint("heightened senses", "a pig's mask"), GossipCompetitiveHint(-2)]
+        [GossipLocationHint("a servant of royalty", "the royal servant"), GossipItemHint("heightened senses", "a pig's mask"), GossipCompetitiveHint(-1)]
         [ShopText("Wear it to heighten your sense of smell.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x8E)]
