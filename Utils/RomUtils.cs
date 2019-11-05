@@ -162,6 +162,7 @@ namespace MMRando.Utils
                         }
                         if (fileIndex >= originalMMFiles.Count)
                         {
+                            writer.Write(ReadWriteUtils.Byteswap32((uint)file.Addr));
                             writer.Write(ReadWriteUtils.Byteswap32((uint)fileIndex));
                             writer.Write(ReadWriteUtils.Byteswap32((uint)0));
                             writer.Write(ReadWriteUtils.Byteswap32((uint)file.Data.Length));
@@ -172,6 +173,7 @@ namespace MMRando.Utils
                         var originalFile = originalMMFiles[fileIndex];
                         if (file.Data.Length != originalFile.Data.Length)
                         {
+                            writer.Write(ReadWriteUtils.Byteswap32((uint)file.Addr));
                             writer.Write(ReadWriteUtils.Byteswap32((uint)fileIndex));
                             writer.Write(-1);
                             writer.Write(ReadWriteUtils.Byteswap32((uint)file.Data.Length));
@@ -186,6 +188,7 @@ namespace MMRando.Utils
                             {
                                 if (modifiedBuffer.Any())
                                 {
+                                    writer.Write(ReadWriteUtils.Byteswap32((uint)file.Addr));
                                     writer.Write(ReadWriteUtils.Byteswap32((uint)fileIndex));
                                     writer.Write(ReadWriteUtils.Byteswap32((uint)modifiedIndex.Value));
                                     writer.Write(ReadWriteUtils.Byteswap32((uint)modifiedBuffer.Count));
@@ -229,19 +232,19 @@ namespace MMRando.Utils
                 {
                     while (reader.BaseStream.Position != reader.BaseStream.Length)
                     {
+                        var fileAddr = ReadWriteUtils.ReadS32(reader);
                         var fileIndex = ReadWriteUtils.ReadS32(reader);
                         var index = ReadWriteUtils.ReadS32(reader);
                         var length = ReadWriteUtils.ReadS32(reader);
                         var data = reader.ReadBytes(length);
                         if (fileIndex >= RomData.MMFileList.Count)
                         {
-                            var start = RomData.MMFileList[RomData.MMFileList.Count - 1].End;
                             var newFile = new MMFile
                             {
-                                Addr = start,
+                                Addr = fileAddr,
                                 IsCompressed = false,
                                 Data = data,
-                                End = start + data.Length
+                                End = fileAddr + data.Length
                             };
                             RomData.MMFileList.Add(newFile);
                         }
