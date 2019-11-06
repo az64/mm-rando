@@ -228,11 +228,15 @@ namespace MMRando.Utils
                         {
                             if (randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Competitive)
                             {
-                                item = unusedItems.GroupBy(io => io.NewLocation.Value.GetAttribute<GossipCompetitiveHintAttribute>().Priority)
-                                    .OrderByDescending(g => g.Key)
-                                    .First()
-                                    .ToList()
-                                    .Random(randomizedResult.Random);
+                                item = unusedItems.FirstOrDefault(io => unusedItems.Count(x => x.Item == io.Item) == 1);
+                                if (item == null)
+                                {
+                                    item = unusedItems.GroupBy(io => io.NewLocation.Value.GetAttribute<GossipCompetitiveHintAttribute>().Priority)
+                                        .OrderByDescending(g => g.Key)
+                                        .First()
+                                        .ToList()
+                                        .Random(randomizedResult.Random);
+                                }
                             }
                             else
                             {
