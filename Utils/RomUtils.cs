@@ -153,6 +153,8 @@ namespace MMRando.Utils
                 using (var compressStream = new GZipStream(cryptoStream, CompressionMode.Compress))
                 using (var writer = new BinaryWriter(compressStream))
                 {
+                    writer.Write(ReadWriteUtils.Byteswap32(PatchUtil.PATCH_MAGIC));
+                    writer.Write(ReadWriteUtils.Byteswap32((uint)PatchUtil.PATCH_VERSION));
                     for (var fileIndex = 0; fileIndex < RomData.MMFileList.Count; fileIndex++)
                     {
                         var file = RomData.MMFileList[fileIndex];
@@ -230,6 +232,21 @@ namespace MMRando.Utils
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 using (var reader = new BinaryReader(memoryStream))
                 {
+                    var magic = ReadWriteUtils.ReadU32(reader);
+                    var version = ReadWriteUtils.ReadU32(reader);
+
+                    // Make sure this is a patch file by checking the magic value
+                    if (magic != PatchUtil.PATCH_MAGIC)
+                    {
+                        throw new PatchMagicException(magic);
+                    }
+
+                    // Check that this patch version is supported
+                    if (version != (uint)PatchUtil.PATCH_VERSION)
+                    {
+                        throw new PatchVersionException(PatchUtil.PATCH_VERSION, (PatchVersion)version);
+                    }
+
                     while (reader.BaseStream.Position != reader.BaseStream.Length)
                     {
                         var fileIndex = ReadWriteUtils.ReadS32(reader);

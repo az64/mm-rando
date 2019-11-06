@@ -1062,6 +1062,16 @@ namespace MMRando
                 {
                     _builder.MakeROM(_settings.InputROMFilename, _settings.OutputROMFilename, worker);
                 }
+                catch (PatchMagicException ex)
+                {
+                    MessageBox.Show($"Error applying patch: Not a valid patch file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                catch (PatchVersionException ex)
+                {
+                    MessageBox.Show($"Error applying patch: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 catch (Exception ex)
                 {
                     string nl = Environment.NewLine;

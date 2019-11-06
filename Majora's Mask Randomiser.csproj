@@ -206,6 +206,7 @@
     <Compile Include="Utils\Mzxrules\Align.cs" />
     <Compile Include="Utils\Mzxrules\Endian.cs" />
     <Compile Include="Utils\Mzxrules\Vectors.cs" />
+    <Compile Include="Utils\PatchUtil.cs" />
     <Compile Include="Utils\SceneUtils.cs" />
     <Compile Include="Enemies.cs" />
     <Compile Include="Utils\EntranceUtils.cs" />
