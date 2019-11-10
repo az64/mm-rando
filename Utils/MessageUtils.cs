@@ -101,7 +101,11 @@ namespace MMRando.Utils
                 foreach (var kvp in itemsInRegions)
                 {
                     bool regionHasRequiredItem;
-                    if (kvp.Value.Any(io => !io.Item.Name().Contains("Heart") && !ItemUtils.IsStrayFairy(io.Item) && !ItemUtils.IsSkulltulaToken(io.Item) && randomizedResult.ItemsRequiredForMoonAccess.Contains(io.Item)))
+                    if (kvp.Value.Any(io => !io.Item.Name().Contains("Heart") 
+                        && io.Item != Item.MaskGiant
+                        && !ItemUtils.IsStrayFairy(io.Item) 
+                        && !ItemUtils.IsSkulltulaToken(io.Item) 
+                        && randomizedResult.ItemsRequiredForMoonAccess.Contains(io.Item)))
                     {
                         regionHasRequiredItem = true;
                     }
