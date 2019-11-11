@@ -61,7 +61,6 @@ namespace MMRando.Utils
                     var itemRegion = item.NewLocation.Value.Region();
                     if (!string.IsNullOrWhiteSpace(itemRegion)
                         && !preventRegions.Contains(itemRegion)
-                        && (randomizedResult.Settings.AddSongs || !ItemUtils.IsSong(item.Item))
                         && !randomizedResult.Settings.CustomJunkLocations.Contains(item.NewLocation.Value))
                     {
                         if (!itemsInRegions.ContainsKey(itemRegion))
@@ -101,7 +100,8 @@ namespace MMRando.Utils
                 foreach (var kvp in itemsInRegions)
                 {
                     bool regionHasRequiredItem;
-                    if (kvp.Value.Any(io => !io.Item.Name().Contains("Heart") 
+                    if (kvp.Value.Any(io => !io.Item.Name().Contains("Heart")
+                        && (randomizedResult.Settings.AddSongs || !ItemUtils.IsSong(io.Item))
                         && io.Item != Item.MaskGiant
                         && !ItemUtils.IsStrayFairy(io.Item) 
                         && !ItemUtils.IsSkulltulaToken(io.Item) 
