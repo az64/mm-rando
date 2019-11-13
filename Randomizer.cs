@@ -1700,6 +1700,17 @@ namespace MMRando
                 }
 
                 _randomized.Logic = ItemList.Select(io => new ItemLogic(io)).ToList();
+                var logicForRequiredItems = _settings.LogicMode == LogicMode.Casual
+                    ? ItemList.Select(io =>
+                    {
+                        var itemLogic = new ItemLogic(io);
+                        if (io.Item == Item.AreaStoneTowerClear || io.Item == Item.HeartContainerStoneTower)
+                        {
+                            itemLogic.RequiredItemIds.Remove((int)Item.MaskGiant);
+                        }
+                        return itemLogic;
+                    }).ToList()
+                    : _randomized.Logic;
 
                 worker.ReportProgress(30, "Shuffling items...");
                 RandomizeItems();
@@ -1720,7 +1731,7 @@ namespace MMRando
                 var itemsRequiredForMoonAccess = new List<Item>();
                 foreach (var item in _randomized.AllItemsOnPathToMoon)
                 {
-                    var checkPaths = GetRequiredItems(Item.AreaMoonAccess, _randomized.Logic, exclude: item);
+                    var checkPaths = GetRequiredItems(Item.AreaMoonAccess, logicForRequiredItems, exclude: item);
                     if (checkPaths == null)
                     {
                         itemsRequiredForMoonAccess.Add(item);

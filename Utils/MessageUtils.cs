@@ -102,7 +102,6 @@ namespace MMRando.Utils
                     bool regionHasRequiredItem;
                     if (kvp.Value.Any(io => !io.Item.Name().Contains("Heart")
                         && (randomizedResult.Settings.AddSongs || !ItemUtils.IsSong(io.Item))
-                        && io.Item != Item.MaskGiant
                         && !ItemUtils.IsStrayFairy(io.Item) 
                         && !ItemUtils.IsSkulltulaToken(io.Item) 
                         && randomizedResult.ItemsRequiredForMoonAccess.Contains(io.Item)))
