@@ -99,20 +99,14 @@ namespace MMRando.Utils
                 var nonRequiredHints = new List<string>();
                 foreach (var kvp in itemsInRegions)
                 {
-                    bool regionHasRequiredItem;
-                    if (kvp.Value.Any(io => !io.Item.Name().Contains("Heart")
+                    var numberOfRequiredItems = kvp.Value.Count(io => !io.Item.Name().Contains("Heart")
                         && (randomizedResult.Settings.AddSongs || !ItemUtils.IsSong(io.Item))
-                        && !ItemUtils.IsStrayFairy(io.Item) 
-                        && !ItemUtils.IsSkulltulaToken(io.Item) 
-                        && randomizedResult.ItemsRequiredForMoonAccess.Contains(io.Item)))
-                    {
-                        regionHasRequiredItem = true;
-                    }
-                    else if (!kvp.Value.Any(io => !io.Item.Name().Contains("Heart") && randomizedResult.AllItemsOnPathToMoon.Contains(io.Item)))
-                    {
-                        regionHasRequiredItem = false;
-                    }
-                    else
+                        && !ItemUtils.IsStrayFairy(io.Item)
+                        && !ItemUtils.IsSkulltulaToken(io.Item)
+                        && randomizedResult.ItemsRequiredForMoonAccess.Contains(io.Item));
+                    var numberOfOptionalItems = kvp.Value.Count(io => !io.Item.Name().Contains("Heart") && randomizedResult.AllItemsOnPathToMoon.Contains(io.Item));
+
+                    if (numberOfRequiredItems == 0 && numberOfOptionalItems > 0)
                     {
                         continue;
                     }
@@ -122,15 +116,18 @@ namespace MMRando.Utils
 
                     string sfx = $"{(char)((soundEffectId >> 8) & 0xFF)}{(char)(soundEffectId & 0xFF)}";
                     var locationMessage = kvp.Key;
-                    var mid = "is";
-                    var itemMessage = regionHasRequiredItem
-                        ? "on the Way of the Hero"
-                        : "a foolish choice";
-                    var list = regionHasRequiredItem
+                    //var mid = "is";
+                    //var itemMessage = numberOfRequiredItems > 0
+                    //    ? "on the Way of the Hero"
+                    //    : "a foolish choice";
+                    var list = numberOfRequiredItems > 0
                         ? requiredHints
                         : nonRequiredHints;
 
-                    list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{itemMessage}\x00...\xBF".Wrap(35, "\x11"));
+                    //list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{itemMessage}\x00...\xBF".Wrap(35, "\x11"));
+
+                    var mid = "has";
+                    list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{numberOfRequiredItems} required item{(numberOfRequiredItems == 1 ? "" : "s")}\x00...\xBF".Wrap(35, "\x11"));
                 }
 
                 var collectionMessageFormat = "\x1E\x69\x0C{0} \u0001collecting {1}\u0000 is \u0006on the Way of the Hero\u0000...\xBF";
