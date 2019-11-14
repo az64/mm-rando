@@ -34,6 +34,7 @@ namespace MMRando.Utils
                 Logic = randomized.Logic,
                 CustomItemListString = settings.UseCustomItemList ? settings.CustomItemListString : null,
                 CustomStartingItemListString = settings.CustomStartingItemList.Any() ? settings.CustomStartingItemListString : null,
+                CustomJunkLocationsString = settings.CustomJunkLocationsString,
                 GossipHints = randomized.GossipQuotes?.ToDictionary(me => (GossipQuote) me.Id, (me) =>
                 {
                     var message = me.Message.Substring(1);
@@ -86,6 +87,10 @@ namespace MMRando.Utils
             if (spoiler.CustomStartingItemListString != null)
             {
                 log.AppendLine($"{"Custom Starting Item List:",-17} {spoiler.CustomStartingItemListString}");
+            }
+            if (spoiler.CustomJunkLocationsString != null)
+            {
+                log.AppendLine($"{"Enforce Junk Locations List:",-17} {spoiler.CustomJunkLocationsString}");
             }
             log.AppendLine();
 

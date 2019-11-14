@@ -61,6 +61,9 @@
 <# if (spoiler.CustomStartingItemListString != null) { #>
 <label><b>Custom Starting Item List: </b></label><span><#= spoiler.CustomStartingItemListString #></span><br/>
 <# } #>
+<# if (spoiler.CustomJunkLocationsString != null) { #>
+<label><b>Enforce Junk Locations List: </b></label><span><#= spoiler.CustomJunkLocationsString #></span><br/>
+<# } #>
 <br/>
 <button type="button" onclick="toggleDarkLight()" title="Toggle dark/light mode">Toggle Dark Theme</button>
 <br/>

@@ -29,6 +29,8 @@ namespace MMRando.Models
 
         public string CustomStartingItemListString { get; set; }
 
+        public string CustomJunkLocationsString { get; set; }
+
         public string LogicJson
         {
             get
