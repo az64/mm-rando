@@ -127,7 +127,7 @@ namespace MMRando.Utils
                     //list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{itemMessage}\x00...\xBF".Wrap(35, "\x11"));
 
                     var mid = "has";
-                    list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{numberOfRequiredItems} required item{(numberOfRequiredItems == 1 ? "" : "s")}\x00...\xBF".Wrap(35, "\x11"));
+                    list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{NumberToWords(numberOfRequiredItems)} required item{(numberOfRequiredItems == 1 ? "" : "s")}\x00...\xBF".Wrap(35, "\x11"));
                 }
 
                 var collectionMessageFormat = "\x1E\x69\x0C{0} \u0001collecting {1}\u0000 is \u0006on the Way of the Hero\u0000...\xBF";
@@ -380,6 +380,54 @@ namespace MMRando.Utils
         public static string GetAlternateName(Item item)
         {
             return Regex.Replace(item.Name(), "[0-9]+ ", "");
+        }
+
+        private static string[] numberWordUnitsMap = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
+        private static string[] numberWordTensMap = new[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+        public static string NumberToWords(int number)
+        {
+            if (number == 0)
+                return "zero";
+
+            if (number < 0)
+                return "minus " + NumberToWords(Math.Abs(number));
+
+            string words = "";
+
+            if ((number / 1000000) > 0)
+            {
+                words += NumberToWords(number / 1000000) + " million ";
+                number %= 1000000;
+            }
+
+            if ((number / 1000) > 0)
+            {
+                words += NumberToWords(number / 1000) + " thousand ";
+                number %= 1000;
+            }
+
+            if ((number / 100) > 0)
+            {
+                words += NumberToWords(number / 100) + " hundred ";
+                number %= 100;
+            }
+
+            if (number > 0)
+            {
+                if (words != "")
+                    words += "and ";
+
+                if (number < 20)
+                    words += numberWordUnitsMap[number];
+                else
+                {
+                    words += numberWordTensMap[number / 10];
+                    if ((number % 10) > 0)
+                        words += "-" + numberWordUnitsMap[number % 10];
+                }
+            }
+
+            return words;
         }
     }
 }
