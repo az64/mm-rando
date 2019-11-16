@@ -1045,6 +1045,18 @@ namespace MMRando
             patcher.Apply(options);
         }
 
+        private void WriteAsmConfigPostPatch()
+        {
+            // Parse Symbols data from the ROM (specific MMFile)
+            Symbols symbols = Symbols.FromROM();
+
+            if (symbols != null)
+            {
+                // Apply current configuration on top of existing Asm patch file
+                symbols.TryApplyConfiguration(_settings.PatcherOptions);
+            }
+        }
+
         public void MakeROM(string InFile, string FileName, BackgroundWorker worker)
         {
             using (BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open, FileAccess.Read)))
@@ -1060,6 +1072,9 @@ namespace MMRando
             {
                 worker.ReportProgress(50, "Applying patch...");
                 hash = RomUtils.ApplyPatch(_settings.InputPatchFilename);
+
+                // Apply Asm configuration post-patch
+                WriteAsmConfigPostPatch();
             }
             else
             {

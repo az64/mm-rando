@@ -92,6 +92,10 @@ namespace MMRando.Asm
             var file = CreateMMFile(symbols);
             RomData.MMFileList.Add(file);
 
+            // Encode Symbols into a special MMFile and insert that too
+            var symbolsFile = symbols.CreateMMFile();
+            RomData.MMFileList.Add(symbolsFile);
+
             // Write our D-Pad config
             symbols.WriteDPadConfig(options.DPadConfig);
         }
