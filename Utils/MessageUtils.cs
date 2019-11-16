@@ -130,39 +130,6 @@ namespace MMRando.Utils
                     list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{NumberToWords(numberOfRequiredItems)} required item{(numberOfRequiredItems == 1 ? "" : "s")}\x00...\xBF".Wrap(35, "\x11"));
                 }
 
-                var collectionMessageFormat = "\x1E\x69\x0C{0} \u0001collecting {1}\u0000 is \u0006on the Way of the Hero\u0000...\xBF";
-                if (randomizedResult.Settings.AddSkulltulaTokens)
-                {
-                    if (randomizedResult.ItemsRequiredForMoonAccess.Any(item => item.Name() == "Swamp Skulltula Spirit"))
-                    {
-                        competitiveHints.Add(string.Format(collectionMessageFormat, Gossip.MessageStartSentences.Random(randomizedResult.Random), "Swamp Skulltula Spirits").Wrap(35, "\x11"));
-                    }
-                    if (randomizedResult.ItemsRequiredForMoonAccess.Any(item => item.Name() == "Ocean Skulltula Spirit"))
-                    {
-                        competitiveHints.Add(string.Format(collectionMessageFormat, Gossip.MessageStartSentences.Random(randomizedResult.Random), "Ocean Skulltula Spirits").Wrap(35, "\x11"));
-                    }
-                }
-                
-                if (randomizedResult.Settings.AddStrayFairies)
-                {
-                    if (randomizedResult.ItemsRequiredForMoonAccess.Any(item => item.Name() == "Woodfall Stray Fairy"))
-                    {
-                        competitiveHints.Add(string.Format(collectionMessageFormat, Gossip.MessageStartSentences.Random(randomizedResult.Random), "Woodfall Stray Fairies").Wrap(35, "\x11"));
-                    }
-                    if (randomizedResult.ItemsRequiredForMoonAccess.Any(item => item.Name() == "Snowhead Stray Fairy"))
-                    {
-                        competitiveHints.Add(string.Format(collectionMessageFormat, Gossip.MessageStartSentences.Random(randomizedResult.Random), "Snowhead Stray Fairies").Wrap(35, "\x11"));
-                    }
-                    if (randomizedResult.ItemsRequiredForMoonAccess.Any(item => item.Name() == "Great Bay Stray Fairy"))
-                    {
-                        competitiveHints.Add(string.Format(collectionMessageFormat, Gossip.MessageStartSentences.Random(randomizedResult.Random), "Great Bay Stray Fairies").Wrap(35, "\x11"));
-                    }
-                    if (randomizedResult.ItemsRequiredForMoonAccess.Any(item => item.Name() == "Stone Tower Stray Fairy"))
-                    {
-                        competitiveHints.Add(string.Format(collectionMessageFormat, Gossip.MessageStartSentences.Random(randomizedResult.Random), "Stone Tower Stray Fairies").Wrap(35, "\x11"));
-                    }
-                }
-
                 var numberOfRequiredHints = 3;
                 var numberOfNonRequiredHints = 2;
 
