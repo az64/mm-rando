@@ -60,6 +60,24 @@ namespace MMRando.Asm
             this.Pad = pad;
             this.State = state;
         }
+
+        /// <summary>
+        /// Get which D-Pad directions are in use.
+        /// </summary>
+        public bool[] InUse
+        {
+            get
+            {
+                if (this.State == DPadState.Disabled)
+                {
+                    return this.Pad.Values.Select(x => false).ToArray();
+                }
+                else
+                {
+                    return this.Pad.Values.Select(x => x != DPadValue.None).ToArray();
+                }
+            }
+        }
     }
 
     /// <summary>

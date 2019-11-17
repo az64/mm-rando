@@ -1153,7 +1153,7 @@ namespace MMRando
                 if (_settings.OutputVC)
                 {
                     worker.ReportProgress(90, "Building VC...");
-                    VCInjectionUtils.BuildVC(ROM, Values.VCDirectory, Path.ChangeExtension(FileName, "wad"));
+                    VCInjectionUtils.BuildVC(ROM, _settings.PatcherOptions, Values.VCDirectory, Path.ChangeExtension(FileName, "wad"));
                 }
             }
             worker.ReportProgress(100, "Done!");
