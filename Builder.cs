@@ -1138,11 +1138,11 @@ namespace MMRando
             WriteTatlColour();
             WriteTunicColor();
 
-            worker.ReportProgress(50, "Writing music...");
+            worker.ReportProgress(73, "Writing music...");
             WriteAudioSeq(new Random(BitConverter.ToInt32(hash, 0)));
             WriteMuteMusic();
 
-            worker.ReportProgress(67, "Writing sound effects...");
+            worker.ReportProgress(74, "Writing sound effects...");
             WriteSoundEffects(new Random(BitConverter.ToInt32(hash, 0)));
 
             if (_settings.GenerateROM)
