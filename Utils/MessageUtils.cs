@@ -127,7 +127,7 @@ namespace MMRando.Utils
                     //list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{itemMessage}\x00...\xBF".Wrap(35, "\x11"));
 
                     var mid = "has";
-                    list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{NumberToWords(numberOfRequiredItems)} required item{(numberOfRequiredItems == 1 ? "" : "s")}\x00...\xBF".Wrap(35, "\x11"));
+                    list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{NumberToWords(numberOfOptionalItems)} important item{(numberOfRequiredItems == 1 ? "" : "s")}\x00...\xBF".Wrap(35, "\x11"));
                 }
 
                 var numberOfRequiredHints = 3;
