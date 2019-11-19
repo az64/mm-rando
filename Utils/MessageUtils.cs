@@ -104,9 +104,9 @@ namespace MMRando.Utils
                         && !ItemUtils.IsStrayFairy(io.Item)
                         && !ItemUtils.IsSkulltulaToken(io.Item)
                         && randomizedResult.ItemsRequiredForMoonAccess.Contains(io.Item));
-                    var numberOfOptionalItems = kvp.Value.Count(io => !io.Item.Name().Contains("Heart") && randomizedResult.AllItemsOnPathToMoon.Contains(io.Item));
+                    var numberOfImportantItems = kvp.Value.Count(io => !io.Item.Name().Contains("Heart") && randomizedResult.ImportantItems.Contains(io.Item));
 
-                    if (numberOfRequiredItems == 0 && numberOfOptionalItems > 0)
+                    if (numberOfRequiredItems == 0 && numberOfImportantItems > 0)
                     {
                         continue;
                     }
@@ -127,7 +127,7 @@ namespace MMRando.Utils
                     //list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{itemMessage}\x00...\xBF".Wrap(35, "\x11"));
 
                     var mid = "has";
-                    list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{NumberToWords(numberOfOptionalItems)} important item{(numberOfRequiredItems == 1 ? "" : "s")}\x00...\xBF".Wrap(35, "\x11"));
+                    list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{NumberToWords(numberOfImportantItems)} important item{(numberOfRequiredItems == 1 ? "" : "s")}\x00...\xBF".Wrap(35, "\x11"));
                 }
 
                 var numberOfRequiredHints = 3;

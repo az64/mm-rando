@@ -1600,13 +1600,13 @@ namespace MMRando
             }
         }
 
-        private ReadOnlyCollection<Item> GetRequiredItems(Item item, List<ItemLogic> itemLogic, List<Item> logicPath = null, Dictionary<Item, ReadOnlyCollection<Item>> checkedItems = null, Item? exclude = null)
+        private ReadOnlyCollection<Item> GetImportantItems(Item item, List<ItemLogic> itemLogic, List<Item> logicPath = null, Dictionary<Item, ReadOnlyCollection<Item>> checkedItems = null, params Item[] exclude)
         {
             if (_settings.CustomStartingItemList.Contains(item))
             {
                 return new List<Item>().AsReadOnly();
             }
-            if (item == exclude)
+            if (exclude.Contains(item))
             {
                 return null;
             }
@@ -1635,7 +1635,7 @@ namespace MMRando
             {
                 foreach (var requiredItemId in locationLogic.RequiredItemIds)
                 {
-                    var requiredChildren = GetRequiredItems((Item)requiredItemId, itemLogic, logicPath.ToList(), checkedItems, exclude);
+                    var requiredChildren = GetImportantItems((Item)requiredItemId, itemLogic, logicPath.ToList(), checkedItems, exclude);
                     if (requiredChildren == null)
                     {
                         return null;
@@ -1652,7 +1652,7 @@ namespace MMRando
                     var conditionalRequirements = new List<Item>();
                     foreach (var conditionalItemId in conditions)
                     {
-                        var requiredChildren = GetRequiredItems((Item)conditionalItemId, itemLogic, logicPath.ToList(), checkedItems, exclude);
+                        var requiredChildren = GetImportantItems((Item)conditionalItemId, itemLogic, logicPath.ToList(), checkedItems, exclude);
                         if (requiredChildren == null)
                         {
                             conditionalRequirements = null;
@@ -1723,21 +1723,34 @@ namespace MMRando
                     }
                 }
 
-                _randomized.AllItemsOnPathToMoon = GetRequiredItems(Item.AreaMoonAccess, _randomized.Logic)?.Where(item => !item.IsFake()).ToList().AsReadOnly();
-                if (_randomized.AllItemsOnPathToMoon == null)
+                _randomized.ImportantItems = GetImportantItems(Item.AreaMoonAccess, _randomized.Logic)?.Where(item => !item.IsFake()).ToList().AsReadOnly();
+                if (_randomized.ImportantItems == null)
                 {
                     throw new Exception("Moon Access is unobtainable.");
                 }
                 var itemsRequiredForMoonAccess = new List<Item>();
-                foreach (var item in _randomized.AllItemsOnPathToMoon)
+                foreach (var item in _randomized.ImportantItems)
                 {
-                    var checkPaths = GetRequiredItems(Item.AreaMoonAccess, logicForRequiredItems, exclude: item);
+                    var checkPaths = GetImportantItems(Item.AreaMoonAccess, logicForRequiredItems, exclude: item);
                     if (checkPaths == null)
                     {
                         itemsRequiredForMoonAccess.Add(item);
                     }
                 }
                 _randomized.ItemsRequiredForMoonAccess = itemsRequiredForMoonAccess.AsReadOnly();
+
+                foreach (var group in ItemUtils.ForbiddenStartTogether)
+                {
+                    var startedItem = group.Cast<Item?>().FirstOrDefault(item => ItemUtils.IsStartingLocation(ItemList[(int)item].NewLocation.Value) || _settings.CustomStartingItemList.Contains(item.Value));
+                    if (startedItem.HasValue)
+                    {
+                        var updatedImportantItems = GetImportantItems(Item.AreaMoonAccess, _randomized.Logic, exclude: group.Where(item => item != startedItem.Value && !_randomized.ItemsRequiredForMoonAccess.Contains(item)).ToArray())?.Where(item => !item.IsFake()).ToList();
+                        if (updatedImportantItems != null)
+                        {
+                            _randomized.ImportantItems = _randomized.ImportantItems.Intersect(updatedImportantItems).ToList().AsReadOnly();
+                        }
+                    }
+                }
 
                 if (_settings.GossipHintStyle != GossipHintStyle.Default)
                 {
