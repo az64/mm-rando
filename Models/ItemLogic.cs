@@ -27,6 +27,15 @@ namespace MMRando.Models
         [DataMember]
         public bool IsFakeItem;
 
+        public ItemLogic(ItemLogic copyFrom)
+        {
+            ItemId = copyFrom.ItemId;
+            RequiredItemIds = copyFrom.RequiredItemIds?.ToList();
+            ConditionalItemIds = copyFrom.ConditionalItemIds?.Select(c => c.ToList()).ToList();
+            Acquired = copyFrom.Acquired;
+            IsFakeItem = copyFrom.IsFakeItem;
+        }
+
         public ItemLogic(ItemObject itemObject)
         {
             ItemId = itemObject.ID;

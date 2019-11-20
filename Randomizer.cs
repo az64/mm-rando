@@ -1700,20 +1700,30 @@ namespace MMRando
                 }
 
                 _randomized.Logic = ItemList.Select(io => new ItemLogic(io)).ToList();
-                var logicForRequiredItems = _settings.LogicMode == LogicMode.Casual
-                    ? ItemList.Select(io =>
-                    {
-                        var itemLogic = new ItemLogic(io);
-                        if (io.Item == Item.AreaStoneTowerClear || io.Item == Item.HeartContainerStoneTower)
-                        {
-                            itemLogic.RequiredItemIds.Remove((int)Item.MaskGiant);
-                        }
-                        return itemLogic;
-                    }).ToList()
-                    : _randomized.Logic;
 
                 worker.ReportProgress(30, "Shuffling items...");
                 RandomizeItems();
+                
+                var freeItemIds = _settings.CustomStartingItemList
+                    .Cast<int>()
+                    .Union(ItemList.Where(io => io.NewLocation.HasValue && ItemUtils.IsStartingLocation(io.NewLocation.Value)).Select(io => io.ID))
+                    .ToList();
+
+                bool updated;
+                do
+                {
+                    updated = false;
+                    foreach (var itemLogic in _randomized.Logic.Where(il => ((Item)il.ItemId).IsFake() && !freeItemIds.Contains(il.ItemId)))
+                    {
+                        if ((itemLogic.RequiredItemIds?.All(id => freeItemIds.Contains(id)) != false)
+                            && (itemLogic.ConditionalItemIds?.Any(c => c.All(id => freeItemIds.Contains(id))) != false)
+                            && (itemLogic.RequiredItemIds != null || itemLogic.ConditionalItemIds != null))
+                        {
+                            freeItemIds.Add(itemLogic.ItemId);
+                            updated = true;
+                        }
+                    }
+                } while (updated);
 
                 foreach (var itemLogic in _randomized.Logic)
                 {
@@ -1721,7 +1731,38 @@ namespace MMRando
                     {
                         itemLogic.Acquired = true;
                     }
+
+                    var keep = new List<int>();
+                    for (var i = 0; itemLogic.ConditionalItemIds != null && i < itemLogic.ConditionalItemIds.Count; i++)
+                    {
+                        if (itemLogic.ConditionalItemIds[i].All(freeItemIds.Contains))
+                        {
+                            keep.Add(i);
+                        }
+                    }
+                    if (keep.Count > 0)
+                    {
+                        for (var i = itemLogic.ConditionalItemIds.Count - 1; i >= 0; i--)
+                        {
+                            if (!keep.Contains(i))
+                            {
+                                itemLogic.ConditionalItemIds.RemoveAt(i);
+                            }
+                        }
+                    }
                 }
+
+                var logicForRequiredItems = _settings.LogicMode == LogicMode.Casual
+                    ? _randomized.Logic.Select(il =>
+                    {
+                        var itemLogic = new ItemLogic(il);
+                        if (il.ItemId == (int)Item.AreaStoneTowerClear || il.ItemId == (int)Item.HeartContainerStoneTower)
+                        {
+                            itemLogic.RequiredItemIds.Remove((int)Item.MaskGiant);
+                        }
+                        return itemLogic;
+                    }).ToList()
+                    : _randomized.Logic;
 
                 _randomized.ImportantItems = GetImportantItems(Item.AreaMoonAccess, _randomized.Logic)?.Where(item => !item.IsFake()).ToList().AsReadOnly();
                 if (_randomized.ImportantItems == null)
@@ -1738,19 +1779,6 @@ namespace MMRando
                     }
                 }
                 _randomized.ItemsRequiredForMoonAccess = itemsRequiredForMoonAccess.AsReadOnly();
-
-                foreach (var group in ItemUtils.ForbiddenStartTogether)
-                {
-                    var startedItem = group.Cast<Item?>().FirstOrDefault(item => ItemUtils.IsStartingLocation(ItemList[(int)item].NewLocation.Value) || _settings.CustomStartingItemList.Contains(item.Value));
-                    if (startedItem.HasValue)
-                    {
-                        var updatedImportantItems = GetImportantItems(Item.AreaMoonAccess, _randomized.Logic, exclude: group.Where(item => item != startedItem.Value && !_randomized.ItemsRequiredForMoonAccess.Contains(item)).ToArray())?.Where(item => !item.IsFake()).ToList();
-                        if (updatedImportantItems != null)
-                        {
-                            _randomized.ImportantItems = _randomized.ImportantItems.Intersect(updatedImportantItems).ToList().AsReadOnly();
-                        }
-                    }
-                }
 
                 if (_settings.GossipHintStyle != GossipHintStyle.Default)
                 {
