@@ -208,6 +208,11 @@ namespace MMRando.Asm
                     writer.Write(symbol.Value);
                 }
 
+                while (memStream.Position % 0x10 != 0)
+                {
+                    writer.Write((byte)0);
+                }
+
                 return memStream.ToArray();
             }
         }
