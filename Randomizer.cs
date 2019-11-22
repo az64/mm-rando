@@ -68,18 +68,7 @@ namespace MMRando
             // Keaton_Mask and Mama_Letter are obtained one directly after another
             // Keaton_Mask cannot be replaced by items that may be overwritten by item obtained at Mama_Letter
             {
-                Item.MaskKeaton,
-                new List<Item> {
-                    Item.TradeItemMoonTear,
-                    Item.TradeItemLandDeed,
-                    Item.TradeItemSwampDeed,
-                    Item.TradeItemMountainDeed,
-                    Item.TradeItemOceanDeed,
-                    Item.TradeItemRoomKey,
-                    Item.TradeItemMamaLetter,
-                    Item.TradeItemKafeiLetter,
-                    Item.TradeItemPendant
-                }
+                Item.MaskKeaton, ItemUtils.OverwritableItems().ToList()
             },
         };
 

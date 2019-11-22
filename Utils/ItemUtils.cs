@@ -100,6 +100,14 @@ namespace MMRando.Utils
         }
 
         // todo cache
+        public static IEnumerable<Item> OverwritableItems()
+        {
+            return Enum.GetValues(typeof(Item))
+                .Cast<Item>()
+                .Where(item => item.IsOverwritable());
+        }
+
+        // todo cache
         public static IEnumerable<Item> StartingItems()
         {
             return Enum.GetValues(typeof(Item))

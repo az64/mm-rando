@@ -83,5 +83,10 @@ namespace MMRando.Extensions
         {
             return item.Name() == null;
         }
+
+        public static bool IsOverwritable(this Item item)
+        {
+            return item.HasAttribute<OverwritableAttribute>();
+        }
     }
 }
