@@ -120,14 +120,23 @@ namespace MMRando.Utils
                     //var itemMessage = numberOfRequiredItems > 0
                     //    ? "on the Way of the Hero"
                     //    : "a foolish choice";
-                    var list = numberOfRequiredItems > 0
-                        ? requiredHints
-                        : nonRequiredHints;
+                    List<string> list;
+                    TextCommands color;
+                    if (numberOfRequiredItems > 0)
+                    {
+                        list = requiredHints;
+                        color = TextCommands.ColorYellow;
+                    }
+                    else
+                    {
+                        list = nonRequiredHints;
+                        color = TextCommands.ColorSilver;
+                    }
 
                     //list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{itemMessage}\x00...\xBF".Wrap(35, "\x11"));
 
                     var mid = "has";
-                    list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{NumberToWords(numberOfImportantItems)} important item{(numberOfRequiredItems == 1 ? "" : "s")}\x00...\xBF".Wrap(35, "\x11"));
+                    list.Add($"\x1E{sfx}{start} {(char)TextCommands.ColorRed}{locationMessage}{(char)TextCommands.ColorWhite} {mid} {(char)color}{NumberToWords(numberOfImportantItems)} important item{(numberOfRequiredItems == 1 ? "" : "s")}{(char)TextCommands.ColorWhite}...\xBF".Wrap(35, "\x11"));
                 }
 
                 var numberOfRequiredHints = 3;

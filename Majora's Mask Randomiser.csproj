@@ -116,6 +116,7 @@
     <Compile Include="GameObjects\GossipQuote.cs" />
     <Compile Include="GameObjects\Item.cs" />
     <Compile Include="GameObjects\MessageShopText.cs" />
+    <Compile Include="GameObjects\TextCommands.cs" />
     <Compile Include="Models\RandomizedResult.cs" />
     <Compile Include="Models\Rom\MessageTable.cs" />
     <Compile Include="Models\Rom\Enemy.cs" />
