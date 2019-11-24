@@ -99,7 +99,7 @@
  </tr>
 <# foreach (var region in spoiler.ItemList.GroupBy(item => item.Region).OrderBy(g => g.Key)) {
 #>
- <tr class="region"><td colspan="3"><#= region.Key #></td></tr>
+ <tr class="region"><td colspan="3"><#= region.Key.Name() #></td></tr>
  <# foreach (var item in region.OrderBy(item => item.NewLocationName)) { #>
  <tr data-id="<#= item.Id #>" data-newlocationid="<#= item.NewLocationId #>" class="unavailable">
 	<td class="newlocation"><#= item.NewLocationName #></td>

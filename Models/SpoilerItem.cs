@@ -13,7 +13,7 @@ namespace MMRando.Models
         public int NewLocationId { get; private set; }
         public string NewLocationName { get; private set; }
 
-        public string Region { get; private set; }
+        public Region Region { get; private set; }
 
         public bool IsJunk { get; private set; }
 
@@ -24,7 +24,7 @@ namespace MMRando.Models
             Name = itemObject.Item.Name() ?? itemObject.Name;
             NewLocationId = (int)itemObject.NewLocation.Value;
             NewLocationName = itemObject.NewLocation.Value.Location();
-            Region = itemObject.NewLocation.Value.Region();
+            Region = itemObject.NewLocation.Value.Region().Value;
             IsJunk = Name.Contains("Rupee") || Name.Contains("Heart");
         }
     }

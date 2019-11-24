@@ -29,9 +29,9 @@ namespace MMRando.Extensions
             return item.GetAttribute<LocationNameAttribute>()?.Name;
         }
 
-        public static string Region(this Item item)
+        public static Region? Region(this Item item)
         {
-            return item.GetAttribute<RegionNameAttribute>()?.Name;
+            return item.GetAttribute<RegionAttribute>()?.Region;
         }
 
         public static string Entrance(this Item item)

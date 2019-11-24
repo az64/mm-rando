@@ -110,7 +110,7 @@ namespace MMRando.Utils
             foreach (var region in spoiler.ItemList.GroupBy(item => item.Region).OrderBy(g => g.Key))
             {
                 log.AppendLine();
-                log.AppendLine($" {region.Key}");
+                log.AppendLine($" {region.Key.Name()}");
                 foreach (var item in region.OrderBy(item => item.NewLocationName))
                 {
                     log.AppendLine($"{item.NewLocationName,-50} -> {item.Name}");

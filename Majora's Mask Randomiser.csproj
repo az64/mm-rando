@@ -78,6 +78,7 @@
     <Compile Include="Attributes\GossipItemHintAttribute.cs" />
     <Compile Include="Attributes\GossipLocationHintAttribute.cs" />
     <Compile Include="Attributes\OverwritableAttribute.cs" />
+    <Compile Include="Attributes\RegionAttribute.cs" />
     <Compile Include="Attributes\RupeeRepeatableAttribute.cs" />
     <Compile Include="Attributes\ShopRoomAttribute.cs" />
     <Compile Include="Attributes\ShopTextAttribute.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Attributes\GossipRestrictAttribute.cs" />
     <Compile Include="Attributes\StartingItemAttribute.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
+    <Compile Include="Extensions\RegionExtensions.cs" />
     <Compile Include="Extensions\ItemExtensions.cs" />
     <Compile Include="Extensions\KeyEqualityComparer.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="GameObjects\GossipQuote.cs" />
     <Compile Include="GameObjects\Item.cs" />
     <Compile Include="GameObjects\MessageShopText.cs" />
+    <Compile Include="GameObjects\Region.cs" />
     <Compile Include="GameObjects\TextCommands.cs" />
     <Compile Include="Models\RandomizedResult.cs" />
     <Compile Include="Models\Rom\MessageTable.cs" />

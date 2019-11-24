@@ -25,7 +25,7 @@ namespace MMRando.Utils
 
             var randomizedItems = new List<ItemObject>();
             var competitiveHints = new List<string>();
-            var itemsInRegions = new Dictionary<string, List<ItemObject>>();
+            var itemsInRegions = new Dictionary<Region, List<ItemObject>>();
             foreach (var item in randomizedResult.ItemList)
             {
                 if (item.NewLocation == null)
@@ -57,17 +57,17 @@ namespace MMRando.Utils
 
                 if (randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Competitive)
                 {
-                    var preventRegions = new List<string> { "The Moon", "Bottle Catch", "Misc" };
+                    var preventRegions = new List<Region> { Region.TheMoon, Region.BottleCatch, Region.Misc };
                     var itemRegion = item.NewLocation.Value.Region();
-                    if (!string.IsNullOrWhiteSpace(itemRegion)
-                        && !preventRegions.Contains(itemRegion)
+                    if (itemRegion.HasValue
+                        && !preventRegions.Contains(itemRegion.Value)
                         && !randomizedResult.Settings.CustomJunkLocations.Contains(item.NewLocation.Value))
                     {
-                        if (!itemsInRegions.ContainsKey(itemRegion))
+                        if (!itemsInRegions.ContainsKey(itemRegion.Value))
                         {
-                            itemsInRegions[itemRegion] = new List<ItemObject>();
+                            itemsInRegions[itemRegion.Value] = new List<ItemObject>();
                         }
-                        itemsInRegions[itemRegion].Add(item);
+                        itemsInRegions[itemRegion.Value].Add(item);
                     }
 
                     var competitiveHintInfo = item.NewLocation.Value.GetAttribute<GossipCompetitiveHintAttribute>();
@@ -115,7 +115,7 @@ namespace MMRando.Utils
                     string start = Gossip.MessageStartSentences.Random(randomizedResult.Random);
 
                     string sfx = $"{(char)((soundEffectId >> 8) & 0xFF)}{(char)(soundEffectId & 0xFF)}";
-                    var locationMessage = kvp.Key;
+                    var locationMessage = kvp.Key.Name();
                     //var mid = "is";
                     //var itemMessage = numberOfRequiredItems > 0
                     //    ? "on the Way of the Hero"
