@@ -1614,6 +1614,10 @@ namespace MMRando
             }
             if (checkedItems.ContainsKey(item))
             {
+                if (logicPath.Intersect(checkedItems[item]).Any())
+                {
+                    return null;
+                }
                 return checkedItems[item];
             }
             var itemObject = ItemList[(int)item];
