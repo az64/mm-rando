@@ -1664,7 +1664,10 @@ namespace MMRando
                 }
             }
             var readOnlyResult = result.Distinct().ToList().AsReadOnly();
-            checkedItems[item] = readOnlyResult;
+            if (!item.IsFake())
+            {
+                checkedItems[item] = readOnlyResult;
+            }
             return readOnlyResult;
         }
 
