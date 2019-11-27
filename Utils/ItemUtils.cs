@@ -157,6 +157,20 @@ namespace MMRando.Utils
             return _junkItems.Contains(item);
         }
 
+        public static bool IsRequired(Item item, RandomizedResult randomizedResult)
+        {
+            return !item.Name().Contains("Heart")
+                        && (randomizedResult.Settings.AddSongs || !IsSong(item))
+                        && !IsStrayFairy(item)
+                        && !IsSkulltulaToken(item)
+                        && randomizedResult.ItemsRequiredForMoonAccess.Contains(item);
+        }
+
+        public static bool IsImportant(Item item, RandomizedResult randomizedResult)
+        {
+            return !item.Name().Contains("Heart") && randomizedResult.ImportantItems.Contains(item);
+        }
+
         public static readonly ReadOnlyCollection<ReadOnlyCollection<Item>> ForbiddenStartTogether = new List<List<Item>>()
         {
             new List<Item>

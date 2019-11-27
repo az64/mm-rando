@@ -99,12 +99,8 @@ namespace MMRando.Utils
                 var nonRequiredHints = new List<string>();
                 foreach (var kvp in itemsInRegions)
                 {
-                    var numberOfRequiredItems = kvp.Value.Count(io => !io.Item.Name().Contains("Heart")
-                        && (randomizedResult.Settings.AddSongs || !ItemUtils.IsSong(io.Item))
-                        && !ItemUtils.IsStrayFairy(io.Item)
-                        && !ItemUtils.IsSkulltulaToken(io.Item)
-                        && randomizedResult.ItemsRequiredForMoonAccess.Contains(io.Item));
-                    var numberOfImportantItems = kvp.Value.Count(io => !io.Item.Name().Contains("Heart") && randomizedResult.ImportantItems.Contains(io.Item));
+                    var numberOfRequiredItems = kvp.Value.Count(io => ItemUtils.IsRequired(io.Item, randomizedResult));
+                    var numberOfImportantItems = kvp.Value.Count(io => ItemUtils.IsImportant(io.Item, randomizedResult));
 
                     if (numberOfRequiredItems == 0 && numberOfImportantItems > 0)
                     {

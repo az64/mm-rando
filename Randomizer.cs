@@ -1589,11 +1589,17 @@ namespace MMRando
             }
         }
 
-        private ReadOnlyCollection<Item> GetImportantItems(Item item, List<ItemLogic> itemLogic, List<Item> logicPath = null, Dictionary<Item, ReadOnlyCollection<Item>> checkedItems = null, params Item[] exclude)
+        public class LogicPaths
+        {
+            public ReadOnlyCollection<Item> Required { get; set; }
+            public ReadOnlyCollection<Item> Important { get; set; }
+        }
+
+        private LogicPaths GetImportantItems(Item item, List<ItemLogic> itemLogic, List<Item> logicPath = null, Dictionary<Item, LogicPaths> checkedItems = null, params Item[] exclude)
         {
             if (_settings.CustomStartingItemList.Contains(item))
             {
-                return new List<Item>().AsReadOnly();
+                return new LogicPaths();
             }
             if (exclude.Contains(item))
             {
@@ -1610,11 +1616,11 @@ namespace MMRando
             logicPath.Add(item);
             if (checkedItems == null)
             {
-                checkedItems = new Dictionary<Item, ReadOnlyCollection<Item>>();
+                checkedItems = new Dictionary<Item, LogicPaths>();
             }
             if (checkedItems.ContainsKey(item))
             {
-                if (logicPath.Intersect(checkedItems[item]).Any())
+                if (logicPath.Intersect(checkedItems[item].Required).Any())
                 {
                     return null;
                 }
@@ -1623,56 +1629,82 @@ namespace MMRando
             var itemObject = ItemList[(int)item];
             var locationId = itemObject.NewLocation.HasValue ? itemObject.NewLocation : item;
             var locationLogic = itemLogic[(int)locationId];
-            var result = new List<Item>();
+            var required = new List<Item>();
+            var important = new List<Item>();
             if (locationLogic.RequiredItemIds != null && locationLogic.RequiredItemIds.Any())
             {
                 foreach (var requiredItemId in locationLogic.RequiredItemIds)
                 {
-                    var requiredChildren = GetImportantItems((Item)requiredItemId, itemLogic, logicPath.ToList(), checkedItems, exclude);
-                    if (requiredChildren == null)
+                    var childPaths = GetImportantItems((Item)requiredItemId, itemLogic, logicPath.ToList(), checkedItems, exclude);
+                    if (childPaths == null)
                     {
                         return null;
                     }
-                    result.Add((Item)requiredItemId);
-                    result.AddRange(requiredChildren);
+                    required.Add((Item)requiredItemId);
+                    if (childPaths.Required != null)
+                    {
+                        required.AddRange(childPaths.Required);
+                    }
+                    if (childPaths.Important != null)
+                    {
+                        important.AddRange(childPaths.Important);
+                    }
                 }
             }
             if (locationLogic.ConditionalItemIds != null && locationLogic.ConditionalItemIds.Any())
             {
-                var found = false;
+                var logicPaths = new List<LogicPaths>();
                 foreach (var conditions in locationLogic.ConditionalItemIds)
                 {
-                    var conditionalRequirements = new List<Item>();
+                    var conditionalRequired = new List<Item>();
+                    var conditionalImportant = new List<Item>();
                     foreach (var conditionalItemId in conditions)
                     {
-                        var requiredChildren = GetImportantItems((Item)conditionalItemId, itemLogic, logicPath.ToList(), checkedItems, exclude);
-                        if (requiredChildren == null)
+                        var childPaths = GetImportantItems((Item)conditionalItemId, itemLogic, logicPath.ToList(), checkedItems, exclude);
+                        if (childPaths == null)
                         {
-                            conditionalRequirements = null;
+                            conditionalRequired = null;
+                            conditionalImportant = null;
                             break;
                         }
 
-                        conditionalRequirements.Add((Item)conditionalItemId);
-                        conditionalRequirements.AddRange(requiredChildren);
+                        conditionalRequired.Add((Item)conditionalItemId);
+                        if (childPaths.Required != null)
+                        {
+                            conditionalRequired.AddRange(childPaths.Required);
+                        }
+                        if (childPaths.Important != null)
+                        {
+                            conditionalImportant.AddRange(childPaths.Important);
+                        }
                     }
 
-                    if (conditionalRequirements != null)
+                    if (conditionalRequired != null && conditionalImportant != null)
                     {
-                        found = true;
-                        result.AddRange(conditionalRequirements);
+                        logicPaths.Add(new LogicPaths
+                        {
+                            Required = conditionalRequired.AsReadOnly(),
+                            Important = conditionalImportant.AsReadOnly()
+                        });
                     }
                 }
-                if (!found)
+                if (!logicPaths.Any())
                 {
                     return null;
                 }
+                required.AddRange(logicPaths.Select(lp => lp.Required.AsEnumerable()).Aggregate((a, b) => a.Intersect(b)));
+                important.AddRange(logicPaths.SelectMany(lp => lp.Required.Union(lp.Important)).Distinct());
             }
-            var readOnlyResult = result.Distinct().ToList().AsReadOnly();
+            var result = new LogicPaths
+            {
+                Required = required.Distinct().ToList().AsReadOnly(),
+                Important = important.Union(required).Distinct().ToList().AsReadOnly()
+            };
             if (!item.IsFake())
             {
-                checkedItems[item] = readOnlyResult;
+                checkedItems[item] = result;
             }
-            return readOnlyResult;
+            return result;
         }
 
         /// <summary>
@@ -1760,7 +1792,7 @@ namespace MMRando
                     }).ToList()
                     : _randomized.Logic;
 
-                _randomized.ImportantItems = GetImportantItems(Item.AreaMoonAccess, _randomized.Logic)?.Where(item => !item.IsFake()).ToList().AsReadOnly();
+                _randomized.ImportantItems = GetImportantItems(Item.AreaMoonAccess, _randomized.Logic)?.Important.Where(item => !item.IsFake()).ToList().AsReadOnly();
                 if (_randomized.ImportantItems == null)
                 {
                     throw new Exception("Moon Access is unobtainable.");
