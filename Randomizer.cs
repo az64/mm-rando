@@ -217,6 +217,16 @@ namespace MMRando
             {
                 ItemList[Item.ShopItemWitchBluePotion].DependsOnItems?.Remove(Item.BottleCatchMushroom);
             }
+            if (_settings.RandomizeBottleCatchContents && _settings.LogicMode == LogicMode.Casual)
+            {
+                var anyBottleIndex = ItemList.FindIndex(io => io.Name == "Any Bottle");
+                var twoBottlesIndex = ItemList.FindIndex(io => io.Name == "2 Bottles");
+                if (anyBottleIndex >= 0 && twoBottlesIndex >= 0)
+                {
+                    ItemList[Item.BottleCatchPrincess].DependsOnItems.Remove((Item)anyBottleIndex);
+                    ItemList[Item.BottleCatchPrincess].DependsOnItems.Add((Item)twoBottlesIndex);
+                }
+            }
             // todo handle progressive upgrades here.
         }
 
@@ -1518,6 +1528,9 @@ namespace MMRando
             // Keep stray fairies vanilla, unless custom item list contains a fairy
             _settings.AddStrayFairies = false;
 
+            // Keep scoops vanilla, unless custom item list contains a scoop
+            _settings.RandomizeBottleCatchContents = false;
+
             // Make all items vanilla, and override using custom item list
             MakeAllItemsVanilla();
 
@@ -1584,6 +1597,11 @@ namespace MMRando
                 if (ItemUtils.IsStrayFairy((Item)selectedItem))
                 {
                     _settings.AddStrayFairies = true;
+                }
+
+                if (ItemUtils.IsBottleCatchContent((Item)selectedItem))
+                {
+                    _settings.RandomizeBottleCatchContents = true;
                 }
             }
         }

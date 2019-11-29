@@ -835,7 +835,7 @@
 0
 0
 - Bottle: Deku Princess
-105,450
+105,438
 
 0
 0
