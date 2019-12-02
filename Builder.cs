@@ -1122,7 +1122,7 @@ namespace MMRando
                 worker.ReportProgress(68, "Writing messages...");
                 WriteGossipQuotes();
 
-                MessageTable.WriteMessageTable(_messageTable);
+                MessageTable.WriteMessageTable(_messageTable, _settings.QuickTextEnabled);
 
                 worker.ReportProgress(69, "Writing startup...");
                 WriteStartupStrings();

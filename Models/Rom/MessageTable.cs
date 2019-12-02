@@ -1,6 +1,7 @@
 ﻿using MMRando.Utils;
 using System.Collections.Generic;
 using System;
+using System.Text.RegularExpressions;
 
 namespace MMRando.Models.Rom
 {
@@ -124,8 +125,16 @@ namespace MMRando.Models.Rom
             return new_message_data;
         }
 
-        public static void WriteMessageTable(MessageTable table)
+        public static void WriteMessageTable(MessageTable table, bool isQuickTextEnabled)
         {
+            if (isQuickTextEnabled)
+            {
+                var regex = new Regex("(?<!(?:\x1B|\x1C|\x1D|\x1E).?)(?:\x1F..|\x17|\x18)", RegexOptions.Singleline);
+                foreach (var messageEntry in table.messages.Values)
+                {
+                    messageEntry.Message = regex.Replace(messageEntry.Message, "");
+                }
+            }
             byte[] new_message_data = table.Rebuild();
 
             int fileIndex = RomUtils.GetFileIndexForWriting(MESSAGE_DATA_ADDRESS);
