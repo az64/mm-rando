@@ -11,6 +11,7 @@ namespace MMRando.Models.Rom
         public byte[] Data;
         public bool IsCompressed;
         public bool WasEdited;
+        public bool Static;
 
         public MMFile Clone()
         {
@@ -22,6 +23,7 @@ namespace MMRando.Models.Rom
                 Cmp_End = Cmp_End,
                 IsCompressed = IsCompressed,
                 WasEdited = WasEdited,
+                Static = Static,
                 Data = Data?.ToArray()
             };
         }

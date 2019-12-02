@@ -54,6 +54,7 @@ namespace MMRando.Asm
                 Addr = (int)start,
                 End = (int)start + data.Length,
                 IsCompressed = false,
+                Static = true,
                 Data = data,
             };
 
