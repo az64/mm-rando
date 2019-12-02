@@ -1,15 +1,13 @@
 {
-    "DPAD_CONFIG": "02F01578",
-    "DPAD_DEFAULT": "02F01574",
-    "DPAD_STATE": "02F01570",
-    "DPAD_TEXTURE": "02F015A0",
-    "PAYLOAD_END": "02F025A0",
-    "PAYLOAD_START": "02F00000",
-    "dpad_sprite": "02F01560",
-    "g_external_effects": "02F014C4",
-    "g_override_floor_physics_type": "02F01598",
-    "g_override_floor_physics_type_value": "02F01594",
-    "g_was_minigame": "02F0157C",
-    "heap_next": "02F0159C",
-    "setup_db": "02F01538"
+    "DPAD_CONFIG": "0380204C",
+    "DPAD_DEFAULT": "03802048",
+    "DPAD_STATE": "03802044",
+    "DPAD_TEXTURE": "03802078",
+    "HUD_COLOR_CONFIG": "03801FF0",
+    "PAYLOAD_END": "03803080",
+    "PAYLOAD_START": "03800000",
+    "dpad_sprite": "03801FE0",
+    "g_external_effects": "03801F44",
+    "heap_next": "03802070",
+    "setup_db": "03801FB8"
 }
