@@ -150,7 +150,7 @@ namespace MMRando.Utils
                     for (var fileIndex = 0; fileIndex < RomData.MMFileList.Count; fileIndex++)
                     {
                         var file = RomData.MMFileList[fileIndex];
-                        var fileIsStatic = file.Static ? 1 : 0;
+                        var fileIsStatic = file.IsStatic ? 1 : 0;
                         if (file.Data == null || (file.IsCompressed && !file.WasEdited))
                         {
                             continue;
@@ -259,7 +259,7 @@ namespace MMRando.Utils
                                 IsCompressed = false,
                                 Data = data,
                                 End = fileAddr + data.Length,
-                                Static = isStatic,
+                                IsStatic = isStatic,
                             };
                             RomUtils.AppendFile(newFile);
                         }
@@ -443,16 +443,11 @@ namespace MMRando.Utils
         /// Get the index of the tail-most <see cref="MMFile"/> which does not use a static virtual address.
         /// </summary>
         /// <returns>Index</returns>
-        public static int? GetTailFileIndex()
+        public static int GetTailFileIndex()
         {
-            for (int i = RomData.MMFileList.Count - 1; i >= 0; i--)
-            {
-                var cur = RomData.MMFileList[i];
-                if (!cur.Static)
-                    return i;
-            }
-
-            return null;
+            var index = RomData.MMFileList.FindLastIndex(file => !file.IsStatic);
+            var result = index >= 0 ? (int?)index : (int?)null;
+            return result.Value;
         }
 
         /// <summary>
@@ -464,7 +459,7 @@ namespace MMRando.Utils
         public static int AppendFile(byte[] data, bool isCompressed = false)
         {
             var index = GetTailFileIndex();
-            var tail = RomData.MMFileList[index.Value];
+            var tail = RomData.MMFileList[index];
             return AppendFile(tail.End, data, isCompressed);
         }
 
@@ -484,7 +479,7 @@ namespace MMRando.Utils
                 End = addr + data.Length,
                 IsCompressed = isCompressed,
                 Data = data,
-                Static = isStatic,
+                IsStatic = isStatic,
             };
 
             return AppendFile(file);
@@ -497,10 +492,10 @@ namespace MMRando.Utils
         /// <returns>File index</returns>
         public static int AppendFile(MMFile file)
         {
-            if (!file.Static)
+            if (!file.IsStatic)
             {
                 // Insert before static files
-                var index = GetTailFileIndex().Value + 1;
+                var index = GetTailFileIndex() + 1;
                 RomData.MMFileList.Insert(index, file);
                 return index;
             }
