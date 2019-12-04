@@ -24,7 +24,7 @@ namespace MMRando.Extensions
         {
             if (!list.Any())
             {
-                throw new InvalidOperationException("List is empty.");
+                throw new Exception("List is empty.");
             }
             if (list.Count == 1)
             {

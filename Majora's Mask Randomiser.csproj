@@ -160,6 +160,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RandomizationException.cs" />
     <Compile Include="Utils\Base36Utils.cs" />
     <Compile Include="Builder.cs" />
     <Compile Include="Constants\Values.cs" />

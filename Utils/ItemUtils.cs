@@ -147,14 +147,14 @@ namespace MMRando.Utils
                 .SelectMany(item => item.GetAttribute<GetBottleItemIndicesAttribute>().Indices);
         }
 
-        private static List<Item> _junkItems;
+        public static List<Item> JunkItems { get; private set; }
         public static void PrepareJunkItems(List<ItemObject> itemList)
         {
-            _junkItems = itemList.Where(io => io.Item.GetAttribute<ChestTypeAttribute>()?.Type == ChestTypeAttribute.ChestType.SmallWooden && !itemList.Any(other => (other.DependsOnItems?.Contains(io.Item) ?? false) || (other.Conditionals?.Any(c => c.Contains(io.Item)) ?? false))).Select(io => io.Item).ToList();
+            JunkItems = itemList.Where(io => io.Item.GetAttribute<ChestTypeAttribute>()?.Type == ChestTypeAttribute.ChestType.SmallWooden && !itemList.Any(other => (other.DependsOnItems?.Contains(io.Item) ?? false) || (other.Conditionals?.Any(c => c.Contains(io.Item)) ?? false))).Select(io => io.Item).ToList();
         }
         public static bool IsJunk(Item item)
         {
-            return _junkItems.Contains(item);
+            return JunkItems.Contains(item);
         }
 
         public static bool IsRequired(Item item, RandomizedResult randomizedResult)

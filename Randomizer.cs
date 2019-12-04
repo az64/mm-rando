@@ -246,6 +246,10 @@ namespace MMRando
                 PopulateItemListWithoutLogic();
             }
             ItemUtils.PrepareJunkItems(ItemList);
+            if (_settings.CustomJunkLocations.Count > ItemUtils.JunkItems.Count)
+            {
+                throw new Exception($"Too many Enforced Junk Locations. Select up to {ItemUtils.JunkItems.Count}.");
+            }
         }
 
         /// <summary>
@@ -274,7 +278,7 @@ namespace MMRando
         {
             if (Migrator.GetVersion(data.ToList()) != Migrator.CurrentVersion)
             {
-                throw new InvalidDataException("Logic file is out of date or invalid. Open it in the Logic Editor to bring it up to date.");
+                throw new Exception("Logic file is out of date or invalid. Open it in the Logic Editor to bring it up to date.");
             }
 
             int itemId = 0;
@@ -916,7 +920,7 @@ namespace MMRando
             {
                 if (availableItems.Count == 0)
                 {
-                    throw new Exception($"Unable to place {currentItem.Name()} anywhere.");
+                    throw new RandomizationException($"Unable to place {currentItem.Name()} anywhere.");
                 }
 
                 var targetLocation = availableItems.Random(Random);// Random.Next(availableItems.Count);
@@ -1564,7 +1568,7 @@ namespace MMRando
         {
             if (_settings.CustomItemList.Contains(-1))
             {
-                throw new InvalidDataException("Invalid custom item string.");
+                throw new Exception("Invalid custom item string.");
             }
             for (int i = 0; i < _settings.CustomItemList.Count; i++)
             {
@@ -1812,7 +1816,7 @@ namespace MMRando
                 _randomized.ImportantItems = GetImportantItems(Item.AreaMoonAccess, _randomized.Logic)?.Important.Where(item => !item.IsFake()).ToList().AsReadOnly();
                 if (_randomized.ImportantItems == null)
                 {
-                    throw new Exception("Moon Access is unobtainable.");
+                    throw new RandomizationException("Moon Access is unobtainable.");
                 }
                 var itemsRequiredForMoonAccess = new List<Item>();
                 foreach (var item in _randomized.ImportantItems)

@@ -1019,16 +1019,15 @@ namespace MMRando
                 {
                     randomized = _randomizer.Randomize(worker, e);
                 }
-                catch (InvalidDataException ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-
-                }
-                catch (Exception ex)
+                catch (RandomizationException ex)
                 {
                     string nl = Environment.NewLine;
                     MessageBox.Show($"Error randomizing logic: {ex.Message}{nl}{nl}Please try a different seed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 

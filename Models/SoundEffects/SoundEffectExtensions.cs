@@ -65,7 +65,7 @@ namespace MMRando.Models.SoundEffects
         {
             if (!source.IsReplacable())
             {
-                throw new InvalidOperationException($"Sound effect {source} is not replacable!");
+                throw new Exception($"Sound effect {source} is not replacable!");
             }
 
             var replacableAttribute = source.GetAttribute<ReplacableAttribute>();
@@ -98,7 +98,7 @@ namespace MMRando.Models.SoundEffects
         {
             if (!source.IsReplacableInMessage())
             {
-                throw new InvalidOperationException($"Sound effect {source} is not replacable!");
+                throw new Exception($"Sound effect {source} is not replacable!");
             }
 
             var replacableAttribute = source.GetAttribute<ReplacableInMessageAttribute>();
@@ -114,7 +114,7 @@ namespace MMRando.Models.SoundEffects
 
                 if (oldSoundLocation < 0)
                 {
-                    throw new InvalidProgramException($"Sound effect {source} has invalid sound replacement setup!");
+                    throw new Exception($"Sound effect {source} has invalid sound replacement setup!");
                 }
 
                 var newSoundId = (uint)newSound;

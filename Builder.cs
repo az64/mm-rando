@@ -191,7 +191,7 @@ namespace MMRando
             {
                 return Character.Kafei;
             }
-            throw new InvalidOperationException("Unable to determine player's model.");
+            throw new Exception("Unable to determine player's model.");
         }
 
         private void WriteTatlColour()
