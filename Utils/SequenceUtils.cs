@@ -173,14 +173,9 @@ namespace MMRando.Utils
 
             if (addr > (RomData.MMFileList[4].End - RomData.MMFileList[4].Addr))
             {
-                MMFile newa = new MMFile();
-                newa.Addr = RomData.MMFileList[RomData.MMFileList.Count - 1].End;
-                newa.End = newa.Addr + addr;
-                newa.IsCompressed = false;
-                newa.Data = NewAudioSeq;
-                RomData.MMFileList.Add(newa);
+                int index = RomUtils.AppendFile(NewAudioSeq);
                 ResourceUtils.ApplyHack(Values.ModsDirectory + "reloc-audio");
-                RelocateSeq(RomData.MMFileList.Count - 1);
+                RelocateSeq(index);
                 RomData.MMFileList[4].Data = new byte[0];
                 RomData.MMFileList[4].Cmp_Addr = -1;
                 RomData.MMFileList[4].Cmp_End = -1;
@@ -223,6 +218,20 @@ namespace MMRando.Utils
             }
         }
 
+        /// <summary>
+        /// Patch instructions to use new sequence data file.
+        /// </summary>
+        /// <param name="f">File index</param>
+        /// <remarks>
+        /// In memory: 0x80190E5C
+        /// Replaces:
+        ///   lui     a1, 0x0004
+        ///   addiu   a1, a1, 0x6AF0
+        /// With:
+        ///   lui     t0, 0x800A
+        ///   lw      a1, offset (t0)
+        /// Note: File table in memory starts at 0x8009F8B0.
+        /// </remarks>
         private static void RelocateSeq(int f)
         {
             var fileTable = 0xF8B0;

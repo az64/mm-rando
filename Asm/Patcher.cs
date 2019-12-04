@@ -90,11 +90,11 @@ namespace MMRando.Asm
 
             // For our custom data, create and insert our own MMFile
             var file = CreateMMFile(symbols);
-            RomData.MMFileList.Add(file);
+            RomUtils.AppendFile(file);
 
             // Encode Symbols into a special MMFile and insert that too
             var symbolsFile = symbols.CreateMMFile();
-            RomData.MMFileList.Add(symbolsFile);
+            RomUtils.AppendFile(symbolsFile);
 
             // Write our D-Pad config
             symbols.WriteDPadConfig(options.DPadConfig);
@@ -140,6 +140,7 @@ namespace MMRando.Asm
                 Addr = (int)start,
                 End = (int)start + data.Length,
                 IsCompressed = false,
+                IsStatic = true,
                 Data = data,
             };
 

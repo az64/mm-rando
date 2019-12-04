@@ -47,16 +47,8 @@ namespace MMRando.Utils
                 buffer = new byte[len];
                 data.Read(buffer, 0, len);
             }
-            int start = RomData.MMFileList[RomData.MMFileList.Count - 1].End;
-            MMFile newfile = new MMFile
-            {
-                Addr = start,
-                IsCompressed = false,
-                Data = buffer,
-                End = start + buffer.Length
-            };
-            RomData.MMFileList.Add(newfile);
-            return newfile.Addr;
+            int index = RomUtils.AppendFile(buffer);
+            return RomData.MMFileList[index].Addr;
         }
 
         public static int AddrToFile(int RAddr)
@@ -158,6 +150,7 @@ namespace MMRando.Utils
                     for (var fileIndex = 0; fileIndex < RomData.MMFileList.Count; fileIndex++)
                     {
                         var file = RomData.MMFileList[fileIndex];
+                        var fileIsStatic = file.IsStatic ? 1 : 0;
                         if (file.Data == null || (file.IsCompressed && !file.WasEdited))
                         {
                             continue;
@@ -167,6 +160,7 @@ namespace MMRando.Utils
                             writer.Write(ReadWriteUtils.Byteswap32((uint)fileIndex));
                             writer.Write(ReadWriteUtils.Byteswap32((uint)file.Addr));
                             writer.Write(ReadWriteUtils.Byteswap32((uint)0));
+                            writer.Write(ReadWriteUtils.Byteswap32((uint)fileIsStatic));
                             writer.Write(ReadWriteUtils.Byteswap32((uint)file.Data.Length));
                             writer.Write(file.Data);
                             continue;
@@ -178,6 +172,7 @@ namespace MMRando.Utils
                             writer.Write(ReadWriteUtils.Byteswap32((uint)fileIndex));
                             writer.Write(ReadWriteUtils.Byteswap32((uint)file.Addr));
                             writer.Write(-1);
+                            writer.Write(ReadWriteUtils.Byteswap32((uint)fileIsStatic));
                             writer.Write(ReadWriteUtils.Byteswap32((uint)file.Data.Length));
                             writer.Write(file.Data);
                             continue;
@@ -193,6 +188,7 @@ namespace MMRando.Utils
                                     writer.Write(ReadWriteUtils.Byteswap32((uint)fileIndex));
                                     writer.Write(ReadWriteUtils.Byteswap32((uint)file.Addr));
                                     writer.Write(ReadWriteUtils.Byteswap32((uint)modifiedIndex.Value));
+                                    writer.Write(ReadWriteUtils.Byteswap32((uint)fileIsStatic));
                                     writer.Write(ReadWriteUtils.Byteswap32((uint)modifiedBuffer.Count));
                                     writer.Write(modifiedBuffer.ToArray());
                                     modifiedBuffer.Clear();
@@ -252,6 +248,7 @@ namespace MMRando.Utils
                         var fileIndex = ReadWriteUtils.ReadS32(reader);
                         var fileAddr = ReadWriteUtils.ReadS32(reader);
                         var index = ReadWriteUtils.ReadS32(reader);
+                        var isStatic = ReadWriteUtils.ReadS32(reader) != 0 ? true : false;
                         var length = ReadWriteUtils.ReadS32(reader);
                         var data = reader.ReadBytes(length);
                         if (fileIndex >= RomData.MMFileList.Count)
@@ -261,9 +258,10 @@ namespace MMRando.Utils
                                 Addr = fileAddr,
                                 IsCompressed = false,
                                 Data = data,
-                                End = fileAddr + data.Length
+                                End = fileAddr + data.Length,
+                                IsStatic = isStatic,
                             };
-                            RomData.MMFileList.Add(newFile);
+                            RomUtils.AppendFile(newFile);
                         }
                         if (index == -1)
                         {
@@ -439,6 +437,73 @@ namespace MMRando.Utils
                 }
             }
             return res;
+        }
+
+        /// <summary>
+        /// Get the index of the tail-most <see cref="MMFile"/> which does not use a static virtual address.
+        /// </summary>
+        /// <returns>Index</returns>
+        public static int GetTailFileIndex()
+        {
+            var index = RomData.MMFileList.FindLastIndex(file => !file.IsStatic);
+            var result = index >= 0 ? (int?)index : (int?)null;
+            return result.Value;
+        }
+
+        /// <summary>
+        /// Append a <see cref="MMFile"/> without a static virtual address to the end of the list.
+        /// </summary>
+        /// <param name="data">File data</param>
+        /// <param name="isCompressed">Is file compressed</param>
+        /// <returns>File index</returns>
+        public static int AppendFile(byte[] data, bool isCompressed = false)
+        {
+            var index = GetTailFileIndex();
+            var tail = RomData.MMFileList[index];
+            return AppendFile(tail.End, data, isCompressed);
+        }
+
+        /// <summary>
+        /// Append a <see cref="MMFile"/> to the list.
+        /// </summary>
+        /// <param name="addr">File address</param>
+        /// <param name="data">File data</param>
+        /// <param name="isCompressed">Is file compressed</param>
+        /// <param name="isStatic">Is file address static</param>
+        /// <returns>File index</returns>
+        public static int AppendFile(int addr, byte[] data, bool isCompressed = false, bool isStatic = false)
+        {
+            var file = new MMFile
+            {
+                Addr = addr,
+                End = addr + data.Length,
+                IsCompressed = isCompressed,
+                Data = data,
+                IsStatic = isStatic,
+            };
+
+            return AppendFile(file);
+        }
+
+        /// <summary>
+        /// Append a <see cref="MMFile"/> to the list.
+        /// </summary>
+        /// <param name="file">File</param>
+        /// <returns>File index</returns>
+        public static int AppendFile(MMFile file)
+        {
+            if (!file.IsStatic)
+            {
+                // Insert before static files
+                var index = GetTailFileIndex() + 1;
+                RomData.MMFileList.Insert(index, file);
+                return index;
+            }
+            else
+            {
+                RomData.MMFileList.Add(file);
+                return RomData.MMFileList.Count - 1;
+            }
         }
     }
 

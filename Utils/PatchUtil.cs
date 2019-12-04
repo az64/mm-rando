@@ -8,6 +8,7 @@ namespace MMRando.Utils
     public enum PatchVersion : uint
     {
         V1 = 1,
+        V2 = 2,
     }
 
     public class PatchUtil
@@ -20,7 +21,7 @@ namespace MMRando.Utils
         /// <summary>
         /// Most recent <see cref="PatchVersion"/> value.
         /// </summary>
-        public static readonly PatchVersion PATCH_VERSION = PatchVersion.V1;
+        public static readonly PatchVersion PATCH_VERSION = PatchVersion.V2;
     }
 
     class PatchMagicException : Exception
