@@ -245,10 +245,69 @@ namespace MMRando
             {
                 PopulateItemListWithoutLogic();
             }
+
+            if (_settings.UseCustomItemList)
+            {
+                UpdateCustomItemListSettings();
+            }
+
+            UpdateLogicForSettings();
+
             ItemUtils.PrepareJunkItems(ItemList);
             if (_settings.CustomJunkLocations.Count > ItemUtils.JunkItems.Count)
             {
                 throw new Exception($"Too many Enforced Junk Locations. Select up to {ItemUtils.JunkItems.Count}.");
+            }
+        }
+
+        private void UpdateCustomItemListSettings()
+        {
+            if (_settings.CustomItemList.Contains(-1))
+            {
+                throw new Exception("Invalid custom item string.");
+            }
+
+            // Keep shop items vanilla, unless custom item list contains a shop item
+            _settings.AddShopItems = false;
+
+            // Keep cows vanilla, unless custom item list contains a cow
+            _settings.AddCowMilk = false;
+
+            // Keep skulltula tokens vanilla, unless custom item list contains a token
+            _settings.AddSkulltulaTokens = false;
+
+            // Keep stray fairies vanilla, unless custom item list contains a fairy
+            _settings.AddStrayFairies = false;
+
+            // Keep scoops vanilla, unless custom item list contains a scoop
+            _settings.RandomizeBottleCatchContents = false;
+
+            foreach (var item in _settings.CustomItemList.Select(ItemUtils.AddItemOffset).Cast<Item>())
+            {
+                if (ItemUtils.IsShopItem(item))
+                {
+                    _settings.AddShopItems = true;
+                }
+
+                if (ItemUtils.IsCowItem(item))
+                {
+                    _settings.AddCowMilk = true;
+                }
+
+                if (ItemUtils.IsSkulltulaToken(item))
+                {
+                    _settings.AddSkulltulaTokens = true;
+                }
+
+                if (ItemUtils.IsStrayFairy(item))
+                {
+                    _settings.AddStrayFairies = true;
+                }
+
+                if (ItemUtils.IsBottleCatchContent(item))
+                {
+                    _settings.RandomizeBottleCatchContents = true;
+                }
             }
         }
 
@@ -956,8 +1015,6 @@ namespace MMRando
                 Setup();
             }
 
-            UpdateLogicForSettings();
-
             var itemPool = new List<Item>();
 
             AddAllItems(itemPool);
@@ -1520,21 +1577,6 @@ namespace MMRando
         /// </summary>
         private void SetupCustomItems()
         {
-            // Keep shop items vanilla, unless custom item list contains a shop item
-            _settings.AddShopItems = false;
-
-            // Keep cows vanilla, unless custom item list contains a cow
-            _settings.AddCowMilk = false;
-
-            // Keep skulltula tokens vanilla, unless custom item list contains a token
-            _settings.AddSkulltulaTokens = false;
-
-            // Keep stray fairies vanilla, unless custom item list contains a fairy
-            _settings.AddStrayFairies = false;
-
-            // Keep scoops vanilla, unless custom item list contains a scoop
-            _settings.RandomizeBottleCatchContents = false;
-
             // Make all items vanilla, and override using custom item list
             MakeAllItemsVanilla();
 
@@ -1581,31 +1623,6 @@ namespace MMRando
                 if (selectedItemIndex != -1)
                 {
                     ItemList[selectedItemIndex].NewLocation = null;
-                }
-
-                if (ItemUtils.IsShopItem((Item)selectedItem))
-                {
-                    _settings.AddShopItems = true;
-                }
-
-                if (ItemUtils.IsCowItem((Item)selectedItem))
-                {
-                    _settings.AddCowMilk = true;
-                }
-
-                if (ItemUtils.IsSkulltulaToken((Item)selectedItem))
-                {
-                    _settings.AddSkulltulaTokens = true;
-                }
-
-                if (ItemUtils.IsStrayFairy((Item)selectedItem))
-                {
-                    _settings.AddStrayFairies = true;
-                }
-
-                if (ItemUtils.IsBottleCatchContent((Item)selectedItem))
-                {
-                    _settings.RandomizeBottleCatchContents = true;
                 }
             }
         }
