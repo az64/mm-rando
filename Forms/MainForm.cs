@@ -163,6 +163,7 @@ namespace MMRando
             lStatus.Text = "Ready...";
             EnableAllControls(true);
             ToggleCheckBoxes();
+            TogglePatchSettings(ttOutput.SelectedTab.TabIndex == 0);
         }
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -204,6 +205,16 @@ namespace MMRando
             if (_settings.GenerateROM && !ValidateInputFile()) return;
 
             if (_settings.LogicMode == LogicMode.UserLogic && !ValidateLogicFile()) return;
+
+            if (ttOutput.SelectedTab.TabIndex == 1)
+            {
+                if (string.IsNullOrWhiteSpace(_settings.InputPatchFilename))
+                {
+                    MessageBox.Show("No patch selected.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
 
             saveROM.FileName = !string.IsNullOrWhiteSpace(_settings.InputPatchFilename)
                 ? Path.ChangeExtension(Path.GetFileName(_settings.InputPatchFilename), "z64")
@@ -808,6 +819,9 @@ namespace MMRando
                 cSpiders.Enabled = onMainTab;
                 cStrayFairies.Enabled = onMainTab;
                 cMundaneRewards.Enabled = onMainTab;
+
+                tCustomItemList.Enabled = onMainTab;
+                bItemListEditor.Enabled = onMainTab;
 
                 tStartingItemList.Enabled = onMainTab;
                 bStartingItemEditor.Enabled = onMainTab;
