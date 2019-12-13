@@ -1155,8 +1155,8 @@
 0
 0
 - South Clock Town 20r
-10
 
+10;0,32
 0
 0
 - South Clock Town 50r
