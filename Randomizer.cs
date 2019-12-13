@@ -395,35 +395,17 @@ namespace MMRando
 
         private void ProcessConditionalsForItem(ItemObject currentItem, string line)
         {
-            List<List<Item>> conditional = new List<List<Item>>();
-
-            if (line == "")
+            foreach (string conditions in line.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
             {
-                currentItem.Conditionals = null;
-            }
-            else
-            {
-                foreach (string conditions in line.Split(';'))
-                {
-                    currentItem.Conditionals.Add(Array.ConvertAll(conditions.Split(','), int.Parse).Select(i => (Item)i).ToList());
-                }
+                currentItem.Conditionals.Add(Array.ConvertAll(conditions.Split(','), int.Parse).Select(i => (Item)i).ToList());
             }
         }
 
         private void ProcessDependenciesForItem(ItemObject currentItem, string line)
         {
-            List<Item> dependencies = new List<Item>();
-
-            if (line == "")
+            foreach (string dependency in line.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
-                currentItem.DependsOnItems = null;
-            }
-            else
-            {
-                foreach (string dependency in line.Split(','))
-                {
-                    currentItem.DependsOnItems.Add((Item)Convert.ToInt32(dependency));
-                }
+                currentItem.DependsOnItems.Add((Item)Convert.ToInt32(dependency));
             }
         }
 
@@ -459,53 +441,49 @@ namespace MMRando
         private Dependence CheckDependence(Item currentItem, Item target, List<Item> dependencyPath)
         {
             Debug.WriteLine($"CheckDependence({currentItem}, {target})");
+            var currentItemObject = ItemList[currentItem];
+            var currentTargetObject = ItemList[target];
 
-            if (ItemList[currentItem].TimeNeeded == 0 && ItemUtils.IsJunk(currentItem))
+            if (currentItemObject.TimeNeeded == 0 && ItemUtils.IsJunk(currentItem))
             {
                 return Dependence.NotDependent;
             }
 
             //check timing
-            if (ItemList[currentItem].TimeNeeded != 0 && dependencyPath.Skip(1).All(p => p.IsFake() || ItemList.Single(i => i.NewLocation == p).Item.IsTemporary()))
+            if (currentItemObject.TimeNeeded != 0 && dependencyPath.Skip(1).All(p => p.IsFake() || ItemList.Single(i => i.NewLocation == p).Item.IsTemporary()))
             {
-                if ((ItemList[currentItem].TimeNeeded & ItemList[target].TimeAvailable) == 0)
+                if ((currentItemObject.TimeNeeded & currentTargetObject.TimeAvailable) == 0)
                 {
-                    Debug.WriteLine($"{currentItem} is needed at {ItemList[currentItem].TimeNeeded} but {target} is only available at {ItemList[target].TimeAvailable}");
+                    Debug.WriteLine($"{currentItem} is needed at {currentItemObject.TimeNeeded} but {target} is only available at {currentTargetObject.TimeAvailable}");
                     return Dependence.Dependent;
                 }
             }
 
-            if (ItemList[target].HasConditionals)
+            if (currentTargetObject.Conditionals.Any())
             {
-                if (ItemList[target].Conditionals
-                    .FindAll(u => u.Contains(currentItem)).Count == ItemList[target].Conditionals.Count)
+                if (currentTargetObject.Conditionals.All(u => u.Contains(currentItem)))
                 {
                     Debug.WriteLine($"All conditionals of {target} contains {currentItem}");
                     return Dependence.Dependent;
                 }
 
-                if (ItemList[currentItem].HasCannotRequireItems)
+                foreach (var cannotRequireItem in currentItemObject.CannotRequireItems)
                 {
-                    for (int i = 0; i < ItemList[currentItem].CannotRequireItems.Count; i++)
+                    if (currentTargetObject.Conditionals.All(u => u.Contains(cannotRequireItem) || u.Contains(currentItem)))
                     {
-                        if (ItemList[target].Conditionals
-                            .FindAll(u => u.Contains(ItemList[currentItem].CannotRequireItems[i])
-                            || u.Contains(currentItem)).Count == ItemList[target].Conditionals.Count)
-                        {
-                            Debug.WriteLine($"All conditionals of {target} cannot be required by {currentItem}");
-                            return Dependence.Dependent;
-                        }
+                        Debug.WriteLine($"All conditionals of {target} cannot be required by {currentItem}");
+                        return Dependence.Dependent;
                     }
                 }
 
                 int k = 0;
                 var circularDependencies = new List<Item>();
-                for (int i = 0; i < ItemList[target].Conditionals.Count; i++)
+                for (int i = 0; i < currentTargetObject.Conditionals.Count; i++)
                 {
                     bool match = false;
-                    for (int j = 0; j < ItemList[target].Conditionals[i].Count; j++)
+                    for (int j = 0; j < currentTargetObject.Conditionals[i].Count; j++)
                     {
-                        var d = ItemList[target].Conditionals[i][j];
+                        var d = currentTargetObject.Conditionals[i][j];
                         if (!d.IsFake() && !ItemList[d].NewLocation.HasValue && d != currentItem)
                         {
                             continue;
@@ -561,7 +539,7 @@ namespace MMRando
                     }
                 }
 
-                if (k == ItemList[target].Conditionals.Count)
+                if (k == currentTargetObject.Conditionals.Count)
                 {
                     if (circularDependencies.Any())
                     {
@@ -572,15 +550,23 @@ namespace MMRando
                 }
             }
 
-            if (ItemList[target].DependsOnItems == null)
+            if (currentTargetObject.DependsOnItems == null)
             {
                 return Dependence.NotDependent;
             }
 
-            //cycle through all things
-            for (int i = 0; i < ItemList[target].DependsOnItems.Count; i++)
+            foreach (var cannotRequireItem in currentItemObject.CannotRequireItems)
             {
-                var dependency = ItemList[target].DependsOnItems[i];
+                if (currentTargetObject.DependsOnItems.Contains(cannotRequireItem))
+                {
+                    Debug.WriteLine($"Dependence {cannotRequireItem} of {target} cannot be required by {currentItem}");
+                    return Dependence.Dependent;
+                }
+            }
+
+            //cycle through all things
+            foreach (var dependency in currentTargetObject.DependsOnItems)
+            {
                 if (!currentItem.IsTemporary() && target == Item.MaskBlast && (dependency == Item.TradeItemKafeiLetter || dependency == Item.TradeItemPendant))
                 {
                     // Permanent items ignore Kafei Letter and Pendant on Blast Mask check.
@@ -592,45 +578,30 @@ namespace MMRando
                     return Dependence.Dependent;
                 }
 
-                if (ItemList[currentItem].HasCannotRequireItems)
-                {
-                    for (int j = 0; j < ItemList[currentItem].CannotRequireItems.Count; j++)
-                    {
-                        if (ItemList[target].DependsOnItems.Contains(ItemList[currentItem].CannotRequireItems[j]))
-                        {
-                            Debug.WriteLine($"Dependence {ItemList[currentItem].CannotRequireItems[j]} of {target} cannot be required by {currentItem}");
-                            return Dependence.Dependent;
-                        }
-                    }
-                }
-
                 if (dependency.IsFake()
                     || ItemList[dependency].NewLocation.HasValue)
                 {
-                    if (ItemList[dependency].NewLocation.HasValue)
-                    {
-                        dependency = ItemList[dependency].NewLocation.Value;
-                    }
+                    var location = ItemList[dependency].NewLocation ?? dependency;
 
-                    if (dependencyPath.Contains(dependency))
+                    if (dependencyPath.Contains(location))
                     {
-                        DependenceChecked[dependency] = Dependence.Circular(dependency);
-                        return DependenceChecked[dependency];
+                        DependenceChecked[location] = Dependence.Circular(location);
+                        return DependenceChecked[location];
                     }
-                    if (!DependenceChecked.ContainsKey(dependency) || (DependenceChecked[dependency].Type == DependenceType.Circular && !DependenceChecked[dependency].Items.All(id => dependencyPath.Contains(id))))
+                    if (!DependenceChecked.ContainsKey(location) || (DependenceChecked[location].Type == DependenceType.Circular && !DependenceChecked[location].Items.All(id => dependencyPath.Contains(id))))
                     {
                         var childPath = dependencyPath.ToList();
-                        childPath.Add(dependency);
-                        DependenceChecked[dependency] = CheckDependence(currentItem, dependency, childPath);
+                        childPath.Add(location);
+                        DependenceChecked[location] = CheckDependence(currentItem, location, childPath);
                     }
-                    if (DependenceChecked[dependency].Type != DependenceType.NotDependent)
+                    if (DependenceChecked[location].Type != DependenceType.NotDependent)
                     {
-                        if (DependenceChecked[dependency].Type == DependenceType.Circular && DependenceChecked[dependency].Items.All(id => id == dependency))
+                        if (DependenceChecked[location].Type == DependenceType.Circular && DependenceChecked[location].Items.All(id => id == location))
                         {
-                            DependenceChecked[dependency] = Dependence.Dependent;
+                            DependenceChecked[location] = Dependence.Dependent;
                         }
-                        Debug.WriteLine($"{currentItem} is dependent on {dependency}");
-                        return DependenceChecked[dependency];
+                        Debug.WriteLine($"{currentItem} is dependent on {location}");
+                        return DependenceChecked[location];
                     }
                 }
             }
@@ -640,32 +611,22 @@ namespace MMRando
 
         private void RemoveConditionals(Item currentItem)
         {
-            for (int i = 0; i < ConditionRemoves.Count; i++)
+            foreach (var conditionRemove in ConditionRemoves)
             {
-                int x = ConditionRemoves[i][0];
-                int y = ConditionRemoves[i][1];
-                int z = ConditionRemoves[i][2];
+                int x = conditionRemove[0];
+                int y = conditionRemove[1];
+                int z = conditionRemove[2];
                 ItemList[x].Conditionals[y] = null;
             }
-
-            for (int i = 0; i < ConditionRemoves.Count; i++)
+            
+            foreach (var targetRemovals in ConditionRemoves.Select(cr => ItemList[cr[0]]))
             {
-                int x = ConditionRemoves[i][0];
-                int y = ConditionRemoves[i][1];
-                int z = ConditionRemoves[i][2];
-
-                for (int j = 0; j < ItemList[x].Conditionals.Count; j++)
+                foreach (var conditionals in targetRemovals.Conditionals)
                 {
-                    if (ItemList[x].Conditionals[j] != null)
+                    if (conditionals != null)
                     {
-                        for (int k = 0; k < ItemList[x].Conditionals[j].Count; k++)
+                        foreach (var d in conditionals)
                         {
-                            var d = ItemList[x].Conditionals[j][k];
-
-                            if (!ItemList[x].HasCannotRequireItems)
-                            {
-                                ItemList[x].CannotRequireItems = new List<Item>();
-                            }
                             if (!ItemList[d].CannotRequireItems.Contains(currentItem))
                             {
                                 ItemList[d].CannotRequireItems.Add(currentItem);
@@ -675,135 +636,55 @@ namespace MMRando
                 }
             }
 
-            for (int i = 0; i < ItemList.Count; i++)
+            foreach (var itemObject in ItemList)
             {
-                if (ItemList[i].Conditionals != null)
-                {
-                    ItemList[i].Conditionals.RemoveAll(u => u == null);
-                }
+                itemObject.Conditionals.RemoveAll(u => u == null);
             }
-
-            /*
-            for (int i = 0; i < ConditionRemoves.Count; i++)
-            {
-                for (int j = 0; j < ItemList[ConditionRemoves[i][0]].Conditional[ConditionRemoves[i][1]].Count; j++)
-                {
-                    int d = ItemList[ConditionRemoves[i][0]].Conditional[ConditionRemoves[i][1]][j];
-                    if (ItemList[d].Cannot_Require == null)
-                    {
-                        ItemList[d].Cannot_Require = new List<int>();
-                    };
-                    ItemList[d].Cannot_Require.Add(CurrentItem);
-                    if (ItemList[ConditionRemoves[i][0]].Dependence == null)
-                    {
-                        ItemList[ConditionRemoves[i][0]].Dependence = new List<int>();
-                    };
-                    ItemList[ConditionRemoves[i][0]].Dependence.Add(d);
-                };
-                ItemList[ConditionRemoves[i][0]].Conditional[ConditionRemoves[i][1]] = null;
-            };
-            for (int i = 0; i < ItemList.Count; i++)
-            {
-                if (ItemList[i].Conditional != null)
-                {
-                    if (ItemList[i].Conditional.Contains(null))
-                    {
-                        ItemList[i].Conditional = null;
-                    };
-                };
-            };
-            */
         }
 
         private void UpdateConditionals(Item currentItem, Item target)
         {
-            var targetId = (int)target;
-            if (!ItemList[targetId].HasConditionals)
+            var targetItemObject = ItemList[target];
+            if (!targetItemObject.Conditionals.Any())
             {
                 return;
             }
 
-            //if ((Target == 114) || (Target == 115))
-            //{
-            //    return;
-            //};
-            /*
-            if (ItemList[Target].Cannot_Require != null)
+            if (targetItemObject.Conditionals.Count == 1)
             {
-                for (int i = 0; i < ItemList[CurrentItem].Cannot_Require.Count; i++)
+                foreach (var conditionalItem in targetItemObject.Conditionals[0])
                 {
-                    ItemList[Target].Conditional.RemoveAll(u => u.Contains(ItemList[CurrentItem].Cannot_Require[i]));
-                };
-            };
-            ItemList[Target].Conditional.RemoveAll(u => u.Contains(CurrentItem));
-            if (ItemList[Target].Conditional.Count == 0)
-            {
-                return;
-            };
-            */
-            if (ItemList[targetId].Conditionals.Count == 1)
-            {
-                for (int i = 0; i < ItemList[targetId].Conditionals[0].Count; i++)
-                {
-                    if (!ItemList[targetId].HasDependencies)
+                    if (!targetItemObject.DependsOnItems.Contains(conditionalItem))
                     {
-                        ItemList[targetId].DependsOnItems = new List<Item>();
+                        targetItemObject.DependsOnItems.Add(conditionalItem);
                     }
-
-                    var j = ItemList[targetId].Conditionals[0][i];
-                    var jId = (int)j;
-                    if (!ItemList[targetId].DependsOnItems.Contains(j))
+                    if (!ItemList[conditionalItem].CannotRequireItems.Contains(currentItem))
                     {
-                        ItemList[targetId].DependsOnItems.Add(j);
-                    }
-                    if (!ItemList[jId].HasCannotRequireItems)
-                    {
-                        ItemList[jId].CannotRequireItems = new List<Item>();
-                    }
-                    if (!ItemList[jId].CannotRequireItems.Contains(currentItem))
-                    {
-                        ItemList[jId].CannotRequireItems.Add(currentItem);
+                        ItemList[conditionalItem].CannotRequireItems.Add(currentItem);
                     }
                 }
-                ItemList[targetId].Conditionals.RemoveAt(0);
+                targetItemObject.Conditionals.RemoveAt(0);
             }
             else
             {
                 //check if all conditions have a common item
-                for (int i = 0; i < ItemList[targetId].Conditionals[0].Count; i++)
+                var commonConditionals = targetItemObject.Conditionals[0].Where(c => targetItemObject.Conditionals.All(cs => cs.Contains(c))).ToList();
+                foreach (var commonConditional in commonConditionals)
                 {
-                    var testitem = ItemList[targetId].Conditionals[0][i];
-                    if (ItemList[targetId].Conditionals.FindAll(u => u.Contains(testitem)).Count == ItemList[targetId].Conditionals.Count)
+                    // require this item and remove from conditions
+                    if (!targetItemObject.DependsOnItems.Contains(commonConditional))
                     {
-                        // require this item and remove from conditions
-                        if (!ItemList[targetId].HasDependencies)
-                        {
-                            ItemList[targetId].DependsOnItems = new List<Item>();
-                        }
-                        if (!ItemList[targetId].DependsOnItems.Contains(testitem))
-                        {
-                            ItemList[targetId].DependsOnItems.Add(testitem);
-                        }
-                        for (int j = 0; j < ItemList[targetId].Conditionals.Count; j++)
-                        {
-                            ItemList[targetId].Conditionals[j].Remove(testitem);
-                        }
-
-                        break;
+                        targetItemObject.DependsOnItems.Add(commonConditional);
+                    }
+                    foreach (var conditional in targetItemObject.Conditionals)
+                    {
+                        conditional.Remove(commonConditional);
+                    }
+                    if (targetItemObject.Conditionals.Any(cs => !cs.Any()))
+                    {
+                        targetItemObject.Conditionals.Clear();
                     }
                 }
-                //for (int i = 0; i < ItemList[Target].Conditional.Count; i++)
-                //{
-                //    for (int j = 0; j < ItemList[Target].Conditional[i].Count; j++)
-                //    {
-                //        int k = ItemList[Target].Conditional[i][j];
-                //        if (ItemList[k].Cannot_Require == null)
-                //        {
-                //            ItemList[k].Cannot_Require = new List<int>();
-                //        };
-                //        ItemList[k].Cannot_Require.Add(CurrentItem);
-                //    };
-                //};
             };
         }
 
@@ -842,57 +723,46 @@ namespace MMRando
 
         private void CheckConditionals(Item currentItem, Item target, List<Item> dependencyPath)
         {
+            var targetItemObject = ItemList[target];
             if (target == Item.MaskBlast)
             {
                 if (!currentItem.IsTemporary())
                 {
-                    ItemList[target].DependsOnItems?.Remove(Item.TradeItemKafeiLetter);
-                    ItemList[target].DependsOnItems?.Remove(Item.TradeItemPendant);
+                    targetItemObject.DependsOnItems?.Remove(Item.TradeItemKafeiLetter);
+                    targetItemObject.DependsOnItems?.Remove(Item.TradeItemPendant);
                 }
             }
 
             ConditionsChecked.Add(target);
             UpdateConditionals(currentItem, target);
 
-            if (!ItemList[target].HasDependencies)
+            foreach (var dependency in targetItemObject.DependsOnItems)
             {
-                return;
-            }
-
-            for (int i = 0; i < ItemList[target].DependsOnItems.Count; i++)
-            {
-                var dependency = ItemList[target].DependsOnItems[i];
-                if (!ItemList[dependency].HasCannotRequireItems)
+                var dependencyObject = ItemList[dependency];
+                if (!dependencyObject.CannotRequireItems.Contains(currentItem))
                 {
-                    ItemList[dependency].CannotRequireItems = new List<Item>();
+                    dependencyObject.CannotRequireItems.Add(currentItem);
                 }
-                if (!ItemList[dependency].CannotRequireItems.Contains(currentItem))
+                if (dependency.IsFake() || dependencyObject.NewLocation.HasValue)
                 {
-                    ItemList[dependency].CannotRequireItems.Add(currentItem);
-                }
-                if (dependency.IsFake() || ItemList[dependency].NewLocation.HasValue)
-                {
-                    if (ItemList[dependency].NewLocation.HasValue)
-                    {
-                        dependency = ItemList[dependency].NewLocation.Value;
-                    }
+                    var location = dependencyObject.NewLocation ?? dependency;
 
-                    if (!ConditionsChecked.Contains(dependency))
+                    if (!ConditionsChecked.Contains(location))
                     {
                         var childPath = dependencyPath.ToList();
-                        childPath.Add(dependency);
-                        CheckConditionals(currentItem, dependency, childPath);
+                        childPath.Add(location);
+                        CheckConditionals(currentItem, location, childPath);
                     }
                 }
                 else if (ItemList[currentItem].TimeNeeded != 0 && dependency.IsTemporary() && dependencyPath.Skip(1).All(p => p.IsFake() || ItemList.Single(j => j.NewLocation == p).Item.IsTemporary()))
                 {
-                    if (ItemList[dependency].TimeNeeded == 0)
+                    if (dependencyObject.TimeNeeded == 0)
                     {
-                        ItemList[dependency].TimeNeeded = ItemList[currentItem].TimeNeeded;
+                        dependencyObject.TimeNeeded = ItemList[currentItem].TimeNeeded;
                     }
                     else
                     {
-                        ItemList[dependency].TimeNeeded &= ItemList[currentItem].TimeNeeded;
+                        dependencyObject.TimeNeeded &= ItemList[currentItem].TimeNeeded;
                     }
                 }
             }

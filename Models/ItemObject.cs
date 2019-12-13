@@ -16,11 +16,5 @@ namespace MMRando.Models
         public Item? NewLocation { get; set; }
 
         public bool IsRandomized { get; set; }
-
-        public bool HasConditionals => Conditionals != null && Conditionals.Count > 0;
-        public bool HasDependencies => DependsOnItems != null
-            && DependsOnItems.Count > 0;
-        public bool HasCannotRequireItems => CannotRequireItems != null
-            && CannotRequireItems.Count > 0;
     }
 }
