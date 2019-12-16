@@ -41,8 +41,6 @@ namespace MMRando
             this.cUserItems = new System.Windows.Forms.CheckBox();
             this.tSettings = new System.Windows.Forms.TabControl();
             this.tabROMSettings = new System.Windows.Forms.TabPage();
-            this.groupBoxPresets = new System.Windows.Forms.GroupBox();
-            this.cPresets = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cHTMLLog = new System.Windows.Forms.CheckBox();
             this.cSpoiler = new System.Windows.Forms.CheckBox();
@@ -163,7 +161,6 @@ namespace MMRando
             this.bLoadPatch = new System.Windows.Forms.Button();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
-            this.groupBoxPresets.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gGameOutput.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -233,7 +230,6 @@ namespace MMRando
             // 
             // tabROMSettings
             // 
-            this.tabROMSettings.Controls.Add(this.groupBoxPresets);
             this.tabROMSettings.Controls.Add(this.groupBox1);
             this.tabROMSettings.Controls.Add(this.gGameOutput);
             this.tabROMSettings.Controls.Add(this.label1);
@@ -247,35 +243,11 @@ namespace MMRando
             this.tabROMSettings.Text = "ROM Settings";
             this.tabROMSettings.UseVisualStyleBackColor = true;
             // 
-            // groupBoxPresets
-            // 
-            this.groupBoxPresets.Controls.Add(this.cPresets);
-            this.groupBoxPresets.Location = new System.Drawing.Point(30, 70);
-            this.groupBoxPresets.Name = "groupBoxPresets";
-            this.groupBoxPresets.Size = new System.Drawing.Size(288, 51);
-            this.groupBoxPresets.TabIndex = 17;
-            this.groupBoxPresets.TabStop = false;
-            this.groupBoxPresets.Text = "Settings Presets";
-            // 
-            // cPresets
-            // 
-            this.cPresets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cPresets.FormattingEnabled = true;
-            this.cPresets.Items.AddRange(new object[] {
-            "Default",
-            "Custom",
-            "Random"});
-            this.cPresets.Location = new System.Drawing.Point(6, 19);
-            this.cPresets.Name = "cPresets";
-            this.cPresets.Size = new System.Drawing.Size(276, 21);
-            this.cPresets.TabIndex = 18;
-            this.cPresets.SelectedIndexChanged += new System.EventHandler(this.cPresets_SelectedIndexChanged);
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.cHTMLLog);
             this.groupBox1.Controls.Add(this.cSpoiler);
-            this.groupBox1.Location = new System.Drawing.Point(177, 128);
+            this.groupBox1.Location = new System.Drawing.Point(177, 67);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(141, 107);
             this.groupBox1.TabIndex = 17;
@@ -317,7 +289,7 @@ namespace MMRando
             this.gGameOutput.Controls.Add(this.cPatch);
             this.gGameOutput.Controls.Add(this.cN64);
             this.gGameOutput.Controls.Add(this.cVC);
-            this.gGameOutput.Location = new System.Drawing.Point(30, 128);
+            this.gGameOutput.Location = new System.Drawing.Point(30, 67);
             this.gGameOutput.Name = "gGameOutput";
             this.gGameOutput.Size = new System.Drawing.Size(141, 107);
             this.gGameOutput.TabIndex = 16;
@@ -1757,7 +1729,6 @@ namespace MMRando
             this.tSettings.ResumeLayout(false);
             this.tabROMSettings.ResumeLayout(false);
             this.tabROMSettings.PerformLayout();
-            this.groupBoxPresets.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.gGameOutput.ResumeLayout(false);
@@ -1917,8 +1888,6 @@ namespace MMRando
         private System.Windows.Forms.Button bJunkLocationsEditor;
         private System.Windows.Forms.TextBox tJunkLocationsList;
         private System.Windows.Forms.ToolStripMenuItem mDPadConfig;
-        private System.Windows.Forms.GroupBox groupBoxPresets;
-        private System.Windows.Forms.ComboBox cPresets;
         private System.Windows.Forms.ToolStripMenuItem saveSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadSettingsToolStripMenuItem;
     }

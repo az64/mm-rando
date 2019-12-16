@@ -434,7 +434,7 @@ namespace MMRando
                     lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
                 }
             }
-            else if (mode == LogicMode.Preset)
+            else if (mode == LogicMode.SettingsFile)
             {
                 using (StreamReader Req = new StreamReader(File.Open(_settings.UserPresetFileName, FileMode.Open)))
                 {

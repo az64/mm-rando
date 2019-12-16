@@ -31,10 +31,8 @@ namespace MMRando
         public JunkLocationEditForm JunkLocationEditor { get; private set; }
 
 
-        public const string PresetExt = ".cfg";
-        public const string initSettingsFilename = "settings";
-        public bool PresetInit = true;
-        public bool PresetHasLogic = false;
+        public const string SETTINGS_EXTENSION = ".cfg";
+        public bool SettingsFileHasLogic = false;
         public bool TabsRemoved = false;
 
         private Randomizer _randomizer;
@@ -54,7 +52,6 @@ namespace MMRando
         {
             InitializeComponent();
             InitializeSettings();
-            InitializePresets();
             InitializeTooltips();
 
             _randomizer = new Randomizer(_settings);
@@ -78,19 +75,7 @@ namespace MMRando
 
             Text = AssemblyVersion;
 
-            if (File.Exists(".\\" + initSettingsFilename + PresetExt))
-            {
-                ReadPreset(".\\" + initSettingsFilename + PresetExt);
-                _settings.UserPresetFileName = "";
-                cPresets.SelectedIndex = (int)Presets.Custom;
-            }
-            else
-            {
-                ApplyPreset(Presets.Default);
-                cPresets.SelectedIndex = (int)Presets.Default;
-            }
-
-            PresetInit = false;
+            LoadSettings();
         }
 
         private void InitializeTooltips()
@@ -101,7 +86,6 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cSpoiler, "Output a spoiler log.\n\n The spoiler log contains a list over all items, and their shuffled locations.\n In addition, the spoiler log contains version information, seed and settings string used in the randomization.");
             TooltipBuilder.SetTooltip(cHTMLLog, "Output a html spoiler log (Requires spoiler log to be checked).\n\n Similar to the regular spoiler log, but readable in browsers. The locations/items are hidden by default, and hovering over them will make them visible.");
             TooltipBuilder.SetTooltip(cPatch, "Output a patch file that can be applied using the Patch settings tab to reproduce the same ROM.\nPatch file includes all settings except Tunic and Tatl color.");
-            TooltipBuilder.SetTooltip(cPresets, "Changes settings based on a prebuilt preset.");
 
             // Main Settings
             TooltipBuilder.SetTooltip(cMode, "Select mode of logic:\n - Casual: The randomization logic ensures that the game can be beaten casually.\n - Using glitches: The randomization logic allows for placement of items that are only obtainable using known glitches.\n - Vanilla Layout: All items are left vanilla.\n - User logic: Upload your own custom logic to be used in the randomization.\n - No logic: Completely random, no guarantee the game is beatable.");
@@ -154,24 +138,6 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cGoodDogRaceRNG, "Make Gold Dog always win if you have the Mask of Truth.");
             TooltipBuilder.SetTooltip(cFasterLabFish, "Change Lab Fish to only need to be fed one fish.");
         }
-
-
-        private void InitializePresets()
-        {
-            String[] Presets = Directory.GetFiles("./Presets/");
-            String Display = "";
-
-            foreach (String Preset in Presets)
-            {
-
-                Display = Path.GetFileNameWithoutExtension(Preset);
-
-                cPresets.Items.Add(Display);
-
-            }
-        }
-
-
 
         #region Forms Code
 
@@ -246,7 +212,7 @@ namespace MMRando
         {
             if (_settings.GenerateROM && !ValidateInputFile()) return;
 
-            if ((_settings.LogicMode == LogicMode.UserLogic || _settings.LogicMode == LogicMode.Preset) && !ValidateLogicFile()) return;
+            if ((_settings.LogicMode == LogicMode.UserLogic || _settings.LogicMode == LogicMode.SettingsFile) && !ValidateLogicFile()) return;
 
             if (ttOutput.SelectedTab.TabIndex == 1)
             {
@@ -713,17 +679,6 @@ namespace MMRando
             UpdateSingleSetting(() => _settings.LogicMode = logicMode);
         }
 
-        private void cPresets_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (_isUpdating)
-            {
-                return;
-            }
-
-            ApplyPreset((Presets) cPresets.SelectedIndex);
-
-        }
-
         private void cClockSpeed_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.ClockSpeed = (ClockSpeed)cClockSpeed.SelectedIndex);
@@ -762,53 +717,53 @@ namespace MMRando
 
         private bool StartClose()
         {
-            if (_settings.LogicMode == LogicMode.Preset)
-            {
-                if (_settings.UserPresetFileName != null && File.Exists(_settings.UserPresetFileName))
-                {
-                    WritePreset(".\\" + initSettingsFilename);
-                    return true;
-                }
-                else
-                {
-                    var confirmResult = MessageBox.Show("Preset Logic mode selected or User Logic mode selected without Logic Loaded. Closing now will not save your settings, are you sure you want to close?",
-                         "Are you sure?",
-                         MessageBoxButtons.YesNo);
-                    if (confirmResult == DialogResult.Yes)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
+            //if (_settings.LogicMode == LogicMode.Preset)
+            //{
+            //    if (_settings.UserPresetFileName != null && File.Exists(_settings.UserPresetFileName))
+            //    {
+            //        WritePreset(".\\" + initSettingsFilename);
+            //        return true;
+            //    }
+            //    else
+            //    {
+            //        var confirmResult = MessageBox.Show("Preset Logic mode selected or User Logic mode selected without Logic Loaded. Closing now will not save your settings, are you sure you want to close?",
+            //             "Are you sure?",
+            //             MessageBoxButtons.YesNo);
+            //        if (confirmResult == DialogResult.Yes)
+            //        {
+            //            return true;
+            //        }
+            //        else
+            //        {
+            //            return false;
+            //        }
+            //    }
+            //}
 
-            if (_settings.LogicMode == LogicMode.UserLogic)
-            {
-                if (_settings.UserLogicFileName != null && File.Exists(_settings.UserLogicFileName))
-                {
-                   WritePreset(".\\settings");
-                   return true;
-                }
-                else
-                {
-                    var confirmResult = MessageBox.Show("Preset Logic mode selected or User Logic mode selected without Logic Loaded. Closing now will not save your settings, are you sure you want to close?",
-                         "Are you sure?",
-                         MessageBoxButtons.YesNo);
-                    if (confirmResult == DialogResult.Yes)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
+            //if (_settings.LogicMode == LogicMode.UserLogic)
+            //{
+            //    if (_settings.UserLogicFileName != null && File.Exists(_settings.UserLogicFileName))
+            //    {
+            //       WritePreset();
+            //       return true;
+            //    }
+            //    else
+            //    {
+            //        var confirmResult = MessageBox.Show("Preset Logic mode selected or User Logic mode selected without Logic Loaded. Closing now will not save your settings, are you sure you want to close?",
+            //             "Are you sure?",
+            //             MessageBoxButtons.YesNo);
+            //        if (confirmResult == DialogResult.Yes)
+            //        {
+            //            return true;
+            //        }
+            //        else
+            //        {
+            //            return false;
+            //        }
+            //    }
+            //}
 
-            WritePreset(".\\settings");
+            SaveSettings();
             return true;
 
 
@@ -986,177 +941,6 @@ namespace MMRando
                 cClearHints.Enabled = onMainTab;
             }
         }
-
-        public void ApplyPreset(Presets set)
-        {
-
-            tStartingItemList.Text = "--";
-            tJunkLocationsList.Text = "------------";
-
-            if (set == Presets.Default) //Default
-            {
-                _settings.LogicMode = LogicMode.Casual;
-                _settings.UseCustomItemList = false;
-                _settings.GenerateSpoilerLog = true;
-                _settings.GenerateHTMLLog = true;
-
-                _settings.ExcludeSongOfSoaring = true;
-                _settings.AddDungeonItems = false;
-                _settings.AddMoonItems = true;
-                _settings.AddFairyRewards = false;
-                _settings.AddShopItems = true;
-                _settings.AddOther = true;
-                _settings.RandomizeBottleCatchContents = false;
-                _settings.AddNutChest = false;
-                _settings.AddCowMilk = false;
-                _settings.CrazyStartingItems = false;
-                _settings.AddSkulltulaTokens = false;
-                _settings.AddStrayFairies = false;
-                _settings.AddMundaneRewards = false;
-                _settings.RandomizeDungeonEntrances = false;
-                _settings.NoStartingItems = true;
-                _settings.AddSongs = false;
-                _settings.RandomizeEnemies = false;
-
-                _settings.DamageMode = DamageMode.Default;
-                _settings.DamageEffect = DamageEffect.Default;
-                _settings.MovementMode = MovementMode.Default;
-                _settings.FloorType = FloorType.Default;
-                _settings.ClockSpeed = ClockSpeed.Default;
-                _settings.BlastMaskCooldown = BlastMaskCooldown.Default;
-                _settings.HideClock = false;
-
-                _settings.ShortenCutscenes = true;
-                _settings.FreeHints = true;
-                _settings.QuickTextEnabled = true;
-                _settings.FixEponaSword = true;
-                _settings.RandomizeSounds = false;
-                _settings.ClearHints = true;
-                _settings.UpdateShopAppearance = true;
-                _settings.UpdateChests = true;
-                _settings.PreventDowngrades = true;
-
-                _settings.Character = Character.LinkMM;
-                _settings.TatlColorSchema = TatlColorSchema.Default;
-                _settings.GossipHintStyle = GossipHintStyle.Competitive;
-                _settings.Music = Music.Default;
-                _settings.SpeedupBeavers = true;
-                _settings.SpeedupDampe = true;
-                _settings.SpeedupDogRace = true;
-                _settings.SpeedupLabFish = true;
-
-                UpdateCheckboxes();
-                UpdateSettingString();
-            }
-            else if(set == Presets.Random)
-            {
-                Random rand = new Random();
-
-                _settings.LogicMode = LogicMode.Casual;
-                _settings.UseCustomItemList = false;
-                _settings.GenerateSpoilerLog = true;
-                _settings.GenerateHTMLLog = true;
-
-                _settings.ExcludeSongOfSoaring = rand.Next() > (Int32.MaxValue / 2);
-                _settings.AddDungeonItems = rand.Next() > (Int32.MaxValue / 2);
-                _settings.AddMoonItems = rand.Next() > (Int32.MaxValue / 2);
-                _settings.AddFairyRewards = rand.Next() > (Int32.MaxValue / 2);
-                _settings.AddShopItems = rand.Next() > (Int32.MaxValue / 2);
-                _settings.AddOther = rand.Next() > (Int32.MaxValue / 2);
-                _settings.RandomizeBottleCatchContents = rand.Next() > (Int32.MaxValue / 2);
-                _settings.AddNutChest = false;
-                _settings.AddCowMilk = rand.Next() > (Int32.MaxValue / 2);
-                _settings.CrazyStartingItems = rand.Next() > (Int32.MaxValue / 2);
-                _settings.AddSkulltulaTokens = rand.Next() > (Int32.MaxValue / 2);
-                _settings.AddStrayFairies = rand.Next() > (Int32.MaxValue / 2);
-                _settings.AddMundaneRewards = rand.Next() > (Int32.MaxValue / 2);
-                _settings.RandomizeDungeonEntrances = rand.Next() > (Int32.MaxValue / 2);
-                _settings.NoStartingItems = rand.Next() > (Int32.MaxValue / 2);
-                _settings.AddSongs = rand.Next() > (Int32.MaxValue / 2);
-                _settings.RandomizeEnemies = rand.Next() > (Int32.MaxValue / 2);
-
-                _settings.DamageMode = (DamageMode)rand.Next(0, 4);
-                _settings.DamageEffect = (DamageEffect)rand.Next(0, 5);
-                _settings.MovementMode = (MovementMode)rand.Next(0, 4);
-                _settings.FloorType = (FloorType)rand.Next(0, 4);
-                _settings.ClockSpeed = (ClockSpeed)rand.Next(0, 5);
-                _settings.BlastMaskCooldown = (BlastMaskCooldown)rand.Next(0, 5);
-                _settings.HideClock = rand.Next() > (Int32.MaxValue / 2);
-
-                _settings.ShortenCutscenes = rand.Next() > (Int32.MaxValue / 2);
-                _settings.FreeHints = rand.Next() > (Int32.MaxValue / 2);
-                _settings.QuickTextEnabled = rand.Next() > (Int32.MaxValue / 2);
-                _settings.FixEponaSword = rand.Next() > (Int32.MaxValue / 2);
-                _settings.RandomizeSounds = rand.Next() > (Int32.MaxValue / 2);
-                _settings.ClearHints = rand.Next() > (Int32.MaxValue / 2);
-                _settings.UpdateShopAppearance = rand.Next() > (Int32.MaxValue / 2);
-                _settings.UpdateChests = rand.Next() > (Int32.MaxValue / 2);
-                _settings.PreventDowngrades = rand.Next() > (Int32.MaxValue / 2);
-
-                _settings.Character = (Character)rand.Next(0,3);
-                _settings.TatlColorSchema = (TatlColorSchema)rand.Next(0,5);
-                _settings.GossipHintStyle = (GossipHintStyle)rand.Next(0,3);
-                _settings.Music = (Music)rand.Next(0, 1);
-                _settings.SpeedupBeavers = rand.Next() > (Int32.MaxValue / 2);
-                _settings.SpeedupDampe = rand.Next() > (Int32.MaxValue / 2);
-                _settings.SpeedupDogRace = rand.Next() > (Int32.MaxValue / 2);
-                _settings.SpeedupLabFish = rand.Next() > (Int32.MaxValue / 2);
-
-                UpdateCheckboxes();
-                UpdateSettingString();
-            }
-            else if (set == Presets.Custom)
-            {
-                //I actually don't have to do anything here...
-            }
-            else if(set > Presets.Random)
-            {
-                ReadPreset("./Presets/" + cPresets.Text + ".cfg");
-            }
-
-            if(set == Presets.Random)
-            {
-                tSettings.TabPages.Remove(this.tabMain);
-                tSString.Visible = false;
-                TabsRemoved = true;
-            }
-            else if(TabsRemoved)
-            {
-                tSettings.TabPages.Remove(this.tabGimmick);
-                tSettings.TabPages.Remove(this.tabComfort);
-                tSettings.TabPages.Add(this.tabMain);
-                tSettings.TabPages.Add(this.tabGimmick);
-                tSettings.TabPages.Add(this.tabComfort);
-                tSString.Visible = true;
-                TabsRemoved = false;
-            }
-
-
-
-            _isUpdating = false;
-
-            try
-            {
-                _settings.Update(tSString.Text);
-                UpdateCheckboxes();
-                ToggleCheckBoxes();
-                tSString.Text = _settings.ToString();
-            }
-            catch
-            {
-                tSString.Text = _oldSettingsString;
-                UpdateCheckboxes();
-                ToggleCheckBoxes();
-                _settings.Update(_oldSettingsString);
-                MessageBox.Show("Something went wrong importing the preset!.",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            return;
-        }
-
-
-
 
         /// <summary>
         /// Utility function that takes a function should update a single setting. 
@@ -1424,27 +1208,9 @@ namespace MMRando
             return true;
         }
 
-        private bool ValidatePresetFile(String[] lines)
+        private bool ValidateSettingsFile(String[] lines)
         {
-            if (lines.Length > 0 && (lines[0].Equals("MMR Preset File [" + AssemblyVersion + "]") || lines[0].Equals("MMR Preset File [dev]")))
-            {
-                return true;
-            }
-            else
-            {
-
-                if (PresetInit)
-                {
-                    File.Delete(".\\" + initSettingsFilename + PresetExt);
-                }
-                else
-                {
-                    MessageBox.Show("File is not a valid preset file or outdated! Please double check file. \n \n" + _settings.UserPresetFileName,
-                       "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                
-            }
-            return false;
+            return lines.Length > 0 && (lines[0].Equals("MMR Settings File [" + AssemblyVersion + "]") || lines[0].Equals("MMR Settings File [dev]"));
         }
 
         private bool ValidateLogicFile()
@@ -1456,7 +1222,7 @@ namespace MMRando
                 return false;
             }
 
-            if (_settings.LogicMode == LogicMode.Preset && (!File.Exists(_settings.UserPresetFileName) || !PresetHasLogic))
+            if (_settings.LogicMode == LogicMode.SettingsFile && (!File.Exists(_settings.UserPresetFileName) || !SettingsFileHasLogic))
             {
                 MessageBox.Show($"Preset Logic mode selected but Preset file has no logic or does not exist!", "Warning",
     MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1477,18 +1243,18 @@ namespace MMRando
 
         private void bLoadPreset_Click(object sender, EventArgs e)
         {
-            cPresets.SelectedIndex = (int)Presets.Custom;
+            //cPresets.SelectedIndex = (int)Presets.Custom;
             openPreset.Filter = "Config Files|*.cfg";
             if (openPreset.ShowDialog() == DialogResult.OK)
             {
                 _settings.UserPresetFileName = openPreset.FileName;
-                ReadPreset(_settings.UserPresetFileName);
+                LoadSettings(_settings.UserPresetFileName);
             }
         }
 
         private void bSavePreset_Click(object sender, EventArgs e)
         {
-            if (_settings.LogicMode == LogicMode.Preset)
+            if (_settings.LogicMode == LogicMode.SettingsFile)
             {
                 MessageBox.Show("Cannot save Preset Logic Mode in a Settings Preset! Change your logic mode!",
 "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1499,7 +1265,7 @@ namespace MMRando
             {
                 if (savePreset.ShowDialog() == DialogResult.OK)
                 {
-                    WritePreset(savePreset.FileName);
+                    SaveSettings(savePreset.FileName);
                 }
             }
         }
@@ -1559,83 +1325,115 @@ namespace MMRando
             }
         }
 
-
-
-        private void WritePreset(string filename)
+        private const string DEFAULT_SETTINGS_FILENAME = "settings";
+        private void SaveSettings(string filename = null)
         {
-            StreamWriter PresetFile = new StreamWriter(File.Open(filename + PresetExt, FileMode.Create));
-            PresetFile.WriteLine("MMR Preset File [" + AssemblyVersion + "]");
-            PresetFile.WriteLine(tSString.Text);
-            PresetFile.WriteLine(tCustomItemList.Text);
-            PresetFile.WriteLine(tStartingItemList.Text);
-            PresetFile.WriteLine(tJunkLocationsList.Text);
-
-            if (_settings.LogicMode == LogicMode.UserLogic)
+            var path = Path.ChangeExtension(filename ?? DEFAULT_SETTINGS_FILENAME, SETTINGS_EXTENSION);
+            using (var settingsFile = new StreamWriter(File.Open(path, FileMode.Create)))
             {
-                if(_settings.UserLogicFileName != null && File.Exists(_settings.UserLogicFileName))
-                {
-                    PresetFile.WriteLine("LOGIC");
+                settingsFile.WriteLine("MMR Settings File [" + AssemblyVersion + "]");
+                settingsFile.WriteLine(tSString.Text);
+                settingsFile.WriteLine(tCustomItemList.Text);
+                settingsFile.WriteLine(tStartingItemList.Text);
+                settingsFile.WriteLine(tJunkLocationsList.Text);
 
-                    string[] lines = null;
-                    using (StreamReader Req = new StreamReader(File.Open(_settings.UserLogicFileName, FileMode.Open)))
-                    {
-                        lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-                    }
-                    for (int i = 0; i < lines.Length - 1; i++)
-                    {
-                        PresetFile.WriteLine(lines[i]);
-                    }
-                }
-                else
+                if (_settings.LogicMode == LogicMode.UserLogic)
                 {
-                    MessageBox.Show("Must load user logic to save user logic presets.",
-    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    PresetFile.Dispose();
-                    PresetFile.Close();
+                    if (_settings.UserLogicFileName != null && File.Exists(_settings.UserLogicFileName))
+                    {
+                        settingsFile.WriteLine("LOGIC" + (filename == null ? "PATH" : ""));
+
+                        if (filename == null)
+                        {
+                            settingsFile.WriteLine(_settings.UserLogicFileName);
+                        }
+                        else
+                        {
+                            string[] lines = null;
+                            using (StreamReader Req = new StreamReader(File.Open(_settings.UserLogicFileName, FileMode.Open)))
+                            {
+                                lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                            }
+                            for (int i = 0; i < lines.Length - 1; i++)
+                            {
+                                settingsFile.WriteLine(lines[i]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Must load user logic to save user logic presets.",
+        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
-            PresetFile.Close();
         }
 
 
-        private void ReadPreset(string filename)
+        private void LoadSettings(string filename = null)
         {
-            if (File.Exists(filename))
+            var path = Path.ChangeExtension(filename ?? DEFAULT_SETTINGS_FILENAME, SETTINGS_EXTENSION);
+            if (File.Exists(path))
             {
-                PresetHasLogic = false;
+                SettingsFileHasLogic = false;
                 string[] lines = null;
-                using (StreamReader Req = new StreamReader(File.Open(filename, FileMode.Open)))
+                using (StreamReader Req = new StreamReader(File.Open(path, FileMode.Open)))
                 {
                     lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
                 }
 
-                if (ValidatePresetFile(lines))
+                if (ValidateSettingsFile(lines))
                 {
-                    if(cPresets.SelectedIndex <= (int)Presets.Random)
-                    {
-                        cPresets.SelectedIndex = (int)Presets.Custom;
-                    }
-
                     tSString.Text = lines[1];
 
-                    tCustomItemList.Text = lines[2];
-                    ItemEditor.UpdateChecks(tCustomItemList.Text);
+                    if (!string.IsNullOrWhiteSpace(lines[2]))
+                    {
+                        tCustomItemList.Text = lines[2];
+                        ItemEditor.UpdateChecks(tCustomItemList.Text);
+                    }
 
-                    tStartingItemList.Text = lines[3];
-                    StartingItemEditor.UpdateChecks(tStartingItemList.Text);
+                    if (!string.IsNullOrWhiteSpace(lines[3]))
+                    {
+                        tStartingItemList.Text = lines[3];
+                        StartingItemEditor.UpdateChecks(tStartingItemList.Text);
+                    }
 
-                    tJunkLocationsList.Text = lines[4];
-                    JunkLocationEditor.UpdateChecks(tJunkLocationsList.Text);
+                    if (!string.IsNullOrWhiteSpace(lines[4]))
+                    {
+                        tJunkLocationsList.Text = lines[4];
+                        JunkLocationEditor.UpdateChecks(tJunkLocationsList.Text);
+                    }
 
                     UpdateCustomStartingItemAmountLabel();
                     UpdateCustomItemAmountLabel();
                     UpdateSettingString();
                     
-                    if(lines.Length > 5 && lines[5].Equals("LOGIC"))
+                    if(lines.Length > 5)
                     {
-                        PresetHasLogic = true;
-                        _settings.LogicMode = LogicMode.Preset;
-                        cMode.SelectedIndex = (int)LogicMode.Preset;
+                        if (lines[5] == "LOGICPATH")
+                        {
+                            _settings.LogicMode = LogicMode.UserLogic;
+                            _settings.UserLogicFileName = lines[6];
+                            tbUserLogic.Text = Path.GetFileNameWithoutExtension(_settings.UserLogicFileName);
+                        }
+                        else if (lines[5] == "LOGIC")
+                        {
+                            _settings.LogicMode = LogicMode.SettingsFile;
+                            SettingsFileHasLogic = true;
+                        }
+                        cMode.SelectedIndex = (int)_settings.LogicMode;
+                    }
+                }
+                else
+                {
+                    if (filename == null)
+                    {
+                        File.Delete(path);
+                    }
+                    else
+                    {
+                        MessageBox.Show("File is not a valid preset file or outdated! Please double check file. \n \n" + _settings.UserPresetFileName,
+                           "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
@@ -1643,7 +1441,7 @@ namespace MMRando
 
         private void SaveSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_settings.LogicMode == LogicMode.Preset)
+            if (_settings.LogicMode == LogicMode.SettingsFile)
             {
                 MessageBox.Show("Cannot save Preset Logic Mode in a Settings Preset! Change your logic mode!",
 "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1653,19 +1451,19 @@ namespace MMRando
             if (_settings.LogicMode != LogicMode.UserLogic || (_settings.LogicMode == LogicMode.UserLogic && ValidateLogicFile()))        {
                 if (savePreset.ShowDialog() == DialogResult.OK)
                 {
-                    WritePreset(savePreset.FileName);
+                    SaveSettings(savePreset.FileName);
                 }
             }
         }
 
         private void LoadSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            cPresets.SelectedIndex = (int)Presets.Custom;
+            //cPresets.SelectedIndex = (int)Presets.Custom;
             openPreset.Filter = "Config Files|*.cfg";
             if (openPreset.ShowDialog() == DialogResult.OK)
             {
                 _settings.UserPresetFileName = openPreset.FileName;
-                ReadPreset(_settings.UserPresetFileName);
+                LoadSettings(_settings.UserPresetFileName);
             }
         }
     }
