@@ -32,7 +32,6 @@ namespace MMRando
 
 
         public const string SETTINGS_EXTENSION = ".cfg";
-        public bool TabsRemoved = false;
 
         private Randomizer _randomizer;
         private Builder _builder;
@@ -716,56 +715,8 @@ namespace MMRando
 
         private bool StartClose()
         {
-            //if (_settings.LogicMode == LogicMode.Preset)
-            //{
-            //    if (_settings.UserPresetFileName != null && File.Exists(_settings.UserPresetFileName))
-            //    {
-            //        WritePreset(".\\" + initSettingsFilename);
-            //        return true;
-            //    }
-            //    else
-            //    {
-            //        var confirmResult = MessageBox.Show("Preset Logic mode selected or User Logic mode selected without Logic Loaded. Closing now will not save your settings, are you sure you want to close?",
-            //             "Are you sure?",
-            //             MessageBoxButtons.YesNo);
-            //        if (confirmResult == DialogResult.Yes)
-            //        {
-            //            return true;
-            //        }
-            //        else
-            //        {
-            //            return false;
-            //        }
-            //    }
-            //}
-
-            //if (_settings.LogicMode == LogicMode.UserLogic)
-            //{
-            //    if (_settings.UserLogicFileName != null && File.Exists(_settings.UserLogicFileName))
-            //    {
-            //       WritePreset();
-            //       return true;
-            //    }
-            //    else
-            //    {
-            //        var confirmResult = MessageBox.Show("Preset Logic mode selected or User Logic mode selected without Logic Loaded. Closing now will not save your settings, are you sure you want to close?",
-            //             "Are you sure?",
-            //             MessageBoxButtons.YesNo);
-            //        if (confirmResult == DialogResult.Yes)
-            //        {
-            //            return true;
-            //        }
-            //        else
-            //        {
-            //            return false;
-            //        }
-            //    }
-            //}
-
             SaveSettings();
             return true;
-
-
         }
 
         private void mAbout_Click(object sender, EventArgs e)
@@ -1235,7 +1186,6 @@ namespace MMRando
 
         private void bLoadPreset_Click(object sender, EventArgs e)
         {
-            //cPresets.SelectedIndex = (int)Presets.Custom;
             openPreset.Filter = "Config Files|*.cfg";
             if (openPreset.ShowDialog() == DialogResult.OK)
             {
@@ -1401,7 +1351,6 @@ namespace MMRando
                                 _settings.Update(tSString.Text);
                                 break;
                             case "-itemlist":
-                                //_settings.UseCustomItemList = true;
                                 tCustomItemList.Text = parameter;
                                 ItemEditor.UpdateChecks(tCustomItemList.Text);
                                 break;
@@ -1459,7 +1408,6 @@ namespace MMRando
 
         private void LoadSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //cPresets.SelectedIndex = (int)Presets.Custom;
             openPreset.Filter = "Config Files|*.cfg";
             if (openPreset.ShowDialog() == DialogResult.OK)
             {
