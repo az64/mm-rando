@@ -434,24 +434,6 @@ namespace MMRando
                     lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
                 }
             }
-            else if (mode == LogicMode.SettingsFile)
-            {
-                using (StreamReader Req = new StreamReader(File.Open(_settings.UserPresetFileName, FileMode.Open)))
-                {
-                    lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-
-                    if(lines[5].Equals("LOGIC"))
-                    {
-                        string[] sliced = null;
-
-                        for(int i = 0; i < lines.Length-5; i++)
-                        {
-                            sliced[i] = lines[i + 4];
-                        }
-                        return sliced;
-                    }
-                }
-            }
 
             return lines;
         }

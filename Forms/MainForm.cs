@@ -32,7 +32,6 @@ namespace MMRando
 
 
         public const string SETTINGS_EXTENSION = ".cfg";
-        public bool SettingsFileHasLogic = false;
         public bool TabsRemoved = false;
 
         private Randomizer _randomizer;
@@ -212,7 +211,7 @@ namespace MMRando
         {
             if (_settings.GenerateROM && !ValidateInputFile()) return;
 
-            if ((_settings.LogicMode == LogicMode.UserLogic || _settings.LogicMode == LogicMode.SettingsFile) && !ValidateLogicFile()) return;
+            if (_settings.LogicMode == LogicMode.UserLogic && !ValidateLogicFile()) return;
 
             if (ttOutput.SelectedTab.TabIndex == 1)
             {
@@ -1210,7 +1209,7 @@ namespace MMRando
 
         private bool ValidateSettingsFile(String[] lines)
         {
-            return lines.Length > 0 && (lines[0].Equals("MMR Settings File [" + AssemblyVersion + "]") || lines[0].Equals("MMR Settings File [dev]"));
+            return lines.Length > 0 && (lines[0].Equals("-MMR Settings File [" + AssemblyVersion + "]") || lines[0].Equals("-MMR Settings File [dev]"));
         }
 
         private bool ValidateLogicFile()
@@ -1219,13 +1218,6 @@ namespace MMRando
             {
                 MessageBox.Show("User Logic not found or invalid, please load User Logic or change logic mode.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            if (_settings.LogicMode == LogicMode.SettingsFile && (!File.Exists(_settings.UserPresetFileName) || !SettingsFileHasLogic))
-            {
-                MessageBox.Show($"Preset Logic mode selected but Preset file has no logic or does not exist!", "Warning",
-    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -1254,13 +1246,6 @@ namespace MMRando
 
         private void bSavePreset_Click(object sender, EventArgs e)
         {
-            if (_settings.LogicMode == LogicMode.SettingsFile)
-            {
-                MessageBox.Show("Cannot save Preset Logic Mode in a Settings Preset! Change your logic mode!",
-"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             if (_settings.LogicMode != LogicMode.UserLogic || (_settings.LogicMode == LogicMode.UserLogic && ValidateLogicFile()))
             {
                 if (savePreset.ShowDialog() == DialogResult.OK)
@@ -1329,53 +1314,69 @@ namespace MMRando
         private void SaveSettings(string filename = null)
         {
             var path = Path.ChangeExtension(filename ?? DEFAULT_SETTINGS_FILENAME, SETTINGS_EXTENSION);
+            string[] lines = null;
+            if (filename != null && _settings.UserLogicFileName != null && File.Exists(_settings.UserLogicFileName))
+            {
+                using (StreamReader Req = new StreamReader(File.Open(_settings.UserLogicFileName, FileMode.Open)))
+                {
+                    lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                }
+            }
             using (var settingsFile = new StreamWriter(File.Open(path, FileMode.Create)))
             {
-                settingsFile.WriteLine("MMR Settings File [" + AssemblyVersion + "]");
-                settingsFile.WriteLine(tSString.Text);
-                settingsFile.WriteLine(tCustomItemList.Text);
-                settingsFile.WriteLine(tStartingItemList.Text);
-                settingsFile.WriteLine(tJunkLocationsList.Text);
+                settingsFile.WriteLine("-MMR Settings File [" + AssemblyVersion + "]");
+                settingsFile.WriteLine("-settings " + _settings.ToString());
+                if (_settings.UseCustomItemList)
+                {
+                    settingsFile.WriteLine("-itemlist " + _settings.CustomItemListString);
+                }
+                if (_settings.CustomStartingItemList.Any())
+                {
+                    settingsFile.WriteLine("-startingitems " + _settings.CustomStartingItemListString);
+                }
+                if (_settings.CustomJunkLocations.Any())
+                {
+                    settingsFile.WriteLine("-junklocations " + _settings.CustomJunkLocationsString);
+                }
 
                 if (_settings.LogicMode == LogicMode.UserLogic)
                 {
                     if (_settings.UserLogicFileName != null && File.Exists(_settings.UserLogicFileName))
                     {
-                        settingsFile.WriteLine("LOGIC" + (filename == null ? "PATH" : ""));
-
                         if (filename == null)
                         {
-                            settingsFile.WriteLine(_settings.UserLogicFileName);
+                            settingsFile.WriteLine("-logicpath " + _settings.UserLogicFileName);
                         }
                         else
                         {
-                            string[] lines = null;
-                            using (StreamReader Req = new StreamReader(File.Open(_settings.UserLogicFileName, FileMode.Open)))
+                            settingsFile.WriteLine("-logic ");
+                            for (var i = 0; i < lines.Length; i++)
                             {
-                                lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-                            }
-                            for (int i = 0; i < lines.Length - 1; i++)
-                            {
-                                settingsFile.WriteLine(lines[i]);
+                                var line = lines[i];
+                                if (line.StartsWith("-"))
+                                {
+                                    continue;
+                                }
+                                if (i != lines.Length - 1)
+                                {
+                                    settingsFile.WriteLine(line);
+                                }
+                                else
+                                {
+                                    settingsFile.Write(line);
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Must load user logic to save user logic presets.",
-        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
         }
-
-
+        
         private void LoadSettings(string filename = null)
         {
             var path = Path.ChangeExtension(filename ?? DEFAULT_SETTINGS_FILENAME, SETTINGS_EXTENSION);
             if (File.Exists(path))
             {
-                SettingsFileHasLogic = false;
                 string[] lines = null;
                 using (StreamReader Req = new StreamReader(File.Open(path, FileMode.Open)))
                 {
@@ -1384,45 +1385,51 @@ namespace MMRando
 
                 if (ValidateSettingsFile(lines))
                 {
-                    tSString.Text = lines[1];
-
-                    if (!string.IsNullOrWhiteSpace(lines[2]))
+                    for (var i = 1; i < lines.Length; i++)
                     {
-                        tCustomItemList.Text = lines[2];
-                        ItemEditor.UpdateChecks(tCustomItemList.Text);
+                        if (!lines[i].StartsWith("-") || !lines[i].Contains(" "))
+                        {
+                            continue;
+                        }
+                        var split = lines[i].Split(new[] { ' ' }, 2);
+                        var command = split[0];
+                        var parameter = split[1];
+                        switch (command)
+                        {
+                            case "-settings":
+                                tSString.Text = parameter;
+                                _settings.Update(tSString.Text);
+                                break;
+                            case "-itemlist":
+                                //_settings.UseCustomItemList = true;
+                                tCustomItemList.Text = parameter;
+                                ItemEditor.UpdateChecks(tCustomItemList.Text);
+                                break;
+                            case "-startingitems":
+                                tStartingItemList.Text = parameter;
+                                StartingItemEditor.UpdateChecks(tStartingItemList.Text);
+                                break;
+                            case "-junklocations":
+                                tJunkLocationsList.Text = parameter;
+                                JunkLocationEditor.UpdateChecks(tJunkLocationsList.Text);
+                                break;
+                            case "-logicpath":
+                            case "-logic":
+                                _settings.LogicMode = LogicMode.UserLogic;
+                                cMode.SelectedIndex = (int)_settings.LogicMode;
+                                if (File.Exists(parameter))
+                                {
+                                    _settings.UserLogicFileName = command == "-logicpath" ? parameter : path;
+                                    tbUserLogic.Text = Path.GetFileNameWithoutExtension(_settings.UserLogicFileName);
+                                }
+                                break;
+                        }
                     }
 
-                    if (!string.IsNullOrWhiteSpace(lines[3]))
-                    {
-                        tStartingItemList.Text = lines[3];
-                        StartingItemEditor.UpdateChecks(tStartingItemList.Text);
-                    }
-
-                    if (!string.IsNullOrWhiteSpace(lines[4]))
-                    {
-                        tJunkLocationsList.Text = lines[4];
-                        JunkLocationEditor.UpdateChecks(tJunkLocationsList.Text);
-                    }
-
+                    UpdateJunkLocationAmountLabel();
                     UpdateCustomStartingItemAmountLabel();
                     UpdateCustomItemAmountLabel();
                     UpdateSettingString();
-                    
-                    if(lines.Length > 5)
-                    {
-                        if (lines[5] == "LOGICPATH")
-                        {
-                            _settings.LogicMode = LogicMode.UserLogic;
-                            _settings.UserLogicFileName = lines[6];
-                            tbUserLogic.Text = Path.GetFileNameWithoutExtension(_settings.UserLogicFileName);
-                        }
-                        else if (lines[5] == "LOGIC")
-                        {
-                            _settings.LogicMode = LogicMode.SettingsFile;
-                            SettingsFileHasLogic = true;
-                        }
-                        cMode.SelectedIndex = (int)_settings.LogicMode;
-                    }
                 }
                 else
                 {
@@ -1441,14 +1448,8 @@ namespace MMRando
 
         private void SaveSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_settings.LogicMode == LogicMode.SettingsFile)
+            if (_settings.LogicMode != LogicMode.UserLogic || (_settings.LogicMode == LogicMode.UserLogic && ValidateLogicFile()))
             {
-                MessageBox.Show("Cannot save Preset Logic Mode in a Settings Preset! Change your logic mode!",
-"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (_settings.LogicMode != LogicMode.UserLogic || (_settings.LogicMode == LogicMode.UserLogic && ValidateLogicFile()))        {
                 if (savePreset.ShowDialog() == DialogResult.OK)
                 {
                     SaveSettings(savePreset.FileName);

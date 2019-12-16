@@ -315,11 +315,6 @@ namespace MMRando.Models.Settings
         public Music Music { get; set; }
 
         /// <summary>
-        /// Used for Preset Settings
-        /// </summary>
-        public Presets Presets { get; set; }
-
-        /// <summary>
         /// FrEe HiNtS FoR WeEnIeS
         /// </summary>
         public bool FreeHints { get; set; }

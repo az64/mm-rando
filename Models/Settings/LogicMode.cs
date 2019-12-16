@@ -7,6 +7,5 @@
         Vanilla,
         UserLogic,
         NoLogic,
-        SettingsFile,
     }
 }

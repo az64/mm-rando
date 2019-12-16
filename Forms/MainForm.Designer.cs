@@ -823,8 +823,7 @@ namespace MMRando
             "Glitched",
             "Vanilla Layout",
             "User Logic",
-            "No Logic",
-            "Preset File"});
+            "No Logic"});
             this.cMode.Location = new System.Drawing.Point(97, 13);
             this.cMode.Name = "cMode";
             this.cMode.Size = new System.Drawing.Size(219, 21);
