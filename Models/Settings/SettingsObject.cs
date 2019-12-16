@@ -38,6 +38,11 @@ namespace MMRando.Models.Settings
         public string UserLogicFileName { get; set; }
 
         /// <summary>
+        /// Filepath to the input preset file
+        /// </summary>
+        public string UserPresetFileName { get; set; }
+
+        /// <summary>
         /// Default Filename for the output ROM
         /// </summary>
         public string DefaultOutputROMFilename
@@ -310,7 +315,12 @@ namespace MMRando.Models.Settings
         public Music Music { get; set; }
 
         /// <summary>
-        /// FrEe HiNtS FoR WeNiEs
+        /// Used for Preset Settings
+        /// </summary>
+        public Presets Presets { get; set; }
+
+        /// <summary>
+        /// FrEe HiNtS FoR WeEnIeS
         /// </summary>
         public bool FreeHints { get; set; }
 

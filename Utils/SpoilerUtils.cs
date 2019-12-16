@@ -60,17 +60,16 @@ namespace MMRando.Utils
 
             if (settings.GenerateHTMLLog)
             {
-                filename += "_SpoilerLog.html";
-                using (StreamWriter newlog = new StreamWriter(Path.Combine(directory, filename)))
+                using (StreamWriter newlog = new StreamWriter(Path.Combine(directory, filename + "_Tracker.html")))
                 {
                     Templates.HtmlSpoiler htmlspoiler = new Templates.HtmlSpoiler(spoiler);
                     newlog.Write(htmlspoiler.TransformText());
                 }
             }
-            else
+            
+            if (settings.GenerateSpoilerLog)
             {
-                filename += "_SpoilerLog.txt";
-                CreateTextSpoilerLog(spoiler, Path.Combine(directory, filename));
+                CreateTextSpoilerLog(spoiler, Path.Combine(directory, filename + "_SpoilerLog.txt"));
             }
         }
 
