@@ -1160,7 +1160,7 @@ namespace MMRando
 
         private bool ValidateSettingsFile(String[] lines)
         {
-            return lines.Length > 0 && (lines[0].Equals("-MMR Settings File [" + AssemblyVersion + "]") || lines[0].Equals("-MMR Settings File [dev]"));
+            return lines.Length > 0 && (lines[0].Equals("#MMR Settings File [" + AssemblyVersion + "]") || lines[0].Equals("#MMR Settings File [dev]"));
         }
 
         private bool ValidateLogicFile()
@@ -1274,19 +1274,19 @@ namespace MMRando
             }
             using (var settingsFile = new StreamWriter(File.Open(path, FileMode.Create)))
             {
-                settingsFile.WriteLine("-MMR Settings File [" + AssemblyVersion + "]");
-                settingsFile.WriteLine("-settings " + _settings.ToString());
+                settingsFile.WriteLine("#MMR Settings File [" + AssemblyVersion + "]");
+                settingsFile.WriteLine("#settings " + _settings.ToString());
                 if (_settings.UseCustomItemList)
                 {
-                    settingsFile.WriteLine("-itemlist " + _settings.CustomItemListString);
+                    settingsFile.WriteLine("#itemlist " + _settings.CustomItemListString);
                 }
                 if (_settings.CustomStartingItemList.Any())
                 {
-                    settingsFile.WriteLine("-startingitems " + _settings.CustomStartingItemListString);
+                    settingsFile.WriteLine("#startingitems " + _settings.CustomStartingItemListString);
                 }
                 if (_settings.CustomJunkLocations.Any())
                 {
-                    settingsFile.WriteLine("-junklocations " + _settings.CustomJunkLocationsString);
+                    settingsFile.WriteLine("#junklocations " + _settings.CustomJunkLocationsString);
                 }
 
                 if (_settings.LogicMode == LogicMode.UserLogic)
@@ -1295,15 +1295,15 @@ namespace MMRando
                     {
                         if (filename == null)
                         {
-                            settingsFile.WriteLine("-logicpath " + _settings.UserLogicFileName);
+                            settingsFile.WriteLine("#logicpath " + _settings.UserLogicFileName);
                         }
                         else
                         {
-                            settingsFile.WriteLine("-logic ");
+                            settingsFile.WriteLine("#logic ");
                             for (var i = 0; i < lines.Length; i++)
                             {
                                 var line = lines[i];
-                                if (line.StartsWith("-"))
+                                if (line.StartsWith("#"))
                                 {
                                     continue;
                                 }
@@ -1337,39 +1337,43 @@ namespace MMRando
                 {
                     for (var i = 1; i < lines.Length; i++)
                     {
-                        if (!lines[i].StartsWith("-") || !lines[i].Contains(" "))
+                        if (!lines[i].StartsWith("#") || !lines[i].Contains(" "))
                         {
                             continue;
                         }
                         var split = lines[i].Split(new[] { ' ' }, 2);
-                        var command = split[0];
+                        var command = split[0].Substring(1);
                         var parameter = split[1];
                         switch (command)
                         {
-                            case "-settings":
+                            case "settings":
                                 tSString.Text = parameter;
                                 _settings.Update(tSString.Text);
                                 break;
-                            case "-itemlist":
+                            case "itemlist":
                                 tCustomItemList.Text = parameter;
                                 ItemEditor.UpdateChecks(tCustomItemList.Text);
                                 break;
-                            case "-startingitems":
+                            case "startingitems":
                                 tStartingItemList.Text = parameter;
                                 StartingItemEditor.UpdateChecks(tStartingItemList.Text);
                                 break;
-                            case "-junklocations":
+                            case "junklocations":
                                 tJunkLocationsList.Text = parameter;
                                 JunkLocationEditor.UpdateChecks(tJunkLocationsList.Text);
                                 break;
-                            case "-logicpath":
-                            case "-logic":
+                            case "logicpath":
+                            case "logic":
                                 _settings.LogicMode = LogicMode.UserLogic;
                                 cMode.SelectedIndex = (int)_settings.LogicMode;
-                                if (File.Exists(parameter))
+                                _settings.UserLogicFileName = command == "logicpath" ? parameter : path;
+                                if (File.Exists(_settings.UserLogicFileName))
                                 {
-                                    _settings.UserLogicFileName = command == "-logicpath" ? parameter : path;
                                     tbUserLogic.Text = Path.GetFileNameWithoutExtension(_settings.UserLogicFileName);
+                                }
+                                else
+                                {
+                                    _settings.UserLogicFileName = string.Empty;
                                 }
                                 break;
                         }
