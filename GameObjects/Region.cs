@@ -22,6 +22,9 @@ namespace MMRando.GameObjects
         [RegionName("East Clock Town")]
         EastClockTown,
 
+        [RegionName("Stock Pot Inn")]
+        StockPotInn,
+
         [RegionName("West Clock Town")]
         WestClockTown,
 

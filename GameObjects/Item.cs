@@ -340,7 +340,7 @@ namespace MMRando.GameObjects
         TradeItemOceanDeed,
 
         [Repeatable, Temporary, CycleRepeatable, Overwritable]
-        [ItemName("Room Key"), LocationName("Inn Reservation"), Region(Region.EastClockTown)]
+        [ItemName("Room Key"), LocationName("Inn Reservation"), Region(Region.StockPotInn)]
         [GossipLocationHint("checking in", "check-in"), GossipItemHint("a door opener", "a lock opener")]
         [ShopText("With this, you can go in and out of the Stock Pot Inn at night.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -348,7 +348,7 @@ namespace MMRando.GameObjects
         TradeItemRoomKey,
 
         [Repeatable, Temporary, CycleRepeatable, Overwritable]
-        [ItemName("Letter to Kafei"), LocationName("Midnight Meeting"), Region(Region.EastClockTown)]
+        [ItemName("Letter to Kafei"), LocationName("Midnight Meeting"), Region(Region.StockPotInn)]
         [GossipLocationHint("a late meeting"), GossipItemHint("a lover's plight", "a lover's letter")]
         [ShopText("A love letter from Anju to Kafei.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -398,7 +398,7 @@ namespace MMRando.GameObjects
         HeartPieceNotebookRosa,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Toilet Hand"), Region(Region.EastClockTown)]
+        [ItemName("Piece of Heart"), LocationName("Toilet Hand"), Region(Region.StockPotInn)]
         [GossipLocationHint("a mystery appearance", "a strange palm"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -406,7 +406,7 @@ namespace MMRando.GameObjects
         HeartPieceNotebookHand,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Grandma Short Story"), Region(Region.EastClockTown)]
+        [ItemName("Piece of Heart"), LocationName("Grandma Short Story"), Region(Region.StockPotInn)]
         [GossipLocationHint("an old lady"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -414,7 +414,7 @@ namespace MMRando.GameObjects
         HeartPieceNotebookGran1,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Grandma Long Story"), Region(Region.EastClockTown)]
+        [ItemName("Piece of Heart"), LocationName("Grandma Long Story"), Region(Region.StockPotInn)]
         [GossipLocationHint("an old lady"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -741,7 +741,7 @@ namespace MMRando.GameObjects
         MaskKafei,
 
         [StartingItem(0xC5CE4B, 0x3F)]
-        [ItemName("Couple's Mask"), LocationName("Anju and Kafei"), Region(Region.EastClockTown)]
+        [ItemName("Couple's Mask"), LocationName("Anju and Kafei"), Region(Region.StockPotInn)]
         [GossipLocationHint("a reunion", "a lovers' reunion"), GossipItemHint("a sign of love", "the mark of a couple"), GossipCompetitiveHint(2)]
         [ShopText("When you wear it, you can soften people's hearts.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -1756,7 +1756,7 @@ namespace MMRando.GameObjects
         ChestSecretShrineGaroGrotto,
 
         [Repeatable]
-        [ItemName("Silver Rupee"), LocationName("Inn Staff Room Chest"), Region(Region.EastClockTown)]
+        [ItemName("Silver Rupee"), LocationName("Inn Staff Room Chest"), Region(Region.StockPotInn)]
         [GossipLocationHint("an employee room"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 100 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02CAB000 + 0x10E, ChestAttribute.AppearanceType.Normal, 0x02CAB000 + 0x242)]
@@ -1764,7 +1764,7 @@ namespace MMRando.GameObjects
         ChestInnStaffRoom, //contents? 
 
         [Repeatable]
-        [ItemName("Silver Rupee"), LocationName("Inn Guest Room Chest"), Region(Region.EastClockTown)]
+        [ItemName("Silver Rupee"), LocationName("Inn Guest Room Chest"), Region(Region.StockPotInn)]
         [GossipLocationHint("a guest bedroom"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 100 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02CB1000 + 0xDA, ChestAttribute.AppearanceType.Normal, 0x02CB1000 + 0x212)]
