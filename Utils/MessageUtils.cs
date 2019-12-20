@@ -135,8 +135,8 @@ namespace MMRando.Utils
                     list.Add($"\x1E{sfx}{start} {TextCommands.ColorRed}{locationMessage}{TextCommands.ColorWhite} {mid} {color}{NumberToWords(numberOfImportantItems)} important item{(numberOfImportantItems == 1 ? "" : "s")}{TextCommands.ColorWhite}...\xBF".Wrap(35, "\x11"));
                 }
 
-                var numberOfRequiredHints = 2;
-                var numberOfNonRequiredHints = 3;
+                var numberOfRequiredHints = 4;
+                var numberOfNonRequiredHints = 2;
 
                 for (var i = 0; i < numberOfRequiredHints; i++)
                 {

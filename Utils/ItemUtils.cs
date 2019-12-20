@@ -160,7 +160,6 @@ namespace MMRando.Utils
         public static bool IsRequired(Item item, RandomizedResult randomizedResult)
         {
             return !item.Name().Contains("Heart")
-                        && (randomizedResult.Settings.AddSongs || !IsSong(item))
                         && !IsStrayFairy(item)
                         && !IsSkulltulaToken(item)
                         && randomizedResult.ItemsRequiredForMoonAccess.Contains(item);

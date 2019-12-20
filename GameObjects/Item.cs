@@ -542,7 +542,7 @@ namespace MMRando.GameObjects
 
         [RupeeRepeatable]
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Fisherman Game"), Region(Region.GreatBayCoast), GossipCompetitiveHint(-1)]
+        [ItemName("Piece of Heart"), LocationName("Fisherman Game"), Region(Region.GreatBayCoast), GossipCompetitiveHint(-2)]
         [GossipLocationHint("an ocean game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
