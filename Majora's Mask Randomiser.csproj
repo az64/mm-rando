@@ -92,6 +92,7 @@
     <Compile Include="Attributes\GossipRestrictAttribute.cs" />
     <Compile Include="Attributes\StartingItemAttribute.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
+    <Compile Include="Extensions\GossipQuoteExtensions.cs" />
     <Compile Include="Extensions\RegionExtensions.cs" />
     <Compile Include="Extensions\ItemExtensions.cs" />
     <Compile Include="Extensions\KeyEqualityComparer.cs" />

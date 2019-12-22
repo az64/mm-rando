@@ -94,12 +94,23 @@ namespace MMRando.Utils
 
             if (randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Competitive)
             {
-                unusedItems.AddRange(randomizedItems);
+                var totalUniqueGossipHints = Enum.GetValues(typeof(GossipQuote)).Cast<GossipQuote>().Count(gq => !gq.IsMoonGossipStone()) / 2;
+                var numberOfRequiredHints = 4;
+                var numberOfNonRequiredHints = 2;
+                var numberOfLocationHints = totalUniqueGossipHints - numberOfRequiredHints - numberOfNonRequiredHints;
+                unusedItems = randomizedItems.GroupBy(io => io.NewLocation.Value.GetAttribute<GossipCompetitiveHintAttribute>().Priority)
+                                        .OrderByDescending(g => g.Key)
+                                        .Select(g => g.OrderBy(_ => randomizedResult.Random.Next()).AsEnumerable())
+                                        .Aggregate((g1, g2) => g1.Concat(g2))
+                                        .Take(numberOfLocationHints)
+                                        .ToList();
+
+                unusedItems.AddRange(unusedItems);
                 var requiredHints = new List<string>();
                 var nonRequiredHints = new List<string>();
                 foreach (var kvp in itemsInRegions)
                 {
-                    var numberOfRequiredItems = kvp.Value.Count(io => ItemUtils.IsRequired(io.Item, randomizedResult));
+                    var numberOfRequiredItems = kvp.Value.Count(io => ItemUtils.IsRequired(io.Item, randomizedResult) && !unusedItems.Contains(io));
                     var numberOfImportantItems = kvp.Value.Count(io => ItemUtils.IsImportant(io.Item, randomizedResult));
 
                     if (numberOfRequiredItems == 0 && numberOfImportantItems > 0)
@@ -112,10 +123,10 @@ namespace MMRando.Utils
 
                     string sfx = $"{(char)((soundEffectId >> 8) & 0xFF)}{(char)(soundEffectId & 0xFF)}";
                     var locationMessage = kvp.Key.Name();
-                    //var mid = "is";
-                    //var itemMessage = numberOfRequiredItems > 0
-                    //    ? "on the Way of the Hero"
-                    //    : "a foolish choice";
+                    var mid = "is";
+                    var itemMessage = numberOfRequiredItems > 0
+                        ? "on the Way of the Hero"
+                        : "a foolish choice";
                     List<string> list;
                     char color;
                     if (numberOfRequiredItems > 0)
@@ -129,14 +140,11 @@ namespace MMRando.Utils
                         color = TextCommands.ColorSilver;
                     }
 
-                    //list.Add($"\x1E{sfx}{start} \x01{locationMessage}\x00 {mid} \x06{itemMessage}\x00...\xBF".Wrap(35, "\x11"));
+                    list.Add($"\x1E{sfx}{start} {color}{locationMessage}{TextCommands.ColorWhite} {mid} {itemMessage}...\xBF".Wrap(35, "\x11"));
 
-                    var mid = "has";
-                    list.Add($"\x1E{sfx}{start} {TextCommands.ColorRed}{locationMessage}{TextCommands.ColorWhite} {mid} {color}{NumberToWords(numberOfImportantItems)} important item{(numberOfImportantItems == 1 ? "" : "s")}{TextCommands.ColorWhite}...\xBF".Wrap(35, "\x11"));
+                    //var mid = "has";
+                    //list.Add($"\x1E{sfx}{start} {TextCommands.ColorRed}{locationMessage}{TextCommands.ColorWhite} {mid} {color}{NumberToWords(numberOfImportantItems)} important item{(numberOfImportantItems == 1 ? "" : "s")}{TextCommands.ColorWhite}...\xBF".Wrap(35, "\x11"));
                 }
-
-                var numberOfRequiredHints = 4;
-                var numberOfNonRequiredHints = 2;
 
                 for (var i = 0; i < numberOfRequiredHints; i++)
                 {
@@ -166,7 +174,7 @@ namespace MMRando.Utils
             foreach (var gossipQuote in Enum.GetValues(typeof(GossipQuote)).Cast<GossipQuote>().OrderBy(gq => randomizedResult.Random.Next()))
             {
                 string messageText = null;
-                var isMoonGossipStone = gossipQuote.ToString().StartsWith("Moon");
+                var isMoonGossipStone = gossipQuote.IsMoonGossipStone();
                 if (!isMoonGossipStone && competitiveHints.Any())
                 {
                     messageText = competitiveHints.Random(randomizedResult.Random);
@@ -203,11 +211,7 @@ namespace MMRando.Utils
                                 item = unusedItems.FirstOrDefault(io => unusedItems.Count(x => x.Item == io.Item) == 1);
                                 if (item == null)
                                 {
-                                    item = unusedItems.GroupBy(io => io.NewLocation.Value.GetAttribute<GossipCompetitiveHintAttribute>().Priority)
-                                        .OrderByDescending(g => g.Key)
-                                        .First()
-                                        .ToList()
-                                        .Random(randomizedResult.Random);
+                                    item = unusedItems.Random(randomizedResult.Random);
                                 }
                             }
                             else
