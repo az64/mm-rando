@@ -266,6 +266,11 @@ namespace MMRando.Models.Settings
         public BlastMaskCooldown BlastMaskCooldown { get; set; }
 
         /// <summary>
+        /// Enables Sun's Song
+        /// </summary>
+        public bool EnableSunsSong { get; set; }
+
+        /// <summary>
         /// Randomize sound effects
         /// </summary>
         public bool RandomizeSounds { get; set; }
@@ -424,7 +429,7 @@ namespace MMRando.Models.Settings
             NoStartingItems = (UseCustomItemList || AddOther) && (part1 & 8388608) > 0;
             UpdateShopAppearance = (part1 & 1048576) > 0;
             PreventDowngrades = (part1 & 524288) > 0;
-            // = (part1 & 262144) > 0;
+            EnableSunsSong = (part1 & 262144) > 0;
             HideClock = (part1 & 131072) > 0;
             ClearHints = (part1 & 65536) > 0;
             FreeHints = (part1 & 16384) > 0;
@@ -505,7 +510,7 @@ namespace MMRando.Models.Settings
             if (NoStartingItems && (UseCustomItemList || AddOther)) { parts[0] += 8388608; }
             if (UpdateShopAppearance) { parts[0] += 1048576; }
             if (PreventDowngrades) { parts[0] += 524288; }
-            // { parts[0] += 262144; }
+            if (EnableSunsSong) { parts[0] += 262144; }
             if (HideClock) { parts[0] += 131072; };
             if (ClearHints) { parts[0] += 65536; };
             if (FreeHints) { parts[0] += 16384; };

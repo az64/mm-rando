@@ -109,6 +109,7 @@ namespace MMRando
             TooltipBuilder.SetTooltip(cHideClock, "Clock UI will be hidden.");
             TooltipBuilder.SetTooltip(cNoStartingItems, "You will not start with any randomized starting items.");
             TooltipBuilder.SetTooltip(cBlastCooldown, "Adjust the cooldown timer after using the Blast Mask.");
+            TooltipBuilder.SetTooltip(cSunsSong, "Enable using the Sun's Song, which speeds up time to 400 units per frame (normal time speed is 3 units per frame) until dawn or dusk or a loading zone.");
 
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
@@ -579,6 +580,11 @@ namespace MMRando
         private void cHideClock_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.HideClock = cHideClock.Checked);
+        }
+
+        private void cSunsSong_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.EnableSunsSong = cSunsSong.Checked);
         }
 
         private void cNoStartingItems_CheckedChanged(object sender, EventArgs e)

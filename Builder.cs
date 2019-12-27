@@ -363,6 +363,23 @@ namespace MMRando
             {
                 WriteBlastMaskCooldown();
             }
+
+            if (_settings.EnableSunsSong)
+            {
+                WriteSunsSong();
+            }
+        }
+
+        private void WriteSunsSong()
+        {
+            _messageTable.UpdateMessages(new MessageEntry
+            {
+                Id = 0x1B7D,
+                Header = new byte[11] { 0x03, 0x00, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
+                Message = $"You played the {TextCommands.ColorYellow}Sun's Song{TextCommands.ColorWhite}!\xBF"
+            });
+
+            ResourceUtils.ApplyHack(Values.ModsDirectory + "enable-sunssong");
         }
 
         private void WriteBlastMaskCooldown()
@@ -530,6 +547,10 @@ namespace MMRando
         {
             Dictionary<int, byte> startingItems = new Dictionary<int, byte>();
             PutOrCombine(startingItems, 0xC5CE72, 0x10); // add Song of Time
+            if (_settings.EnableSunsSong)
+            {
+                PutOrCombine(startingItems, 0xC5CE71, 0x02);
+            }
 
             var itemList = items.ToList();
 
