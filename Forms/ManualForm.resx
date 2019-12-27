@@ -285,7 +285,10 @@ Increases or decreases how fast in-game time progresses. When set to faster than
 Changes the delay between Blast Mask explosions.
 
 7. Hide Clock UI
-Removes the clock from the in-game UI. Players will have to rely on other means of telling the time, such as in-game clocks on walls, the Bombers' Notebook, or looking at the sun.</value>
+Removes the clock from the in-game UI. Players will have to rely on other means of telling the time, such as in-game clocks on walls, the Bombers' Notebook, or looking at the sun.
+
+8. Enable Sun's Song
+Enables the Sun's Song (&gt;v^&gt;v^) which speeds up time to 400 units per frame until dawn or dusk or a loading zone.</value>
   </data>
   <data name="lCosmetic.Text" xml:space="preserve">
     <value>This section should be quite self-explanatory.
