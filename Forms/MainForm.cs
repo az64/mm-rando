@@ -330,6 +330,7 @@ namespace MMRando
             cFairyRewards.Checked = _settings.AddFairyRewards;
             cClearHints.Checked = _settings.ClearHints;
             cHideClock.Checked = _settings.HideClock;
+            cSunsSong.Checked = _settings.EnableSunsSong;
             cClockSpeed.SelectedIndex = (int)_settings.ClockSpeed;
             cNoDowngrades.Checked = _settings.PreventDowngrades;
             cShopAppearance.Checked = _settings.UpdateShopAppearance;
@@ -901,6 +902,7 @@ namespace MMRando
             cGossipHints.Enabled = v;
             cBlastCooldown.Enabled = v;
             cHideClock.Enabled = v;
+            cSunsSong.Enabled = v;
             cGravity.Enabled = v;
             cLink.Enabled = v;
             cMixSongs.Enabled = v;
@@ -1164,6 +1166,7 @@ namespace MMRando
             cFloors.Enabled = v;
             cClockSpeed.Enabled = v;
             cHideClock.Enabled = v;
+            cSunsSong.Enabled = v;
             cBlastCooldown.Enabled = v;
 
 
