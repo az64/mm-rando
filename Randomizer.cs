@@ -348,6 +348,10 @@ namespace MMRando
             // Process lines in groups of 4
             foreach (string line in data)
             {
+                if (line.StartsWith("#"))
+                {
+                    continue;
+                }
                 if (line.Contains("-"))
                 {
                     currentItem.Name = line.Substring(2);

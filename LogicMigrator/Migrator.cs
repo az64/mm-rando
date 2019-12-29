@@ -88,11 +88,22 @@ namespace MMRando.LogicMigrator
 
         public static int GetVersion(List<string> lines)
         {
-            if (!lines[0].StartsWith("-version"))
+            foreach (var line in lines)
             {
-                return -1;
+                if (line.StartsWith("#"))
+                {
+                    continue;
+                }
+                if (line.StartsWith("-version"))
+                {
+                    return int.Parse(line.Split(' ')[1]);
+                }
+                else
+                {
+                    break;
+                }
             }
-            return int.Parse(lines[0].Split(' ')[1]);
+            return -1;
         }
 
         private static void AddVersionNumber(List<string> lines)

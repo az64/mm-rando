@@ -536,7 +536,12 @@ namespace MMRando
                 if (i == lines.Length)
                 {
                     break;
-                };
+                }
+                if (lines[i].StartsWith("#"))
+                {
+                    i++;
+                    continue;
+                }
                 if (lines[i].Contains("-"))
                 {
                     var itemName = lines[i].Substring(2);

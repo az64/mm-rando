@@ -19,7 +19,7 @@ namespace MMRando.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -144,7 +144,13 @@ namespace MMRando.Properties {
         ///-skulltula
         ///0024
         ///0020
-        ///003f,007f [rest of string was truncated]&quot;;.
+        ///003f,007f,0004
+        ///3
+        ///0
+        ///1b,27,28,49
+        ///-death armos - crash, link to paths?
+        ///-002d
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ENEMIES {
             get {
@@ -211,7 +217,11 @@ namespace MMRando.Properties {
         ///0
         ///- Great Fairy Magic Meter
         ///346
-        ///0;9 [rest of string was truncated]&quot;;.
+        ///0;92;93
+        ///0
+        ///0
+        ///- Great Fairy Spin Attack
+        ///0,103,347,348,349,350,3 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string REQ_CASUAL {
             get {
@@ -263,7 +273,10 @@ namespace MMRando.Properties {
         ///0
         ///- Pictobox
         ///436
-        ///16; [rest of string was truncated]&quot;;.
+        ///16;147;156;162;165;155;418
+        ///0
+        ///0
+        ///- Lens of Truth [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string REQ_GLITCH {
             get {
@@ -348,7 +361,20 @@ namespace MMRando.Properties {
         ///2
         ///19
         ///7
-        ///mm-w [rest of string was truncated]&quot;;.
+        ///mm-woodfalltemple
+        ///2
+        ///14
+        ///1c
+        ///mm-clocktower
+        ///3
+        ///17
+        ///5
+        ///mm-guruguru
+        ///3
+        ///5
+        ///2e
+        ///mm-milkbar
+        ///3,4 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEQS {
             get {

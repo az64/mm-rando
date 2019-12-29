@@ -5,7 +5,9 @@ using MMRando.Models;
 using MMRando.Models.Settings;
 using MMRando.Utils;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -19,7 +21,6 @@ namespace MMRando
         private bool _isUpdating = false;
         private string _oldSettingsString = "";
         private int _seedOld = 0;
-
         public SettingsObject _settings { get; set; }
 
         public AboutForm About { get; private set; }
@@ -28,6 +29,9 @@ namespace MMRando
         public ItemEditForm ItemEditor { get; private set; }
         public StartingItemEditForm StartingItemEditor { get; private set; }
         public JunkLocationEditForm JunkLocationEditor { get; private set; }
+
+
+        public const string SETTINGS_EXTENSION = ".cfg";
 
         private Randomizer _randomizer;
         private Builder _builder;
@@ -68,6 +72,8 @@ namespace MMRando
 
 
             Text = AssemblyVersion;
+
+            LoadSettings();
         }
 
         private void InitializeTooltips()
@@ -310,12 +316,33 @@ namespace MMRando
             _isUpdating = false;
         }
 
+        public void UpdateSettingString()
+        {
+            try
+            {
+                _settings.Update(tSString.Text);
+                UpdateCheckboxes();
+                ToggleCheckBoxes();
+                tSString.Text = _settings.ToString();
+            }
+            catch
+            {
+                tSString.Text = _oldSettingsString;
+                _settings.Update(_oldSettingsString);
+                UpdateCheckboxes();
+                ToggleCheckBoxes();
+                MessageBox.Show("There was an issue updating your setting string. Returning to old Setting String.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void UpdateCheckboxes()
         {
             cUserItems.Checked = _settings.UseCustomItemList;
             cAdditional.Checked = _settings.AddOther;
             cSoS.Checked = _settings.ExcludeSongOfSoaring;
             cSpoiler.Checked = _settings.GenerateSpoilerLog;
+            cHTMLLog.Checked = _settings.GenerateHTMLLog;
             cMixSongs.Checked = _settings.AddSongs;
             cBottled.Checked = _settings.RandomizeBottleCatchContents;
             cDChests.Checked = _settings.AddDungeonItems;
@@ -680,7 +707,23 @@ namespace MMRando
 
         private void mExit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            StartClose();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if(!StartClose())
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private bool StartClose()
+        {
+            SaveSettings();
+            return true;
         }
 
         private void mAbout_Click(object sender, EventArgs e)
@@ -981,6 +1024,7 @@ namespace MMRando
             cBlastCooldown.SelectedIndex = 0;
             cMusic.SelectedIndex = 0;
             cSpoiler.Checked = true;
+            cHTMLLog.Checked = true;
             cSoS.Checked = true;
             cNoDowngrades.Checked = true;
             cShopAppearance.Checked = true;
@@ -1122,14 +1166,20 @@ namespace MMRando
             return true;
         }
 
+        private bool ValidateSettingsFile(String[] lines)
+        {
+            return lines.Length > 0 && (lines[0].Equals("#MMR Settings File [" + AssemblyVersion + "]") || lines[0].Equals("#MMR Settings File [dev]"));
+        }
+
         private bool ValidateLogicFile()
         {
             if (_settings.LogicMode == LogicMode.UserLogic && !File.Exists(_settings.UserLogicFileName))
             {
-                MessageBox.Show("User Logic not found, please load User Logic or change logic mode.",
+                MessageBox.Show("User Logic not found or invalid, please load User Logic or change logic mode.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
+
             return true;
         }
 
@@ -1140,6 +1190,27 @@ namespace MMRando
             openPatch.ShowDialog();
             _settings.InputPatchFilename = openPatch.FileName;
             tPatch.Text = _settings.InputPatchFilename;
+        }
+
+        private void bLoadPreset_Click(object sender, EventArgs e)
+        {
+            openPreset.Filter = "Config Files|*.cfg";
+            if (openPreset.ShowDialog() == DialogResult.OK)
+            {
+                _settings.UserPresetFileName = openPreset.FileName;
+                LoadSettings(_settings.UserPresetFileName);
+            }
+        }
+
+        private void bSavePreset_Click(object sender, EventArgs e)
+        {
+            if (_settings.LogicMode != LogicMode.UserLogic || (_settings.LogicMode == LogicMode.UserLogic && ValidateLogicFile()))
+            {
+                if (savePreset.ShowDialog() == DialogResult.OK)
+                {
+                    SaveSettings(savePreset.FileName);
+                }
+            }
         }
 
         private void ttOutput_Changed(object sender, EventArgs e)
@@ -1195,6 +1266,166 @@ namespace MMRando
             {
                 _settings.InputPatchFilename = null;
                 tPatch.Text = null;
+            }
+        }
+
+        private const string DEFAULT_SETTINGS_FILENAME = "settings";
+        private void SaveSettings(string filename = null)
+        {
+            var path = Path.ChangeExtension(filename ?? DEFAULT_SETTINGS_FILENAME, SETTINGS_EXTENSION);
+            string[] lines = null;
+            if (filename != null && _settings.UserLogicFileName != null && File.Exists(_settings.UserLogicFileName))
+            {
+                using (StreamReader Req = new StreamReader(File.Open(_settings.UserLogicFileName, FileMode.Open)))
+                {
+                    lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                }
+            }
+            using (var settingsFile = new StreamWriter(File.Open(path, FileMode.Create)))
+            {
+                settingsFile.WriteLine("#MMR Settings File [" + AssemblyVersion + "]");
+                settingsFile.WriteLine("#settings " + _settings.ToString());
+                if (_settings.UseCustomItemList)
+                {
+                    settingsFile.WriteLine("#itemlist " + _settings.CustomItemListString);
+                }
+                if (_settings.CustomStartingItemList.Any())
+                {
+                    settingsFile.WriteLine("#startingitems " + _settings.CustomStartingItemListString);
+                }
+                if (_settings.CustomJunkLocations.Any())
+                {
+                    settingsFile.WriteLine("#junklocations " + _settings.CustomJunkLocationsString);
+                }
+
+                if (_settings.LogicMode == LogicMode.UserLogic)
+                {
+                    if (_settings.UserLogicFileName != null && File.Exists(_settings.UserLogicFileName))
+                    {
+                        if (filename == null)
+                        {
+                            settingsFile.WriteLine("#logicpath " + _settings.UserLogicFileName);
+                        }
+                        else
+                        {
+                            settingsFile.WriteLine("#logic ");
+                            for (var i = 0; i < lines.Length; i++)
+                            {
+                                var line = lines[i];
+                                if (line.StartsWith("#"))
+                                {
+                                    continue;
+                                }
+                                if (i != lines.Length - 1)
+                                {
+                                    settingsFile.WriteLine(line);
+                                }
+                                else
+                                {
+                                    settingsFile.Write(line);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        private void LoadSettings(string filename = null)
+        {
+            var path = Path.ChangeExtension(filename ?? DEFAULT_SETTINGS_FILENAME, SETTINGS_EXTENSION);
+            if (File.Exists(path))
+            {
+                string[] lines = null;
+                using (StreamReader Req = new StreamReader(File.Open(path, FileMode.Open)))
+                {
+                    lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                }
+
+                if (ValidateSettingsFile(lines))
+                {
+                    for (var i = 1; i < lines.Length; i++)
+                    {
+                        if (!lines[i].StartsWith("#") || !lines[i].Contains(" "))
+                        {
+                            continue;
+                        }
+                        var split = lines[i].Split(new[] { ' ' }, 2);
+                        var command = split[0].Substring(1);
+                        var parameter = split[1];
+                        switch (command)
+                        {
+                            case "settings":
+                                tSString.Text = parameter;
+                                _settings.Update(tSString.Text);
+                                break;
+                            case "itemlist":
+                                tCustomItemList.Text = parameter;
+                                ItemEditor.UpdateChecks(tCustomItemList.Text);
+                                break;
+                            case "startingitems":
+                                tStartingItemList.Text = parameter;
+                                StartingItemEditor.UpdateChecks(tStartingItemList.Text);
+                                break;
+                            case "junklocations":
+                                tJunkLocationsList.Text = parameter;
+                                JunkLocationEditor.UpdateChecks(tJunkLocationsList.Text);
+                                break;
+                            case "logicpath":
+                            case "logic":
+                                _settings.LogicMode = LogicMode.UserLogic;
+                                cMode.SelectedIndex = (int)_settings.LogicMode;
+                                _settings.UserLogicFileName = command == "logicpath" ? parameter : path;
+                                if (File.Exists(_settings.UserLogicFileName))
+                                {
+                                    tbUserLogic.Text = Path.GetFileNameWithoutExtension(_settings.UserLogicFileName);
+                                }
+                                else
+                                {
+                                    _settings.UserLogicFileName = string.Empty;
+                                }
+                                break;
+                        }
+                    }
+
+                    UpdateJunkLocationAmountLabel();
+                    UpdateCustomStartingItemAmountLabel();
+                    UpdateCustomItemAmountLabel();
+                    UpdateSettingString();
+                }
+                else
+                {
+                    if (filename == null)
+                    {
+                        File.Delete(path);
+                    }
+                    else
+                    {
+                        MessageBox.Show("File is not a valid preset file or outdated! Please double check file. \n \n" + _settings.UserPresetFileName,
+                           "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+        }
+
+        private void SaveSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_settings.LogicMode != LogicMode.UserLogic || (_settings.LogicMode == LogicMode.UserLogic && ValidateLogicFile()))
+            {
+                if (savePreset.ShowDialog() == DialogResult.OK)
+                {
+                    SaveSettings(savePreset.FileName);
+                }
+            }
+        }
+
+        private void LoadSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openPreset.Filter = "Config Files|*.cfg";
+            if (openPreset.ShowDialog() == DialogResult.OK)
+            {
+                _settings.UserPresetFileName = openPreset.FileName;
+                LoadSettings(_settings.UserPresetFileName);
             }
         }
     }
