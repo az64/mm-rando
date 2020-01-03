@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using MMRando.GameObjects;
 
 namespace MMRando.Models
@@ -56,5 +57,16 @@ namespace MMRando.Models
             {
                 // todo
             });
+
+        public static readonly ReadOnlyCollection<Region> ClockTownRegions
+            = new ReadOnlyCollection<Region>(new Region[]
+        {
+            Region.NorthClockTown,
+            Region.SouthClockTown,
+            Region.EastClockTown,
+            Region.WestClockTown,
+            Region.LaundryPool,
+            Region.StockPotInn,
+        });
     }
 }

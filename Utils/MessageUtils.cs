@@ -95,8 +95,12 @@ namespace MMRando.Utils
             if (randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Competitive)
             {
                 var totalUniqueGossipHints = Enum.GetValues(typeof(GossipQuote)).Cast<GossipQuote>().Count(gq => !gq.IsMoonGossipStone()) / 2;
+
                 var numberOfRequiredHints = 4;
-                var numberOfNonRequiredHints = 2;
+                var numberOfNonRequiredHints = 3;
+                var maxNumberOfSongOnlyHints = 3;
+                var maxNumberOfClockTownHints = 2;
+
                 var numberOfLocationHints = totalUniqueGossipHints - numberOfRequiredHints - numberOfNonRequiredHints;
                 unusedItems = randomizedItems.GroupBy(io => io.NewLocation.Value.GetAttribute<GossipCompetitiveHintAttribute>().Priority)
                                         .OrderByDescending(g => g.Key)
@@ -106,8 +110,10 @@ namespace MMRando.Utils
                                         .ToList();
 
                 unusedItems.AddRange(unusedItems);
-                var requiredHints = new List<string>();
-                var nonRequiredHints = new List<string>();
+                var importantRegionCounts = new Dictionary<Region, int>();
+                var nonImportantRegionCounts = new Dictionary<Region, int>();
+                var songOnlyRegionCounts = new Dictionary<Region, int>();
+                var clockTownRegionCounts = new Dictionary<Region, int>();
                 foreach (var kvp in itemsInRegions)
                 {
                     var numberOfRequiredItems = kvp.Value.Count(io => ItemUtils.IsRequired(io.Item, randomizedResult) && !unusedItems.Contains(io));
@@ -118,53 +124,76 @@ namespace MMRando.Utils
                         continue;
                     }
 
-                    ushort soundEffectId = 0x690C; // grandma curious
-                    string start = Gossip.MessageStartSentences.Random(randomizedResult.Random);
-
-                    string sfx = $"{(char)((soundEffectId >> 8) & 0xFF)}{(char)(soundEffectId & 0xFF)}";
-                    var locationMessage = kvp.Key.Name();
-                    var mid = "is";
-                    var itemMessage = numberOfRequiredItems > 0
-                        ? "on the Way of the Hero"
-                        : "a foolish choice";
-                    List<string> list;
-                    char color;
-                    if (numberOfRequiredItems > 0)
+                    Dictionary<Region, int> dict;
+                    if (numberOfRequiredItems == 0)
                     {
-                        list = requiredHints;
-                        color = TextCommands.ColorYellow;
+                        dict = nonImportantRegionCounts;
+                    }
+                    else if (Gossip.ClockTownRegions.Contains(kvp.Key))
+                    {
+                        dict = clockTownRegionCounts;
+                    }
+                    else if (!randomizedResult.Settings.AddSongs && kvp.Value.Count(io => ItemUtils.IsRequired(io.Item, randomizedResult) && !ItemUtils.IsSong(io.Item) && !unusedItems.Contains(io)) == 0)
+                    {
+                        dict = songOnlyRegionCounts;
                     }
                     else
                     {
-                        list = nonRequiredHints;
-                        color = TextCommands.ColorSilver;
+                        dict = importantRegionCounts;
                     }
-
-                    list.Add($"\x1E{sfx}{start} {color}{locationMessage}{TextCommands.ColorWhite} {mid} {itemMessage}...\xBF".Wrap(35, "\x11"));
-
-                    //var mid = "has";
-                    //list.Add($"\x1E{sfx}{start} {TextCommands.ColorRed}{locationMessage}{TextCommands.ColorWhite} {mid} {color}{NumberToWords(numberOfImportantItems)} important item{(numberOfImportantItems == 1 ? "" : "s")}{TextCommands.ColorWhite}...\xBF".Wrap(35, "\x11"));
+                    
+                    dict[kvp.Key] = numberOfRequiredItems;
                 }
 
+                var chosenSongOnlyRegions = 0;
+                var chosenClockTownRegions = 0;
                 for (var i = 0; i < numberOfRequiredHints; i++)
                 {
-                    var chosen = requiredHints.RandomOrDefault(randomizedResult.Random);
-                    if (chosen != null)
+                    var regionCounts = importantRegionCounts.AsEnumerable();
+                    if (chosenClockTownRegions < maxNumberOfClockTownHints)
                     {
-                        requiredHints.Remove(chosen);
-                        competitiveHints.Add(chosen);
-                        competitiveHints.Add(chosen);
+                        regionCounts = regionCounts.Concat(clockTownRegionCounts);
+                    }
+                    if (chosenSongOnlyRegions < maxNumberOfSongOnlyHints)
+                    {
+                        regionCounts = regionCounts.Concat(songOnlyRegionCounts);
+                    }
+                    if (!regionCounts.Any())
+                    {
+                        regionCounts = regionCounts.Concat(clockTownRegionCounts);
+                    //}
+                    //if (!regionCounts.Any())
+                    //{
+                        regionCounts = regionCounts.Concat(songOnlyRegionCounts);
+                    }
+                    if (regionCounts.Any())
+                    {
+                        var chosen = regionCounts.ToList().Random(randomizedResult.Random);
+                        competitiveHints.Add(BuildRegionHint(chosen, randomizedResult.Random));
+                        competitiveHints.Add(BuildRegionHint(chosen, randomizedResult.Random));
+                        if (songOnlyRegionCounts.Remove(chosen.Key))
+                        {
+                            chosenSongOnlyRegions++;
+                        }
+                        else if (clockTownRegionCounts.Remove(chosen.Key))
+                        {
+                            chosenClockTownRegions++;
+                        }
+                        else
+                        {
+                            importantRegionCounts.Remove(chosen.Key);
+                        }
                     }
                 }
 
                 for (var i = 0; i < numberOfNonRequiredHints; i++)
                 {
-                    var chosen = nonRequiredHints.RandomOrDefault(randomizedResult.Random);
-                    if (chosen != null)
+                    if (nonImportantRegionCounts.Any())
                     {
-                        nonRequiredHints.Remove(chosen);
-                        competitiveHints.Add(chosen);
-                        competitiveHints.Add(chosen);
+                        var chosen = nonImportantRegionCounts.ToList().Random(randomizedResult.Random);
+                        competitiveHints.Add(BuildRegionHint(chosen, randomizedResult.Random));
+                        competitiveHints.Add(BuildRegionHint(chosen, randomizedResult.Random));
+                        nonImportantRegionCounts.Remove(chosen.Key);
                     }
                 }
             }
@@ -279,7 +308,37 @@ namespace MMRando.Utils
 
             return finalHints;
         }
-        
+
+        private static string BuildRegionHint(KeyValuePair<Region, int> regionInfo, Random random)
+        {
+            var region = regionInfo.Key;
+            var numberOfRequiredItems = regionInfo.Value;
+
+            ushort soundEffectId = 0x690C; // grandma curious
+            string start = Gossip.MessageStartSentences.Random(random);
+
+            string sfx = $"{(char)((soundEffectId >> 8) & 0xFF)}{(char)(soundEffectId & 0xFF)}";
+            var locationMessage = region.Name();
+            var mid = "is";
+            var itemMessage = numberOfRequiredItems > 0
+                ? "on the Way of the Hero"
+                : "a foolish choice";
+            char color;
+            if (numberOfRequiredItems > 0)
+            {
+                color = TextCommands.ColorYellow;
+            }
+            else
+            {
+                color = TextCommands.ColorSilver;
+            }
+
+            return $"\x1E{sfx}{start} {color}{locationMessage}{TextCommands.ColorWhite} {mid} {itemMessage}...\xBF".Wrap(35, "\x11");
+
+            //var mid = "has";
+            //return $"\x1E{sfx}{start} {TextCommands.ColorRed}{locationMessage}{TextCommands.ColorWhite} {mid} {color}{NumberToWords(numberOfImportantItems)} important item{(numberOfImportantItems == 1 ? "" : "s")}{TextCommands.ColorWhite}...\xBF".Wrap(35, "\x11");
+        }
+
         private static string BuildGossipQuote(ushort soundEffectId, string locationMessage, string itemMessage, Random random)
         {
             int startIndex = random.Next(Gossip.MessageStartSentences.Count);
