@@ -1,0 +1,320 @@
+﻿<#@ template language="C#" linePragmas="false" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="MMR.Randomizer.Extensions" #>
+<html>
+<head>
+<style>
+    body.dark-mode {
+      background-color: #111;
+      color: #ccc;
+    }
+    body.dark-mode a {
+      color: #111;
+    }
+    body.dark-mode button {
+      background-color: #ddd;
+      color: #111;
+    }
+
+    body.light-mode {
+      background-color: #eee;
+      color: #111;
+    }
+    body.light-mode a {
+      color: #111;
+    }
+    body.light-mode button {
+      background-color: #111;
+      color: #ccc;
+    }
+
+    th{ text-align:left }
+    .region { text-align: center; font-weight: bold; }
+    [data-content]:before { content: attr(data-content); }
+
+	.dark-mode .spoiler{ background-color:#ccc }
+	.dark-mode .spoiler:hover { background-color: #111;  }
+	.dark-mode .show-highlight .unavailable .newlocation { background-color: #500705; }
+	.dark-mode .show-highlight .acquired .newlocation { background-color: #69591f; }
+	.dark-mode .show-highlight .available .newlocation { background-color: #313776; }
+
+	.light-mode .spoiler{ background-color:#111 }
+	.light-mode .spoiler:hover { background-color: #ccc;  }
+	.light-mode .show-highlight .unavailable .newlocation { background-color: #FF9999; }
+	.light-mode .show-highlight .acquired .newlocation { background-color: #99FF99; }
+	.light-mode .show-highlight .available .newlocation { background-color: #9999FF; }
+
+
+    #spoilerLogState { width: 560px; }
+</style>
+</head>
+<body class="light-mode">
+<label><b>Version: </b></label><span><#= spoiler.Version #></span><br/>
+<label><b>Settings String: </b></label><span><#= spoiler.SettingsString #></span><br/>
+<label><b>Seed: </b></label><span><#= spoiler.Seed #></span><br/>
+<# if (spoiler.CustomItemListString != null) { #>
+<label><b>Custom Item List: </b></label><span><#= spoiler.CustomItemListString #></span><br/>
+<# } #>
+<# if (spoiler.CustomStartingItemListString != null) { #>
+<label><b>Custom Starting Item List: </b></label><span><#= spoiler.CustomStartingItemListString #></span><br/>
+<# } #>
+<# if (spoiler.CustomJunkLocationsString != null) { #>
+<label><b>Enforce Junk Locations List: </b></label><span><#= spoiler.CustomJunkLocationsString #></span><br/>
+<# } #>
+<br/>
+<button type="button" onclick="toggleDarkLight()" title="Toggle dark/light mode">Toggle Dark Theme</button>
+<br/>
+<br/>
+<label><b>Spoiler Log State: </b></label><input id="spoilerLogState" type="text"/><br/>
+<# if (spoiler.RandomizeDungeonEntrances) { 
+#>
+<h2>Dungeon Entrance Replacements</h2>
+<table border="1" class="item-replacements">
+	<tr>
+		<th>Entrance</th>
+	    <th></th>
+		<th>New Destination</th>
+	</tr>
+<#		 for (int i = 0; i < 4; i++) {
+            var entrance = spoiler.Entrances[i];
+            var destination = spoiler.Entrances[spoiler.NewDestinationIndices[i]];#>
+	<tr data-id="<#= (int)destination #>" data-newlocationid="<#= (int)destination #>" class="unavailable">
+		<td class="newlocation"><#= entrance.Entrance() #></td>
+	    <td><input type="checkbox"/></td>
+		<td class="spoiler itemname"><span data-content="<#= destination.Entrance() #>"></span></td>
+	</tr>
+<# } #>
+</table>
+<# } #>
+<h2>Item Replacements</h2>
+<input type="checkbox" id="highlight-checks"/> Highlight available checks
+<table border="1" class="item-replacements">
+ <tr>
+     <th>Location</th>
+	 <th></th>
+     <th></th>
+ </tr>
+<# foreach (var region in spoiler.ItemList.GroupBy(item => item.Region).OrderBy(g => g.Key)) {
+#>
+ <tr class="region"><td colspan="3"><#= region.Key.Name() #></td></tr>
+ <# foreach (var item in region.OrderBy(item => item.NewLocationName)) { #>
+ <tr data-id="<#= item.Id #>" data-newlocationid="<#= item.NewLocationId #>" class="unavailable">
+	<td class="newlocation"><#= item.NewLocationName #></td>
+	<td><input type="checkbox"/></td>
+	<td class="spoiler itemname"> <span data-content="<#= item.Name #>"></span></td>
+ </tr>
+ <# } #>
+<# } #>
+</table>
+<h2>Item Locations</h2>
+<table border="1" id="item-locations">
+ <tr>
+     <th>Item</th>
+	 <th></th>
+     <th>Location</th>
+ </tr>
+<# foreach (var item in spoiler.ItemList.Where(item => !item.IsJunk)) {
+#>
+ <tr data-id="<#= item.Id #>" data-newlocationid="<#= item.NewLocationId #>">
+	<td><#= item.Name #></td>
+	<td><input type="checkbox"/></td>
+	<td class="spoiler newlocation"> <span data-content="<#= item.NewLocationName #>"></span></td>
+ </tr>
+<# } #>
+</table>
+<# if (spoiler.GossipHints != null && spoiler.GossipHints.Any()) { 
+#>
+<h2>Gossip Stone Hints</h2>
+<table border="1">
+	<tr>
+		<th>Gossip Stone</th>
+		<th>Message</th>
+	</tr>
+<#	foreach (var hint in spoiler.GossipHints.OrderBy(h => h.Key.ToString())) { 
+#>
+	<tr>
+		<td><#= hint.Key #></td>
+		<td class="spoiler"><span data-content="<#= hint.Value #>"></span></td>
+	</tr>
+<# } #>
+</table>
+<# } #>
+<script>
+	function all(list, predicate) {
+		for (var i = 0; i < list.length; i++) {
+			if (!predicate(list[i])) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	function any(list, predicate) {
+		for (var i = 0; i < list.length; i++) {
+			if (predicate(list[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
+    
+    var segmentSize = 16;
+    function saveItems() {
+        var segments = [];
+        for (var i = 0; i < logic.length; i++) {
+            var segmentIndex = parseInt(i / segmentSize);
+            segments[segmentIndex] = segments[segmentIndex] || 0;
+            if (logic[i].Checked) {
+                segments[parseInt(i / segmentSize)] += (1 << (i%segmentSize));
+            }
+        }
+        var saveString = segments.map(function(s) {
+            return s.toString(16);
+        }).join("-");
+        var saveInput = document.querySelector("#spoilerLogState");
+        saveInput.value = saveString;
+    }
+
+    function loadItems() {
+        var saveInput = document.querySelector("#spoilerLogState");
+        var segments = saveInput.value.split("-");
+        if (Math.ceil((logic.length - 1) / segmentSize) !== segments.length) {
+            alert("Invalid Spoiler Log state");
+            return;
+        }
+        segments = segments.map(function(segment) {
+            return parseInt(segment, 16);
+        });
+        for (var i = 0; i < segments.length; i++) {
+            var segment = segments[i];
+            for (var j = 0; j < segmentSize; j++) {
+                var itemIndex = segmentSize * i + j;
+                if (itemIndex < logic.length) {
+                    var mark = ((segment >> j) % 2 == 1);
+                    logic[itemIndex].Checked = mark;
+                    var itemRow = document.querySelector("tr[data-newlocationid='" + itemIndex + "']");
+                    if (itemRow) {
+	                    logic[itemRow.dataset.id].Acquired = mark;
+                    } else {
+	                    logic[itemIndex].Acquired = mark;
+                    }
+                }
+            }
+        }
+		recalculateItems();
+    }
+
+    document.querySelector("#spoilerLogState").addEventListener("keypress", function(event) {
+        if (event.keyCode === 13) {
+            loadItems();
+        }
+    });
+
+	function recalculateItems() {
+		var recalculate = false;
+		for (var i = 0; i < logic.length; i++) {
+			var item = logic[i];
+			item.IsAvailable = 
+				(item.RequiredItemIds === null || all(item.RequiredItemIds, function(id) { return logic[id].Acquired; }))
+				&& 
+				(item.ConditionalItemIds === null || any(item.ConditionalItemIds, function(conditionals) { return all(conditionals, function(id) { return logic[id].Acquired; }); }));
+            
+			if (!item.Acquired && item.IsFakeItem && item.IsAvailable) {
+				item.Acquired = true;
+				recalculate = true;
+			}
+			if (item.Acquired && item.IsFakeItem && !item.IsAvailable) {
+				item.Acquired = false;
+				recalculate = true;
+			}
+        
+			var locationRow = document.querySelector(".item-replacements tr[data-newlocationid='" + i + "']");
+			if (locationRow) {
+				locationRow.className = "";
+				locationRow.classList.add(item.IsAvailable ? "available" : "unavailable");
+				var itemName = locationRow.querySelector(".itemname");
+                var checkbox = locationRow.querySelector("input");
+                checkbox.checked = item.Checked;
+				if (item.Checked) {
+					itemName.classList.remove("spoiler");
+				} else {
+					itemName.classList.add("spoiler");
+				}
+			}
+        
+			var itemRow = document.querySelector("#item-locations tr[data-id='" + i + "']");
+			if (itemRow) {
+				var itemName = itemRow.querySelector(".newlocation");
+                var checkbox = itemRow.querySelector("input");
+                checkbox.checked = item.Acquired;
+				if (item.Acquired) {
+					itemName.classList.remove("spoiler");
+				} else {
+					itemName.classList.add("spoiler");
+				}
+			}
+		}
+		if (recalculate) {
+			recalculateItems();
+		} else {
+            saveItems();
+        }
+	}
+
+    var logic = <#= spoiler.LogicJson #>;
+
+    for (var i = 0; i < logic.length; i++) {
+        var item = logic[i];
+        if (item.Acquired) {
+            item.Checked = true;
+	        document.querySelector("tr[data-newlocationid='" + i + "'] input").checked = true;
+        }
+    }
+
+    var startingLocations = [0, 94, 274, 275, 276, 277];
+    for (var id of startingLocations) {
+	    logic[id].Checked = true;
+	    logic[document.querySelector("tr[data-newlocationid='" + id + "']").dataset.id].Acquired = true;
+	    document.querySelector("tr[data-newlocationid='" + id + "'] input").checked = true;
+    }
+
+	recalculateItems();
+
+	var rows = document.querySelectorAll("tr");
+	for (var i = 1; i < rows.length; i++) {
+		var row = rows[i];
+		var checkbox = row.querySelector("input");
+		if (checkbox) {
+			checkbox.addEventListener("click", function(e) {
+				var row = e.target.closest("tr");
+                var rowId = parseInt(row.dataset.id);
+				var newLocationId = parseInt(row.dataset.newlocationid);
+				logic[newLocationId].Checked = e.target.checked;
+                logic[rowId].Acquired = e.target.checked;
+				recalculateItems();
+			});
+		}
+	}
+
+	document.querySelector("#highlight-checks").addEventListener("click", function(e) {
+        var tables = document.querySelectorAll("table.item-replacements");
+        for (var i = 0; i < tables.length; i++) {
+            if (e.target.checked) {
+                tables[i].classList.add("show-highlight");
+            } else {
+                tables[i].classList.remove("show-highlight");
+            }
+        }
+	});
+
+    function toggleDarkLight() {
+	    var body = document.getElementsByTagName('body')[0];
+	    var currentClassBody = body.className;
+	    body.className = currentClassBody === "dark-mode" ? "light-mode" : "dark-mode";
+    }
+</script>
+</body>
+</html>
