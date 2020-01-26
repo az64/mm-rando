@@ -32,6 +32,11 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Long)]
         CowMoo = 0x20DF,
 
+        [Tags(Short)]
+        [ReplacableByTags(Short)]
+        [Replacable(0xDFC84A, 0xDFE0FA)]
+        DogGroan = 0x210B,
+
         [Replacable(0x00DFC7B6)]
         [Tags(Short, LowHpBeep)]
         [ReplacableByTags(Short)]
@@ -46,7 +51,28 @@ namespace MMR.Randomizer.Models.SoundEffects
 
         #region Enemy SFX
 
-        [Replacable(0x00E3C002, 0x01048266, 0x01048416, 0x0104852E)]
+        [Tags(Short)]
+        DinolfosCry = 0x3029,
+
+        [Tags(Short)]
+        DinolfosAttack = 0x302A,
+
+        [Tags(Short)]
+        BombchuAim = 0x3055,
+
+        [Tags(Short)]
+        PoeAppear = 0x3073,
+
+        [Tags(Short)]
+        PoeDisappear = 0x3074,
+
+        [Tags(Long)]
+        MajoraGrowHead = 0x3088,
+
+        [Tags(Long)]
+        WallmasterAim = 0x3090,
+
+        [Replacable(0xE0DBBE, 0x00E3C002, 0x01048266, 0x01048416, 0x0104852E)]
         [Tags(Short)]
         [ReplacableByTags(Short)]
         GuayCroak = 0x30B6,
@@ -57,11 +83,29 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Long)]
         RedeadMoan = 0x30E4,
 
+        [Tags(Short)]
+        RedeadAim = 0x30E5,
+
         [Replacable(0x00FB719E, 0x00FB72D6)]
         [Effect(0x000)]
         [Tags(Looping)]
         [ReplacableByTags(Long)]
         GoronKidCry = 0x30EA,
+
+        [Tags(Long)]
+        FreezardBreath = 0x31A4,
+
+        [Tags(Short)]
+        GoronSleepy = 0x31AD,
+
+        [Tags(Long)]
+        SkullKidLaugh1 = 0x3275,
+
+        [Tags(Long)]
+        SkullKidLaugh2 = 0x3276,
+
+        [Tags(Long)]
+        SkullKidLaugh3 = 0x3277,
 
         #endregion
 
@@ -83,7 +127,7 @@ namespace MMR.Randomizer.Models.SoundEffects
         GetRecoveryHeart = 0x400B,
 
         [Replacable(0x00B97E2A)]
-        [Tags(Short, LowHpBeep)]
+        [Tags(LowHpBeep)]
         [ReplacableByTags(Short, LowHpBeep)]
         LowHealthBeep = 0x401B,
 
@@ -98,7 +142,7 @@ namespace MMR.Randomizer.Models.SoundEffects
         GetSmallItem = 0x4024,
 
 
-        [Replacable(0x00C86DE2, 0x00C7E8EA, 0x00C7EFD2, 0x00C80A62, 0x00C841EE, 0x00C84242, 0x00C84456, 0x00C8453E, 0x00C846FE, 0x00C84ABE, 0x00C86DE2)]
+        [Replacable(0x00C86DE2, 0x00C7E8EA, 0x00C7EFD2, 0x00C80A62, 0x00C841EE, 0x00C84242, 0xC843BA, 0x00C84456, 0x00C8453E, 0xC8458A, 0x00C846FE, 0x00C84ABE, 0x00C86DE2, 0xC844DE, 0xC84A3E, 0xC8CE2A, 0xC84B3E, 0xC81312, 0xC7F92E)]
         [Tags(SystemSound)]
         [ReplacableByTags(Short)]
         FileSelectCursor = 0x4039,
@@ -108,10 +152,20 @@ namespace MMR.Randomizer.Models.SoundEffects
         [ReplacableByTags(Short)]
         FileSelectTypeCharacter = 0x403A,
 
-        [Replacable(0x00C83ABE)]
+        [Replacable(0x00C83ABE, 0xC7E8B2, 0xC7EEE2, 0xC7F91E, 0xC7FFEA, 0xC80A2A, 0xC86B26, 0xC86ACE, 0xC86C7E, 0xC8407A, 0xC8CD8E, 0xC7EF16, 0xC84B76, 0xC84996)]
         [Tags(SystemSound)]
         [ReplacableByTags(Short)]
         FileSelectDecideLong = 0x403B,
+
+        [Replacable(0xC83C3E, 0xC83BEA, 0xC83FEA, 0xC8CD76, 0xC8CDE6, 0xC7E716, 0xC80886, 0xC7EE0A, 0xC7F80A, 0xC8120E, 0xC81982)]
+        [Tags(SystemSound)]
+        [ReplacableByTags(Short)]
+        FileSelectCancel = 0x403C,
+
+        [Replacable(0xC84076, 0xC86D7E, 0xC80A3A, 0xC7E8C2)]
+        [Tags(SystemSound)]
+        [ReplacableByTags(Short)]
+        FileSelectError = 0x403D,
 
         #endregion
 
@@ -124,6 +178,15 @@ namespace MMR.Randomizer.Models.SoundEffects
         FierceDeityLinkJumpAttack = 0x6001,
 
         [Tags(Short)]
+        FierceDeityTakeDamage = 0x6005,
+
+        [Tags(Short)]
+        FierceDeityFrozen = 0x6006,
+
+        [Tags(Short)]
+        FierceDeityFallLong = 0x6008,
+
+        [Tags(Short)]
         ChildLinkAttack = 0x6020,
 
         [Tags(Short)]
@@ -134,6 +197,12 @@ namespace MMR.Randomizer.Models.SoundEffects
 
         [Tags(Short)]
         ChildLinkMountLedge = 0x6024,
+
+        [Tags(Short)]
+        ChildLinkTakeDamage = 0x6025,
+
+        [Tags(Short)]
+        ChildLinkKnockedOffHorse = 0x603E,
 
         [Replacable(0x00BABCF6)]
         [Tags(Short)]
@@ -148,14 +217,47 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Long)]
         GormanBrosLongYell = 0x6054,
 
+        [Tags(Long)]
+        GormanBrosLost = 0x6055,
+
         [Tags(Short, LowHpBeep)]
         GormanBrosWhip1 = 0x6056,
+
+        [Tags(Short, LowHpBeep)]
+        GormanBrosWhip2 = 0x6057,
+
+        [Tags(Long)]
+        GreatFairyAppears = 0x6058,
+
+        [Tags(Short)]
+        GreatFairyLaugh = 0x6059,
 
         [Tags(Long)]
         GormanBrosLaugh = 0x607C,
 
+        [Tags(Long)]
+        DekuFrozen = 0x6086,
+
+        [Tags(Long)]
+        DekuFallShort = 0x6087,
+
+        [Tags(Long)]
+        DekuFallLong = 0x6088,
+
+        [Tags(Short)]
+        DekuHorror = 0x6096,
+
         [Tags(Short, LowHpBeep)]
         GoronPunch = 0x60C0,
+
+        [Tags(Short)]
+        GoronBonk = 0x60C4,
+
+        [Tags(Short)]
+        GoronFallShort = 0x60C7,
+
+        [Tags(Long)]
+        GoronFallLong = 0x60C8,
 
         [Tags(Short, LowHpBeep)]
         JimHeh = 0x6100,
@@ -171,6 +273,39 @@ namespace MMR.Randomizer.Models.SoundEffects
 
         [Tags(Short, LowHpBeep)]
         MamamuYanCelebratory = 0x6112,
+
+        [Tags(Short)]
+        AveilFrustrated = 0x6115,
+
+        [Tags(Short)]
+        AveilLaugh = 0x6116,
+
+        [Tags(Short)]
+        PirateScream1 = 0x6118,
+
+        [Tags(Short)]
+        PirateScream2 = 0x6119,
+
+        [Tags(Short)]
+        RosaSigh1 = 0x611C,
+
+        [Tags(Short)]
+        RosaGiggle1 = 0x611D,
+
+        [Tags(Short)]
+        RosaSigh2 = 0x611E,
+
+        [Tags(Short)]
+        RosaGiggle2 = 0x611F,
+
+        [Tags(Short)]
+        RosaAnnoyed = 0x6120,
+
+        [Tags(Short)]
+        RosaLaugh = 0x6121,
+
+        [Tags(Short)]
+        AnjuSurprised = 0x6123,
 
         [Tags(Short, LowHpBeep)]
         CremiaInquisitive = 0x6126,
@@ -190,6 +325,21 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Long)]
         ReceptionistMmm = 0x612C,
 
+        [Tags(Short)]
+        RomaniScream = 0x612D,
+
+        [Tags(Short)]
+        RomaniGiggle = 0x612E,
+
+        [Tags(Short)]
+        PamelaScream = 0x6130,
+
+        [Tags(Long)]
+        PamelaFather = 0x6131,
+
+        [Tags(Short)]
+        PamelaSniffle = 0x6132,
+
         [Tags(Long)]
         StrayFairyHelpMe = 0x6138,
 
@@ -199,6 +349,18 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Long)]
         DampeUrgh = 0x6144,
 
+        [Tags(Short)]
+        ShikashiOh = 0x6146,
+
+        [Tags(Long)]
+        ShikashiLaugh = 0x6147,
+
+        [Tags(Long)]
+        MarineScientistDisgruntled = 0x6148,
+
+        [Tags(Short)]
+        MarineScientistHuh = 0x6149,
+
         [Tags(Short, LowHpBeep)]
         SwampTouristProprietorHehHeh = 0x614B,
 
@@ -207,6 +369,17 @@ namespace MMR.Randomizer.Models.SoundEffects
 
         [Tags(Short, LowHpBeep)]
         CuriosityShopGuyHii = 0x6151,
+
+        [Tags(Long)]
+        CuriosityShopGuyLaugh = 0x6152,
+
+        [ReplacableInMessage(0x6959, 10540, 10541, 10543, 10547, 10573, 10574)]
+        [Tags(Long)]
+        [ReplacableByTags(Long)]
+        GuruGuruLalala = 0x6159,
+
+        [Tags(Short)]
+        ZuboraShaddup = 0x615D,
 
         [Tags(Short, LowHpBeep)]
         PamelaFatherGasp = 0x6161,
@@ -225,6 +398,12 @@ namespace MMR.Randomizer.Models.SoundEffects
         [ReplacableByTags(Short)]
         PostmanGreeting = 0x616F,
 
+        [Tags(Short)]
+        DarlingChuckle = 0x6170,
+
+        [Tags(Short)]
+        DarlingMmm = 0x6171,
+
         [Tags(Long)]
         MikauBaybee = 0x6175,
 
@@ -232,12 +411,16 @@ namespace MMR.Randomizer.Models.SoundEffects
         MikauYay = 0x6176,
 
         [Tags(Long)]
+        TingleFall = 0x6177,
+
+        [Tags(Long)]
         TingleChuckle = 0x617A,
 
-        [ReplacableInMessage(0x6959, 10540, 10541, 10543, 10547, 10573, 10574)]
         [Tags(Long)]
-        [ReplacableByTags(Long)]
-        GuruGuruLalala = 0x6159,
+        TingleHappy = 0x617B,
+
+        [Tags(Long)]
+        TingleKoolooLimpah = 0x617C,
 
         #endregion
     }
