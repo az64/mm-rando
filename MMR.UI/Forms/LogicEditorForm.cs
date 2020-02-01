@@ -1,4 +1,5 @@
 ﻿using MMR.Randomizer.LogicMigrator;
+using MMR.Randomizer.Properties;
 using MMR.UI.Forms;
 using System;
 using System.Collections.Generic;
@@ -514,12 +515,12 @@ namespace MMR.UI.Forms
 
         private void casualToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            //todo LoadLogic(Resources.REQ_CASUAL);
+            LoadLogic(Resources.REQ_CASUAL);
         }
 
         private void glitchedToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            //todo LoadLogic(Resources.REQ_GLITCH);
+            LoadLogic(Resources.REQ_GLITCH);
         }
 
         private void LoadLogic(string logicString)

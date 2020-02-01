@@ -22,7 +22,7 @@ namespace MMR.Randomizer.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace MMR.Randomizer.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MMR.Randomizer.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace MMR.Randomizer.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -104,7 +104,7 @@ namespace MMR.Randomizer.Properties {
         ///ba3954,87b8002a
         ///ba3958,8fbfff [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string ASM_PATCH {
+        public static string ASM_PATCH {
             get {
                 return ResourceManager.GetString("ASM_PATCH", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace MMR.Randomizer.Properties {
         ///}
         ///.
         /// </summary>
-        internal static string ASM_SYMBOLS {
+        public static string ASM_SYMBOLS {
             get {
                 return ResourceManager.GetString("ASM_SYMBOLS", resourceCulture);
             }
@@ -198,9 +198,15 @@ namespace MMR.Randomizer.Properties {
         ///-skulltula
         ///0024
         ///0020
-        ///003f,007f [rest of string was truncated]&quot;;.
+        ///003f,007f,0004
+        ///3
+        ///0
+        ///1b,27,28,49
+        ///-death armos - crash, link to paths?
+        ///-002d
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string ENEMIES {
+        public static string ENEMIES {
             get {
                 return ResourceManager.GetString("ENEMIES", resourceCulture);
             }
@@ -266,7 +272,7 @@ namespace MMR.Randomizer.Properties {
         ///- Great Fairy Magic Meter
         /// [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string REQ_CASUAL {
+        public static string REQ_CASUAL {
             get {
                 return ResourceManager.GetString("REQ_CASUAL", resourceCulture);
             }
@@ -316,9 +322,12 @@ namespace MMR.Randomizer.Properties {
         ///0
         ///- Pictobox
         ///436
-        ///16; [rest of string was truncated]&quot;;.
+        ///16;147;156;162;165;155;418
+        ///0
+        ///0
+        ///- Lens of Truth [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string REQ_GLITCH {
+        public static string REQ_GLITCH {
             get {
                 return ResourceManager.GetString("REQ_GLITCH", resourceCulture);
             }
@@ -401,9 +410,22 @@ namespace MMR.Randomizer.Properties {
         ///2
         ///19
         ///7
-        ///mm-w [rest of string was truncated]&quot;;.
+        ///mm-woodfalltemple
+        ///2
+        ///14
+        ///1c
+        ///mm-clocktower
+        ///3
+        ///17
+        ///5
+        ///mm-guruguru
+        ///3
+        ///5
+        ///2e
+        ///mm-milkbar
+        ///3,4 [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SEQS {
+        public static string SEQS {
             get {
                 return ResourceManager.GetString("SEQS", resourceCulture);
             }
