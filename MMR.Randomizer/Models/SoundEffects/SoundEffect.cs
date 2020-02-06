@@ -92,9 +92,6 @@ namespace MMR.Randomizer.Models.SoundEffects
         [ReplacableByTags(Long)]
         GoronKidCry = 0x30EA,
 
-        [Tags(Long)]
-        FreezardBreath = 0x31A4,
-
         [Tags(Short)]
         GoronSleepy = 0x31AD,
 
