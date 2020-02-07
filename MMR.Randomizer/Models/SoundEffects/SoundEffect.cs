@@ -66,7 +66,7 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Short)]
         PoeDisappear = 0x3074,
 
-        [Tags(Long)]
+        [Tags(Short)]
         MajoraGrowHead = 0x3088,
 
         [Tags(Long)]
