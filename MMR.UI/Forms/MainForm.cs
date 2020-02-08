@@ -989,6 +989,7 @@ namespace MMR.UI.Forms
             {
                 config.State = form.State;
                 config.Pad = form.Selected;
+                config.Display = form.Display;
             }
         }
 

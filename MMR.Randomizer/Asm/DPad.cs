@@ -37,6 +37,16 @@ namespace MMR.Randomizer.Asm
     }
 
     /// <summary>
+    /// D-Pad display type.
+    /// </summary>
+    public enum DPadDisplay : byte
+    {
+        None,
+        Left,
+        Right,
+    }
+
+    /// <summary>
     /// D-Pad configuration structure.
     /// </summary>
     public struct DPadConfigStruct
@@ -82,15 +92,21 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         public DPadState State { get; set; }
 
+        /// <summary>
+        /// Where the D-Pad displays on-screen.
+        /// </summary>
+        public DPadDisplay Display { get; set; }
+
         public DPadConfig()
-            : this(DPad.Default, DPadState.Enabled)
+            : this(DPad.Default, DPadState.Enabled, DPadDisplay.Left)
         {
         }
 
-        public DPadConfig(DPad pad, DPadState state)
+        public DPadConfig(DPad pad, DPadState state, DPadDisplay display)
         {
             this.Pad = pad;
             this.State = state;
+            this.Display = display;
         }
 
         /// <summary>
@@ -126,7 +142,7 @@ namespace MMR.Randomizer.Asm
                 Version = version,
                 Items = items,
                 State = (byte)this.State,
-                Display = 1,
+                Display = (byte)this.Display,
             };
         }
     }
