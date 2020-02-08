@@ -86,9 +86,9 @@ namespace MMR.Randomizer.Asm
 
             // Write DPad config struct bytes.
             var addr = this["DPAD_CONFIG"];
-            var version = ReadWriteUtils.ReadU32((int)addr);
+            var version = ReadWriteUtils.ReadU32((int)(addr + 4));
             var bytes = config.ToStruct(version).ToBytes();
-            ReadWriteUtils.WriteToROM((int)addr, bytes);
+            ReadWriteUtils.WriteToROM((int)(addr + 4), bytes);
         }
 
         /// <summary>
