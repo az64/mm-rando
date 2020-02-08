@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 
 namespace MMR.Randomizer.Asm
 {
@@ -33,6 +34,37 @@ namespace MMR.Randomizer.Asm
         Disabled,
         Enabled,
         Defaults,
+    }
+
+    /// <summary>
+    /// D-Pad configuration structure.
+    /// </summary>
+    public struct DPadConfigStruct
+    {
+        public uint Version;
+        public byte[] Items;
+        public byte State;
+        public byte Display;
+
+        /// <summary>
+        /// Convert to bytes.
+        /// </summary>
+        /// <returns>Bytes</returns>
+        public byte[] ToBytes()
+        {
+            using (var memStream = new MemoryStream())
+            using (var writer = new BinaryWriter(memStream))
+            {
+                writer.Write(this.Version);
+
+                // Version 0
+                writer.Write(this.Items);
+                writer.Write(this.State);
+                writer.Write(this.Display);
+
+                return memStream.ToArray();
+            }
+        }
     }
 
     /// <summary>
@@ -77,6 +109,25 @@ namespace MMR.Randomizer.Asm
                     return this.Pad.Values.Select(x => x != DPadValue.None).ToArray();
                 }
             }
+        }
+
+        /// <summary>
+        /// Get a <see cref="DPadConfigStruct"/> representation which can be converted to bytes.
+        /// </summary>
+        /// <param name="version">Structure version</param>
+        /// <returns>Configuration structure</returns>
+        public DPadConfigStruct ToStruct(uint version)
+        {
+            var items = new byte[0x10];
+            this.Pad.Bytes.CopyTo(items, 0);
+
+            return new DPadConfigStruct
+            {
+                Version = version,
+                Items = items,
+                State = (byte)this.State,
+                Display = 1,
+            };
         }
     }
 

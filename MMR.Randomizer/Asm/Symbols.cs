@@ -41,6 +41,16 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
+        /// Check if a certain symbol exists.
+        /// </summary>
+        /// <param name="name">Symbol name</param>
+        /// <returns>True if exists, false if not</returns>
+        public bool Has(string name)
+        {
+            return this._symbols.ContainsKey(name);
+        }
+
+        /// <summary>
         /// Create a special <see cref="MMFile"/> with serialized <see cref="Symbols"/> data.
         /// </summary>
         /// <returns>MMFile</returns>
@@ -62,15 +72,23 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
-        /// Write a <see cref="DPadState"/> to the ROM.
+        /// Write the D-Pad configuration structure to ROM.
         /// </summary>
-        /// <remarks>Assumes <see cref="Patcher"/> file has been inserted.</remarks>
-        /// <param name="state">D-Pad state</param>
-        private void WriteDPadState(DPadState state)
+        /// <param name="config">D-Pad config</param>
+        public void WriteDPadConfig(DPadConfig config)
         {
-            // Write DPad state byte.
-            var addr = this["DPAD_STATE"];
-            ReadWriteUtils.WriteToROM((int)addr, (byte)state);
+            // If there's a DPAD_STATE symbol, use the legacy function instead.
+            if (this.Has("DPAD_STATE"))
+            {
+                WriteDPadConfigLegacy(config);
+                return;
+            }
+
+            // Write DPad config struct bytes.
+            var addr = this["DPAD_CONFIG"];
+            var version = ReadWriteUtils.ReadU32((int)addr);
+            var bytes = config.ToStruct(version).ToBytes();
+            ReadWriteUtils.WriteToROM((int)addr, bytes);
         }
 
         /// <summary>
@@ -78,14 +96,15 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         /// <remarks>Assumes <see cref="Patcher"/> file has been inserted.</remarks>
         /// <param name="config">D-Pad config</param>
-        public void WriteDPadConfig(DPadConfig config)
+        void WriteDPadConfigLegacy(DPadConfig config)
         {
             // Write DPad config bytes.
             var addr = this["DPAD_CONFIG"];
             ReadWriteUtils.WriteToROM((int)addr, config.Pad.Bytes);
 
-            // Write DPad state
-            WriteDPadState(config.State);
+            // Write DPad state byte.
+            addr = this["DPAD_STATE"];
+            ReadWriteUtils.WriteToROM((int)addr, (byte)config.State);
         }
 
         /// <summary>

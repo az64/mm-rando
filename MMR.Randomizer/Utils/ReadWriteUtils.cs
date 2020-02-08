@@ -158,6 +158,16 @@ namespace MMR.Randomizer.Utils
                 + RomData.MMFileList[f].Data[src + 1]);
         }
 
+        public static uint ReadU32(int address)
+        {
+            int f = RomUtils.GetFileIndexForWriting(address);
+            int src = address - RomData.MMFileList[f].Addr;
+            return (uint)((RomData.MMFileList[f].Data[src] << 24)
+                | (RomData.MMFileList[f].Data[src + 1] << 16)
+                | (RomData.MMFileList[f].Data[src + 2] << 8)
+                | (RomData.MMFileList[f].Data[src + 3]));
+        }
+
         public static byte Read(int address)
         {
             int f = RomUtils.GetFileIndexForWriting(address);
