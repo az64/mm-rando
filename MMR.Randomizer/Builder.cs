@@ -1057,26 +1057,25 @@ namespace MMR.Randomizer
             RomData.MMFileList[1142].Data = data.ToArray();
         }
 
-        private void WriteAsmPatch()
+        private void WriteAsmPatch(AsmContext asm)
         {
-            // Load patcher from internal resource file
-            var patcher = Patcher.Load();
-            var options = _settings.PatcherOptions;
-
             // Load the symbols and use them to apply the patch data
-            patcher.Apply(options);
+            var options = _settings.PatcherOptions;
+            asm.ApplyPatch(options);
         }
 
-        private void WriteAsmConfigPostPatch()
+        private void WriteAsmConfig(AsmContext asm)
         {
-            // Parse Symbols data from the ROM (specific MMFile)
-            Symbols symbols = Symbols.FromROM();
+            // Apply Asm configuration (after hash has been calculated)
+            var options = _settings.PatcherOptions;
+            asm.ApplyPostConfiguration(options, false);
+        }
 
-            if (symbols != null)
-            {
-                // Apply current configuration on top of existing Asm patch file
-                symbols.TryApplyConfiguration(_settings.PatcherOptions);
-            }
+        private void WriteAsmConfigPostPatch(AsmContext asm)
+        {
+            // Apply current configuration on top of existing Asm patch file
+            var options = _settings.PatcherOptions;
+            asm.ApplyPostConfiguration(options, true);
         }
 
         public void MakeROM(string InFile, string FileName, IProgressReporter progressReporter)
@@ -1095,8 +1094,11 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(50, "Applying patch...");
                 hash = RomUtils.ApplyPatch(_settings.InputPatchFilename);
 
+                // Parse Symbols data from the ROM (specific MMFile)
+                var asm = AsmContext.LoadFromROM();
+
                 // Apply Asm configuration post-patch
-                WriteAsmConfigPostPatch();
+                WriteAsmConfigPostPatch(asm);
             }
             else
             {
@@ -1149,11 +1151,16 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(69, "Writing startup...");
                 WriteStartupStrings();
 
+                // Load Asm data from internal resource files and apply
+                var asm = AsmContext.LoadInternal();
                 progressReporter.ReportProgress(70, "Writing ASM patch...");
-                WriteAsmPatch();
+                WriteAsmPatch(asm);
                 
                 progressReporter.ReportProgress(71, _settings.GeneratePatch ? "Generating patch..." : "Computing hash...");
                 hash = RomUtils.CreatePatch(_settings.GeneratePatch ? FileName : null, originalMMFileList);
+
+                // Write subset of Asm config post-patch
+                WriteAsmConfig(asm);
             }
 
             progressReporter.ReportProgress(72, "Writing cosmetics...");

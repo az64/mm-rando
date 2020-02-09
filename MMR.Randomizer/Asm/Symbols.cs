@@ -238,9 +238,28 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
-        /// Try and apply configuration using the <see cref="Symbols"/> data.
+        /// Apply configuration which will be hardcoded into the patch file.
         /// </summary>
-        public void TryApplyConfiguration(PatcherOptions options)
+        /// <param name="options">Options</param>
+        public void ApplyConfiguration(PatcherOptions options)
+        {
+            // Placeholder function
+        }
+
+        /// <summary>
+        /// Apply configuration using the <see cref="Symbols"/> data.
+        /// </summary>
+        /// <param name="options">Options</param>
+        public void ApplyConfigurationPostPatch(PatcherOptions options)
+        {
+            this.WriteDPadConfig(options.DPadConfig);
+        }
+
+        /// <summary>
+        /// Try and apply configuration post-patch using the <see cref="Symbols"/> data.
+        /// </summary>
+        /// <param name="options">Options</param>
+        public void TryApplyConfigurationPostPatch(PatcherOptions options)
         {
             try
             {

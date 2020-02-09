@@ -96,8 +96,8 @@ namespace MMR.Randomizer.Asm
             var symbolsFile = symbols.CreateMMFile();
             RomUtils.AppendFile(symbolsFile);
 
-            // Write our D-Pad config
-            symbols.WriteDPadConfig(options.DPadConfig);
+            // Write subset of configuration (hardcoded into patch)
+            symbols.ApplyConfiguration(options);
         }
 
         /// <summary>
