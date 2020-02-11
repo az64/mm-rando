@@ -108,6 +108,47 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
+        /// Write a <see cref="MiscConfig"/> to the ROM.
+        /// </summary>
+        /// <param name="config">Misc config</param>
+        public void WriteMiscConfig(MiscConfig config)
+        {
+            var addr = this["MISC_CONFIG"];
+            var version = ReadWriteUtils.ReadU32((int)(addr + 4));
+            var bytes = config.ToStruct(version).ToBytes();
+            ReadWriteUtils.WriteToROM((int)(addr + 4), bytes);
+        }
+
+        /// <summary>
+        /// Write the <see cref="MiscConfig"/> hash bytes without overwriting other parts of the structure.
+        /// </summary>
+        /// <param name="hash">Hash bytes</param>
+        public void WriteMiscHash(byte[] hash)
+        {
+            var bytes = ReadWriteUtils.CopyBytes(hash, 0x10);
+            var addr = this["MISC_CONFIG"];
+            ReadWriteUtils.WriteToROM((int)(addr + 8), bytes);
+        }
+
+        /// <summary>
+        /// Try and write the <see cref="MiscConfig"/> hash bytes.
+        /// </summary>
+        /// <param name="hash">Hash bytes</param>
+        /// <returns>True if successful, false if the <see cref="MiscConfig"/> symbol was not found.</returns>
+        public bool TryWriteMiscHash(byte[] hash)
+        {
+            try
+            {
+                WriteMiscHash(hash);
+                return true;
+            }
+            catch (KeyNotFoundException)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Load <see cref="Symbols"/> from serialized data.
         /// </summary>
         /// <param name="bytes">Bytes</param>
@@ -243,7 +284,7 @@ namespace MMR.Randomizer.Asm
         /// <param name="options">Options</param>
         public void ApplyConfiguration(PatcherOptions options)
         {
-            // Placeholder function
+            this.WriteMiscConfig(options.MiscConfig);
         }
 
         /// <summary>
@@ -253,6 +294,9 @@ namespace MMR.Randomizer.Asm
         public void ApplyConfigurationPostPatch(PatcherOptions options)
         {
             this.WriteDPadConfig(options.DPadConfig);
+
+            // Only write the MiscConfig hash (the rest should not be changeable post-patch)
+            this.WriteMiscHash(options.MiscConfig.Hash);
         }
 
         /// <summary>
@@ -269,6 +313,9 @@ namespace MMR.Randomizer.Asm
             catch (KeyNotFoundException)
             {
             }
+
+            // Try and write the MiscConfig hash
+            this.TryWriteMiscHash(options.MiscConfig.Hash);
         }
     }
 }

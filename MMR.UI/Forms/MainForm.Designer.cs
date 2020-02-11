@@ -85,6 +85,8 @@ namespace MMR.UI.Forms
             this.bLoadLogic = new System.Windows.Forms.Button();
             this.cMode = new System.Windows.Forms.ComboBox();
             this.tabGimmick = new System.Windows.Forms.TabPage();
+            this.cUnderwaterOcarina = new System.Windows.Forms.CheckBox();
+            this.cSunsSong = new System.Windows.Forms.CheckBox();
             this.cBlastCooldown = new System.Windows.Forms.ComboBox();
             this.lBlastMask = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -101,7 +103,11 @@ namespace MMR.UI.Forms
             this.cDMult = new System.Windows.Forms.ComboBox();
             this.cGravity = new System.Windows.Forms.ComboBox();
             this.tabComfort = new System.Windows.Forms.TabPage();
+            this.cQuestItemStorage = new System.Windows.Forms.CheckBox();
+            this.cDisableCritWiggle = new System.Windows.Forms.CheckBox();
+            this.cDrawHash = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cFastPush = new System.Windows.Forms.CheckBox();
             this.cGoodDogRaceRNG = new System.Windows.Forms.CheckBox();
             this.cFasterLabFish = new System.Windows.Forms.CheckBox();
             this.cGoodDampeRNG = new System.Windows.Forms.CheckBox();
@@ -159,7 +165,6 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cSunsSong = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -833,6 +838,7 @@ namespace MMR.UI.Forms
             // 
             // tabGimmick
             // 
+            this.tabGimmick.Controls.Add(this.cUnderwaterOcarina);
             this.tabGimmick.Controls.Add(this.cSunsSong);
             this.tabGimmick.Controls.Add(this.cBlastCooldown);
             this.tabGimmick.Controls.Add(this.lBlastMask);
@@ -855,6 +861,34 @@ namespace MMR.UI.Forms
             this.tabGimmick.TabIndex = 2;
             this.tabGimmick.Text = "Gimmicks";
             this.tabGimmick.UseVisualStyleBackColor = true;
+            // 
+            // cUnderwaterOcarina
+            // 
+            this.cUnderwaterOcarina.AutoSize = true;
+            this.cUnderwaterOcarina.BackColor = System.Drawing.Color.Transparent;
+            this.cUnderwaterOcarina.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cUnderwaterOcarina.Location = new System.Drawing.Point(26, 275);
+            this.cUnderwaterOcarina.Name = "cUnderwaterOcarina";
+            this.cUnderwaterOcarina.Size = new System.Drawing.Size(121, 17);
+            this.cUnderwaterOcarina.TabIndex = 22;
+            this.cUnderwaterOcarina.Text = "Underwater Ocarina";
+            this.cUnderwaterOcarina.UseVisualStyleBackColor = false;
+            this.cUnderwaterOcarina.CheckedChanged += new System.EventHandler(this.cUnderwaterOcarina_CheckedChanged);
+            // 
+            // cSunsSong
+            // 
+            this.cSunsSong.AutoSize = true;
+            this.cSunsSong.BackColor = System.Drawing.Color.Transparent;
+            this.cSunsSong.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cSunsSong.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cSunsSong.ForeColor = System.Drawing.Color.Black;
+            this.cSunsSong.Location = new System.Drawing.Point(169, 252);
+            this.cSunsSong.Name = "cSunsSong";
+            this.cSunsSong.Size = new System.Drawing.Size(116, 17);
+            this.cSunsSong.TabIndex = 21;
+            this.cSunsSong.Text = "Enable Sun\'s Song";
+            this.cSunsSong.UseVisualStyleBackColor = false;
+            this.cSunsSong.CheckedChanged += new System.EventHandler(this.cSunsSong_CheckedChanged);
             // 
             // cBlastCooldown
             // 
@@ -1050,6 +1084,9 @@ namespace MMR.UI.Forms
             // 
             // tabComfort
             // 
+            this.tabComfort.Controls.Add(this.cQuestItemStorage);
+            this.tabComfort.Controls.Add(this.cDisableCritWiggle);
+            this.tabComfort.Controls.Add(this.cDrawHash);
             this.tabComfort.Controls.Add(this.groupBox5);
             this.tabComfort.Controls.Add(this.lMusic);
             this.tabComfort.Controls.Add(this.cMusic);
@@ -1078,18 +1115,71 @@ namespace MMR.UI.Forms
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
             // 
+            // cQuestItemStorage
+            // 
+            this.cQuestItemStorage.AutoSize = true;
+            this.cQuestItemStorage.BackColor = System.Drawing.Color.Transparent;
+            this.cQuestItemStorage.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cQuestItemStorage.Location = new System.Drawing.Point(5, 139);
+            this.cQuestItemStorage.Name = "cQuestItemStorage";
+            this.cQuestItemStorage.Size = new System.Drawing.Size(140, 17);
+            this.cQuestItemStorage.TabIndex = 30;
+            this.cQuestItemStorage.Text = "Quest item extra storage";
+            this.cQuestItemStorage.UseVisualStyleBackColor = false;
+            this.cQuestItemStorage.CheckedChanged += new System.EventHandler(this.cQuestItemStorage_CheckedChanged);
+            // 
+            // cDisableCritWiggle
+            // 
+            this.cDisableCritWiggle.AutoSize = true;
+            this.cDisableCritWiggle.BackColor = System.Drawing.Color.Transparent;
+            this.cDisableCritWiggle.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cDisableCritWiggle.Location = new System.Drawing.Point(184, 139);
+            this.cDisableCritWiggle.Name = "cDisableCritWiggle";
+            this.cDisableCritWiggle.Size = new System.Drawing.Size(111, 17);
+            this.cDisableCritWiggle.TabIndex = 29;
+            this.cDisableCritWiggle.Text = "Disable crit wiggle";
+            this.cDisableCritWiggle.UseVisualStyleBackColor = false;
+            this.cDisableCritWiggle.CheckedChanged += new System.EventHandler(this.cDisableCritWiggle_CheckedChanged);
+            // 
+            // cDrawHash
+            // 
+            this.cDrawHash.AutoSize = true;
+            this.cDrawHash.BackColor = System.Drawing.Color.Transparent;
+            this.cDrawHash.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cDrawHash.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cDrawHash.Location = new System.Drawing.Point(10, 116);
+            this.cDrawHash.Name = "cDrawHash";
+            this.cDrawHash.Size = new System.Drawing.Size(135, 17);
+            this.cDrawHash.TabIndex = 28;
+            this.cDrawHash.Text = "Draw hash (File Select)";
+            this.cDrawHash.UseVisualStyleBackColor = false;
+            this.cDrawHash.CheckedChanged += new System.EventHandler(this.cDrawHash_CheckedChanged);
+            // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.cFastPush);
             this.groupBox5.Controls.Add(this.cGoodDogRaceRNG);
             this.groupBox5.Controls.Add(this.cFasterLabFish);
             this.groupBox5.Controls.Add(this.cGoodDampeRNG);
             this.groupBox5.Controls.Add(this.cSkipBeaver);
-            this.groupBox5.Location = new System.Drawing.Point(7, 275);
+            this.groupBox5.Location = new System.Drawing.Point(7, 299);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(334, 127);
             this.groupBox5.TabIndex = 27;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Speed Ups";
+            // 
+            // cFastPush
+            // 
+            this.cFastPush.AutoSize = true;
+            this.cFastPush.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cFastPush.Location = new System.Drawing.Point(187, 20);
+            this.cFastPush.Name = "cFastPush";
+            this.cFastPush.Size = new System.Drawing.Size(125, 17);
+            this.cFastPush.TabIndex = 31;
+            this.cFastPush.Text = "Increase push speed";
+            this.cFastPush.UseVisualStyleBackColor = true;
+            this.cFastPush.CheckedChanged += new System.EventHandler(this.cFastPush_CheckedChanged);
             // 
             // cGoodDogRaceRNG
             // 
@@ -1145,7 +1235,7 @@ namespace MMR.UI.Forms
             this.lMusic.BackColor = System.Drawing.Color.Transparent;
             this.lMusic.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMusic.ForeColor = System.Drawing.Color.Black;
-            this.lMusic.Location = new System.Drawing.Point(84, 251);
+            this.lMusic.Location = new System.Drawing.Point(84, 275);
             this.lMusic.Name = "lMusic";
             this.lMusic.Size = new System.Drawing.Size(38, 13);
             this.lMusic.TabIndex = 26;
@@ -1159,7 +1249,7 @@ namespace MMR.UI.Forms
             "Default",
             "Random",
             "None (Risky)"});
-            this.cMusic.Location = new System.Drawing.Point(128, 248);
+            this.cMusic.Location = new System.Drawing.Point(128, 272);
             this.cMusic.Name = "cMusic";
             this.cMusic.Size = new System.Drawing.Size(167, 21);
             this.cMusic.TabIndex = 25;
@@ -1231,7 +1321,7 @@ namespace MMR.UI.Forms
             this.lGossip.BackColor = System.Drawing.Color.Transparent;
             this.lGossip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lGossip.ForeColor = System.Drawing.Color.Black;
-            this.lGossip.Location = new System.Drawing.Point(24, 224);
+            this.lGossip.Location = new System.Drawing.Point(24, 248);
             this.lGossip.Name = "lGossip";
             this.lGossip.Size = new System.Drawing.Size(98, 13);
             this.lGossip.TabIndex = 20;
@@ -1261,7 +1351,7 @@ namespace MMR.UI.Forms
             "Random",
             "Relevant",
             "Competitive"});
-            this.cGossipHints.Location = new System.Drawing.Point(128, 221);
+            this.cGossipHints.Location = new System.Drawing.Point(128, 245);
             this.cGossipHints.Name = "cGossipHints";
             this.cGossipHints.Size = new System.Drawing.Size(167, 21);
             this.cGossipHints.TabIndex = 19;
@@ -1333,7 +1423,7 @@ namespace MMR.UI.Forms
             this.lTunic.BackColor = System.Drawing.Color.Transparent;
             this.lTunic.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lTunic.ForeColor = System.Drawing.Color.Black;
-            this.lTunic.Location = new System.Drawing.Point(59, 143);
+            this.lTunic.Location = new System.Drawing.Point(59, 167);
             this.lTunic.Name = "lTunic";
             this.lTunic.Size = new System.Drawing.Size(63, 13);
             this.lTunic.TabIndex = 7;
@@ -1350,7 +1440,7 @@ namespace MMR.UI.Forms
             "Cool",
             "Random",
             "Rainbow (cycle)"});
-            this.cTatl.Location = new System.Drawing.Point(128, 194);
+            this.cTatl.Location = new System.Drawing.Point(128, 218);
             this.cTatl.Name = "cTatl";
             this.cTatl.Size = new System.Drawing.Size(167, 21);
             this.cTatl.TabIndex = 12;
@@ -1365,7 +1455,7 @@ namespace MMR.UI.Forms
             "Link (OoT)",
             "Adult Link (Risky!)",
             "Kafei"});
-            this.cLink.Location = new System.Drawing.Point(128, 167);
+            this.cLink.Location = new System.Drawing.Point(128, 191);
             this.cLink.Name = "cLink";
             this.cLink.Size = new System.Drawing.Size(167, 21);
             this.cLink.TabIndex = 10;
@@ -1375,7 +1465,7 @@ namespace MMR.UI.Forms
             // 
             this.bTunic.BackColor = System.Drawing.Color.White;
             this.bTunic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bTunic.Location = new System.Drawing.Point(128, 138);
+            this.bTunic.Location = new System.Drawing.Point(128, 162);
             this.bTunic.Name = "bTunic";
             this.bTunic.Size = new System.Drawing.Size(167, 23);
             this.bTunic.TabIndex = 8;
@@ -1388,7 +1478,7 @@ namespace MMR.UI.Forms
             this.lTatl.BackColor = System.Drawing.Color.Transparent;
             this.lTatl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lTatl.ForeColor = System.Drawing.Color.Black;
-            this.lTatl.Location = new System.Drawing.Point(28, 197);
+            this.lTatl.Location = new System.Drawing.Point(28, 221);
             this.lTatl.Name = "lTatl";
             this.lTatl.Size = new System.Drawing.Size(94, 13);
             this.lTatl.TabIndex = 11;
@@ -1400,7 +1490,7 @@ namespace MMR.UI.Forms
             this.lLink.BackColor = System.Drawing.Color.Transparent;
             this.lLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lLink.ForeColor = System.Drawing.Color.Black;
-            this.lLink.Location = new System.Drawing.Point(52, 170);
+            this.lLink.Location = new System.Drawing.Point(52, 194);
             this.lLink.Name = "lLink";
             this.lLink.Size = new System.Drawing.Size(70, 13);
             this.lLink.TabIndex = 9;
@@ -1706,21 +1796,6 @@ namespace MMR.UI.Forms
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // cSunsSong
-            // 
-            this.cSunsSong.AutoSize = true;
-            this.cSunsSong.BackColor = System.Drawing.Color.Transparent;
-            this.cSunsSong.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cSunsSong.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cSunsSong.ForeColor = System.Drawing.Color.Black;
-            this.cSunsSong.Location = new System.Drawing.Point(169, 252);
-            this.cSunsSong.Name = "cSunsSong";
-            this.cSunsSong.Size = new System.Drawing.Size(116, 17);
-            this.cSunsSong.TabIndex = 21;
-            this.cSunsSong.Text = "Enable Sun\'s Song";
-            this.cSunsSong.UseVisualStyleBackColor = false;
-            this.cSunsSong.CheckedChanged += new System.EventHandler(this.cSunsSong_CheckedChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1907,6 +1982,11 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cSunsSong;
         private System.Windows.Forms.ToolStripMenuItem saveSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadSettingsToolStripMenuItem;
+        private System.Windows.Forms.CheckBox cUnderwaterOcarina;
+        private System.Windows.Forms.CheckBox cDrawHash;
+        private System.Windows.Forms.CheckBox cQuestItemStorage;
+        private System.Windows.Forms.CheckBox cDisableCritWiggle;
+        private System.Windows.Forms.CheckBox cFastPush;
     }
 }
 

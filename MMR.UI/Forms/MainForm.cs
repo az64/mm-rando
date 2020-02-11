@@ -116,6 +116,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cNoStartingItems, "You will not start with any randomized starting items.");
             TooltipBuilder.SetTooltip(cBlastCooldown, "Adjust the cooldown timer after using the Blast Mask.");
             TooltipBuilder.SetTooltip(cSunsSong, "Enable using the Sun's Song, which speeds up time to 400 units per frame (normal time speed is 3 units per frame) until dawn or dusk or a loading zone.");
+            TooltipBuilder.SetTooltip(cUnderwaterOcarina, "Enable using the ocarina underwater.");
 
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
@@ -128,6 +129,9 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cShopAppearance, "Shops models and text will be updated to match the item they give.");
             TooltipBuilder.SetTooltip(cUpdateChests, "Chest appearance will be updated to match the item they contain.");
             TooltipBuilder.SetTooltip(cEponaSword, "Change Epona's B button behavior to prevent you from losing your sword if you don't have a bow.\nMay affect vanilla glitches that use Epona's B button.");
+            TooltipBuilder.SetTooltip(cDrawHash, "Draw hash icons on the File Select screen.");
+            TooltipBuilder.SetTooltip(cQuestItemStorage, "Enable Quest Item Storage, which allows for storing multiple quest items in their dedicated inventory slot.");
+            TooltipBuilder.SetTooltip(cDisableCritWiggle, "Disable crit wiggle movement modification when 1 heart of health or less.");
             TooltipBuilder.SetTooltip(bTunic, "Select the color of Link's Tunic.");
             TooltipBuilder.SetTooltip(cLink, "Select a character model to replace Link's default model.");
             TooltipBuilder.SetTooltip(cTatl, "Select a color scheme to replace Tatl's default color scheme.");
@@ -136,6 +140,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cGoodDampeRNG, "Change Dampe ghost flames to always have two on the ground floor and one up the ladder.");
             TooltipBuilder.SetTooltip(cGoodDogRaceRNG, "Make Gold Dog always win if you have the Mask of Truth.");
             TooltipBuilder.SetTooltip(cFasterLabFish, "Change Lab Fish to only need to be fed one fish.");
+            TooltipBuilder.SetTooltip(cFastPush, "Increase the speed of pushing and pulling blocks and faucets.");
         }
 
         #region Forms Code
@@ -377,6 +382,14 @@ namespace MMR.UI.Forms
             cBlastCooldown.SelectedIndex = (int)_settings.BlastMaskCooldown;
             cMusic.SelectedIndex = (int)_settings.Music;
             bTunic.BackColor = _settings.TunicColor;
+
+            // Misc config options
+            CritWiggleState critWiggle = _settings.PatcherOptions.MiscConfig.Flags.CritWiggle;
+            cDisableCritWiggle.Checked = critWiggle == CritWiggleState.AlwaysOff ? true : false;
+            cDrawHash.Checked = _settings.PatcherOptions.MiscConfig.Flags.DrawHash;
+            cFastPush.Checked = _settings.PatcherOptions.MiscConfig.Flags.FastPush;
+            cQuestItemStorage.Checked = _settings.PatcherOptions.MiscConfig.Flags.QuestItemStorage;
+            cUnderwaterOcarina.Checked = _settings.PatcherOptions.MiscConfig.Flags.OcarinaUnderwater;
         }
 
         private void tSeed_KeyDown(object sender, KeyEventArgs e)
@@ -646,6 +659,32 @@ namespace MMR.UI.Forms
         private void cFasterLabFish_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _settings.SpeedupLabFish = cFasterLabFish.Checked);
+        }
+
+        private void cDrawHash_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.PatcherOptions.MiscConfig.Flags.DrawHash = cDrawHash.Checked);
+        }
+
+        private void cQuestItemStorage_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.PatcherOptions.MiscConfig.Flags.QuestItemStorage = cQuestItemStorage.Checked);
+        }
+
+        private void cDisableCritWiggle_CheckedChanged(object sender, EventArgs e)
+        {
+            var state = cDisableCritWiggle.Checked ? CritWiggleState.AlwaysOff : CritWiggleState.Default;
+            UpdateSingleSetting(() => _settings.PatcherOptions.MiscConfig.Flags.CritWiggle = state);
+        }
+
+        private void cFastPush_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.PatcherOptions.MiscConfig.Flags.FastPush = cFastPush.Checked);
+        }
+
+        private void cUnderwaterOcarina_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _settings.PatcherOptions.MiscConfig.Flags.OcarinaUnderwater = cUnderwaterOcarina.Checked);
         }
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -970,6 +1009,12 @@ namespace MMR.UI.Forms
             cGoodDogRaceRNG.Enabled = v;
             cFasterLabFish.Enabled = v;
 
+            cDrawHash.Enabled = v;
+            cQuestItemStorage.Enabled = v;
+            cDisableCritWiggle.Enabled = v;
+            cFastPush.Enabled = v;
+            cUnderwaterOcarina.Enabled = v;
+
             bopen.Enabled = v;
             bRandomise.Enabled = v;
             bTunic.Enabled = v;
@@ -1124,6 +1169,7 @@ namespace MMR.UI.Forms
             cHideClock.Enabled = v;
             cSunsSong.Enabled = v;
             cBlastCooldown.Enabled = v;
+            cUnderwaterOcarina.Enabled = v;
 
 
             // Comfort/Cosmetics
@@ -1136,11 +1182,15 @@ namespace MMR.UI.Forms
             cEponaSword.Enabled = v;
             cClearHints.Enabled = _settings.LogicMode != LogicMode.Vanilla && _settings.GossipHintStyle != GossipHintStyle.Default && v;
             cGossipHints.Enabled = _settings.LogicMode != LogicMode.Vanilla && v;
+            cDisableCritWiggle.Enabled = v;
+            cDrawHash.Enabled = v;
+            cQuestItemStorage.Enabled = v;
 
             cSkipBeaver.Enabled = v;
             cGoodDampeRNG.Enabled = v;
             cGoodDogRaceRNG.Enabled = v;
             cFasterLabFish.Enabled = v;
+            cFastPush.Enabled = v;
 
             cLink.Enabled = v;
 
@@ -1310,5 +1360,6 @@ namespace MMR.UI.Forms
                 LoadSettings(_settings.UserPresetFileName);
             }
         }
+
     }
 }

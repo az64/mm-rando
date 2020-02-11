@@ -1064,17 +1064,19 @@ namespace MMR.Randomizer
             asm.ApplyPatch(options);
         }
 
-        private void WriteAsmConfig(AsmContext asm)
+        private void WriteAsmConfig(AsmContext asm, byte[] hash)
         {
             // Apply Asm configuration (after hash has been calculated)
             var options = _settings.PatcherOptions;
+            options.MiscConfig.Hash = hash;
             asm.ApplyPostConfiguration(options, false);
         }
 
-        private void WriteAsmConfigPostPatch(AsmContext asm)
+        private void WriteAsmConfigPostPatch(AsmContext asm, byte[] hash)
         {
             // Apply current configuration on top of existing Asm patch file
             var options = _settings.PatcherOptions;
+            options.MiscConfig.Hash = hash;
             asm.ApplyPostConfiguration(options, true);
         }
 
@@ -1098,7 +1100,7 @@ namespace MMR.Randomizer
                 var asm = AsmContext.LoadFromROM();
 
                 // Apply Asm configuration post-patch
-                WriteAsmConfigPostPatch(asm);
+                WriteAsmConfigPostPatch(asm, hash);
             }
             else
             {
@@ -1160,7 +1162,7 @@ namespace MMR.Randomizer
                 hash = RomUtils.CreatePatch(_settings.GeneratePatch ? FileName : null, originalMMFileList);
 
                 // Write subset of Asm config post-patch
-                WriteAsmConfig(asm);
+                WriteAsmConfig(asm, hash);
             }
 
             progressReporter.ReportProgress(72, "Writing cosmetics...");

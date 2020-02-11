@@ -55,6 +55,11 @@ namespace MMR.Randomizer.Asm
         /// D-Pad configuration.
         /// </summary>
         public DPadConfig DPadConfig { get; set; } = new DPadConfig();
+
+        /// <summary>
+        /// Miscellaneous configuration.
+        /// </summary>
+        public MiscConfig MiscConfig { get; set; } = new MiscConfig();
     }
 
     /// <summary>
