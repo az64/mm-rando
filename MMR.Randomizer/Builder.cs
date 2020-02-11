@@ -1060,14 +1060,14 @@ namespace MMR.Randomizer
         private void WriteAsmPatch(AsmContext asm)
         {
             // Load the symbols and use them to apply the patch data
-            var options = _settings.PatcherOptions;
+            var options = _settings.AsmOptions;
             asm.ApplyPatch(options);
         }
 
         private void WriteAsmConfig(AsmContext asm, byte[] hash)
         {
             // Apply Asm configuration (after hash has been calculated)
-            var options = _settings.PatcherOptions;
+            var options = _settings.AsmOptions;
             options.MiscConfig.Hash = hash;
             asm.ApplyPostConfiguration(options, false);
         }
@@ -1075,7 +1075,7 @@ namespace MMR.Randomizer
         private void WriteAsmConfigPostPatch(AsmContext asm, byte[] hash)
         {
             // Apply current configuration on top of existing Asm patch file
-            var options = _settings.PatcherOptions;
+            var options = _settings.AsmOptions;
             options.MiscConfig.Hash = hash;
             asm.ApplyPostConfiguration(options, true);
         }
@@ -1191,7 +1191,7 @@ namespace MMR.Randomizer
                 if (_settings.OutputVC)
                 {
                     progressReporter.ReportProgress(90, "Writing VC...");
-                    VCInjectionUtils.BuildVC(ROM, _settings.PatcherOptions, Values.VCDirectory, Path.ChangeExtension(FileName, "wad"));
+                    VCInjectionUtils.BuildVC(ROM, _settings.AsmOptions, Values.VCDirectory, Path.ChangeExtension(FileName, "wad"));
                 }
             }
             progressReporter.ReportProgress(100, "Done!");

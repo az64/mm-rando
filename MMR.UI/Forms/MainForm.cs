@@ -384,12 +384,12 @@ namespace MMR.UI.Forms
             bTunic.BackColor = _settings.TunicColor;
 
             // Misc config options
-            CritWiggleState critWiggle = _settings.PatcherOptions.MiscConfig.Flags.CritWiggle;
+            CritWiggleState critWiggle = _settings.AsmOptions.MiscConfig.Flags.CritWiggle;
             cDisableCritWiggle.Checked = critWiggle == CritWiggleState.AlwaysOff ? true : false;
-            cDrawHash.Checked = _settings.PatcherOptions.MiscConfig.Flags.DrawHash;
-            cFastPush.Checked = _settings.PatcherOptions.MiscConfig.Flags.FastPush;
-            cQuestItemStorage.Checked = _settings.PatcherOptions.MiscConfig.Flags.QuestItemStorage;
-            cUnderwaterOcarina.Checked = _settings.PatcherOptions.MiscConfig.Flags.OcarinaUnderwater;
+            cDrawHash.Checked = _settings.AsmOptions.MiscConfig.Flags.DrawHash;
+            cFastPush.Checked = _settings.AsmOptions.MiscConfig.Flags.FastPush;
+            cQuestItemStorage.Checked = _settings.AsmOptions.MiscConfig.Flags.QuestItemStorage;
+            cUnderwaterOcarina.Checked = _settings.AsmOptions.MiscConfig.Flags.OcarinaUnderwater;
         }
 
         private void tSeed_KeyDown(object sender, KeyEventArgs e)
@@ -663,28 +663,28 @@ namespace MMR.UI.Forms
 
         private void cDrawHash_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.PatcherOptions.MiscConfig.Flags.DrawHash = cDrawHash.Checked);
+            UpdateSingleSetting(() => _settings.AsmOptions.MiscConfig.Flags.DrawHash = cDrawHash.Checked);
         }
 
         private void cQuestItemStorage_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.PatcherOptions.MiscConfig.Flags.QuestItemStorage = cQuestItemStorage.Checked);
+            UpdateSingleSetting(() => _settings.AsmOptions.MiscConfig.Flags.QuestItemStorage = cQuestItemStorage.Checked);
         }
 
         private void cDisableCritWiggle_CheckedChanged(object sender, EventArgs e)
         {
             var state = cDisableCritWiggle.Checked ? CritWiggleState.AlwaysOff : CritWiggleState.Default;
-            UpdateSingleSetting(() => _settings.PatcherOptions.MiscConfig.Flags.CritWiggle = state);
+            UpdateSingleSetting(() => _settings.AsmOptions.MiscConfig.Flags.CritWiggle = state);
         }
 
         private void cFastPush_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.PatcherOptions.MiscConfig.Flags.FastPush = cFastPush.Checked);
+            UpdateSingleSetting(() => _settings.AsmOptions.MiscConfig.Flags.FastPush = cFastPush.Checked);
         }
 
         private void cUnderwaterOcarina_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.PatcherOptions.MiscConfig.Flags.OcarinaUnderwater = cUnderwaterOcarina.Checked);
+            UpdateSingleSetting(() => _settings.AsmOptions.MiscConfig.Flags.OcarinaUnderwater = cUnderwaterOcarina.Checked);
         }
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -1027,7 +1027,7 @@ namespace MMR.UI.Forms
         {
             var items = DPadItem.All();
             var presets = DPadPreset.All();
-            var config = _settings.PatcherOptions.DPadConfig;
+            var config = _settings.AsmOptions.DPadConfig;
 
             DPadForm form = new DPadForm(presets, items, config);
             if (form.ShowDialog() == DialogResult.OK)

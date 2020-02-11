@@ -91,7 +91,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         /// Options for the Asm <see cref="Patcher"/>.
         /// </summary>
-        public PatcherOptions PatcherOptions { get; set; } = new PatcherOptions();
+        public AsmOptions AsmOptions { get; set; } = new AsmOptions();
 
         #endregion
 
@@ -473,11 +473,11 @@ namespace MMR.Randomizer.Models.Settings
             SpeedupLabFish = (part5 & (1 << 3)) > 0;
 
             var critWiggle = (part5 & (0x18)) >> 3;
-            PatcherOptions.MiscConfig.Flags.DrawHash = (part5 & (1 << 6)) > 0;
-            PatcherOptions.MiscConfig.Flags.FastPush = (part5 & (1 << 7)) > 0;
-            PatcherOptions.MiscConfig.Flags.OcarinaUnderwater = (part5 & (1 << 8)) > 0;
-            PatcherOptions.MiscConfig.Flags.QuestItemStorage = (part5 & (1 << 9)) > 0;
-            PatcherOptions.MiscConfig.Flags.CritWiggle = (CritWiggleState)critWiggle;
+            AsmOptions.MiscConfig.Flags.DrawHash = (part5 & (1 << 6)) > 0;
+            AsmOptions.MiscConfig.Flags.FastPush = (part5 & (1 << 7)) > 0;
+            AsmOptions.MiscConfig.Flags.OcarinaUnderwater = (part5 & (1 << 8)) > 0;
+            AsmOptions.MiscConfig.Flags.QuestItemStorage = (part5 & (1 << 9)) > 0;
+            AsmOptions.MiscConfig.Flags.CritWiggle = (CritWiggleState)critWiggle;
 
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
@@ -558,11 +558,11 @@ namespace MMR.Randomizer.Models.Settings
             if (SpeedupDogRace) { parts[4] += (1 << 2); }
             if (SpeedupLabFish) { parts[4] += (1 << 3); }
 
-            parts[4] += ((int)PatcherOptions.MiscConfig.Flags.CritWiggle & 3) << 4;
-            if (PatcherOptions.MiscConfig.Flags.DrawHash) { parts[4] += (1 << 6); }
-            if (PatcherOptions.MiscConfig.Flags.FastPush) { parts[4] += (1 << 7); }
-            if (PatcherOptions.MiscConfig.Flags.OcarinaUnderwater) { parts[4] += (1 << 8); }
-            if (PatcherOptions.MiscConfig.Flags.QuestItemStorage) { parts[4] += (1 << 9); }
+            parts[4] += ((int)AsmOptions.MiscConfig.Flags.CritWiggle & 3) << 4;
+            if (AsmOptions.MiscConfig.Flags.DrawHash) { parts[4] += (1 << 6); }
+            if (AsmOptions.MiscConfig.Flags.FastPush) { parts[4] += (1 << 7); }
+            if (AsmOptions.MiscConfig.Flags.OcarinaUnderwater) { parts[4] += (1 << 8); }
+            if (AsmOptions.MiscConfig.Flags.QuestItemStorage) { parts[4] += (1 << 9); }
 
             return parts;
         }

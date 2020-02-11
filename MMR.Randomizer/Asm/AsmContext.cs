@@ -30,7 +30,7 @@
         /// Apply and write patch data.
         /// </summary>
         /// <param name="options">Options</param>
-        public void ApplyPatch(PatcherOptions options)
+        public void ApplyPatch(AsmOptions options)
         {
             this.Patcher.Apply(this.Symbols, options);
         }
@@ -40,7 +40,7 @@
         /// </summary>
         /// <param name="options">Options</param>
         /// <param name="patch">Whether or not a patch file was applied</param>
-        public void ApplyPostConfiguration(PatcherOptions options, bool patch = false)
+        public void ApplyPostConfiguration(AsmOptions options, bool patch = false)
         {
             if (patch)
             {

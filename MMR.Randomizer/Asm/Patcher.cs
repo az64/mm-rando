@@ -47,22 +47,6 @@ namespace MMR.Randomizer.Asm
     }
 
     /// <summary>
-    /// Options used when patching.
-    /// </summary>
-    public class PatcherOptions
-    {
-        /// <summary>
-        /// D-Pad configuration.
-        /// </summary>
-        public DPadConfig DPadConfig { get; set; } = new DPadConfig();
-
-        /// <summary>
-        /// Miscellaneous configuration.
-        /// </summary>
-        public MiscConfig MiscConfig { get; set; } = new MiscConfig();
-    }
-
-    /// <summary>
     /// Patcher for assembly patch file.
     /// </summary>
     public class Patcher
@@ -78,7 +62,7 @@ namespace MMR.Randomizer.Asm
         /// Apply patches using <see cref="Symbols"/> loaded from the internal resource.
         /// </summary>
         /// <param name="options">Options</param>
-        public void Apply(PatcherOptions options)
+        public void Apply(AsmOptions options)
         {
             Apply(Symbols.Load(), options);
         }
@@ -88,7 +72,7 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         /// <param name="symbols">Symbols</param>
         /// <param name="options">Options</param>
-        public void Apply(Symbols symbols, PatcherOptions options)
+        public void Apply(Symbols symbols, AsmOptions options)
         {
             // Write patch data to existing MMFiles
             WriteToROM(symbols);

@@ -282,7 +282,7 @@ namespace MMR.Randomizer.Asm
         /// Apply configuration which will be hardcoded into the patch file.
         /// </summary>
         /// <param name="options">Options</param>
-        public void ApplyConfiguration(PatcherOptions options)
+        public void ApplyConfiguration(AsmOptions options)
         {
             this.WriteMiscConfig(options.MiscConfig);
         }
@@ -291,7 +291,7 @@ namespace MMR.Randomizer.Asm
         /// Apply configuration using the <see cref="Symbols"/> data.
         /// </summary>
         /// <param name="options">Options</param>
-        public void ApplyConfigurationPostPatch(PatcherOptions options)
+        public void ApplyConfigurationPostPatch(AsmOptions options)
         {
             this.WriteDPadConfig(options.DPadConfig);
 
@@ -303,7 +303,7 @@ namespace MMR.Randomizer.Asm
         /// Try and apply configuration post-patch using the <see cref="Symbols"/> data.
         /// </summary>
         /// <param name="options">Options</param>
-        public void TryApplyConfigurationPostPatch(PatcherOptions options)
+        public void TryApplyConfigurationPostPatch(AsmOptions options)
         {
             try
             {
