@@ -1069,6 +1069,10 @@ namespace MMR.UI.Forms
             cAdditional.Checked = true;
             cNoStartingItems.Checked = true;
 
+            cDrawHash.Checked = true;
+            cQuestItemStorage.Checked = true;
+            cFastPush.Checked = true;
+
             bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
 
             _settings.GenerateROM = true;

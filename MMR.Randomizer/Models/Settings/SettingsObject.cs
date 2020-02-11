@@ -472,6 +472,13 @@ namespace MMR.Randomizer.Models.Settings
             SpeedupDogRace = (part5 & (1 << 2)) > 0;
             SpeedupLabFish = (part5 & (1 << 3)) > 0;
 
+            var critWiggle = (part5 & (0x18)) >> 3;
+            PatcherOptions.MiscConfig.Flags.DrawHash = (part5 & (1 << 6)) > 0;
+            PatcherOptions.MiscConfig.Flags.FastPush = (part5 & (1 << 7)) > 0;
+            PatcherOptions.MiscConfig.Flags.OcarinaUnderwater = (part5 & (1 << 8)) > 0;
+            PatcherOptions.MiscConfig.Flags.QuestItemStorage = (part5 & (1 << 9)) > 0;
+            PatcherOptions.MiscConfig.Flags.CritWiggle = (CritWiggleState)critWiggle;
+
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
             LogicMode = (LogicMode)modeIndex;
@@ -550,6 +557,12 @@ namespace MMR.Randomizer.Models.Settings
             if (SpeedupDampe) { parts[4] += (1 << 1); }
             if (SpeedupDogRace) { parts[4] += (1 << 2); }
             if (SpeedupLabFish) { parts[4] += (1 << 3); }
+
+            parts[4] += ((int)PatcherOptions.MiscConfig.Flags.CritWiggle & 3) << 4;
+            if (PatcherOptions.MiscConfig.Flags.DrawHash) { parts[4] += (1 << 6); }
+            if (PatcherOptions.MiscConfig.Flags.FastPush) { parts[4] += (1 << 7); }
+            if (PatcherOptions.MiscConfig.Flags.OcarinaUnderwater) { parts[4] += (1 << 8); }
+            if (PatcherOptions.MiscConfig.Flags.QuestItemStorage) { parts[4] += (1 << 9); }
 
             return parts;
         }
