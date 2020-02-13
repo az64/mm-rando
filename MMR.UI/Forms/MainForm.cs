@@ -29,6 +29,7 @@ namespace MMR.UI.Forms
         public ItemEditForm ItemEditor { get; private set; }
         public StartingItemEditForm StartingItemEditor { get; private set; }
         public JunkLocationEditForm JunkLocationEditor { get; private set; }
+        public HudConfigForm HudConfig { get; private set; }
 
 
         public const string SETTINGS_EXTENSION = ".cfg";
@@ -69,6 +70,7 @@ namespace MMR.UI.Forms
             LogicEditor = new LogicEditorForm();
             Manual = new ManualForm();
             About = new AboutForm();
+            HudConfig = new HudConfigForm();
 
 
             Text = AssemblyVersion;
@@ -1365,5 +1367,9 @@ namespace MMR.UI.Forms
             }
         }
 
+        private void btn_hud_Click(object sender, EventArgs e)
+        {
+            HudConfig.Show();
+        }
     }
 }

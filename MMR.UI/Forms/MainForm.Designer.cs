@@ -165,6 +165,7 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
+            this.btn_hud = new System.Windows.Forms.Button();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -1084,6 +1085,7 @@ namespace MMR.UI.Forms
             // 
             // tabComfort
             // 
+            this.tabComfort.Controls.Add(this.btn_hud);
             this.tabComfort.Controls.Add(this.cQuestItemStorage);
             this.tabComfort.Controls.Add(this.cDisableCritWiggle);
             this.tabComfort.Controls.Add(this.cDrawHash);
@@ -1796,6 +1798,16 @@ namespace MMR.UI.Forms
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
+            // btn_hud
+            // 
+            this.btn_hud.Location = new System.Drawing.Point(100, 455);
+            this.btn_hud.Name = "btn_hud";
+            this.btn_hud.Size = new System.Drawing.Size(130, 23);
+            this.btn_hud.TabIndex = 31;
+            this.btn_hud.Text = "Temporary HUD Button";
+            this.btn_hud.UseVisualStyleBackColor = true;
+            this.btn_hud.Click += new System.EventHandler(this.btn_hud_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1987,6 +1999,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cQuestItemStorage;
         private System.Windows.Forms.CheckBox cDisableCritWiggle;
         private System.Windows.Forms.CheckBox cFastPush;
+        private System.Windows.Forms.Button btn_hud;
     }
 }
 

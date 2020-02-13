@@ -62,6 +62,12 @@
     <Compile Include="Forms\DPadForm.Designer.cs">
       <DependentUpon>DPadForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\HudConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HudConfigForm.Designer.cs">
+      <DependentUpon>HudConfigForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ItemEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DPadForm.resx">
       <DependentUpon>DPadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\HudConfigForm.resx">
+      <DependentUpon>HudConfigForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ItemEditForm.resx">
       <DependentUpon>ItemEditForm.cs</DependentUpon>
