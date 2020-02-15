@@ -146,6 +146,24 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
+        /// Try and write a <see cref="DPadConfig"/> to the ROM.
+        /// </summary>
+        /// <param name="config">D-Pad config</param>
+        /// <returns>True if successful, false if the <see cref="DPadConfig"/> symbol was not found.</returns>
+        public bool TryWriteDPadConfig(DPadConfig config)
+        {
+            try
+            {
+                WriteDPadConfig(config);
+                return true;
+            }
+            catch (KeyNotFoundException)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Try and write a <see cref="HudColorsConfig"/> to the ROM.
         /// </summary>
         /// <param name="config">HUD colors config</param>
@@ -339,15 +357,7 @@ namespace MMR.Randomizer.Asm
         /// <param name="options">Options</param>
         public void TryApplyConfigurationPostPatch(AsmOptions options)
         {
-            try
-            {
-                // Try and write D-Pad configuration, if D-Pad symbols are found
-                this.WriteDPadConfig(options.DPadConfig);
-            }
-            catch (KeyNotFoundException)
-            {
-            }
-
+            this.TryWriteDPadConfig(options.DPadConfig);
             this.TryWriteHudColorsConfig(options.HudColorsConfig);
 
             // Try and write the MiscConfig hash
