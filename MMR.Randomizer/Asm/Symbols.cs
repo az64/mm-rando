@@ -108,6 +108,18 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
+        /// Write a <see cref="HudColorsConfig"/> to the ROM.
+        /// </summary>
+        /// <param name="config">HUD colors config</param>
+        public void WriteHudColorsConfig(HudColorsConfig config)
+        {
+            var addr = this["HUD_COLOR_CONFIG"];
+            var version = ReadWriteUtils.ReadU32((int)(addr + 4));
+            var bytes = config.ToStruct(version).ToBytes();
+            ReadWriteUtils.WriteToROM((int)(addr + 4), bytes);
+        }
+
+        /// <summary>
         /// Write a <see cref="MiscConfig"/> to the ROM.
         /// </summary>
         /// <param name="config">Misc config</param>
@@ -128,6 +140,24 @@ namespace MMR.Randomizer.Asm
             var bytes = ReadWriteUtils.CopyBytes(hash, 0x10);
             var addr = this["MISC_CONFIG"];
             ReadWriteUtils.WriteToROM((int)(addr + 8), bytes);
+        }
+
+        /// <summary>
+        /// Try and write a <see cref="HudColorsConfig"/> to the ROM.
+        /// </summary>
+        /// <param name="config">HUD colors config</param>
+        /// <returns>True if successful, false if the <see cref="HudColorsConfig"/> symbol was not found.</returns>
+        public bool TryWriteHudColorsConfig(HudColorsConfig config)
+        {
+            try
+            {
+                WriteHudColorsConfig(config);
+                return true;
+            }
+            catch (KeyNotFoundException)
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -294,6 +324,7 @@ namespace MMR.Randomizer.Asm
         public void ApplyConfigurationPostPatch(AsmOptions options)
         {
             this.WriteDPadConfig(options.DPadConfig);
+            this.WriteHudColorsConfig(options.HudColorsConfig);
 
             // Only write the MiscConfig hash (the rest should not be changeable post-patch)
             this.WriteMiscHash(options.MiscConfig.Hash);
@@ -313,6 +344,8 @@ namespace MMR.Randomizer.Asm
             catch (KeyNotFoundException)
             {
             }
+
+            this.TryWriteHudColorsConfig(options.HudColorsConfig);
 
             // Try and write the MiscConfig hash
             this.TryWriteMiscHash(options.MiscConfig.Hash);

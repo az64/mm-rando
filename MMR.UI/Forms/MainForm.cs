@@ -1369,7 +1369,12 @@ namespace MMR.UI.Forms
 
         private void btn_hud_Click(object sender, EventArgs e)
         {
-            HudConfig.Show();
+            var config = _settings.AsmOptions.HudColorsConfig;
+            if (HudConfig.ShowDialog(this, config) == DialogResult.Cancel)
+            {
+                var colors = HudConfig.ToColors();
+                config.Colors = colors;
+            }
         }
     }
 }
