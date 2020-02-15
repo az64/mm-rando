@@ -72,6 +72,19 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
+        /// Write an <see cref="AsmConfig"/> structure to ROM.
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="config">Config</param>
+        void WriteAsmConfig(string symbol, AsmConfig config)
+        {
+            var addr = this[symbol];
+            var version = ReadWriteUtils.ReadU32((int)(addr + 4));
+            var bytes = config.ToBytes(version);
+            ReadWriteUtils.WriteToROM((int)(addr + 4), bytes);
+        }
+
+        /// <summary>
         /// Write the D-Pad configuration structure to ROM.
         /// </summary>
         /// <param name="config">D-Pad config</param>
@@ -84,11 +97,7 @@ namespace MMR.Randomizer.Asm
                 return;
             }
 
-            // Write DPad config struct bytes.
-            var addr = this["DPAD_CONFIG"];
-            var version = ReadWriteUtils.ReadU32((int)(addr + 4));
-            var bytes = config.ToStruct(version).ToBytes();
-            ReadWriteUtils.WriteToROM((int)(addr + 4), bytes);
+            WriteAsmConfig("DPAD_CONFIG", config);
         }
 
         /// <summary>
@@ -113,10 +122,7 @@ namespace MMR.Randomizer.Asm
         /// <param name="config">HUD colors config</param>
         public void WriteHudColorsConfig(HudColorsConfig config)
         {
-            var addr = this["HUD_COLOR_CONFIG"];
-            var version = ReadWriteUtils.ReadU32((int)(addr + 4));
-            var bytes = config.ToStruct(version).ToBytes();
-            ReadWriteUtils.WriteToROM((int)(addr + 4), bytes);
+            WriteAsmConfig("HUD_COLOR_CONFIG", config);
         }
 
         /// <summary>
@@ -125,10 +131,7 @@ namespace MMR.Randomizer.Asm
         /// <param name="config">Misc config</param>
         public void WriteMiscConfig(MiscConfig config)
         {
-            var addr = this["MISC_CONFIG"];
-            var version = ReadWriteUtils.ReadU32((int)(addr + 4));
-            var bytes = config.ToStruct(version).ToBytes();
-            ReadWriteUtils.WriteToROM((int)(addr + 4), bytes);
+            WriteAsmConfig("MISC_CONFIG", config);
         }
 
         /// <summary>

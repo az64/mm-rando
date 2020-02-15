@@ -89,7 +89,7 @@ namespace MMR.Randomizer.Asm
     /// <summary>
     /// Miscellaneous configuration structure.
     /// </summary>
-    public struct MiscConfigStruct
+    public struct MiscConfigStruct : IAsmConfigStruct
     {
         public uint Version;
         public byte[] Hash;
@@ -118,7 +118,7 @@ namespace MMR.Randomizer.Asm
     /// <summary>
     /// Miscellaneous configuration.
     /// </summary>
-    public class MiscConfig
+    public class MiscConfig : AsmConfig
     {
         /// <summary>
         /// Hash bytes.
@@ -146,7 +146,7 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         /// <param name="version">Structure version</param>
         /// <returns>Configuration structure</returns>
-        public MiscConfigStruct ToStruct(uint version)
+        public override IAsmConfigStruct ToStruct(uint version)
         {
             var hash = ReadWriteUtils.CopyBytes(this.Hash, 0x10);
 

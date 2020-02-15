@@ -49,7 +49,7 @@ namespace MMR.Randomizer.Asm
     /// <summary>
     /// D-Pad configuration structure.
     /// </summary>
-    public struct DPadConfigStruct
+    public struct DPadConfigStruct : IAsmConfigStruct
     {
         public uint Version;
         public byte[] Items;
@@ -80,7 +80,7 @@ namespace MMR.Randomizer.Asm
     /// <summary>
     /// Container for all D-Pad configuration variables.
     /// </summary>
-    public class DPadConfig
+    public class DPadConfig : AsmConfig
     {
         /// <summary>
         /// D-Pad values.
@@ -132,7 +132,7 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         /// <param name="version">Structure version</param>
         /// <returns>Configuration structure</returns>
-        public DPadConfigStruct ToStruct(uint version)
+        public override IAsmConfigStruct ToStruct(uint version)
         {
             var items = new byte[0x10];
             this.Pad.Bytes.CopyTo(items, 0);

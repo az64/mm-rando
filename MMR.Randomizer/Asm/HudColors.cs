@@ -61,7 +61,7 @@ namespace MMR.Randomizer.Asm
     /// <summary>
     /// HUD colors configuration.
     /// </summary>
-    public class HudColorsConfig
+    public class HudColorsConfig : AsmConfig
     {
         /// <summary>
         /// HUD color values.
@@ -73,7 +73,7 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         /// <param name="version">Structure version</param>
         /// <returns>Structure</returns>
-        public HudColorsConfigStruct ToStruct(uint version)
+        public override IAsmConfigStruct ToStruct(uint version)
         {
             return new HudColorsConfigStruct
             {
@@ -86,7 +86,7 @@ namespace MMR.Randomizer.Asm
     /// <summary>
     /// HUD colors configuration structure.
     /// </summary>
-    public struct HudColorsConfigStruct
+    public struct HudColorsConfigStruct : IAsmConfigStruct
     {
         public uint Version;
         public Color[] Colors;
