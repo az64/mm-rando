@@ -1,4 +1,5 @@
 ﻿using MMR.Randomizer.Asm;
+using MMR.Randomizer.Utils;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -16,6 +17,11 @@ namespace MMR.UI.Forms
         /// Default HUD colors.
         /// </summary>
         HudColors DefaultColors { get; set; } = new HudColors();
+
+        /// <summary>
+        /// Randomness provider.
+        /// </summary>
+        Random Random { get; set; } = new Random();
 
         public HudConfigForm()
         {
@@ -104,6 +110,26 @@ namespace MMR.UI.Forms
         }
 
         /// <summary>
+        /// Randomize the background colors of given <see cref="Control"/> components.
+        /// </summary>
+        /// <param name="controls">Controls</param>
+        void RandomizeBackColors(params Control[] controls)
+        {
+            foreach (var control in controls)
+                control.BackColor = RandomUtils.GetRandomColor(this.Random);
+        }
+
+        /// <summary>
+        /// Randomize the foreground colors of given <see cref="Control"/> components.
+        /// </summary>
+        /// <param name="controls">Controls</param>
+        void RandomizeForeColors(params Control[] controls)
+        {
+            foreach (var control in controls)
+                control.ForeColor = RandomUtils.GetRandomColor(this.Random);
+        }
+
+        /// <summary>
         /// Show the <see cref="System.Windows.Forms.ColorDialog"/> to select the color for a specific <see cref="Component"/>.
         /// </summary>
         /// <param name="control">Control</param>
@@ -131,7 +157,24 @@ namespace MMR.UI.Forms
             var menu = ctxtMenu;
             menu.Opening += new CancelEventHandler(ctxtMenu_Opening);
 
-            var resetAllMenuItem = new ToolStripMenuItem("Reset &All Colors", null, ctxtMenu_ResetAllColors);
+            var randomizeSubMenu = new ToolStripMenuItem[]
+            {
+                new ToolStripMenuItem("Buttons", null, ctxtMenu_RandomizeButtons),
+                new ToolStripMenuItem("Clock Emblem", null, ctxtMenu_RandomizeClockEmblem),
+                new ToolStripMenuItem("Clock Misc", null, ctxtMenu_RandomizeClockMisc),
+                new ToolStripMenuItem("Hearts", null, ctxtMenu_RandomizeHearts),
+                new ToolStripMenuItem("Magic", null, ctxtMenu_RandomizeMagic),
+                new ToolStripMenuItem("Map", null, ctxtMenu_RandomizeMap),
+                new ToolStripMenuItem("Rupees", null, ctxtMenu_RandomizeRupees),
+            };
+
+            var randomizeAllMenuItem = new ToolStripMenuItem("Randomize All", null, ctxtMenu_RandomizeAll);
+            var randomizeMenuItem = new ToolStripMenuItem("&Randomize", null, randomizeSubMenu);
+            var resetAllMenuItem = new ToolStripMenuItem("Reset All Colors", null, ctxtMenu_ResetAllColors);
+
+            menu.Items.Add(randomizeAllMenuItem);
+            menu.Items.Add(randomizeMenuItem);
+            menu.Items.Add(new ToolStripSeparator());
             menu.Items.Add(resetAllMenuItem);
         }
 
@@ -139,6 +182,54 @@ namespace MMR.UI.Forms
         {
             // Todo: May use later for adding menu items for restoring default value of selected button
             e.Cancel = false;
+        }
+
+        void ctxtMenu_RandomizeAll(object sender, EventArgs e)
+        {
+            ctxtMenu_RandomizeButtons(sender, e);
+            ctxtMenu_RandomizeClockEmblem(sender, e);
+            ctxtMenu_RandomizeClockMisc(sender, e);
+            ctxtMenu_RandomizeHearts(sender, e);
+            ctxtMenu_RandomizeMagic(sender, e);
+            ctxtMenu_RandomizeMap(sender, e);
+            ctxtMenu_RandomizeRupees(sender, e);
+        }
+
+        void ctxtMenu_RandomizeButtons(object sender, EventArgs e)
+        {
+            RandomizeBackColors(btn_a, btn_b, btn_c, btn_start);
+        }
+
+        void ctxtMenu_RandomizeClockEmblem(object sender, EventArgs e)
+        {
+            RandomizeBackColors(btn_clockemblem, btn_inverted, btn_inverted2);
+        }
+
+        void ctxtMenu_RandomizeClockMisc(object sender, EventArgs e)
+        {
+            RandomizeBackColors(btn_clockminutes);
+            RandomizeForeColors(btn_clockmoon, btn_clocksun);
+        }
+
+        void ctxtMenu_RandomizeHearts(object sender, EventArgs e)
+        {
+            RandomizeForeColors(btn_hearts, btn_hearts2);
+        }
+
+        void ctxtMenu_RandomizeMagic(object sender, EventArgs e)
+        {
+            RandomizeBackColors(btn_magic, btn_chateau);
+        }
+
+        void ctxtMenu_RandomizeMap(object sender, EventArgs e)
+        {
+            RandomizeBackColors(btn_map);
+            RandomizeForeColors(btn_mapentrance, btn_mapplayer);
+        }
+
+        void ctxtMenu_RandomizeRupees(object sender, EventArgs e)
+        {
+            RandomizeBackColors(btn_wallet99, btn_wallet200, btn_wallet500);
         }
 
         void ctxtMenu_ResetAllColors(object sender, EventArgs e)
