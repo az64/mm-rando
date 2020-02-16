@@ -372,6 +372,8 @@
             this.Controls.Add(this.btn_magic);
             this.Controls.Add(this.btn_hearts);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "HudConfigForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "HUD Configuration";
