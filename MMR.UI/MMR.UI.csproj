@@ -116,6 +116,7 @@
     <Compile Include="Forms\StartingItemEditForm.Designer.cs">
       <DependentUpon>StartingItemEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\FormUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToolTips\ToolTipBuilder.cs" />
