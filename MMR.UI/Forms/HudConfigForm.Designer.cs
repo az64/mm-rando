@@ -339,7 +339,7 @@
             // ctxtMenu
             // 
             this.ctxtMenu.Name = "ctxtMenu";
-            this.ctxtMenu.Size = new System.Drawing.Size(181, 26);
+            this.ctxtMenu.Size = new System.Drawing.Size(61, 4);
             // 
             // HudConfigForm
             // 

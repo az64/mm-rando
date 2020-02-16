@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using MMR.Randomizer.Models;
 using MMR.Randomizer.Utils;
 using MMR.Randomizer.Asm;
+using MMR.Randomizer.Models.Colors;
 
 namespace MMR.UI.Forms
 {
@@ -52,6 +53,7 @@ namespace MMR.UI.Forms
             InitializeComponent();
             InitializeSettings();
             InitializeTooltips();
+            InitializeHUDGroupBox();
 
             _randomizer = new Randomizer(_settings);
 
@@ -143,6 +145,25 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cGoodDogRaceRNG, "Make Gold Dog always win if you have the Mask of Truth.");
             TooltipBuilder.SetTooltip(cFasterLabFish, "Change Lab Fish to only need to be fed one fish.");
             TooltipBuilder.SetTooltip(cFastPush, "Increase the speed of pushing and pulling blocks and faucets.");
+        }
+
+        /// <summary>
+        /// Initialize components in the HUD <see cref="GroupBox"/>.
+        /// </summary>
+        void InitializeHUDGroupBox()
+        {
+            // Initialize ComboBox for hearts colors
+            var heartsCSM = new ColorSelectionManager(HudColorPresets.Hearts());
+            heartsCSM.UseSameRandomColor = true;
+            heartsCSM.PrependNull("Customized");
+            cHUDHeartsComboBox.Items.AddRange(heartsCSM.GetItems());
+            cHUDHeartsComboBox.SelectedIndex = 0;
+
+            // Initialize ComboBox for magic meter color
+            var magicCSM = new ColorSelectionManager(HudColorPresets.MagicMeter());
+            magicCSM.PrependNull("Customized");
+            cHUDMagicComboBox.Items.AddRange(magicCSM.GetItems());
+            cHUDMagicComboBox.SelectedIndex = 0;
         }
 
         #region Forms Code
@@ -1375,6 +1396,20 @@ namespace MMR.UI.Forms
                 var colors = HudConfig.ToColors();
                 config.Colors = colors;
             }
+        }
+
+        private void cHUDHeartsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var combobox = (ComboBox)sender;
+            var selected = (ColorSelectionItem)combobox.SelectedItem;
+            _settings.HeartsSelection = selected;
+        }
+
+        private void cHUDMagicComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var combobox = (ComboBox)sender;
+            var selected = (ColorSelectionItem)combobox.SelectedItem;
+            _settings.MagicSelection = selected;
         }
     }
 }

@@ -103,6 +103,13 @@ namespace MMR.UI.Forms
             this.cDMult = new System.Windows.Forms.ComboBox();
             this.cGravity = new System.Windows.Forms.ComboBox();
             this.tabComfort = new System.Windows.Forms.TabPage();
+            this.cHUDGroupBox = new System.Windows.Forms.GroupBox();
+            this.cHUDTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_hud = new System.Windows.Forms.Button();
+            this.cHUDHeartsComboBox = new System.Windows.Forms.ComboBox();
+            this.cHeartsLabel = new System.Windows.Forms.Label();
+            this.cMagicLabel = new System.Windows.Forms.Label();
+            this.cHUDMagicComboBox = new System.Windows.Forms.ComboBox();
             this.cQuestItemStorage = new System.Windows.Forms.CheckBox();
             this.cDisableCritWiggle = new System.Windows.Forms.CheckBox();
             this.cDrawHash = new System.Windows.Forms.CheckBox();
@@ -165,7 +172,6 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.btn_hud = new System.Windows.Forms.Button();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -177,6 +183,8 @@ namespace MMR.UI.Forms
             this.groupBox2.SuspendLayout();
             this.tabGimmick.SuspendLayout();
             this.tabComfort.SuspendLayout();
+            this.cHUDGroupBox.SuspendLayout();
+            this.cHUDTableLayoutPanel.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.mMenu.SuspendLayout();
             this.ttOutput.SuspendLayout();
@@ -1085,7 +1093,7 @@ namespace MMR.UI.Forms
             // 
             // tabComfort
             // 
-            this.tabComfort.Controls.Add(this.btn_hud);
+            this.tabComfort.Controls.Add(this.cHUDGroupBox);
             this.tabComfort.Controls.Add(this.cQuestItemStorage);
             this.tabComfort.Controls.Add(this.cDisableCritWiggle);
             this.tabComfort.Controls.Add(this.cDrawHash);
@@ -1116,6 +1124,91 @@ namespace MMR.UI.Forms
             this.tabComfort.TabIndex = 1;
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
+            // 
+            // cHUDGroupBox
+            // 
+            this.cHUDGroupBox.Controls.Add(this.cHUDTableLayoutPanel);
+            this.cHUDGroupBox.Location = new System.Drawing.Point(10, 433);
+            this.cHUDGroupBox.Name = "cHUDGroupBox";
+            this.cHUDGroupBox.Size = new System.Drawing.Size(331, 70);
+            this.cHUDGroupBox.TabIndex = 32;
+            this.cHUDGroupBox.TabStop = false;
+            this.cHUDGroupBox.Text = "HUD";
+            // 
+            // cHUDTableLayoutPanel
+            // 
+            this.cHUDTableLayoutPanel.ColumnCount = 3;
+            this.cHUDTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.cHUDTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.cHUDTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.cHUDTableLayoutPanel.Controls.Add(this.btn_hud, 2, 0);
+            this.cHUDTableLayoutPanel.Controls.Add(this.cHUDHeartsComboBox, 1, 0);
+            this.cHUDTableLayoutPanel.Controls.Add(this.cHeartsLabel, 0, 0);
+            this.cHUDTableLayoutPanel.Controls.Add(this.cMagicLabel, 0, 1);
+            this.cHUDTableLayoutPanel.Controls.Add(this.cHUDMagicComboBox, 1, 1);
+            this.cHUDTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cHUDTableLayoutPanel.Location = new System.Drawing.Point(3, 16);
+            this.cHUDTableLayoutPanel.Name = "cHUDTableLayoutPanel";
+            this.cHUDTableLayoutPanel.RowCount = 2;
+            this.cHUDTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.cHUDTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.cHUDTableLayoutPanel.Size = new System.Drawing.Size(325, 51);
+            this.cHUDTableLayoutPanel.TabIndex = 0;
+            // 
+            // btn_hud
+            // 
+            this.btn_hud.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_hud.AutoSize = true;
+            this.btn_hud.Location = new System.Drawing.Point(242, 14);
+            this.btn_hud.Name = "btn_hud";
+            this.cHUDTableLayoutPanel.SetRowSpan(this.btn_hud, 2);
+            this.btn_hud.Size = new System.Drawing.Size(65, 23);
+            this.btn_hud.TabIndex = 31;
+            this.btn_hud.Text = "Customize";
+            this.btn_hud.UseVisualStyleBackColor = true;
+            this.btn_hud.Click += new System.EventHandler(this.btn_hud_Click);
+            // 
+            // cHUDHeartsComboBox
+            // 
+            this.cHUDHeartsComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cHUDHeartsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cHUDHeartsComboBox.FormattingEnabled = true;
+            this.cHUDHeartsComboBox.Location = new System.Drawing.Point(53, 3);
+            this.cHUDHeartsComboBox.Name = "cHUDHeartsComboBox";
+            this.cHUDHeartsComboBox.Size = new System.Drawing.Size(169, 21);
+            this.cHUDHeartsComboBox.TabIndex = 32;
+            this.cHUDHeartsComboBox.SelectedIndexChanged += new System.EventHandler(this.cHUDHeartsComboBox_SelectedIndexChanged);
+            // 
+            // cHeartsLabel
+            // 
+            this.cHeartsLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.cHeartsLabel.AutoSize = true;
+            this.cHeartsLabel.Location = new System.Drawing.Point(3, 6);
+            this.cHeartsLabel.Name = "cHeartsLabel";
+            this.cHeartsLabel.Size = new System.Drawing.Size(41, 13);
+            this.cHeartsLabel.TabIndex = 33;
+            this.cHeartsLabel.Text = "Hearts:";
+            // 
+            // cMagicLabel
+            // 
+            this.cMagicLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.cMagicLabel.AutoSize = true;
+            this.cMagicLabel.Location = new System.Drawing.Point(3, 31);
+            this.cMagicLabel.Name = "cMagicLabel";
+            this.cMagicLabel.Size = new System.Drawing.Size(39, 13);
+            this.cMagicLabel.TabIndex = 34;
+            this.cMagicLabel.Text = "Magic:";
+            // 
+            // cHUDMagicComboBox
+            // 
+            this.cHUDMagicComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cHUDMagicComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cHUDMagicComboBox.FormattingEnabled = true;
+            this.cHUDMagicComboBox.Location = new System.Drawing.Point(53, 28);
+            this.cHUDMagicComboBox.Name = "cHUDMagicComboBox";
+            this.cHUDMagicComboBox.Size = new System.Drawing.Size(169, 21);
+            this.cHUDMagicComboBox.TabIndex = 35;
+            this.cHUDMagicComboBox.SelectedIndexChanged += new System.EventHandler(this.cHUDMagicComboBox_SelectedIndexChanged);
             // 
             // cQuestItemStorage
             // 
@@ -1798,16 +1891,6 @@ namespace MMR.UI.Forms
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // btn_hud
-            // 
-            this.btn_hud.Location = new System.Drawing.Point(100, 455);
-            this.btn_hud.Name = "btn_hud";
-            this.btn_hud.Size = new System.Drawing.Size(130, 23);
-            this.btn_hud.TabIndex = 31;
-            this.btn_hud.Text = "Temporary HUD Button";
-            this.btn_hud.UseVisualStyleBackColor = true;
-            this.btn_hud.Click += new System.EventHandler(this.btn_hud_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1850,6 +1933,9 @@ namespace MMR.UI.Forms
             this.tabGimmick.PerformLayout();
             this.tabComfort.ResumeLayout(false);
             this.tabComfort.PerformLayout();
+            this.cHUDGroupBox.ResumeLayout(false);
+            this.cHUDTableLayoutPanel.ResumeLayout(false);
+            this.cHUDTableLayoutPanel.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.mMenu.ResumeLayout(false);
@@ -1999,7 +2085,13 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cQuestItemStorage;
         private System.Windows.Forms.CheckBox cDisableCritWiggle;
         private System.Windows.Forms.CheckBox cFastPush;
+        private System.Windows.Forms.GroupBox cHUDGroupBox;
+        private System.Windows.Forms.TableLayoutPanel cHUDTableLayoutPanel;
         private System.Windows.Forms.Button btn_hud;
+        private System.Windows.Forms.ComboBox cHUDHeartsComboBox;
+        private System.Windows.Forms.Label cHeartsLabel;
+        private System.Windows.Forms.Label cMagicLabel;
+        private System.Windows.Forms.ComboBox cHUDMagicComboBox;
     }
 }
 

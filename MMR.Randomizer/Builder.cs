@@ -1066,6 +1066,8 @@ namespace MMR.Randomizer
 
         private void WriteAsmConfig(AsmContext asm, byte[] hash)
         {
+            UpdateHudColorOverrides(hash);
+
             // Apply Asm configuration (after hash has been calculated)
             var options = _settings.AsmOptions;
             options.MiscConfig.Hash = hash;
@@ -1074,10 +1076,34 @@ namespace MMR.Randomizer
 
         private void WriteAsmConfigPostPatch(AsmContext asm, byte[] hash)
         {
+            UpdateHudColorOverrides(hash);
+
             // Apply current configuration on top of existing Asm patch file
             var options = _settings.AsmOptions;
             options.MiscConfig.Hash = hash;
             asm.ApplyPostConfiguration(options, true);
+        }
+
+        /// <summary>
+        /// Update the HUD colors override options.
+        /// </summary>
+        /// <param name="hash">Hash which is used with <see cref="Random"/></param>
+        private void UpdateHudColorOverrides(byte[] hash)
+        {
+            var config = _settings.AsmOptions.HudColorsConfig;
+            var random = new Random(BitConverter.ToInt32(hash, 0));
+
+            // Update override for heart colors
+            if (_settings.HeartsSelection != null)
+                config.HeartsOverride = _settings.HeartsSelection.GetColors(random);
+            else
+                config.HeartsOverride = null;
+
+            // Update override for magic meter colors
+            if (_settings.MagicSelection != null)
+                config.MagicOverride = _settings.MagicSelection.GetColors(random);
+            else
+                config.MagicOverride = null;
         }
 
         public void MakeROM(string InFile, string FileName, IProgressReporter progressReporter)

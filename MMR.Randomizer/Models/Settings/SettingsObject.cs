@@ -1,4 +1,5 @@
 ﻿using MMR.Randomizer.Asm;
+using MMR.Randomizer.Models.Colors;
 using MMR.Randomizer.Utils;
 using System;
 using System.Collections.Generic;
@@ -92,6 +93,16 @@ namespace MMR.Randomizer.Models.Settings
         /// Options for the Asm <see cref="Patcher"/>.
         /// </summary>
         public AsmOptions AsmOptions { get; set; } = new AsmOptions();
+
+        /// <summary>
+        /// Hearts color selection used for HUD color override.
+        /// </summary>
+        public ColorSelectionItem HeartsSelection { get; set; }
+
+        /// <summary>
+        /// Magic color selection used for HUD color override.
+        /// </summary>
+        public ColorSelectionItem MagicSelection { get; set; }
 
         #endregion
 
