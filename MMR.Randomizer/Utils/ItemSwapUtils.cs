@@ -16,17 +16,17 @@ namespace MMR.Randomizer.Utils
         static ushort cycle_repeat_count = 0x74;
         static int GET_ITEM_TABLE = 0;
 
-        public static void ReplaceGetItemTable(string ModsDir)
+        public static void ReplaceGetItemTable()
         {
-            ResourceUtils.ApplyHack(ModsDir + "replace-gi-table");
+            ResourceUtils.ApplyHack(Values.ModsDirectory, "replace-gi-table");
             int last_file = RomData.MMFileList.Count - 1;
-            GET_ITEM_TABLE = RomUtils.AddNewFile(ModsDir + "gi-table");
+            GET_ITEM_TABLE = RomUtils.AddNewFile(Values.ModsDirectory, "gi-table");
             ReadWriteUtils.WriteToROM(0xBDAEAC, (uint)last_file + 1);
-            ResourceUtils.ApplyHack(ModsDir + "update-chests");
-            RomUtils.AddNewFile(ModsDir + "chest-table");
+            ResourceUtils.ApplyHack(Values.ModsDirectory, "update-chests");
+            RomUtils.AddNewFile(Values.ModsDirectory, "chest-table");
             ReadWriteUtils.WriteToROM(0xBDAEA8, (uint)last_file + 2);
-            ResourceUtils.ApplyHack(ModsDir + "standing-hearts");
-            ResourceUtils.ApplyHack(ModsDir + "fix-item-checks");
+            ResourceUtils.ApplyHack(Values.ModsDirectory, "standing-hearts");
+            ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-item-checks");
             cycle_repeat = 0xC72DF4;
             SceneUtils.ResetSceneFlagMask();
             SceneUtils.UpdateSceneFlagMask(0x5B); // red potion
@@ -182,17 +182,17 @@ namespace MMR.Randomizer.Utils
 
                 if (location == Item.StartingSword)
                 {
-                    ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-sword-song-of-time");
+                    ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-sword-song-of-time");
                 }
 
                 if (location == Item.MundaneItemSeahorse)
                 {
-                    ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-fisherman");
+                    ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-fisherman");
                 }
 
                 if (location == Item.MaskFierceDeity)
                 {
-                    ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-fd-mask-reset");
+                    ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-fd-mask-reset");
                 }
             }
         }

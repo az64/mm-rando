@@ -29,9 +29,9 @@ namespace MMR.Randomizer.Utils
             }
         }
 
-        public static void ApplyHack(string name)
+        public static void ApplyHack(string path, string name)
         {
-            BinaryReader hack_file = new BinaryReader(File.Open(name, FileMode.Open));
+            BinaryReader hack_file = new BinaryReader(File.Open(Path.Combine(path, name), FileMode.Open));
             int hack_len = (int)hack_file.BaseStream.Length;
             byte[] hack_content = new byte[hack_len];
             hack_file.Read(hack_content, 0, hack_len);
@@ -79,11 +79,11 @@ namespace MMR.Randomizer.Utils
             }
         }
 
-        public static List<int[]> GetAddresses(string name)
+        public static List<int[]> GetAddresses(string path, string name)
         {
             List<int[]> Addrs = new List<int[]>();
             byte[] a;
-            using (BinaryReader AddrFile = new BinaryReader(File.Open(name, FileMode.Open, FileAccess.Read)))
+            using (BinaryReader AddrFile = new BinaryReader(File.Open(Path.Combine(path, name), FileMode.Open, FileAccess.Read)))
             {
                 a = new byte[AddrFile.BaseStream.Length];
                 AddrFile.Read(a, 0, a.Length);

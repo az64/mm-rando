@@ -26,9 +26,9 @@ namespace MMR.Randomizer.Utils
 
         private static void GetApp5(byte[] ROM, string VCDir)
         {
-            BinaryReader a50 = new BinaryReader(File.Open(VCDir + "5-0", FileMode.Open));
-            BinaryReader a51 = new BinaryReader(File.Open(VCDir + "5-1", FileMode.Open));
-            BinaryWriter app5 = new BinaryWriter(File.Open(VCDir + "00000005.app", FileMode.Create));
+            BinaryReader a50 = new BinaryReader(File.Open(Path.Combine(VCDir, "5-0"), FileMode.Open));
+            BinaryReader a51 = new BinaryReader(File.Open(Path.Combine(VCDir, "5-1"), FileMode.Open));
+            BinaryWriter app5 = new BinaryWriter(File.Open(Path.Combine(VCDir, "00000005.app"), FileMode.Create));
             byte[] buffer = new byte[a50.BaseStream.Length];
             a50.Read(buffer, 0, buffer.Length);
             app5.Write(buffer);
@@ -56,7 +56,8 @@ namespace MMR.Randomizer.Utils
             {
                 FileName = "wadpacker.exe",
                 Arguments = "mm.tik mm.tmd mm.cert \"" + FileName + "\" -i NMRE",
-                WorkingDirectory = VCDir
+                WorkingDirectory = VCDir,
+                UseShellExecute = true,
             };
             Process.Start(p);
         }
@@ -68,7 +69,7 @@ namespace MMR.Randomizer.Utils
         /// <param name="VCDir">VC directory</param>
         private static void PatchApp1(DPadConfig config, string VCDir)
         {
-            using (var app1 = new BinaryWriter(File.Open(VCDir + "00000001.app", FileMode.Open)))
+            using (var app1 = new BinaryWriter(File.Open(Path.Combine(VCDir, "00000001.app"), FileMode.Open)))
             {
                 var used = config.InUse;
                 var buttons = new VCControllerButton[]

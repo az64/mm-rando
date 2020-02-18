@@ -174,7 +174,7 @@ namespace MMR.Randomizer.Utils
             if (addr > (RomData.MMFileList[4].End - RomData.MMFileList[4].Addr))
             {
                 int index = RomUtils.AppendFile(NewAudioSeq);
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "reloc-audio");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "reloc-audio");
                 RelocateSeq(index);
                 RomData.MMFileList[4].Data = new byte[0];
                 RomData.MMFileList[4].Cmp_Addr = -1;

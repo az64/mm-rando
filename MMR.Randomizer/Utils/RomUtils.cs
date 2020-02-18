@@ -18,9 +18,9 @@ namespace MMR.Randomizer.Utils
     {
         const int FILE_TABLE = 0x1A500;
         const int SIGNATURE_ADDRESS = 0x1A4D0;
-        public static void SetStrings(string filename, string ver, string setting)
+        public static void SetStrings(string path, string filename, string ver, string setting)
         {
-            ResourceUtils.ApplyHack(filename);
+            ResourceUtils.ApplyHack(path, filename);
             int veraddr = 0xC44E30;
             int settingaddr = 0xC44E70;
             string verstring = $"MM Rando {ver}\x00";
@@ -38,10 +38,10 @@ namespace MMR.Randomizer.Utils
             ReadWriteUtils.Arr_Insert(buffer, 0, buffer.Length, file.Data, addr);
         }
 
-        public static int AddNewFile(string filename)
+        public static int AddNewFile(string path, string filename)
         {
             byte[] buffer;
-            using (BinaryReader data = new BinaryReader(File.Open(filename, FileMode.Open)))
+            using (BinaryReader data = new BinaryReader(File.Open(Path.Combine(path, filename), FileMode.Open)))
             {
                 int len = (int)data.BaseStream.Length;
                 buffer = new byte[len];

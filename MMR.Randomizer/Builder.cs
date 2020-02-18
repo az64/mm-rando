@@ -104,11 +104,11 @@ namespace MMR.Randomizer
 
             foreach (SequenceInfo s in RomData.SequenceList)
             {
-                s.Name = Values.MusicDirectory + s.Name;
+                s.Name = Path.Combine(Values.MusicDirectory, s.Name);
             }
 
-            ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-music");
-            ResourceUtils.ApplyHack(Values.ModsDirectory + "inst24-swap-guitar");
+            ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-music");
+            ResourceUtils.ApplyHack(Values.ModsDirectory, "inst24-swap-guitar");
             SequenceUtils.RebuildAudioSeq(RomData.SequenceList);
         }
 
@@ -136,7 +136,7 @@ namespace MMR.Randomizer
                 var obj = new byte[b.BaseStream.Length];
                 b.Read(obj, 0, obj.Length);
 
-                ResourceUtils.ApplyHack($"{Values.ModsDirectory}fix-link-{characterIndex}");
+                ResourceUtils.ApplyHack("Values.ModsDirectory", $"fix-link-{characterIndex}");
                 ObjUtils.InsertObj(obj, 0x11);
             }
 
@@ -148,7 +148,7 @@ namespace MMR.Randomizer
                     b.Read(obj, 0, obj.Length);
 
                     ObjUtils.InsertObj(obj, 0x1C);
-                    ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-kafei");
+                    ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-kafei");
                 }
             }
         }
@@ -158,12 +158,12 @@ namespace MMR.Randomizer
             Color t = _settings.TunicColor;
             byte[] color = { t.R, t.G, t.B };
 
-            var otherTunics = ResourceUtils.GetAddresses(Values.AddrsDirectory + "tunic-forms");
+            var otherTunics = ResourceUtils.GetAddresses(Values.AddrsDirectory, "tunic-forms");
             TunicUtils.UpdateFormTunics(otherTunics, _settings.TunicColor);
 
             var playerModel = DeterminePlayerModel();
             var characterIndex = (int)playerModel;
-            var locations = ResourceUtils.GetAddresses($"{Values.AddrsDirectory}tunic-{characterIndex}");
+            var locations = ResourceUtils.GetAddresses(Values.AddrsDirectory, $"tunic-{characterIndex}");
             var objectIndex = playerModel == Character.Kafei ? 0x1C : 0x11;
             var objectData = ObjUtils.GetObjectData(objectIndex);
             for (int j = 0; j < locations.Count; j++)
@@ -201,7 +201,7 @@ namespace MMR.Randomizer
             {
                 var selectedColorSchemaIndex = (int)_settings.TatlColorSchema;
                 byte[] c = new byte[8];
-                List<int[]> locs = ResourceUtils.GetAddresses(Values.AddrsDirectory + "tatl-colour");
+                List<int[]> locs = ResourceUtils.GetAddresses(Values.AddrsDirectory, "tatl-colour");
                 for (int i = 0; i < locs.Count; i++)
                 {
                     ReadWriteUtils.Arr_WriteU32(c, 0, Values.TatlColours[selectedColorSchemaIndex, i << 1]);
@@ -211,7 +211,7 @@ namespace MMR.Randomizer
             }
             else
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "rainbow-tatl");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "rainbow-tatl");
             }
         }
 
@@ -219,7 +219,7 @@ namespace MMR.Randomizer
         {
             if (_settings.QuickTextEnabled)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "quick-text");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "quick-text");
             }
         }
 
@@ -227,7 +227,7 @@ namespace MMR.Randomizer
         {
             if (_settings.ShortenCutscenes)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "short-cutscenes");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "short-cutscenes");
             }
         }
 
@@ -242,15 +242,15 @@ namespace MMR.Randomizer
             EntranceUtils.WriteEntrances(Values.OldExits.ToArray(), _randomized.NewExits);
             byte[] li = new byte[] { 0x24, 0x02, 0x00, 0x00 };
             List<int[]> addr = new List<int[]>();
-            addr = ResourceUtils.GetAddresses(Values.AddrsDirectory + "d-check");
+            addr = ResourceUtils.GetAddresses(Values.AddrsDirectory, "d-check");
             for (int i = 0; i < addr.Count; i++)
             {
                 li[3] = (byte)_randomized.NewExitIndices[i];
                 ReadWriteUtils.WriteROMAddr(addr[i], li);
             }
 
-            ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-dungeons");
-            addr = ResourceUtils.GetAddresses(Values.AddrsDirectory + "d-exit");
+            ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-dungeons");
+            addr = ResourceUtils.GetAddresses(Values.AddrsDirectory, "d-exit");
 
             for (int i = 0; i < addr.Count; i++)
             {
@@ -268,13 +268,13 @@ namespace MMR.Randomizer
                 }
             }
 
-            addr = ResourceUtils.GetAddresses(Values.AddrsDirectory + "dc-flagload");
+            addr = ResourceUtils.GetAddresses(Values.AddrsDirectory, "dc-flagload");
             for (int i = 0; i < addr.Count; i++)
             {
                 ReadWriteUtils.WriteROMAddr(addr[i], new byte[] { (byte)((_randomized.NewDCFlags[i] & 0xFF00) >> 8), (byte)(_randomized.NewDCFlags[i] & 0xFF) });
             }
 
-            addr = ResourceUtils.GetAddresses(Values.AddrsDirectory + "dc-flagmask");
+            addr = ResourceUtils.GetAddresses(Values.AddrsDirectory, "dc-flagmask");
             for (int i = 0; i < addr.Count; i++)
             {
                 ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
@@ -287,7 +287,7 @@ namespace MMR.Randomizer
         {
             if (_settings.SpeedupBeavers)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "speedup-beavers");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "speedup-beavers");
                 _messageTable.UpdateMessages(new MessageEntry
                 {
                     Id = 0x10D6,
@@ -310,17 +310,17 @@ namespace MMR.Randomizer
 
             if (_settings.SpeedupDampe)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "speedup-dampe");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "speedup-dampe");
             }
 
             if (_settings.SpeedupLabFish)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "speedup-labfish");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "speedup-labfish");
             }
 
             if (_settings.SpeedupDogRace)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "speedup-dograce");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "speedup-dograce");
             }
         }
 
@@ -329,25 +329,25 @@ namespace MMR.Randomizer
             int damageMultiplier = (int)_settings.DamageMode;
             if (damageMultiplier > 0)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "dm-" + damageMultiplier.ToString());
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "dm-" + damageMultiplier.ToString());
             }
 
             int damageEffect = (int)_settings.DamageEffect;
             if (damageEffect > 0)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "de-" + damageEffect.ToString());
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "de-" + damageEffect.ToString());
             }
 
             int gravityType = (int)_settings.MovementMode;
             if (gravityType > 0)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "movement-" + gravityType.ToString());
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "movement-" + gravityType.ToString());
             }
 
             int floorType = (int)_settings.FloorType;
             if (floorType > 0)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "floor-" + floorType.ToString());
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "floor-" + floorType.ToString());
             }
 
             if (_settings.ClockSpeed != ClockSpeed.Default)
@@ -380,7 +380,7 @@ namespace MMR.Randomizer
                 Message = $"You played the {TextCommands.ColorYellow}Sun's Song{TextCommands.ColorWhite}!\xBF"
             });
 
-            ResourceUtils.ApplyHack(Values.ModsDirectory + "enable-sunssong");
+            ResourceUtils.ApplyHack(Values.ModsDirectory, "enable-sunssong");
         }
 
         private void WriteBlastMaskCooldown()
@@ -458,7 +458,7 @@ namespace MMR.Randomizer
                     break;
             }
 
-            ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-clock-speed");
+            ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-clock-speed");
 
             var codeFileAddress = 0xB3C000;
             var hackAddressOffset = 0x8A674;
@@ -634,20 +634,20 @@ namespace MMR.Randomizer
             WriteFreeItems(freeItems.ToArray());
 
             //write everything else
-            ItemSwapUtils.ReplaceGetItemTable(Values.ModsDirectory);
+            ItemSwapUtils.ReplaceGetItemTable();
             ItemSwapUtils.InitItems();
 
             if (_settings.FixEponaSword)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-epona");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-epona");
             }
             if (_settings.PreventDowngrades)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-downgrades");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-downgrades");
             }
             if (_settings.AddCowMilk)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-cow-bottle-check");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-cow-bottle-check");
             }
 
             var newMessages = new List<MessageEntry>();
@@ -880,7 +880,7 @@ namespace MMR.Randomizer
 
             if (_settings.AddSkulltulaTokens)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-skulltula-tokens");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-skulltula-tokens");
 
                 newMessages.Add(new MessageEntry
                 {
@@ -898,7 +898,7 @@ namespace MMR.Randomizer
 
             if (_settings.AddStrayFairies)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-fairies");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-fairies");
             }
 
             var dungeonItemMessageIds = new byte[] {
@@ -949,7 +949,7 @@ namespace MMR.Randomizer
 
             if (_settings.AddShopItems)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-shop-checks");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-shop-checks");
             }
         }
 
@@ -974,9 +974,9 @@ namespace MMR.Randomizer
 
         private void WriteFileSelect()
         {
-            ResourceUtils.ApplyHack(Values.ModsDirectory + "file-select");
+            ResourceUtils.ApplyHack(Values.ModsDirectory, "file-select");
             byte[] SkyboxDefault = new byte[] { 0x91, 0x78, 0x9B, 0x28, 0x00, 0x28 };
-            List<int[]> Addrs = ResourceUtils.GetAddresses(Values.AddrsDirectory + "skybox-init");
+            List<int[]> Addrs = ResourceUtils.GetAddresses(Values.AddrsDirectory, "skybox-init");
             Random R = new Random();
             int rot = R.Next(360);
             for (int i = 0; i < 2; i++)
@@ -998,7 +998,7 @@ namespace MMR.Randomizer
 
             rot = R.Next(360);
             byte[] FSDefault = new byte[] { 0x64, 0x96, 0xFF, 0x96, 0xFF, 0xFF, 0x64, 0xFF, 0xFF };
-            Addrs = ResourceUtils.GetAddresses(Values.AddrsDirectory + "fs-colour");
+            Addrs = ResourceUtils.GetAddresses(Values.AddrsDirectory, "fs-colour");
             for (int i = 0; i < 3; i++)
             {
                 Color c = Color.FromArgb(FSDefault[i * 3], FSDefault[i * 3 + 1], FSDefault[i * 3 + 2]);
@@ -1031,7 +1031,7 @@ namespace MMR.Randomizer
                 return;
             }
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
-            RomUtils.SetStrings(Values.ModsDirectory + "logo-text", $"v{v}", _settings.ToString());
+            RomUtils.SetStrings(Values.ModsDirectory, "logo-text", $"v{v}", _settings.ToString());
         }
 
         private void WriteShopObjects()
@@ -1106,14 +1106,14 @@ namespace MMR.Randomizer
                 if (_settings.LogicMode != LogicMode.Vanilla)
                 {
                     progressReporter.ReportProgress(60, "Applying hacks...");
-                    ResourceUtils.ApplyHack(Values.ModsDirectory + "title-screen");
-                    ResourceUtils.ApplyHack(Values.ModsDirectory + "misc-changes");
-                    ResourceUtils.ApplyHack(Values.ModsDirectory + "cm-cs");
-                    ResourceUtils.ApplyHack(Values.ModsDirectory + "fix-song-of-healing");
+                    ResourceUtils.ApplyHack(Values.ModsDirectory, "title-screen");
+                    ResourceUtils.ApplyHack(Values.ModsDirectory, "misc-changes");
+                    ResourceUtils.ApplyHack(Values.ModsDirectory, "cm-cs");
+                    ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-song-of-healing");
                     WriteFileSelect();
                 }
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "init-file");
-                ResourceUtils.ApplyHack(Values.ModsDirectory + "fierce-deity-anywhere");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "init-file");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "fierce-deity-anywhere");
 
                 progressReporter.ReportProgress(61, "Writing quick text...");
                 WriteQuickText();
