@@ -154,7 +154,7 @@ namespace MMR.Randomizer.Models.SoundEffects
         [ReplacableByTags(Short)]
         FileSelectDecideLong = 0x403B,
 
-        [Replacable(0xC83C3E, 0xC83BEA, 0xC83FEA, 0xC8CD76, 0xC8CDE6, 0xC7E716, 0xC80886, 0xC7EE0A, 0xC7F80A, 0xC8120E, 0xC81982)]
+        [Replacable(0xC83C3E, 0xC83BEA, 0xC83FEA, 0xC8CD76, 0xC8CDE6, 0xC7E716, 0xC80886, 0xC7EE0A, 0xC7F80A, 0xC8120E, 0xC81982, 0xC83B4A)]
         [Tags(SystemSound)]
         [ReplacableByTags(Short)]
         FileSelectCancel = 0x403C,
