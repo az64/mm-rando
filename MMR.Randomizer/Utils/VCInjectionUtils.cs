@@ -47,7 +47,7 @@ namespace MMR.Randomizer.Utils
             return Header.Concat(ROM).ToArray();
         }
 
-        public static void BuildVC(byte[] ROM, PatcherOptions options, string VCDir, string FileName)
+        public static void BuildVC(byte[] ROM, AsmOptions options, string VCDir, string FileName)
         {
             ROM = AddVCHeader(ROM);
             GetApp5(ROM, VCDir);

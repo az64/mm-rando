@@ -41,6 +41,16 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
+        /// Check if a certain symbol exists.
+        /// </summary>
+        /// <param name="name">Symbol name</param>
+        /// <returns>True if exists, false if not</returns>
+        public bool Has(string name)
+        {
+            return this._symbols.ContainsKey(name);
+        }
+
+        /// <summary>
         /// Create a special <see cref="MMFile"/> with serialized <see cref="Symbols"/> data.
         /// </summary>
         /// <returns>MMFile</returns>
@@ -62,15 +72,32 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
-        /// Write a <see cref="DPadState"/> to the ROM.
+        /// Write an <see cref="AsmConfig"/> structure to ROM.
         /// </summary>
-        /// <remarks>Assumes <see cref="Patcher"/> file has been inserted.</remarks>
-        /// <param name="state">D-Pad state</param>
-        private void WriteDPadState(DPadState state)
+        /// <param name="symbol">Symbol</param>
+        /// <param name="config">Config</param>
+        void WriteAsmConfig(string symbol, AsmConfig config)
         {
-            // Write DPad state byte.
-            var addr = this["DPAD_STATE"];
-            ReadWriteUtils.WriteToROM((int)addr, (byte)state);
+            var addr = this[symbol];
+            var version = ReadWriteUtils.ReadU32((int)(addr + 4));
+            var bytes = config.ToBytes(version);
+            ReadWriteUtils.WriteToROM((int)(addr + 4), bytes);
+        }
+
+        /// <summary>
+        /// Write the D-Pad configuration structure to ROM.
+        /// </summary>
+        /// <param name="config">D-Pad config</param>
+        public void WriteDPadConfig(DPadConfig config)
+        {
+            // If there's a DPAD_STATE symbol, use the legacy function instead.
+            if (this.Has("DPAD_STATE"))
+            {
+                WriteDPadConfigLegacy(config);
+                return;
+            }
+
+            WriteAsmConfig("DPAD_CONFIG", config);
         }
 
         /// <summary>
@@ -78,14 +105,98 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         /// <remarks>Assumes <see cref="Patcher"/> file has been inserted.</remarks>
         /// <param name="config">D-Pad config</param>
-        public void WriteDPadConfig(DPadConfig config)
+        void WriteDPadConfigLegacy(DPadConfig config)
         {
             // Write DPad config bytes.
             var addr = this["DPAD_CONFIG"];
             ReadWriteUtils.WriteToROM((int)addr, config.Pad.Bytes);
 
-            // Write DPad state
-            WriteDPadState(config.State);
+            // Write DPad state byte.
+            addr = this["DPAD_STATE"];
+            ReadWriteUtils.WriteToROM((int)addr, (byte)config.State);
+        }
+
+        /// <summary>
+        /// Write a <see cref="HudColorsConfig"/> to the ROM.
+        /// </summary>
+        /// <param name="config">HUD colors config</param>
+        public void WriteHudColorsConfig(HudColorsConfig config)
+        {
+            WriteAsmConfig("HUD_COLOR_CONFIG", config);
+        }
+
+        /// <summary>
+        /// Write a <see cref="MiscConfig"/> to the ROM.
+        /// </summary>
+        /// <param name="config">Misc config</param>
+        public void WriteMiscConfig(MiscConfig config)
+        {
+            WriteAsmConfig("MISC_CONFIG", config);
+        }
+
+        /// <summary>
+        /// Write the <see cref="MiscConfig"/> hash bytes without overwriting other parts of the structure.
+        /// </summary>
+        /// <param name="hash">Hash bytes</param>
+        public void WriteMiscHash(byte[] hash)
+        {
+            var bytes = ReadWriteUtils.CopyBytes(hash, 0x10);
+            var addr = this["MISC_CONFIG"];
+            ReadWriteUtils.WriteToROM((int)(addr + 8), bytes);
+        }
+
+        /// <summary>
+        /// Try and write a <see cref="DPadConfig"/> to the ROM.
+        /// </summary>
+        /// <param name="config">D-Pad config</param>
+        /// <returns>True if successful, false if the <see cref="DPadConfig"/> symbol was not found.</returns>
+        public bool TryWriteDPadConfig(DPadConfig config)
+        {
+            try
+            {
+                WriteDPadConfig(config);
+                return true;
+            }
+            catch (KeyNotFoundException)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Try and write a <see cref="HudColorsConfig"/> to the ROM.
+        /// </summary>
+        /// <param name="config">HUD colors config</param>
+        /// <returns>True if successful, false if the <see cref="HudColorsConfig"/> symbol was not found.</returns>
+        public bool TryWriteHudColorsConfig(HudColorsConfig config)
+        {
+            try
+            {
+                WriteHudColorsConfig(config);
+                return true;
+            }
+            catch (KeyNotFoundException)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Try and write the <see cref="MiscConfig"/> hash bytes.
+        /// </summary>
+        /// <param name="hash">Hash bytes</param>
+        /// <returns>True if successful, false if the <see cref="MiscConfig"/> symbol was not found.</returns>
+        public bool TryWriteMiscHash(byte[] hash)
+        {
+            try
+            {
+                WriteMiscHash(hash);
+                return true;
+            }
+            catch (KeyNotFoundException)
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -219,18 +330,38 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
-        /// Try and apply configuration using the <see cref="Symbols"/> data.
+        /// Apply configuration which will be hardcoded into the patch file.
         /// </summary>
-        public void TryApplyConfiguration(PatcherOptions options)
+        /// <param name="options">Options</param>
+        public void ApplyConfiguration(AsmOptions options)
         {
-            try
-            {
-                // Try and write D-Pad configuration, if D-Pad symbols are found
-                this.WriteDPadConfig(options.DPadConfig);
-            }
-            catch (KeyNotFoundException)
-            {
-            }
+            this.WriteMiscConfig(options.MiscConfig);
+        }
+
+        /// <summary>
+        /// Apply configuration using the <see cref="Symbols"/> data.
+        /// </summary>
+        /// <param name="options">Options</param>
+        public void ApplyConfigurationPostPatch(AsmOptions options)
+        {
+            this.WriteDPadConfig(options.DPadConfig);
+            this.WriteHudColorsConfig(options.HudColorsConfig);
+
+            // Only write the MiscConfig hash (the rest should not be changeable post-patch)
+            this.WriteMiscHash(options.MiscConfig.Hash);
+        }
+
+        /// <summary>
+        /// Try and apply configuration post-patch using the <see cref="Symbols"/> data.
+        /// </summary>
+        /// <param name="options">Options</param>
+        public void TryApplyConfigurationPostPatch(AsmOptions options)
+        {
+            this.TryWriteDPadConfig(options.DPadConfig);
+            this.TryWriteHudColorsConfig(options.HudColorsConfig);
+
+            // Try and write the MiscConfig hash
+            this.TryWriteMiscHash(options.MiscConfig.Hash);
         }
     }
 }

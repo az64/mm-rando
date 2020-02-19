@@ -44,22 +44,29 @@
             this.EnabledCheckBox = new System.Windows.Forms.CheckBox();
             this.BottomPanel = new System.Windows.Forms.Panel();
             this.UpdateButton = new System.Windows.Forms.Button();
+            this.DPadDisplayGroupBox = new System.Windows.Forms.GroupBox();
+            this.DPadDisplayTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.DPadHideCheckBox = new System.Windows.Forms.CheckBox();
+            this.DPadDisplayLeftRadioButton = new System.Windows.Forms.RadioButton();
+            this.DPadDisplayRightRadioButton = new System.Windows.Forms.RadioButton();
             this.DPadItemsGroupBox.SuspendLayout();
             this.DPadItemTableLayoutPanel.SuspendLayout();
             this.DPadTableLayoutPanel.SuspendLayout();
             this.BottomPanel.SuspendLayout();
+            this.DPadDisplayGroupBox.SuspendLayout();
+            this.DPadDisplayTableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // DPadItemsGroupBox
             // 
             this.DPadItemsGroupBox.Controls.Add(this.DPadItemTableLayoutPanel);
             this.DPadItemsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.DPadItemsGroupBox.Location = new System.Drawing.Point(6, 34);
+            this.DPadItemsGroupBox.Location = new System.Drawing.Point(6, 76);
             this.DPadItemsGroupBox.Name = "DPadItemsGroupBox";
             this.DPadItemsGroupBox.Size = new System.Drawing.Size(246, 143);
             this.DPadItemsGroupBox.TabIndex = 0;
             this.DPadItemsGroupBox.TabStop = false;
-            this.DPadItemsGroupBox.Text = "D-Pad Items";
+            this.DPadItemsGroupBox.Text = "Items";
             // 
             // DPadItemTableLayoutPanel
             // 
@@ -224,7 +231,7 @@
             // 
             this.BottomPanel.Controls.Add(this.UpdateButton);
             this.BottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.BottomPanel.Location = new System.Drawing.Point(6, 179);
+            this.BottomPanel.Location = new System.Drawing.Point(6, 223);
             this.BottomPanel.Name = "BottomPanel";
             this.BottomPanel.Padding = new System.Windows.Forms.Padding(3);
             this.BottomPanel.Size = new System.Drawing.Size(246, 30);
@@ -241,13 +248,78 @@
             this.UpdateButton.UseVisualStyleBackColor = true;
             this.UpdateButton.Click += new System.EventHandler(this.UpdateButton_Click);
             // 
+            // DPadDisplayGroupBox
+            // 
+            this.DPadDisplayGroupBox.Controls.Add(this.DPadDisplayTableLayoutPanel);
+            this.DPadDisplayGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.DPadDisplayGroupBox.Location = new System.Drawing.Point(6, 34);
+            this.DPadDisplayGroupBox.Name = "DPadDisplayGroupBox";
+            this.DPadDisplayGroupBox.Size = new System.Drawing.Size(246, 42);
+            this.DPadDisplayGroupBox.TabIndex = 3;
+            this.DPadDisplayGroupBox.TabStop = false;
+            this.DPadDisplayGroupBox.Text = "Display";
+            // 
+            // DPadDisplayTableLayoutPanel
+            // 
+            this.DPadDisplayTableLayoutPanel.ColumnCount = 3;
+            this.DPadDisplayTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.DPadDisplayTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.DPadDisplayTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.DPadDisplayTableLayoutPanel.Controls.Add(this.DPadHideCheckBox, 0, 0);
+            this.DPadDisplayTableLayoutPanel.Controls.Add(this.DPadDisplayLeftRadioButton, 1, 0);
+            this.DPadDisplayTableLayoutPanel.Controls.Add(this.DPadDisplayRightRadioButton, 2, 0);
+            this.DPadDisplayTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DPadDisplayTableLayoutPanel.Location = new System.Drawing.Point(3, 16);
+            this.DPadDisplayTableLayoutPanel.Name = "DPadDisplayTableLayoutPanel";
+            this.DPadDisplayTableLayoutPanel.RowCount = 1;
+            this.DPadDisplayTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.DPadDisplayTableLayoutPanel.Size = new System.Drawing.Size(240, 23);
+            this.DPadDisplayTableLayoutPanel.TabIndex = 0;
+            // 
+            // DPadHideCheckBox
+            // 
+            this.DPadHideCheckBox.AutoSize = true;
+            this.DPadHideCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DPadHideCheckBox.Location = new System.Drawing.Point(3, 3);
+            this.DPadHideCheckBox.Name = "DPadHideCheckBox";
+            this.DPadHideCheckBox.Size = new System.Drawing.Size(114, 17);
+            this.DPadHideCheckBox.TabIndex = 0;
+            this.DPadHideCheckBox.Text = "Hide";
+            this.DPadHideCheckBox.UseVisualStyleBackColor = true;
+            this.DPadHideCheckBox.CheckedChanged += new System.EventHandler(this.DPadHideCheckBox_CheckedChanged);
+            // 
+            // DPadDisplayLeftRadioButton
+            // 
+            this.DPadDisplayLeftRadioButton.AutoSize = true;
+            this.DPadDisplayLeftRadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DPadDisplayLeftRadioButton.Location = new System.Drawing.Point(123, 3);
+            this.DPadDisplayLeftRadioButton.Name = "DPadDisplayLeftRadioButton";
+            this.DPadDisplayLeftRadioButton.Size = new System.Drawing.Size(54, 17);
+            this.DPadDisplayLeftRadioButton.TabIndex = 1;
+            this.DPadDisplayLeftRadioButton.TabStop = true;
+            this.DPadDisplayLeftRadioButton.Text = "Left";
+            this.DPadDisplayLeftRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // DPadDisplayRightRadioButton
+            // 
+            this.DPadDisplayRightRadioButton.AutoSize = true;
+            this.DPadDisplayRightRadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DPadDisplayRightRadioButton.Location = new System.Drawing.Point(183, 3);
+            this.DPadDisplayRightRadioButton.Name = "DPadDisplayRightRadioButton";
+            this.DPadDisplayRightRadioButton.Size = new System.Drawing.Size(54, 17);
+            this.DPadDisplayRightRadioButton.TabIndex = 2;
+            this.DPadDisplayRightRadioButton.TabStop = true;
+            this.DPadDisplayRightRadioButton.Text = "Right";
+            this.DPadDisplayRightRadioButton.UseVisualStyleBackColor = true;
+            // 
             // DPadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(258, 215);
+            this.ClientSize = new System.Drawing.Size(258, 259);
             this.Controls.Add(this.BottomPanel);
             this.Controls.Add(this.DPadItemsGroupBox);
+            this.Controls.Add(this.DPadDisplayGroupBox);
             this.Controls.Add(this.DPadTableLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -262,6 +334,9 @@
             this.DPadTableLayoutPanel.ResumeLayout(false);
             this.DPadTableLayoutPanel.PerformLayout();
             this.BottomPanel.ResumeLayout(false);
+            this.DPadDisplayGroupBox.ResumeLayout(false);
+            this.DPadDisplayTableLayoutPanel.ResumeLayout(false);
+            this.DPadDisplayTableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -283,5 +358,10 @@
         private System.Windows.Forms.ComboBox DPadItemLeftComboBox;
         private System.Windows.Forms.Panel BottomPanel;
         private System.Windows.Forms.Button UpdateButton;
+        private System.Windows.Forms.GroupBox DPadDisplayGroupBox;
+        private System.Windows.Forms.TableLayoutPanel DPadDisplayTableLayoutPanel;
+        private System.Windows.Forms.CheckBox DPadHideCheckBox;
+        private System.Windows.Forms.RadioButton DPadDisplayLeftRadioButton;
+        private System.Windows.Forms.RadioButton DPadDisplayRightRadioButton;
     }
 }

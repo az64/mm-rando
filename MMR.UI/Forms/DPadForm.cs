@@ -16,7 +16,7 @@ namespace MMR.UI.Forms
         /// <summary>
         /// Get the selected <see cref="DPadConfig"/>.
         /// </summary>
-        public DPadConfig Config => new DPadConfig(Selected, State);
+        public DPadConfig Config => new DPadConfig(Selected, State, Display);
 
         /// <summary>
         /// Get the <see cref="DPad"/> from current custom values.
@@ -59,6 +59,17 @@ namespace MMR.UI.Forms
                     return ((DPadPreset)selected).Pad;
                 else
                     return this.Custom;
+            }
+        }
+
+        public DPadDisplay Display {
+            get {
+                if (DPadHideCheckBox.Checked)
+                    return DPadDisplay.None;
+                else if (DPadDisplayLeftRadioButton.Checked)
+                    return DPadDisplay.Left;
+                else
+                    return DPadDisplay.Right;
             }
         }
 
@@ -118,8 +129,16 @@ namespace MMR.UI.Forms
             else
                 EnabledCheckBox.Checked = false;
 
+            // Initialize the display groupbox
+            if (config.Display != DPadDisplay.Right)
+                DPadDisplayLeftRadioButton.Checked = true;
+            else
+                DPadDisplayRightRadioButton.Checked = true;
+            DPadHideCheckBox.Checked = (config.Display == DPadDisplay.None);
+
             UpdatePresetComboBox();
             UpdateItemComboBoxes();
+            UpdateDisplayGroupBox();
         }
 
         #region Forms Code
@@ -140,6 +159,24 @@ namespace MMR.UI.Forms
                 var item = (DPadItem)combo.SelectedItem;
                 _custom[index] = item.Value;
             }
+        }
+
+        private void UpdateDisplayGroupBox()
+        {
+            var buttons = new RadioButton[]
+            {
+                DPadDisplayLeftRadioButton,
+                DPadDisplayRightRadioButton,
+            };
+
+            bool stateEnabled = EnabledCheckBox.Checked;
+
+            // Update radio buttons to be enabled/disabled depending on if "hide" is checked
+            bool displayEnabled = !DPadHideCheckBox.Checked && stateEnabled;
+            foreach (var button in buttons)
+                button.Enabled = displayEnabled;
+
+            DPadHideCheckBox.Enabled = stateEnabled;
         }
 
         private void UpdateItemComboBoxes()
@@ -192,6 +229,7 @@ namespace MMR.UI.Forms
         {
             UpdatePresetComboBox();
             UpdateItemComboBoxes();
+            UpdateDisplayGroupBox();
         }
 
         private void UpdateButton_Click(object sender, EventArgs e)
@@ -200,6 +238,10 @@ namespace MMR.UI.Forms
             this.Close();
         }
 
+        private void DPadHideCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDisplayGroupBox();
+        }
         #endregion
     }
 }

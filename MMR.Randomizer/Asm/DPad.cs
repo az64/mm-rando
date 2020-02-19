@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 
 namespace MMR.Randomizer.Asm
 {
@@ -36,9 +37,50 @@ namespace MMR.Randomizer.Asm
     }
 
     /// <summary>
+    /// D-Pad display type.
+    /// </summary>
+    public enum DPadDisplay : byte
+    {
+        None,
+        Left,
+        Right,
+    }
+
+    /// <summary>
+    /// D-Pad configuration structure.
+    /// </summary>
+    public struct DPadConfigStruct : IAsmConfigStruct
+    {
+        public uint Version;
+        public byte[] Items;
+        public byte State;
+        public byte Display;
+
+        /// <summary>
+        /// Convert to bytes.
+        /// </summary>
+        /// <returns>Bytes</returns>
+        public byte[] ToBytes()
+        {
+            using (var memStream = new MemoryStream())
+            using (var writer = new BinaryWriter(memStream))
+            {
+                writer.Write(this.Version);
+
+                // Version 0
+                writer.Write(this.Items);
+                writer.Write(this.State);
+                writer.Write(this.Display);
+
+                return memStream.ToArray();
+            }
+        }
+    }
+
+    /// <summary>
     /// Container for all D-Pad configuration variables.
     /// </summary>
-    public class DPadConfig
+    public class DPadConfig : AsmConfig
     {
         /// <summary>
         /// D-Pad values.
@@ -50,15 +92,21 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         public DPadState State { get; set; }
 
+        /// <summary>
+        /// Where the D-Pad displays on-screen.
+        /// </summary>
+        public DPadDisplay Display { get; set; }
+
         public DPadConfig()
-            : this(DPad.Default, DPadState.Enabled)
+            : this(DPad.Default, DPadState.Enabled, DPadDisplay.Left)
         {
         }
 
-        public DPadConfig(DPad pad, DPadState state)
+        public DPadConfig(DPad pad, DPadState state, DPadDisplay display)
         {
             this.Pad = pad;
             this.State = state;
+            this.Display = display;
         }
 
         /// <summary>
@@ -77,6 +125,25 @@ namespace MMR.Randomizer.Asm
                     return this.Pad.Values.Select(x => x != DPadValue.None).ToArray();
                 }
             }
+        }
+
+        /// <summary>
+        /// Get a <see cref="DPadConfigStruct"/> representation which can be converted to bytes.
+        /// </summary>
+        /// <param name="version">Structure version</param>
+        /// <returns>Configuration structure</returns>
+        public override IAsmConfigStruct ToStruct(uint version)
+        {
+            var items = new byte[0x10];
+            this.Pad.Bytes.CopyTo(items, 0);
+
+            return new DPadConfigStruct
+            {
+                Version = version,
+                Items = items,
+                State = (byte)this.State,
+                Display = (byte)this.Display,
+            };
         }
     }
 

@@ -1061,26 +1061,53 @@ namespace MMR.Randomizer
             RomData.MMFileList[1142].Data = data.ToArray();
         }
 
-        private void WriteAsmPatch()
+        private void WriteAsmPatch(AsmContext asm)
         {
-            // Load patcher from internal resource file
-            var patcher = Patcher.Load();
-            var options = _settings.PatcherOptions;
-
             // Load the symbols and use them to apply the patch data
-            patcher.Apply(options);
+            var options = _settings.AsmOptions;
+            asm.ApplyPatch(options);
         }
 
-        private void WriteAsmConfigPostPatch()
+        private void WriteAsmConfig(AsmContext asm, byte[] hash)
         {
-            // Parse Symbols data from the ROM (specific MMFile)
-            Symbols symbols = Symbols.FromROM();
+            UpdateHudColorOverrides(hash);
 
-            if (symbols != null)
-            {
-                // Apply current configuration on top of existing Asm patch file
-                symbols.TryApplyConfiguration(_settings.PatcherOptions);
-            }
+            // Apply Asm configuration (after hash has been calculated)
+            var options = _settings.AsmOptions;
+            options.MiscConfig.Hash = hash;
+            asm.ApplyPostConfiguration(options, false);
+        }
+
+        private void WriteAsmConfigPostPatch(AsmContext asm, byte[] hash)
+        {
+            UpdateHudColorOverrides(hash);
+
+            // Apply current configuration on top of existing Asm patch file
+            var options = _settings.AsmOptions;
+            options.MiscConfig.Hash = hash;
+            asm.ApplyPostConfiguration(options, true);
+        }
+
+        /// <summary>
+        /// Update the HUD colors override options.
+        /// </summary>
+        /// <param name="hash">Hash which is used with <see cref="Random"/></param>
+        private void UpdateHudColorOverrides(byte[] hash)
+        {
+            var config = _settings.AsmOptions.HudColorsConfig;
+            var random = new Random(BitConverter.ToInt32(hash, 0));
+
+            // Update override for heart colors
+            if (_settings.HeartsSelection != null)
+                config.HeartsOverride = _settings.HeartsSelection.GetColors(random);
+            else
+                config.HeartsOverride = null;
+
+            // Update override for magic meter colors
+            if (_settings.MagicSelection != null)
+                config.MagicOverride = _settings.MagicSelection.GetColors(random);
+            else
+                config.MagicOverride = null;
         }
 
         public void MakeROM(string InFile, string FileName, IProgressReporter progressReporter)
@@ -1099,8 +1126,11 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(50, "Applying patch...");
                 hash = RomUtils.ApplyPatch(_settings.InputPatchFilename);
 
+                // Parse Symbols data from the ROM (specific MMFile)
+                var asm = AsmContext.LoadFromROM();
+
                 // Apply Asm configuration post-patch
-                WriteAsmConfigPostPatch();
+                WriteAsmConfigPostPatch(asm, hash);
             }
             else
             {
@@ -1153,11 +1183,16 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(69, "Writing startup...");
                 WriteStartupStrings();
 
+                // Load Asm data from internal resource files and apply
+                var asm = AsmContext.LoadInternal();
                 progressReporter.ReportProgress(70, "Writing ASM patch...");
-                WriteAsmPatch();
+                WriteAsmPatch(asm);
                 
                 progressReporter.ReportProgress(71, _settings.GeneratePatch ? "Generating patch..." : "Computing hash...");
                 hash = RomUtils.CreatePatch(_settings.GeneratePatch ? FileName : null, originalMMFileList);
+
+                // Write subset of Asm config post-patch
+                WriteAsmConfig(asm, hash);
             }
 
             progressReporter.ReportProgress(72, "Writing cosmetics...");
@@ -1186,7 +1221,7 @@ namespace MMR.Randomizer
                 if (_settings.OutputVC)
                 {
                     progressReporter.ReportProgress(90, "Writing VC...");
-                    VCInjectionUtils.BuildVC(ROM, _settings.PatcherOptions, Values.VCDirectory, Path.ChangeExtension(FileName, "wad"));
+                    VCInjectionUtils.BuildVC(ROM, _settings.AsmOptions, Values.VCDirectory, Path.ChangeExtension(FileName, "wad"));
                 }
             }
             progressReporter.ReportProgress(100, "Done!");

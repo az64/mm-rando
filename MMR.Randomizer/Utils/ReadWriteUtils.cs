@@ -158,6 +158,16 @@ namespace MMR.Randomizer.Utils
                 + RomData.MMFileList[f].Data[src + 1]);
         }
 
+        public static uint ReadU32(int address)
+        {
+            int f = RomUtils.GetFileIndexForWriting(address);
+            int src = address - RomData.MMFileList[f].Addr;
+            return (uint)((RomData.MMFileList[f].Data[src] << 24)
+                | (RomData.MMFileList[f].Data[src + 1] << 16)
+                | (RomData.MMFileList[f].Data[src + 2] << 8)
+                | (RomData.MMFileList[f].Data[src + 3]));
+        }
+
         public static byte Read(int address)
         {
             int f = RomUtils.GetFileIndexForWriting(address);
@@ -165,6 +175,20 @@ namespace MMR.Randomizer.Utils
             return RomData.MMFileList[f].Data[src];
         }
 
+        /// <summary>
+        /// Copy bytes from a source array to a dest array of a specific length.
+        /// </summary>
+        /// <param name="src">Source array</param>
+        /// <param name="length">Dest length</param>
+        /// <returns>Dest bytes</returns>
+        public static byte[] CopyBytes(byte[] src, uint length)
+        {
+            var dest = new byte[length];
+            var amount = Math.Min(src.Length, dest.Length);
+            for (var i = 0; i < amount; i++)
+                dest[i] = src[i];
+            return dest;
+        }
     }
 
 }
