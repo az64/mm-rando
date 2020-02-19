@@ -228,6 +228,10 @@ namespace MMR.Randomizer
             if (_settings.ShortenCutscenes)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "short-cutscenes");
+            //}
+            // if (_settings.RemoveTatlInterrupts)
+            //{
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "remove-tatl-interrupts");
             }
         }
 

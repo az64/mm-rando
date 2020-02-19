@@ -239,6 +239,9 @@
     <None Update="Resources\mods\reloc-audio">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\mods\remove-tatl-interrupts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\mods\replace-gi-table">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
