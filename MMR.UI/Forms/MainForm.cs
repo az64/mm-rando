@@ -33,9 +33,6 @@ namespace MMR.UI.Forms
 
         public const string SETTINGS_EXTENSION = ".cfg";
 
-        private Randomizer _randomizer;
-        private Builder _builder;
-
 
         public static string AssemblyVersion
         {
@@ -51,8 +48,6 @@ namespace MMR.UI.Forms
             InitializeComponent();
             InitializeSettings();
             InitializeTooltips();
-
-            _randomizer = new Randomizer(_settings);
 
             ItemEditor = new ItemEditForm(_settings);
             ItemEditor.FormClosing += ItemEditor_FormClosing;
