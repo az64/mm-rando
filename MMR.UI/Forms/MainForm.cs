@@ -752,23 +752,19 @@ namespace MMR.UI.Forms
 
         private void mExit_Click(object sender, EventArgs e)
         {
-            StartClose();
+            SaveAndClose();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-
-            if(!StartClose())
-            {
-                e.Cancel = true;
-            }
+            SaveAndClose();
         }
 
-        private bool StartClose()
+        private void SaveAndClose()
         {
             SaveSettings();
-            return true;
+            Application.Exit();
         }
 
         private void mAbout_Click(object sender, EventArgs e)
