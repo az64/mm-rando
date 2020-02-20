@@ -1244,6 +1244,7 @@ namespace MMR.UI.Forms
             {
                 settingsFile.WriteLine("#MMR Settings File [" + AssemblyVersion + "]");
                 settingsFile.WriteLine("#settings " + _settings.ToString());
+                settingsFile.WriteLine("#hudcolors " + _settings.AsmOptions.HudColorsConfig.Colors.ToBase36String());
                 if (_settings.UseCustomItemList)
                 {
                     settingsFile.WriteLine("#itemlist " + _settings.CustomItemListString);
@@ -1343,6 +1344,12 @@ namespace MMR.UI.Forms
                                 {
                                     _settings.UserLogicFileName = string.Empty;
                                 }
+                                break;
+                            case "hudcolors":
+                                // Load HUD colors from string, apply to Settings object & HudConfigForm
+                                var colors = HudColors.FromBase36String(parameter);
+                                HudConfig.Update(colors);
+                                _settings.AsmOptions.HudColorsConfig.Colors = colors;
                                 break;
                         }
                     }

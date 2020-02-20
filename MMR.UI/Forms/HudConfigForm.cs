@@ -66,6 +66,15 @@ namespace MMR.UI.Forms
         }
 
         /// <summary>
+        /// Update the currently selected colors.
+        /// </summary>
+        /// <param name="colors">Colors</param>
+        public void Update(HudColors colors)
+        {
+            FromColors(colors);
+        }
+
+        /// <summary>
         /// Update all component colors from <see cref="HudColors"/>.
         /// </summary>
         /// <param name="colors">Colors</param>
