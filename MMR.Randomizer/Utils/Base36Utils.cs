@@ -36,6 +36,30 @@ namespace MMR.Randomizer.Utils
         }
 
         /// <summary>
+        /// Encode the given sequence of bytes into a Base36 string.
+        /// </summary>
+        /// <param name="bytes">Bytes</param>
+        /// <param name="sep">Separator character</param>
+        /// <returns>String</returns>
+        public static String EncodeBytes(byte[] bytes, char sep = '-')
+        {
+            var ints = ConvertUtils.BytesToIntArray(bytes);
+            return EncodeIntArray(ints, sep);
+        }
+
+        /// <summary>
+        /// Encode the given sequence of integers into a Base36 string.
+        /// </summary>
+        /// <param name="ints">Integers</param>
+        /// <param name="sep">Separator character</param>
+        /// <returns>String</returns>
+        public static String EncodeIntArray(int[] ints, char sep = '-')
+        {
+            var partsEncoded = ints.Select(p => Base36Utils.Encode((uint)p)).ToArray();
+            return string.Join(sep.ToString(), partsEncoded);
+        }
+
+        /// <summary>
         /// Decode the Base36 Encoded string into a number
         /// </summary>
         /// <param name="input"></param>
@@ -51,6 +75,31 @@ namespace MMR.Randomizer.Utils
                 pos++;
             }
             return result;
+        }
+
+        /// <summary>
+        /// Decode the Base36 encoded string into bytes.
+        /// </summary>
+        /// <param name="input">Encoded string</param>
+        /// <param name="sep">Separator character</param>
+        /// <returns>Decoded bytes</returns>
+        public static byte[] DecodeBytes(string input, char sep = '-')
+        {
+            var ints = DecodeIntArray(input, sep);
+            return ConvertUtils.IntArrayToBytes(ints);
+        }
+
+        /// <summary>
+        /// Decode the Base36 encoded string into an integer array.
+        /// </summary>
+        /// <param name="input">Encoded string</param>
+        /// <param name="sep">Separator character</param>
+        /// <returns>Decoded integer array</returns>
+        public static int[] DecodeIntArray(string input, char sep = '-')
+        {
+            var fields = input.Split(sep);
+            var results = fields.Select((field) => (int)Decode(field)).ToArray();
+            return results;
         }
     }
 

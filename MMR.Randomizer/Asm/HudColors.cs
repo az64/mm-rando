@@ -70,6 +70,11 @@ namespace MMR.Randomizer.Asm
             From(colors);
         }
 
+        public HudColors(byte[] bytes)
+        {
+            FromBytes(bytes);
+        }
+
         /// <summary>
         /// Clone to a new <see cref="HudColors"/>.
         /// </summary>
@@ -105,6 +110,67 @@ namespace MMR.Randomizer.Asm
             RupeeIcon1 = colors[17];
             RupeeIcon2 = colors[18];
             RupeeIcon3 = colors[19];
+        }
+
+        /// <summary>
+        /// Decode a <see cref="HudColors"/> from a Base36 encoded string.
+        /// </summary>
+        /// <param name="value">Encoded string</param>
+        /// <returns>HudColors</returns>
+        public static HudColors FromBase36String(string value)
+        {
+            var bytes = Base36Utils.DecodeBytes(value);
+            return new HudColors(bytes);
+        }
+
+        /// <summary>
+        /// Deserialize from bytes.
+        /// </summary>
+        /// <param name="bytes">Bytes</param>
+        void FromBytes(byte[] bytes)
+        {
+            using (var memoryStream = new MemoryStream(bytes))
+            using (var reader = new BinaryReader(memoryStream))
+            {
+                var list = new List<Color>();
+                var count = bytes.Length / 3;
+                for (var i = 0; i < count; i++)
+                {
+                    var c = reader.ReadBytes(3);
+                    var color = Color.FromArgb(c[0], c[1], c[2]);
+                    list.Add(color);
+                }
+                From(list.ToArray());
+            }
+        }
+
+        /// <summary>
+        /// Encode into a Base36 encoded string.
+        /// </summary>
+        /// <returns>Encoded string</returns>
+        public string ToBase36String()
+        {
+            return Base36Utils.EncodeBytes(this.ToBytes());
+        }
+
+        /// <summary>
+        /// Serialize to bytes.
+        /// </summary>
+        /// <returns>Bytes</returns>
+        public byte[] ToBytes()
+        {
+            using (var memoryStream = new MemoryStream())
+            using (var writer = new BinaryWriter(memoryStream))
+            {
+                foreach (var color in this.All)
+                {
+                    writer.Write(color.R);
+                    writer.Write(color.G);
+                    writer.Write(color.B);
+                }
+
+                return memoryStream.ToArray();
+            }
         }
     }
 
