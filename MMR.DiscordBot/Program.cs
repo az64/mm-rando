@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
+using MMR.Common.Utils;
 
 namespace MMR.DiscordBot
 {
@@ -103,7 +104,7 @@ namespace MMR.DiscordBot
                     await message.Channel.SendMessageAsync("You haven't generated any seeds recently.");
                     return;
                 }
-                var requestedLog = MakeFilenameValid(_lastRequestedSeed[message.Author.Id].ToString("o"));
+                var requestedLog = FileUtils.MakeFilenameValid(_lastRequestedSeed[message.Author.Id].ToString("o"));
                 var spoilerLogFilename = Path.Combine(_cliPath, $@"output\{requestedLog}_SpoilerLog.txt");
                 if (File.Exists(spoilerLogFilename))
                 {
@@ -127,7 +128,7 @@ namespace MMR.DiscordBot
                 var messageResult = await message.Channel.SendMessageAsync("Generating seed...");
                 new Thread(async () =>
                 {
-                    var filename = MakeFilenameValid(now.ToString("o"));
+                    var filename = FileUtils.MakeFilenameValid(now.ToString("o"));
                     var success = false;
                     try
                     {
@@ -155,12 +156,6 @@ namespace MMR.DiscordBot
                     }
                 }).Start();
             }
-        }
-
-        private string MakeFilenameValid(string filename)
-        {
-            foreach (var c in Path.GetInvalidFileNameChars()) { filename = filename.Replace(c, '-'); }
-            return filename;
         }
 
         private async Task<bool> GenerateSeed(string filename)

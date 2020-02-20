@@ -21,12 +21,7 @@ namespace MMR.Randomizer
     {
         public static readonly string AssemblyVersion = typeof(Randomizer).Assembly.GetName().Version.ToString();
 
-        private Random _random { get; set; }
-        public Random Random
-        {
-            get => _random;
-            set => _random = value;
-        }
+        private Random Random { get; set; }
 
         public ItemList ItemList { get; set; }
 
@@ -79,12 +74,14 @@ namespace MMR.Randomizer
 
         #endregion
 
-        private SettingsObject _settings;
+        private GameplaySettings _settings;
+        private int _seed;
         private RandomizedResult _randomized;
 
-        public Randomizer(SettingsObject settings)
+        public Randomizer(GameplaySettings settings, int seed)
         {
             _settings = settings;
+            _seed = seed;
             if (!_settings.PreventDowngrades)
             {
                 ForbiddenReplacedBy[Item.MaskKeaton].AddRange(ItemUtils.DowngradableItems());
@@ -180,29 +177,6 @@ namespace MMR.Randomizer
             _randomized.NewExitIndices = newExitIndices;
             _randomized.NewDCFlags = newDCFlags;
             _randomized.NewDCMasks = newDCMasks;
-        }
-
-        private void SetTatlColour()
-        {
-            if (_settings.TatlColorSchema == TatlColorSchema.Rainbow)
-            {
-                for (int i = 0; i < 10; i++)
-                {
-                    byte[] c = new byte[4];
-                    Random.NextBytes(c);
-
-                    if ((i % 2) == 0)
-                    {
-                        c[0] = 0xFF;
-                    }
-                    else
-                    {
-                        c[0] = 0;
-                    }
-
-                    Values.TatlColours[4, i] = BitConverter.ToUInt32(c, 0);
-                }
-            }
         }
 
         private void UpdateLogicForSettings()
@@ -415,9 +389,9 @@ namespace MMR.Randomizer
             }
         }
 
-        public void SeedRNG()
+        private void SeedRNG()
         {
-            Random = new Random(_settings.Seed);
+            Random = new Random(_seed);
         }
 
         private string[] ReadRulesetFromResources()
@@ -437,7 +411,13 @@ namespace MMR.Randomizer
             {
                 using (StreamReader Req = new StreamReader(File.Open(_settings.UserLogicFileName, FileMode.Open)))
                 {
-                    lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                    var logic = Req.ReadToEnd();
+                    if (logic.StartsWith("{"))
+                    {
+                        var configurationLogic = Configuration.FromJson(logic);
+                        logic = configurationLogic.Logic;
+                    }
+                    lines = logic.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
                 }
             }
 
@@ -1628,7 +1608,7 @@ namespace MMR.Randomizer
         {
             SeedRNG();
 
-            _randomized = new RandomizedResult(_settings, Random);
+            _randomized = new RandomizedResult(_settings, _seed);
 
             if (_settings.LogicMode != LogicMode.Vanilla)
             {
@@ -1731,12 +1711,6 @@ namespace MMR.Randomizer
                     MakeGossipQuotes();
                 }
             }
-
-            progressReporter.ReportProgress(40, "Coloring Tatl...");
-
-            //Randomize tatl colour
-            SeedRNG();
-            SetTatlColour();
 
             return _randomized;
         }

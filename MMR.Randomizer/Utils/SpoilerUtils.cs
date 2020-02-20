@@ -12,22 +12,22 @@ namespace MMR.Randomizer.Utils
 {
     public static class SpoilerUtils
     {
-        public static void CreateSpoilerLog(RandomizedResult randomized, SettingsObject settings)
+        public static void CreateSpoilerLog(RandomizedResult randomized, GameplaySettings settings, OutputSettings outputSettings)
         {
             var itemList = randomized.ItemList
                 .Where(io => !io.Item.IsFake())
                 .Select(u => new SpoilerItem(u, ItemUtils.IsRequired(u.Item, randomized), ItemUtils.IsImportant(u.Item, randomized)));
             var settingsString = settings.ToString();
 
-            var directory = Path.GetDirectoryName(settings.OutputROMFilename);
-            var filename = $"{Path.GetFileNameWithoutExtension(settings.OutputROMFilename)}";
+            var directory = Path.GetDirectoryName(outputSettings.OutputROMFilename);
+            var filename = $"{Path.GetFileNameWithoutExtension(outputSettings.OutputROMFilename)}";
 
             var plainTextRegex = new Regex("[^a-zA-Z0-9' .\\-]+");
             Spoiler spoiler = new Spoiler()
             {
                 Version = Randomizer.AssemblyVersion,
                 SettingsString = settingsString,
-                Seed = settings.Seed,
+                Seed = randomized.Seed,
                 RandomizeDungeonEntrances = settings.RandomizeDungeonEntrances,
                 ItemList = itemList.Where(u => !u.Item.IsFake()).ToList(),
                 NewDestinationIndices = randomized.NewDestinationIndices,
@@ -58,7 +58,7 @@ namespace MMR.Randomizer.Utils
                 }),
             };
 
-            if (settings.GenerateHTMLLog)
+            if (outputSettings.GenerateHTMLLog)
             {
                 using (StreamWriter newlog = new StreamWriter(Path.Combine(directory, filename + "_Tracker.html")))
                 {
@@ -67,7 +67,7 @@ namespace MMR.Randomizer.Utils
                 }
             }
             
-            if (settings.GenerateSpoilerLog)
+            if (outputSettings.GenerateSpoilerLog)
             {
                 CreateTextSpoilerLog(spoiler, Path.Combine(directory, filename + "_SpoilerLog.txt"));
             }

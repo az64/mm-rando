@@ -13,17 +13,17 @@ namespace MMR.UI.Forms
     public partial class StartingItemEditForm : Form
     {
         private readonly List<Item> _startingItems;
-        private readonly SettingsObject _settings;
         private bool updating = false;
         private const int ItemGroupCount = 3;
 
         public string ExternalLabel { get; private set; }
+        public List<Item> CustomStartingItemList { get; private set; } = new List<Item>();
+        public string CustomStartingItemListString { get; private set; }
 
-        public StartingItemEditForm(SettingsObject settings)
+        public StartingItemEditForm()
         {
             InitializeComponent();
 
-            _settings = settings;
             _startingItems = ItemUtils.StartingItems().Where(item => !item.Name().Contains("Heart")).ToList();
 
             foreach (var item in _startingItems)
@@ -31,10 +31,10 @@ namespace MMR.UI.Forms
                 lStartingItems.Items.Add(item.Name());
             }
 
-            if (_settings.CustomStartingItemList != null)
+            if (CustomStartingItemList != null)
             {
-                UpdateString(_settings.CustomStartingItemList);
-                ExternalLabel = $"{_settings.CustomStartingItemList.Count}/{_startingItems.Count} items selected";
+                UpdateString(CustomStartingItemList);
+                ExternalLabel = $"{CustomStartingItemList.Count}/{_startingItems.Count} items selected";
             }
             else
             {
@@ -64,7 +64,7 @@ namespace MMR.UI.Forms
                 ns[j] = Convert.ToString(n[j], 16);
             }
             tStartingItemsString.Text = ns[2] + "-" + ns[1] + "-" + ns[0];
-            _settings.CustomStartingItemListString = tStartingItemsString.Text;
+            CustomStartingItemListString = tStartingItemsString.Text;
         }
 
         public void UpdateChecks(string c)
@@ -73,8 +73,8 @@ namespace MMR.UI.Forms
             try
             {
                 tStartingItemsString.Text = c;
-                _settings.CustomStartingItemListString = c;
-                _settings.CustomStartingItemList.Clear();
+                CustomStartingItemListString = c;
+                CustomStartingItemList.Clear();
                 string[] v = c.Split('-');
                 int[] vi = new int[ItemGroupCount];
                 if (v.Length != vi.Length)
@@ -99,12 +99,12 @@ namespace MMR.UI.Forms
                         {
                             throw new IndexOutOfRangeException();
                         }
-                        _settings.CustomStartingItemList.Add(_startingItems[i]);
+                        CustomStartingItemList.Add(_startingItems[i]);
                     }
                 }
                 foreach (ListViewItem l in lStartingItems.Items)
                 {
-                    if (_settings.CustomStartingItemList.Contains(_startingItems[l.Index]))
+                    if (CustomStartingItemList.Contains(_startingItems[l.Index]))
                     {
                         l.Checked = true;
                     }
@@ -113,11 +113,11 @@ namespace MMR.UI.Forms
                         l.Checked = false;
                     }
                 }
-                ExternalLabel = $"{_settings.CustomStartingItemList.Count}/{_startingItems.Count} items selected";
+                ExternalLabel = $"{CustomStartingItemList.Count}/{_startingItems.Count} items selected";
             }
             catch
             {
-                _settings.CustomStartingItemList.Clear();
+                CustomStartingItemList.Clear();
                 ExternalLabel = "Invalid custom starting item string";
             }
             finally
@@ -143,13 +143,13 @@ namespace MMR.UI.Forms
             updating = true;
             if (e.Item.Checked)
             {
-                _settings.CustomStartingItemList.Add(_startingItems[e.Item.Index]);
+                CustomStartingItemList.Add(_startingItems[e.Item.Index]);
             }
             else
             {
-                _settings.CustomStartingItemList.Remove(_startingItems[e.Item.Index]);
+                CustomStartingItemList.Remove(_startingItems[e.Item.Index]);
             }
-            UpdateString(_settings.CustomStartingItemList);
+            UpdateString(CustomStartingItemList);
             updating = false;
         }
     }

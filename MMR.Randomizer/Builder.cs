@@ -5,13 +5,13 @@ using MMR.Randomizer.Constants;
 using MMR.Randomizer.Extensions;
 using MMR.Randomizer.GameObjects;
 using MMR.Randomizer.Models;
+using MMR.Randomizer.Models.Colors;
 using MMR.Randomizer.Models.Rom;
 using MMR.Randomizer.Models.Settings;
 using MMR.Randomizer.Models.SoundEffects;
 using MMR.Randomizer.Utils;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -21,17 +21,16 @@ using System.Text.RegularExpressions;
 
 namespace MMR.Randomizer
 {
-
     public class Builder
     {
         private RandomizedResult _randomized;
-        private SettingsObject _settings;
+        private CosmeticSettings _cosmeticSettings;
         private MessageTable _messageTable;
 
-        public Builder(RandomizedResult randomized)
+        public Builder(RandomizedResult randomized, CosmeticSettings cosmeticSettings)
         {
             _randomized = randomized;
-            _settings = randomized.Settings;
+            _cosmeticSettings = cosmeticSettings;
             _messageTable = new MessageTable();
         }
 
@@ -94,7 +93,7 @@ namespace MMR.Randomizer
 
         private void WriteAudioSeq(Random random)
         {
-            if (_settings.Music != Music.Random)
+            if (_cosmeticSettings.Music != Music.Random)
             {
                 return;
             }
@@ -114,7 +113,7 @@ namespace MMR.Randomizer
 
         private void WriteMuteMusic()
         {
-            if (_settings.Music == Music.None)
+            if (_cosmeticSettings.Music == Music.None)
             {
                 var codeFileAddress = 0xB3C000;
                 var offset = 0x102350; // address for branch when scene music is loaded
@@ -124,12 +123,12 @@ namespace MMR.Randomizer
 
         private void WritePlayerModel()
         {
-            if (_settings.Character == Character.LinkMM)
+            if (_randomized.Settings.Character == Character.LinkMM)
             {
                 return;
             }
 
-            int characterIndex = (int)_settings.Character;
+            int characterIndex = (int)_randomized.Settings.Character;
 
             using (var b = new BinaryReader(File.Open($"{Values.ObjsDirectory}link-{characterIndex}", FileMode.Open)))
             {
@@ -140,7 +139,7 @@ namespace MMR.Randomizer
                 ObjUtils.InsertObj(obj, 0x11);
             }
 
-            if (_settings.Character == Character.Kafei)
+            if (_randomized.Settings.Character == Character.Kafei)
             {
                 using (var b = new BinaryReader(File.Open($"{Values.ObjsDirectory}kafei", FileMode.Open)))
                 {
@@ -155,11 +154,11 @@ namespace MMR.Randomizer
 
         private void WriteTunicColor()
         {
-            Color t = _settings.TunicColor;
+            Color t = _cosmeticSettings.TunicColor;
             byte[] color = { t.R, t.G, t.B };
 
             var otherTunics = ResourceUtils.GetAddresses(Values.AddrsDirectory, "tunic-forms");
-            TunicUtils.UpdateFormTunics(otherTunics, _settings.TunicColor);
+            TunicUtils.UpdateFormTunics(otherTunics, _cosmeticSettings.TunicColor);
 
             var playerModel = DeterminePlayerModel();
             var characterIndex = (int)playerModel;
@@ -195,11 +194,34 @@ namespace MMR.Randomizer
             throw new Exception("Unable to determine player's model.");
         }
 
-        private void WriteTatlColour()
+        private void SetTatlColour(Random random)
         {
-            if (_settings.TatlColorSchema != TatlColorSchema.Random)
+            if (_cosmeticSettings.TatlColorSchema == TatlColorSchema.Rainbow)
             {
-                var selectedColorSchemaIndex = (int)_settings.TatlColorSchema;
+                for (int i = 0; i < 10; i++)
+                {
+                    byte[] c = new byte[4];
+                    random.NextBytes(c);
+
+                    if ((i % 2) == 0)
+                    {
+                        c[0] = 0xFF;
+                    }
+                    else
+                    {
+                        c[0] = 0;
+                    }
+
+                    Values.TatlColours[4, i] = BitConverter.ToUInt32(c, 0);
+                }
+            }
+        }
+
+        private void WriteTatlColour(Random random)
+        {
+            if (_cosmeticSettings.TatlColorSchema != TatlColorSchema.Random)
+            {
+                var selectedColorSchemaIndex = (int)_cosmeticSettings.TatlColorSchema;
                 byte[] c = new byte[8];
                 List<int[]> locs = ResourceUtils.GetAddresses(Values.AddrsDirectory, "tatl-colour");
                 for (int i = 0; i < locs.Count; i++)
@@ -211,13 +233,14 @@ namespace MMR.Randomizer
             }
             else
             {
+                SetTatlColour(random);
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "rainbow-tatl");
             }
         }
 
         private void WriteQuickText()
         {
-            if (_settings.QuickTextEnabled)
+            if (_randomized.Settings.QuickTextEnabled)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "quick-text");
             }
@@ -225,11 +248,11 @@ namespace MMR.Randomizer
 
         private void WriteCutscenes()
         {
-            if (_settings.ShortenCutscenes)
+            if (_randomized.Settings.ShortenCutscenes)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "short-cutscenes");
             //}
-            // if (_settings.RemoveTatlInterrupts)
+            // if (_randomized.Settings.RemoveTatlInterrupts)
             //{
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "remove-tatl-interrupts");
             }
@@ -237,7 +260,7 @@ namespace MMR.Randomizer
 
         private void WriteDungeons()
         {
-            if ((_settings.LogicMode == LogicMode.Vanilla) || (!_settings.RandomizeDungeonEntrances))
+            if ((_randomized.Settings.LogicMode == LogicMode.Vanilla) || (!_randomized.Settings.RandomizeDungeonEntrances))
             {
                 return;
             }
@@ -289,7 +312,7 @@ namespace MMR.Randomizer
 
         private void WriteSpeedUps()
         {
-            if (_settings.SpeedupBeavers)
+            if (_randomized.Settings.SpeedupBeavers)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "speedup-beavers");
                 _messageTable.UpdateMessages(new MessageEntry
@@ -312,17 +335,17 @@ namespace MMR.Randomizer
                 });
             }
 
-            if (_settings.SpeedupDampe)
+            if (_randomized.Settings.SpeedupDampe)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "speedup-dampe");
             }
 
-            if (_settings.SpeedupLabFish)
+            if (_randomized.Settings.SpeedupLabFish)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "speedup-labfish");
             }
 
-            if (_settings.SpeedupDogRace)
+            if (_randomized.Settings.SpeedupDogRace)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "speedup-dograce");
             }
@@ -330,46 +353,46 @@ namespace MMR.Randomizer
 
         private void WriteGimmicks()
         {
-            int damageMultiplier = (int)_settings.DamageMode;
+            int damageMultiplier = (int)_randomized.Settings.DamageMode;
             if (damageMultiplier > 0)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "dm-" + damageMultiplier.ToString());
             }
 
-            int damageEffect = (int)_settings.DamageEffect;
+            int damageEffect = (int)_randomized.Settings.DamageEffect;
             if (damageEffect > 0)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "de-" + damageEffect.ToString());
             }
 
-            int gravityType = (int)_settings.MovementMode;
+            int gravityType = (int)_randomized.Settings.MovementMode;
             if (gravityType > 0)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "movement-" + gravityType.ToString());
             }
 
-            int floorType = (int)_settings.FloorType;
+            int floorType = (int)_randomized.Settings.FloorType;
             if (floorType > 0)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "floor-" + floorType.ToString());
             }
 
-            if (_settings.ClockSpeed != ClockSpeed.Default)
+            if (_randomized.Settings.ClockSpeed != ClockSpeed.Default)
             {
-                WriteClockSpeed(_settings.ClockSpeed);
+                WriteClockSpeed(_randomized.Settings.ClockSpeed);
             }
 
-            if (_settings.HideClock)
+            if (_randomized.Settings.HideClock)
             {
                 WriteHideClock();
             }
 
-            if (_settings.BlastMaskCooldown != BlastMaskCooldown.Default)
+            if (_randomized.Settings.BlastMaskCooldown != BlastMaskCooldown.Default)
             {
                 WriteBlastMaskCooldown();
             }
 
-            if (_settings.EnableSunsSong)
+            if (_randomized.Settings.EnableSunsSong)
             {
                 WriteSunsSong();
             }
@@ -390,7 +413,7 @@ namespace MMR.Randomizer
         private void WriteBlastMaskCooldown()
         {
             ushort value;
-            switch (_settings.BlastMaskCooldown)
+            switch (_randomized.Settings.BlastMaskCooldown)
             {
                 default:
                 case BlastMaskCooldown.Default:
@@ -492,7 +515,7 @@ namespace MMR.Randomizer
 
         private void WriteSoundEffects(Random random)
         {
-            if (!_randomized.Settings.RandomizeSounds)
+            if (!_cosmeticSettings.RandomizeSounds)
             {
                 return;
             }
@@ -533,9 +556,9 @@ namespace MMR.Randomizer
 
         private void WriteEnemies()
         {
-            if (_settings.RandomizeEnemies)
+            if (_randomized.Settings.RandomizeEnemies)
             {
-                Enemies.ShuffleEnemies(_randomized.Random);
+                Enemies.ShuffleEnemies(new Random(_randomized.Seed));
             }
         }
 
@@ -552,16 +575,16 @@ namespace MMR.Randomizer
         {
             Dictionary<int, byte> startingItems = new Dictionary<int, byte>();
             PutOrCombine(startingItems, 0xC5CE72, 0x10); // add Song of Time
-            if (_settings.EnableSunsSong)
+            if (_randomized.Settings.EnableSunsSong)
             {
                 PutOrCombine(startingItems, 0xC5CE71, 0x02);
             }
 
             var itemList = items.ToList();
 
-            if (_settings.CustomStartingItemList != null)
+            if (_randomized.Settings.CustomStartingItemList != null)
             {
-                itemList.AddRange(_settings.CustomStartingItemList);
+                itemList.AddRange(_randomized.Settings.CustomStartingItemList);
             }
 
             itemList.Add(Item.StartingHeartContainer1);
@@ -583,7 +606,7 @@ namespace MMR.Randomizer
             foreach (var item in itemList)
             {
                 var startingItemValues = item.GetAttributes<StartingItemAttribute>();
-                if (!startingItemValues.Any() && !_settings.NoStartingItems)
+                if (!startingItemValues.Any() && !_randomized.Settings.NoStartingItems)
                 {
                     throw new Exception($@"Invalid starting item ""{item}""");
                 }
@@ -607,7 +630,7 @@ namespace MMR.Randomizer
         private void WriteItems()
         {
             var freeItems = new List<Item>();
-            if (_settings.LogicMode == LogicMode.Vanilla)
+            if (_randomized.Settings.LogicMode == LogicMode.Vanilla)
             {
                 freeItems.Add(Item.FairyMagic);
                 freeItems.Add(Item.MaskDeku);
@@ -617,7 +640,7 @@ namespace MMR.Randomizer
                 freeItems.Add(Item.StartingHeartContainer1);
                 freeItems.Add(Item.StartingHeartContainer2);
 
-                if (_settings.ShortenCutscenes)
+                if (_randomized.Settings.ShortenCutscenes)
                 {
                     //giants cs were removed
                     freeItems.Add(Item.SongOath);
@@ -641,15 +664,15 @@ namespace MMR.Randomizer
             ItemSwapUtils.ReplaceGetItemTable();
             ItemSwapUtils.InitItems();
 
-            if (_settings.FixEponaSword)
+            if (_randomized.Settings.FixEponaSword)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-epona");
             }
-            if (_settings.PreventDowngrades)
+            if (_randomized.Settings.PreventDowngrades)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-downgrades");
             }
-            if (_settings.AddCowMilk)
+            if (_randomized.Settings.AddCowMilk)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-cow-bottle-check");
             }
@@ -674,7 +697,7 @@ namespace MMR.Randomizer
                     {
                         overrideChestType = ChestTypeAttribute.ChestType.LargeGold;
                     }
-                    ItemSwapUtils.WriteNewItem(item.NewLocation.Value, item.Item, newMessages, _settings.UpdateShopAppearance, _settings.PreventDowngrades, _settings.UpdateChests && item.IsRandomized, overrideChestType, _settings.CustomStartingItemList.Contains(item.Item));
+                    ItemSwapUtils.WriteNewItem(item.NewLocation.Value, item.Item, newMessages, _randomized.Settings.UpdateShopAppearance, _randomized.Settings.PreventDowngrades, _randomized.Settings.UpdateChests && item.IsRandomized, overrideChestType, _randomized.Settings.CustomStartingItemList.Contains(item.Item));
                 }
             }
 
@@ -689,7 +712,7 @@ namespace MMR.Randomizer
                 }
             }
 
-            if (_settings.UpdateShopAppearance)
+            if (_randomized.Settings.UpdateShopAppearance)
             {
                 // update tingle shops
                 foreach (var messageShopText in Enum.GetValues(typeof(MessageShopText)).Cast<MessageShopText>())
@@ -882,7 +905,7 @@ namespace MMR.Randomizer
                 Message = "\u0017What's this? You've already saved\u0011up \u00011000 Rupees\u0000?!\u0018\u0011\u0013\u0012Well, little guy, I can't take any\u0011more deposits. Sorry, but this is\u0011all I can give you.\u00E0\u00BF",
             });
 
-            if (_settings.AddSkulltulaTokens)
+            if (_randomized.Settings.AddSkulltulaTokens)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-skulltula-tokens");
 
@@ -900,7 +923,7 @@ namespace MMR.Randomizer
                 });
             }
 
-            if (_settings.AddStrayFairies)
+            if (_randomized.Settings.AddStrayFairies)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-fairies");
             }
@@ -951,7 +974,7 @@ namespace MMR.Randomizer
 
             _messageTable.UpdateMessages(newMessages);
 
-            if (_settings.AddShopItems)
+            if (_randomized.Settings.AddShopItems)
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-shop-checks");
             }
@@ -959,17 +982,17 @@ namespace MMR.Randomizer
 
         private void WriteGossipQuotes()
         {
-            if (_settings.LogicMode == LogicMode.Vanilla)
+            if (_randomized.Settings.LogicMode == LogicMode.Vanilla)
             {
                 return;
             }
 
-            if (_settings.FreeHints)
+            if (_randomized.Settings.FreeHints)
             {
                 WriteFreeHints();
             }
 
-            if (_settings.GossipHintStyle != GossipHintStyle.Default)
+            if (_randomized.Settings.GossipHintStyle != GossipHintStyle.Default)
             {
                 _messageTable.UpdateMessages(_randomized.GossipQuotes);
             }
@@ -1029,13 +1052,13 @@ namespace MMR.Randomizer
 
         private void WriteStartupStrings()
         {
-            if (_settings.LogicMode == LogicMode.Vanilla)
+            if (_randomized.Settings.LogicMode == LogicMode.Vanilla)
             {
                 //ResourceUtils.ApplyHack(ModsDir + "postman-testing");
                 return;
             }
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
-            RomUtils.SetStrings(Values.ModsDirectory, "logo-text", $"v{v}", _settings.ToString());
+            RomUtils.SetStrings(Values.ModsDirectory, "logo-text", $"v{v}", _randomized.Settings.ToString());
         }
 
         private void WriteShopObjects()
@@ -1064,7 +1087,7 @@ namespace MMR.Randomizer
         private void WriteAsmPatch(AsmContext asm)
         {
             // Load the symbols and use them to apply the patch data
-            var options = _settings.AsmOptions;
+            var options = _randomized.Settings.AsmOptions;
             asm.ApplyPatch(options);
         }
 
@@ -1073,7 +1096,7 @@ namespace MMR.Randomizer
             UpdateHudColorOverrides(hash);
 
             // Apply Asm configuration (after hash has been calculated)
-            var options = _settings.AsmOptions;
+            var options = _cosmeticSettings.AsmOptions;
             options.MiscConfig.Hash = hash;
             asm.ApplyPostConfiguration(options, false);
         }
@@ -1083,7 +1106,7 @@ namespace MMR.Randomizer
             UpdateHudColorOverrides(hash);
 
             // Apply current configuration on top of existing Asm patch file
-            var options = _settings.AsmOptions;
+            var options = _cosmeticSettings.AsmOptions;
             options.MiscConfig.Hash = hash;
             asm.ApplyPostConfiguration(options, true);
         }
@@ -1094,25 +1117,25 @@ namespace MMR.Randomizer
         /// <param name="hash">Hash which is used with <see cref="Random"/></param>
         private void UpdateHudColorOverrides(byte[] hash)
         {
-            var config = _settings.AsmOptions.HudColorsConfig;
+            var config = _cosmeticSettings.AsmOptions.HudColorsConfig;
             var random = new Random(BitConverter.ToInt32(hash, 0));
 
             // Update override for heart colors
-            if (_settings.HeartsSelection != null)
-                config.HeartsOverride = _settings.HeartsSelection.GetColors(random);
+            if (_cosmeticSettings.HeartsSelection != null)
+                config.HeartsOverride = ColorSelectionManager.Hearts.GetItems().FirstOrDefault(csi => csi.Name == _cosmeticSettings.HeartsSelection)?.GetColors(random);
             else
                 config.HeartsOverride = null;
 
             // Update override for magic meter colors
-            if (_settings.MagicSelection != null)
-                config.MagicOverride = _settings.MagicSelection.GetColors(random);
+            if (_cosmeticSettings.MagicSelection != null)
+                config.MagicOverride = ColorSelectionManager.MagicMeter.GetItems().FirstOrDefault(csi => csi.Name == _cosmeticSettings.HeartsSelection)?.GetColors(random);
             else
                 config.MagicOverride = null;
         }
 
-        public void MakeROM(string InFile, string FileName, IProgressReporter progressReporter)
+        public void MakeROM(OutputSettings outputSettings, IProgressReporter progressReporter)
         {
-            using (BinaryReader OldROM = new BinaryReader(File.Open(InFile, FileMode.Open, FileAccess.Read)))
+            using (BinaryReader OldROM = new BinaryReader(File.Open(outputSettings.InputROMFilename, FileMode.Open, FileAccess.Read)))
             {
                 RomUtils.ReadFileTable(OldROM);
                 _messageTable.InitializeTable();
@@ -1121,10 +1144,10 @@ namespace MMR.Randomizer
             var originalMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
 
             byte[] hash;
-            if (!string.IsNullOrWhiteSpace(_settings.InputPatchFilename))
+            if (!string.IsNullOrWhiteSpace(outputSettings.InputPatchFilename))
             {
                 progressReporter.ReportProgress(50, "Applying patch...");
-                hash = RomUtils.ApplyPatch(_settings.InputPatchFilename);
+                hash = RomUtils.ApplyPatch(outputSettings.InputPatchFilename);
 
                 // Parse Symbols data from the ROM (specific MMFile)
                 var asm = AsmContext.LoadFromROM();
@@ -1137,7 +1160,7 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(55, "Writing player model...");
                 WritePlayerModel();
 
-                if (_settings.LogicMode != LogicMode.Vanilla)
+                if (_randomized.Settings.LogicMode != LogicMode.Vanilla)
                 {
                     progressReporter.ReportProgress(60, "Applying hacks...");
                     ResourceUtils.ApplyHack(Values.ModsDirectory, "title-screen");
@@ -1178,7 +1201,7 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(68, "Writing messages...");
                 WriteGossipQuotes();
 
-                MessageTable.WriteMessageTable(_messageTable, _settings.QuickTextEnabled);
+                MessageTable.WriteMessageTable(_messageTable, _randomized.Settings.QuickTextEnabled);
 
                 progressReporter.ReportProgress(69, "Writing startup...");
                 WriteStartupStrings();
@@ -1188,15 +1211,15 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(70, "Writing ASM patch...");
                 WriteAsmPatch(asm);
                 
-                progressReporter.ReportProgress(71, _settings.GeneratePatch ? "Generating patch..." : "Computing hash...");
-                hash = RomUtils.CreatePatch(_settings.GeneratePatch ? FileName : null, originalMMFileList);
+                progressReporter.ReportProgress(71, outputSettings.GeneratePatch ? "Generating patch..." : "Computing hash...");
+                hash = RomUtils.CreatePatch(outputSettings.GeneratePatch ? outputSettings.OutputROMFilename : null, originalMMFileList);
 
                 // Write subset of Asm config post-patch
                 WriteAsmConfig(asm, hash);
             }
 
             progressReporter.ReportProgress(72, "Writing cosmetics...");
-            WriteTatlColour();
+            WriteTatlColour(new Random(BitConverter.ToInt32(hash, 0)));
             WriteTunicColor();
 
             progressReporter.ReportProgress(73, "Writing music...");
@@ -1206,22 +1229,22 @@ namespace MMR.Randomizer
             progressReporter.ReportProgress(74, "Writing sound effects...");
             WriteSoundEffects(new Random(BitConverter.ToInt32(hash, 0)));
 
-            if (_settings.GenerateROM || _settings.OutputVC)
+            if (outputSettings.GenerateROM || outputSettings.OutputVC)
             {
                 progressReporter.ReportProgress(75, "Building ROM...");
 
                 byte[] ROM = RomUtils.BuildROM();
 
-                if (_settings.GenerateROM)
+                if (outputSettings.GenerateROM)
                 {
                     progressReporter.ReportProgress(85, "Writing ROM...");
-                    RomUtils.WriteROM(FileName, ROM);
+                    RomUtils.WriteROM(outputSettings.OutputROMFilename, ROM);
                 }
 
-                if (_settings.OutputVC)
+                if (outputSettings.OutputVC)
                 {
                     progressReporter.ReportProgress(90, "Writing VC...");
-                    VCInjectionUtils.BuildVC(ROM, _settings.AsmOptions, Values.VCDirectory, Path.ChangeExtension(FileName, "wad"));
+                    VCInjectionUtils.BuildVC(ROM, _cosmeticSettings.AsmOptions.DPadConfig, Values.VCDirectory, Path.ChangeExtension(outputSettings.OutputROMFilename, "wad"));
                 }
             }
             progressReporter.ReportProgress(100, "Done!");

@@ -5,13 +5,13 @@ using System;
 
 namespace MMR.Randomizer
 {
-    public static class SettingsProcessor
+    public static class ConfigurationProcessor
     {
-        public static string Process(SettingsObject settings, IProgressReporter progressReporter)
+        public static string Process(Configuration configuration, int seed, IProgressReporter progressReporter)
         {
-            var randomizer = new Randomizer(settings);
-            RandomizedResult randomized;
-            if (string.IsNullOrWhiteSpace(settings.InputPatchFilename))
+            var randomizer = new Randomizer(configuration.GameplaySettings, seed);
+            RandomizedResult randomized = null;
+            if (string.IsNullOrWhiteSpace(configuration.OutputSettings.InputPatchFilename))
             {
                 try
                 {
@@ -27,29 +27,25 @@ namespace MMR.Randomizer
                     return ex.Message;
                 }
 
-                if (settings.GenerateSpoilerLog
-                    && settings.LogicMode != LogicMode.Vanilla)
+                if (configuration.OutputSettings.GenerateSpoilerLog
+                    && configuration.GameplaySettings.LogicMode != LogicMode.Vanilla)
                 {
-                    SpoilerUtils.CreateSpoilerLog(randomized, settings);
+                    SpoilerUtils.CreateSpoilerLog(randomized, configuration.GameplaySettings, configuration.OutputSettings);
                 }
             }
-            else
-            {
-                randomized = new RandomizedResult(settings, null);
-            }
 
-            if (settings.GenerateROM || settings.OutputVC || settings.GeneratePatch)
+            if (configuration.OutputSettings.GenerateROM || configuration.OutputSettings.OutputVC || configuration.OutputSettings.GeneratePatch)
             {
-                if (!RomUtils.ValidateROM(settings.InputROMFilename))
+                if (!RomUtils.ValidateROM(configuration.OutputSettings.InputROMFilename))
                 {
                     return "Cannot verify input ROM is Majora's Mask (U).";
                 }
 
-                var builder = new Builder(randomized);
+                var builder = new Builder(randomized, configuration.CosmeticSettings);
 
                 try
                 {
-                    builder.MakeROM(settings.InputROMFilename, settings.OutputROMFilename, progressReporter);
+                    builder.MakeROM(configuration.OutputSettings, progressReporter);
                 }
                 catch (PatchMagicException)
                 {

@@ -36,6 +36,9 @@
     <ApplicationIcon>200px_majoramask_rtw_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -163,6 +166,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -177,6 +181,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MMR.Common\MMR.Common.csproj">
+      <Project>{2FD5DE88-CEAC-45DD-BDF2-B3F3A3B2DD56}</Project>
+      <Name>MMR.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MMR.Randomizer\MMR.Randomizer.csproj">
       <Project>{ada8c910-f308-4767-9b5c-b261d22dcd45}</Project>
       <Name>MMR.Randomizer</Name>

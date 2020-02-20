@@ -12,17 +12,18 @@ namespace MMR.UI.Forms
     public partial class JunkLocationEditForm : Form
     {
         private readonly List<Item> _junkLocations;
-        private readonly SettingsObject _settings;
+        private readonly GameplaySettings _settings;
         private bool updating = false;
         private const int ItemGroupCount = 13;
 
         public string ExternalLabel { get; private set; }
+        public List<Item> CustomJunkLocations { get; private set; } = new List<Item>();
+        public string CustomJunkLocationsString { get; private set; }
 
-        public JunkLocationEditForm(SettingsObject settings)
+        public JunkLocationEditForm()
         {
             InitializeComponent();
 
-            _settings = settings;
             _junkLocations = ItemUtils.AllLocations().ToList();
 
             foreach (var item in _junkLocations)
@@ -30,10 +31,10 @@ namespace MMR.UI.Forms
                 lJunkLocations.Items.Add(item.Location());
             }
 
-            if (_settings.CustomJunkLocations != null)
+            if (CustomJunkLocations != null)
             {
-                UpdateString(_settings.CustomJunkLocations);
-                ExternalLabel = $"{_settings.CustomJunkLocations.Count}/{_junkLocations.Count} items selected";
+                UpdateString(CustomJunkLocations);
+                ExternalLabel = $"{CustomJunkLocations.Count}/{_junkLocations.Count} items selected";
             }
             else
             {
@@ -64,7 +65,7 @@ namespace MMR.UI.Forms
             }
 
             tJunkLocationsString.Text = string.Join("-", ns.Reverse());
-            _settings.CustomJunkLocationsString = tJunkLocationsString.Text;
+            CustomJunkLocationsString = tJunkLocationsString.Text;
         }
 
         public void UpdateChecks(string c)
@@ -73,8 +74,8 @@ namespace MMR.UI.Forms
             try
             {
                 tJunkLocationsString.Text = c;
-                _settings.CustomJunkLocationsString = c;
-                _settings.CustomJunkLocations.Clear();
+                CustomJunkLocationsString = c;
+                CustomJunkLocations.Clear();
                 string[] v = c.Split('-');
                 int[] vi = new int[ItemGroupCount];
                 if (v.Length != vi.Length)
@@ -99,12 +100,12 @@ namespace MMR.UI.Forms
                         {
                             throw new IndexOutOfRangeException();
                         }
-                        _settings.CustomJunkLocations.Add(_junkLocations[i]);
+                        CustomJunkLocations.Add(_junkLocations[i]);
                     }
                 }
                 foreach (ListViewItem l in lJunkLocations.Items)
                 {
-                    if (_settings.CustomJunkLocations.Contains(_junkLocations[l.Index]))
+                    if (CustomJunkLocations.Contains(_junkLocations[l.Index]))
                     {
                         l.Checked = true;
                     }
@@ -113,11 +114,11 @@ namespace MMR.UI.Forms
                         l.Checked = false;
                     }
                 }
-                ExternalLabel = $"{_settings.CustomJunkLocations.Count}/{_junkLocations.Count} locations selected";
+                ExternalLabel = $"{CustomJunkLocations.Count}/{_junkLocations.Count} locations selected";
             }
             catch
             {
-                _settings.CustomJunkLocations.Clear();
+                CustomJunkLocations.Clear();
                 ExternalLabel = "Invalid junk locations string";
             }
             finally
@@ -143,13 +144,13 @@ namespace MMR.UI.Forms
             updating = true;
             if (e.Item.Checked)
             {
-                _settings.CustomJunkLocations.Add(_junkLocations[e.Item.Index]);
+                CustomJunkLocations.Add(_junkLocations[e.Item.Index]);
             }
             else
             {
-                _settings.CustomJunkLocations.Remove(_junkLocations[e.Item.Index]);
+                CustomJunkLocations.Remove(_junkLocations[e.Item.Index]);
             }
-            UpdateString(_settings.CustomJunkLocations);
+            UpdateString(CustomJunkLocations);
             updating = false;
         }
     }

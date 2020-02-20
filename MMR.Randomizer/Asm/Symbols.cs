@@ -126,16 +126,16 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
-        /// Write a <see cref="MiscConfig"/> to the ROM.
+        /// Write a <see cref="GameplayConfig"/> to the ROM.
         /// </summary>
         /// <param name="config">Misc config</param>
-        public void WriteMiscConfig(MiscConfig config)
+        public void WriteMiscConfig(GameplayConfig config)
         {
             WriteAsmConfig("MISC_CONFIG", config);
         }
 
         /// <summary>
-        /// Write the <see cref="MiscConfig"/> hash bytes without overwriting other parts of the structure.
+        /// Write the <see cref="GameplayConfig"/> hash bytes without overwriting other parts of the structure.
         /// </summary>
         /// <param name="hash">Hash bytes</param>
         public void WriteMiscHash(byte[] hash)
@@ -182,10 +182,10 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
-        /// Try and write the <see cref="MiscConfig"/> hash bytes.
+        /// Try and write the <see cref="GameplayConfig"/> hash bytes.
         /// </summary>
         /// <param name="hash">Hash bytes</param>
-        /// <returns>True if successful, false if the <see cref="MiscConfig"/> symbol was not found.</returns>
+        /// <returns>True if successful, false if the <see cref="GameplayConfig"/> symbol was not found.</returns>
         public bool TryWriteMiscHash(byte[] hash)
         {
             try
@@ -333,16 +333,16 @@ namespace MMR.Randomizer.Asm
         /// Apply configuration which will be hardcoded into the patch file.
         /// </summary>
         /// <param name="options">Options</param>
-        public void ApplyConfiguration(AsmOptions options)
+        public void ApplyConfiguration(AsmOptionsGameplay options)
         {
-            this.WriteMiscConfig(options.MiscConfig);
+            this.WriteMiscConfig(options.GameplayConfig);
         }
 
         /// <summary>
         /// Apply configuration using the <see cref="Symbols"/> data.
         /// </summary>
         /// <param name="options">Options</param>
-        public void ApplyConfigurationPostPatch(AsmOptions options)
+        public void ApplyConfigurationPostPatch(AsmOptionsCosmetic options)
         {
             this.WriteDPadConfig(options.DPadConfig);
             this.WriteHudColorsConfig(options.HudColorsConfig);
@@ -355,7 +355,7 @@ namespace MMR.Randomizer.Asm
         /// Try and apply configuration post-patch using the <see cref="Symbols"/> data.
         /// </summary>
         /// <param name="options">Options</param>
-        public void TryApplyConfigurationPostPatch(AsmOptions options)
+        public void TryApplyConfigurationPostPatch(AsmOptionsCosmetic options)
         {
             this.TryWriteDPadConfig(options.DPadConfig);
             this.TryWriteHudColorsConfig(options.HudColorsConfig);

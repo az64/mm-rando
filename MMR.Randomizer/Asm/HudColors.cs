@@ -1,5 +1,6 @@
 ﻿using MMR.Randomizer.Models.Colors;
 using MMR.Randomizer.Utils;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -187,11 +188,13 @@ namespace MMR.Randomizer.Asm
         /// <summary>
         /// Optional color overrides for hearts.
         /// </summary>
+        [JsonIgnore]
         public Tuple<Color, Color> HeartsOverride { get; set; } = null;
 
         /// <summary>
         /// Optional color overrides for magic meter.
         /// </summary>
+        [JsonIgnore]
         public Tuple<Color, Color> MagicOverride { get; set; } = null;
 
         /// <summary>

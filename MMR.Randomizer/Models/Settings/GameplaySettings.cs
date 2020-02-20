@@ -1,38 +1,17 @@
 ﻿using MMR.Randomizer.Asm;
-using MMR.Randomizer.Models.Colors;
 using MMR.Randomizer.Utils;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 
 namespace MMR.Randomizer.Models.Settings
 {
 
-    public class SettingsObject
+    public class GameplaySettings
     {
         #region General settings
-
-        /// <summary>
-        ///  Outputs n64 rom if true (default: true)
-        /// </summary>
-        public bool GenerateROM { get; set; } = true;
-
-        /// <summary>
-        ///  Outputs virtual channel if true
-        /// </summary>
-        public bool OutputVC { get; set; }
-
-        /// <summary>
-        /// Filepath to the input ROM
-        /// </summary>
-        public string InputROMFilename { get; set; }
-
-        /// <summary>
-        /// Filepath to the input patch file
-        /// </summary>
-        public string InputPatchFilename { get; set; }
 
         /// <summary>
         /// Filepath to the input logic file
@@ -40,87 +19,18 @@ namespace MMR.Randomizer.Models.Settings
         public string UserLogicFileName { get; set; }
 
         /// <summary>
-        /// Filepath to the input preset file
-        /// </summary>
-        public string UserPresetFileName { get; set; }
-
-        /// <summary>
-        /// Default Filename for the output ROM
-        /// </summary>
-        public string DefaultOutputROMFilename
-        {
-            get
-            {
-                string settings = this.ToString();
-                string appendSeed = GenerateSpoilerLog ? $"{Seed}_" : "";
-                string filename = $"MMR_{appendSeed}{settings}";
-
-                return filename + ".z64";
-            }
-        }
-
-        /// <summary>
-        /// Filepath to the output ROM
-        /// </summary>
-        public string OutputROMFilename { get; set; }
-
-        /// <summary>
-        /// Generate spoiler log on randomizing
-        /// </summary>
-        public bool GenerateSpoilerLog { get; set; }
-
-        /// <summary>
-        /// Generate HTML spoiler log on randomizing
-        /// </summary>
-        public bool GenerateHTMLLog { get; set; }
-
-        /// <summary>
-        /// Generate spoiler log only on randomizing
-        /// </summary>
-        public bool LogOnly { get; set; }
-
-        /// <summary>
         /// Use Custom Item list for the logic.
         /// </summary>
         public bool UseCustomItemList { get; set; }
 
         /// <summary>
-        /// Generate patch file
-        /// </summary>
-        public bool GeneratePatch { get; set; }
-
-        /// <summary>
         /// Options for the Asm <see cref="Patcher"/>.
         /// </summary>
-        public AsmOptions AsmOptions { get; set; } = new AsmOptions();
-
-        /// <summary>
-        /// Hearts color selection used for HUD color override.
-        /// </summary>
-        public ColorSelectionItem HeartsSelection { get; set; }
-
-        /// <summary>
-        /// Magic color selection used for HUD color override.
-        /// </summary>
-        public ColorSelectionItem MagicSelection { get; set; }
+        public AsmOptionsGameplay AsmOptions { get; set; } = new AsmOptionsGameplay();
 
         #endregion
 
         #region Random Elements
-
-        private int _seed;
-
-        /// <summary>
-        /// The randomizer seed
-        /// </summary>
-        public int Seed
-        {
-            get => _seed;
-            set
-            {
-                _seed = value;
-            }
-        }
 
         /// <summary>
         /// Selected mode of logic (affects randomization rules)
@@ -216,6 +126,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         ///  Custom item list selections
         /// </summary>
+        [JsonIgnore]
         public List<int> CustomItemList { get; set; } = new List<int>();
 
         /// <summary>
@@ -226,6 +137,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         ///  Custom starting item list selections
         /// </summary>
+        [JsonIgnore]
         public List<GameObjects.Item> CustomStartingItemList { get; set; } = new List<GameObjects.Item>();
 
         /// <summary>
@@ -236,6 +148,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         /// List of locations that must be randomized to junk
         /// </summary>
+        [JsonIgnore]
         public List<GameObjects.Item> CustomJunkLocations { get; set; } = new List<GameObjects.Item>();
 
         /// <summary>
@@ -287,11 +200,6 @@ namespace MMR.Randomizer.Models.Settings
         /// </summary>
         public bool EnableSunsSong { get; set; }
 
-        /// <summary>
-        /// Randomize sound effects
-        /// </summary>
-        public bool RandomizeSounds { get; set; }
-
         #endregion
 
         #region Comfort / Cosmetics
@@ -307,29 +215,14 @@ namespace MMR.Randomizer.Models.Settings
         public bool QuickTextEnabled { get; set; }
 
         /// <summary>
-        /// The color of Link's tunic
-        /// </summary>
-        public Color TunicColor { get; set; }
-
-        /// <summary>
         /// Replaces Link's default model
         /// </summary>
         public Character Character { get; set; }
 
         /// <summary>
-        /// Replaces Tatl's colors
-        /// </summary>
-        public TatlColorSchema TatlColorSchema { get; set; }
-
-        /// <summary>
         /// Method to write the gossip stone hints.
         /// </summary>
         public GossipHintStyle GossipHintStyle { get; set; }
-
-        /// <summary>
-        /// Randomize background music (includes bgm from other video games)
-        /// </summary>
-        public Music Music { get; set; }
 
         /// <summary>
         /// FrEe HiNtS FoR WeEnIeS
@@ -399,7 +292,7 @@ namespace MMR.Randomizer.Models.Settings
             {
                 throw new ArgumentException(nameof(settings));
             }
-            //xfe8z--16psr-
+
             int part1 = (int)parts[0];
             int part2 = (int)parts[1];
             int part3 = (int)parts[2];
@@ -451,8 +344,8 @@ namespace MMR.Randomizer.Models.Settings
             ClearHints = (part1 & 65536) > 0;
             FreeHints = (part1 & 16384) > 0;
             // 8192 - UseCustomItemList, see above
-            RandomizeSounds = (part1 & 2048) > 0;
-            GenerateSpoilerLog = (part1 & 512) > 0;
+            // = (part1 & 2048) > 0;
+            // = (part1 & 512) > 0;
             AddSongs = (part1 & 256) > 0;
             RandomizeDungeonEntrances = (part1 & 16) > 0;
             // = (part1 & 8) > 0;
@@ -464,19 +357,19 @@ namespace MMR.Randomizer.Models.Settings
             var damageTypeIndex = (part2 & 0xF000000) >> 24;
             var modeIndex = (part2 & 0xFF0000) >> 16;
             var characterIndex = (part2 & 0xFF00) >> 8;
-            var tatlColorIndex = part2 & 0xFF;
+            // = part2 & 0xFF;
 
             var gravityTypeIndex = (int)((part3 & 0xF0000000) >> 28);
             var floorTypeIndex = (part3 & 0xF000000) >> 24;
-            var tunicColor = Color.FromArgb(
-                (part3 & 0xFF0000) >> 16,
-                (part3 & 0xFF00) >> 8,
-                part3 & 0xFF);
+            // = Color.FromArgb(
+            //    (part3 & 0xFF0000) >> 16,
+            //    (part3 & 0xFF00) >> 8,
+            //    part3 & 0xFF);
 
             var clockSpeedIndex = (byte)(part4 & 0xFF);
             var gossipHintsIndex = (byte)((part4 & 0xFF00) >> 8);
             var blastmaskCooldown = (byte)((part4 & 0xFF0000) >> 16);
-            var music = (byte)((part4 & 0xFF000000) >> 24);
+            // = (byte)((part4 & 0xFF000000) >> 24);
 
             SpeedupBeavers = (part5 & (1 << 0)) > 0;
             SpeedupDampe = (part5 & (1 << 1)) > 0;
@@ -484,24 +377,21 @@ namespace MMR.Randomizer.Models.Settings
             SpeedupLabFish = (part5 & (1 << 3)) > 0;
 
             var critWiggle = (part5 & (0x18)) >> 3;
-            AsmOptions.MiscConfig.Flags.DrawHash = (part5 & (1 << 6)) > 0;
-            AsmOptions.MiscConfig.Flags.FastPush = (part5 & (1 << 7)) > 0;
-            AsmOptions.MiscConfig.Flags.OcarinaUnderwater = (part5 & (1 << 8)) > 0;
-            AsmOptions.MiscConfig.Flags.QuestItemStorage = (part5 & (1 << 9)) > 0;
-            AsmOptions.MiscConfig.Flags.CritWiggle = (CritWiggleState)critWiggle;
+            // = (part5 & (1 << 6)) > 0;
+            AsmOptions.GameplayConfig.Flags.FastPush = (part5 & (1 << 7)) > 0;
+            AsmOptions.GameplayConfig.Flags.OcarinaUnderwater = (part5 & (1 << 8)) > 0;
+            AsmOptions.GameplayConfig.Flags.QuestItemStorage = (part5 & (1 << 9)) > 0;
+            AsmOptions.GameplayConfig.Flags.CritWiggle = (CritWiggleState)critWiggle;
 
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
             LogicMode = (LogicMode)modeIndex;
             Character = (Character)characterIndex;
-            TatlColorSchema = (TatlColorSchema)tatlColorIndex;
             MovementMode = (MovementMode)gravityTypeIndex;
             FloorType = (FloorType)floorTypeIndex;
-            TunicColor = tunicColor;
             ClockSpeed = (ClockSpeed)clockSpeedIndex;
             GossipHintStyle = (GossipHintStyle)gossipHintsIndex;
             BlastMaskCooldown = (BlastMaskCooldown)blastmaskCooldown;
-            Music = (Music)music;
         }
 
 
@@ -538,8 +428,8 @@ namespace MMR.Randomizer.Models.Settings
             if (HideClock) { parts[0] += 131072; };
             if (ClearHints) { parts[0] += 65536; };
             if (FreeHints) { parts[0] += 16384; };
-            if (RandomizeSounds) { parts[0] += 2048; }
-            if (GenerateSpoilerLog) { parts[0] += 512; };
+            // { parts[0] += 2048; }
+            // { parts[0] += 512; };
             if (AddSongs) { parts[0] += 256; };
             if (RandomizeDungeonEntrances) { parts[0] += 16; };
             // { parts[0] += 8; };
@@ -549,31 +439,36 @@ namespace MMR.Randomizer.Models.Settings
 
             parts[1] = ((byte)LogicMode << 16)
                 | ((byte)Character << 8)
-                | ((byte)TatlColorSchema)
+                //| ((byte)TatlColorSchema)
                 | ((byte)DamageEffect << 24)
-                | ((byte)DamageMode << 28);
+                | ((byte)DamageMode << 28)
+                ;
 
-            parts[2] = (TunicColor.R << 16)
-                | (TunicColor.G << 8)
-                | (TunicColor.B)
-                | ((byte)FloorType << 24)
-                | ((byte)MovementMode << 28);
+            parts[2] = 
+                //(TunicColor.R << 16) |
+                //(TunicColor.G << 8) |
+                //(TunicColor.B) |
+                ((byte)FloorType << 24) |
+                ((byte)MovementMode << 28)
+                ;
 
-            parts[3] = (byte)ClockSpeed
-                | ((byte)GossipHintStyle << 8)
-                | ((byte)BlastMaskCooldown << 16)
-                | ((byte)Music << 24);
+            parts[3] = 
+                (byte)ClockSpeed |
+                ((byte)GossipHintStyle << 8) |
+                ((byte)BlastMaskCooldown << 16)
+                //((byte)Music << 24)
+                ;
 
             if (SpeedupBeavers) { parts[4] += (1 << 0); }
             if (SpeedupDampe) { parts[4] += (1 << 1); }
             if (SpeedupDogRace) { parts[4] += (1 << 2); }
             if (SpeedupLabFish) { parts[4] += (1 << 3); }
 
-            parts[4] += ((int)AsmOptions.MiscConfig.Flags.CritWiggle & 3) << 4;
-            if (AsmOptions.MiscConfig.Flags.DrawHash) { parts[4] += (1 << 6); }
-            if (AsmOptions.MiscConfig.Flags.FastPush) { parts[4] += (1 << 7); }
-            if (AsmOptions.MiscConfig.Flags.OcarinaUnderwater) { parts[4] += (1 << 8); }
-            if (AsmOptions.MiscConfig.Flags.QuestItemStorage) { parts[4] += (1 << 9); }
+            parts[4] += ((int)AsmOptions.GameplayConfig.Flags.CritWiggle & 3) << 4;
+            // { parts[4] += (1 << 6); }
+            if (AsmOptions.GameplayConfig.Flags.FastPush) { parts[4] += (1 << 7); }
+            if (AsmOptions.GameplayConfig.Flags.OcarinaUnderwater) { parts[4] += (1 << 8); }
+            if (AsmOptions.GameplayConfig.Flags.QuestItemStorage) { parts[4] += (1 << 9); }
 
             return parts;
         }
@@ -594,21 +489,9 @@ namespace MMR.Randomizer.Models.Settings
 
         public string Validate()
         {
-            if (!GenerateROM && !OutputVC && !GeneratePatch && !GenerateSpoilerLog)
-            {
-                return "No output selected.";
-            }
-            if ((GenerateROM || GeneratePatch || OutputVC) && !File.Exists(InputROMFilename))
-            {
-                return "Input ROM not found, cannot generate output.";
-            }
             if (LogicMode == LogicMode.UserLogic && !File.Exists(UserLogicFileName))
             {
                 return "User Logic not found or invalid, please load User Logic or change logic mode.";
-            }
-            if (InputPatchFilename != null && string.IsNullOrWhiteSpace(InputPatchFilename))
-            {
-                return "No patch selected.";
             }
             return null;
         }

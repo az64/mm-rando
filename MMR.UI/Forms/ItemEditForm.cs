@@ -130,21 +130,21 @@ namespace MMR.UI.Forms
         };
 
         bool updating = false;
-        private readonly SettingsObject _settings;
 
-        public ItemEditForm(SettingsObject settings)
+        public List<int> CustomItemList { get; private set; } = new List<int>();
+        public string CustomItemListString { get; private set; }
+
+        public ItemEditForm()
         {
             InitializeComponent();
-
-            _settings = settings;
 
             for (int i = 0; i < ITEM_NAMES.Length; i++)
             {
                 lItems.Items.Add(ITEM_NAMES[i]);
             }
-            if (_settings.CustomItemList != null)
+            if (CustomItemList != null)
             {
-                UpdateString(_settings.CustomItemList);
+                UpdateString(CustomItemList);
             }
             else
             {
@@ -174,7 +174,7 @@ namespace MMR.UI.Forms
             }
             tSetting.Text = ns[12] + "-" + ns[11] + "-" + ns[10] + "-" + ns[9] + "-" + ns[8] + "-" + ns[7] + "-" + ns[6] + "-" + ns[5] + "-" + ns[4] + "-"
                 + ns[3] + "-" + ns[2] + "-" + ns[1] + "-" + ns[0];
-            _settings.CustomItemListString = tSetting.Text;
+            CustomItemListString = tSetting.Text;
         }
 
         public void UpdateChecks(string c)
@@ -183,13 +183,13 @@ namespace MMR.UI.Forms
             try
             {
                 tSetting.Text = c;
-                _settings.CustomItemListString = c;
-                _settings.CustomItemList.Clear();
+                CustomItemListString = c;
+                CustomItemList.Clear();
                 string[] v = c.Split('-');
                 int[] vi = new int[13];
                 if (v.Length != vi.Length)
                 {
-                    _settings.CustomItemList.Add(-1);
+                    CustomItemList.Add(-1);
                     return;
                 }
                 for (int i = 0; i < 13; i++)
@@ -209,12 +209,12 @@ namespace MMR.UI.Forms
                         {
                             throw new IndexOutOfRangeException();
                         }
-                        _settings.CustomItemList.Add(i);
+                        CustomItemList.Add(i);
                     }
                 }
                 foreach (ListViewItem l in lItems.Items)
                 {
-                    if (_settings.CustomItemList.Contains(l.Index))
+                    if (CustomItemList.Contains(l.Index))
                     {
                         l.Checked = true;
                     }
@@ -226,8 +226,8 @@ namespace MMR.UI.Forms
             }
             catch
             {
-                _settings.CustomItemList.Clear();
-                _settings.CustomItemList.Add(-1);
+                CustomItemList.Clear();
+                CustomItemList.Add(-1);
             }
             finally
             {
@@ -252,13 +252,13 @@ namespace MMR.UI.Forms
             updating = true;
             if (e.Item.Checked)
             {
-                _settings.CustomItemList.Add(e.Item.Index);
+                CustomItemList.Add(e.Item.Index);
             }
             else
             {
-                _settings.CustomItemList.Remove(e.Item.Index);
+                CustomItemList.Remove(e.Item.Index);
             }
-            UpdateString(_settings.CustomItemList);
+            UpdateString(CustomItemList);
             updating = false;
         }
 

@@ -1,4 +1,5 @@
-﻿using MMR.Randomizer.Utils;
+﻿using MMR.Randomizer.Asm;
+using MMR.Randomizer.Utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,6 +12,24 @@ namespace MMR.Randomizer.Models.Colors
     /// </summary>
     public class ColorSelectionManager
     {
+        //private static IEnumerable<ColorSelectionManager> ColorSelectionManagers = new List<ColorSelectionManager>()
+        //{
+        public static ColorSelectionManager Hearts = new ColorSelectionManager(HudColorPresets.Hearts())
+        {
+            UseSameRandomColor = true,
+            Prepended = NullChoice("Customized"),
+        };
+        public static ColorSelectionManager MagicMeter = new ColorSelectionManager(HudColorPresets.MagicMeter())
+        {
+            Prepended = NullChoice("Customized"),
+        };
+        //};
+
+        static ColorSelectionManager()
+        {
+
+        }
+
         /// <summary>
         /// Color pairs, used with "Random Choice" <see cref="ColorSelectionFuncItem"/>.
         /// </summary>
@@ -73,7 +92,7 @@ namespace MMR.Randomizer.Models.Colors
         /// <param name="name">Item name</param>
         public void PrependNull(string name)
         {
-            this.Prepended = this.NullChoice(name);
+            this.Prepended = NullChoice(name);
         }
 
         /// <summary>
@@ -81,7 +100,7 @@ namespace MMR.Randomizer.Models.Colors
         /// </summary>
         /// <param name="name">Item name</param>
         /// <returns>Item</returns>
-        ColorSelectionFuncItem NullChoice(string name)
+        static ColorSelectionFuncItem NullChoice(string name)
         {
             return new ColorSelectionFuncItem(name, (random) => null);
         }

@@ -24,6 +24,8 @@ namespace MMR.Randomizer.Utils
             if (randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Default)
                 return new List<MessageEntry>();
 
+            var random = new Random(randomizedResult.Seed);
+
             var randomizedItems = new List<ItemObject>();
             var competitiveHints = new List<string>();
             var itemsInRegions = new Dictionary<Region, List<ItemObject>>();
@@ -51,7 +53,7 @@ namespace MMR.Randomizer.Utils
                 var itemName = item.Item.Name();
                 if (randomizedResult.Settings.GossipHintStyle != GossipHintStyle.Competitive 
                     && (itemName.Contains("Heart") || itemName.Contains("Rupee"))
-                    && (randomizedResult.Settings.ClearHints || randomizedResult.Random.Next(8) != 0))
+                    && (randomizedResult.Settings.ClearHints || random.Next(8) != 0))
                 {
                     continue;
                 }
@@ -105,7 +107,7 @@ namespace MMR.Randomizer.Utils
                 var numberOfLocationHints = totalUniqueGossipHints - numberOfRequiredHints - numberOfNonRequiredHints;
                 unusedItems = randomizedItems.GroupBy(io => io.NewLocation.Value.GetAttribute<GossipCompetitiveHintAttribute>().Priority)
                                         .OrderByDescending(g => g.Key)
-                                        .Select(g => g.OrderBy(_ => randomizedResult.Random.Next()).AsEnumerable())
+                                        .Select(g => g.OrderBy(_ => random.Next()).AsEnumerable())
                                         .Aggregate((g1, g2) => g1.Concat(g2))
                                         .Take(numberOfLocationHints)
                                         .ToList();
@@ -169,9 +171,9 @@ namespace MMR.Randomizer.Utils
                     }
                     if (regionCounts.Any())
                     {
-                        var chosen = regionCounts.ToList().Random(randomizedResult.Random);
-                        competitiveHints.Add(BuildRegionHint(chosen, randomizedResult.Random));
-                        competitiveHints.Add(BuildRegionHint(chosen, randomizedResult.Random));
+                        var chosen = regionCounts.ToList().Random(random);
+                        competitiveHints.Add(BuildRegionHint(chosen, random));
+                        competitiveHints.Add(BuildRegionHint(chosen, random));
                         if (songOnlyRegionCounts.Remove(chosen.Key))
                         {
                             chosenSongOnlyRegions++;
@@ -191,9 +193,9 @@ namespace MMR.Randomizer.Utils
                 {
                     if (nonImportantRegionCounts.Any())
                     {
-                        var chosen = nonImportantRegionCounts.ToList().Random(randomizedResult.Random);
-                        competitiveHints.Add(BuildRegionHint(chosen, randomizedResult.Random));
-                        competitiveHints.Add(BuildRegionHint(chosen, randomizedResult.Random));
+                        var chosen = nonImportantRegionCounts.ToList().Random(random);
+                        competitiveHints.Add(BuildRegionHint(chosen, random));
+                        competitiveHints.Add(BuildRegionHint(chosen, random));
                         nonImportantRegionCounts.Remove(chosen.Key);
                     }
                 }
@@ -201,13 +203,13 @@ namespace MMR.Randomizer.Utils
 
             List<MessageEntry> finalHints = new List<MessageEntry>();
 
-            foreach (var gossipQuote in Enum.GetValues(typeof(GossipQuote)).Cast<GossipQuote>().OrderBy(gq => randomizedResult.Random.Next()))
+            foreach (var gossipQuote in Enum.GetValues(typeof(GossipQuote)).Cast<GossipQuote>().OrderBy(gq => random.Next()))
             {
                 string messageText = null;
                 var isMoonGossipStone = gossipQuote.IsMoonGossipStone();
                 if (!isMoonGossipStone && competitiveHints.Any())
                 {
-                    messageText = competitiveHints.Random(randomizedResult.Random);
+                    messageText = competitiveHints.Random(random);
                     competitiveHints.Remove(messageText);
                 }
 
@@ -220,7 +222,7 @@ namespace MMR.Randomizer.Utils
                     {
                         if (restrictionAttributes.Any() && (isMoonGossipStone || randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Relevant))
                         {
-                            var chosen = restrictionAttributes.Random(randomizedResult.Random);
+                            var chosen = restrictionAttributes.Random(random);
                             var candidateItem = chosen.Type == GossipRestrictAttribute.RestrictionType.Item
                                 ? randomizedResult.ItemList.Single(io => io.Item == chosen.Item)
                                 : randomizedResult.ItemList.Single(io => io.NewLocation == chosen.Item);
@@ -241,12 +243,12 @@ namespace MMR.Randomizer.Utils
                                 item = unusedItems.FirstOrDefault(io => unusedItems.Count(x => x.Item == io.Item) == 1);
                                 if (item == null)
                                 {
-                                    item = unusedItems.Random(randomizedResult.Random);
+                                    item = unusedItems.Random(random);
                                 }
                             }
                             else
                             {
-                                item = unusedItems.Random(randomizedResult.Random);
+                                item = unusedItems.Random(random);
                             }
                         }
                         else
@@ -272,31 +274,31 @@ namespace MMR.Randomizer.Utils
                         }
                         else
                         {
-                            if (isMoonGossipStone || randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Competitive || randomizedResult.Random.Next(100) >= 5) // 5% chance of fake/junk hint if it's not a moon gossip stone or competitive style
+                            if (isMoonGossipStone || randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Competitive || random.Next(100) >= 5) // 5% chance of fake/junk hint if it's not a moon gossip stone or competitive style
                             {
-                                itemName = item.Item.ItemHints().Random(randomizedResult.Random);
-                                locationName = item.NewLocation.Value.LocationHints().Random(randomizedResult.Random);
+                                itemName = item.Item.ItemHints().Random(random);
+                                locationName = item.NewLocation.Value.LocationHints().Random(random);
                             }
                             else
                             {
-                                if (randomizedResult.Random.Next(2) == 0) // 50% chance for fake hint. otherwise default to junk hint.
+                                if (random.Next(2) == 0) // 50% chance for fake hint. otherwise default to junk hint.
                                 {
                                     soundEffectId = 0x690A; // grandma laugh
-                                    itemName = item.Item.ItemHints().Random(randomizedResult.Random);
-                                    locationName = randomizedItems.Random(randomizedResult.Random).Item.LocationHints().Random(randomizedResult.Random);
+                                    itemName = item.Item.ItemHints().Random(random);
+                                    locationName = randomizedItems.Random(random).Item.LocationHints().Random(random);
                                 }
                             }
                         }
                         if (itemName != null && locationName != null)
                         {
-                            messageText = BuildGossipQuote(soundEffectId, locationName, itemName, randomizedResult.Random);
+                            messageText = BuildGossipQuote(soundEffectId, locationName, itemName, random);
                         }
                     }
                 }
 
                 if (messageText == null)
                 {
-                    messageText = Gossip.JunkMessages.Random(randomizedResult.Random);
+                    messageText = Gossip.JunkMessages.Random(random);
                 }
 
                 finalHints.Add(new MessageEntry()

@@ -16,7 +16,8 @@ namespace MMR.CLI
         static int Main(string[] args)
         {
             var argsDictionary = DictionaryHelper.FromProgramArguments(args);
-            var settings = new SettingsObject();
+            var settings = new GameplaySettings();
+            var outputSettings = new OutputSettings();
             settings.Update("fz1mr--16psr-lc-f");
             settings.CustomItemListString = "81-80000000----3fff-ffffffff-ffffffff-fe000000-6619ff-7fffffff-f378ffff-ffffffff";
             settings.CustomItemList = ConvertIntString(settings.CustomItemListString);
@@ -25,18 +26,19 @@ namespace MMR.CLI
             settings.CustomJunkLocationsString = "----------200000--f000";
             settings.CustomJunkLocations = ConvertItemString(ItemUtils.AllLocations().ToList(), settings.CustomJunkLocationsString);
 
-            settings.GeneratePatch = argsDictionary.ContainsKey("-patch");
-            settings.GenerateSpoilerLog = argsDictionary.ContainsKey("-spoiler");
-            settings.GenerateHTMLLog = argsDictionary.ContainsKey("-html");
-            settings.GenerateROM = argsDictionary.ContainsKey("-rom");
+            outputSettings.GeneratePatch = argsDictionary.ContainsKey("-patch");
+            outputSettings.GenerateSpoilerLog = argsDictionary.ContainsKey("-spoiler");
+            outputSettings.GenerateHTMLLog = argsDictionary.ContainsKey("-html");
+            outputSettings.GenerateROM = argsDictionary.ContainsKey("-rom");
 
+            int seed;
             if (argsDictionary.ContainsKey("-seed"))
             {
-                settings.Seed = int.Parse(argsDictionary["-seed"][0]);
+                seed = int.Parse(argsDictionary["-seed"][0]);
             }
             else
             {
-                settings.Seed = new Random().Next();
+                seed = new Random().Next();
             }
 
             var outputArg = argsDictionary.GetValueOrDefault("-output");
@@ -46,9 +48,9 @@ namespace MMR.CLI
                 {
                     throw new ArgumentException("Invalid argument.", "-output");
                 }
-                settings.OutputROMFilename = outputArg.SingleOrDefault();
+                outputSettings.OutputROMFilename = outputArg.SingleOrDefault();
             }
-            settings.OutputROMFilename ??= Path.Combine("output", settings.DefaultOutputROMFilename);
+            outputSettings.OutputROMFilename ??= Path.Combine("output", FileUtils.MakeFilenameValid(DateTime.UtcNow.ToString("o")));
 
             var inputArg = argsDictionary.GetValueOrDefault("-input");
             if (inputArg != null)
@@ -57,9 +59,9 @@ namespace MMR.CLI
                 {
                     throw new ArgumentException("Invalid argument.", "-input");
                 }
-                settings.InputROMFilename = inputArg.SingleOrDefault();
+                outputSettings.InputROMFilename = inputArg.SingleOrDefault();
             }
-            settings.InputROMFilename ??= "input.z64";
+            outputSettings.InputROMFilename ??= "input.z64";
 
             var validationResult = settings.Validate();
             if (validationResult != null)
@@ -75,7 +77,11 @@ namespace MMR.CLI
                 {
                     //var progressReporter = new TextWriterProgressReporter(Console.Out);
                     var progressReporter = new ProgressBarProgressReporter(progressBar);
-                    result = SettingsProcessor.Process(settings, progressReporter);
+                    result = ConfigurationProcessor.Process(new Configuration
+                    {
+                        GameplaySettings = settings,
+                        OutputSettings = outputSettings,
+                    }, seed, progressReporter);
                 }
                 if (result != null)
                 {

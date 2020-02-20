@@ -3,7 +3,7 @@
     /// <summary>
     /// Options used for Asm.
     /// </summary>
-    public class AsmOptions
+    public class AsmOptionsCosmetic
     {
         /// <summary>
         /// D-Pad configuration.

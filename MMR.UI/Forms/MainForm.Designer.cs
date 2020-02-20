@@ -35,8 +35,8 @@ namespace MMR.UI.Forms
             this.bopen = new System.Windows.Forms.Button();
             this.openROM = new System.Windows.Forms.OpenFileDialog();
             this.openLogic = new System.Windows.Forms.OpenFileDialog();
-            this.openPreset = new System.Windows.Forms.OpenFileDialog();
-            this.savePreset = new System.Windows.Forms.SaveFileDialog();
+            this.loadSettings = new System.Windows.Forms.OpenFileDialog();
+            this.saveSettings = new System.Windows.Forms.SaveFileDialog();
             this.tROMName = new System.Windows.Forms.TextBox();
             this.cUserItems = new System.Windows.Forms.CheckBox();
             this.tSettings = new System.Windows.Forms.TabControl();
@@ -1956,12 +1956,12 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.OpenFileDialog openROM;
         private System.Windows.Forms.OpenFileDialog openPatch;
         private System.Windows.Forms.OpenFileDialog openLogic;
-        private System.Windows.Forms.OpenFileDialog openPreset;
+        private System.Windows.Forms.OpenFileDialog loadSettings;
         private System.Windows.Forms.TextBox tROMName;
         private System.Windows.Forms.ComboBox cMode;
         private System.Windows.Forms.Label lMode;
         private System.Windows.Forms.SaveFileDialog saveROM;
-        private System.Windows.Forms.SaveFileDialog savePreset;
+        private System.Windows.Forms.SaveFileDialog saveSettings;
         private System.Windows.Forms.ComboBox cTatl;
         private System.Windows.Forms.Label lTatl;
         private System.Windows.Forms.ComboBox cLink;

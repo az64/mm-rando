@@ -62,7 +62,7 @@ namespace MMR.Randomizer.Asm
         /// Apply patches using <see cref="Symbols"/> loaded from the internal resource.
         /// </summary>
         /// <param name="options">Options</param>
-        public void Apply(AsmOptions options)
+        public void Apply(AsmOptionsGameplay options)
         {
             Apply(Symbols.Load(), options);
         }
@@ -72,7 +72,7 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         /// <param name="symbols">Symbols</param>
         /// <param name="options">Options</param>
-        public void Apply(Symbols symbols, AsmOptions options)
+        public void Apply(Symbols symbols, AsmOptionsGameplay options)
         {
             // Write patch data to existing MMFiles
             WriteToROM(symbols);

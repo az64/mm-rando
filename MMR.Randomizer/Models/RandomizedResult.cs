@@ -10,8 +10,8 @@ namespace MMR.Randomizer.Models
 {
     public class RandomizedResult
     {
-        public SettingsObject Settings { get; private set; }
-        public Random Random { get; private set; }
+        public GameplaySettings Settings { get; private set; }
+        public int Seed { get; set; }
 
         public List<ItemObject> ItemList { get; set; }
         public List<MessageEntry> GossipQuotes { get; set; }
@@ -27,10 +27,10 @@ namespace MMR.Randomizer.Models
         public int[] NewDCMasks = new int[] { -1, -1, -1, -1 };
         public int[] NewDestinationIndices = new int[] { -1, -1, -1, -1 };
 
-        public RandomizedResult(SettingsObject settings, Random random)
+        public RandomizedResult(GameplaySettings settings, int seed)
         {
             Settings = settings;
-            Random = random;
+            Seed = seed;
         }
 
     }

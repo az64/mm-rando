@@ -112,7 +112,7 @@ namespace MMR.Randomizer.GameObjects
         
         // todo allow as starting item
         [ItemName("Spin Attack"), LocationName("Woodfall Great Fairy"), Region(Region.Woodfall)]
-        [GossipLocationHint("a magical being"), GossipItemHint("a magic attack"), GossipCompetitiveHint(3, nameof(SettingsObject.AddStrayFairies))]
+        [GossipLocationHint("a magical being"), GossipItemHint("a magic attack"), GossipCompetitiveHint(3, nameof(GameplaySettings.AddStrayFairies))]
         [ShopText("Increases the power of your spin attack.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12D)]
@@ -122,7 +122,7 @@ namespace MMR.Randomizer.GameObjects
         [StartingItem(0xC5CDF4, 0x01)]
         [StartingItem(0xC5CDF5, 0x01)]
         [ItemName("Extended Magic Power"), LocationName("Snowhead Great Fairy"), Region(Region.Snowhead)]
-        [GossipLocationHint("a magical being"), GossipItemHint("magic power"), GossipCompetitiveHint(3, nameof(SettingsObject.AddStrayFairies))]
+        [GossipLocationHint("a magical being"), GossipItemHint("magic power"), GossipCompetitiveHint(3, nameof(GameplaySettings.AddStrayFairies))]
         [ShopText("Grants the ability to use lots of magic.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12E)]
@@ -131,7 +131,7 @@ namespace MMR.Randomizer.GameObjects
         [StartingItem(0xC5CDF6, 0x01)]
         [StartingItem(0xC5CE87, 0x14)]
         [ItemName("Double Defense"), LocationName("Ocean Great Fairy"), Region(Region.ZoraCape)]
-        [GossipLocationHint("a magical being"), GossipItemHint("magical defense"), GossipCompetitiveHint(3, nameof(SettingsObject.AddStrayFairies))]
+        [GossipLocationHint("a magical being"), GossipItemHint("magical defense"), GossipCompetitiveHint(3, nameof(GameplaySettings.AddStrayFairies))]
         [ShopText("Take half as much damage from enemies.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x12F)]
@@ -139,7 +139,7 @@ namespace MMR.Randomizer.GameObjects
 
         [StartingItem(0xC5CE34, 0x10)]
         [ItemName("Great Fairy's Sword"), LocationName("Ikana Great Fairy"), Region(Region.IkanaCanyon)]
-        [GossipLocationHint("a magical being"), GossipItemHint("a black rose", "a powerful blade"), GossipCompetitiveHint(3, nameof(SettingsObject.AddStrayFairies))]
+        [GossipLocationHint("a magical being"), GossipItemHint("a black rose", "a powerful blade"), GossipCompetitiveHint(3, nameof(GameplaySettings.AddStrayFairies))]
         [ShopText("The most powerful sword has black roses etched in its blade.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x130)]
@@ -292,7 +292,7 @@ namespace MMR.Randomizer.GameObjects
         [Downgradable]
         [StartingItem(0xC5CE6E, 0x20)]
         [ItemName("Giant Wallet"), LocationName("Ocean Spider House Day 1 Reward"), Region(Region.GreatBayCoast)]
-        [GossipLocationHint("a gold spider"), GossipItemHint("a coin case", "great wealth"), GossipCompetitiveHint(0, nameof(SettingsObject.AddSkulltulaTokens))]
+        [GossipLocationHint("a gold spider"), GossipItemHint("a coin case", "great wealth"), GossipCompetitiveHint(0, nameof(GameplaySettings.AddSkulltulaTokens))]
         [ShopText("This can hold up to a maximum of 500 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x09)]
@@ -643,7 +643,7 @@ namespace MMR.Randomizer.GameObjects
 
         [StartingItem(0xC5CE3D, 0x38)]
         [ItemName("All Night Mask"), LocationName("All Night Mask Purchase"), Region(Region.WestClockTown)]
-        [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("insomnia"), GossipCompetitiveHint(0, nameof(SettingsObject.UpdateShopAppearance))]
+        [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("insomnia"), GossipCompetitiveHint(0, nameof(GameplaySettings.UpdateShopAppearance))]
         [ShopRoom(ShopRoomAttribute.Room.CuriosityShop, 0x54)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.CuriosityShop, 0)]
         [ShopText("When you wear it you don't get sleepy.")]
@@ -750,7 +750,7 @@ namespace MMR.Randomizer.GameObjects
 
         [StartingItem(0xC5CE4C, 0x36)]
         [ItemName("Mask of Truth"), LocationName("Swamp Spider House Reward"), Region(Region.SouthernSwamp)]
-        [GossipLocationHint("a gold spider"), GossipItemHint("a piercing gaze"), GossipCompetitiveHint(0, nameof(SettingsObject.AddSkulltulaTokens))]
+        [GossipLocationHint("a gold spider"), GossipItemHint("a piercing gaze"), GossipCompetitiveHint(0, nameof(GameplaySettings.AddSkulltulaTokens))]
         [ShopText("Wear it to read the thoughts of Gossip Stones and animals.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x8A)]
@@ -1870,7 +1870,7 @@ namespace MMR.Randomizer.GameObjects
 
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Lab Fish"), Region(Region.GreatBayCoast)]
-        [GossipLocationHint("feeding the fish"), GossipItemHint("a segment of health"), GossipCompetitiveHint(0, nameof(SettingsObject.SpeedupLabFish))]
+        [GossipLocationHint("feeding the fish"), GossipItemHint("a segment of health"), GossipCompetitiveHint(0, nameof(GameplaySettings.SpeedupLabFish))]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x112)]
@@ -3196,7 +3196,7 @@ namespace MMR.Randomizer.GameObjects
 
         [Repeatable]
         [ItemName("Purple Rupee"), LocationName("Ocean Spider House Day 2 Reward"), Region(Region.GreatBayCoast)]
-        [GossipLocationHint("a gold spider"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff"), GossipCompetitiveHint(0, nameof(SettingsObject.AddSkulltulaTokens))]
+        [GossipLocationHint("a gold spider"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff"), GossipCompetitiveHint(0, nameof(GameplaySettings.AddSkulltulaTokens))]
         [ShopText("This is worth 50 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x134)]
@@ -3204,7 +3204,7 @@ namespace MMR.Randomizer.GameObjects
 
         [Repeatable]
         [ItemName("Red Rupee"), LocationName("Ocean Spider House Day 3 Reward"), Region(Region.GreatBayCoast)]
-        [GossipLocationHint("a gold spider"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff"), GossipCompetitiveHint(0, nameof(SettingsObject.AddSkulltulaTokens))]
+        [GossipLocationHint("a gold spider"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff"), GossipCompetitiveHint(0, nameof(GameplaySettings.AddSkulltulaTokens))]
         [ShopText("This is worth 20 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x1A3)]

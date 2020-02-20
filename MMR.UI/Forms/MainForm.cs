@@ -13,6 +13,7 @@ using MMR.Randomizer.Models;
 using MMR.Randomizer.Utils;
 using MMR.Randomizer.Asm;
 using MMR.Randomizer.Models.Colors;
+using MMR.Common.Utils;
 
 namespace MMR.UI.Forms
 {
@@ -22,7 +23,7 @@ namespace MMR.UI.Forms
         private bool _isUpdating = false;
         private string _oldSettingsString = "";
         private int _seedOld = 0;
-        public SettingsObject _settings { get; set; }
+        public Configuration _configuration { get; set; }
 
         public AboutForm About { get; private set; }
         public ManualForm Manual { get; private set; }
@@ -52,16 +53,13 @@ namespace MMR.UI.Forms
             InitializeTooltips();
             InitializeHUDGroupBox();
 
-            ItemEditor = new ItemEditForm(_settings);
-            ItemEditor.FormClosing += ItemEditor_FormClosing;
+            ItemEditor = new ItemEditForm();
             UpdateCustomItemAmountLabel();
 
-            StartingItemEditor = new StartingItemEditForm(_settings);
-            StartingItemEditor.FormClosing += StartingItemEditor_FormClosing;
+            StartingItemEditor = new StartingItemEditForm();
             UpdateCustomStartingItemAmountLabel();
 
-            JunkLocationEditor = new JunkLocationEditForm(_settings);
-            JunkLocationEditor.FormClosing += JunkLocationEditor_FormClosing;
+            JunkLocationEditor = new JunkLocationEditForm();
             UpdateJunkLocationAmountLabel();
 
             LogicEditor = new LogicEditorForm();
@@ -148,16 +146,11 @@ namespace MMR.UI.Forms
         void InitializeHUDGroupBox()
         {
             // Initialize ComboBox for hearts colors
-            var heartsCSM = new ColorSelectionManager(HudColorPresets.Hearts());
-            heartsCSM.UseSameRandomColor = true;
-            heartsCSM.PrependNull("Customized");
-            cHUDHeartsComboBox.Items.AddRange(heartsCSM.GetItems());
+            cHUDHeartsComboBox.Items.AddRange(ColorSelectionManager.Hearts.GetItems());
             cHUDHeartsComboBox.SelectedIndex = 0;
 
             // Initialize ComboBox for magic meter color
-            var magicCSM = new ColorSelectionManager(HudColorPresets.MagicMeter());
-            magicCSM.PrependNull("Customized");
-            cHUDMagicComboBox.Items.AddRange(magicCSM.GetItems());
+            cHUDMagicComboBox.Items.AddRange(ColorSelectionManager.MagicMeter.GetItems());
             cHUDMagicComboBox.SelectedIndex = 0;
         }
 
@@ -206,7 +199,7 @@ namespace MMR.UI.Forms
             _isUpdating = true;
 
             cTunic.ShowDialog();
-            _settings.TunicColor = cTunic.Color;
+            _configuration.CosmeticSettings.TunicColor = cTunic.Color;
             bTunic.BackColor = cTunic.Color;
             UpdateSettingsString();
 
@@ -217,37 +210,39 @@ namespace MMR.UI.Forms
         {
             openROM.ShowDialog();
 
-            _settings.InputROMFilename = openROM.FileName;
-            tROMName.Text = _settings.InputROMFilename;
+            _configuration.OutputSettings.InputROMFilename = openROM.FileName;
+            tROMName.Text = _configuration.OutputSettings.InputROMFilename;
         }
 
         private void bLoadLogic_Click(object sender, EventArgs e)
         {
             if(openLogic.ShowDialog() == DialogResult.OK)
             {
-                _settings.UserLogicFileName = openLogic.FileName;
-                tbUserLogic.Text = Path.GetFileNameWithoutExtension(_settings.UserLogicFileName);
+                _configuration.GameplaySettings.UserLogicFileName = openLogic.FileName;
+                tbUserLogic.Text = Path.GetFileNameWithoutExtension(_configuration.GameplaySettings.UserLogicFileName);
             }
         }
 
         private void Randomize()
         {
-            var validationResult = _settings.Validate();
+            var validationResult = _configuration.GameplaySettings.Validate();
             if (validationResult != null)
             {
                 MessageBox.Show(validationResult, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            saveROM.FileName = !string.IsNullOrWhiteSpace(_settings.InputPatchFilename)
-                ? Path.ChangeExtension(Path.GetFileName(_settings.InputPatchFilename), "z64")
-                : _settings.DefaultOutputROMFilename;
+            var defaultOutputROMFilename = FileUtils.MakeFilenameValid(DateTime.UtcNow.ToString("o"));
+
+            saveROM.FileName = !string.IsNullOrWhiteSpace(_configuration.OutputSettings.InputPatchFilename)
+                ? Path.ChangeExtension(Path.GetFileName(_configuration.OutputSettings.InputPatchFilename), "z64")
+                : defaultOutputROMFilename;
             if (saveROM.ShowDialog() != DialogResult.OK)
             {
                 return;
             }
 
-            _settings.OutputROMFilename = saveROM.FileName;
+            _configuration.OutputSettings.OutputROMFilename = saveROM.FileName;
 
             EnableAllControls(false);
             bgWorker.RunWorkerAsync();
@@ -273,15 +268,15 @@ namespace MMR.UI.Forms
         {
             try
             {
-                _settings.Update(tSString.Text);
+                _configuration.GameplaySettings.Update(tSString.Text);
                 UpdateCheckboxes();
                 ToggleCheckBoxes();
-                tSString.Text = _settings.ToString();
+                tSString.Text = _configuration.GameplaySettings.ToString();
             }
             catch
             {
                 tSString.Text = _oldSettingsString;
-                _settings.Update(_oldSettingsString);
+                _configuration.GameplaySettings.Update(_oldSettingsString);
                 MessageBox.Show("Settings string is invalid; reverted to previous settings.",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -312,12 +307,6 @@ namespace MMR.UI.Forms
                 {
                     seed = Math.Abs(seed);
                     tSeed.Text = seed.ToString();
-                    MessageBox.Show("Seed must be positive",
-                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    _settings.Seed = seed;
                 }
             }
             catch
@@ -334,15 +323,16 @@ namespace MMR.UI.Forms
         {
             try
             {
-                _settings.Update(tSString.Text);
+                //_configuration.GameplaySettings.Update(tSString.Text);
                 UpdateCheckboxes();
                 ToggleCheckBoxes();
-                tSString.Text = _settings.ToString();
+                tSString.Text = _configuration.GameplaySettings.ToString();
+                tROMName.Text = _configuration.OutputSettings.InputROMFilename;
             }
             catch
             {
                 tSString.Text = _oldSettingsString;
-                _settings.Update(_oldSettingsString);
+                _configuration.GameplaySettings.Update(_oldSettingsString);
                 UpdateCheckboxes();
                 ToggleCheckBoxes();
                 MessageBox.Show("There was an issue updating your setting string. Returning to old Setting String.",
@@ -352,62 +342,70 @@ namespace MMR.UI.Forms
 
         private void UpdateCheckboxes()
         {
-            cUserItems.Checked = _settings.UseCustomItemList;
-            cAdditional.Checked = _settings.AddOther;
-            cSoS.Checked = _settings.ExcludeSongOfSoaring;
-            cSpoiler.Checked = _settings.GenerateSpoilerLog;
-            cHTMLLog.Checked = _settings.GenerateHTMLLog;
-            cMixSongs.Checked = _settings.AddSongs;
-            cBottled.Checked = _settings.RandomizeBottleCatchContents;
-            cDChests.Checked = _settings.AddDungeonItems;
-            cShop.Checked = _settings.AddShopItems;
-            cDEnt.Checked = _settings.RandomizeDungeonEntrances;
-            cSFX.Checked = _settings.RandomizeSounds;
-            cEnemy.Checked = _settings.RandomizeEnemies;
-            cCutsc.Checked = _settings.ShortenCutscenes;
-            cQText.Checked = _settings.QuickTextEnabled;
-            cFreeHints.Checked = _settings.FreeHints;
-            cMoonItems.Checked = _settings.AddMoonItems;
-            cFairyRewards.Checked = _settings.AddFairyRewards;
-            cClearHints.Checked = _settings.ClearHints;
-            cHideClock.Checked = _settings.HideClock;
-            cSunsSong.Checked = _settings.EnableSunsSong;
-            cClockSpeed.SelectedIndex = (int)_settings.ClockSpeed;
-            cNoDowngrades.Checked = _settings.PreventDowngrades;
-            cShopAppearance.Checked = _settings.UpdateShopAppearance;
-            cNutChest.Checked = _settings.AddNutChest;
-            cCrazyStartingItems.Checked = _settings.CrazyStartingItems;
-            cCowMilk.Checked = _settings.AddCowMilk;
-            cSpiders.Checked = _settings.AddSkulltulaTokens;
-            cMundaneRewards.Checked = _settings.AddMundaneRewards;
-            cStrayFairies.Checked = _settings.AddStrayFairies;
-            cNoStartingItems.Checked = _settings.NoStartingItems;
-            cEponaSword.Checked = _settings.FixEponaSword;
-            cUpdateChests.Checked = _settings.UpdateChests;
-            cSkipBeaver.Checked = _settings.SpeedupBeavers;
-            cGoodDampeRNG.Checked = _settings.SpeedupDampe;
-            cGoodDogRaceRNG.Checked = _settings.SpeedupDogRace;
-            cFasterLabFish.Checked = _settings.SpeedupLabFish;
+            cSpoiler.Checked = _configuration.OutputSettings.GenerateSpoilerLog;
+            cHTMLLog.Checked = _configuration.OutputSettings.GenerateHTMLLog;
+            cN64.Checked = _configuration.OutputSettings.GenerateROM;
+            cVC.Checked = _configuration.OutputSettings.OutputVC;
+            cPatch.Checked = _configuration.OutputSettings.GeneratePatch;
 
-            cDMult.SelectedIndex = (int)_settings.DamageMode;
-            cDType.SelectedIndex = (int)_settings.DamageEffect;
-            cMode.SelectedIndex = (int)_settings.LogicMode;
-            cLink.SelectedIndex = (int)_settings.Character;
-            cTatl.SelectedIndex = (int)_settings.TatlColorSchema;
-            cGravity.SelectedIndex = (int)_settings.MovementMode;
-            cFloors.SelectedIndex = (int)_settings.FloorType;
-            cGossipHints.SelectedIndex = (int)_settings.GossipHintStyle;
-            cBlastCooldown.SelectedIndex = (int)_settings.BlastMaskCooldown;
-            cMusic.SelectedIndex = (int)_settings.Music;
-            bTunic.BackColor = _settings.TunicColor;
+            cUserItems.Checked = _configuration.GameplaySettings.UseCustomItemList;
+            cAdditional.Checked = _configuration.GameplaySettings.AddOther;
+            cSoS.Checked = _configuration.GameplaySettings.ExcludeSongOfSoaring;
+            cMixSongs.Checked = _configuration.GameplaySettings.AddSongs;
+            cBottled.Checked = _configuration.GameplaySettings.RandomizeBottleCatchContents;
+            cDChests.Checked = _configuration.GameplaySettings.AddDungeonItems;
+            cShop.Checked = _configuration.GameplaySettings.AddShopItems;
+            cDEnt.Checked = _configuration.GameplaySettings.RandomizeDungeonEntrances;
+            cSFX.Checked = _configuration.CosmeticSettings.RandomizeSounds;
+            cEnemy.Checked = _configuration.GameplaySettings.RandomizeEnemies;
+            cCutsc.Checked = _configuration.GameplaySettings.ShortenCutscenes;
+            cQText.Checked = _configuration.GameplaySettings.QuickTextEnabled;
+            cFreeHints.Checked = _configuration.GameplaySettings.FreeHints;
+            cMoonItems.Checked = _configuration.GameplaySettings.AddMoonItems;
+            cFairyRewards.Checked = _configuration.GameplaySettings.AddFairyRewards;
+            cClearHints.Checked = _configuration.GameplaySettings.ClearHints;
+            cHideClock.Checked = _configuration.GameplaySettings.HideClock;
+            cSunsSong.Checked = _configuration.GameplaySettings.EnableSunsSong;
+            cClockSpeed.SelectedIndex = (int)_configuration.GameplaySettings.ClockSpeed;
+            cNoDowngrades.Checked = _configuration.GameplaySettings.PreventDowngrades;
+            cShopAppearance.Checked = _configuration.GameplaySettings.UpdateShopAppearance;
+            cNutChest.Checked = _configuration.GameplaySettings.AddNutChest;
+            cCrazyStartingItems.Checked = _configuration.GameplaySettings.CrazyStartingItems;
+            cCowMilk.Checked = _configuration.GameplaySettings.AddCowMilk;
+            cSpiders.Checked = _configuration.GameplaySettings.AddSkulltulaTokens;
+            cMundaneRewards.Checked = _configuration.GameplaySettings.AddMundaneRewards;
+            cStrayFairies.Checked = _configuration.GameplaySettings.AddStrayFairies;
+            cNoStartingItems.Checked = _configuration.GameplaySettings.NoStartingItems;
+            cEponaSword.Checked = _configuration.GameplaySettings.FixEponaSword;
+            cUpdateChests.Checked = _configuration.GameplaySettings.UpdateChests;
+            cSkipBeaver.Checked = _configuration.GameplaySettings.SpeedupBeavers;
+            cGoodDampeRNG.Checked = _configuration.GameplaySettings.SpeedupDampe;
+            cGoodDogRaceRNG.Checked = _configuration.GameplaySettings.SpeedupDogRace;
+            cFasterLabFish.Checked = _configuration.GameplaySettings.SpeedupLabFish;
+
+            cDMult.SelectedIndex = (int)_configuration.GameplaySettings.DamageMode;
+            cDType.SelectedIndex = (int)_configuration.GameplaySettings.DamageEffect;
+            cMode.SelectedIndex = (int)_configuration.GameplaySettings.LogicMode;
+            cLink.SelectedIndex = (int)_configuration.GameplaySettings.Character;
+            cTatl.SelectedIndex = (int)_configuration.CosmeticSettings.TatlColorSchema;
+            cGravity.SelectedIndex = (int)_configuration.GameplaySettings.MovementMode;
+            cFloors.SelectedIndex = (int)_configuration.GameplaySettings.FloorType;
+            cGossipHints.SelectedIndex = (int)_configuration.GameplaySettings.GossipHintStyle;
+            cBlastCooldown.SelectedIndex = (int)_configuration.GameplaySettings.BlastMaskCooldown;
+            cMusic.SelectedIndex = (int)_configuration.CosmeticSettings.Music;
+            bTunic.BackColor = _configuration.CosmeticSettings.TunicColor;
 
             // Misc config options
-            CritWiggleState critWiggle = _settings.AsmOptions.MiscConfig.Flags.CritWiggle;
+            CritWiggleState critWiggle = _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.CritWiggle;
             cDisableCritWiggle.Checked = critWiggle == CritWiggleState.AlwaysOff ? true : false;
-            cDrawHash.Checked = _settings.AsmOptions.MiscConfig.Flags.DrawHash;
-            cFastPush.Checked = _settings.AsmOptions.MiscConfig.Flags.FastPush;
-            cQuestItemStorage.Checked = _settings.AsmOptions.MiscConfig.Flags.QuestItemStorage;
-            cUnderwaterOcarina.Checked = _settings.AsmOptions.MiscConfig.Flags.OcarinaUnderwater;
+            cDrawHash.Checked = _configuration.CosmeticSettings.AsmOptions.MiscConfig.Flags.DrawHash;
+            cFastPush.Checked = _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.FastPush;
+            cQuestItemStorage.Checked = _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.QuestItemStorage;
+            cUnderwaterOcarina.Checked = _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.OcarinaUnderwater;
+
+            // HUD config options
+            cHUDHeartsComboBox.SelectedIndex = Array.FindIndex(ColorSelectionManager.Hearts.GetItems(), csi => csi.Name == _configuration.CosmeticSettings.HeartsSelection);
+            cHUDMagicComboBox.SelectedIndex = Array.FindIndex(ColorSelectionManager.MagicMeter.GetItems(), csi => csi.Name == _configuration.CosmeticSettings.MagicSelection);
         }
 
         private void tSeed_KeyDown(object sender, KeyEventArgs e)
@@ -451,258 +449,258 @@ namespace MMR.UI.Forms
             tCustomItemList.Visible = cUserItems.Checked;
             lCustomItemAmount.Visible = cUserItems.Checked;
 
-            UpdateSingleSetting(() => _settings.UseCustomItemList = cUserItems.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.UseCustomItemList = cUserItems.Checked);
 
         }
 
         private void cN64_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.GenerateROM = cN64.Checked);
+            UpdateSingleSetting(() => _configuration.OutputSettings.GenerateROM = cN64.Checked);
         }
 
         private void cSpoiler_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.GenerateSpoilerLog = cSpoiler.Checked);
+            UpdateSingleSetting(() => _configuration.OutputSettings.GenerateSpoilerLog = cSpoiler.Checked);
             UpdateSingleSetting(() => cHTMLLog.Enabled = cSpoiler.Checked);
 
             if (cHTMLLog.Checked)
             {
                 cHTMLLog.Checked = false;
-                UpdateSingleSetting(() => _settings.GenerateHTMLLog = false);
+                UpdateSingleSetting(() => _configuration.OutputSettings.GenerateHTMLLog = false);
             }
 
         }
 
         private void cPatch_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.GeneratePatch = cPatch.Checked);
+            UpdateSingleSetting(() => _configuration.OutputSettings.GeneratePatch = cPatch.Checked);
         }
 
         private void cHTMLLog_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.GenerateHTMLLog = cHTMLLog.Checked);
+            UpdateSingleSetting(() => _configuration.OutputSettings.GenerateHTMLLog = cHTMLLog.Checked);
         }
 
 
         private void cAdditional_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AddOther = cAdditional.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AddOther = cAdditional.Checked);
         }
 
         private void cMoonItems_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AddMoonItems = cMoonItems.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AddMoonItems = cMoonItems.Checked);
         }
 
         private void cFairyRewards_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AddFairyRewards = cFairyRewards.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AddFairyRewards = cFairyRewards.Checked);
         }
 
         private void cNutChest_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AddNutChest = cNutChest.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AddNutChest = cNutChest.Checked);
         }
 
         private void cCrazyStartingItems_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.CrazyStartingItems = cCrazyStartingItems.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.CrazyStartingItems = cCrazyStartingItems.Checked);
         }
 
         private void cCowMilk_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AddCowMilk = cCowMilk.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AddCowMilk = cCowMilk.Checked);
         }
 
         private void cSpiders_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AddSkulltulaTokens = cSpiders.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AddSkulltulaTokens = cSpiders.Checked);
         }
 
         private void cMundaneRewards_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AddMundaneRewards = cMundaneRewards.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AddMundaneRewards = cMundaneRewards.Checked);
         }
 
         private void cStrayFairies_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AddStrayFairies = cStrayFairies.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AddStrayFairies = cStrayFairies.Checked);
         }
 
         private void cSFX_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.RandomizeSounds = cSFX.Checked);
+            UpdateSingleSetting(() => _configuration.CosmeticSettings.RandomizeSounds = cSFX.Checked);
         }
 
         private void cMusic_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.Music = (Music)cMusic.SelectedIndex);
+            UpdateSingleSetting(() => _configuration.CosmeticSettings.Music = (Music)cMusic.SelectedIndex);
         }
 
         private void cBottled_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.RandomizeBottleCatchContents = cBottled.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.RandomizeBottleCatchContents = cBottled.Checked);
         }
 
         private void cCutsc_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.ShortenCutscenes = cCutsc.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.ShortenCutscenes = cCutsc.Checked);
         }
 
         private void cDChests_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AddDungeonItems = cDChests.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AddDungeonItems = cDChests.Checked);
         }
 
         private void cDEnt_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.RandomizeDungeonEntrances = cDEnt.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.RandomizeDungeonEntrances = cDEnt.Checked);
         }
 
         private void cDMult_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.DamageMode = (DamageMode)cDMult.SelectedIndex);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.DamageMode = (DamageMode)cDMult.SelectedIndex);
         }
 
         private void cDType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.DamageEffect = (DamageEffect)cDType.SelectedIndex);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.DamageEffect = (DamageEffect)cDType.SelectedIndex);
         }
 
         private void cEnemy_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.RandomizeEnemies = cEnemy.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.RandomizeEnemies = cEnemy.Checked);
         }
 
         private void cFloors_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.FloorType = (FloorType)cFloors.SelectedIndex);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.FloorType = (FloorType)cFloors.SelectedIndex);
         }
 
         private void cGravity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.MovementMode = (MovementMode)cGravity.SelectedIndex);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.MovementMode = (MovementMode)cGravity.SelectedIndex);
         }
 
         private void cLink_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.Character = (Character)cLink.SelectedIndex);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.Character = (Character)cLink.SelectedIndex);
         }
 
         private void cMixSongs_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AddSongs = cMixSongs.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AddSongs = cMixSongs.Checked);
         }
 
         private void cFreeHints_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.FreeHints = cFreeHints.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.FreeHints = cFreeHints.Checked);
         }
 
         private void cClearHints_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.ClearHints = cClearHints.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.ClearHints = cClearHints.Checked);
         }
 
         private void cNoDowngrades_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.PreventDowngrades = cNoDowngrades.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.PreventDowngrades = cNoDowngrades.Checked);
         }
 
         private void cShopAppearance_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.UpdateShopAppearance = cShopAppearance.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.UpdateShopAppearance = cShopAppearance.Checked);
         }
 
         private void cUpdateChests_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.UpdateChests = cUpdateChests.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.UpdateChests = cUpdateChests.Checked);
         }
 
         private void cEponaSword_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.FixEponaSword = cEponaSword.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.FixEponaSword = cEponaSword.Checked);
         }
 
         private void cHideClock_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.HideClock = cHideClock.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.HideClock = cHideClock.Checked);
         }
 
         private void cSunsSong_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.EnableSunsSong = cSunsSong.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.EnableSunsSong = cSunsSong.Checked);
         }
 
         private void cNoStartingItems_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.NoStartingItems = cNoStartingItems.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.NoStartingItems = cNoStartingItems.Checked);
         }
 
         private void cQText_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.QuickTextEnabled = cQText.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.QuickTextEnabled = cQText.Checked);
         }
 
         private void cShop_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AddShopItems = cShop.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AddShopItems = cShop.Checked);
         }
 
         private void cSoS_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.ExcludeSongOfSoaring = cSoS.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.ExcludeSongOfSoaring = cSoS.Checked);
         }
 
         private void cTatl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.TatlColorSchema = (TatlColorSchema)cTatl.SelectedIndex);
+            UpdateSingleSetting(() => _configuration.CosmeticSettings.TatlColorSchema = (TatlColorSchema)cTatl.SelectedIndex);
         }
 
         private void cSkipBeaver_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.SpeedupBeavers = cSkipBeaver.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.SpeedupBeavers = cSkipBeaver.Checked);
         }
 
         private void cGoodDampeRNG_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.SpeedupDampe = cGoodDampeRNG.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.SpeedupDampe = cGoodDampeRNG.Checked);
         }
 
         private void cGoodDogRaceRNG_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.SpeedupDogRace = cGoodDogRaceRNG.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.SpeedupDogRace = cGoodDogRaceRNG.Checked);
         }
 
         private void cFasterLabFish_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.SpeedupLabFish = cFasterLabFish.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.SpeedupLabFish = cFasterLabFish.Checked);
         }
 
         private void cDrawHash_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AsmOptions.MiscConfig.Flags.DrawHash = cDrawHash.Checked);
+            UpdateSingleSetting(() => _configuration.CosmeticSettings.AsmOptions.MiscConfig.Flags.DrawHash = cDrawHash.Checked);
         }
 
         private void cQuestItemStorage_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AsmOptions.MiscConfig.Flags.QuestItemStorage = cQuestItemStorage.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.QuestItemStorage = cQuestItemStorage.Checked);
         }
 
         private void cDisableCritWiggle_CheckedChanged(object sender, EventArgs e)
         {
             var state = cDisableCritWiggle.Checked ? CritWiggleState.AlwaysOff : CritWiggleState.Default;
-            UpdateSingleSetting(() => _settings.AsmOptions.MiscConfig.Flags.CritWiggle = state);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.CritWiggle = state);
         }
 
         private void cFastPush_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AsmOptions.MiscConfig.Flags.FastPush = cFastPush.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.FastPush = cFastPush.Checked);
         }
 
         private void cUnderwaterOcarina_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.AsmOptions.MiscConfig.Flags.OcarinaUnderwater = cUnderwaterOcarina.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.OcarinaUnderwater = cUnderwaterOcarina.Checked);
         }
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -726,28 +724,28 @@ namespace MMR.UI.Forms
                 bLoadLogic.Enabled = false;
             }
 
-            UpdateSingleSetting(() => _settings.LogicMode = logicMode);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.LogicMode = logicMode);
         }
 
         private void cClockSpeed_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.ClockSpeed = (ClockSpeed)cClockSpeed.SelectedIndex);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.ClockSpeed = (ClockSpeed)cClockSpeed.SelectedIndex);
         }
 
         private void cGossipHints_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.GossipHintStyle = (GossipHintStyle)cGossipHints.SelectedIndex);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.GossipHintStyle = (GossipHintStyle)cGossipHints.SelectedIndex);
         }
 
 
         private void cBlastCooldown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.BlastMaskCooldown = (BlastMaskCooldown)cBlastCooldown.SelectedIndex);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.BlastMaskCooldown = (BlastMaskCooldown)cBlastCooldown.SelectedIndex);
         }
 
         private void cVC_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _settings.OutputVC = cVC.Checked);
+            UpdateSingleSetting(() => _configuration.OutputSettings.OutputVC = cVC.Checked);
         }
 
         private void mExit_Click(object sender, EventArgs e)
@@ -784,7 +782,10 @@ namespace MMR.UI.Forms
 
         private void bItemListEditor_Click(object sender, EventArgs e)
         {
-            ItemEditor.Show();
+            if (ItemEditor.ShowDialog() == DialogResult.Cancel)
+            {
+                tCustomItemList.Text = ItemEditor.CustomItemListString;
+            }
         }
 
         private void tCustomItemList_TextChanged(object sender, EventArgs e)
@@ -793,27 +794,26 @@ namespace MMR.UI.Forms
             UpdateCustomItemAmountLabel();
         }
 
-        private void ItemEditor_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            tCustomItemList.Text = _settings.CustomItemListString;
-            UpdateCustomItemAmountLabel();
-        }
-
         private void UpdateCustomItemAmountLabel()
         {
-            if (_settings.CustomItemList.Contains(-1))
+            _configuration.GameplaySettings.CustomItemList = ItemEditor.CustomItemList.ToList();
+            _configuration.GameplaySettings.CustomItemListString = ItemEditor.CustomItemListString;
+            if (_configuration.GameplaySettings.CustomItemList.Contains(-1))
             {
                 lCustomItemAmount.Text = "Invalid custom item string";
             }
             else
             {
-                lCustomItemAmount.Text = $"{_settings.CustomItemList.Count}/{ItemUtils.AllLocations().Count()} items randomized";
+                lCustomItemAmount.Text = $"{_configuration.GameplaySettings.CustomItemList.Count}/{ItemUtils.AllLocations().Count()} items randomized";
             }
         }
 
         private void bStartingItemEditor_Click(object sender, EventArgs e)
         {
-            StartingItemEditor.Show();
+            if (StartingItemEditor.ShowDialog() == DialogResult.Cancel)
+            {
+                tStartingItemList.Text = StartingItemEditor.CustomStartingItemListString;
+            }
         }
 
         private void tStartingItemList_TextChanged(object sender, EventArgs e)
@@ -822,20 +822,19 @@ namespace MMR.UI.Forms
             UpdateCustomStartingItemAmountLabel();
         }
 
-        private void StartingItemEditor_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            tStartingItemList.Text = _settings.CustomStartingItemListString;
-            UpdateCustomStartingItemAmountLabel();
-        }
-
         private void UpdateCustomStartingItemAmountLabel()
         {
+            _configuration.GameplaySettings.CustomStartingItemList = StartingItemEditor.CustomStartingItemList.ToList();
+            _configuration.GameplaySettings.CustomStartingItemListString = StartingItemEditor.CustomStartingItemListString;
             lCustomStartingItemAmount.Text = StartingItemEditor.ExternalLabel;
         }
 
         private void bJunkLocationsEditor_Click(object sender, EventArgs e)
         {
-            JunkLocationEditor.Show();
+            if (JunkLocationEditor.ShowDialog() == DialogResult.Cancel)
+            {
+                tJunkLocationsList.Text = JunkLocationEditor.CustomJunkLocationsString;
+            }
         }
 
         private void tJunkLocationsList_TextChanged(object sender, EventArgs e)
@@ -844,14 +843,10 @@ namespace MMR.UI.Forms
             UpdateJunkLocationAmountLabel();
         }
 
-        private void JunkLocationEditor_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            tJunkLocationsList.Text = _settings.CustomJunkLocationsString;
-            UpdateJunkLocationAmountLabel();
-        }
-
         private void UpdateJunkLocationAmountLabel()
         {
+            _configuration.GameplaySettings.CustomJunkLocations = JunkLocationEditor.CustomJunkLocations.ToList();
+            _configuration.GameplaySettings.CustomJunkLocationsString = JunkLocationEditor.CustomJunkLocationsString;
             lJunkLocationsAmount.Text = JunkLocationEditor.ExternalLabel;
         }
 
@@ -864,7 +859,7 @@ namespace MMR.UI.Forms
         {
             var onMainTab = ttOutput.SelectedTab.TabIndex == 0;
 
-            if (_settings.LogicMode == LogicMode.Vanilla)
+            if (_configuration.GameplaySettings.LogicMode == LogicMode.Vanilla)
             {
                 cMixSongs.Enabled = false;
                 cSoS.Enabled = false;
@@ -904,7 +899,7 @@ namespace MMR.UI.Forms
                 cAdditional.Enabled = onMainTab;
                 cMoonItems.Enabled = onMainTab;
                 cFairyRewards.Enabled = onMainTab;
-                cNutChest.Enabled = onMainTab && _settings.LogicMode != LogicMode.Casual;
+                cNutChest.Enabled = onMainTab && _configuration.GameplaySettings.LogicMode != LogicMode.Casual;
                 cCrazyStartingItems.Enabled = onMainTab;
                 cCowMilk.Enabled = onMainTab;
                 cSpiders.Enabled = onMainTab;
@@ -917,20 +912,20 @@ namespace MMR.UI.Forms
                 tStartingItemList.Enabled = onMainTab;
                 bStartingItemEditor.Enabled = onMainTab;
 
-                tJunkLocationsList.Enabled = onMainTab && _settings.LogicMode != LogicMode.NoLogic;
-                bJunkLocationsEditor.Enabled = onMainTab && _settings.LogicMode != LogicMode.NoLogic;
+                tJunkLocationsList.Enabled = onMainTab && _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
+                bJunkLocationsEditor.Enabled = onMainTab && _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
 
-                cNoStartingItems.Enabled = onMainTab && (_settings.AddOther || _settings.UseCustomItemList);
+                cNoStartingItems.Enabled = onMainTab && (_configuration.GameplaySettings.AddOther || _configuration.GameplaySettings.UseCustomItemList);
                 if (!cNoStartingItems.Enabled && onMainTab)
                 {
                     cNoStartingItems.Checked = false;
-                    _settings.NoStartingItems = false;
+                    _configuration.GameplaySettings.NoStartingItems = false;
                 }
             }
 
-            cHTMLLog.Enabled = onMainTab && _settings.GenerateSpoilerLog;
+            cHTMLLog.Enabled = onMainTab && _configuration.OutputSettings.GenerateSpoilerLog;
 
-            if (_settings.GossipHintStyle == GossipHintStyle.Default || _settings.LogicMode == LogicMode.Vanilla)
+            if (_configuration.GameplaySettings.GossipHintStyle == GossipHintStyle.Default || _configuration.GameplaySettings.LogicMode == LogicMode.Vanilla)
             {
                 cClearHints.Enabled = false;
             }
@@ -964,7 +959,7 @@ namespace MMR.UI.Forms
 
         private void UpdateSettingsString()
         {
-            tSString.Text = _settings.ToString();
+            tSString.Text = _configuration.GameplaySettings.ToString();
         }
 
         private void EnableAllControls(bool v)
@@ -1041,7 +1036,7 @@ namespace MMR.UI.Forms
         {
             var items = DPadItem.All();
             var presets = DPadPreset.All();
-            var config = _settings.AsmOptions.DPadConfig;
+            var config = _configuration.CosmeticSettings.AsmOptions.DPadConfig;
 
             DPadForm form = new DPadForm(presets, items, config);
             if (form.ShowDialog() == DialogResult.OK)
@@ -1058,7 +1053,12 @@ namespace MMR.UI.Forms
 
         public void InitializeSettings()
         {
-            _settings = new SettingsObject();
+            _configuration = new Configuration
+            {
+                OutputSettings = new OutputSettings(),
+                GameplaySettings = new GameplaySettings(),
+                CosmeticSettings = new CosmeticSettings(),
+            };
 
             cDMult.SelectedIndex = 0;
             cDType.SelectedIndex = 0;
@@ -1089,21 +1089,20 @@ namespace MMR.UI.Forms
 
             bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
 
-            _settings.GenerateROM = true;
-            _settings.GenerateSpoilerLog = true;
-            _settings.ExcludeSongOfSoaring = true;
-            _settings.PreventDowngrades = true;
-            _settings.UpdateShopAppearance = true;
-            _settings.FixEponaSword = true;
-            _settings.ShortenCutscenes = true;
-            _settings.QuickTextEnabled = true;
-            _settings.UpdateChests = true;
-            _settings.AddOther = true;
-            _settings.NoStartingItems = true;
-            _settings.TunicColor = bTunic.BackColor;
-            _settings.Seed = Math.Abs(Environment.TickCount);
+            _configuration.OutputSettings.GenerateROM = true;
+            _configuration.OutputSettings.GenerateSpoilerLog = true;
+            _configuration.GameplaySettings.ExcludeSongOfSoaring = true;
+            _configuration.GameplaySettings.PreventDowngrades = true;
+            _configuration.GameplaySettings.UpdateShopAppearance = true;
+            _configuration.GameplaySettings.FixEponaSword = true;
+            _configuration.GameplaySettings.ShortenCutscenes = true;
+            _configuration.GameplaySettings.QuickTextEnabled = true;
+            _configuration.GameplaySettings.UpdateChests = true;
+            _configuration.GameplaySettings.AddOther = true;
+            _configuration.GameplaySettings.NoStartingItems = true;
+            _configuration.CosmeticSettings.TunicColor = bTunic.BackColor;
 
-            tSeed.Text = _settings.Seed.ToString();
+            tSeed.Text = Math.Abs(Environment.TickCount).ToString();
 
             tbUserLogic.Enabled = false;
             bLoadLogic.Enabled = false;
@@ -1123,14 +1122,15 @@ namespace MMR.UI.Forms
         /// </summary>
         private void TryRandomize(BackgroundWorker worker, DoWorkEventArgs e)
         {
-            var result = SettingsProcessor.Process(_settings, new BackgroundWorkerProgressReporter(worker));
+            var seed = Convert.ToInt32(tSeed.Text);
+            var result = ConfigurationProcessor.Process(_configuration, seed, new BackgroundWorkerProgressReporter(worker));
             if (result != null)
             {
                 MessageBox.Show(result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            _settings.InputPatchFilename = null;
+            _configuration.OutputSettings.InputPatchFilename = null;
 
             MessageBox.Show("Generation complete!", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
         }
@@ -1142,7 +1142,7 @@ namespace MMR.UI.Forms
 
         private bool CheckLogicFileExists()
         {
-            if (_settings.LogicMode == LogicMode.UserLogic && !File.Exists(_settings.UserLogicFileName))
+            if (_configuration.GameplaySettings.LogicMode == LogicMode.UserLogic && !File.Exists(_configuration.GameplaySettings.UserLogicFileName))
             {
                 MessageBox.Show("User Logic not found or invalid, please load User Logic or change logic mode.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1157,8 +1157,8 @@ namespace MMR.UI.Forms
         private void BLoadPatch_Click(object sender, EventArgs e)
         {
             openPatch.ShowDialog();
-            _settings.InputPatchFilename = openPatch.FileName;
-            tPatch.Text = _settings.InputPatchFilename;
+            _configuration.OutputSettings.InputPatchFilename = openPatch.FileName;
+            tPatch.Text = _configuration.OutputSettings.InputPatchFilename;
         }
 
         private void ttOutput_Changed(object sender, EventArgs e)
@@ -1198,8 +1198,8 @@ namespace MMR.UI.Forms
             cShopAppearance.Enabled = v;
             cUpdateChests.Enabled = v;
             cEponaSword.Enabled = v;
-            cClearHints.Enabled = _settings.LogicMode != LogicMode.Vanilla && _settings.GossipHintStyle != GossipHintStyle.Default && v;
-            cGossipHints.Enabled = _settings.LogicMode != LogicMode.Vanilla && v;
+            cClearHints.Enabled = _configuration.GameplaySettings.LogicMode != LogicMode.Vanilla && _configuration.GameplaySettings.GossipHintStyle != GossipHintStyle.Default && v;
+            cGossipHints.Enabled = _configuration.GameplaySettings.LogicMode != LogicMode.Vanilla && v;
             cDisableCritWiggle.Enabled = v;
             cDrawHash.Enabled = v;
             cQuestItemStorage.Enabled = v;
@@ -1215,7 +1215,7 @@ namespace MMR.UI.Forms
             // Other..?
             cDummy.Enabled = v;
 
-            _settings.InputPatchFilename = v ? null : string.Empty;
+            _configuration.OutputSettings.InputPatchFilename = v ? null : string.Empty;
             tPatch.Text = v ? null : string.Empty;
         }
 
@@ -1223,62 +1223,39 @@ namespace MMR.UI.Forms
         private void SaveSettings(string filename = null)
         {
             var path = Path.ChangeExtension(filename ?? DEFAULT_SETTINGS_FILENAME, SETTINGS_EXTENSION);
-            string[] lines = null;
-            if (filename != null && _settings.UserLogicFileName != null && File.Exists(_settings.UserLogicFileName))
+            string logicFilePath = null;
+            string inputROMFilename = null;
+            if (filename != null)
             {
-                using (StreamReader Req = new StreamReader(File.Open(_settings.UserLogicFileName, FileMode.Open)))
+                logicFilePath = _configuration.GameplaySettings.UserLogicFileName;
+                _configuration.GameplaySettings.UserLogicFileName = null;
+                inputROMFilename = _configuration.OutputSettings.InputROMFilename;
+                _configuration.OutputSettings.InputROMFilename = null;
+                if (_configuration.GameplaySettings.LogicMode == LogicMode.UserLogic && logicFilePath != null && File.Exists(logicFilePath))
                 {
-                    lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                    using (StreamReader Req = new StreamReader(File.Open(logicFilePath, FileMode.Open)))
+                    {
+                        _configuration.Logic = Req.ReadToEnd();
+                        if (_configuration.Logic.StartsWith("{"))
+                        {
+                            var logicConfiguration = Configuration.FromJson(_configuration.Logic);
+                            _configuration.Logic = logicConfiguration.Logic;
+                        }
+                    }
                 }
             }
             using (var settingsFile = new StreamWriter(File.Open(path, FileMode.Create)))
             {
-                settingsFile.WriteLine("#MMR Settings File [" + AssemblyVersion + "]");
-                settingsFile.WriteLine("#settings " + _settings.ToString());
-                settingsFile.WriteLine("#hudcolors " + _settings.AsmOptions.HudColorsConfig.Colors.ToBase36String());
-                if (_settings.UseCustomItemList)
-                {
-                    settingsFile.WriteLine("#itemlist " + _settings.CustomItemListString);
-                }
-                if (_settings.CustomStartingItemList.Any())
-                {
-                    settingsFile.WriteLine("#startingitems " + _settings.CustomStartingItemListString);
-                }
-                if (_settings.CustomJunkLocations.Any())
-                {
-                    settingsFile.WriteLine("#junklocations " + _settings.CustomJunkLocationsString);
-                }
-
-                if (_settings.LogicMode == LogicMode.UserLogic)
-                {
-                    if (_settings.UserLogicFileName != null && File.Exists(_settings.UserLogicFileName))
-                    {
-                        if (filename == null)
-                        {
-                            settingsFile.WriteLine("#logicpath " + _settings.UserLogicFileName);
-                        }
-                        else
-                        {
-                            settingsFile.WriteLine("#logic ");
-                            for (var i = 0; i < lines.Length; i++)
-                            {
-                                var line = lines[i];
-                                if (line.StartsWith("#"))
-                                {
-                                    continue;
-                                }
-                                if (i != lines.Length - 1)
-                                {
-                                    settingsFile.WriteLine(line);
-                                }
-                                else
-                                {
-                                    settingsFile.Write(line);
-                                }
-                            }
-                        }
-                    }
-                }
+                settingsFile.Write(_configuration.ToString());
+            }
+            if (logicFilePath != null)
+            {
+                _configuration.GameplaySettings.UserLogicFileName = logicFilePath;
+                _configuration.Logic = null;
+            }
+            if (inputROMFilename != null)
+            {
+                _configuration.OutputSettings.InputROMFilename = inputROMFilename;
             }
         }
         
@@ -1287,108 +1264,66 @@ namespace MMR.UI.Forms
             var path = Path.ChangeExtension(filename ?? DEFAULT_SETTINGS_FILENAME, SETTINGS_EXTENSION);
             if (File.Exists(path))
             {
-                string[] lines = null;
                 using (StreamReader Req = new StreamReader(File.Open(path, FileMode.Open)))
                 {
-                    lines = Req.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                    _configuration = Configuration.FromJson(Req.ReadToEnd());
                 }
 
-                if (ValidateSettingsFile(lines))
-                {
-                    for (var i = 1; i < lines.Length; i++)
-                    {
-                        if (!lines[i].StartsWith("#") || !lines[i].Contains(" "))
-                        {
-                            continue;
-                        }
-                        var split = lines[i].Split(new[] { ' ' }, 2);
-                        var command = split[0].Substring(1);
-                        var parameter = split[1];
-                        switch (command)
-                        {
-                            case "settings":
-                                tSString.Text = parameter;
-                                _settings.Update(tSString.Text);
-                                break;
-                            case "itemlist":
-                                tCustomItemList.Text = parameter;
-                                ItemEditor.UpdateChecks(tCustomItemList.Text);
-                                break;
-                            case "startingitems":
-                                tStartingItemList.Text = parameter;
-                                StartingItemEditor.UpdateChecks(tStartingItemList.Text);
-                                break;
-                            case "junklocations":
-                                tJunkLocationsList.Text = parameter;
-                                JunkLocationEditor.UpdateChecks(tJunkLocationsList.Text);
-                                break;
-                            case "logicpath":
-                            case "logic":
-                                _settings.LogicMode = LogicMode.UserLogic;
-                                cMode.SelectedIndex = (int)_settings.LogicMode;
-                                _settings.UserLogicFileName = command == "logicpath" ? parameter : path;
-                                if (File.Exists(_settings.UserLogicFileName))
-                                {
-                                    tbUserLogic.Text = Path.GetFileNameWithoutExtension(_settings.UserLogicFileName);
-                                }
-                                else
-                                {
-                                    _settings.UserLogicFileName = string.Empty;
-                                }
-                                break;
-                            case "hudcolors":
-                                // Load HUD colors from string, apply to Settings object & HudConfigForm
-                                var colors = HudColors.FromBase36String(parameter);
-                                HudConfig.Update(colors);
-                                _settings.AsmOptions.HudColorsConfig.Colors = colors;
-                                break;
-                        }
-                    }
+                tCustomItemList.Text = _configuration.GameplaySettings.CustomItemListString;
+                ItemEditor.UpdateChecks(tCustomItemList.Text);
 
-                    UpdateJunkLocationAmountLabel();
-                    UpdateCustomStartingItemAmountLabel();
-                    UpdateCustomItemAmountLabel();
-                    UpdateSettingString();
+                tStartingItemList.Text = _configuration.GameplaySettings.CustomStartingItemListString;
+                StartingItemEditor.UpdateChecks(tStartingItemList.Text);
+
+                tJunkLocationsList.Text = _configuration.GameplaySettings.CustomJunkLocationsString;
+                JunkLocationEditor.UpdateChecks(tJunkLocationsList.Text);
+
+                if (_configuration.Logic != null)
+                {
+                    _configuration.GameplaySettings.UserLogicFileName = path;
+                    _configuration.Logic = null;
+                }
+                if (File.Exists(_configuration.GameplaySettings.UserLogicFileName))
+                {
+                    tbUserLogic.Text = Path.GetFileNameWithoutExtension(_configuration.GameplaySettings.UserLogicFileName);
                 }
                 else
                 {
-                    if (filename == null)
-                    {
-                        File.Delete(path);
-                    }
-                    else
-                    {
-                        MessageBox.Show("File is not a valid preset file or outdated! Please double check file. \n \n" + _settings.UserPresetFileName,
-                           "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
+                    _configuration.GameplaySettings.UserLogicFileName = string.Empty;
                 }
+
+                HudConfig.Update(_configuration.CosmeticSettings.AsmOptions.HudColorsConfig.Colors);
+
+                UpdateJunkLocationAmountLabel();
+                UpdateCustomStartingItemAmountLabel();
+                UpdateCustomItemAmountLabel();
+                UpdateSettingString();
             }
         }
 
         private void SaveSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_settings.LogicMode != LogicMode.UserLogic || (_settings.LogicMode == LogicMode.UserLogic && CheckLogicFileExists()))
+            if (_configuration.GameplaySettings.LogicMode != LogicMode.UserLogic || (_configuration.GameplaySettings.LogicMode == LogicMode.UserLogic && CheckLogicFileExists()))
             {
-                if (savePreset.ShowDialog() == DialogResult.OK)
+                if (saveSettings.ShowDialog() == DialogResult.OK)
                 {
-                    SaveSettings(savePreset.FileName);
+                    SaveSettings(saveSettings.FileName);
                 }
             }
         }
 
         private void LoadSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openPreset.Filter = "Config Files|*.cfg";
-            if (openPreset.ShowDialog() == DialogResult.OK)
+            loadSettings.Filter = "Config Files|*.cfg";
+            if (loadSettings.ShowDialog() == DialogResult.OK)
             {
-                _settings.UserPresetFileName = openPreset.FileName;
-                LoadSettings(_settings.UserPresetFileName);
+                LoadSettings(loadSettings.FileName);
             }
         }
 
         private void btn_hud_Click(object sender, EventArgs e)
         {
-            var config = _settings.AsmOptions.HudColorsConfig;
+            var config = _configuration.CosmeticSettings.AsmOptions.HudColorsConfig;
             if (HudConfig.ShowDialog(this, config) == DialogResult.Cancel)
             {
                 var colors = HudConfig.ToColors();
@@ -1400,14 +1335,14 @@ namespace MMR.UI.Forms
         {
             var combobox = (ComboBox)sender;
             var selected = (ColorSelectionItem)combobox.SelectedItem;
-            _settings.HeartsSelection = selected;
+            _configuration.CosmeticSettings.HeartsSelection = selected.Name;
         }
 
         private void cHUDMagicComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             var combobox = (ComboBox)sender;
             var selected = (ColorSelectionItem)combobox.SelectedItem;
-            _settings.MagicSelection = selected;
+            _configuration.CosmeticSettings.MagicSelection = selected.Name;
         }
     }
 }
