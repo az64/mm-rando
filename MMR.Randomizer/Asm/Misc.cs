@@ -5,18 +5,60 @@ using System.IO;
 namespace MMR.Randomizer.Asm
 {
     /// <summary>
+    /// Crit wiggle state value.
+    /// </summary>
+    public enum CritWiggleState : byte
+    {
+        Default,
+        AlwaysOn,
+        AlwaysOff,
+    }
+
+    /// <summary>
     /// Miscellaneous flags.
     /// </summary>
     public class MiscFlags
     {
         /// <summary>
+        /// Behaviour of crit wiggle.
+        /// </summary>
+        public CritWiggleState CritWiggle { get; set; }
+
+        /// <summary>
+        /// Whether or not to disable crit wiggle (alternative state is default behaviour).
+        /// </summary>
+        public bool CritWiggleDisable {
+            get { return (this.CritWiggle == CritWiggleState.AlwaysOff) ? true : false; }
+            set { this.CritWiggle = (value ? CritWiggleState.AlwaysOff : CritWiggleState.Default); }
+        }
+
+        /// <summary>
         /// Whether or not to draw hash icons on the file select screen.
         /// </summary>
         public bool DrawHash { get; set; }
 
+        /// <summary>
+        /// Whether or not to enable faster pushing and pulling speeds.
+        /// </summary>
+        public bool FastPush { get; set; }
+
+        /// <summary>
+        /// Whether or not to allow using the ocarina underwater.
+        /// </summary>
+        public bool OcarinaUnderwater { get; set; }
+
+        /// <summary>
+        /// Whether or not to enable Quest Item Storage.
+        /// </summary>
+        public bool QuestItemStorage { get; set; }
+
         public MiscFlags()
         {
+            this.CritWiggle = CritWiggleState.Default;
             this.DrawHash = true;
+            this.FastPush = true;
+            this.OcarinaUnderwater = false;
+            this.QuestItemStorage = true;
         }
 
         public MiscFlags(uint flags)
@@ -30,7 +72,11 @@ namespace MMR.Randomizer.Asm
         /// <param name="flags">Flags integer</param>
         void Load(uint flags)
         {
-            this.DrawHash = ((flags >> 30) & 1) == 1;
+            this.CritWiggle = (CritWiggleState)(flags >> 30);
+            this.DrawHash = ((flags >> 29) & 1) == 1;
+            this.FastPush = ((flags >> 28) & 1) == 1;
+            this.OcarinaUnderwater = ((flags >> 27) & 1) == 1;
+            this.QuestItemStorage = ((flags >> 26) & 1) == 1;
         }
 
         /// <summary>
@@ -40,7 +86,11 @@ namespace MMR.Randomizer.Asm
         public uint ToInt()
         {
             uint flags = 0;
-            flags |= (this.DrawHash ? (uint)1 : 0) << 30;
+            flags |= (((uint)this.CritWiggle) & 3) << 30;
+            flags |= (this.DrawHash ? (uint)1 : 0) << 29;
+            flags |= (this.FastPush ? (uint)1 : 0) << 28;
+            flags |= (this.OcarinaUnderwater ? (uint)1 : 0) << 27;
+            flags |= (this.QuestItemStorage ? (uint)1 : 0) << 26;
             return flags;
         }
     }
@@ -82,7 +132,6 @@ namespace MMR.Randomizer.Asm
         /// <summary>
         /// Hash bytes.
         /// </summary>
-        [JsonIgnore]
         public byte[] Hash { get; set; }
 
         /// <summary>

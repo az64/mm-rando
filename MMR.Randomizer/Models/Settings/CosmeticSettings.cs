@@ -1,5 +1,6 @@
 ﻿using MMR.Randomizer.Asm;
 using MMR.Randomizer.Models.Colors;
+using Newtonsoft.Json;
 using System.Drawing;
 
 namespace MMR.Randomizer.Models.Settings
@@ -10,6 +11,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         /// Options for the Asm <see cref="Patcher"/>.
         /// </summary>
+        [JsonIgnore]
         public AsmOptionsCosmetic AsmOptions { get; set; } = new AsmOptionsCosmetic();
 
         /// <summary>
@@ -41,5 +43,25 @@ namespace MMR.Randomizer.Models.Settings
         /// Randomize background music (includes bgm from other video games)
         /// </summary>
         public Music Music { get; set; }
+
+        #region Asm Getters / Setters
+
+        /// <summary>
+        /// D-Pad configuration.
+        /// </summary>
+        public DPadConfig DPad {
+            get { return this.AsmOptions.DPadConfig; }
+            set { this.AsmOptions.DPadConfig = value; }
+        }
+
+        /// <summary>
+        /// HUD colors.
+        /// </summary>
+        public HudColors HudColors {
+            get { return this.AsmOptions.HudColorsConfig.Colors; }
+            set { this.AsmOptions.HudColorsConfig.Colors = value; }
+        }
+
+        #endregion
     }
 }

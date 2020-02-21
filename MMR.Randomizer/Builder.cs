@@ -1097,7 +1097,7 @@ namespace MMR.Randomizer
 
             // Apply Asm configuration (after hash has been calculated)
             var options = _cosmeticSettings.AsmOptions;
-            options.MiscConfig.Hash = hash;
+            options.Hash = hash;
             asm.ApplyPostConfiguration(options, false);
         }
 
@@ -1107,7 +1107,7 @@ namespace MMR.Randomizer
 
             // Apply current configuration on top of existing Asm patch file
             var options = _cosmeticSettings.AsmOptions;
-            options.MiscConfig.Hash = hash;
+            options.Hash = hash;
             asm.ApplyPostConfiguration(options, true);
         }
 

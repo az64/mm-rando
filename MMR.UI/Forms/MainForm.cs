@@ -396,12 +396,12 @@ namespace MMR.UI.Forms
             bTunic.BackColor = _configuration.CosmeticSettings.TunicColor;
 
             // Misc config options
-            CritWiggleState critWiggle = _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.CritWiggle;
+            CritWiggleState critWiggle = _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.CritWiggle;
             cDisableCritWiggle.Checked = critWiggle == CritWiggleState.AlwaysOff ? true : false;
-            cDrawHash.Checked = _configuration.CosmeticSettings.AsmOptions.MiscConfig.Flags.DrawHash;
-            cFastPush.Checked = _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.FastPush;
-            cQuestItemStorage.Checked = _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.QuestItemStorage;
-            cUnderwaterOcarina.Checked = _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.OcarinaUnderwater;
+            cDrawHash.Checked = _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.DrawHash;
+            cFastPush.Checked = _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.FastPush;
+            cQuestItemStorage.Checked = _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.QuestItemStorage;
+            cUnderwaterOcarina.Checked = _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.OcarinaUnderwater;
 
             // HUD config options
             cHUDHeartsComboBox.SelectedIndex = Array.FindIndex(ColorSelectionManager.Hearts.GetItems(), csi => csi.Name == _configuration.CosmeticSettings.HeartsSelection);
@@ -679,28 +679,28 @@ namespace MMR.UI.Forms
 
         private void cDrawHash_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _configuration.CosmeticSettings.AsmOptions.MiscConfig.Flags.DrawHash = cDrawHash.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.DrawHash = cDrawHash.Checked);
         }
 
         private void cQuestItemStorage_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.QuestItemStorage = cQuestItemStorage.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.QuestItemStorage = cQuestItemStorage.Checked);
         }
 
         private void cDisableCritWiggle_CheckedChanged(object sender, EventArgs e)
         {
             var state = cDisableCritWiggle.Checked ? CritWiggleState.AlwaysOff : CritWiggleState.Default;
-            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.CritWiggle = state);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.CritWiggle = state);
         }
 
         private void cFastPush_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.FastPush = cFastPush.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.FastPush = cFastPush.Checked);
         }
 
         private void cUnderwaterOcarina_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.GameplayConfig.Flags.OcarinaUnderwater = cUnderwaterOcarina.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.OcarinaUnderwater = cUnderwaterOcarina.Checked);
         }
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)

@@ -126,16 +126,16 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
-        /// Write a <see cref="GameplayConfig"/> to the ROM.
+        /// Write a <see cref="MiscConfig"/> to the ROM.
         /// </summary>
         /// <param name="config">Misc config</param>
-        public void WriteMiscConfig(GameplayConfig config)
+        public void WriteMiscConfig(MiscConfig config)
         {
             WriteAsmConfig("MISC_CONFIG", config);
         }
 
         /// <summary>
-        /// Write the <see cref="GameplayConfig"/> hash bytes without overwriting other parts of the structure.
+        /// Write the <see cref="MiscConfig"/> hash bytes without overwriting other parts of the structure.
         /// </summary>
         /// <param name="hash">Hash bytes</param>
         public void WriteMiscHash(byte[] hash)
@@ -182,10 +182,10 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
-        /// Try and write the <see cref="GameplayConfig"/> hash bytes.
+        /// Try and write the <see cref="MiscConfig"/> hash bytes.
         /// </summary>
         /// <param name="hash">Hash bytes</param>
-        /// <returns>True if successful, false if the <see cref="GameplayConfig"/> symbol was not found.</returns>
+        /// <returns>True if successful, false if the <see cref="MiscConfig"/> symbol was not found.</returns>
         public bool TryWriteMiscHash(byte[] hash)
         {
             try
@@ -335,7 +335,7 @@ namespace MMR.Randomizer.Asm
         /// <param name="options">Options</param>
         public void ApplyConfiguration(AsmOptionsGameplay options)
         {
-            this.WriteMiscConfig(options.GameplayConfig);
+            this.WriteMiscConfig(options.MiscConfig);
         }
 
         /// <summary>
@@ -348,7 +348,7 @@ namespace MMR.Randomizer.Asm
             this.WriteHudColorsConfig(options.HudColorsConfig);
 
             // Only write the MiscConfig hash (the rest should not be changeable post-patch)
-            this.WriteMiscHash(options.MiscConfig.Hash);
+            this.WriteMiscHash(options.Hash);
         }
 
         /// <summary>
@@ -361,7 +361,7 @@ namespace MMR.Randomizer.Asm
             this.TryWriteHudColorsConfig(options.HudColorsConfig);
 
             // Try and write the MiscConfig hash
-            this.TryWriteMiscHash(options.MiscConfig.Hash);
+            this.TryWriteMiscHash(options.Hash);
         }
     }
 }

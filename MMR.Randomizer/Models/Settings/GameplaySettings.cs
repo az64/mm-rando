@@ -26,7 +26,52 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         /// Options for the Asm <see cref="Patcher"/>.
         /// </summary>
+        [JsonIgnore]
         public AsmOptionsGameplay AsmOptions { get; set; } = new AsmOptionsGameplay();
+
+        #endregion
+
+        #region Asm Getters / Setters
+
+        /// <summary>
+        /// Whether or not to disable crit wiggle.
+        /// </summary>
+        public bool CritWiggleDisable {
+            get { return this.AsmOptions.MiscConfig.Flags.CritWiggleDisable; }
+            set { this.AsmOptions.MiscConfig.Flags.CritWiggleDisable = value; }
+        }
+
+        /// <summary>
+        /// Whether or not to draw hash icons on the file select screen.
+        /// </summary>
+        public bool DrawHash {
+            get { return this.AsmOptions.MiscConfig.Flags.DrawHash; }
+            set { this.AsmOptions.MiscConfig.Flags.DrawHash = value; }
+        }
+
+        /// <summary>
+        /// Whether or not to enable faster pushing and pulling speeds.
+        /// </summary>
+        public bool FastPush {
+            get { return this.AsmOptions.MiscConfig.Flags.FastPush; }
+            set { this.AsmOptions.MiscConfig.Flags.FastPush = value; }
+        }
+
+        /// <summary>
+        /// Whether or not to allow using the ocarina underwater.
+        /// </summary>
+        public bool OcarinaUnderwater {
+            get { return this.AsmOptions.MiscConfig.Flags.OcarinaUnderwater; }
+            set { this.AsmOptions.MiscConfig.Flags.OcarinaUnderwater = value; }
+        }
+
+        /// <summary>
+        /// Whether or not to enable Quest Item Storage.
+        /// </summary>
+        public bool QuestItemStorage {
+            get { return this.AsmOptions.MiscConfig.Flags.QuestItemStorage; }
+            set { this.AsmOptions.MiscConfig.Flags.QuestItemStorage = value; }
+        }
 
         #endregion
 
@@ -378,10 +423,10 @@ namespace MMR.Randomizer.Models.Settings
 
             var critWiggle = (part5 & (0x18)) >> 3;
             // = (part5 & (1 << 6)) > 0;
-            AsmOptions.GameplayConfig.Flags.FastPush = (part5 & (1 << 7)) > 0;
-            AsmOptions.GameplayConfig.Flags.OcarinaUnderwater = (part5 & (1 << 8)) > 0;
-            AsmOptions.GameplayConfig.Flags.QuestItemStorage = (part5 & (1 << 9)) > 0;
-            AsmOptions.GameplayConfig.Flags.CritWiggle = (CritWiggleState)critWiggle;
+            AsmOptions.MiscConfig.Flags.FastPush = (part5 & (1 << 7)) > 0;
+            AsmOptions.MiscConfig.Flags.OcarinaUnderwater = (part5 & (1 << 8)) > 0;
+            AsmOptions.MiscConfig.Flags.QuestItemStorage = (part5 & (1 << 9)) > 0;
+            AsmOptions.MiscConfig.Flags.CritWiggle = (CritWiggleState)critWiggle;
 
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
@@ -464,11 +509,11 @@ namespace MMR.Randomizer.Models.Settings
             if (SpeedupDogRace) { parts[4] += (1 << 2); }
             if (SpeedupLabFish) { parts[4] += (1 << 3); }
 
-            parts[4] += ((int)AsmOptions.GameplayConfig.Flags.CritWiggle & 3) << 4;
+            parts[4] += ((int)AsmOptions.MiscConfig.Flags.CritWiggle & 3) << 4;
             // { parts[4] += (1 << 6); }
-            if (AsmOptions.GameplayConfig.Flags.FastPush) { parts[4] += (1 << 7); }
-            if (AsmOptions.GameplayConfig.Flags.OcarinaUnderwater) { parts[4] += (1 << 8); }
-            if (AsmOptions.GameplayConfig.Flags.QuestItemStorage) { parts[4] += (1 << 9); }
+            if (AsmOptions.MiscConfig.Flags.FastPush) { parts[4] += (1 << 7); }
+            if (AsmOptions.MiscConfig.Flags.OcarinaUnderwater) { parts[4] += (1 << 8); }
+            if (AsmOptions.MiscConfig.Flags.QuestItemStorage) { parts[4] += (1 << 9); }
 
             return parts;
         }
