@@ -396,12 +396,11 @@ namespace MMR.UI.Forms
             bTunic.BackColor = _configuration.CosmeticSettings.TunicColor;
 
             // Misc config options
-            CritWiggleState critWiggle = _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.CritWiggle;
-            cDisableCritWiggle.Checked = critWiggle == CritWiggleState.AlwaysOff ? true : false;
-            cDrawHash.Checked = _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.DrawHash;
-            cFastPush.Checked = _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.FastPush;
-            cQuestItemStorage.Checked = _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.QuestItemStorage;
-            cUnderwaterOcarina.Checked = _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.OcarinaUnderwater;
+            cDisableCritWiggle.Checked = _configuration.GameplaySettings.CritWiggleDisable;
+            cDrawHash.Checked = _configuration.GameplaySettings.DrawHash;
+            cFastPush.Checked = _configuration.GameplaySettings.FastPush;
+            cQuestItemStorage.Checked = _configuration.GameplaySettings.QuestItemStorage;
+            cUnderwaterOcarina.Checked = _configuration.GameplaySettings.OcarinaUnderwater;
 
             // HUD config options
             cHUDHeartsComboBox.SelectedIndex = Array.FindIndex(ColorSelectionManager.Hearts.GetItems(), csi => csi.Name == _configuration.CosmeticSettings.HeartsSelection);
@@ -679,28 +678,27 @@ namespace MMR.UI.Forms
 
         private void cDrawHash_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.DrawHash = cDrawHash.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.DrawHash = cDrawHash.Checked);
         }
 
         private void cQuestItemStorage_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.QuestItemStorage = cQuestItemStorage.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.QuestItemStorage = cQuestItemStorage.Checked);
         }
 
         private void cDisableCritWiggle_CheckedChanged(object sender, EventArgs e)
         {
-            var state = cDisableCritWiggle.Checked ? CritWiggleState.AlwaysOff : CritWiggleState.Default;
-            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.CritWiggle = state);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.CritWiggleDisable = cDisableCritWiggle.Checked);
         }
 
         private void cFastPush_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.FastPush = cFastPush.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.FastPush = cFastPush.Checked);
         }
 
         private void cUnderwaterOcarina_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _configuration.GameplaySettings.AsmOptions.MiscConfig.Flags.OcarinaUnderwater = cUnderwaterOcarina.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.OcarinaUnderwater = cUnderwaterOcarina.Checked);
         }
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -1060,48 +1058,6 @@ namespace MMR.UI.Forms
                 CosmeticSettings = new CosmeticSettings(),
             };
 
-            cDMult.SelectedIndex = 0;
-            cDType.SelectedIndex = 0;
-            cGravity.SelectedIndex = 0;
-            cFloors.SelectedIndex = 0;
-            cMode.SelectedIndex = 0;
-            cLink.SelectedIndex = 0;
-            cTatl.SelectedIndex = 0;
-            cGossipHints.SelectedIndex = 0;
-            cClockSpeed.SelectedIndex = 0;
-            cBlastCooldown.SelectedIndex = 0;
-            cMusic.SelectedIndex = 0;
-            cSpoiler.Checked = true;
-            cHTMLLog.Checked = true;
-            cSoS.Checked = true;
-            cNoDowngrades.Checked = true;
-            cShopAppearance.Checked = true;
-            cEponaSword.Checked = true;
-            cCutsc.Checked = true;
-            cQText.Checked = true;
-            cUpdateChests.Checked = true;
-            cAdditional.Checked = true;
-            cNoStartingItems.Checked = true;
-
-            cDrawHash.Checked = true;
-            cQuestItemStorage.Checked = true;
-            cFastPush.Checked = true;
-
-            bTunic.BackColor = Color.FromArgb(0x1E, 0x69, 0x1B);
-
-            _configuration.OutputSettings.GenerateROM = true;
-            _configuration.OutputSettings.GenerateSpoilerLog = true;
-            _configuration.GameplaySettings.ExcludeSongOfSoaring = true;
-            _configuration.GameplaySettings.PreventDowngrades = true;
-            _configuration.GameplaySettings.UpdateShopAppearance = true;
-            _configuration.GameplaySettings.FixEponaSword = true;
-            _configuration.GameplaySettings.ShortenCutscenes = true;
-            _configuration.GameplaySettings.QuickTextEnabled = true;
-            _configuration.GameplaySettings.UpdateChests = true;
-            _configuration.GameplaySettings.AddOther = true;
-            _configuration.GameplaySettings.NoStartingItems = true;
-            _configuration.CosmeticSettings.TunicColor = bTunic.BackColor;
-
             tSeed.Text = Math.Abs(Environment.TickCount).ToString();
 
             tbUserLogic.Enabled = false;
@@ -1269,15 +1225,6 @@ namespace MMR.UI.Forms
                     _configuration = Configuration.FromJson(Req.ReadToEnd());
                 }
 
-                tCustomItemList.Text = _configuration.GameplaySettings.CustomItemListString;
-                ItemEditor.UpdateChecks(tCustomItemList.Text);
-
-                tStartingItemList.Text = _configuration.GameplaySettings.CustomStartingItemListString;
-                StartingItemEditor.UpdateChecks(tStartingItemList.Text);
-
-                tJunkLocationsList.Text = _configuration.GameplaySettings.CustomJunkLocationsString;
-                JunkLocationEditor.UpdateChecks(tJunkLocationsList.Text);
-
                 if (_configuration.Logic != null)
                 {
                     _configuration.GameplaySettings.UserLogicFileName = path;
@@ -1291,14 +1238,20 @@ namespace MMR.UI.Forms
                 {
                     _configuration.GameplaySettings.UserLogicFileName = string.Empty;
                 }
-
-                HudConfig.Update(_configuration.CosmeticSettings.AsmOptions.HudColorsConfig.Colors);
-
-                UpdateJunkLocationAmountLabel();
-                UpdateCustomStartingItemAmountLabel();
-                UpdateCustomItemAmountLabel();
-                UpdateSettingString();
             }
+
+            tCustomItemList.Text = _configuration.GameplaySettings.CustomItemListString;
+
+            tStartingItemList.Text = _configuration.GameplaySettings.CustomStartingItemListString;
+
+            tJunkLocationsList.Text = _configuration.GameplaySettings.CustomJunkLocationsString;
+
+            HudConfig.Update(_configuration.CosmeticSettings.AsmOptions.HudColorsConfig.Colors);
+
+            UpdateJunkLocationAmountLabel();
+            UpdateCustomStartingItemAmountLabel();
+            UpdateCustomItemAmountLabel();
+            UpdateSettingString();
         }
 
         private void SaveSettingsToolStripMenuItem_Click(object sender, EventArgs e)

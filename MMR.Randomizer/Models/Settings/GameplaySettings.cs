@@ -110,7 +110,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         /// Add everything else to the randomization pool
         /// </summary>
-        public bool AddOther { get; set; }
+        public bool AddOther { get; set; } = true;
 
         /// <summary>
         /// Add pre-clocktown nut chest to the randomization pool
@@ -150,7 +150,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         /// Exclude song of soaring from randomization (it will be found in vanilla location)
         /// </summary>
-        public bool ExcludeSongOfSoaring { get; set; }
+        public bool ExcludeSongOfSoaring { get; set; } = true;
 
         /// <summary>
         /// Randomize which dungeon you appear in when entering one
@@ -165,7 +165,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         /// Prevents player starting with any items that are randomized.
         /// </summary>
-        public bool NoStartingItems { get; set; }
+        public bool NoStartingItems { get; set; } = true;
 
 
         /// <summary>
@@ -282,22 +282,22 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         /// Prevent downgrades
         /// </summary>
-        public bool PreventDowngrades { get; set; }
+        public bool PreventDowngrades { get; set; } = true;
 
         /// <summary>
         /// Updates shop models and text
         /// </summary>
-        public bool UpdateShopAppearance { get; set; }
+        public bool UpdateShopAppearance { get; set; } = true;
 
         /// <summary>
         /// Updates chest appearance to match contents
         /// </summary>
-        public bool UpdateChests { get; set; }
+        public bool UpdateChests { get; set; } = true;
 
         /// <summary>
         /// Change epona B button behavior to prevent player losing sword if they don't have a bow.
         /// </summary>
-        public bool FixEponaSword { get; set; }
+        public bool FixEponaSword { get; set; } = true;
 
         #endregion
 
@@ -421,12 +421,11 @@ namespace MMR.Randomizer.Models.Settings
             SpeedupDogRace = (part5 & (1 << 2)) > 0;
             SpeedupLabFish = (part5 & (1 << 3)) > 0;
 
-            var critWiggle = (part5 & (0x18)) >> 3;
-            // = (part5 & (1 << 6)) > 0;
-            AsmOptions.MiscConfig.Flags.FastPush = (part5 & (1 << 7)) > 0;
-            AsmOptions.MiscConfig.Flags.OcarinaUnderwater = (part5 & (1 << 8)) > 0;
-            AsmOptions.MiscConfig.Flags.QuestItemStorage = (part5 & (1 << 9)) > 0;
-            AsmOptions.MiscConfig.Flags.CritWiggle = (CritWiggleState)critWiggle;
+            CritWiggleDisable = (part5 & (1 << 4)) > 0;
+            //DrawHash = (part5 & (1 << 5)) > 0;
+            FastPush = (part5 & (1 << 6)) > 0;
+            OcarinaUnderwater = (part5 & (1 << 7)) > 0;
+            QuestItemStorage = (part5 & (1 << 8)) > 0;
 
             DamageMode = (DamageMode)damageMultiplierIndex;
             DamageEffect = (DamageEffect)damageTypeIndex;
@@ -509,11 +508,11 @@ namespace MMR.Randomizer.Models.Settings
             if (SpeedupDogRace) { parts[4] += (1 << 2); }
             if (SpeedupLabFish) { parts[4] += (1 << 3); }
 
-            parts[4] += ((int)AsmOptions.MiscConfig.Flags.CritWiggle & 3) << 4;
-            // { parts[4] += (1 << 6); }
-            if (AsmOptions.MiscConfig.Flags.FastPush) { parts[4] += (1 << 7); }
-            if (AsmOptions.MiscConfig.Flags.OcarinaUnderwater) { parts[4] += (1 << 8); }
-            if (AsmOptions.MiscConfig.Flags.QuestItemStorage) { parts[4] += (1 << 9); }
+            if (CritWiggleDisable) { parts[4] += (1 << 4); }
+            // if (DrawHash) { parts[4] += (1 << 5); }
+            if (FastPush) { parts[4] += (1 << 6); }
+            if (OcarinaUnderwater) { parts[4] += (1 << 7); }
+            if (QuestItemStorage) { parts[4] += (1 << 8); }
 
             return parts;
         }

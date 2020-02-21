@@ -32,7 +32,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         /// The color of Link's tunic
         /// </summary>
-        public Color TunicColor { get; set; }
+        public Color TunicColor { get; set; } = Color.FromArgb(0x1E, 0x69, 0x1B);
 
         /// <summary>
         /// Replaces Tatl's colors

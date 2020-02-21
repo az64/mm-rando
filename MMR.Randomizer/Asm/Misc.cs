@@ -35,7 +35,7 @@ namespace MMR.Randomizer.Asm
         /// <summary>
         /// Whether or not to draw hash icons on the file select screen.
         /// </summary>
-        public bool DrawHash { get; set; }
+        public bool DrawHash { get; set; } = true;
 
         /// <summary>
         /// Whether or not to enable faster pushing and pulling speeds.
@@ -50,15 +50,10 @@ namespace MMR.Randomizer.Asm
         /// <summary>
         /// Whether or not to enable Quest Item Storage.
         /// </summary>
-        public bool QuestItemStorage { get; set; }
+        public bool QuestItemStorage { get; set; } = true;
 
         public MiscFlags()
         {
-            this.CritWiggle = CritWiggleState.Default;
-            this.DrawHash = true;
-            this.FastPush = true;
-            this.OcarinaUnderwater = false;
-            this.QuestItemStorage = true;
         }
 
         public MiscFlags(uint flags)
