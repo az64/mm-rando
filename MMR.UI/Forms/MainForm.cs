@@ -34,7 +34,7 @@ namespace MMR.UI.Forms
         public HudConfigForm HudConfig { get; private set; }
 
 
-        public const string SETTINGS_EXTENSION = ".cfg";
+        public const string SETTINGS_EXTENSION = ".json";
 
 
         public static string AssemblyVersion
@@ -1267,7 +1267,7 @@ namespace MMR.UI.Forms
 
         private void LoadSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            loadSettings.Filter = "Config Files|*.cfg";
+            loadSettings.Filter = "JSON Files|*.json";
             if (loadSettings.ShowDialog() == DialogResult.OK)
             {
                 LoadSettings(loadSettings.FileName);
