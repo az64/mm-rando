@@ -18,6 +18,8 @@ namespace MMR.Randomizer.Models.Settings
         /// </summary>
         public string UserLogicFileName { get; set; }
 
+        public string Logic { get; set; }
+
         /// <summary>
         /// Use Custom Item list for the logic.
         /// </summary>

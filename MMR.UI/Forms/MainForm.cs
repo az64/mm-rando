@@ -1180,38 +1180,36 @@ namespace MMR.UI.Forms
         {
             var path = Path.ChangeExtension(filename ?? DEFAULT_SETTINGS_FILENAME, SETTINGS_EXTENSION);
             string logicFilePath = null;
-            string inputROMFilename = null;
+            Configuration configurationToSave = _configuration;
             if (filename != null)
             {
                 logicFilePath = _configuration.GameplaySettings.UserLogicFileName;
                 _configuration.GameplaySettings.UserLogicFileName = null;
-                inputROMFilename = _configuration.OutputSettings.InputROMFilename;
-                _configuration.OutputSettings.InputROMFilename = null;
                 if (_configuration.GameplaySettings.LogicMode == LogicMode.UserLogic && logicFilePath != null && File.Exists(logicFilePath))
                 {
                     using (StreamReader Req = new StreamReader(File.Open(logicFilePath, FileMode.Open)))
                     {
-                        _configuration.Logic = Req.ReadToEnd();
-                        if (_configuration.Logic.StartsWith("{"))
+                        _configuration.GameplaySettings.Logic = Req.ReadToEnd();
+                        if (_configuration.GameplaySettings.Logic.StartsWith("{"))
                         {
-                            var logicConfiguration = Configuration.FromJson(_configuration.Logic);
-                            _configuration.Logic = logicConfiguration.Logic;
+                            var logicConfiguration = Configuration.FromJson(_configuration.GameplaySettings.Logic);
+                            _configuration.GameplaySettings.Logic = logicConfiguration.GameplaySettings.Logic;
                         }
                     }
                 }
+                configurationToSave = new Configuration
+                {
+                    GameplaySettings = _configuration.GameplaySettings,
+                };
             }
             using (var settingsFile = new StreamWriter(File.Open(path, FileMode.Create)))
             {
-                settingsFile.Write(_configuration.ToString());
+                settingsFile.Write(configurationToSave.ToString());
             }
             if (logicFilePath != null)
             {
                 _configuration.GameplaySettings.UserLogicFileName = logicFilePath;
-                _configuration.Logic = null;
-            }
-            if (inputROMFilename != null)
-            {
-                _configuration.OutputSettings.InputROMFilename = inputROMFilename;
+                _configuration.GameplaySettings.Logic = null;
             }
         }
         
@@ -1220,23 +1218,32 @@ namespace MMR.UI.Forms
             var path = Path.ChangeExtension(filename ?? DEFAULT_SETTINGS_FILENAME, SETTINGS_EXTENSION);
             if (File.Exists(path))
             {
+                Configuration newConfiguration;
                 using (StreamReader Req = new StreamReader(File.Open(path, FileMode.Open)))
                 {
-                    _configuration = Configuration.FromJson(Req.ReadToEnd());
+                    newConfiguration = Configuration.FromJson(Req.ReadToEnd());
                 }
 
-                if (_configuration.Logic != null)
+                if (newConfiguration.GameplaySettings.Logic != null)
                 {
-                    _configuration.GameplaySettings.UserLogicFileName = path;
-                    _configuration.Logic = null;
+                    newConfiguration.GameplaySettings.UserLogicFileName = path;
+                    newConfiguration.GameplaySettings.Logic = null;
                 }
-                if (File.Exists(_configuration.GameplaySettings.UserLogicFileName))
+                if (File.Exists(newConfiguration.GameplaySettings.UserLogicFileName))
                 {
-                    tbUserLogic.Text = Path.GetFileNameWithoutExtension(_configuration.GameplaySettings.UserLogicFileName);
+                    tbUserLogic.Text = Path.GetFileNameWithoutExtension(newConfiguration.GameplaySettings.UserLogicFileName);
                 }
                 else
                 {
-                    _configuration.GameplaySettings.UserLogicFileName = string.Empty;
+                    newConfiguration.GameplaySettings.UserLogicFileName = string.Empty;
+                }
+                if (filename != null)
+                {
+                    _configuration.GameplaySettings = newConfiguration.GameplaySettings;
+                }
+                else
+                {
+                    _configuration = newConfiguration;
                 }
             }
 

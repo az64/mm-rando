@@ -415,7 +415,7 @@ namespace MMR.Randomizer
                     if (logic.StartsWith("{"))
                     {
                         var configurationLogic = Configuration.FromJson(logic);
-                        logic = configurationLogic.Logic;
+                        logic = configurationLogic.GameplaySettings.Logic;
                     }
                     lines = logic.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
                 }
