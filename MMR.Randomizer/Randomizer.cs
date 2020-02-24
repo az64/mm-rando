@@ -1489,6 +1489,16 @@ namespace MMR.Randomizer
             public ReadOnlyCollection<Item> Important { get; set; }
         }
 
+        private Dictionary<Item, IEnumerable<Item>> _exclusionExceptions = new Dictionary<Item, IEnumerable<Item>>()
+        {
+            { Item.SongSonata, new List<Item> { Item.AreaWoodFallTempleAccess } },
+            { Item.SongLullaby, new List<Item> { Item.AreaSnowheadTempleAccess } },
+            { Item.SongNewWaveBossaNova, new List<Item> { Item.AreaGreatBayTempleAccess } },
+            { Item.SongElegy, new List<Item> { Item.AreaStoneTowerTempleAccess } },
+            { Item.SongEpona, new List<Item> { Item.AreaWestAccess, Item.AreaEastAccess, Item.ItemBottleDampe, Item.HeartPieceKnuckle, Item.MaskStone, Item.MaskCaptainHat, Item.SongStorms, Item.ChestBadBatsGrottoPurpleRupee, Item.ChestGraveyardGrotto, Item.ItemTingleMapStoneTower } },
+            { Item.SongOath, new List<Item> { Item.AreaMoonAccess } },
+        };
+
         private LogicPaths GetImportantItems(Item item, List<ItemLogic> itemLogic, List<Item> logicPath = null, Dictionary<Item, LogicPaths> checkedItems = null, params Item[] exclude)
         {
             if (_settings.CustomStartingItemList.Contains(item))
@@ -1497,7 +1507,11 @@ namespace MMR.Randomizer
             }
             if (exclude.Contains(item))
             {
-                return null;
+                // if songs are not mixed with items, prevent certain songs from being Way of the Hero for area/dungeon access.
+                if (_settings.AddSongs || _settings.GossipHintStyle != GossipHintStyle.Competitive || _settings.LogicMode != LogicMode.Casual || !_exclusionExceptions.ContainsKey(item) || logicPath == null || !_exclusionExceptions[item].Contains(ItemList[logicPath.Last()].NewLocation ?? logicPath.Last()))
+                {
+                    return null;
+                }
             }
             if (logicPath == null)
             {
@@ -1674,14 +1688,17 @@ namespace MMR.Randomizer
                     }
                 }
 
-                var logicForRequiredItems = _settings.LogicMode == LogicMode.Casual
+                var logicForRequiredItems = _settings.LogicMode == LogicMode.Casual && _settings.GossipHintStyle == GossipHintStyle.Competitive
                     ? _randomized.Logic.Select(il =>
                     {
                         var itemLogic = new ItemLogic(il);
+
+                        // prevent Giant's Mask from being Way of the Hero.
                         if (il.ItemId == (int)Item.AreaStoneTowerClear || il.ItemId == (int)Item.HeartContainerStoneTower)
                         {
                             itemLogic.RequiredItemIds.Remove((int)Item.MaskGiant);
                         }
+
                         return itemLogic;
                     }).ToList()
                     : _randomized.Logic;

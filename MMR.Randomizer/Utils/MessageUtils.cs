@@ -99,7 +99,7 @@ namespace MMR.Randomizer.Utils
             {
                 var totalUniqueGossipHints = Enum.GetValues(typeof(GossipQuote)).Cast<GossipQuote>().Count(gq => !gq.IsMoonGossipStone()) / 2;
 
-                var numberOfRequiredHints = 4;
+                var numberOfRequiredHints = randomizedResult.Settings.AddSongs ? 4 : 3;
                 var numberOfNonRequiredHints = 3;
                 var maxNumberOfSongOnlyHints = 3;
                 var maxNumberOfClockTownHints = 2;
