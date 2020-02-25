@@ -12,7 +12,7 @@ namespace MMR.Randomizer.Utils
         V3 = 3,
     }
 
-    public class PatchUtils
+    public static class PatchUtils
     {
         /// <summary>
         /// Patch file magic number ("MMRP").
@@ -98,7 +98,6 @@ namespace MMR.Randomizer.Utils
         public PatchMagicException(uint found)
         {
             this.Found = found;
-
         }
     }
 
