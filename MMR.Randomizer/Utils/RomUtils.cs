@@ -145,8 +145,8 @@ namespace MMR.Randomizer.Utils
                 using (var compressStream = new GZipStream(cryptoStream, CompressionMode.Compress))
                 using (var writer = new BinaryWriter(compressStream))
                 {
-                    writer.Write(ReadWriteUtils.Byteswap32(PatchUtil.PATCH_MAGIC));
-                    writer.Write(ReadWriteUtils.Byteswap32((uint)PatchUtil.PATCH_VERSION));
+                    writer.Write(ReadWriteUtils.Byteswap32(PatchUtils.PATCH_MAGIC));
+                    writer.Write(ReadWriteUtils.Byteswap32((uint)PatchUtils.PATCH_VERSION));
                     for (var fileIndex = 0; fileIndex < RomData.MMFileList.Count; fileIndex++)
                     {
                         var file = RomData.MMFileList[fileIndex];
@@ -231,17 +231,8 @@ namespace MMR.Randomizer.Utils
                     var magic = ReadWriteUtils.ReadU32(reader);
                     var version = ReadWriteUtils.ReadU32(reader);
 
-                    // Make sure this is a patch file by checking the magic value
-                    if (magic != PatchUtil.PATCH_MAGIC)
-                    {
-                        throw new PatchMagicException(magic);
-                    }
-
-                    // Check that this patch version is supported
-                    if (version != (uint)PatchUtil.PATCH_VERSION)
-                    {
-                        throw new PatchVersionException(PatchUtil.PATCH_VERSION, (PatchVersion)version);
-                    }
+                    // Validate patch magic and version values
+                    PatchUtils.Validate(magic, version);
 
                     while (reader.BaseStream.Position != reader.BaseStream.Length)
                     {
