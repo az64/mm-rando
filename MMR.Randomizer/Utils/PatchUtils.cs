@@ -12,7 +12,7 @@ namespace MMR.Randomizer.Utils
         V3 = 3,
     }
 
-    public class PatchUtil
+    public class PatchUtils
     {
         /// <summary>
         /// Patch file magic number ("MMRP").
@@ -136,7 +136,7 @@ namespace MMR.Randomizer.Utils
         /// <returns>PatchVersionException</returns>
         public static PatchVersionException From(PatchVersion found)
         {
-            return new PatchVersionException(PatchUtil.PATCH_VERSION, PatchUtil.PATCH_PREVIOUS, found);
+            return new PatchVersionException(PatchUtils.PATCH_VERSION, PatchUtils.PATCH_PREVIOUS, found);
         }
     }
 }
