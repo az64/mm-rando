@@ -10,6 +10,7 @@ using System.IO.Compression;
 using MMR.Randomizer.Utils.Mzxrules;
 using System.Diagnostics;
 using System.Security.Cryptography;
+using System.Threading;
 
 namespace MMR.Randomizer.Utils
 {
@@ -294,10 +295,13 @@ namespace MMR.Randomizer.Utils
 
         public static byte[] BuildROM()
         {
+            // yaz0 encode all of the files for the rom
             Parallel.ForEach(RomData.MMFileList, file =>
             {
-                if (file.IsCompressed && file.WasEdited)
-                {
+                if (file.IsCompressed && file.WasEdited){
+                    // lower priority so that the rando can't lock a badly scheduled CPU by using 100%
+                    var previous_thread_priority = Thread.CurrentThread.Priority;
+                    Thread.CurrentThread.Priority = ThreadPriority.Lowest;
                     byte[] result;
                     var newSize = Yaz.Encode(file.Data, file.Data.Length, out result);
                     if (newSize >= 0)
@@ -305,10 +309,13 @@ namespace MMR.Randomizer.Utils
                         file.Data = new byte[newSize];
                         ReadWriteUtils.Arr_Insert(result, 0, newSize, file.Data, 0);
                     }
+                    // this thread is borrowed, we don't want it to always be the lowest priority, return to previous state
+                    Thread.CurrentThread.Priority = previous_thread_priority;
                 }
             });
             byte[] ROM = new byte[0x2000000];
             int ROMAddr = 0;
+            // write all files to rom
             for (int i = 0; i < RomData.MMFileList.Count; i++)
             {
                 if (RomData.MMFileList[i].Cmp_Addr == -1)
