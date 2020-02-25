@@ -1489,29 +1489,11 @@ namespace MMR.Randomizer
             public ReadOnlyCollection<Item> Important { get; set; }
         }
 
-        private Dictionary<Item, IEnumerable<Item>> _exclusionExceptions = new Dictionary<Item, IEnumerable<Item>>()
-        {
-            { Item.SongSonata, new List<Item> { Item.AreaWoodFallTempleAccess } },
-            { Item.SongLullaby, new List<Item> { Item.AreaSnowheadTempleAccess } },
-            { Item.SongNewWaveBossaNova, new List<Item> { Item.AreaGreatBayTempleAccess } },
-            { Item.SongElegy, new List<Item> { Item.AreaStoneTowerTempleAccess } },
-            { Item.SongEpona, new List<Item> { Item.AreaWestAccess, Item.AreaEastAccess, Item.ItemBottleDampe, Item.HeartPieceKnuckle, Item.MaskStone, Item.MaskCaptainHat, Item.SongStorms, Item.ChestBadBatsGrottoPurpleRupee, Item.ChestGraveyardGrotto, Item.ItemTingleMapStoneTower } },
-            { Item.SongOath, new List<Item> { Item.AreaMoonAccess } },
-        };
-
         private LogicPaths GetImportantItems(Item item, List<ItemLogic> itemLogic, List<Item> logicPath = null, Dictionary<Item, LogicPaths> checkedItems = null, params Item[] exclude)
         {
             if (_settings.CustomStartingItemList.Contains(item))
             {
                 return new LogicPaths();
-            }
-            if (exclude.Contains(item))
-            {
-                // if songs are not mixed with items, prevent certain songs from being Way of the Hero for area/dungeon access.
-                if (_settings.AddSongs || _settings.GossipHintStyle != GossipHintStyle.Competitive || _settings.LogicMode != LogicMode.Casual || !_exclusionExceptions.ContainsKey(item) || logicPath == null || !_exclusionExceptions[item].Contains(ItemList[logicPath.Last()].NewLocation ?? logicPath.Last()))
-                {
-                    return null;
-                }
             }
             if (logicPath == null)
             {
@@ -1520,6 +1502,15 @@ namespace MMR.Randomizer
             if (logicPath.Contains(item))
             {
                 return null;
+            }
+            if (exclude.Contains(item))
+            {
+                if (_settings.AddSongs || !ItemUtils.IsSong(item) || logicPath.Any(i => !i.IsFake() && ItemList[i].IsRandomized))
+                {
+                    if (item == Item.SongEpona)
+                        Debug.WriteLine(string.Join(", ", logicPath));
+                    return null;
+                }
             }
             logicPath.Add(item);
             if (checkedItems == null)
