@@ -309,18 +309,18 @@ namespace MMR.Randomizer
 
             int characterIndex = (int)_randomized.Settings.Character;
 
-            using (var b = new BinaryReader(File.Open($"{Values.ObjsDirectory}link-{characterIndex}", FileMode.Open)))
+            using (var b = new BinaryReader(File.Open(Path.Combine(Values.ObjsDirectory, $"link-{characterIndex}"), FileMode.Open)))
             {
                 var obj = new byte[b.BaseStream.Length];
                 b.Read(obj, 0, obj.Length);
 
-                ResourceUtils.ApplyHack("Values.ModsDirectory", $"fix-link-{characterIndex}");
+                ResourceUtils.ApplyHack(Values.ModsDirectory, $"fix-link-{characterIndex}");
                 ObjUtils.InsertObj(obj, 0x11);
             }
 
             if (_randomized.Settings.Character == Character.Kafei)
             {
-                using (var b = new BinaryReader(File.Open($"{Values.ObjsDirectory}kafei", FileMode.Open)))
+                using (var b = new BinaryReader(File.Open(Path.Combine(Values.ObjsDirectory, "kafei"), FileMode.Open)))
                 {
                     var obj = new byte[b.BaseStream.Length];
                     b.Read(obj, 0, obj.Length);
