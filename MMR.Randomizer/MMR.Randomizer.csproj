@@ -270,6 +270,9 @@
     <None Update="Resources\mods\update-chests">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\mods\ztargetinghold">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\music\botw-hyrulecastle">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

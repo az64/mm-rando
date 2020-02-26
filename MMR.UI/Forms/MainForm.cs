@@ -114,6 +114,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cBlastCooldown, "Adjust the cooldown timer after using the Blast Mask.");
             TooltipBuilder.SetTooltip(cSunsSong, "Enable using the Sun's Song, which speeds up time to 400 units per frame (normal time speed is 3 units per frame) until dawn or dusk or a loading zone.");
             TooltipBuilder.SetTooltip(cUnderwaterOcarina, "Enable using the ocarina underwater.");
+            TooltipBuilder.SetTooltip(cTargettingStyle, "Default Z-Targeting style to Hold.");
 
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
@@ -394,6 +395,7 @@ namespace MMR.UI.Forms
             cBlastCooldown.SelectedIndex = (int)_configuration.GameplaySettings.BlastMaskCooldown;
             cMusic.SelectedIndex = (int)_configuration.CosmeticSettings.Music;
             bTunic.BackColor = _configuration.CosmeticSettings.TunicColor;
+            cTargettingStyle.Checked = _configuration.CosmeticSettings.EnableHoldZTargeting;
 
             // Misc config options
             cDisableCritWiggle.Checked = _configuration.GameplaySettings.CritWiggleDisable;
@@ -699,6 +701,11 @@ namespace MMR.UI.Forms
         private void cUnderwaterOcarina_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.GameplaySettings.OcarinaUnderwater = cUnderwaterOcarina.Checked);
+        }
+
+        private void cTargettingStyle_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.CosmeticSettings.EnableHoldZTargeting = cTargettingStyle.Checked);
         }
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -1015,6 +1022,7 @@ namespace MMR.UI.Forms
             cGoodDampeRNG.Enabled = v;
             cGoodDogRaceRNG.Enabled = v;
             cFasterLabFish.Enabled = v;
+            cTargettingStyle.Enabled = v;
 
             cDrawHash.Enabled = v;
             cQuestItemStorage.Enabled = v;

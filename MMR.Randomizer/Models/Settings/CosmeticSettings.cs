@@ -44,6 +44,11 @@ namespace MMR.Randomizer.Models.Settings
         /// </summary>
         public Music Music { get; set; }
 
+        /// <summary>
+        /// Default Z-Targeting style to Hold
+        /// </summary>
+        public bool EnableHoldZTargeting { get; set; }
+
         #region Asm Getters / Setters
 
         /// <summary>

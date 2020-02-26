@@ -351,6 +351,14 @@ namespace MMR.Randomizer
             ObjUtils.InsertObj(objectData, objectIndex);
         }
 
+        private void WriteMiscellaneousChanges()
+        {
+            if (_cosmeticSettings.EnableHoldZTargeting)
+            {
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "ztargetinghold");
+            }
+        }
+
         private Character DeterminePlayerModel()
         {
             var data = ObjUtils.GetObjectData(0x11);
@@ -1396,6 +1404,7 @@ namespace MMR.Randomizer
                 // Write subset of Asm config post-patch
                 WriteAsmConfig(asm, hash);
             }
+            WriteMiscellaneousChanges();
 
             progressReporter.ReportProgress(72, "Writing cosmetics...");
             WriteTatlColour(new Random(BitConverter.ToInt32(hash, 0)));

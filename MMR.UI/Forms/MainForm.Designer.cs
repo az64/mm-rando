@@ -172,6 +172,7 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
+            this.cTargettingStyle = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabROMSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -1093,6 +1094,7 @@ namespace MMR.UI.Forms
             // 
             // tabComfort
             // 
+            this.tabComfort.Controls.Add(this.cTargettingStyle);
             this.tabComfort.Controls.Add(this.cHUDGroupBox);
             this.tabComfort.Controls.Add(this.cQuestItemStorage);
             this.tabComfort.Controls.Add(this.cDisableCritWiggle);
@@ -1330,7 +1332,7 @@ namespace MMR.UI.Forms
             this.lMusic.BackColor = System.Drawing.Color.Transparent;
             this.lMusic.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lMusic.ForeColor = System.Drawing.Color.Black;
-            this.lMusic.Location = new System.Drawing.Point(84, 275);
+            this.lMusic.Location = new System.Drawing.Point(84, 194);
             this.lMusic.Name = "lMusic";
             this.lMusic.Size = new System.Drawing.Size(38, 13);
             this.lMusic.TabIndex = 26;
@@ -1344,7 +1346,7 @@ namespace MMR.UI.Forms
             "Default",
             "Random",
             "None (Risky)"});
-            this.cMusic.Location = new System.Drawing.Point(128, 272);
+            this.cMusic.Location = new System.Drawing.Point(128, 191);
             this.cMusic.Name = "cMusic";
             this.cMusic.Size = new System.Drawing.Size(167, 21);
             this.cMusic.TabIndex = 25;
@@ -1550,7 +1552,7 @@ namespace MMR.UI.Forms
             "Link (OoT)",
             "Adult Link (Risky!)",
             "Kafei"});
-            this.cLink.Location = new System.Drawing.Point(128, 191);
+            this.cLink.Location = new System.Drawing.Point(128, 272);
             this.cLink.Name = "cLink";
             this.cLink.Size = new System.Drawing.Size(167, 21);
             this.cLink.TabIndex = 10;
@@ -1562,7 +1564,7 @@ namespace MMR.UI.Forms
             this.bTunic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bTunic.Location = new System.Drawing.Point(128, 162);
             this.bTunic.Name = "bTunic";
-            this.bTunic.Size = new System.Drawing.Size(167, 23);
+            this.bTunic.Size = new System.Drawing.Size(23, 23);
             this.bTunic.TabIndex = 8;
             this.bTunic.UseVisualStyleBackColor = false;
             this.bTunic.Click += new System.EventHandler(this.bTunic_Click);
@@ -1585,7 +1587,7 @@ namespace MMR.UI.Forms
             this.lLink.BackColor = System.Drawing.Color.Transparent;
             this.lLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lLink.ForeColor = System.Drawing.Color.Black;
-            this.lLink.Location = new System.Drawing.Point(52, 194);
+            this.lLink.Location = new System.Drawing.Point(52, 275);
             this.lLink.Name = "lLink";
             this.lLink.Size = new System.Drawing.Size(70, 13);
             this.lLink.TabIndex = 9;
@@ -1891,6 +1893,19 @@ namespace MMR.UI.Forms
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
+            // cTargettingStyle
+            // 
+            this.cTargettingStyle.AutoSize = true;
+            this.cTargettingStyle.BackColor = System.Drawing.Color.Transparent;
+            this.cTargettingStyle.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cTargettingStyle.Location = new System.Drawing.Point(166, 162);
+            this.cTargettingStyle.Name = "cTargettingStyle";
+            this.cTargettingStyle.Size = new System.Drawing.Size(129, 17);
+            this.cTargettingStyle.TabIndex = 33;
+            this.cTargettingStyle.Text = "Default Hold Z-Target";
+            this.cTargettingStyle.UseVisualStyleBackColor = false;
+            this.cTargettingStyle.CheckedChanged += new System.EventHandler(this.cTargettingStyle_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2092,6 +2107,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.Label cHeartsLabel;
         private System.Windows.Forms.Label cMagicLabel;
         private System.Windows.Forms.ComboBox cHUDMagicComboBox;
+        private System.Windows.Forms.CheckBox cTargettingStyle;
     }
 }
 
