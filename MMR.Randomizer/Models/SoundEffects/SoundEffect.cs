@@ -24,7 +24,7 @@ namespace MMR.Randomizer.Models.SoundEffects
         [ReplacableByTags(Long)]
         WolfHowlEvening = 0x20AE,
 
-        [Replacable(0x00DFC776)]
+        [Replacable(0x00DFC776, 0xDFCC3A, 0xDFDCF6)]
         [Tags(Short, LowHpBeep)]
         [ReplacableByTags(Short)]
         DogBark = 0x20D8,
@@ -41,6 +41,11 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Short, LowHpBeep)]
         [ReplacableByTags(Short)]
         DogBarkAngry = 0x2110,
+
+        [Replacable(0xDFC80A, 0xDFD5E6)]
+        [ReplacableByTags(Short)]
+        [Tags(Short)]
+        DogWhine = 0x2113,
 
         [Replacable(0x00D01186, 0x00CFE0A6, 0x00CF969A, 0x00CFA602, 0x00CFA816, 0x00CFA482, 0x00CF91E2, 0x00CFC43A)]
         [Tags(Short, LowHpBeep)]
@@ -152,6 +157,9 @@ namespace MMR.Randomizer.Models.SoundEffects
         [ReplacableByTags(Short)]
         [Tags(Short)]
         GuayDie = 0x30EB,
+
+        [Tags(Short)]
+        IronKnuckleSwing = 0x3129,
 
         [Replacable(0xCE5E22, 0xCE717E)]
         [ReplacableByTags(Short)]
