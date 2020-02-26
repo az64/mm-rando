@@ -57,6 +57,16 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Short)]
         DinolfosAttack = 0x302A,
 
+        [Replacable(0xE89EA6, 0xE8A336)]
+        [ReplacableByTags(Short)]
+        [Tags(Short)]
+        WolfosAppear = 0x303C,
+
+        [Replacable(0xE8A426)]
+        [ReplacableByTags(Short)]
+        [Tags(Short)]
+        WolfosDie = 0x304B,
+
         [Tags(Short)]
         BombchuAim = 0x3055,
 
@@ -66,13 +76,23 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Short)]
         PoeDisappear = 0x3074,
 
+        [Replacable(0xE95C6E, 0xE960FA)]
+        [ReplacableByTags(Short)]
+        [Tags(Short)]
+        MadScrubTakeDamage = 0x3080,
+
+        [Replacable(0xE96196)]
+        [ReplacableByTags(Short)]
+        [Tags(Short)]
+        MadScrubDie = 0x3081,
+
         [Tags(Short)]
         MajoraGrowHead = 0x3088,
 
         [Tags(Long)]
         WallmasterAim = 0x3090,
 
-        [Replacable(0xE0DBBE, 0x00E3C002, 0x01048266, 0x01048416, 0x0104852E)]
+        [Replacable(0xE0DBBE, 0xE3BD7A, 0x00E3C002, 0x01048266, 0x01048416, 0x0104852E)]
         [Tags(Short)]
         [ReplacableByTags(Short)]
         GuayCroak = 0x30B6,
@@ -91,6 +111,11 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Looping)]
         [ReplacableByTags(Long)]
         GoronKidCry = 0x30EA,
+
+        [Replacable(0xE3C096)]
+        [ReplacableByTags(Short)]
+        [Tags(Short)]
+        GuayDie = 0x30EB,
 
         [Tags(Short)]
         GoronSleepy = 0x31AD,
