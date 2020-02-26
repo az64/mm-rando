@@ -1,15 +1,15 @@
 {
-    "DPAD_CONFIG": "03803434",
-    "DPAD_TEXTURE": "03803768",
+    "DPAD_CONFIG": "0380344C",
+    "DPAD_TEXTURE": "03803780",
     "G_C_HEAP": "03828000",
     "G_PAYLOAD_ADDR": "03800000",
-    "HASH_ICONS": "038034C0",
-    "HUD_COLOR_CONFIG": "03803550",
-    "MISC_CONFIG": "038035A8",
-    "PAYLOAD_END": "03804770",
+    "HASH_ICONS": "038034D8",
+    "HUD_COLOR_CONFIG": "03803568",
+    "MISC_CONFIG": "038035C0",
+    "PAYLOAD_END": "03804780",
     "PAYLOAD_START": "03800000",
-    "dpad_sprite": "03803540",
-    "g_external_effects": "03803450",
-    "heap_next": "038035E0",
-    "setup_db": "03803518"
+    "dpad_sprite": "03803558",
+    "g_external_effects": "03803468",
+    "heap_next": "038035F8",
+    "setup_db": "03803530"
 }
