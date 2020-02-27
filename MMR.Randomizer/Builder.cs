@@ -383,7 +383,7 @@ namespace MMR.Randomizer
 
         private void SetTatlColour(Random random)
         {
-            if (_cosmeticSettings.TatlColorSchema == TatlColorSchema.Rainbow)
+            if (_cosmeticSettings.TatlColorSchema == TatlColorSchema.Random)
             {
                 for (int i = 0; i < 10; i++)
                 {
@@ -406,8 +406,9 @@ namespace MMR.Randomizer
 
         private void WriteTatlColour(Random random)
         {
-            if (_cosmeticSettings.TatlColorSchema != TatlColorSchema.Random)
+            if (_cosmeticSettings.TatlColorSchema != TatlColorSchema.Rainbow)
             {
+                SetTatlColour(random);
                 var selectedColorSchemaIndex = (int)_cosmeticSettings.TatlColorSchema;
                 byte[] c = new byte[8];
                 List<int[]> locs = ResourceUtils.GetAddresses(Values.AddrsDirectory, "tatl-colour");
@@ -420,7 +421,6 @@ namespace MMR.Randomizer
             }
             else
             {
-                SetTatlColour(random);
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "rainbow-tatl");
             }
         }
