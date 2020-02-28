@@ -6,7 +6,7 @@
         Dark,
         Hot,
         Cool,
-        Rainbow,
         Random,
+        Rainbow,
     }
 }
