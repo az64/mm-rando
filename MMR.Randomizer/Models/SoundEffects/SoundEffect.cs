@@ -317,10 +317,10 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Long)]
         GormanBrosLaugh = 0x607C,
 
-        [Tags(Long)]
+        [Tags(Short)]
         DekuFrozen = 0x6086,
 
-        [Tags(Long)]
+        [Tags(Short)]
         DekuFallShort = 0x6087,
 
         [Tags(Long)]
