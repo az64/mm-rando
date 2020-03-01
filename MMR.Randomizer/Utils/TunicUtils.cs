@@ -66,6 +66,54 @@ namespace MMR.Randomizer.Utils
             return Color.FromArgb((int)Math.Round(r), (int)Math.Round(g), (int)Math.Round(b));
         }
 
+        private static Color[] ShiftHue(Color[] c, Color target, int count, Color a)
+        {
+            Color[] s = new Color[count];
+            float targetH = target.GetHue();
+            float rot = targetH - a.GetHue();
+            float avgb = a.GetBrightness();
+            float avgs = a.GetSaturation();
+            for (int i = 0; i < count; i++)
+            {
+                float h = c[i].GetHue();
+                float b = c[i].GetBrightness();
+                float sat = c[i].GetSaturation();
+                b -= avgb;
+                sat -= avgs;
+                b += target.GetBrightness();
+                sat += target.GetSaturation();
+                h += rot;
+                h %= 360f;
+                if (h < 0f)
+                {
+                    h += 360f;
+                }
+                if (b < 0.0f)
+                {
+                    b = 0.0f;
+                }
+                if (b > 1.0f)
+                {
+                    b = 1.0f;
+                }
+                if (sat < 0.0f)
+                {
+                    sat = 0.0f;
+                }
+                if (sat > 1.0f)
+                {
+                    sat = 1.0f;
+                }
+                float hueDifference = targetH - h;
+                if (hueDifference >= 90f)
+                {
+                    h = targetH;
+                }
+                s[i] = ColorUtils.FromAHSB(c[i].A, h, sat, b);
+            }
+            return s;
+        }
+
         private static Color[] ShiftHue(Color[] c, Color target, int count, bool zora, bool grad, bool fd)
         {
             Color[] s = new Color[count];
@@ -257,6 +305,63 @@ namespace MMR.Randomizer.Utils
                     Color[] c = ReadColours(f, a, sizes[i]);
                     c = ShiftHue(c, target, sizes[i], zora[i], grad[i], fd[i]);
                     WriteColours(f, a, sizes[i], c);
+                }
+            }
+        }
+
+        public static void UpdateKafeiTunic(ref byte[] objectData, Color target)
+        {
+            int[] kafeiPaletteAddress = new int[] { 0xB538, 0xDF68, 0xDF68, 0xD1B0 };
+            int[] hairPaletteAvoid = new int[] { 0, 4, 5, 6, 7, 9, 0xB, 0x14, 0x17, 0x18, 0x22, 0x23, 0x31, 0x32, 0x3E, 0x6B, 0x71, 0x8E, 0x100};
+            var averageColour = new Color();
+            for (int i = 0; i < 4; i++)
+            {
+                var colourMask = new bool[0x100];
+                var coloursFound = new Color[0x100];
+                var k = 0;
+                for (int j = 0; j < 0x100; j++)
+                {
+                    var thisColour = FromRGBA5551(ReadWriteUtils.Arr_ReadU16(objectData, kafeiPaletteAddress[i] + (j << 1)));
+                    // separate palette colours used for hair/clothes or they won't adjust very well
+                    if (i == 1)
+                    {
+                        if (j == hairPaletteAvoid[k])
+                        {
+                            colourMask[j] = true;
+                            coloursFound[k] = thisColour;
+                            k++;
+                        };
+                    }
+                    else if (i == 2)
+                    {
+                        if (j != hairPaletteAvoid[j - k])
+                        {
+                            colourMask[j] = true;
+                            coloursFound[k] = thisColour;
+                            k++;
+                        };
+                    }
+                    else if ((thisColour.B != 0) && ((thisColour.G == 0) || ((i != 0) && (thisColour.B > thisColour.G) && 
+                            (thisColour.B > thisColour.R) && (thisColour.B + thisColour.R > 2.2 * thisColour.G))))
+                    {
+                        colourMask[j] = true;
+                        coloursFound[k] = thisColour;
+                        k++;
+                    };
+                };                
+                if (i != 1)
+                {
+                    averageColour = GetAverageColour(coloursFound, k);
+                };
+                coloursFound = ShiftHue(coloursFound, target, k, averageColour);
+                k = 0;
+                for (int j = 0; j < 0x100; j++)
+                {
+                    if (colourMask[j])
+                    {
+                        ReadWriteUtils.Arr_WriteU16(objectData, kafeiPaletteAddress[i] + (j << 1), ToRGBA5551(coloursFound[k]));
+                        k++;
+                    }
                 }
             }
         }
