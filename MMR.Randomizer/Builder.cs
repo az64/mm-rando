@@ -91,7 +91,8 @@ namespace MMR.Randomizer
 
             // DEBUG: if the user has a test sequence it always get put into fileselect
             SequenceInfo test_sequence = RomData.SequenceList.Find(u => u.Name.Contains("songtest") == true);
-            if (test_sequence != null){
+            if (test_sequence != null)
+            {
                 if (test_sequence.SequenceBinaryList != null && test_sequence.SequenceBinaryList[0] != null && test_sequence.SequenceBinaryList[0].InstrumentSet != null)
                 {
                     test_sequence.Instrument = test_sequence.SequenceBinaryList[0].InstrumentSet.BankSlot;
@@ -101,7 +102,7 @@ namespace MMR.Randomizer
                 }
                 SequenceInfo slot = RomData.TargetSequences.Find(u => u.Name.Contains("fileselect"));
                 test_sequence.Replaces = slot.Replaces;
-                WriteOutput(GetSpacedString(test_sequence.Name, len:44) + " DEBUG -> " + slot.Name);
+                WriteOutput(GetSpacedString(test_sequence.Name, len: 44) + " DEBUG -> " + slot.Name);
                 RomData.TargetSequences.Remove(slot);
                 Unassigned.Remove(test_sequence);
             }
@@ -254,8 +255,7 @@ namespace MMR.Randomizer
 
         private void WriteAudioSeq(Random random, OutputSettings _settings)
         {
-            RomData.PointerizedSequences = new List<SequenceInfo>();
-            if (_cosmeticSettings.Music != Music.Random)
+            if (_cosmeticSettings.Music != Music.Random && !_randomized.Settings.ShortenCutscenes)
             {
                 return;
             }
@@ -263,11 +263,9 @@ namespace MMR.Randomizer
             RomData.PointerizedSequences = new List<SequenceInfo>();
             SequenceUtils.ReadSequenceInfo();
             SequenceUtils.ReadInstrumentSetList();
-            BGMShuffle(random, _settings);
-
-            foreach (SequenceInfo s in RomData.SequenceList)
+            if (_cosmeticSettings.Music == Music.Random)
             {
-                s.Name = Path.Combine(Values.MusicDirectory, s.Name);
+                BGMShuffle(random, _settings);
             }
 
             ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-music");

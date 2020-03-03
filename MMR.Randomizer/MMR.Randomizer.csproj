@@ -332,9 +332,6 @@
     <None Update="Resources\music\mk64-tt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\music\mmr-f-sot">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Resources\music\mmr-jazz">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -623,9 +623,6 @@ uc-goronvillage
 botw-kass
 6
 5
-mmr-f-sot
-8
-3
 ss-groose
 6
 3
