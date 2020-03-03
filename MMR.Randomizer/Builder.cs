@@ -342,13 +342,20 @@ namespace MMR.Randomizer
             var playerModel = DeterminePlayerModel();
             var characterIndex = (int)playerModel;
             var locations = ResourceUtils.GetAddresses(Values.AddrsDirectory, $"tunic-{characterIndex}");
-            var objectIndex = playerModel == Character.Kafei ? 0x1C : 0x11;
+            var isKafei = playerModel == Character.Kafei;
+            var objectIndex = isKafei ? 0x1C : 0x11;
             var objectData = ObjUtils.GetObjectData(objectIndex);
             for (int j = 0; j < locations.Count; j++)
             {
                 ReadWriteUtils.WriteFileAddr(locations[j], color, objectData);
             }
             ObjUtils.InsertObj(objectData, objectIndex);
+            if (isKafei)
+            {
+                objectData = ObjUtils.GetObjectData(0x11);
+                TunicUtils.UpdateKafeiTunic(ref objectData, t);
+                ObjUtils.InsertObj(objectData, 0x11);
+            };
         }
 
         private void WriteMiscellaneousChanges()
