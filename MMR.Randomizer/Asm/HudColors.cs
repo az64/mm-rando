@@ -252,7 +252,7 @@ namespace MMR.Randomizer.Asm
             using (var memStream = new MemoryStream())
             using (var writer = new BinaryWriter(memStream))
             {
-                writer.Write(this.Version);
+                ReadWriteUtils.WriteU32(writer, this.Version);
 
                 foreach (var color in this.Colors)
                 {
