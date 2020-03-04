@@ -57,6 +57,9 @@ namespace MMR.Randomizer.Models.SoundEffects
         #region Enemy SFX
 
         [Tags(Short)]
+        GaroAppear = 0x3012,
+
+        [Tags(Short)]
         DinolfosCry = 0x3029,
 
         [Tags(Short)]
@@ -112,6 +115,9 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Long)]
         WallmasterAim = 0x3090,
 
+        [Tags(Short)]
+        GoronCold = 0x30B4,
+
         [Replacable(0xE0DBBE, 0xE3BD7A, 0x00E3C002, 0x01048266, 0x01048416, 0x0104852E)]
         [Tags(Short)]
         [ReplacableByTags(Short)]
@@ -157,6 +163,12 @@ namespace MMR.Randomizer.Models.SoundEffects
         [ReplacableByTags(Short)]
         [Tags(Short)]
         GuayDie = 0x30EB,
+
+        [Tags(Short)]
+        GoronWake = 0x30FC,
+
+        [Tags(Short)]
+        GoronSitStand = 0x30FD,
 
         [Tags(Short)]
         IronKnuckleSwing = 0x3129,
