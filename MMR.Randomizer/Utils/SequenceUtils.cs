@@ -104,7 +104,7 @@ namespace MMR.Randomizer.Utils
                 Name = nameof(Properties.Resources.mmr_f_sot),
                 Type = new List<int> { 8 },
                 Instrument = 3,
-                Replaces = 0x7A,
+                Replaces = 0x75,
             });
 
             ScanZSEQUENCE(Values.MusicDirectory);                    // scan for base zseq in music folder
