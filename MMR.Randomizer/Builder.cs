@@ -313,7 +313,6 @@ namespace MMR.Randomizer
             {
                 var obj = new byte[b.BaseStream.Length];
                 b.Read(obj, 0, obj.Length);
-
                 ResourceUtils.ApplyHack(Values.ModsDirectory, $"fix-link-{characterIndex}");
                 ObjUtils.InsertObj(obj, 0x11);
             }
@@ -324,9 +323,23 @@ namespace MMR.Randomizer
                 {
                     var obj = new byte[b.BaseStream.Length];
                     b.Read(obj, 0, obj.Length);
-
                     ObjUtils.InsertObj(obj, 0x1C);
                     ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-kafei");
+                }
+
+                using (var b = new BinaryReader(File.Open(Path.Combine(Values.ObjsDirectory, "link-mask"), FileMode.Open)))
+                {
+                    var obj = new byte[b.BaseStream.Length];
+                    b.Read(obj, 0, obj.Length);
+                    ObjUtils.InsertObj(obj, 0x1FF);
+                    ResourceUtils.ApplyHack(Values.ModsDirectory, "update-kafei-mask-icon");
+                }
+
+                using (var b = new BinaryReader(File.Open(Path.Combine(Values.ObjsDirectory, "gi-link-mask"), FileMode.Open)))
+                {
+                    var obj = new byte[b.BaseStream.Length];
+                    b.Read(obj, 0, obj.Length);
+                    ObjUtils.InsertObj(obj, 0x258);
                 }
             }
         }
@@ -340,21 +353,23 @@ namespace MMR.Randomizer
             TunicUtils.UpdateFormTunics(otherTunics, _cosmeticSettings.TunicColor);
 
             var playerModel = DeterminePlayerModel();
-            var characterIndex = (int)playerModel;
-            var locations = ResourceUtils.GetAddresses(Values.AddrsDirectory, $"tunic-{characterIndex}");
-            var isKafei = playerModel == Character.Kafei;
-            var objectIndex = isKafei ? 0x1C : 0x11;
-            var objectData = ObjUtils.GetObjectData(objectIndex);
-            for (int j = 0; j < locations.Count; j++)
+            var characterIndex = (int)playerModel;          
+            if (playerModel == Character.Kafei)
             {
-                ReadWriteUtils.WriteFileAddr(locations[j], color, objectData);
-            }
-            ObjUtils.InsertObj(objectData, objectIndex);
-            if (isKafei)
-            {
-                objectData = ObjUtils.GetObjectData(0x11);
+                var objectData = ObjUtils.GetObjectData(0x11);
                 TunicUtils.UpdateKafeiTunic(ref objectData, t);
                 ObjUtils.InsertObj(objectData, 0x11);
+            }
+            else
+            {
+                var locations = ResourceUtils.GetAddresses(Values.AddrsDirectory, $"tunic-{characterIndex}");
+                var objectIndex = 0x11;
+                var objectData = ObjUtils.GetObjectData(objectIndex);
+                for (int j = 0; j < locations.Count; j++)
+                {
+                    ReadWriteUtils.WriteFileAddr(locations[j], color, objectData);
+                }
+                ObjUtils.InsertObj(objectData, objectIndex);
             };
         }
 
