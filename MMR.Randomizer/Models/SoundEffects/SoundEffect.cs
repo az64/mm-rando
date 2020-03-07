@@ -112,6 +112,8 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Short)]
         MajoraGrowHead = 0x3088,
 
+        [Replacable(0xCEEF0A)]
+        [ReplacableByTags(Long)]
         [Tags(Long)]
         WallmasterAim = 0x3090,
 
