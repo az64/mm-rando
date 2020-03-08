@@ -154,8 +154,7 @@ namespace MMR.Randomizer.Utils
             for (int i = 0; i < count; i++)
             {
                 int colorAddress = addressInFile + (i * 2);
-                ushort rgba = (ushort)((RomData.MMFileList[fileNumber].Data[colorAddress] << 8) 
-                    | RomData.MMFileList[fileNumber].Data[colorAddress + 1]);
+                ushort rgba = ReadWriteUtils.Arr_ReadU16(RomData.MMFileList[fileNumber].Data, colorAddress);
                 colorArray[i] = ColorUtils.FromRGBA5551(rgba);
             }
             return colorArray;
