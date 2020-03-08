@@ -8,11 +8,20 @@ namespace MMR.Randomizer.Utils
     public class TunicUtils
     {
 
-        static int[] sizes = new int[] { 14, 128, 33, 512, 16 };
-        static bool[] grad = new bool[] { false, false, false, true, false };
-        static bool[] zora = new bool[] { false, false, true, true, false };
-        static bool[] fd = new bool[] { false, false, false, false, true };
+        static int[] paletteSize = new int[] { 14, 128, 33, 512, 16 };
+        static bool[] isGradientImage = new bool[] { false, false, false, true, false };
+        static bool[] isZora = new bool[] { false, false, true, true, false };
+        static bool[] isFierceDeity = new bool[] { false, false, false, false, true };
 
+        /// <summary>
+        /// Perform a linear interpolation of a function's value between two known points.
+        /// </summary>
+        /// <param name="y0">Value of function at position x0</param>
+        /// <param name="y1">Value of function at position x1</param>
+        /// <param name="x0">Position of x0</param>
+        /// <param name="x1">Position of x1</param>
+        /// <param name="x">Position to interpolate at</param>
+        /// <returns>Interpolated function value at x</returns>
         private static float Interpolate(float y0, float y1, float x0, float x1, float x)
         {
             if (x0 == x1)
@@ -25,291 +34,164 @@ namespace MMR.Randomizer.Utils
             }
         }
 
-        private static ushort ToRGBA5551(Color c)
+        private static Color[] ShiftHue(Color[] colorArray, Color targetColor, int count, Color averageColor)
         {
-            byte r = (byte)((c.R >> 3) & 0x1F);
-            byte g = (byte)((c.G >> 3) & 0x1F);
-            byte b = (byte)((c.B >> 3) & 0x1F);
-            byte a;
-            if (c.A > 0x7F)
-            {
-                a = 1;
-            }
-            else
-            {
-                a = 0;
-            }
-            return (ushort)((r << 11) | (g << 6) | (b << 1) | a);
-        }
-
-        private static Color FromRGBA5551(ushort c)
-        {
-            float r = (c & 0xF800) >> 11;
-            float g = (c & 0x7C0) >> 6;
-            float b = (c & 0x3E) >> 1;
-            int a = (c & 1) * 255;
-            return Color.FromArgb(a, (int)(r * 255.0f / 31.0f), (int)(g * 255.0f / 31.0f), (int)(b * 255.0f / 31.0f));
-        }
-
-        private static Color GetAverageColour(Color[] c, int count)
-        {
-            float r = 0f;
-            float g = 0f;
-            float b = 0f;
-            float d = 1.0f / count;
+            Color[] shiftedColors = new Color[count];
+            float targetHue = targetColor.GetHue();
+            float hueRotation = targetHue - averageColor.GetHue();
+            float averageBrightness = averageColor.GetBrightness();
+            float averageSaturation = averageColor.GetSaturation();
             for (int i = 0; i < count; i++)
             {
-                r += c[i].R * d;
-                g += c[i].G * d;
-                b += c[i].B * d;
-            }
-            return Color.FromArgb((int)Math.Round(r), (int)Math.Round(g), (int)Math.Round(b));
-        }
-
-        private static Color[] ShiftHue(Color[] c, Color target, int count, Color a)
-        {
-            Color[] s = new Color[count];
-            float targetH = target.GetHue();
-            float rot = targetH - a.GetHue();
-            float avgb = a.GetBrightness();
-            float avgs = a.GetSaturation();
-            for (int i = 0; i < count; i++)
-            {
-                float h = c[i].GetHue();
-                float b = c[i].GetBrightness();
-                float sat = c[i].GetSaturation();
-                b -= avgb;
-                sat -= avgs;
-                b += target.GetBrightness();
-                sat += target.GetSaturation();
-                h += rot;
-                h %= 360f;
-                if (h < 0f)
-                {
-                    h += 360f;
-                }
-                if (b < 0.0f)
-                {
-                    b = 0.0f;
-                }
-                if (b > 1.0f)
-                {
-                    b = 1.0f;
-                }
-                if (sat < 0.0f)
-                {
-                    sat = 0.0f;
-                }
-                if (sat > 1.0f)
-                {
-                    sat = 1.0f;
-                }
-                float hueDifference = targetH - h;
+                float hue = colorArray[i].GetHue();
+                float brightness = colorArray[i].GetBrightness();
+                float saturation = colorArray[i].GetSaturation();
+                brightness -= averageBrightness;
+                saturation -= averageSaturation;
+                brightness += targetColor.GetBrightness();
+                saturation += targetColor.GetSaturation();
+                hue += hueRotation;
+                ColorUtils.ValidateHSB(ref hue, ref saturation, ref brightness);
+                float hueDifference = Math.Abs(targetHue - hue);
                 if (hueDifference >= 90f)
                 {
-                    h = targetH;
+                    hue = targetHue;
                 }
-                s[i] = ColorUtils.FromAHSB(c[i].A, h, sat, b);
+                shiftedColors[i] = ColorUtils.FromAHSB(colorArray[i].A, hue, saturation, brightness);
             }
-            return s;
+            return shiftedColors;
         }
 
-        private static Color[] ShiftHue(Color[] c, Color target, int count, bool zora, bool grad, bool fd)
+        private static Color[] ShiftHue(Color[] colorArray, Color targetColor, int count, bool isZora, bool isGradient, bool isFierceDeity)
         {
-            Color[] s = new Color[count];
-            Color a;
-            if (zora && !grad)
+            Color[] shiftedColors = new Color[count];
+            Color averageColor;
+            if (isZora && !isGradient)
             {
-                a = GetAverageColour(c, 16);
+                averageColor = ColorUtils.GetAverageColour(colorArray, 16);
             }
             else
             {
-                a = GetAverageColour(c, count);
+                averageColor = ColorUtils.GetAverageColour(colorArray, count);
             }
-            float rot = target.GetHue() - a.GetHue();
-            float avgb = a.GetBrightness();
-            float avgs = a.GetSaturation();
+            float hueRotation = targetColor.GetHue() - averageColor.GetHue();
+            float averageBrightness = averageColor.GetBrightness();
+            float averageSaturation = averageColor.GetSaturation();
             for (int i = 0; i < count; i++)
             {
                 if ((i == 12) && (count == 14))
                 {
-                    s[i] = c[i];
+                    shiftedColors[i] = colorArray[i];
                     continue;
                 }
-                float h = c[i].GetHue();
-                float b = c[i].GetBrightness();
-                float sat = c[i].GetSaturation();
-                b -= avgb;
-                sat -= avgs;
-                b += target.GetBrightness();
-                sat += target.GetSaturation();
-                h += rot;
-                if (fd)
+                float hue = colorArray[i].GetHue();
+                float brightness = colorArray[i].GetBrightness();
+                float saturation = colorArray[i].GetSaturation();
+                brightness -= averageBrightness;
+                saturation -= averageSaturation;
+                brightness += targetColor.GetBrightness();
+                saturation += targetColor.GetSaturation();
+                hue += hueRotation;
+                if (isFierceDeity)
                 {
-                    sat = target.GetSaturation();
-                    h = target.GetHue();
+                    saturation = targetColor.GetSaturation();
+                    hue = targetColor.GetHue();
                 }
-                if (zora && grad)
+                if (isZora && isGradient)
                 {
                     if (i > 351)
                     {
-                        float x0 = c[352].GetBrightness();
-                        float x1 = c[511].GetBrightness();
-                        float x = c[i].GetBrightness();
-                        h = target.GetHue();
-                        sat = target.GetSaturation();
-                        b = Interpolate(target.GetBrightness(), c[511].GetBrightness(), x0, x1, x);
+                        float x0 = colorArray[352].GetBrightness();
+                        float x1 = colorArray[511].GetBrightness();
+                        float x = colorArray[i].GetBrightness();
+                        hue = targetColor.GetHue();
+                        saturation = targetColor.GetSaturation();
+                        brightness = Interpolate(targetColor.GetBrightness(), colorArray[511].GetBrightness(), x0, x1, x);
                     }
                 }
-                h %= 360f;
-                if (h < 0f)
-                {
-                    h += 360f;
-                }
-                if (b < 0.0f)
-                {
-                    b = 0.0f;
-                }
-                if (b > 1.0f)
-                {
-                    b = 1.0f;
-                }
-                if (sat < 0.0f)
-                {
-                    sat = 0.0f;
-                }
-                if (sat > 1.0f)
-                {
-                    sat = 1.0f;
-                }
-                s[i] = ColorUtils.FromAHSB(c[i].A, h, sat, b);
+                ColorUtils.ValidateHSB(ref hue, ref saturation, ref brightness);
+                shiftedColors[i] = ColorUtils.FromAHSB(colorArray[i].A, hue, saturation, brightness);
                 //this code is a mess
-                if (zora && grad)
+                if (isZora && isGradient)
                 {
                     if (i < 96)
                     {
-                        s[i] = c[i];
+                        shiftedColors[i] = colorArray[i];
                     }
                     else if (i < 352)
                     {
-                        float x0 = c[95].GetBrightness();
-                        float x1 = c[352].GetBrightness();
-                        float x = c[i].GetBrightness();
-                        int rr = (int)Interpolate(c[95].R, target.R, x0, x1, x);
-                        int gg = (int)Interpolate(c[95].G, target.G, x0, x1, x);
-                        int bb = (int)Interpolate(c[95].B, target.B, x0, x1, x);
-                        if (rr < 0)
-                        {
-                            rr = 0;
-                        }
-                        if (rr > 255)
-                        {
-                            rr = 255;
-                        }
-                        if (gg < 0)
-                        {
-                            gg = 0;
-                        }
-                        if (gg > 255)
-                        {
-                            gg = 255;
-                        }
-                        if (bb < 0)
-                        {
-                            bb = 0;
-                        }
-                        if (bb > 255)
-                        {
-                            bb = 255;
-                        }
-                        s[i] = Color.FromArgb(rr, gg, bb);
+                        float x0 = colorArray[95].GetBrightness();
+                        float x1 = colorArray[352].GetBrightness();
+                        float x = colorArray[i].GetBrightness();
+                        int rr = (int)Interpolate(colorArray[95].R, targetColor.R, x0, x1, x);
+                        int gg = (int)Interpolate(colorArray[95].G, targetColor.G, x0, x1, x);
+                        int bb = (int)Interpolate(colorArray[95].B, targetColor.B, x0, x1, x);
+                        ColorUtils.ValidateRGB(ref rr, ref gg, ref bb);
+                        shiftedColors[i] = Color.FromArgb(rr, gg, bb);
                     }
                 }
-                else if (zora)
+                else if (isZora)
                 {
                     if (i > 15)
                     {
-                        float x0 = c[14].GetBrightness();
-                        float x1 = c[31].GetBrightness();
-                        float x = c[i].GetBrightness();
-                        int rr = (int)Interpolate(s[14].R, c[31].R, x0, x1, x);
-                        int gg = (int)Interpolate(s[14].G, c[31].G, x0, x1, x);
-                        int bb = (int)Interpolate(s[14].B, c[31].B, x0, x1, x);
-                        if (rr < 0)
-                        {
-                            rr = 0;
-                        }
-                        if (rr > 255)
-                        {
-                            rr = 255;
-                        }
-                        if (gg < 0)
-                        {
-                            gg = 0;
-                        }
-                        if (gg > 255)
-                        {
-                            gg = 255;
-                        }
-                        if (bb < 0)
-                        {
-                            bb = 0;
-                        }
-                        if (bb > 255)
-                        {
-                            bb = 255;
-                        }
-                        s[i] = Color.FromArgb(rr, gg, bb);
+                        float x0 = colorArray[14].GetBrightness();
+                        float x1 = colorArray[31].GetBrightness();
+                        float x = colorArray[i].GetBrightness();
+                        int rr = (int)Interpolate(shiftedColors[14].R, colorArray[31].R, x0, x1, x);
+                        int gg = (int)Interpolate(shiftedColors[14].G, colorArray[31].G, x0, x1, x);
+                        int bb = (int)Interpolate(shiftedColors[14].B, colorArray[31].B, x0, x1, x);
+                        ColorUtils.ValidateRGB(ref rr, ref gg, ref bb);
+                        shiftedColors[i] = Color.FromArgb(rr, gg, bb);
                     }
                 }
             }
-            return s;
+            return shiftedColors;
         }
 
-        private static Color[] ReadColours(int file, int addr, int count)
+        private static Color[] ReadColours(int fileNumber, int addressInFile, int count)
         {
-            Color[] c = new Color[count];
+            Color[] colorArray = new Color[count];
             for (int i = 0; i < count; i++)
             {
-                int ca = addr + (i * 2);
-                ushort rgba = (ushort)((RomData.MMFileList[file].Data[ca] << 8) 
-                    | RomData.MMFileList[file].Data[ca + 1]);
-                c[i] = FromRGBA5551(rgba);
+                int colorAddress = addressInFile + (i * 2);
+                ushort rgba = (ushort)((RomData.MMFileList[fileNumber].Data[colorAddress] << 8) 
+                    | RomData.MMFileList[fileNumber].Data[colorAddress + 1]);
+                colorArray[i] = ColorUtils.FromRGBA5551(rgba);
             }
-            return c;
+            return colorArray;
         }
 
-        private static void WriteColours(int file, int addr, int count, Color[] c)
+        private static void WriteColours(int fileNumber, int addressInFile, int count, Color[] colorArray)
         {
             for (int i = 0; i < count; i++)
             {
-                int ca = addr + (i * 2);
-                ushort rgba = ToRGBA5551(c[i]);
+                int colorAddress = addressInFile + (i * 2);
+                ushort rgba = ColorUtils.ToRGBA5551(colorArray[i]);
                 var data = new byte[]
                 {
                     (byte)(rgba >> 8),
                     (byte)(rgba & 0xFF),
                 };
-                ReadWriteUtils.Arr_Insert(data, 0, data.Length, RomData.MMFileList[file].Data, ca);
+                ReadWriteUtils.Arr_Insert(data, 0, data.Length, RomData.MMFileList[fileNumber].Data, colorAddress);
             }
         }
 
-        public static void UpdateFormTunics(List<int[]> addresses, Color target)
+        public static void UpdateFormTunics(List<int[]> addresses, Color targetColor)
         {
             for (int i = 0; i < addresses.Count; i++)
             {
                 for (int j = 0; j < addresses[i].Length; j++)
                 {
-                    int f = RomUtils.GetFileIndexForWriting(addresses[i][j]);
-                    int a = addresses[i][j] - RomData.MMFileList[f].Addr;
-                    Color[] c = ReadColours(f, a, sizes[i]);
-                    c = ShiftHue(c, target, sizes[i], zora[i], grad[i], fd[i]);
-                    WriteColours(f, a, sizes[i], c);
+                    int fileInRom = RomUtils.GetFileIndexForWriting(addresses[i][j]);
+                    int addressInFile = addresses[i][j] - RomData.MMFileList[fileInRom].Addr;
+                    Color[] colorArray = ReadColours(fileInRom, addressInFile, paletteSize[i]);
+                    colorArray = ShiftHue(colorArray, targetColor, paletteSize[i], isZora[i], isGradientImage[i], isFierceDeity[i]);
+                    WriteColours(fileInRom, addressInFile, paletteSize[i], colorArray);
                 }
             }
         }
 
-        public static void UpdateKafeiTunic(ref byte[] objectData, Color target)
+        public static void UpdateKafeiTunic(ref byte[] objectData, Color targetColor)
         {
             int[] kafeiPaletteAddress = new int[] { 0xB538, 0xDF68, 0xDF68, 0xD1B0 };
             int[] hairPaletteAvoid = new int[] { 0, 4, 5, 6, 7, 9, 0xB, 0x14, 0x17, 0x18, 0x22, 0x23, 0x31, 0x32, 0x3E, 0x6B, 0x71, 0x8E, 0x100};
@@ -321,7 +203,7 @@ namespace MMR.Randomizer.Utils
                 var k = 0;
                 for (int j = 0; j < 0x100; j++)
                 {
-                    var thisColour = FromRGBA5551(ReadWriteUtils.Arr_ReadU16(objectData, kafeiPaletteAddress[i] + (j << 1)));
+                    var thisColour = ColorUtils.FromRGBA5551(ReadWriteUtils.Arr_ReadU16(objectData, kafeiPaletteAddress[i] + (j << 1)));
                     // separate palette colours used for hair/clothes or they won't adjust very well
                     if (i == 1)
                     {
@@ -351,15 +233,15 @@ namespace MMR.Randomizer.Utils
                 };                
                 if (i != 1)
                 {
-                    averageColour = GetAverageColour(coloursFound, k);
+                    averageColour = ColorUtils.GetAverageColour(coloursFound, k);
                 };
-                coloursFound = ShiftHue(coloursFound, target, k, averageColour);
+                coloursFound = ShiftHue(coloursFound, targetColor, k, averageColour);
                 k = 0;
                 for (int j = 0; j < 0x100; j++)
                 {
                     if (colourMask[j])
                     {
-                        ReadWriteUtils.Arr_WriteU16(objectData, kafeiPaletteAddress[i] + (j << 1), ToRGBA5551(coloursFound[k]));
+                        ReadWriteUtils.Arr_WriteU16(objectData, kafeiPaletteAddress[i] + (j << 1), ColorUtils.ToRGBA5551(coloursFound[k]));
                         k++;
                     }
                 }
