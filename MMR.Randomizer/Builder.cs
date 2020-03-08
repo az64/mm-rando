@@ -363,13 +363,12 @@ namespace MMR.Randomizer
             else
             {
                 var locations = ResourceUtils.GetAddresses(Values.AddrsDirectory, $"tunic-{characterIndex}");
-                var objectIndex = 0x11;
-                var objectData = ObjUtils.GetObjectData(objectIndex);
+                var objectData = ObjUtils.GetObjectData(0x11);
                 for (int j = 0; j < locations.Count; j++)
                 {
                     ReadWriteUtils.WriteFileAddr(locations[j], color, objectData);
                 }
-                ObjUtils.InsertObj(objectData, objectIndex);
+                ObjUtils.InsertObj(objectData, 0x11);
             };
         }
 
