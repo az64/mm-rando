@@ -21,20 +21,26 @@ namespace MMR.Randomizer.Utils
             RomData.TargetSequences = new List<SequenceInfo>();
 
             // if file exists, we read the file instead of the resource
-            string[] lines = null;
+            string[] lines;
             if (File.Exists(Path.Combine(Values.MusicDirectory, "SEQS.txt")))
             {
                 Debug.WriteLine("We found a user SEQS.txt file that we can use");
                 var list = new List<string>();
                 string line;
-                using (StreamReader sr = new StreamReader(Path.Combine(Values.MusicDirectory, "SEQS.txt"))){
-                    while ((line = sr.ReadLine()) != null){
+                using (StreamReader sr = new StreamReader(Path.Combine(Values.MusicDirectory, "SEQS.txt")))
+                {
+                    while ((line = sr.ReadLine()) != null)
+                    {
                         list.Add(line);
                     }
                 }
                 lines = list.ToArray();
-            }else // load SEQS.txt from source memory
+            }
+            else
+            {
+                // load SEQS.txt from source memory
                 lines = Properties.Resources.SEQS.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            }
 
 
             int i = 0;
@@ -79,23 +85,27 @@ namespace MMR.Randomizer.Utils
                 }
                 else
                 {
-                    if (sourceSequence.Name == "mmr-f-sot")
-                    {
-                        sourceSequence.Replaces = 0x33;
-                    }
-
                     i += 3;
-
-                    // if sequence file doesn't exist, was removed by user, ignore it
                     if (File.Exists(Path.Combine(Values.MusicDirectory, sourceName)) == false)
+                    {
+                        // if sequence file doesn't exist, was removed by user, ignore it
                         continue;
+                    }
                 };
 
                 if (sourceSequence.MM_seq != 0x18 && sourceSequence.Name != "drop")
                 {
                     RomData.SequenceList.Add(sourceSequence);
                 };
-            }; // end while (i < lines.Length)
+            } // end while (i < lines.Length)
+
+            RomData.SequenceList.Add(new SequenceInfo
+            {
+                Name = nameof(Properties.Resources.mmr_f_sot),
+                Type = new List<int> { 8 },
+                Instrument = 3,
+                Replaces = 0x75,
+            });
 
             ScanZSEQUENCE(Values.MusicDirectory);                    // scan for base zseq in music folder
             ScanForMMRS(Values.MusicDirectory); // scan for base mmrs in music folder
@@ -369,7 +379,7 @@ namespace MMR.Randomizer.Utils
                     {
                         newentry.Size = OldSeq[SequenceList[j].MM_seq].Size;
                         newentry.Data = OldSeq[SequenceList[j].MM_seq].Data;
-                        WriteOutput("Slot " + i.ToString("X") + " -> " + Path.GetFileName(SequenceList[j].Name));
+                        WriteOutput("Slot " + i.ToString("X") + " -> " + SequenceList[j].Name);
 
                     }
                     else if (SequenceList[j].SequenceBinaryList != null && SequenceList[j].SequenceBinaryList[0] != null)
@@ -380,15 +390,28 @@ namespace MMR.Randomizer.Utils
                             WriteOutput("Warning: writing song with multiple sequence/bank combos, selecting first available");
                         newentry.Size = SequenceList[j].SequenceBinaryList[0].SequenceBinary.Length;
                         newentry.Data = SequenceList[j].SequenceBinaryList[0].SequenceBinary;
-                        WriteOutput("Slot " + i.ToString("X") + " := " + Path.GetFileName(SequenceList[j].Name) + " *");
+                        WriteOutput("Slot " + i.ToString("X") + " := " + SequenceList[j].Name + " *");
 
                     }
                     else // non mm, load file and add
                     {
-                        BinaryReader sequence = new BinaryReader(File.Open(SequenceList[j].Name, FileMode.Open));
-                        byte[] data = new byte[(int)sequence.BaseStream.Length];
-                        sequence.Read(data, 0, data.Length);
-                        sequence.Close();
+                        byte[] data;
+                        if (File.Exists(SequenceList[j].Filename))
+                        {
+                            using (var reader = new BinaryReader(File.Open(SequenceList[j].Filename, FileMode.Open)))
+                            {
+                                data = new byte[(int)reader.BaseStream.Length];
+                                reader.Read(data, 0, data.Length);
+                            }
+                        }
+                        else if (SequenceList[j].Name == nameof(Properties.Resources.mmr_f_sot))
+                        {
+                            data = Properties.Resources.mmr_f_sot;
+                        }
+                        else
+                        {
+                            throw new Exception("Music not found as file or built-in resource.");
+                        }
 
                         // if the sequence is not padded to 16 bytes, the DMA fails
                         //  music can stop from playing and on hardware it will just straight crash
@@ -404,7 +427,7 @@ namespace MMR.Randomizer.Utils
 
                         newentry.Size = data.Length;
                         newentry.Data = data;
-                        WriteOutput("Slot " + i.ToString("X") + " := " + Path.GetFileName(SequenceList[j].Name));
+                        WriteOutput("Slot " + i.ToString("X") + " := " + SequenceList[j].Name);
 
                     }
                 }

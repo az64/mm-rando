@@ -22,7 +22,7 @@ namespace MMR.Randomizer.Utils
         /// <summary>
         /// Least recent <see cref="PatchVersion"/> value which is acceptable.
         /// </summary>
-        public static readonly PatchVersion PATCH_PREVIOUS = PatchVersion.V2;
+        public static readonly PatchVersion PATCH_PREVIOUS = PatchVersion.V3;
 
         /// <summary>
         /// Most recent <see cref="PatchVersion"/> value.
